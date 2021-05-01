@@ -1,0 +1,3 @@
+usr/local/bin/blkcd usr/bin
+usr/local/bin/blkc-cli usr/bin
+debian/examples/blkc.conf etc/blackhat

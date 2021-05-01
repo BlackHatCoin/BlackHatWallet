@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=BlackHat Core
+Comment=BlackHat P2P Cryptocurrency
+Comment[fr]=BlackHat, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BlackHat, eşten eşe kriptografik sanal para birimi
+Exec=blkc-qt %u
+Terminal=false
+Type=Application
+Icon=blkc128
+MimeType=x-scheme-handler/blkc;
+Categories=Office;Finance;
+StartupWMClass=Blkc-qt

@@ -1,0 +1,81 @@
+policy_module(blkc, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type blkc_t;
+type blkc_exec_t;
+init_daemon_domain(blkc_t, blkc_exec_t)
+
+permissive blkc_t;
+
+type blkc_initrc_exec_t;
+init_script_file(blkc_initrc_exec_t)
+
+type blkc_conf_t;
+files_type(blkc_conf_t)
+
+type blkc_var_lib_t;
+files_type(blkc_var_lib_t)
+
+type blkc_var_run_t;
+files_type(blkc_var_run_t)
+
+type blkc_port_t;
+corenet_port(blkc_port_t)
+
+########################################
+#
+# blkc local policy
+#
+allow blkc_t self:process { fork };
+
+allow blkc_t self:fifo_file rw_fifo_file_perms;
+allow blkc_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(blkc_t, blkc_conf_t, blkc_conf_t)
+manage_files_pattern(blkc_t, blkc_conf_t, blkc_conf_t)
+
+manage_dirs_pattern(blkc_t, blkc_var_lib_t, blkc_var_lib_t)
+manage_files_pattern(blkc_t, blkc_var_lib_t, blkc_var_lib_t)
+files_var_lib_filetrans(blkc_t, blkc_var_lib_t, { dir file })
+
+manage_dirs_pattern(blkc_t, blkc_var_run_t, blkc_var_run_t)
+manage_files_pattern(blkc_t, blkc_var_run_t, blkc_var_run_t)
+
+sysnet_dns_name_resolve(blkc_t)
+corenet_all_recvfrom_unlabeled(blkc_t)
+
+allow blkc_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(blkc_t)
+corenet_tcp_sendrecv_generic_node(blkc_t)
+corenet_tcp_sendrecv_all_ports(blkc_t)
+corenet_tcp_bind_generic_node(blkc_t)
+
+gen_require(`
+    type blkc_port_t;
+')
+allow blkc_t blkc_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type blkc_port_t;
+')
+allow blkc_t blkc_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(blkc_t)
+
+files_read_etc_files(blkc_t)
+
+miscfiles_read_localization(blkc_t)
+
+sysnet_dns_name_resolve(blkc_t)
+
+allow blkc_t blkc_exec_t:file execute_no_trans;
+allow blkc_t self:process setsched;
+corecmd_exec_ls(blkc_t)
+corenet_tcp_connect_http_port(blkc_t)
+dev_read_urand(blkc_t)
+fs_getattr_xattr_fs(blkc_t)
+kernel_read_system_state(blkc_t)

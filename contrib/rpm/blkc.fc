@@ -1,0 +1,8 @@
+/usr/bin/blkc-cli		--	gen_context(system_u:object_r:blkc_exec_t,s0)
+/usr/sbin/blkcd		--	gen_context(system_u:object_r:blkc_exec_t,s0)
+/usr/lib(64)?/blackhat/blkcd		--	gen_context(system_u:object_r:blkc_exec_t,s0)
+
+/etc/blackhat(/.*)?		gen_context(system_u:object_r:blkc_conf_t,s0)
+/var/lib/blackhat(/.*)?		gen_context(system_u:object_r:blkc_var_lib_t,s0)
+
+(/var)?/run/blackhat(/.*)?   gen_context(system_u:object_r:blkc_var_run_t,s0)
