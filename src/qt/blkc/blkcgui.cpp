@@ -194,6 +194,7 @@ void BLKCGUI::connectActions()
     });
     connect(topBar, &TopBar::showHide, this, &BLKCGUI::showHide);
     connect(topBar, &TopBar::themeChanged, this, &BLKCGUI::changeTheme);
+    connect(topBar, &TopBar::onShowHideColdStakingChanged, navMenu, &NavMenuWidget::onShowHideColdStakingChanged);
     connect(settingsWidget, &SettingsWidget::showHide, this, &BLKCGUI::showHide);
     connect(sendWidget, &SendWidget::showHide, this, &BLKCGUI::showHide);
     connect(receiveWidget, &ReceiveWidget::showHide, this, &BLKCGUI::showHide);
