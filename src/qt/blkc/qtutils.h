@@ -41,7 +41,7 @@ bool openDialogWithOpaqueBackground(QDialog* widget, BLKCGUI* gui, double posX =
 bool openDialogWithOpaqueBackgroundFullScreen(QDialog* widget, BLKCGUI* gui);
 
 //
-QPixmap encodeToQr(QString str, QString& errorStr, QColor qrColor = Qt::black);
+QPixmap encodeToQr(const QString& str, QString& errorStr, const QColor& qrColor = Qt::black);
 
 // Helpers
 void updateStyle(QWidget* widget);
@@ -72,8 +72,8 @@ void setCssTitleScreen(QLabel* label);
 void setCssSubtitleScreen(QWidget* wid);
 void setCssTextBodyDialog(std::initializer_list<QWidget*> args);
 void setCssTextBodyDialog(QWidget* widget);
-void setCssProperty(std::initializer_list<QWidget*> args, QString value);
-void setCssProperty(QWidget* wid, QString value, bool forceUpdate = false);
+void setCssProperty(std::initializer_list<QWidget*> args, const QString& value);
+void setCssProperty(QWidget* wid, const QString& value, bool forceUpdate = false);
 void forceUpdateStyle(QWidget* widget, bool forceUpdate);
 void forceUpdateStyle(std::initializer_list<QWidget*> args);
 

@@ -43,6 +43,7 @@ from .util import (
     PortSeed,
     assert_equal,
     assert_greater_than,
+    assert_greater_than_or_equal,
     check_json_precision,
     connect_nodes,
     connect_nodes_clique,
@@ -1081,25 +1082,33 @@ class BlackHatTestFramework():
         collateralTxId = miner.sendtoaddress(mnAddress, Decimal('5000'))
         # confirm and verify reception
         self.stake_and_sync(self.nodes.index(miner), 1)
-        assert_equal(mnOwner.getbalance(), Decimal('5000'))
+        assert_greater_than_or_equal(mnOwner.getbalance(), Decimal('5000'))
         assert_greater_than(mnOwner.getrawtransaction(collateralTxId, 1)["confirmations"], 0)
 
         self.log.info("all good, creating masternode " + masternodeAlias + "..")
 
         # get the collateral output using the RPC command
-        mnCollateralOutput = mnOwner.getmasternodeoutputs()[0]
-        assert_equal(mnCollateralOutput["txhash"], collateralTxId)
-        mnCollateralOutputIndex = mnCollateralOutput["outputidx"]
+        mnCollateralOutputIndex = -1
+        for mnc in mnOwner.getmasternodeoutputs():
+            if collateralTxId == mnc["txhash"]:
+                mnCollateralOutputIndex = mnc["outputidx"]
+                break
+        assert_greater_than(mnCollateralOutputIndex, -1)
 
         self.log.info("collateral accepted for "+ masternodeAlias +". Updating masternode.conf...")
 
         # verify collateral confirmed
-        confData = masternodeAlias + " 127.0.0.1:" + str(p2p_port(mnRemotePos)) + " " + str(masternodePrivKey) + " " + str(mnCollateralOutput["txhash"]) + " " + str(mnCollateralOutputIndex)
+        confData = "%s %s %s %s %d" % (
+            masternodeAlias, "127.0.0.1:" + str(p2p_port(mnRemotePos)),
+            masternodePrivKey, collateralTxId, mnCollateralOutputIndex)
         destinationDirPath = mnOwnerDirPath
         destPath = os.path.join(destinationDirPath, "masternode.conf")
         with open(destPath, "a+") as file_object:
             file_object.write("\n")
             file_object.write(confData)
+
+        # lock the collateral
+        mnOwner.lockunspent(False, [{"txid": collateralTxId, "vout": mnCollateralOutputIndex}])
 
         # return the collateral id
         return collateralTxId

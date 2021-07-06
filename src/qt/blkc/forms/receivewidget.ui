@@ -511,13 +511,44 @@
             <number>5</number>
            </property>
            <item>
+            <widget class="QLineEdit" name="lineEditFilter">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="contextMenuPolicy">
+              <enum>Qt::DefaultContextMenu</enum>
+             </property>
+             <property name="acceptDrops">
+              <bool>false</bool>
+             </property>
+             <property name="maxLength">
+              <number>40</number>
+             </property>
+             <property name="placeholderText">
+              <string>Filter</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_3">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>40</width>
+               <width>20</width>
                <height>20</height>
               </size>
              </property>
@@ -556,6 +587,9 @@
             </widget>
            </item>
           </layout>
+          <zorder>comboBoxSort</zorder>
+          <zorder>comboBoxSortOrder</zorder>
+          <zorder>lineEditFilter</zorder>
          </widget>
         </item>
         <item>

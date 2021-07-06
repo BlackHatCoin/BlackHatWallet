@@ -206,24 +206,26 @@ static bool processBalanceChangeInternal(WalletModel* walletModel)
     int chainHeight = walletModel->getLastBlockProcessedNum();
     const uint256& blockHash = walletModel->getLastBlockProcessed();
 
-    if (walletModel->hasForceCheckBalance() || chainHeight != walletModel->getCacheNumBLocks()) {
-        // Try to get lock only if needed
-        TRY_LOCK(pwalletMain->cs_wallet, lockWallet);
-        if (!lockWallet)
-            return false;
+    // Avoid recomputing wallet balances unless a tx changed or BlockTip notification was received.
+    // Extra note: This needs to be done before and after the update task trigger and execution because, as it runs concurrently,
+    // there is no guarantee that the threadpool will execute the task right away.
+    if (!walletModel->hasForceCheckBalance() && walletModel->getCacheBlockHash() == blockHash) return false;
 
-        walletModel->setfForceCheckBalanceChanged(false);
+    // Try to get lock only if needed
+    TRY_LOCK(pwalletMain->cs_wallet, lockWallet);
+    if (!lockWallet) return false;
 
-        // Balance and number of transactions might have changed
-        walletModel->setCacheNumBlocks(chainHeight);
-        walletModel->setCacheBlockHash(blockHash);
-        walletModel->checkBalanceChanged(walletModel->getBalances());
-        QMetaObject::invokeMethod(walletModel, "updateTxModelData", Qt::QueuedConnection);
-        QMetaObject::invokeMethod(walletModel, "pollFinished", Qt::QueuedConnection);
+    walletModel->setfForceCheckBalanceChanged(false);
 
-        // Address in receive tab may have been used
-        Q_EMIT walletModel->notifyReceiveAddressChanged();
-    }
+    // Balance and number of transactions might have changed
+    walletModel->setCacheNumBlocks(chainHeight);
+    walletModel->setCacheBlockHash(blockHash);
+    walletModel->checkBalanceChanged(walletModel->getBalances());
+    QMetaObject::invokeMethod(walletModel, "updateTxModelData", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(walletModel, "pollFinished", Qt::QueuedConnection);
+
+    // Address in receive tab may have been used
+    Q_EMIT walletModel->notifyReceiveAddressChanged();
     return true;
 }
 

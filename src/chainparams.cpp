@@ -173,6 +173,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight          = 800;
         consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight          = 800;
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 800;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 114000;
 
         consensus.vUpgrades[Consensus::UPGRADE_ZC].hashActivationBlock =
                 uint256S("0x2a0f527f802e19120f01b46ef311af4dec460ab82adc077ba7864deabe21ee50");
@@ -300,6 +301,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 201;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 201;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -422,6 +424,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight          =
                 Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 300;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 350;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.

@@ -3813,25 +3813,6 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Почему мои BLKC невозможно потратить?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Недавно полученным BLKC требуется 6 подтверждений в сети,
-чтобы получить право быть расходуемыми. Это может занять примерно 6 минут.
-&lt;/p&gt;&lt;p align="justify"&gt;
-Ваш кошелек BlackHat также должен быть полностью синхронизирован,
-чтобы видеть баланс и расходовать его в сети.
- &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
-    </message>
-    <message>
         <source>3</source>
         <translation>3</translation>
     </message>

@@ -99,7 +99,7 @@ public:
     int ProcessBudgetVoteSync(const uint256& nProp, CNode* pfrom);
     int ProcessProposal(CBudgetProposal& proposal);
     int ProcessProposalVote(CBudgetVote& proposal, CNode* pfrom);
-    int ProcessFinalizedBudget(CFinalizedBudget& finalbudget);
+    int ProcessFinalizedBudget(CFinalizedBudget& finalbudget, CNode* pfrom);
     int ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNode* pfrom);
 
     // functions returning a pointer in the map. Need cs_proposals/cs_budgets locked from the caller
@@ -119,7 +119,7 @@ public:
     bool IsBudgetPaymentBlock(int nBlockHeight) const;
     bool IsBudgetPaymentBlock(int nBlockHeight, int& nCountThreshold) const;
     bool AddProposal(CBudgetProposal& budgetProposal);
-    bool AddFinalizedBudget(CFinalizedBudget& finalizedBudget);
+    bool AddFinalizedBudget(CFinalizedBudget& finalizedBudget, CNode* pfrom = nullptr);
     uint256 SubmitFinalBudget();
 
     bool UpdateProposal(const CBudgetVote& vote, CNode* pfrom, std::string& strError);

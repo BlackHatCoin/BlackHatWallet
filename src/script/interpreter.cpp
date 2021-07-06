@@ -963,10 +963,7 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
 
                 case OP_CHECKCOLDSTAKEVERIFY:
                 {
-                    // check it is used in a valid cold stake transaction.
-                    if(!checker.CheckColdStake(script)) {
-                        return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
-                    }
+                    return checker.CheckColdStake(script, stack, flags, serror);
                 }
                 break;
 
@@ -1340,15 +1337,35 @@ bool TransactionSignatureChecker::CheckLockTime(const CScriptNum& nLockTime) con
     return true;
 }
 
-bool TransactionSignatureChecker::CheckColdStake(const CScript& prevoutScript) const
+bool TransactionSignatureChecker::CheckColdStake(const CScript& prevoutScript, std::vector<valtype>& stack, unsigned int flags, ScriptError* serror) const
 {
+    if (g_newP2CSRules) {
+        // the stack can contain only <sig> <pk> <pkh> at this point
+        if ((int)stack.size() != 3) {
+            return set_error(serror, SCRIPT_ERR_INVALID_STACK_OPERATION);
+        }
+        // check pubkey/signature encoding
+        valtype& vchSig    = stacktop(-3);
+        valtype& vchPubKey = stacktop(-2);
+        if (!CheckSignatureEncoding(vchSig, flags, serror) ||
+            !CheckPubKeyEncoding(vchPubKey, flags, serror)) {
+            // serror is set
+            return false;
+        }
+        // check hash size
+        valtype& vchPubKeyHash = stacktop(-1);
+        if ((int)vchPubKeyHash.size() != 20) {
+            return set_error(serror, SCRIPT_ERR_SCRIPT_SIZE);
+        }
+    }
+
     // Transaction must be a coinstake tx
     if (!txTo->IsCoinStake()) {
-        return false;
+        return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
     }
     // There must be one single input
     if (txTo->vin.size() != 1) {
-        return false;
+        return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
     }
     // Since this is a coinstake, it has at least 2 outputs
     const unsigned int outs = txTo->vout.size();
@@ -1363,13 +1380,16 @@ bool TransactionSignatureChecker::CheckColdStake(const CScript& prevoutScript) c
         if (txTo->vout[i].scriptPubKey != prevoutScript) {
             // Only the last one can be different (and only when outs >=3)
             if (i != outs-1 || outs < 3) {
-                return false;
+                return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
             }
         } else {
             outValue += txTo->vout[i].nValue;
         }
     }
-    return outValue > amount;
+    if (outValue < amount) {
+        return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
+    }
+    return true;
 }
 
 

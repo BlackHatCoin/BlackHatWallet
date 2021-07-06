@@ -44,7 +44,7 @@ public:
     CKey privKeyMasternode;
 
     // Initialized while registering Masternode
-    Optional<CTxIn> vin;
+    Optional<CTxIn> vin{nullopt};
     CService service;
 
     /// Manage status of main Masternode

@@ -3016,7 +3016,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend,
 
                 // Fill vin
                 for (const std::pair<const CWalletTx*, unsigned int>& coin : setCoins) {
-                    if(coin.first->tx->vout[coin.second].scriptPubKey.IsPayToColdStaking()) {
+                    if(fStakeDelegationVoided && coin.first->tx->vout[coin.second].scriptPubKey.IsPayToColdStaking()) {
                         *fStakeDelegationVoided = true;
                     }
                     txNew.vin.emplace_back(coin.first->GetHash(), coin.second);

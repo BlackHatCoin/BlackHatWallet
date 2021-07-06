@@ -141,8 +141,10 @@ BASE_SCRIPTS= [
 TIERTWO_SCRIPTS = [
     # Longest test should go first, to favor running tests in parallel
     'tiertwo_governance_sync_basic.py',
+    'tiertwo_governance_reorg.py',              # ~ 361 sec
     'tiertwo_masternode_activation.py',
     'tiertwo_masternode_ping.py',
+    'tiertwo_governance_invalid_budget.py',
 ]
 
 SAPLING_SCRIPTS = [

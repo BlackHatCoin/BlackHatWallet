@@ -216,7 +216,7 @@
     </message>
     <message>
         <source>You can add a new one in the options menu to the side.</source>
-        <translation>Vous pouvez en ajouter une nouvelle depuis le menu latéral des options</translation>
+        <translation>Vous pouvez en ajouter des contacts depuis le menu latéral des options</translation>
     </message>
     <message>
         <source>No contacts yet</source>
@@ -307,7 +307,7 @@ Are you sure?</source>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Entrez la nouvelle phrase secrète dans le portefeuille.&lt;br/&gt;Utilisez s'il vous plaît une phrase secrète de :&lt;b&gt; 10 caractères au hasard ou plus&lt;/b&gt;, ou&lt;b&gt; huit mots ou plus&lt;/b&gt;.</translation>
+        <translation>Entrez la nouvelle phrase secrète du portefeuille.&lt;br/&gt;Merci de respecter les critères suivants :&lt;b&gt; 10 caractères au hasard ou plus&lt;/b&gt;, ou&lt;b&gt; huit mots ou plus&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Encrypt wallet</source>
@@ -341,7 +341,7 @@ pour le staking</translation>
     </message>
     <message>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Entrer l'ancienne et la nouvelle phrase secrète dans le portefeuille</translation>
+        <translation>Entrer l'ancienne et la nouvelle phrase secrète du portefeuille</translation>
     </message>
     <message>
         <source>Confirm wallet encryption</source>
@@ -389,7 +389,7 @@ pour le staking</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>IMPORTANT: Tous les backups précédents de votre fichier wallet devront être remplacés par ce nouveau fichier chiffré. Pour des raisons de sécurité, les backups précédents de votre fichier wallet non chiffrés seront rendus inutilisables au moment ou vous utilisez le nouveau portefeuille chiffré.</translation>
+        <translation>IMPORTANT: Toutes les sauvegardes précédentes de votre fichier wallet devront être remplacées par ce nouveau fichier chiffré. Pour des raisons de sécurité, les sauvegardes précédentes de votre fichier wallet non chiffrées seront rendues inutilisables au moment où vous utilisez le nouveau portefeuille chiffré.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -437,6 +437,10 @@ pour le staking</translation>
     <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
+    </message>
+    <message>
+        <source>0.00 blkc</source>
+        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -957,6 +961,10 @@ propriétaire</translation>
         <translation>Comment obtenir des BLKC</translation>
     </message>
     <message>
+        <source>Amount of staking rewards received.</source>
+        <translation>Récompenses de Staking reçues</translation>
+    </message>
+    <message>
         <source>Sort by</source>
         <translation>Trier par</translation>
     </message>
@@ -1194,7 +1202,7 @@ Il commencera automatiquement dès que le portefeuille aura assez de confirmatio
     </message>
     <message>
         <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>BlackHat Core téléchargera et stockera une copie de la chaîne de blocs BlackHat. Au moins %1 Go de données sera stocké dans ce répertoire, et il va augmenter au fil du temps. Le portefeuille sera également stocké dans ce répertoire.</translation>
+        <translation>BlackHat Core téléchargera et stockera une copie de la blockchain BlackHat. Au moins %1 Go de données seront stockées dans ce répertoire, qui va augmenter au fil du temps. Le portefeuille sera également stocké dans ce répertoire.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1318,7 +1326,7 @@ Il commencera automatiquement dès que le portefeuille aura assez de confirmatio
     </message>
     <message>
         <source>Create New Masternode Controller</source>
-        <translation>Créer un nouveau contrôleur de Masternode</translation>
+        <translation>Créer un nouveau Masternode Controller</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1342,11 +1350,11 @@ Il commencera automatiquement dès que le portefeuille aura assez de confirmatio
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Une transaction de 5 000 BLKC sera effectuée &lt;/p&gt;&lt;p&gt; vers une nouvelle adresse de votre partefeuille.&lt;/p&gt;&lt;p&gt; L'adresse est étiquettée avec le nom de masternode. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Une transaction de 5 000 BLKC sera effectuée &lt;/p&gt;&lt;p&gt; vers une nouvelle adresse de votre portefeuille.&lt;/p&gt;&lt;p&gt; L'adresse est étiquettée du nom du Masternode. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
-        <translation>L'adresse du noeud doit toujours demeurer en ligne et exécuter le masternode.</translation>
+        <translation>L'adresse du noeud doit rester en ligne et exécuter le Masternode en permanence.</translation>
     </message>
     <message>
         <source>Enter IP address</source>
@@ -1381,7 +1389,7 @@ Il commencera automatiquement dès que le portefeuille aura assez de confirmatio
 
 %1
 </source>
-        <translation>La préparation du masternode a échoué.
+        <translation>La préparation du Masternode a échoué.
 
 %1
 </translation>
@@ -1440,15 +1448,16 @@ Il commencera automatiquement dès que le portefeuille aura assez de confirmatio
     <message>
         <source>Full nodes that incentivize node operators to perform the core consensus functions
 and vote on the treasury system receiving a periodic reward.</source>
-        <translation>Noeuds complets qui incite les opérateurs à exécuter les fonctions de consensus essentielles et votent sur le système de financement en recevant des récompenses périodiquement.</translation>
+        <translation>Noeuds complets qui exécutent les fonctions de consensus essentielles pour le réseau
+Les opérateurs votent sur le système de financement et reçoivent des récompenses périodiques.</translation>
     </message>
     <message>
         <source>Create Masternode Controller</source>
-        <translation>Créer un contrôleur masternode</translation>
+        <translation>Créer un Masternode Controller</translation>
     </message>
     <message>
         <source>No active Masternode yet</source>
-        <translation>Aucun masternode actif</translation>
+        <translation>Aucun Masternode actif</translation>
     </message>
     <message>
         <source>Start</source>
@@ -1468,23 +1477,23 @@ and vote on the treasury system receiving a periodic reward.</source>
     </message>
     <message>
         <source>Start Masternode</source>
-        <translation>Démarrer le masternode</translation>
+        <translation>Démarrer le Masternode</translation>
     </message>
     <message>
         <source>Are you sure you want to start masternode %1?
 </source>
-        <translation>Êtes-vous certain de vouloir démarrer le masternode %1?
+        <translation>Êtes-vous certain de vouloir démarrer le Masternode %1?
 </translation>
     </message>
     <message>
         <source>Cannot edit masternode, wallet locked</source>
-        <translation>Impossible de modifier le masternode, portefeuille verrouillé</translation>
+        <translation>Impossible de modifier le Masternode, portefeuille verrouillé</translation>
     </message>
     <message>
         <source>Cannot start masternode, the collateral transaction has not been confirmed by the network yet.
 Please wait few more minutes (masternode collaterals require %1 confirmations).</source>
-        <translation>Impossible de démarrer le masternode, la transaction du dépôt de garantie n'a pas encore été confirmée par le réseau.
-S'il vous plaît attendez quelques minutes de plus (le dépôt de garantie du masternode requiert %1 confirmations).</translation>
+        <translation>Impossible de démarrer le Masternode, la transaction du dépôt de garantie n'a pas encore été confirmée par le réseau.
+Merci de patienter quelques minutes de plus (le dépôt de garantie du Masternode requiert %1 confirmations).</translation>
     </message>
     <message>
         <source>Background task is being executed, please wait</source>
@@ -1492,7 +1501,7 @@ S'il vous plaît attendez quelques minutes de plus (le dépôt de garantie du ma
     </message>
     <message>
         <source>Start ALL masternodes failed</source>
-        <translation>Démarrage de TOUS les masternodes échoué</translation>
+        <translation>Echec du démarrage de TOUS les Masternodes</translation>
     </message>
     <message>
         <source>Wallet unlock cancelled</source>
@@ -1512,19 +1521,19 @@ S'il vous plaît attendez quelques minutes de plus (le dépôt de garantie du ma
     </message>
     <message>
         <source>Cannot show Masternode information, wallet locked</source>
-        <translation>Impossible de montrer les informations masternode, portefeuille vérouillé</translation>
+        <translation>Impossible de montrer les informations du Masternode, portefeuille vérouillé</translation>
     </message>
     <message>
         <source>Masternode data copied to the clipboard.</source>
-        <translation>Donnée masternode copiée vers le presse-papier</translation>
+        <translation>Donnée Masternode copiée vers le presse-papier</translation>
     </message>
     <message>
         <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
-        <translation>Fonds insuffisant pour créer un masternode, 5 000 %1 sont requis.</translation>
+        <translation>Fonds insuffisants pour créer un Masternode, 5 000 %1 requis.</translation>
     </message>
     <message>
         <source>Remote Masternode Data</source>
-        <translation>Données masternode distant</translation>
+        <translation>Données Masternode distant</translation>
     </message>
     <message>
         <source>What is a Masternode?</source>
@@ -1786,7 +1795,7 @@ STAKING</source>
     </message>
     <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>SI vous désactivez la dépense de la monnaire non confirmée, la monnaie rendue sur une transaction &lt;br/&gt;ne peut pas être utilisée tant que celle-ci n'a pas reçue au moins une confirmation &lt;br/&gt;Ceci implique également la manière dont votre solde est calculé.</translation>
+        <translation>SI vous désactivez la dépense de la monnaire non confirmée, la monnaie rendue sur une transaction &lt;br/&gt;ne peut pas être utilisée tant que celle-ci n'a pas reçue au moins une confirmation &lt;br/&gt;Ceci impacte également la manière dont votre solde est calculé.</translation>
     </message>
     <message>
         <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
@@ -2217,7 +2226,11 @@ Adresse : %4
         <source>Ping Time</source>
         <translation>Temps de réponse au Ping</translation>
     </message>
-    </context>
+    <message>
+        <source>NodeID</source>
+        <translation>NodeID</translation>
+    </message>
+</context>
 <context>
     <name>QObject</name>
     <message>
@@ -2285,6 +2298,14 @@ Adresse : %4
         <translation>Erreur: impossible d'analyser le fichier de configuration: %1. Utilisez uniquement la syntaxe clé=valeur.</translation>
     </message>
     <message>
+        <source>Error: %1</source>
+        <translation>Erreur: %1</translation>
+    </message>
+    <message>
+        <source>%1 didn't yet exit safely...</source>
+        <translation>%1 n'a pas encore quitté en toute sécurité ...</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Erreur de lecture du fichier de configuration Masternode: %1</translation>
     </message>
@@ -2310,7 +2331,7 @@ Adresse : %4
     </message>
     <message>
         <source>Cold Staking Contact</source>
-        <translation>Contact cold-staking</translation>
+        <translation>Contact Cold Staking</translation>
     </message>
     <message>
         <source>Receiving Shielded</source>
@@ -2509,7 +2530,7 @@ Adresse : %4
     </message>
     <message>
         <source>Startup time</source>
-        <translation>Temps de démarrage</translation>
+        <translation>Heure de démarrage</translation>
     </message>
     <message>
         <source>Network</source>
@@ -2697,7 +2718,7 @@ Adresse : %4
     </message>
     <message>
         <source>Salvage wallet</source>
-        <translation>Portefeuille de récupération</translation>
+        <translation>Récupération du Portefeuille</translation>
     </message>
     <message>
         <source>Attempt to recover private keys from a corrupt wallet.dat.</source>
@@ -2705,15 +2726,15 @@ Adresse : %4
     </message>
     <message>
         <source>Rescan blockchain files</source>
-        <translation>Réanalysez les fichiers blockchain</translation>
+        <translation>Réanalyser les fichiers blockchain</translation>
     </message>
     <message>
         <source>Rescan the block chain for missing wallet transactions.</source>
-        <translation>Réanalysez la chaîne de blocs pour les transactions de portefeuille manquantes.</translation>
+        <translation>Réanalyse la blockchain à la recherche de transactions manquantes du portefeuille.</translation>
     </message>
     <message>
         <source>Recover transactions 1</source>
-        <translation>Récupère les transactions 1</translation>
+        <translation>Récupération des transactions 1</translation>
     </message>
     <message>
         <source>Recover transactions from blockchain (keep meta-data, e.g. account owner).</source>
@@ -2721,7 +2742,7 @@ Adresse : %4
     </message>
     <message>
         <source>Recover transactions 2</source>
-        <translation>Récupérer les transactions 2</translation>
+        <translation>Récupération des transactions 2</translation>
     </message>
     <message>
         <source>Recover transactions from blockchain (drop meta-data).</source>
@@ -2741,7 +2762,7 @@ Adresse : %4
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
-        <translation>Supprime tous les dossiers blockchain locaux afin que le portefeuille se synchronise à partir de zéro.</translation>
+        <translation>Supprimer tous les dossiers blockchain locaux afin que le portefeuille se synchronise à partir de zéro.</translation>
     </message>
     <message>
         <source>The buttons below will restart the wallet with command-line options to repair the wallet, fix issues with corrupt blockhain files or missing/obsolete transactions.</source>
@@ -2829,7 +2850,7 @@ Adresse : %4
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
-        <translation>ATTENTION: Des escrocs sévisent, demandant aux utilisateurs de taper certaines commandes dans la console, volant le contenu de leur portefeuille. N'utilisez pas cette console sans une parfaite compréhension des conséquences des commandes que vous y tapez.</translation>
+        <translation>ATTENTION: Des escrocs sévissent en, demandant aux utilisateurs de taper certaines commandes dans la console, afin de voler le contenu de leur portefeuille. N'utilisez pas cette console sans une parfaite compréhension des commandes que vous y tapez et de leurs conséquences.</translation>
     </message>
     <message>
         <source>%1 B</source>
@@ -2907,7 +2928,7 @@ Adresse : %4
     </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
-        <translation>Balayez le QR code ou copiez l'adresse pour recevoir les BLKC</translation>
+        <translation>Scannez le QR code ou copiez l'adresse pour recevoir les BLKC</translation>
     </message>
     <message>
         <source>Transparent</source>
@@ -2927,11 +2948,15 @@ Adresse : %4
     </message>
     <message>
         <source>Generate Address</source>
-        <translation>Générer une adresse</translation>
+        <translation>Générer adresse</translation>
     </message>
     <message>
         <source>Copy</source>
         <translation>Copier</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtrer par</translation>
     </message>
     <message>
         <source>Receive</source>
@@ -3079,7 +3104,7 @@ essayez de dévérouiller le portefeuille</translation>
     </message>
     <message>
         <source>Description (optional)</source>
-        <translation>Description (optionel)</translation>
+        <translation>Description (optionnel)</translation>
     </message>
     <message>
         <source>New Payment Request</source>
@@ -3127,7 +3152,7 @@ essayez de dévérouiller le portefeuille</translation>
     </message>
     <message>
         <source>Cold Staking Address Generated</source>
-        <translation>Adresse de cold staking générée </translation>
+        <translation>Adresse de Cold Staking générée </translation>
     </message>
 </context>
 <context>
@@ -3162,7 +3187,7 @@ essayez de dévérouiller le portefeuille</translation>
     </message>
     <message>
         <source>Cannot use cold staking addresses for change</source>
-        <translation>Impossible d'utiliser des adresses de cold staking pour le changement</translation>
+        <translation>Impossible d'utiliser des adresses de Cold Staking pour le changement</translation>
     </message>
 </context>
 <context>
@@ -3259,7 +3284,7 @@ essayez de dévérouiller le portefeuille</translation>
     </message>
     <message>
         <source>Address label (optional)</source>
-        <translation>Libellé d'adresse (optionel)</translation>
+        <translation>Libellé d'adresse (optionnel)</translation>
     </message>
     <message>
         <source>Enter label</source>
@@ -3310,7 +3335,7 @@ Voulez-vous continuer ?</translation>
     </message>
     <message>
         <source>Possibly spend coins delegated for cold-staking (currently available: %1</source>
-        <translation>Dépsne si possible les pièces déléguée en cold-staking (disponible actuellement: %1</translation>
+        <translation>Dépenser les pièces déléguée en Cold Staking si possible (disponible actuellement: %1</translation>
     </message>
     <message>
         <source>Invalid entry</source>
@@ -3514,8 +3539,8 @@ Voulez-vous continuer?
     <message>
         <source>Keep your wallet safe by doing regular backups and storing your backup file externally.
 This option creates a wallet.dat file that can be used to recover your whole balance (transactions and addresses) on another device</source>
-        <translation>Garder votre portefeuille en sécurité en réalisant des sauvegardes régulières et en conservant les fichiers hors ligne.
-Cette option créé un fichier wallet.dat qui peut être utiliser pour restaurer votre protefeuille complet (transactions et adresses) sur un autre appareil.</translation>
+        <translation>Gardez votre portefeuille en sécurité en réalisant des sauvegardes régulières et en conservant les fichiers hors ligne.
+Cette option créée un fichier wallet.dat qui peut être utilisé pour restaurer votre portefeuille complet (transactions et adresses) sur un autre appareil.</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3524,12 +3549,12 @@ Cette option créé un fichier wallet.dat qui peut être utiliser pour restaurer
     <message>
         <source>This will decrypt the whole wallet data and encrypt it back with the new passphrase.
 Remember to write it down and store it safely, otherwise you might lose access to your funds</source>
-        <translation>Cela va déchiffrer toutes les données du portefeuille et les chiffrer avec la nouvelle phrase de passe.
-Souvenez vous de l'écrire et de la stocker en sécurité, autrement vous pourriez perdre accès à vos fonds.</translation>
+        <translation>Cela va déchiffrer toutes les données du portefeuille et les chiffrer avec la nouvelle phrase secrète.
+Souvenez vous de l'écrire et de la stocker en sécurité, afin d'éviter de perdre l'accès à vos fonds.</translation>
     </message>
     <message>
         <source>Change Passphrase</source>
-        <translation>Modifier la phrase de passe</translation>
+        <translation>Modifier phrase secrète</translation>
     </message>
     <message>
         <source>Backup Wallet</source>
@@ -3590,7 +3615,7 @@ En utilisant ce mécanisme, vous pouvez partager vos clés sans risque interméd
     </message>
     <message>
         <source>Passphrase</source>
-        <translation>Phrase de passe</translation>
+        <translation>Phrase secrète</translation>
     </message>
     <message>
         <source>Decrypted address result</source>
@@ -3751,7 +3776,7 @@ Vérifiez que vous avez installé un logiciel éditeur de texte.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
-        <translation>ATTENTION: Des escrocs sévisent, demandant aux utilisateurs de taper certaines commandes dans la console, volant le contenu de leur portefeuille. N'utilisez pas cette console sans une parfaite compréhension des conséquences des commandes que vous y tapez.</translation>
+        <translation>ATTENTION: Des escrocs sévissent en demandant aux utilisateurs de taper certaines commandes dans la console afin de voler le contenu de leur portefeuille. N'utilisez pas cette console sans une parfaite compréhension des commandes que vous y tapez et de leurs conséquences.</translation>
     </message>
 </context>
 <context>
@@ -3762,11 +3787,11 @@ Vérifiez que vous avez installé un logiciel éditeur de texte.</translation>
     </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
-        <translation>Cacher le graphique staking dans le tableau de bord</translation>
+        <translation>Cacher le graphique de Staking dans le tableau de bord</translation>
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Réinitialiser les valeurs par défaut</translation>
+        <translation>Valeurs par défaut</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -3825,7 +3850,7 @@ Vérifiez que vous avez installé un logiciel éditeur de texte.</translation>
     </message>
     <message>
         <source>Export your wallet's accounting data to a csv file.</source>
-        <translation>Exporter la comptabilité de votre portefeuille vers un fichier au format csv.</translation>
+        <translation>Exporte la comptabilité de votre portefeuille vers un fichier au format csv.</translation>
     </message>
     <message>
         <source>Where</source>
@@ -3951,36 +3976,12 @@ Il y a eu une erreur de sauvegarde de la liste d'adresses vers %1. SVP rééssay
         <translation>Pourquoi mes BLKC ne peuvent pas être dépensés?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Les nouveaux BLKC reçus nécessitent 6 confirmations sur le réseau
-pour être disponible à la dépense ce qui peut prendre ~6 minutes.
-&lt;/p&gt;&lt;p align="justify"&gt;
-Votre portefeuille BlackHat a besoin également d'être totalement synchronisé
-pour voir votre solde de monnaie dépensable sur le réseau.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
-    </message>
-    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
         <source>How do I stake BLKC?</source>
         <translation>Comment staker des BLKC?</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Assurez-vous que votre portefeuille est totalement synchronisé et que vous utilisez la dernière version logicielle. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Vous devez avoir une balance BLKC avec un minimum de 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Votre portefeuille doit rester en ligne et être débloqué aux fins de staking. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Une fois toutes ces étapes validées le staking devrait s'activer. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Vous pouvez voir l'état du staking dans votre portefeuille en passant votre souris sur l'icône cadeau située ne haut à droite de l'interface. La boîte cadeau devrait être active et indiquer &amp;quot;Staking Activé&amp;quot;. En utilisant l'interface en ligne de commande (blkc-cli), la commande &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; vous confirmera si le staking est actif.&lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>4</source>
@@ -3999,45 +4000,12 @@ pour voir votre solde de monnaie dépensable sur le réseau.
         <translation>Où dois-je aller pour obtenir de l'aide?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           BlackHat is a form of digital online money using blockchain technology
-                           that can be easily transferred globally, instantly, and with near
-                           zero fees.  BlackHat incorporates market leading security &amp;
-                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
-                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
-                           allowing all owners of BLKC to participate in earning block rewards
-                           while securing the network with full node wallets, as well as to
-                           run Masternodes to create and vote on proposals.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-        BlackHat est une forme de monnaie numérique utilisant la technologie blockchain
-qui peut être facilement transférée partout dans le monde, instantanément, et presque
-sans frais. BlackHat est un chef de file en matière de sécurité &amp;
-confidentialité, elle est aussi la première crypto-monnaie PoS (Proof od Stake)
-à implémenter Sapling (SHIELD), un protocole de confidentialité basé sur zk-SNARKs. 
-&lt;/p&gt;&lt;p align="justify"&gt;
-    BlackHat utilises un système de consensus Proof of Stake (PoS),
-qui permet à tous les détenteurs de BLKC d'obtenir des récompenses
-tout en sécurisant le réseau avec leur portefeuille full node, ainsi qu'en
-exécutant des Maternodes pour créer et voter des propositions.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
-    </message>
-    <message>
         <source>What is a Masternode?</source>
         <translation>Qu'est-ce qu'un masternode?</translation>
     </message>
     <message>
         <source>What is a Masternode Controller?</source>
         <translation>10) Qu'est ce qu'un contrôleur de Masternode?</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt; Un contrôleur de masternode est un portefeuille dans lequel le dépôt de garantie de 5 000 BLKC réside pendant la configuration d'un masternode contrôleur-distant. C'est un portefeuille qui peut activer le portefeuille masternode distant et vous permet de conserver le dépôt de garantie hors ligne tandis que le masternode restera en ligne.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -4066,6 +4034,14 @@ exécutant des Maternodes pour créer et voter des propositions.
     <message>
         <source>You can read more here</source>
         <translation>Vous pouvez en lire plus ici</translation>
+    </message>
+    <message>
+        <source>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</source>
+        <translation>Les BLKC nouvellement reçus nécessitent 6 confirmations avant de pouvoir être dépensés. Cela peut prendre ~6 minutes.</translation>
+    </message>
+    <message>
+        <source>Make sure your wallet is completely synchronized and you are using the latest release.</source>
+        <translation>Assurez vous que votre portefeuille soit complètement synchronisé et que vous utilisez la dernière version.</translation>
     </message>
 </context>
 <context>
@@ -4100,7 +4076,7 @@ exécutant des Maternodes pour créer et voter des propositions.
     </message>
     <message>
         <source>Startup time:</source>
-        <translation>Temps de démarrage:</translation>
+        <translation>Heure de démarrage:</translation>
     </message>
     <message>
         <source>Connections:</source>
@@ -4152,7 +4128,7 @@ exécutant des Maternodes pour créer et voter des propositions.
     </message>
     <message>
         <source>Wallet Conf</source>
-        <translation>Conf portefeuille</translation>
+        <translation>Wallet Conf</translation>
     </message>
     <message>
         <source>Backups</source>
@@ -4199,7 +4175,7 @@ exécutant des Maternodes pour créer et voter des propositions.
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Réinitialiser les valeurs par défaut</translation>
+        <translation>Valeurs par défaut</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -4235,7 +4211,7 @@ exécutant des Maternodes pour créer et voter des propositions.
     </message>
     <message>
         <source>Minimize on close</source>
-        <translation>Réduire sur fermeture</translation>
+        <translation>Réduire à la fermeture</translation>
     </message>
     <message>
         <source>Reset Options</source>
@@ -4284,7 +4260,7 @@ Confirmez-vous?
     </message>
     <message>
         <source>Address Label (optional)</source>
-        <translation>Libellé de l'adresse (optionel)</translation>
+        <translation>Libellé de l'adresse (optionnel)</translation>
     </message>
     <message>
         <source>Enter label to be saved with this address</source>
@@ -4462,7 +4438,7 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>You can sign messages with your addresses to prove you own them. Be careful not to sign anything vague, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Vous pouvez signer des messages avec vos adresses pour prouver que vous les possédez. Veillez à ne rien signer d'imprécis, car des attaques de type phishing pourraient vous inciter à divulger votre identité. Ne signez que des déclarations détaillées que vous avez approuvé.</translation>
+        <translation>Vous pouvez signer des messages avec vos adresses pour prouver que vous les possédez. Veillez à ne rien signer d'imprécis, car des attaques de type phishing pourraient vous inciter à divulguer votre identité. Ne signez que des déclarations détaillées que vous avez approuvées.</translation>
     </message>
     <message>
         <source>Enter the signing address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack.</source>
@@ -4533,7 +4509,7 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Réinitialiser les valeurs par défaut</translation>
+        <translation>Valeurs par défaut</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -4553,7 +4529,7 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>Spend unconfirmed change</source>
-        <translation>Dépenser le change non confirmé</translation>
+        <translation>Dépenser la monnaie non confirmée</translation>
     </message>
     <message>
         <source>Network</source>
@@ -4616,11 +4592,11 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>The buttons below will restart the wallet with command-line options to repair this wallet, fix issues with corrupt blockchain files or missing/obsolete transactions</source>
-        <translation>Les boutons ci-dessous relancent le portefeuille avec des options en ligne de commande pour réparer ce dernier, résoud les problèmes de blockchain corrompue ou de transactions manquantes / obsolètes.</translation>
+        <translation>Les boutons ci-dessous relancent le portefeuille avec des options en ligne de commande pour réparer ce dernier, résoudre les problèmes de blockchain corrompue ou de transactions manquantes / obsolètes.</translation>
     </message>
     <message>
         <source>Salvage wallet</source>
-        <translation>Portefeuille de récupération</translation>
+        <translation>Récupération du Portefeuille</translation>
     </message>
     <message>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
@@ -4628,15 +4604,15 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>Rescan blockchain file</source>
-        <translation>Réanalysez les fichiers blockchain</translation>
+        <translation>Réanalyser les fichiers blockchain</translation>
     </message>
     <message>
         <source>Rescan the blockchain for missing wallet transactions</source>
-        <translation>Réanalyser la blockchain pour détecter les transactions manquantes</translation>
+        <translation>Ré-analyse la blockchain pour détecter les transactions manquantes</translation>
     </message>
     <message>
         <source>Recover transactions 1</source>
-        <translation>Récupère les transactions 1</translation>
+        <translation>Récupération des transactions 1</translation>
     </message>
     <message>
         <source>Recover transactions from blockchain (keep-meta-data, e.g. account owner)</source>
@@ -4644,7 +4620,7 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>Recover transactions 2</source>
-        <translation>Récupérer les transactions 2</translation>
+        <translation>Récupération des transactions 2</translation>
     </message>
     <message>
         <source>Recover transactions from blockchain (drop meta-data)</source>
@@ -4668,7 +4644,7 @@ Cochez l'une ou l'autre des cases à cocher pour envoyer les récompenses stake 
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch</source>
-        <translation>Supprime tous les dossiers blockchain locaux afin de tout synchroniser depuis le début</translation>
+        <translation>Supprimer tous les dossiers blockchain locaux afin de tout synchroniser depuis le début</translation>
     </message>
     <message>
         <source>This will delete your local blockchain folders and the wallet will synchronize the complete Blockchain from scratch.&lt;br /&gt;&lt;br /&gt;</source>
@@ -5033,7 +5009,7 @@ sauvegarde sera créée.
     </message>
     <message>
         <source>Upgrade to Sapling Wallet</source>
-        <translation>Migre vers protefeuille Sapling</translation>
+        <translation>Migre vers portefeuille Sapling</translation>
     </message>
     <message>
         <source>Upgrading to Sapling wallet will enable
@@ -5478,25 +5454,25 @@ Select fewer inputs with coin control.</source>
     </message>
     <message>
         <source>Select your language</source>
-        <translation>Choisir votre langue</translation>
+        <translation>Choisissez votre langue</translation>
     </message>
     <message>
         <source>Welcome to
 BlackHat Core Wallet</source>
-        <translation>Bienvenu au
+        <translation>Bienvenu dans le
 Portefeuille BlackHat Core</translation>
     </message>
     <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
-        <translation>BlackHat est la technologie la plus innovante au monde de preuve d'enjeu basée sur une blockchain. Développé par une équipe de développeurs et cryptographes très expérimentés.</translation>
+        <translation>BlackHat est la technologie Blockchain à preuve d'enjeu ('Proof of Stake') la plus innovante au monde, développée et supportée par une équipe de développeurs et cryptographes expérimentés.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;As our manifesto says: Privacy is a non-negotiable basic human right; it grants users the freedom to share their data whenever and with whomever they want - BlackHat believes in self sovereignty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Comme notre manifeste l'indique: la vie privée est un droit de base non-négociable de l'être humain; il permet aux utilisateurs la liberté de partager leurs donnée quand et avec qui ils le souhaitent - BlackHat croit en l'auto gestion. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Comme notre manifeste l'indique: le respect de la vie privée est un droit fondamental de l'être humain; il donne aux utilisateurs la liberté de partager leurs données quand et avec qui ils le souhaitent - BlackHat croit en l'auto gestion. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
     </message>
     <message>
         <source>The masternode network is BlackHat's second layer network on top of the blockchain that enables our DAO to provide decentralized governance and a treasury.</source>
-        <translation>Le réseau masternode est une seconde couche réseau de BlackHat au dessus de la blockchain qui permet à notre organisation une gouvernance décentralisée et une trésorerie.</translation>
+        <translation>Le réseau Masternode est une seconde couche réseau de BlackHat au dessus de la blockchain qui garantit à notre organisation une gouvernance et une gestion de la trésorerie décentralisées.</translation>
     </message>
     <message>
         <source>How BlackHat respects your privacy?</source>
@@ -5551,7 +5527,7 @@ Portefeuille BlackHat Core</translation>
     </message>
     <message>
         <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
-        <translation>Active la fonctionnalité de cold staking (0-1, par défaut: %u). Désactivé si staking=0</translation>
+        <translation>Activer la fonctionnalité de Cold Staking (0-1, par défaut: %u). Désactivé si staking=0</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5987,7 +5963,7 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     </message>
     <message>
         <source>Calculating money supply...</source>
-        <translation>Calcule de la masse monétaire...</translation>
+        <translation>Calcul de la masse monétaire...</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
@@ -6121,7 +6097,7 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     </message>
     <message>
         <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
-        <translation>Accepter uniquement les points de contrôle conformes à la chaîne de blocs (par défaut: %u)</translation>
+        <translation>Accepter uniquement les points de contrôle conformes à la blockchain (par défaut: %u)</translation>
     </message>
     <message>
         <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
@@ -6202,6 +6178,10 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     <message>
         <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
         <translation>Spécifier l'emplacement du fichier log de déboguage: peut-être un chemin absolu ou relatif vers le répertoire de données (défaut: %s)</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex.</source>
+        <translation>Impossible de rejouer les blocs. Vous devez reconstruire la base de données en utilisant -reindex.</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -6307,7 +6287,7 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     </message>
     <message>
         <source>Rebuild block chain index from current blk000??.dat files</source>
-        <translation>Reconstruire l'index de la chaîne de blocs à partir des fichiers blk000 ??.dat courants</translation>
+        <translation>Reconstruire l'index de la blockchain à partir des fichiers blk000 ??.dat courants</translation>
     </message>
     <message>
         <source>Relay and mine data carrier transactions (default: %u)</source>
@@ -6319,7 +6299,7 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     </message>
     <message>
         <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Rescanner la chaîne de blocs pour retrouver les transactions manquantes dans le portefeuille</translation>
+        <translation>Rescanner la blockchain pour retrouver les transactions manquantes dans le portefeuille</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -6642,7 +6622,7 @@ SVP éxécutez 'sapling-fetch-params' ou './util/fetch-params.sh' et redémarrez
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Réinitialiser les valeurs par défaut</translation>
+        <translation>Valeurs par défaut</translation>
     </message>
     <message>
         <source>Include delegated</source>

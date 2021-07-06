@@ -66,6 +66,91 @@ SettingsFaqWidget::SettingsFaqWidget(BLKCGUI *parent) :
 
     ui->labelContent_Support->setOpenExternalLinks(true);
 
+    // Set FAQ content strings
+    QString introContent = formatFAQContent(
+            formatFAQParagraph(
+                    tr("BlackHat is a form of digital online money using blockchain technology "
+                       "that can be easily transferred globally, instantly, and with near "
+                       "zero fees. BlackHat incorporates market leading security & "
+                       "privacy and is also the first PoS (Proof of Stake) Cryptocurrency "
+                       "to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.")) +
+            formatFAQParagraph(
+                    tr("BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, "
+                       "allowing all owners of BLKC to participate in earning block rewards "
+                       "while securing the network with full node wallets, as well as to "
+                       "run Masternodes to create and vote on proposals.")));
+    ui->labelContent_Intro->setText(introContent);
+
+    QString unspendableBLKCContent = formatFAQContent(
+            formatFAQParagraph(
+                    tr("Newly received BLKC requires 6 confirmations on the network "
+                       "to become eligible for spending which can take ~6 minutes.")) +
+            formatFAQParagraph(
+                    tr("Your BlackHat wallet also needs to be completely synchronized "
+                       "to see and spend balances on the network.")));
+    ui->labelContent_UnspendableBLKC->setText(unspendableBLKCContent);
+
+    QString stakeContent = formatFAQContent(
+            formatFAQOrderedList(
+                    formatFAQListItem(tr("Make sure your wallet is completely synchronized and you are using the latest release.")) +
+                    formatFAQListItem(tr("You must have a balance of BLKC with a minimum of 600 confirmations.")) +
+                    formatFAQListItem(tr("Your wallet must stay online and be unlocked for staking purposes.")) +
+                    formatFAQListItem(tr("Once all those steps are followed staking should be enabled."))) +
+            formatFAQParagraph(
+                    tr("You can see the status of staking in the wallet by mousing over the "
+                       "package icon in the row on the top left of the wallet interface. The "
+                       "package will be lit up and will state \"Staking Enabled\" to indicate "
+                       "it is staking. Using the command line interface (%1); the command %2 "
+                       "will confirm that staking is active.")
+                            .arg("blkc-core", "<span style=\"font-style:italic\">getstakingstatus</span>")));
+    ui->labelContent_Stake->setText(stakeContent);
+
+    QString supportContent = formatFAQContent(
+            formatFAQParagraph(
+                    tr("We have support channels in most of our official chat groups, for example %1")
+                            .arg("<a style='color: #b088ff' href='https://blackhatco.in/discord'>" + tr("#general_support in our Discord") + "</a>.")));
+    ui->labelContent_Support->setText(supportContent);
+
+    QString masternodeContent = formatFAQContent(
+            formatFAQParagraph(
+                    tr("A masternode is a computer running a full node BlackHat core wallet with a "
+                       "requirement of 5,000 BLKC secured collateral to provide extra services "
+                       "to the network and in return, receive a portion of the block reward "
+                       "regularly. These services include:") +
+                    formatFAQUnorderedList(
+                            formatFAQListItem(tr("A decentralized governance (Proposal Voting)")) +
+                            formatFAQListItem(tr("A decentralized budgeting system (Treasury)")) +
+                            formatFAQListItem(tr("Validation of transactions within each block")) +
+                            formatFAQListItem(tr("Act as an additional full node in the network")))) +
+            formatFAQParagraph(
+                    tr("For providing such services, masternodes are also paid a certain portion "
+                       "of reward for each block. This can serve as a passive income to the "
+                       "masternode owners minus their running cost.")) +
+            formatFAQParagraph(
+                    tr("Masternode Perks:") +
+                    formatFAQUnorderedList(
+                            formatFAQListItem(tr("Participate in BlackHat Governance")) +
+                            formatFAQListItem(tr("Earn Masternode Rewards")) +
+                            formatFAQListItem(tr("Commodity option for future sale")) +
+                            formatFAQListItem(tr("Help secure the BlackHat network")))) +
+            formatFAQParagraph(
+                    tr("Requirements:") +
+                    formatFAQUnorderedList(
+                            formatFAQListItem(tr("5,000 BLKC per single Masternode instance")) +
+                            formatFAQListItem(tr("Must be stored in a core wallet")) +
+                            formatFAQListItem(tr("Need dedicated IP address")) +
+                            formatFAQListItem(tr("Masternode wallet to remain online")))));
+    ui->labelContent_Masternode->setText(masternodeContent);
+
+    QString mNControllerContent = formatFAQContent(
+            formatFAQParagraph(
+                    tr("A Masternode Controller wallet is where the 5,000 BLKC collateral "
+                       "can reside during a Controller-Remote masternode setup. It is a wallet "
+                       "that can activate the remote masternode wallet(s) and allows you to keep "
+                       "your collateral coins offline while the remote masternode remains online.")));
+    ui->labelContent_MNController->setText(mNControllerContent);
+
+
     // Exit button
     setCssProperty(ui->pushButtonExit, "btn-faq-exit");
 

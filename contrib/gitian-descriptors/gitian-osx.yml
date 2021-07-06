@@ -1,5 +1,5 @@
 ---
-name: "blackhat-osx-5.1"
+name: "blackhat-osx-5.2"
 enable_cache: true
 distro: "ubuntu"
 suites:

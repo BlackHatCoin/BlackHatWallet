@@ -50,6 +50,8 @@ private Q_SLOTS:
     void handleAddressClicked(const QModelIndex &index);
     void onSortChanged(int idx);
     void onSortOrderChanged(int idx);
+    void filterChanged(const QString& str);
+
 private:
     Ui::ReceiveWidget *ui{nullptr};
 

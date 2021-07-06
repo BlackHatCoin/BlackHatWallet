@@ -3146,26 +3146,6 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>BLKC'lerim neden harcanabilir değil?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Yeni alınmış BLKC'lerin harcanabilr hale gelmesi için ağdan 6 onay
-                           alması gerekmektedir, bu işlem yaklaşık olarak 6 dakika sürer.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-    BlackHat cüzdanınızın ağdaki bakiyesini görebilmesi ve harcayabilmesi
-                           için tamamen senkronize olması gerekmektedir.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </translation>
-    </message>
-    <message>
         <source>3</source>
         <translation>3</translation>
     </message>

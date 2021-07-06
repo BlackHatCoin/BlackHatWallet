@@ -341,6 +341,7 @@ public:
     void setCacheNumBlocks(int _cachedNumBlocks) { cachedNumBlocks = _cachedNumBlocks; }
     int getCacheNumBLocks() { return cachedNumBlocks; }
     void setCacheBlockHash(const uint256& _blockHash) { m_cached_best_block_hash = _blockHash; }
+    uint256 getCacheBlockHash() { return m_cached_best_block_hash; }
     void setfForceCheckBalanceChanged(bool _fForceCheckBalanceChanged) { fForceCheckBalanceChanged = _fForceCheckBalanceChanged; }
     Q_INVOKABLE void checkBalanceChanged(const interfaces::WalletBalances& new_balances);
 
