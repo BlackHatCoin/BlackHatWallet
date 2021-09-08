@@ -59,7 +59,7 @@ bool CBudgetProposal::ParseBroadcast(CDataStream& broadcast)
         broadcast >> nBlockStart;
         broadcast >> nBlockEnd;
         broadcast >> nAmount;
-        broadcast >> *(CScriptBase*)(&address);
+        broadcast >> address;
         broadcast >> nFeeTXHash;
     } catch (std::exception& e) {
         return error("Unable to deserialize proposal broadcast: %s", e.what());
@@ -339,7 +339,7 @@ CDataStream CBudgetProposal::GetBroadcast() const
     broadcast << nBlockStart;
     broadcast << nBlockEnd;
     broadcast << nAmount;
-    broadcast << *(CScriptBase*)(&address);
+    broadcast << address;
     broadcast << nFeeTXHash;
     return broadcast;
 }

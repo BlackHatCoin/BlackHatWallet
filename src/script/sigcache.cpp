@@ -12,7 +12,7 @@
 #include "pubkey.h"
 #include "random.h"
 #include "uint256.h"
-#include "util.h"
+#include "util/system.h"
 
 #include <boost/thread/thread.hpp>
 
@@ -40,7 +40,7 @@ public:
     void
     ComputeEntry(uint256& entry, const uint256 &hash, const std::vector<unsigned char>& vchSig, const CPubKey& pubkey)
     {
-        CSHA256().Write(nonce.begin(), 32).Write(hash.begin(), 32).Write(&pubkey[0], pubkey.size()).Write(&vchSig[0], vchSig.size()).Finalize(entry.begin());
+        CSHA256().Write(nonce.begin(), 32).Write(hash.begin(), 32).Write(pubkey.data(), pubkey.size()).Write(vchSig.data(), vchSig.size()).Finalize(entry.begin());
     }
 
     bool

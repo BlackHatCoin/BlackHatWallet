@@ -545,7 +545,7 @@ void TopBar::showUpgradeDialog(const QString& message)
 {
     QString title = tr("Wallet Upgrade");
     if (ask(title, message)) {
-        std::unique_ptr<WalletModel::UnlockContext> pctx = MakeUnique<WalletModel::UnlockContext>(walletModel->requestUnlock());
+        std::unique_ptr<WalletModel::UnlockContext> pctx = std::make_unique<WalletModel::UnlockContext>(walletModel->requestUnlock());
         if (!pctx->isValid()) {
             warn(tr("Upgrade Wallet"), tr("Wallet unlock cancelled"));
             return;
@@ -609,8 +609,8 @@ void TopBar::updateTorIcon()
             ui->pushButtonTor->setChecked(true);
             ui->pushButtonTor->setButtonClassStyle("cssClass", "btn-check-tor", true);
         }
-        QString ip_port_q = QString::fromStdString(ip_port);
-        ui->pushButtonTor->setButtonText(tr("Tor Active: %1").arg(ip_port_q));
+        ui->pushButtonTor->setButtonText(tr("Tor Active"));
+        ui->pushButtonTor->setToolTip("Address: " + QString::fromStdString(ip_port));
     } else {
         if (ui->pushButtonTor->isChecked()) {
             ui->pushButtonTor->setChecked(false);
@@ -703,7 +703,7 @@ void TopBar::expandSync()
     }
 }
 
-void TopBar::updateHDState(const bool& upgraded, const QString& upgradeError)
+void TopBar::updateHDState(const bool upgraded, const QString& upgradeError)
 {
     if (upgraded) {
         ui->pushButtonHDUpgrade->setVisible(false);

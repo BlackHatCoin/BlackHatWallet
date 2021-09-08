@@ -6,16 +6,17 @@
 
 #include "httprpc.h"
 
-#include "base58.h"
 #include "chainparams.h"
+#include "crypto/hmac_sha256.h"
+#include "guiinterface.h"
 #include "httpserver.h"
+#include "key_io.h"
 #include "rpc/protocol.h"
 #include "rpc/server.h"
 #include "random.h"
 #include "sync.h"
-#include "util.h"
+#include "util/system.h"
 #include "utilstrencodings.h"
-#include "guiinterface.h"
 
 #include <boost/algorithm/string.hpp> // boost::trim
 
@@ -59,7 +60,7 @@ private:
 /* Pre-base64-encoded authentication token */
 static std::string strRPCUserColonPass;
 /* Stored RPC timer interface (for unregistration) */
-static HTTPRPCTimerInterface* httpRPCTimerInterface = 0;
+static std::unique_ptr<HTTPRPCTimerInterface> httpRPCTimerInterface;
 
 static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const UniValue& id)
 {
@@ -78,6 +79,47 @@ static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const Uni
     req->WriteReply(nStatus, strReply);
 }
 
+//This function checks username and password against -rpcauth
+//entries from config file.
+static bool multiUserAuthorized(std::string strUserPass)
+{
+    if (strUserPass.find(':') == std::string::npos) {
+        return false;
+    }
+    std::string strUser = strUserPass.substr(0, strUserPass.find(':'));
+    std::string strPass = strUserPass.substr(strUserPass.find(':') + 1);
+
+    for (const std::string& strRPCAuth : gArgs.GetArgs("-rpcauth")) {
+        //Search for multi-user login/pass "rpcauth" from config
+        std::vector<std::string> vFields;
+        boost::split(vFields, strRPCAuth, boost::is_any_of(":$"));
+        if (vFields.size() != 3) {
+            //Incorrect formatting in config file
+            continue;
+        }
+
+        std::string strName = vFields[0];
+        if (!TimingResistantEqual(strName, strUser)) {
+            continue;
+        }
+
+        std::string strSalt = vFields[1];
+        std::string strHash = vFields[2];
+
+        static const unsigned int KEY_SIZE = 32;
+        unsigned char out[KEY_SIZE];
+
+        CHMAC_SHA256(reinterpret_cast<const unsigned char*>(strSalt.c_str()), strSalt.size()).Write(reinterpret_cast<const unsigned char*>(strPass.c_str()), strPass.size()).Finalize(out);
+        std::vector<unsigned char> hexvec(out, out+KEY_SIZE);
+        std::string strHashFromPass = HexStr(hexvec);
+
+        if (TimingResistantEqual(strHashFromPass, strHash)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 static bool RPCAuthorized(const std::string& strAuth, std::string& strAuthUsernameOut)
 {
     if (strRPCUserColonPass.empty()) // Belt-and-suspenders measure if InitRPCAuthentication was not called
@@ -88,10 +130,14 @@ static bool RPCAuthorized(const std::string& strAuth, std::string& strAuthUserna
     boost::trim(strUserPass64);
     std::string strUserPass = DecodeBase64(strUserPass64);
 
-    if (strUserPass.find(":") != std::string::npos)
-        strAuthUsernameOut = strUserPass.substr(0, strUserPass.find(":"));
+    if (strUserPass.find(':') != std::string::npos)
+        strAuthUsernameOut = strUserPass.substr(0, strUserPass.find(':'));
 
-    return TimingResistantEqual(strUserPass, strRPCUserColonPass);
+    //Check if authorized under single-user field
+    if (TimingResistantEqual(strUserPass, strRPCUserColonPass)) {
+        return true;
+    }
+    return multiUserAuthorized(strUserPass);
 }
 
 static bool HTTPReq_JSONRPC(HTTPRequest* req, const std::string &)
@@ -170,6 +216,7 @@ static bool InitRPCAuthentication()
             return false;
         }
     } else {
+        LogPrintf("Config options rpcuser and rpcpassword will soon be deprecated. Locally-run instances may remove rpcuser to use cookie-based auth, or may be replaced with rpcauth. Please see share/rpcuser for rpcauth auth generation.\n");
         strRPCUserColonPass = gArgs.GetArg("-rpcuser", "") + ":" + gArgs.GetArg("-rpcpassword", "");
     }
     return true;
@@ -182,10 +229,13 @@ bool StartHTTPRPC()
         return false;
 
     RegisterHTTPHandler("/", true, HTTPReq_JSONRPC);
-
+#ifdef ENABLE_WALLET
+    // ifdef can be removed once we switch to better endpoint support and API versioning
+    RegisterHTTPHandler("/wallet/", false, HTTPReq_JSONRPC);
+#endif
     assert(EventBase());
-    httpRPCTimerInterface = new HTTPRPCTimerInterface(EventBase());
-    RPCSetTimerInterface(httpRPCTimerInterface);
+    httpRPCTimerInterface = std::make_unique<HTTPRPCTimerInterface>(EventBase());
+    RPCSetTimerInterface(httpRPCTimerInterface.get());
     return true;
 }
 
@@ -199,8 +249,7 @@ void StopHTTPRPC()
     LogPrint(BCLog::RPC, "Stopping HTTP RPC server\n");
     UnregisterHTTPHandler("/", true);
     if (httpRPCTimerInterface) {
-        RPCUnsetTimerInterface(httpRPCTimerInterface);
-        delete httpRPCTimerInterface;
-        httpRPCTimerInterface = 0;
+        RPCUnsetTimerInterface(httpRPCTimerInterface.get());
+        httpRPCTimerInterface.reset();
     }
 }

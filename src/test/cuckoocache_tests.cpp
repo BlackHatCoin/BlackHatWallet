@@ -24,21 +24,8 @@
  *  using BOOST_CHECK_CLOSE to fail.
  *
  */
-FastRandomContext insecure_rand(true);
 
 BOOST_AUTO_TEST_SUITE(cuckoocache_tests);
-
-
-/** insecure_GetRandHash fills in a uint256 from insecure_rand
- */
-void insecure_GetRandHash(uint256& t)
-{
-    uint32_t* ptr = (uint32_t*)t.begin();
-    for (uint8_t j = 0; j < 8; ++j)
-        *(ptr++) = insecure_rand.rand32();
-}
-
-
 
 /* Test that no values not inserted into the cache are read out of it.
  *
@@ -46,18 +33,16 @@ void insecure_GetRandHash(uint256& t)
  */
 BOOST_AUTO_TEST_CASE(test_cuckoocache_no_fakes)
 {
-    insecure_rand = FastRandomContext(true);
+    SeedInsecureRand(true);
     CuckooCache::cache<uint256, SignatureCacheHasher> cc{};
     size_t megabytes = 4;
     cc.setup_bytes(megabytes << 20);
     uint256 v;
     for (int x = 0; x < 100000; ++x) {
-        insecure_GetRandHash(v);
-        cc.insert(v);
+        cc.insert(InsecureRand256());
     }
     for (int x = 0; x < 100000; ++x) {
-        insecure_GetRandHash(v);
-        BOOST_CHECK(!cc.contains(v, false));
+        BOOST_CHECK(!cc.contains(InsecureRand256(), false));
     }
 };
 
@@ -67,7 +52,7 @@ BOOST_AUTO_TEST_CASE(test_cuckoocache_no_fakes)
 template <typename Cache>
 double test_cache(size_t megabytes, double load)
 {
-    insecure_rand = FastRandomContext(true);
+    SeedInsecureRand(true);
     std::vector<uint256> hashes;
     Cache set{};
     size_t bytes = megabytes * (1 << 20);
@@ -77,7 +62,7 @@ double test_cache(size_t megabytes, double load)
     for (uint32_t i = 0; i < n_insert; ++i) {
         uint32_t* ptr = (uint32_t*)hashes[i].begin();
         for (uint8_t j = 0; j < 8; ++j)
-            *(ptr++) = insecure_rand.rand32();
+            *(ptr++) = InsecureRand32();
     }
     /** We make a copy of the hashes because future optimizations of the
      * cuckoocache may overwrite the inserted element, so the test is
@@ -138,7 +123,7 @@ template <typename Cache>
 void test_cache_erase(size_t megabytes)
 {
     double load = 1;
-    insecure_rand = FastRandomContext(true);
+    SeedInsecureRand(true);
     std::vector<uint256> hashes;
     Cache set{};
     size_t bytes = megabytes * (1 << 20);
@@ -148,7 +133,7 @@ void test_cache_erase(size_t megabytes)
     for (uint32_t i = 0; i < n_insert; ++i) {
         uint32_t* ptr = (uint32_t*)hashes[i].begin();
         for (uint8_t j = 0; j < 8; ++j)
-            *(ptr++) = insecure_rand.rand32();
+            *(ptr++) = InsecureRand32();
     }
     /** We make a copy of the hashes because future optimizations of the
      * cuckoocache may overwrite the inserted element, so the test is
@@ -201,7 +186,7 @@ template <typename Cache>
 void test_cache_erase_parallel(size_t megabytes)
 {
     double load = 1;
-    insecure_rand = FastRandomContext(true);
+    SeedInsecureRand(true);
     std::vector<uint256> hashes;
     Cache set{};
     size_t bytes = megabytes * (1 << 20);
@@ -211,7 +196,7 @@ void test_cache_erase_parallel(size_t megabytes)
     for (uint32_t i = 0; i < n_insert; ++i) {
         uint32_t* ptr = (uint32_t*)hashes[i].begin();
         for (uint8_t j = 0; j < 8; ++j)
-            *(ptr++) = insecure_rand.rand32();
+            *(ptr++) = InsecureRand32();
     }
     /** We make a copy of the hashes because future optimizations of the
      * cuckoocache may overwrite the inserted element, so the test is
@@ -303,7 +288,7 @@ void test_cache_generations()
     // iterations with non-deterministic values, so it isn't "overfit" to the
     // specific entropy in FastRandomContext(true) and implementation of the
     // cache.
-    insecure_rand = FastRandomContext(true);
+    SeedInsecureRand(true);
 
     // block_activity models a chunk of network activity. n_insert elements are
     // adde to the cache. The first and last n/4 are stored for removal later
@@ -320,7 +305,7 @@ void test_cache_generations()
             for (uint32_t i = 0; i < n_insert; ++i) {
                 uint32_t* ptr = (uint32_t*)inserts[i].begin();
                 for (uint8_t j = 0; j < 8; ++j)
-                    *(ptr++) = insecure_rand.rand32();
+                    *(ptr++) = InsecureRand32();
             }
             for (uint32_t i = 0; i < n_insert / 4; ++i)
                 reads.push_back(inserts[i]);

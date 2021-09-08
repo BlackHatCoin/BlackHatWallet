@@ -11,13 +11,15 @@
 #include "net.h"
 #include "netbase.h"
 #include "net_processing.h"
+#include "optional.h"
 #include "protocol.h"
 #include "sync.h"
 #include "timedata.h"
 #include "guiinterface.h"
-#include "util.h"
+#include "util/system.h"
 #include "version.h"
 #include "validation.h"
+#include "warnings.h"
 
 #include <univalue.h>
 
@@ -76,6 +78,8 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
             "    \"id\": n,                   (numeric) Peer index\n"
             "    \"addr\":\"host:port\",      (string) The ip address and port of the peer\n"
             "    \"addrlocal\":\"ip:port\",   (string) local address\n"
+            "    \"mapped_as\":\"mapped_as\", (string) The AS in the BGP route to the peer used for diversifying\n"
+                                                       "peer selection (only available if the asmap config flag is set)\n"
             "    \"services\":\"xxxxxxxxxxxxxxxx\",   (string) The services offered\n"
             "    \"lastsend\": ttt,           (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last send\n"
             "    \"lastrecv\": ttt,           (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last receive\n"
@@ -127,6 +131,9 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
         obj.pushKV("addr", stats.addrName);
         if (!(stats.addrLocal.empty()))
             obj.pushKV("addrlocal", stats.addrLocal);
+        if (stats.m_mapped_as != 0) {
+            obj.pushKV("mapped_as", uint64_t(stats.m_mapped_as));
+        }
         obj.pushKV("services", strprintf("%016x", stats.nServices));
         obj.pushKV("lastsend", stats.nLastSend);
         obj.pushKV("lastrecv", stats.nLastRecv);
@@ -344,13 +351,12 @@ static UniValue GetNetworksInfo()
     UniValue networks(UniValue::VARR);
     for (int n = 0; n < NET_MAX; ++n) {
         enum Network network = static_cast<enum Network>(n);
-        if (network == NET_UNROUTABLE)
-            continue;
+        if (network == NET_UNROUTABLE || network == NET_I2P || network == NET_CJDNS || network == NET_INTERNAL) continue;
         proxyType proxy;
         UniValue obj(UniValue::VOBJ);
         GetProxy(network, proxy);
         obj.pushKV("name", GetNetworkName(network));
-        obj.pushKV("limited", IsLimited(network));
+        obj.pushKV("limited", !IsReachable(network));
         obj.pushKV("reachable", IsReachable(network));
         obj.pushKV("proxy", proxy.IsValid() ? proxy.proxy.ToStringIPPort() : std::string());
         obj.pushKV("proxy_randomize_credentials", proxy.randomize_credentials);
@@ -383,7 +389,8 @@ UniValue getnetworkinfo(const JSONRPCRequest& request)
             "  }\n"
             "  ,...\n"
             "  ],\n"
-            "  \"relayfee\": x.xxxxxxxx,                (numeric) minimum relay fee for non-free transactions in blkc/kb\n"
+            "  \"relayfee\": x.xxxxxxxx,                (numeric) minimum relay fee for transactions in " + CURRENCY_UNIT + "/kB\n"
+            "  \"incrementalfee\": x.xxxxxxxx,          (numeric) minimum fee increment for mempool limiting or BIP 125 replacement in " + CURRENCY_UNIT + "/kB\n"
             "  \"localaddresses\": [                    (array) list of local addresses\n"
             "  {\n"
             "    \"address\": \"xxxx\",                 (string) network address\n"
@@ -392,6 +399,7 @@ UniValue getnetworkinfo(const JSONRPCRequest& request)
             "  }\n"
             "  ,...\n"
             "  ]\n"
+            "  \"warnings\": \"...\"                    (string) any network and blockchain warnings\n"
             "}\n"
 
             "\nExamples:\n" +
@@ -421,6 +429,7 @@ UniValue getnetworkinfo(const JSONRPCRequest& request)
         }
     }
     obj.pushKV("localaddresses", localAddresses);
+    obj.pushKV("warnings", GetWarnings("statusbar"));
     return obj;
 }
 
@@ -432,11 +441,11 @@ UniValue setban(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 2 ||
         (strCommand != "add" && strCommand != "remove"))
         throw std::runtime_error(
-            "setban \"ip(/netmask)\" \"add|remove\" ( bantime absolute )\n"
+            "setban \"subnet\" \"add|remove\" ( bantime absolute )\n"
             "\nAttempts add or remove a IP/Subnet from the banned list.\n"
 
             "\nArguments:\n"
-            "1. \"ip(/netmask)\" (string, required) The IP/Subnet (see getpeerinfo for nodes ip) with a optional netmask (default is /32 = single ip)\n"
+            "1. \"subnet\"       (string, required) The IP/Subnet (see getpeerinfo for nodes ip) with a optional netmask (default is /32 = single ip)\n"
             "2. \"command\"      (string, required) 'add' to add a IP/Subnet to the list, 'remove' to remove a IP/Subnet from the list\n"
             "3. \"bantime\"      (numeric, optional) time in seconds how long (or until when if [absolute] is set) the ip is banned (0 or empty means using the default time of 24h which can also be overwritten by the -bantime startup argument)\n"
             "4. \"absolute\"     (boolean, optional) If set, the bantime must be a absolute timestamp in seconds since epoch (Jan 1 1970 GMT)\n"
@@ -453,15 +462,15 @@ UniValue setban(const JSONRPCRequest& request)
     CNetAddr netAddr;
     bool isSubnet = false;
 
-    if (request.params[0].get_str().find("/") != std::string::npos)
+    if (request.params[0].get_str().find('/') != std::string::npos)
         isSubnet = true;
 
     if (!isSubnet) {
         CNetAddr resolved;
-        LookupHost(request.params[0].get_str().c_str(), resolved, false);
+        LookupHost(request.params[0].get_str(), resolved, false);
         netAddr = resolved;
     } else
-        LookupSubNet(request.params[0].get_str().c_str(), subNet);
+        LookupSubNet(request.params[0].get_str(), subNet);
 
     if (! (isSubnet ? subNet.IsValid() : netAddr.IsValid()) )
         throw JSONRPCError(RPC_CLIENT_NODE_ALREADY_ADDED, "Error: Invalid IP/Subnet");
@@ -518,11 +527,11 @@ UniValue listbanned(const JSONRPCRequest& request)
     g_connman->GetBanned(banMap);
 
     UniValue bannedAddresses(UniValue::VARR);
-    for (banmap_t::iterator it = banMap.begin(); it != banMap.end(); it++)
+    for (const auto& entry : banMap)
     {
-        CBanEntry banEntry = (*it).second;
+        const CBanEntry& banEntry = entry.second;
         UniValue rec(UniValue::VOBJ);
-        rec.pushKV("address", (*it).first.ToString());
+        rec.pushKV("address", entry.first.ToString());
         rec.pushKV("banned_until", banEntry.nBanUntil);
         rec.pushKV("ban_created", banEntry.nCreateTime);
         rec.pushKV("ban_reason", banEntry.banReasonToString());
@@ -552,20 +561,129 @@ UniValue clearbanned(const JSONRPCRequest& request)
     return NullUniValue;
 }
 
+static UniValue getnodeaddresses(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 2) {
+        throw std::runtime_error(
+            "getnodeaddresses ( count \"network\" )\n"
+            "\nReturn known addresses which can potentially be used to find new nodes in the network\n"
+
+            "\nArguments:\n"
+            "1. count        (numeric, optional) The maximum number of addresses to return. Specify 0 to return all known addresses.\n"
+            "2. \"network\"  (string, optional) Return only addresses of the specified network. Can be one of: ipv4, ipv6, onion."
+
+            "\nResult:\n"
+            "[\n"
+            "  {\n"
+            "    \"time\": ttt,                (numeric) Timestamp in seconds since epoch (Jan 1 1970 GMT) when the node was last seen\n"
+            "    \"services\": n,              (numeric) The services offered by the node\n"
+            "    \"address\": \"host\",        (string) The address of the node\n"
+            "    \"port\": n,                  (numeric) The port number of the node\n"
+            "    \"network\": \"xxxx\"         (string) The network (ipv4, ipv6, onion) the node connected through\n"
+            "  }\n"
+            "  ,...\n"
+            "]\n"
+
+            "\nExamples:\n"
+            + HelpExampleCli("getnodeaddresses", "8")
+            + HelpExampleCli("getnodeaddresses", "4 \"ipv4\"")
+            + HelpExampleRpc("getnodeaddresses", "8")
+            + HelpExampleRpc("getnodeaddresses", "4 \"ipv4\"")
+        );
+    }
+    if (!g_connman) {
+        throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
+    }
+
+    const int count{request.params[0].isNull() ? 1 : request.params[0].get_int()};
+    if (count < 0) throw JSONRPCError(RPC_INVALID_PARAMETER, "Address count out of range");
+
+    const Optional<Network> network{request.params[1].isNull() ? nullopt : Optional<Network>{ParseNetwork(request.params[1].get_str())}};
+    if (network == NET_UNROUTABLE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Network not recognized: %s", request.params[1].get_str()));
+    }
+
+    // returns a shuffled list of CAddress
+    const std::vector<CAddress> vAddr{g_connman->GetAddresses(count, /* max_pct */ 0, network)};
+    UniValue ret(UniValue::VARR);
+
+    for (const CAddress& addr : vAddr) {
+        UniValue obj(UniValue::VOBJ);
+        obj.pushKV("time", (int)addr.nTime);
+        obj.pushKV("services", (uint64_t)addr.nServices);
+        obj.pushKV("address", addr.ToStringIP());
+        obj.pushKV("port", addr.GetPort());
+        obj.pushKV("network", GetNetworkName(addr.GetNetClass()));
+        ret.push_back(obj);
+    }
+    return ret;
+}
+
+static UniValue addpeeraddress(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 2) {
+        throw std::runtime_error(
+            "addpeeraddress \"address\" port\n"
+            "\nAdd the address of a potential peer to the address manager. This RPC is for testing only.\n"
+
+            "\nArguments\n"
+            "1. \"address\"     (string, required) The IP address of the peer\n"
+            "2. port            (numeric, required) The port of the peer\n"
+
+            "\nResult:\n"
+            "{\n"
+            "  \"success\": true|false      (boolean) Whether the peer address was successfully added to the address manager\n"
+            "}\n"
+
+            "\nExamples:\n"
+            + HelpExampleCli("addpeeraddress", "\"1.2.3.4\" 7147")
+            + HelpExampleRpc("addpeeraddress", "\"1.2.3.4\", 7147"));
+    }
+    if (!g_connman) {
+        throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
+    }
+
+    UniValue obj(UniValue::VOBJ);
+
+    std::string addr_string = request.params[0].get_str();
+    uint16_t port = request.params[1].get_int();
+
+    CNetAddr net_addr;
+    if (!LookupHost(addr_string, net_addr, false)) {
+        obj.pushKV("success", false);
+        return obj;
+    }
+    CAddress address = CAddress({net_addr, port}, ServiceFlags(NODE_NETWORK));
+    address.nTime = GetAdjustedTime();
+    // The source address is set equal to the address. This is equivalent to the peer
+    // announcing itself.
+    if (!g_connman->AddNewAddresses({address}, address)) {
+        obj.pushKV("success", false);
+        return obj;
+    }
+
+    obj.pushKV("success", true);
+    return obj;
+}
+
 static const CRPCCommand commands[] =
-{ //  category              name                      actor (function)         okSafeMode
-  //  --------------------- ------------------------  -----------------------  ----------
-    { "network",            "getnetworkinfo",         &getnetworkinfo,         true  },
-    { "network",            "addnode",                &addnode,                true  },
-    { "network",            "disconnectnode",         &disconnectnode,         true  },
-    { "network",            "getaddednodeinfo",       &getaddednodeinfo,       true  },
-    { "network",            "getconnectioncount",     &getconnectioncount,     true  },
-    { "network",            "getnettotals",           &getnettotals,           true  },
-    { "network",            "getpeerinfo",            &getpeerinfo,            true  },
-    { "network",            "ping",                   &ping,                   true  },
-    { "network",            "setban",                 &setban,                 true  },
-    { "network",            "listbanned",             &listbanned,             true  },
-    { "network",            "clearbanned",            &clearbanned,            true  },
+{ //  category              name                      actor (function)         okSafe argNames
+  //  --------------------- ------------------------  -----------------------  ------ --------
+    { "network",            "addnode",                &addnode,                true,  {"node","command"} },
+    { "network",            "clearbanned",            &clearbanned,            true,  {} },
+    { "network",            "disconnectnode",         &disconnectnode,         true,  {"node"} },
+    { "network",            "getaddednodeinfo",       &getaddednodeinfo,       true,  {"dummy","node"} },
+    { "network",            "getconnectioncount",     &getconnectioncount,     true,  {} },
+    { "network",            "getnettotals",           &getnettotals,           true,  {} },
+    { "network",            "getnetworkinfo",         &getnetworkinfo,         true,  {} },
+    { "network",            "getnodeaddresses",       &getnodeaddresses,       true,  {"count"} },
+    { "network",            "getpeerinfo",            &getpeerinfo,            true,  {} },
+    { "network",            "listbanned",             &listbanned,             true,  {} },
+    { "network",            "ping",                   &ping,                   true,  {} },
+    { "network",            "setban",                 &setban,                 true,  {"subnet", "command", "bantime", "absolute"} },
+
+    // Hidden, for testing only
+    { "hidden",             "addpeeraddress",         &addpeeraddress,         true,  {"address", "port"} },
 };
 
 void RegisterNetRPCCommands(CRPCTable &tableRPC)

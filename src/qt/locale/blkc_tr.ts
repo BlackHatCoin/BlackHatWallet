@@ -868,6 +868,10 @@ kopyala</translation>
         <translation>Filtrele</translation>
     </message>
     <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Stake edilmiş BLKC ve zBLKC miktarı</translation>
+    </message>
+    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>Doğru bakiyenizi görmek için cüzdanınızın senkronizasyonunun tamamlanmasını bekleyiniz.</translation>
     </message>
@@ -1536,8 +1540,8 @@ Emin misiniz?</translation>
         <translation>Kullanıcı arabirimi dili burada ayarlanabilir. Bu ayar, BlackHat yeniden başlatıldıktan sonra geçerli olur.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
-        <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun</translation>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
+        <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1823,7 +1827,7 @@ Adres: %4
     </message>
     <message>
         <source>Cannot start blkc: click-to-pay handler</source>
-        <translation>blkc başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
+        <translation>Blkc başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BLKC address or malformed URI parameters.</source>
@@ -1968,8 +1972,16 @@ Adres: %4
         <translation>Hata: Konfigürasyon dosyası %1 çözümlenemiyor. Sadece anahtar=değer sözdizimini kullanın.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Hata: Geçersiz -regtest ve -testnet kombinasyonu.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Masternode konfigürasyon dosyası okuma hatası: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core henüz güvenle kapanmadı..</translation>
     </message>
     <message>
         <source>Cold Staking</source>
@@ -3146,6 +3158,26 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>BLKC'lerim neden harcanabilir değil?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Yeni alınmış BLKC'lerin harcanabilr hale gelmesi için ağdan 6 onay
+                           alması gerekmektedir, bu işlem yaklaşık olarak 6 dakika sürer.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           BlackHat cüzdanınızın ağdaki bakiyesini görebilmesi ve harcayabilmesi
+                           için tamamen senkronize olması gerekmektedir.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
@@ -3164,6 +3196,92 @@ Verify that you have installed a predetermined text editor.</source>
     <message>
         <source>What is a Masternode?</source>
         <translation>Masternode nedir?</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Tam düğüm BlackHat core cüzdanını çalıştıran, gereken 5,000 BLKC
+                           teminat bakiyesini barındırarak ağa ekstra hizmetler sunan ve
+                           karşılığında da her blok ödülünden düzenli olarak pay alan bir
+                           bilgisayardır.Bu hizmetler aşağıdaki gibidir:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Anlık transferler (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;Merkeziyetsiz yönetim (Teklif Onaylama)&lt;/li&gt;
+                           &lt;li&gt;Merkeziyetsiz bütçe sistemi (Hazine)&lt;/li&gt;
+                           &lt;li&gt;Her blogun içinde işlem onayı&lt;/li&gt;
+                           &lt;li&gt;Ağda ek bir düğüm olarak görev yapmak&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Bu tür hizmetler vermesi ile masternodlar her blok ödülünden belli
+bir oranda pay alırlar. Bu masternode sahiplerine
+işletim maliyetleri sonrası pasif bir gelir sunar.
+                            &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Avantajları:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;BlackHat yönetimine katılın&lt;/li&gt;
+                           &lt;li&gt;Masternode Ödülleri kazanın&lt;/li&gt;
+                           &lt;li&gt;İlerde satabileceğiniz bir varlık opsiyonu&lt;/li&gt;
+                           &lt;li&gt;BlackHat ağını güvenliğine destek olun&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Gereksinimler:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Her Masternod için ayrı 5,000 BLKC
+                           &lt;li&gt;Core cüzdan içinde saklanmalıdır.&lt;/li&gt;
+                           &lt;li&gt;Atanmış IP adresi gerekmektedir. &lt;/li&gt;
+                           &lt;li&gt;Masternode cüzdanının online olması&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -3364,8 +3482,8 @@ Emin misiniz?
         <translation>CheckBox</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
-        <translation>ÇokluGönder olgunlaşmış masternode ve staking ödüllerinizin 100% 'üne kadarını diğer BLKC adreslerine otomatik olarak göndermenizi sağlar. </translation>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>ÇokluGönder olgunlaşmış masternode ve staking ödüllerinizin 100% 'üne kadarını diğer BlackHat adreslerine otomatik olarak göndermenizi sağlar. </translation>
     </message>
     <message>
         <source>Active</source>
@@ -4245,6 +4363,10 @@ Hoşgeldiniz</translation>
         <translation>JSON-RPC bağlantılarını dinlemek için verilen adrese bağlanın. IPv6 için [host]: port gösterimini kullanın. Bu seçenek birden çok kez belirtilebilir (varsayılan: tüm arabirimlere bağlanır)</translation>
     </message>
     <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Veri dizini %s üzerinde bir kilit elde edemiyor. BlackHat Core muhtemelen zaten çalışıyor.</translation>
+    </message>
+    <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
         <translation>Otomatik sonuçlandırılmış bütçe oylama davranışını değiştirin. mode = auto: Yalnızca kesin bütçelendirilmiş bütçeyi, oluşturulan bütçemle eşleştirmek için oy verin. (dize, varsayılan: otomatik)</translation>
     </message>
@@ -4273,6 +4395,10 @@ Hoşgeldiniz</translation>
         <translation>Uygun private key ile Spork yönetim özelliğine izin verin.</translation>
     </message>
     <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Regresyon test modunu girin, bu bloklar anında çözülebilen özel bir zincir kullanır.</translation>
+    </message>
+    <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Hata: Gelen bağlantıları dinleme başarısız oldu (dinleme dönmüş hata %s)</translation>
     </message>
@@ -4299,6 +4425,10 @@ Hoşgeldiniz</translation>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>Paytxfee belirlenmemişse, işlemlerin ortalama n blokta onaylanmaya başlaması için yeterli ücret ekleyin (varsayılan: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>Bu modda, -genproclimit, kaç blok üretileceğini hemen kontrol eder.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -4585,6 +4715,10 @@ Hoşgeldiniz</translation>
         <translation>Bilgi</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Sağlama kontrolü başlatımı başarısız. BlackHat Core kapatılıyor.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Yetersiz bakiye.</translation>
     </message>
@@ -4607,6 +4741,10 @@ Hoşgeldiniz</translation>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>Hata: Desteklenmeyen argüman -checklevel bulundu. Checklevel seviyesi 4 olmalıdır.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>En iyi blok değiştirildiğinde ve büyüklüğü blok büyüklüğünü aştığında komutu çalıştırın   (%s block hash tarafından cmd içinde değiştiğinde , %d blok büyüklüğü ile)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -4933,6 +5071,10 @@ Hoşgeldiniz</translation>
         <translation>Bu deneysel bir yazılımdır.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>Regresyon test araçları ve uygulama geliştirme amaçlıdır.</translation>
+    </message>
+    <message>
         <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
         <translation>Uyumsuz davranan eşlerden bağı koparma eşiği (varsayılan: %u)</translation>
     </message>
@@ -4983,6 +5125,10 @@ Hoşgeldiniz</translation>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Dinleme portunu belirlemek için UPnP kullanın (varsayılan: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Test ağını kullanın</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>

@@ -55,6 +55,11 @@ SettingsMainOptionsWidget::SettingsMainOptionsWidget(BLKCGUI* _window, QWidget *
     ui->pushSwitchStart->setText(tr("Start BlackHat on system login"));
     ui->pushSwitchStart->setProperty("cssClass", "btn-switch");
 
+#ifdef Q_OS_MAC
+    /* hide launch at startup option on macOS */
+    ui->pushSwitchStart->setVisible(false);
+#endif
+
     // Combobox
     ui->databaseCache->setProperty("cssClass", "btn-spin-box");
     ui->databaseCache->setAttribute(Qt::WA_MacShowFocusRect, 0);

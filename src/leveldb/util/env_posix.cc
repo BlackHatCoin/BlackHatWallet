@@ -42,8 +42,8 @@ namespace {
 // Set by EnvPosixTestHelper::SetReadOnlyMMapLimit() and MaxOpenFiles().
 int g_open_read_only_file_limit = -1;
 
-// Up to 1000 mmap regions for 64-bit binaries; none for 32-bit.
-constexpr const int kDefaultMmapLimit = (sizeof(void*) >= 8) ? 1000 : 0;
+// Up to 4096 mmap regions for 64-bit binaries; none for 32-bit.
+constexpr const int kDefaultMmapLimit = (sizeof(void*) >= 8) ? 4096 : 0;
 
 // Can be set using EnvPosixTestHelper::SetReadOnlyMMapLimit().
 int g_mmap_limit = kDefaultMmapLimit;
@@ -135,6 +135,8 @@ class PosixSequentialFile final : public SequentialFile {
     return Status::OK();
   }
 
+  virtual std::string GetName() const override { return filename_; }
+
  private:
   const int fd_;
   const std::string filename_;
@@ -195,6 +197,8 @@ class PosixRandomAccessFile final : public RandomAccessFile {
     return status;
   }
 
+  virtual std::string GetName() const override { return filename_; }
+
  private:
   const bool has_permanent_fd_;  // If false, the file is opened on every read.
   const int fd_;                 // -1 if has_permanent_fd_ is false.
@@ -238,6 +242,8 @@ class PosixMmapReadableFile final : public RandomAccessFile {
     *result = Slice(mmap_base_ + offset, n);
     return Status::OK();
   }
+
+  virtual std::string GetName() const override { return filename_; }
 
  private:
   char* const mmap_base_;
@@ -319,7 +325,7 @@ class PosixWritableFile final : public WritableFile {
       return status;
     }
 
-    return SyncFd(fd_, filename_);
+    return SyncFd(fd_, filename_, false);
   }
 
  private:
@@ -354,7 +360,7 @@ class PosixWritableFile final : public WritableFile {
     if (fd < 0) {
       status = PosixError(dirname_, errno);
     } else {
-      status = SyncFd(fd, dirname_);
+      status = SyncFd(fd, dirname_, true);
       ::close(fd);
     }
     return status;
@@ -366,7 +372,7 @@ class PosixWritableFile final : public WritableFile {
   //
   // The path argument is only used to populate the description string in the
   // returned Status if an error occurs.
-  static Status SyncFd(int fd, const std::string& fd_path) {
+  static Status SyncFd(int fd, const std::string& fd_path, bool syncing_dir) {
 #if HAVE_FULLFSYNC
     // On macOS and iOS, fsync() doesn't guarantee durability past power
     // failures. fcntl(F_FULLFSYNC) is required for that purpose. Some
@@ -384,6 +390,11 @@ class PosixWritableFile final : public WritableFile {
 #endif  // HAVE_FDATASYNC
 
     if (sync_success) {
+      return Status::OK();
+    }
+    // Do not crash if filesystem can't fsync directories
+    // (see https://github.com/bitcoin/bitcoin/pull/10000)
+    if (syncing_dir && errno == EINVAL) {
       return Status::OK();
     }
     return PosixError(fd_path, errno);
@@ -425,6 +436,8 @@ class PosixWritableFile final : public WritableFile {
   static bool IsManifest(const std::string& filename) {
     return Basename(filename).starts_with("MANIFEST");
   }
+
+  virtual std::string GetName() const override { return filename_; }
 
   // buf_[0, pos_ - 1] contains data to be written to fd_.
   char buf_[kWritableFileBufferSize];

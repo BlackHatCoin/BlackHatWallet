@@ -9,6 +9,7 @@
 #include <QDialog>
 
 class BLKCGUI;
+class ClientModel;
 
 namespace Ui {
 class SettingsFaqWidget;
@@ -27,7 +28,7 @@ public:
         MNCONTROLLER
     };
 
-    explicit SettingsFaqWidget(BLKCGUI *parent = nullptr);
+    explicit SettingsFaqWidget(BLKCGUI* parent, ClientModel* _model);
     ~SettingsFaqWidget();
 
     void showEvent(QShowEvent *event) override;
@@ -39,6 +40,7 @@ private Q_SLOTS:
     void onFaqClicked(const QWidget* const widget);
 private:
     Ui::SettingsFaqWidget *ui;
+    ClientModel* clientModel{nullptr};
     Section section = INTRO;
 
     // This needs to be edited if changes are made to the Section enum.

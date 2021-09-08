@@ -4,22 +4,32 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "base58.h"
 #include "hash.h"
+#include "key_io.h"
 #include "messagesigner.h"
 #include "tinyformat.h"
-#include "util.h"
+#include "util/system.h"
 #include "utilstrencodings.h"
 
 const std::string strMessageMagic = "DarkNet Signed Message:\n";
 
 bool CMessageSigner::GetKeysFromSecret(const std::string& strSecret, CKey& keyRet, CPubKey& pubkeyRet)
 {
-    keyRet = DecodeSecret(strSecret);
+    keyRet = KeyIO::DecodeSecret(strSecret);
     if (!keyRet.IsValid())
         return false;
 
     pubkeyRet = keyRet.GetPubKey();
+    return pubkeyRet.IsValid();
+}
+
+bool CMessageSigner::GetKeysFromSecret(const std::string& strSecret, CKey& keyRet, CKeyID& keyIDRet)
+{
+    CPubKey pubkey;
+    if (!GetKeysFromSecret(strSecret, keyRet, pubkey)) {
+        return false;
+    }
+    keyIDRet = pubkey.GetID();
     return true;
 }
 
@@ -67,7 +77,7 @@ bool CHashSigner::VerifyHash(const uint256& hash, const CKeyID& keyID, const std
     if(pubkeyFromSig.GetID() != keyID) {
         strErrorRet = strprintf("Keys don't match: pubkey=%s, pubkeyFromSig=%s, hash=%s, vchSig=%s",
                 EncodeDestination(keyID), EncodeDestination(pubkeyFromSig.GetID()),
-                hash.ToString(), EncodeBase64(&vchSig[0], vchSig.size()));
+                hash.ToString(), EncodeBase64(vchSig));
         return false;
     }
 
@@ -122,6 +132,6 @@ bool CSignedMessage::CheckSignature(const CKeyID& keyID) const
 
 std::string CSignedMessage::GetSignatureBase64() const
 {
-    return EncodeBase64(&vchSig[0], vchSig.size());
+    return EncodeBase64(vchSig);
 }
 

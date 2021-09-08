@@ -10,7 +10,6 @@
 #include "qt/blkc/qtutils.h"
 #include "guiutil.h"
 #include "amount.h"
-#include "pairresult.h"
 #include "optionsmodel.h"
 
 RequestDialog::RequestDialog(QWidget *parent) :
@@ -115,23 +114,22 @@ void RequestDialog::accept()
         std::string label = info->label.isEmpty() ? "" : info->label.toStdString();
         QString title;
 
-        Destination address;
-        PairResult r(false);
+        CallResult<Destination> r;
         if (this->isPaymentRequest) {
-            r = walletModel->getNewAddress(address, label);
+            r = walletModel->getNewAddress(label);
             title = tr("Request for ") + BitcoinUnits::format(displayUnit, value, false, BitcoinUnits::separatorAlways) + " " + QString(CURRENCY_UNIT.c_str());
         } else {
-            r = walletModel->getNewStakingAddress(address, label);
+            r = walletModel->getNewStakingAddress(label);
             title = tr("Cold Staking Address Generated");
         }
 
-        if (!r.result) {
+        if (!r) {
             // TODO: notify user about this error
             close();
             return;
         }
 
-        info->address = QString::fromStdString(address.ToString());
+        info->address = QString::fromStdString(r.getObjResult()->ToString());
         ui->labelTitle->setText(title);
 
         updateQr(info->address);

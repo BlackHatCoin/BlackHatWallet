@@ -94,22 +94,19 @@ public:
      */
     Optional<uint256> nullifier;
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(SaplingNoteData, obj)
     {
         int nVersion = s.GetVersion();
         if (!(s.GetType() & SER_GETHASH)) {
             READWRITE(nVersion);
         }
-        READWRITE(ivk);
-        READWRITE(nullifier);
-        READWRITE(witnesses);
-        READWRITE(witnessHeight);
-        READWRITE(amount);
-        READWRITE(address);
-        READWRITE(memo);
+        READWRITE(obj.ivk);
+        READWRITE(obj.nullifier);
+        READWRITE(obj.witnesses);
+        READWRITE(obj.witnessHeight);
+        READWRITE(obj.amount);
+        READWRITE(obj.address);
+        READWRITE(obj.memo);
     }
 
     friend bool operator==(const SaplingNoteData& a, const SaplingNoteData& b) {
@@ -298,6 +295,8 @@ public:
                           bool requireSpendingKey=true,
                           bool ignoreLocked=true) const;
 
+    /* Return list of available notes grouped by sapling address. */
+    std::map<libzcash::SaplingPaymentAddress, std::vector<SaplingNoteEntry>> ListNotes() const;
 
     //! Return the address from where the shielded spend is taking the funds from (if possible)
     Optional<libzcash::SaplingPaymentAddress> GetAddressFromInputIfPossible(const CWalletTx* wtx, int index) const;

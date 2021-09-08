@@ -3,9 +3,12 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test blkc-cli"""
-from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import assert_equal, assert_raises_process_error, get_auth_cookie
+
 import time
+
+from test_framework.test_framework import BlackHatTestFramework
+from test_framework.util import assert_equal, get_auth_cookie
+
 
 class TestBitcoinCli(BlackHatTestFramework):
 

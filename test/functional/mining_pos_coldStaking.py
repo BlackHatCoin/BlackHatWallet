@@ -1,63 +1,37 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2020The PIVX developers
+# Copyright (c) 2019-2020 The PIVX developers
 # Copyright (c) 2021 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-# -*- coding: utf-8 -*-
 
+from decimal import Decimal
 from io import BytesIO
 from time import sleep
 
 from test_framework.messages import CTransaction, CTxIn, CTxOut, COIN, COutPoint
-from test_framework.mininode import network_thread_start
-from test_framework.blkc_node import BlackHatTestNode
 from test_framework.script import CScript, OP_CHECKSIG
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
     assert_raises_rpc_error,
-    p2p_port,
     bytes_to_hex_str,
     set_node_times,
 )
 
-from decimal import Decimal
-
 # filter utxos based on first 5 bytes of scriptPubKey
 def getDelegatedUtxos(utxos):
-    return [x for x in utxos if x["scriptPubKey"][:10] == '76a97b63d1']
+    return [x for x in utxos if x["scriptPubKey"][:10] == '76a97b63d1' or x["scriptPubKey"][:10] == '76a97b63d2']
 
 
 class BLKC_ColdStakingTest(BlackHatTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 3
-        self.extra_args = [['-nuparams=v5_shield:201']] * self.num_nodes
+        # whitelist all peers to speed up tx relay / mempool sync
+        self.extra_args = [['-nuparams=v5_shield:201', "-whitelist=127.0.0.1"]] * self.num_nodes
         self.extra_args[0].append('-sporkkey=932HEevBSujW2ud7RfB1YF91AFygbBRQj3de3LyaCRqNzKKgWXi')
-
-    def setup_chain(self):
-        # Start with PoW cache: 200 blocks
-        self.log.info("Initializing test directory " + self.options.tmpdir)
-        self._initialize_chain()
         self.enable_mocktime()
-
-    def init_test(self):
-        title = "*** Starting %s ***" % self.__class__.__name__
-        underline = "-" * len(title)
-        self.log.info("\n\n%s\n%s\n%s\n", title, underline, self.description)
-        self.DEFAULT_FEE = 0.05
-        # Setup the p2p connections and start up the network thread.
-        self.test_nodes = []
-        for i in range(self.num_nodes):
-            self.test_nodes.append(BlackHatTestNode())
-            self.test_nodes[i].peer_connect('127.0.0.1', p2p_port(i))
-
-        network_thread_start()  # Start up network handling in another thread
-
-        # Let the test nodes get in sync
-        for i in range(self.num_nodes):
-            self.test_nodes[i].wait_for_verack()
 
     def setColdStakingEnforcement(self, fEnable=True):
         sporkName = "SPORK_19_COLDSTAKING_MAINTENANCE"
@@ -78,11 +52,12 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         # verify from node[1]
         return not self.is_spork_active(1, "SPORK_19_COLDSTAKING_MAINTENANCE")
 
-
-
     def run_test(self):
         self.description = "Performs tests on the Cold Staking P2CS implementation"
-        self.init_test()
+        title = "*** Starting %s ***" % self.__class__.__name__
+        underline = "-" * len(title)
+        self.log.info("\n\n%s\n%s\n%s\n", title, underline, self.description)
+        self.DEFAULT_FEE = 0.05
         NUM_OF_INPUTS = 20
         INPUT_VALUE = 249
 
@@ -126,7 +101,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
                                                              "amount": Decimal('250.00')}], 1)
         self.sync_all()
         for i in range(6):
-            self.mocktime = self.generate_pow(0, self.mocktime)
+            self.mocktime = self.generate_pos(0, self.mocktime)
         self.sync_blocks()
         assert_equal(self.nodes[0].getshieldbalance(), 250)
 
@@ -182,12 +157,12 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         self.log.info("Now creating %d real stake-delegation txes..." % NUM_OF_INPUTS)
         for i in range(NUM_OF_INPUTS-1):
             res = self.nodes[0].delegatestake(staker_address, INPUT_VALUE, owner_address)
-            assert(res != None and res["txid"] != None and res["txid"] != "")
+            assert(res is not None and res["txid"] is not None and res["txid"] != "")
             assert_equal(res["owner_address"], owner_address)
             assert_equal(res["staker_address"], staker_address)
         # delegate  the shielded balance
         res = self.nodes[0].delegatestake(staker_address, INPUT_VALUE, owner_address, False, False, True)
-        assert (res != None and res["txid"] != None and res["txid"] != "")
+        assert (res is not None and res["txid"] is not None and res["txid"] != "")
         assert_equal(res["owner_address"], owner_address)
         assert_equal(res["staker_address"], staker_address)
         fee = self.nodes[0].viewshieldtransaction(res["txid"])['fee']
@@ -212,7 +187,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         assert_equal(len(delegated_utxos), len(self.nodes[0].listcoldutxos()))
         u = delegated_utxos[0]
         txhash = self.spendUTXOwithNode(u, 0)
-        assert(txhash != None)
+        assert(txhash is not None)
         self.log.info("Good. Owner was able to spend - tx: %s" % str(txhash))
         self.sync_mempools()
         self.mocktime = self.generate_pos(2, self.mocktime)
@@ -341,7 +316,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         # Try to submit the block
         ret = self.nodes[1].submitblock(bytes_to_hex_str(new_block.serialize()))
         self.log.info("Block %s submitted." % new_block.hash)
-        assert_equal(ret, "bad-p2cs-outs")
+        assert ret in ["bad-p2cs-outs", "rejected"]
 
         # Verify that nodes[0] rejects it
         self.sync_blocks()
@@ -361,7 +336,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         # remove one utxo to spend later
         final_spend = delegated_utxos.pop()
         txhash = self.spendUTXOsWithNode(delegated_utxos, 0)
-        assert(txhash != None)
+        assert(txhash is not None)
         self.log.info("Good. Owner was able to void the stake delegations - tx: %s" % str(txhash))
         self.sync_blocks()
         self.mocktime = self.generate_pos(2, self.mocktime)
@@ -371,7 +346,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         self.setColdStakingEnforcement(False)
         assert (not self.isColdStakingEnforced())
         txhash = self.spendUTXOsWithNode([final_spend], 0)
-        assert(txhash != None)
+        assert(txhash is not None)
         self.log.info("Good. Owner was able to void a stake delegation (with SPORK 17 disabled) - tx: %s" % str(txhash))
         self.sync_mempools()
         self.mocktime = self.generate_pos(2, self.mocktime)
@@ -408,7 +383,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         self.checkBalances()
         delegated_utxos = getDelegatedUtxos(self.nodes[0].listunspent())
         txhash = self.spendUTXOsWithNode(delegated_utxos, 0)
-        assert (txhash != None)
+        assert (txhash is not None)
         self.log.info("Good. Owner was able to spend the cold staked coins - tx: %s" % str(txhash))
         self.sync_mempools()
         self.mocktime = self.generate_pos(2, self.mocktime)

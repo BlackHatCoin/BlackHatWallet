@@ -30,6 +30,7 @@ confirm 1/2/3/4 balances are same as before.
 Shutdown again, restore using importwallet,
 and confirm again balances are correct.
 """
+
 from decimal import Decimal
 import os
 from random import randint
@@ -41,6 +42,7 @@ from test_framework.util import (
     assert_raises_rpc_error,
     connect_nodes,
 )
+
 
 class WalletBackupTest(BlackHatTestFramework):
     def set_test_params(self):
@@ -96,9 +98,9 @@ class WalletBackupTest(BlackHatTestFramework):
         self.stop_node(2)
 
     def erase_three(self):
-        os.remove(self.options.tmpdir + "/node0/regtest/wallet.dat")
-        os.remove(self.options.tmpdir + "/node1/regtest/wallet.dat")
-        os.remove(self.options.tmpdir + "/node2/regtest/wallet.dat")
+        os.remove(self.options.tmpdir + "/node0/regtest/wallets/wallet.dat")
+        os.remove(self.options.tmpdir + "/node1/regtest/wallets/wallet.dat")
+        os.remove(self.options.tmpdir + "/node2/regtest/wallets/wallet.dat")
 
     def run_test(self):
         self.log.info("Generating initial blockchain")
@@ -160,9 +162,9 @@ class WalletBackupTest(BlackHatTestFramework):
         shutil.rmtree(self.options.tmpdir + "/node2/regtest/chainstate")
 
         # Restore wallets from backup
-        shutil.copyfile(tmpdir + "/node0/wallet.bak", tmpdir + "/node0/regtest/wallet.dat")
-        shutil.copyfile(tmpdir + "/node1/wallet.bak", tmpdir + "/node1/regtest/wallet.dat")
-        shutil.copyfile(tmpdir + "/node2/wallet.bak", tmpdir + "/node2/regtest/wallet.dat")
+        shutil.copyfile(tmpdir + "/node0/wallet.bak", tmpdir + "/node0/regtest/wallets/wallet.dat")
+        shutil.copyfile(tmpdir + "/node1/wallet.bak", tmpdir + "/node1/regtest/wallets/wallet.dat")
+        shutil.copyfile(tmpdir + "/node2/wallet.bak", tmpdir + "/node2/regtest/wallets/wallet.dat")
 
         self.log.info("Re-starting nodes")
         self.start_three()
@@ -198,10 +200,10 @@ class WalletBackupTest(BlackHatTestFramework):
 
         # Backup to source wallet file must fail
         sourcePaths = [
-            tmpdir + "/node0/regtest/wallet.dat",
-            tmpdir + "/node0/./regtest/wallet.dat",
-            tmpdir + "/node0/regtest/",
-            tmpdir + "/node0/regtest"]
+            tmpdir + "/node0/regtest/wallets/wallet.dat",
+            tmpdir + "/node0/./regtest/wallets/wallet.dat",
+            tmpdir + "/node0/regtest/wallets/",
+            tmpdir + "/node0/regtest/wallets"]
 
         for sourcePath in sourcePaths:
             assert_raises_rpc_error(-4, "backup failed", self.nodes[0].backupwallet, sourcePath)

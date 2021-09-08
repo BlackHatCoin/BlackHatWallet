@@ -23,6 +23,7 @@ class Bip38Test(BlackHatTestFramework):
 
         self.log.info('decrypt bip38 key %s' % (bip38key))
         assert_equal(self.nodes[1].bip38decrypt(bip38key, password)['Address'], address)
+        assert_equal(self.nodes[1].dumpprivkey(address), privkey)
 
 if __name__ == '__main__':
     Bip38Test().main()

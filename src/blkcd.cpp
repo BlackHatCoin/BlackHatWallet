@@ -12,8 +12,7 @@
 #include "init.h"
 #include "masternodeconfig.h"
 #include "noui.h"
-#include "rpc/server.h"
-#include "util.h"
+#include "util/system.h"
 
 #include <stdio.h>
 
@@ -37,11 +36,8 @@ static bool fDaemon;
 
 void WaitForShutdown()
 {
-    bool fShutdown = ShutdownRequested();
-    // Tell the main threads to shutdown.
-    while (!fShutdown) {
+    while (!ShutdownRequested()) {
         MilliSleep(200);
-        fShutdown = ShutdownRequested();
     }
     Interrupt();
 }
@@ -83,14 +79,14 @@ bool AppInit(int argc, char* argv[])
             return false;
         }
         try {
-            gArgs.ReadConfigFile();
+            gArgs.ReadConfigFile(gArgs.GetArg("-conf", BLKC_CONF_FILENAME));
         } catch (const std::exception& e) {
             fprintf(stderr, "Error reading configuration file: %s\n", e.what());
             return false;
         }
         // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
         try {
-            SelectParams(ChainNameFromCommandLine());
+            SelectParams(gArgs.GetChainName());
         } catch(const std::exception& e) {
             fprintf(stderr, "Error: %s\n", e.what());
             return false;
@@ -106,27 +102,27 @@ bool AppInit(int argc, char* argv[])
         // Error out when loose non-argument tokens are encountered on command line
         for (int i = 1; i < argc; i++) {
             if (!IsSwitchChar(argv[i][0])) {
-                fprintf(stderr, "Error: Command line contains unexpected token '%s', see bitcoind -h for a list of options.\n", argv[i]);
-                exit(EXIT_FAILURE);
+                fprintf(stderr, "Error: Command line contains unexpected token '%s', see blkcd -h for a list of options.\n", argv[i]);
+                return false;
             }
         }
 
-        // -server defaults to true for bitcoind but not for the GUI so do this here
+        // -server defaults to true for blkcd but not for the GUI so do this here
         gArgs.SoftSetBoolArg("-server", true);
         // Set this early so that parameter interactions go to console
         InitLogging();
         InitParameterInteraction();
         if (!AppInitBasicSetup()) {
             // UIError will have been called with detailed error, which ends up on console
-            exit(1);
+            return false;
         }
         if (!AppInitParameterInteraction()) {
             // UIError will have been called with detailed error, which ends up on console
-            exit(1);
+            return false;
         }
         if (!AppInitSanityChecks()) {
             // UIError will have been called with detailed error, which ends up on console
-            exit(1);
+            return false;
         }
 
 #ifndef WIN32
@@ -172,6 +168,10 @@ bool AppInit(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+#ifdef WIN32
+    util::WinCmdLineArgs winArgs;
+    std::tie(argc, argv) = winArgs.get();
+#endif
     SetupEnvironment();
 
     // Connect blkcd signal handlers

@@ -31,7 +31,7 @@ CTransactionRef& WalletModelTransaction::getTransaction()
 
 unsigned int WalletModelTransaction::getTransactionSize()
 {
-    return (!walletTransaction ? 0 : (::GetSerializeSize(*walletTransaction, SER_NETWORK, PROTOCOL_VERSION)));
+    return (!walletTransaction ? 0 : (::GetSerializeSize(*walletTransaction, PROTOCOL_VERSION)));
 }
 
 CAmount WalletModelTransaction::getTransactionFee()
@@ -42,6 +42,15 @@ CAmount WalletModelTransaction::getTransactionFee()
 void WalletModelTransaction::setTransactionFee(const CAmount& newFee)
 {
     fee = newFee;
+}
+
+unsigned int WalletModelTransaction::subtractFeeFromRecipents() const
+{
+    unsigned int count = 0;
+    for (const SendCoinsRecipient& rcp : recipients) {
+        if (rcp.fSubtractFee) count++;
+    }
+    return count;
 }
 
 CAmount WalletModelTransaction::getTotalTransactionAmount()

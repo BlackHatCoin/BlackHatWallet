@@ -9,20 +9,19 @@ what the test is doing. It's the first thing people see when they open
 the file and should give the reader information about *what* the test
 is testing and *how* it's being tested
 """
+
 # Imports should be in PEP8 ordering (std library first, then third party
 # libraries then local imports).
 from collections import defaultdict
 
-# Avoid wildcard * imports if possible
-from test_framework.blocktools import (create_block, create_coinbase)
+# Avoid wildcard * imports
+from test_framework.blocktools import create_block, create_coinbase
+from test_framework.messages import CInv
 from test_framework.mininode import (
-    CInv,
     P2PInterface,
     mininode_lock,
     msg_block,
     msg_getdata,
-    network_thread_join,
-    network_thread_start,
 )
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
@@ -135,9 +134,6 @@ class ExampleTest(BlackHatTestFramework):
         # Create P2P connections to two of the nodes
         self.nodes[0].add_p2p_connection(BaseNode())
 
-        # Start up network handling in another thread. This needs to be called
-        # after the P2P connections have been created.
-        network_thread_start()
         # wait_for_verack ensures that the P2P connection is fully up.
         self.nodes[0].p2p.wait_for_verack()
 
@@ -189,14 +185,9 @@ class ExampleTest(BlackHatTestFramework):
         connect_nodes(self.nodes[1], 2)
 
         self.log.info("Add P2P connection to node2")
-        # We can't add additional P2P connections once the network thread has started. Disconnect the connection
-        # to node0, wait for the network thread to terminate, then connect to node2. This is specific to
-        # the current implementation of the network thread and may be improved in future.
         self.nodes[0].disconnect_p2ps()
-        network_thread_join()
 
         self.nodes[2].add_p2p_connection(BaseNode())
-        network_thread_start()
         self.nodes[2].p2p.wait_for_verack()
 
         self.log.info("Wait for node2 reach current tip. Test that it has propagated all the blocks to us")

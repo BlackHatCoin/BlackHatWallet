@@ -9,7 +9,7 @@
 #include "noui.h"
 
 #include "guiinterface.h"
-#include "util.h"
+#include "util/system.h"
 
 #include <cstdio>
 #include <stdint.h>

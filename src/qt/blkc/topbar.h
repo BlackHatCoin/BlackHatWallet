@@ -7,6 +7,7 @@
 #define TOPBAR_H
 
 #include <QWidget>
+#include "qt/askpassphrasedialog.h"
 #include "qt/blkc/pwidget.h"
 #include "qt/blkc/lockunlock.h"
 #include "amount.h"
@@ -51,7 +52,7 @@ public Q_SLOTS:
     void setNumBlocks(int count);
     void setStakingStatusActive(bool fActive);
     void updateStakingStatus();
-    void updateHDState(const bool& upgraded, const QString& upgradeError);
+    void updateHDState(const bool upgraded, const QString& upgradeError);
     void showUpgradeDialog(const QString& message);
 
 Q_SIGNALS:

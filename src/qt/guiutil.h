@@ -148,9 +148,6 @@ bool openMNConfigfile();
 // Browse backup folder
 bool showBackups();
 
-// Replace invalid default fonts with known good ones
-void SubstituteFonts(const QString& language);
-
 /** Qt event filter that intercepts ToolTipChange events, and replaces the tooltip with a rich text
       representation if needed. This assures that Qt can word-wrap long tooltip messages.
       Tooltips longer than the provided size threshold (in characters) are wrapped.
@@ -167,60 +164,6 @@ protected:
 
 private:
     int size_threshold;
-};
-
-/**
-     * Makes a QTableView last column feel as if it was being resized from its left border.
-     * Also makes sure the column widths are never larger than the table's viewport.
-     * In Qt, all columns are resizable from the right, but it's not intuitive resizing the last column from the right.
-     * Usually our second to last columns behave as if stretched, and when on strech mode, columns aren't resizable
-     * interactively or programatically.
-     *
-     * This helper object takes care of this issue.
-     *
-     */
-class TableViewLastColumnResizingFixer : public QObject
-{
-    Q_OBJECT
-
-public:
-    TableViewLastColumnResizingFixer(QTableView* table, int lastColMinimumWidth, int allColsMinimumWidth);
-    void stretchColumnWidth(int column);
-
-private:
-    QTableView* tableView;
-    int lastColumnMinimumWidth;
-    int allColumnsMinimumWidth;
-    int lastColumnIndex;
-    int columnCount;
-    int secondToLastColumnIndex;
-
-    void adjustTableColumnsWidth();
-    int getAvailableWidthForColumn(int column);
-    int getColumnsWidth();
-    void connectViewHeadersSignals();
-    void disconnectViewHeadersSignals();
-    void setViewHeaderResizeMode(int logicalIndex, QHeaderView::ResizeMode resizeMode);
-    void resizeColumn(int nColumnIndex, int width);
-
-private Q_SLOTS:
-    void on_sectionResized(int logicalIndex, int oldSize, int newSize);
-    void on_geometriesChanged();
-};
-
-/**
-     * Extension to QTableWidgetItem that facilitates proper ordering for "DHMS"
-     * strings (primarily used in the masternode's "active" listing).
-     */
-class DHMSTableWidgetItem : public QTableWidgetItem
-{
-public:
-    DHMSTableWidgetItem(const int64_t seconds);
-    virtual bool operator<(QTableWidgetItem const& item) const;
-
-private:
-    // Private backing value for DHMS string, used for sorting.
-    int64_t value;
 };
 
 bool GetStartOnSystemStartup();
@@ -255,19 +198,27 @@ QString formatPingTime(double dPingTime);
 /* Format a CNodeCombinedStats.nTimeOffset into a user-readable string. */
 QString formatTimeOffset(int64_t nTimeOffset);
 
-#if defined(Q_OS_MAC)
-    // workaround for Qt OSX Bug:
-    // https://bugreports.qt-project.org/browse/QTBUG-15631
-    // QProgressBar uses around 10% CPU even when app is in background
-    class ProgressBar : public QProgressBar
-    {
-        bool event(QEvent *e) {
-            return (e->type() != QEvent::StyleAnimationUpdate) ? QProgressBar::event(e) : false;
-        }
-    };
+typedef QProgressBar ProgressBar;
+
+/**
+* Splits the string into substrings wherever separator occurs, and returns
+* the list of those strings. Empty strings do not appear in the result.
+*
+* QString::split() signature differs in different Qt versions:
+*  - QString::SplitBehavior is deprecated since Qt 5.15
+*  - Qt::SplitBehavior was introduced in Qt 5.14
+* If {QString|Qt}::SkipEmptyParts behavior is required, use this
+* function instead of QString::split().
+*/
+template <typename SeparatorType>
+QStringList SplitSkipEmptyParts(const QString& string, const SeparatorType& separator)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    return string.split(separator, Qt::SkipEmptyParts);
 #else
-    typedef QProgressBar ProgressBar;
+    return string.split(separator, QString::SkipEmptyParts);
 #endif
+}
 
 } // namespace GUIUtil
 

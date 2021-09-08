@@ -37,6 +37,9 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Cannot obtain a lock on data directory %s. %s is probably already running."),
 QT_TRANSLATE_NOOP("blkc-core", ""
+"Cannot start deterministic masternode before enforcement. Remove %s to start "
+"as legacy masternode"),
+QT_TRANSLATE_NOOP("blkc-core", ""
 "Cannot upgrade to Sapling wallet (already running Sapling support). Version: "
 "%d"),
 QT_TRANSLATE_NOOP("blkc-core", ""
@@ -79,12 +82,16 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Enable spork administration functionality with the appropriate private key."),
 QT_TRANSLATE_NOOP("blkc-core", ""
+"Enabling Masternode support requires turning on transaction indexing.Please "
+"add %s to your configuration and start with %s"),
+QT_TRANSLATE_NOOP("blkc-core", ""
+"Error loading wallet %s. %s parameter must only specify a filename (not a "
+"path)."),
+QT_TRANSLATE_NOOP("blkc-core", ""
 "Error: Listening for incoming connections failed (listen returned error %s)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"Error: Unsupported argument -checklevel found. Checklevel must be level 4."),
-QT_TRANSLATE_NOOP("blkc-core", ""
-"Error: Unsupported argument -socks found. Setting SOCKS version isn't "
-"possible anymore, only SOCKS5 proxies are supported."),
+"Error: Unsupported argument %s found. Setting SOCKS version isn't possible "
+"anymore, only SOCKS5 proxies are supported."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Exclude debugging information for a category. Can be used in conjunction "
 "with -debug=1 to output debug logs for all categories except one or more "
@@ -99,6 +106,10 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 "Execute command when the best block changes (%s in cmd is replaced by block "
 "hash)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
+"Failed to create backup, file already exists! This could happen if you "
+"restarted wallet in less than 60 seconds. You can continue if you are ok "
+"with this."),
+QT_TRANSLATE_NOOP("blkc-core", ""
 "Fees (in %s/Kb) smaller than this are considered zero fee for relaying, "
 "mining and transaction creation (default: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
@@ -111,8 +122,11 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 "If paytxfee is not set, include enough fee so transactions begin "
 "confirmation on average within n blocks (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"Invalid amount for -maxtxfee=<amount>: '%s' (must be at least the minrelay "
-"fee of %s to prevent stuck transactions)"),
+"Invalid amount for %s: '%s' (must be at least the minimum relay fee of %s to "
+"prevent stuck transactions)"),
+QT_TRANSLATE_NOOP("blkc-core", ""
+"Legacy masternode system disabled. Use %s to start as deterministic "
+"masternode"),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Log transaction priority and fee per kB when mining blocks (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
@@ -152,6 +166,9 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Set maximum size of high-priority/low-fee transactions in bytes (default: %d)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
+"Set the masternode operator private key. Only valid with -masternode=1. When "
+"set, the masternode acts as a deterministic masternode."),
+QT_TRANSLATE_NOOP("blkc-core", ""
 "Set the number of script verification threads (%u to %d, 0 = auto, <0 = "
 "leave that many cores free, default: %d)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
@@ -161,6 +178,9 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 "Specify custom backup path to add a copy of any wallet backup. If set as "
 "dir, every backup generates a timestamped file. If set as file, will rewrite "
 "to that file every backup."),
+QT_TRANSLATE_NOOP("blkc-core", ""
+"Specify directory to hold blocks subdirectory for *.dat files (default: "
+"<datadir>)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Specify location of debug log file: this can be an absolute path or a path "
 "relative to the data directory (default: %s)"),
@@ -181,35 +201,40 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 "This is a pre-release test build - use at your own risk - do not use for "
 "staking or merchant applications!"),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"This product includes software developed by the OpenSSL Project for use in "
-"the OpenSSL Toolkit <https://www.openssl.org/> and cryptographic software "
-"written by Eric Young and UPnP software written by Thomas Bernard."),
-QT_TRANSLATE_NOOP("blkc-core", ""
 "Total length of network version string (%i) exceeds maximum length (%i). "
-"Reduce the number or size of uacomments."),
+"Reduce the number or size of %s."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Unable to bind to %s on this computer. BlackHat Core is probably already running."),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"Unable to replay blocks. You will need to rebuild the database using -"
-"reindex."),
+"Unable to replay blocks. You will need to rebuild the database using %s."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
 "%s)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
+"Username and hashed password for JSON-RPC connections. The field <userpw> "
+"comes in the format: <USERNAME>:<SALT>$<HASH>. A canonical python script is "
+"included in share/rpcuser. The client then connects normally using the "
+"rpcuser=<USERNAME>/rpcpassword=<PASSWORD> pair of arguments. This option can "
+"be specified multiple times"),
+QT_TRANSLATE_NOOP("blkc-core", ""
 "WARNING: The transaction has been signed and recorded, so the wallet will "
 "try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"Warning: -maxtxfee is set very high! Fees this large could be paid on a "
-"single transaction."),
+"Warning: %s is set very high! Fees this large could be paid on a single "
+"transaction."),
 QT_TRANSLATE_NOOP("blkc-core", ""
-"Warning: -paytxfee is set very high! This is the transaction fee you will "
-"pay if you send a transaction."),
+"Warning: %s is set very high! This is the transaction fee you will pay if "
+"you send a transaction."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Warning: Please check that your computer's date and time are correct! If "
 "your clock is wrong BlackHat Core will not work properly."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Warning: The network does not appear to fully agree! Some miners appear to "
 "be experiencing issues."),
+QT_TRANSLATE_NOOP("blkc-core", ""
+"Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; "
+"if your balance or transactions are incorrect you should restore from a "
+"backup."),
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Warning: We do not appear to fully agree with our peers! You may need to "
 "upgrade, or other nodes may need to upgrade."),
@@ -224,6 +249,13 @@ QT_TRANSLATE_NOOP("blkc-core", ""
 QT_TRANSLATE_NOOP("blkc-core", ""
 "Whitelisted peers cannot be DoS banned and their transactions are always "
 "relayed, even if they are already in the mempool, useful e.g. for a gateway"),
+QT_TRANSLATE_NOOP("blkc-core", ""
+"\"local\" vote is no longer available with DMNs. Use \"alias\" from the "
+"wallet with the voting key."),
+QT_TRANSLATE_NOOP("blkc-core", "%s Invalid %s address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "%s corrupt, salvage failed"),
+QT_TRANSLATE_NOOP("blkc-core", "%s is not allowed in combination with enabled wallet functionality"),
+QT_TRANSLATE_NOOP("blkc-core", "%s is only allowed with a single wallet file"),
 QT_TRANSLATE_NOOP("blkc-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "(must be %d for %s-net)"),
 QT_TRANSLATE_NOOP("blkc-core", "<category> can be:"),
@@ -242,8 +274,10 @@ QT_TRANSLATE_NOOP("blkc-core", "Automatically create Tor hidden service (default
 QT_TRANSLATE_NOOP("blkc-core", "Block creation options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Calculating money supply..."),
 QT_TRANSLATE_NOOP("blkc-core", "Can't generate a change-address key. Please call keypoolrefill first."),
+QT_TRANSLATE_NOOP("blkc-core", "Cannot downgrade wallet."),
 QT_TRANSLATE_NOOP("blkc-core", "Cannot resolve -%s address: '%s'"),
-QT_TRANSLATE_NOOP("blkc-core", "Cannot set -bind or -whitebind together with -listen=0"),
+QT_TRANSLATE_NOOP("blkc-core", "Cannot set %s or %s together with %s"),
+QT_TRANSLATE_NOOP("blkc-core", "Cannot upgrade a locked wallet."),
 QT_TRANSLATE_NOOP("blkc-core", "Chain selection options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Change index out of range"),
 QT_TRANSLATE_NOOP("blkc-core", "Connect through SOCKS5 proxy"),
@@ -254,16 +288,18 @@ QT_TRANSLATE_NOOP("blkc-core", "Copyright (C) 2014-%i The Dash Core Developers")
 QT_TRANSLATE_NOOP("blkc-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
 QT_TRANSLATE_NOOP("blkc-core", "Copyright (C) 2021-%i The BlackHat Core Developers"),
 QT_TRANSLATE_NOOP("blkc-core", "Corrupted block database detected"),
+QT_TRANSLATE_NOOP("blkc-core", "Could not open debug log file %s"),
 QT_TRANSLATE_NOOP("blkc-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("blkc-core", "Debugging/Testing options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Delete blockchain folders and resync from scratch"),
+QT_TRANSLATE_NOOP("blkc-core", "Deterministic masternodes are not enforced yet"),
 QT_TRANSLATE_NOOP("blkc-core", "Disable OS notifications for incoming transactions (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Discover own IP address (default: 1 when listening and no -externalip)"),
-QT_TRANSLATE_NOOP("blkc-core", "Display the stake modifier calculations in the debug.log file."),
 QT_TRANSLATE_NOOP("blkc-core", "Display verbose coin stake messages in the debug.log file."),
-QT_TRANSLATE_NOOP("blkc-core", "Do not load the wallet and disable wallet RPC calls"),
+QT_TRANSLATE_NOOP("blkc-core", "Do not load the wallet and disable wallet RPC calls (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Do you want to rebuild the block database now?"),
 QT_TRANSLATE_NOOP("blkc-core", "Done loading"),
+QT_TRANSLATE_NOOP("blkc-core", "Elliptic curve cryptography sanity check failure. Aborting."),
 QT_TRANSLATE_NOOP("blkc-core", "Enable publish hash block in <address>"),
 QT_TRANSLATE_NOOP("blkc-core", "Enable publish hash transaction in <address>"),
 QT_TRANSLATE_NOOP("blkc-core", "Enable publish raw block in <address>"),
@@ -271,23 +307,33 @@ QT_TRANSLATE_NOOP("blkc-core", "Enable publish raw transaction in <address>"),
 QT_TRANSLATE_NOOP("blkc-core", "Enable staking functionality (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Enable the client to act as a masternode (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Error initializing block database"),
+QT_TRANSLATE_NOOP("blkc-core", "Error initializing wallet database environment %s!"),
 QT_TRANSLATE_NOOP("blkc-core", "Error loading %s: Wallet corrupted"),
 QT_TRANSLATE_NOOP("blkc-core", "Error loading %s: Wallet requires newer version of BlackHat Core"),
 QT_TRANSLATE_NOOP("blkc-core", "Error loading %s\n"),
 QT_TRANSLATE_NOOP("blkc-core", "Error loading block database"),
+QT_TRANSLATE_NOOP("blkc-core", "Error loading wallet %s. %s filename must be a regular file."),
+QT_TRANSLATE_NOOP("blkc-core", "Error loading wallet %s. Duplicate %s filename specified."),
+QT_TRANSLATE_NOOP("blkc-core", "Error loading wallet %s. Invalid characters in %s filename."),
 QT_TRANSLATE_NOOP("blkc-core", "Error opening block database"),
 QT_TRANSLATE_NOOP("blkc-core", "Error reading from database, shutting down."),
 QT_TRANSLATE_NOOP("blkc-core", "Error upgrading chainstate database"),
 QT_TRANSLATE_NOOP("blkc-core", "Error"),
-QT_TRANSLATE_NOOP("blkc-core", "Error: -listen must be true if -masternode is set."),
-QT_TRANSLATE_NOOP("blkc-core", "Error: -maxmempool must be at least %d MB"),
+QT_TRANSLATE_NOOP("blkc-core", "Error: %s must be at least %d MB"),
+QT_TRANSLATE_NOOP("blkc-core", "Error: %s must be true if %s is set."),
 QT_TRANSLATE_NOOP("blkc-core", "Error: A fatal internal error occured, see debug.log for details"),
 QT_TRANSLATE_NOOP("blkc-core", "Error: A fatal internal error occurred, see debug.log for details"),
+QT_TRANSLATE_NOOP("blkc-core", "Error: Disk space is low for %s"),
 QT_TRANSLATE_NOOP("blkc-core", "Error: Disk space is low!"),
-QT_TRANSLATE_NOOP("blkc-core", "Error: Unsupported argument -tor found, use -onion."),
+QT_TRANSLATE_NOOP("blkc-core", "Error: Initializing networking failed"),
+QT_TRANSLATE_NOOP("blkc-core", "Error: Unsupported argument %s found, use %s."),
+QT_TRANSLATE_NOOP("blkc-core", "Error: Unsupported argument %s found. Checklevel must be level 4."),
 QT_TRANSLATE_NOOP("blkc-core", "Failed to accept tx in the memory pool (reason: %s)\n"),
-QT_TRANSLATE_NOOP("blkc-core", "Failed to listen on any port. Use -listen=0 if you want this."),
+QT_TRANSLATE_NOOP("blkc-core", "Failed to create backup, error: %s"),
+QT_TRANSLATE_NOOP("blkc-core", "Failed to delete backup, error: %s"),
+QT_TRANSLATE_NOOP("blkc-core", "Failed to listen on any port. Use %s if you want this."),
 QT_TRANSLATE_NOOP("blkc-core", "Failed to parse host:port string"),
+QT_TRANSLATE_NOOP("blkc-core", "Failed to rescan the wallet during initialization"),
 QT_TRANSLATE_NOOP("blkc-core", "Fee (in %s/kB) to add to transactions you send (default: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Force safe mode (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Generate coins (default: %u)"),
@@ -303,16 +349,19 @@ QT_TRANSLATE_NOOP("blkc-core", "Insufficient funds."),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid -masternodeaddr address: %s"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid -masternodeaddr port %d, isn't the same as the peer port %d"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid -masternodeaddr port %d, only %d is supported on %s-net."),
-QT_TRANSLATE_NOOP("blkc-core", "Invalid -onion address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Invalid activation height (%s)"),
+QT_TRANSLATE_NOOP("blkc-core", "Invalid amount for %s: '%s' (must be at least %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid amount for -%s=<amount>: '%s'"),
-QT_TRANSLATE_NOOP("blkc-core", "Invalid amount for -paytxfee=<amount>: '%s' (must be at least %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid masternodeprivkey. Please see the documentation."),
-QT_TRANSLATE_NOOP("blkc-core", "Invalid netmask specified in -whitelist: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Invalid mnoperatorprivatekey. Please see the documentation."),
+QT_TRANSLATE_NOOP("blkc-core", "Invalid netmask specified in %s: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Invalid network upgrade (%s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid port %d detected in masternode.conf"),
 QT_TRANSLATE_NOOP("blkc-core", "Invalid status error."),
 QT_TRANSLATE_NOOP("blkc-core", "Keep at most <n> unconnectable transactions in memory (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Keep the transaction memory pool below <n> megabytes (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Keypool ran out, please call keypoolrefill first, or unlock the wallet."),
+QT_TRANSLATE_NOOP("blkc-core", "Legacy Masternode is obsolete."),
 QT_TRANSLATE_NOOP("blkc-core", "Limit size of signature cache to <n> MiB (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Line: %d"),
 QT_TRANSLATE_NOOP("blkc-core", "Listen for JSON-RPC connections on <port> (default: %u or testnet: %u)"),
@@ -325,22 +374,24 @@ QT_TRANSLATE_NOOP("blkc-core", "Loading masternode cache..."),
 QT_TRANSLATE_NOOP("blkc-core", "Loading masternode payment cache..."),
 QT_TRANSLATE_NOOP("blkc-core", "Loading sporks..."),
 QT_TRANSLATE_NOOP("blkc-core", "Loading wallet..."),
-QT_TRANSLATE_NOOP("pivx-core", "Loading/Pruning invalid outputs..."),
+QT_TRANSLATE_NOOP("blkc-core", "Loading/Pruning invalid outputs..."),
 QT_TRANSLATE_NOOP("blkc-core", "Location of the auth cookie (default: data dir)"),
 QT_TRANSLATE_NOOP("blkc-core", "Lock masternodes from masternode configuration file (default: %u)"),
-QT_TRANSLATE_NOOP("blkc-core", "Lookup(): Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("blkc-core", "MNs synchronization pending..."),
 QT_TRANSLATE_NOOP("blkc-core", "Maintain at most <n> connections to peers (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Masternode options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Maximum per-connection receive buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Maximum per-connection send buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Mining/Staking options:"),
-QT_TRANSLATE_NOOP("blkc-core", "Need to specify a port with -whitebind: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Need to specify a port with %s: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Network upgrade parameters malformed, expecting %s"),
+QT_TRANSLATE_NOOP("blkc-core", "Network upgrade parameters may only be overridden on regtest."),
 QT_TRANSLATE_NOOP("blkc-core", "No error"),
 QT_TRANSLATE_NOOP("blkc-core", "Node relay options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Not enough file descriptors available."),
 QT_TRANSLATE_NOOP("blkc-core", "Number of automatic wallet backups (default: %d)"),
 QT_TRANSLATE_NOOP("blkc-core", "Number of custom location backups to retain (default: %d)"),
+QT_TRANSLATE_NOOP("blkc-core", "OS cryptographic RNG sanity check failure. Aborting."),
 QT_TRANSLATE_NOOP("blkc-core", "On first run, create a legacy wallet instead of a HD wallet"),
 QT_TRANSLATE_NOOP("blkc-core", "Only accept block chain matching built-in checkpoints (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Only connect to nodes in network <net> (ipv4, ipv6 or onion)"),
@@ -375,6 +426,7 @@ QT_TRANSLATE_NOOP("blkc-core", "Show all debugging options (usage: --help -help-
 QT_TRANSLATE_NOOP("blkc-core", "Shrink debug.log file on client startup (default: 1 when no -debug)"),
 QT_TRANSLATE_NOOP("blkc-core", "Shutdown requested over the txs scan. Exiting."),
 QT_TRANSLATE_NOOP("blkc-core", "Signing transaction failed"),
+QT_TRANSLATE_NOOP("blkc-core", "Specified blocks directory \"%s\" does not exist.\n"),
 QT_TRANSLATE_NOOP("blkc-core", "Specify configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Specify connection timeout in milliseconds (minimum: 1, default: %d)"),
 QT_TRANSLATE_NOOP("blkc-core", "Specify data directory"),
@@ -394,21 +446,25 @@ QT_TRANSLATE_NOOP("blkc-core", "Synchronizing sporks..."),
 QT_TRANSLATE_NOOP("blkc-core", "The threshold value cannot be less than %s"),
 QT_TRANSLATE_NOOP("blkc-core", "This help message"),
 QT_TRANSLATE_NOOP("blkc-core", "This is experimental software."),
+QT_TRANSLATE_NOOP("blkc-core", "This is not a deterministic masternode. 'local' option disabled."),
 QT_TRANSLATE_NOOP("blkc-core", "This is not a masternode. 'local' option disabled."),
 QT_TRANSLATE_NOOP("blkc-core", "This is not a masternode."),
+QT_TRANSLATE_NOOP("blkc-core", "This product includes UPnP software written by Thomas Bernard."),
 QT_TRANSLATE_NOOP("blkc-core", "Threshold for disconnecting misbehaving peers (default: %u)"),
 QT_TRANSLATE_NOOP("blkc-core", "Tor control port password (default: empty)"),
 QT_TRANSLATE_NOOP("blkc-core", "Tor control port to use if onion listening enabled (default: %s)"),
 QT_TRANSLATE_NOOP("blkc-core", "Transaction amount too small"),
 QT_TRANSLATE_NOOP("blkc-core", "Transaction amounts must be positive"),
 QT_TRANSLATE_NOOP("blkc-core", "Transaction canceled."),
+QT_TRANSLATE_NOOP("blkc-core", "Transaction must have at least one recipient"),
 QT_TRANSLATE_NOOP("blkc-core", "Transaction too large for fee policy"),
 QT_TRANSLATE_NOOP("blkc-core", "Transaction too large"),
 QT_TRANSLATE_NOOP("blkc-core", "Unable to bind to %s on this computer (bind returned error %s)"),
+QT_TRANSLATE_NOOP("blkc-core", "Unable to generate initial key!"),
 QT_TRANSLATE_NOOP("blkc-core", "Unable to generate keys"),
 QT_TRANSLATE_NOOP("blkc-core", "Unable to sign spork message, wrong key?"),
 QT_TRANSLATE_NOOP("blkc-core", "Unable to start HTTP server. See debug log for details."),
-QT_TRANSLATE_NOOP("blkc-core", "Unknown network specified in -onlynet: '%s'"),
+QT_TRANSLATE_NOOP("blkc-core", "Unknown network specified in %s: '%s'"),
 QT_TRANSLATE_NOOP("blkc-core", "Unsupported logging category %s=%s."),
 QT_TRANSLATE_NOOP("blkc-core", "Upgrade wallet to latest format"),
 QT_TRANSLATE_NOOP("blkc-core", "Upgrading coins database if needed..."),
@@ -418,18 +474,20 @@ QT_TRANSLATE_NOOP("blkc-core", "Use the test chain"),
 QT_TRANSLATE_NOOP("blkc-core", "User Agent comment (%s) contains unsafe characters."),
 QT_TRANSLATE_NOOP("blkc-core", "Username for JSON-RPC connections"),
 QT_TRANSLATE_NOOP("blkc-core", "Verifying blocks..."),
-QT_TRANSLATE_NOOP("blkc-core", "Verifying wallet..."),
+QT_TRANSLATE_NOOP("blkc-core", "Verifying wallet(s)..."),
+QT_TRANSLATE_NOOP("blkc-core", "Wallet %s resides outside data directory %s"),
 QT_TRANSLATE_NOOP("blkc-core", "Wallet debugging/testing options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Wallet needed to be rewritten: restart BlackHat Core to complete"),
 QT_TRANSLATE_NOOP("blkc-core", "Wallet options:"),
 QT_TRANSLATE_NOOP("blkc-core", "Wallet window title"),
 QT_TRANSLATE_NOOP("blkc-core", "Warning"),
 QT_TRANSLATE_NOOP("blkc-core", "Warning: This version is obsolete, upgrade required!"),
-QT_TRANSLATE_NOOP("blkc-core", "Warning: Unsupported argument -benchmark ignored, use -debug=bench."),
-QT_TRANSLATE_NOOP("blkc-core", "Warning: Unsupported argument -debugnet ignored, use -debug=net."),
-QT_TRANSLATE_NOOP("blkc-core", "You need to rebuild the database using -reindex to change -txindex"),
+QT_TRANSLATE_NOOP("blkc-core", "Warning: Unsupported argument %s ignored, use %s"),
+QT_TRANSLATE_NOOP("blkc-core", "Warning: Unsupported argument %s ignored, use %s."),
+QT_TRANSLATE_NOOP("blkc-core", "Wasn't able to create wallet backup folder %s!"),
+QT_TRANSLATE_NOOP("blkc-core", "You can not start a masternode in litemode"),
+QT_TRANSLATE_NOOP("blkc-core", "You need to rebuild the database using %s to change %s"),
 QT_TRANSLATE_NOOP("blkc-core", "Zapping all transactions from wallet..."),
 QT_TRANSLATE_NOOP("blkc-core", "ZeroMQ notification options:"),
-QT_TRANSLATE_NOOP("blkc-core", "isValid(): Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("blkc-core", "on startup"),
 };

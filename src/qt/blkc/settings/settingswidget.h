@@ -16,7 +16,6 @@
 #include "qt/blkc/settings/settingswalletoptionswidget.h"
 #include "qt/blkc/settings/settingsmainoptionswidget.h"
 #include "qt/blkc/settings/settingsdisplayoptionswidget.h"
-#include "qt/blkc/settings/settingsmultisendwidget.h"
 #include "qt/blkc/settings/settingsinformationwidget.h"
 #include "qt/blkc/settings/settingsconsolewidget.h"
 
@@ -58,7 +57,6 @@ private Q_SLOTS:
     // Wallet Configuration
     void onConfigurationClicked();
     void onBipToolClicked();
-    void onMultisendClicked();
     void onExportCSVClicked();
 
     // Options
@@ -93,7 +91,6 @@ private:
     SettingsWalletOptionsWidget *settingsWalletOptionsWidget{nullptr};
     SettingsMainOptionsWidget *settingsMainOptionsWidget{nullptr};
     SettingsDisplayOptionsWidget *settingsDisplayOptionsWidget{nullptr};
-    SettingsMultisendWidget *settingsMultisendWidget{nullptr};
     SettingsInformationWidget *settingsInformationWidget{nullptr};
     SettingsConsoleWidget *settingsConsoleWidget{nullptr};
 

@@ -16,16 +16,16 @@
 #include "checkpoints.h"
 #include "clientversion.h"
 #include "interfaces/handler.h"
+#include "mapport.h"
 #include "masternodeman.h"
 #include "net.h"
 #include "netbase.h"
 #include "guiinterface.h"
-#include "util.h"
+#include "util/system.h"
 #include "warnings.h"
 
 #include <stdint.h>
 
-#include <QDateTime>
 #include <QDebug>
 #include <QTimer>
 
@@ -93,6 +93,11 @@ QString ClientModel::getMasternodesCount()
     // Force an update
     cachedMasternodeCountString = getMasternodeCountString();
     return cachedMasternodeCountString;
+}
+
+CAmount ClientModel::getMNCollateralRequiredAmount()
+{
+    return Params().GetConsensus().nMNCollateralAmt;
 }
 
 int ClientModel::getNumBlocks()
@@ -348,6 +353,10 @@ void ClientModel::unsubscribeFromCoreSignals()
     m_handler_notify_block_tip->disconnect();
 }
 
+void ClientModel::mapPort(bool use_upnp, bool use_natpmp) {
+    StartMapPort(use_upnp, use_natpmp);
+}
+
 bool ClientModel::getTorInfo(std::string& ip_port) const
 {
     proxyType onion;
@@ -356,7 +365,7 @@ bool ClientModel::getTorInfo(std::string& ip_port) const
             LOCK(cs_mapLocalHost);
             for (const std::pair<const CNetAddr, LocalServiceInfo>& item : mapLocalHost) {
                 if (item.first.IsTor()) {
-                    CService addrOnion(LookupNumeric(item.first.ToString().c_str(), item.second.nPort));
+                    CService addrOnion(LookupNumeric(item.first.ToString(), item.second.nPort));
                     ip_port = addrOnion.ToStringIPPort();
                     return true;
                 }

@@ -11,15 +11,13 @@
 - 5) Dry out the pre-HD keypool.
 - 6) Generate new addresses and verify HD path correctness.
 """
+
 import os
 import shutil
+
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import (
-    assert_equal,
-    assert_raises_rpc_error,
-    wait_until,
-    initialize_datadir,
-)
+from test_framework.util import assert_equal
+
 
 def read_dump(file_name, addrs):
     """

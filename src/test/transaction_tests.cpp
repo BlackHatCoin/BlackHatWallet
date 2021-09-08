@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
                     break;
                 }
 
-                mapprevOutScriptPubKeys[COutPoint(uint256(vinput[0].get_str()), vinput[1].get_int())] = ParseScript(vinput[2].get_str());
+                mapprevOutScriptPubKeys[COutPoint(uint256S(vinput[0].get_str()), vinput[1].get_int())] = ParseScript(vinput[2].get_str());
             }
             if (!fValid)
             {
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
             CTransaction tx(deserialize, stream);
 
             CValidationState state;
-            BOOST_CHECK_MESSAGE(CheckTransaction(tx, false, state), strTest);
+            BOOST_CHECK_MESSAGE(CheckTransaction(tx, state, false), strTest);
             BOOST_CHECK(state.IsValid());
 
             PrecomputedTransactionData precomTxData(tx);
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
                     break;
                 }
 
-                mapprevOutScriptPubKeys[COutPoint(uint256(vinput[0].get_str()), vinput[1].get_int())] = ParseScript(vinput[2].get_str());
+                mapprevOutScriptPubKeys[COutPoint(uint256S(vinput[0].get_str()), vinput[1].get_int())] = ParseScript(vinput[2].get_str());
             }
             if (!fValid)
             {
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
             CTransaction tx(deserialize, stream);
 
             CValidationState state;
-            fValid = CheckTransaction(tx, false, state) && state.IsValid();
+            fValid = CheckTransaction(tx, state, false) && state.IsValid();
 
             PrecomputedTransactionData precomTxData(tx);
             for (unsigned int i = 0; i < tx.vin.size() && fValid; i++)
@@ -247,11 +247,11 @@ BOOST_AUTO_TEST_CASE(basic_transaction_tests)
     CMutableTransaction tx;
     stream >> tx;
     CValidationState state;
-    BOOST_CHECK_MESSAGE(CheckTransaction(tx, false, state) && state.IsValid(), "Simple deserialized transaction should be valid.");
+    BOOST_CHECK_MESSAGE(CheckTransaction(tx, state, false) && state.IsValid(), "Simple deserialized transaction should be valid.");
 
     // Check that duplicate txins fail
     tx.vin.push_back(tx.vin[0]);
-    BOOST_CHECK_MESSAGE(!CheckTransaction(tx, false, state) || !state.IsValid(), "Transaction with duplicate txins should be invalid.");
+    BOOST_CHECK_MESSAGE(!CheckTransaction(tx, state, false) || !state.IsValid(), "Transaction with duplicate txins should be invalid.");
 }
 
 //
@@ -328,7 +328,7 @@ BOOST_AUTO_TEST_CASE(test_Get)
 
 BOOST_AUTO_TEST_CASE(test_big_witness_transaction) {
     CMutableTransaction mtx;
-    mtx.nVersion = 2; // Sapling future version
+    mtx.nVersion = CTransaction::TxVersion::SAPLING;
 
     CKey key;
     key.MakeNewKey(false);
@@ -391,8 +391,7 @@ BOOST_AUTO_TEST_CASE(test_big_witness_transaction) {
 
     for(uint32_t i = 0; i < mtx.vin.size(); i++) {
         std::vector<CScriptCheck> vChecks;
-        const CTxOut& output = coins[tx.vin[i].prevout.n].out;
-        CScriptCheck check(output.scriptPubKey, output.nValue, tx, i, SCRIPT_VERIFY_P2SH, false, &precomTxData);
+        CScriptCheck check(coins[tx.vin[i].prevout.n].out, tx, i, SCRIPT_VERIFY_P2SH, false, &precomTxData);
         vChecks.emplace_back();
         check.swap(vChecks.back());
         control.Add(vChecks);
@@ -427,11 +426,26 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     std::string reason;
     BOOST_CHECK(IsStandardTx(t, 0, reason));
 
-    t.vout[0].nValue = 5011; // dust
+    // Check dust with default relay fee:
+    CAmount nDustThreshold = GetDustThreshold(dustRelayFee);
+    BOOST_CHECK_EQUAL(nDustThreshold, 5460);
+    // dust:
+    t.vout[0].nValue = nDustThreshold - 1;
     BOOST_CHECK(!IsStandardTx(t, 0, reason));
-
-    t.vout[0].nValue = 6011; // not dust
+    // not dust:
+    t.vout[0].nValue = nDustThreshold;
     BOOST_CHECK(IsStandardTx(t, 0, reason));
+
+    // Check dust with odd relay fee to verify rounding:
+    // nDustThreshold = 182 * 3702 / 1000
+    dustRelayFee = CFeeRate(3702);
+    // dust:
+    t.vout[0].nValue = 673 - 1;
+    BOOST_CHECK(!IsStandardTx(t, 0, reason));
+    // not dust:
+    t.vout[0].nValue = 673;
+    BOOST_CHECK(IsStandardTx(t, 0, reason));
+    dustRelayFee = CFeeRate(DUST_RELAY_TX_FEE);
 
     t.vout[0].scriptPubKey = CScript() << OP_1;
     BOOST_CHECK(!IsStandardTx(t, 0, reason));

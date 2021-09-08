@@ -1,87 +1,91 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2017-2019 The PIVX developers
+// Copyright (c) 2009-2021 The Bitcoin developers
+// Copyright (c) 2017-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "uint256.h"
-#include "crypto/common.h"
 
-/** Old classes definitions **/
+#include "utilstrencodings.h"
 
-// This implementation directly uses shifts instead of going
-// through an intermediate MPI representation.
-uint256& uint256::SetCompact(uint32_t nCompact, bool* pfNegative, bool* pfOverflow)
+#include <string.h>
+
+template <unsigned int BITS>
+base_blob<BITS>::base_blob(const std::vector<unsigned char>& vch)
 {
-    int nSize = nCompact >> 24;
-    uint32_t nWord = nCompact & 0x007fffff;
-    if (nSize <= 3) {
-        nWord >>= 8 * (3 - nSize);
-        *this = nWord;
-    } else {
-        *this = nWord;
-        *this <<= 8 * (nSize - 3);
+    assert(vch.size() == sizeof(m_data));
+    memcpy(m_data, vch.data(), sizeof(m_data));
+}
+
+template <unsigned int BITS>
+std::string base_blob<BITS>::GetHex() const
+{
+    uint8_t m_data_rev[WIDTH];
+    for (int i = 0; i < WIDTH; ++i) {
+        m_data_rev[i] = m_data[WIDTH - 1 - i];
     }
-    if (pfNegative)
-        *pfNegative = nWord != 0 && (nCompact & 0x00800000) != 0;
-    if (pfOverflow)
-        *pfOverflow = nWord != 0 && ((nSize > 34) ||
-                                     (nWord > 0xff && nSize > 33) ||
-                                     (nWord > 0xffff && nSize > 32));
-    return *this;
+    return HexStr(m_data_rev);
 }
 
-uint32_t uint256::GetCompact(bool fNegative) const
+template <unsigned int BITS>
+void base_blob<BITS>::SetHex(const char* psz)
 {
-    int nSize = (bits() + 7) / 8;
-    uint32_t nCompact = 0;
-    if (nSize <= 3) {
-        nCompact = GetLow64() << 8 * (3 - nSize);
-    } else {
-        uint256 bn = *this >> 8 * (nSize - 3);
-        nCompact = bn.GetLow64();
+    memset(m_data, 0, sizeof(m_data));
+
+    // skip leading spaces
+    while (isspace(*psz))
+        psz++;
+
+    // skip 0x
+    if (psz[0] == '0' && tolower(psz[1]) == 'x')
+        psz += 2;
+
+    // hex string to uint
+    size_t digits = 0;
+    while (::HexDigit(psz[digits]) != -1)
+        digits++;
+    unsigned char* p1 = (unsigned char*)m_data;
+    unsigned char* pend = p1 + WIDTH;
+    while (digits > 0 && p1 < pend) {
+        *p1 = ::HexDigit(psz[--digits]);
+        if (digits > 0) {
+            *p1 |= ((unsigned char)::HexDigit(psz[--digits]) << 4);
+            p1++;
+        }
     }
-    // The 0x00800000 bit denotes the sign.
-    // Thus, if it is already set, divide the mantissa by 256 and increase the exponent.
-    if (nCompact & 0x00800000) {
-        nCompact >>= 8;
-        nSize++;
-    }
-    assert((nCompact & ~0x007fffff) == 0);
-    assert(nSize < 256);
-    nCompact |= nSize << 24;
-    nCompact |= (fNegative && (nCompact & 0x007fffff) ? 0x00800000 : 0);
-    return nCompact;
 }
 
-uint256 ArithToUint256(const arith_uint256 &a)
+template <unsigned int BITS>
+void base_blob<BITS>::SetHex(const std::string& str)
 {
-    uint256 b;
-    for(int x=0; x<a.WIDTH; ++x)
-        WriteLE32(b.begin() + x*4, a.pn[x]);
-    return b;
-}
-arith_uint256 UintToArith256(const uint256 &a)
-{
-    arith_uint256 b;
-    for(int x=0; x<b.WIDTH; ++x)
-        b.pn[x] = ReadLE32(a.begin() + x*4);
-    return b;
+    SetHex(str.c_str());
 }
 
-uint512 ArithToUint512(const arith_uint512 &a)
+template <unsigned int BITS>
+std::string base_blob<BITS>::ToString() const
 {
-    uint512 b;
-    for(int x=0; x<a.WIDTH; ++x)
-        WriteLE32(b.begin() + x*4, a.pn[x]);
-    return b;
+    return GetHex();
 }
 
-arith_uint512 UintToArith512(const uint512 &a)
-{
-    arith_uint512 b;
-    for(int x=0; x<b.WIDTH; ++x)
-        b.pn[x] = ReadLE32(a.begin() + x*4);
-    return b;
-}
+// Explicit instantiations for base_blob<160>
+template base_blob<160>::base_blob(const std::vector<unsigned char>&);
+template std::string base_blob<160>::GetHex() const;
+template std::string base_blob<160>::ToString() const;
+template void base_blob<160>::SetHex(const char*);
+template void base_blob<160>::SetHex(const std::string&);
+
+// Explicit instantiations for base_blob<256>
+template base_blob<256>::base_blob(const std::vector<unsigned char>&);
+template std::string base_blob<256>::GetHex() const;
+template std::string base_blob<256>::ToString() const;
+template void base_blob<256>::SetHex(const char*);
+template void base_blob<256>::SetHex(const std::string&);
+
+// Explicit instantiations for base_blob<512>
+template base_blob<512>::base_blob(const std::vector<unsigned char>&);
+template std::string base_blob<512>::GetHex() const;
+template std::string base_blob<512>::ToString() const;
+template void base_blob<512>::SetHex(const char*);
+template void base_blob<512>::SetHex(const std::string&);
+

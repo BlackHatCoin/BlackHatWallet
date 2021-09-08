@@ -9,16 +9,18 @@
 #include "test/test_blkc.h"
 
 #include "blockassembler.h"
+#include "consensus/merkle.h"
 #include "guiinterface.h"
+#include "evo/deterministicmns.h"
+#include "evo/evodb.h"
+#include "evo/evonotificationinterface.h"
 #include "miner.h"
 #include "net_processing.h"
-#include "random.h"
 #include "rpc/server.h"
 #include "rpc/register.h"
 #include "script/sigcache.h"
 #include "sporkdb.h"
 #include "txmempool.h"
-#include "txdb.h"
 #include "validation.h"
 
 #include <boost/test/unit_test.hpp>
@@ -27,8 +29,7 @@ std::unique_ptr<CConnman> g_connman;
 
 CClientUIInterface uiInterface;  // Declared but not defined in guiinterface.h
 
-uint256 insecure_rand_seed = GetRandHash();
-FastRandomContext insecure_rand_ctx(insecure_rand_seed);
+FastRandomContext insecure_rand_ctx;
 
 extern bool fPrintToConsole;
 extern void noui_connect();
@@ -39,27 +40,38 @@ std::ostream& operator<<(std::ostream& os, const uint256& num)
     return os;
 }
 
-BasicTestingSetup::BasicTestingSetup()
+BasicTestingSetup::BasicTestingSetup(const std::string& chainName)
+    : m_path_root(fs::temp_directory_path() / "test_blkc" / strprintf("%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(1 << 30))))
 {
-        RandomInit();
-        ECC_Start();
-        SetupEnvironment();
-        InitSignatureCache();
-        fCheckBlockIndex = true;
-        SelectParams(CBaseChainParams::MAIN);
-}
-BasicTestingSetup::~BasicTestingSetup()
-{
-        ECC_Stop();
-        g_connman.reset();
+    ECC_Start();
+    SetupEnvironment();
+    InitSignatureCache();
+    fCheckBlockIndex = true;
+    SelectParams(chainName);
+    evoDb.reset(new CEvoDB(1 << 20, true, true));
+    deterministicMNManager.reset(new CDeterministicMNManager(*evoDb));
 }
 
-TestingSetup::TestingSetup()
+BasicTestingSetup::~BasicTestingSetup()
 {
+    fs::remove_all(m_path_root);
+    ECC_Stop();
+    deterministicMNManager.reset();
+    evoDb.reset();
+}
+
+fs::path BasicTestingSetup::SetDataDir(const std::string& name)
+{
+    fs::path ret = m_path_root / name;
+    fs::create_directories(ret);
+    gArgs.ForceSetArg("-datadir", ret.string());
+    return ret;
+}
+
+TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(chainName)
+{
+        SetDataDir("tempdir");
         ClearDatadirCache();
-        pathTemp = GetTempPath() / strprintf("test_blkc_%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(100000)));
-        fs::create_directories(pathTemp);
-        gArgs.ForceSetArg("-datadir", pathTemp.string());
 
         // Start the lightweight task scheduler thread
         CScheduler::Function serviceLoop = std::bind(&CScheduler::serviceQueue, &scheduler);
@@ -69,16 +81,21 @@ TestingSetup::TestingSetup()
         // callbacks via CValidationInterface are unreliable, but that's OK,
         // our unit tests aren't testing multiple parts of the code at once.
         GetMainSignals().RegisterBackgroundSignalScheduler(scheduler);
-        GetMainSignals().RegisterWithMempoolSignals(mempool);
+
+        // Register EvoNotificationInterface
+        g_connman = std::make_unique<CConnman>(0x1337, 0x1337); // Deterministic randomness for tests.
+        connman = g_connman.get();
+        pEvoNotificationInterface = new EvoNotificationInterface(*connman);
+        RegisterValidationInterface(pEvoNotificationInterface);
 
         // Ideally we'd move all the RPC tests to the functional testing framework
         // instead of unit tests, but for now we need these here.
         RegisterAllCoreRPCCommands(tableRPC);
-        zerocoinDB = new CZerocoinDB(0, true);
-        pSporkDB = new CSporkDB(0, true);
-        pblocktree = new CBlockTreeDB(1 << 20, true);
-        pcoinsdbview = new CCoinsViewDB(1 << 23, true);
-        pcoinsTip = new CCoinsViewCache(pcoinsdbview);
+        zerocoinDB.reset(new CZerocoinDB(0, true));
+        pSporkDB.reset(new CSporkDB(0, true));
+        pblocktree.reset(new CBlockTreeDB(1 << 20, true));
+        pcoinsdbview.reset(new CCoinsViewDB(1 << 23, true));
+        pcoinsTip.reset(new CCoinsViewCache(pcoinsdbview.get()));
         if (!LoadGenesisBlock()) {
             throw std::runtime_error("Error initializing block database");
         }
@@ -90,33 +107,30 @@ TestingSetup::TestingSetup()
         nScriptCheckThreads = 3;
         for (int i=0; i < nScriptCheckThreads-1; i++)
             threadGroup.create_thread(&ThreadScriptCheck);
-        g_connman = std::unique_ptr<CConnman>(new CConnman(0x1337, 0x1337)); // Deterministic randomness for tests.
-        connman = g_connman.get();
-        RegisterNodeSignals(GetNodeSignals());
+        peerLogic.reset(new PeerLogicValidation(connman));
 }
 
 TestingSetup::~TestingSetup()
 {
-        UnregisterNodeSignals(GetNodeSignals());
         threadGroup.interrupt_all();
         threadGroup.join_all();
         GetMainSignals().FlushBackgroundCallbacks();
         UnregisterAllValidationInterfaces();
         GetMainSignals().UnregisterBackgroundSignalScheduler();
-        GetMainSignals().UnregisterWithMempoolSignals(mempool);
+        g_connman.reset();
+        peerLogic.reset();
         UnloadBlockIndex();
-        delete pcoinsTip;
-        delete pcoinsdbview;
-        delete pblocktree;
-        delete zerocoinDB;
-        delete pSporkDB;
-        fs::remove_all(pathTemp);
+        delete pEvoNotificationInterface;
+        pcoinsTip.reset();
+        pcoinsdbview.reset();
+        pblocktree.reset();
+        zerocoinDB.reset();
+        pSporkDB.reset();
 }
 
-TestChainSetup::TestChainSetup(int blockCount)
+// Test chain only available on regtest
+TestChainSetup::TestChainSetup(int blockCount) : TestingSetup(CBaseChainParams::REGTEST)
 {
-    SelectParams(CBaseChainParams::REGTEST);
-
     // if blockCount is over PoS start, delay it to 100 blocks after.
     if (blockCount > Params().GetConsensus().vUpgrades[Consensus::UPGRADE_POS].nActivationHeight) {
         UpdateNetworkUpgradeParameters(Consensus::UPGRADE_POS, blockCount + 100);
@@ -134,15 +148,12 @@ TestChainSetup::TestChainSetup(int blockCount)
     }
 }
 
-//
-// Create a new block with just given transactions, coinbase paying to
-// scriptPubKey, and try to add it to the current chain.
-//
-CBlock TestChainSetup::CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns, const CScript& scriptPubKey)
+// Create a new block with coinbase paying to scriptPubKey, and try to add it to the current chain.
+// Include given transactions, and, if fNoMempoolTx=true, remove transactions coming from the mempool.
+CBlock TestChainSetup::CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns, const CScript& scriptPubKey, bool fNoMempoolTx)
 {
-    CBlock block = CreateBlock(txns, scriptPubKey);
-    CValidationState state;
-    ProcessNewBlock(state, nullptr, std::make_shared<const CBlock>(block), nullptr);
+    CBlock block = CreateBlock(txns, scriptPubKey, fNoMempoolTx);
+    ProcessNewBlock(std::make_shared<const CBlock>(block), nullptr);
     return block;
 }
 
@@ -152,46 +163,63 @@ CBlock TestChainSetup::CreateAndProcessBlock(const std::vector<CMutableTransacti
     return CreateAndProcessBlock(txns, scriptPubKey);
 }
 
-CBlock TestChainSetup::CreateBlock(const std::vector<CMutableTransaction>& txns, const CScript& scriptPubKey)
+CBlock TestChainSetup::CreateBlock(const std::vector<CMutableTransaction>& txns,
+                                   const CScript& scriptPubKey,
+                                   bool fNoMempoolTx,
+                                   bool fTestBlockValidity)
 {
     std::unique_ptr<CBlockTemplate> pblocktemplate = BlockAssembler(
-            Params(), DEFAULT_PRINTPRIORITY).CreateNewBlock(scriptPubKey, nullptr, false);
+            Params(), DEFAULT_PRINTPRIORITY).CreateNewBlock(scriptPubKey,
+                                                            nullptr,       // wallet
+                                                            false,   // fProofOfStake
+                                                            nullptr, // availableCoins
+                                                            fNoMempoolTx,
+                                                            fTestBlockValidity);
     std::shared_ptr<CBlock> pblock = std::make_shared<CBlock>(pblocktemplate->block);
 
-    // Replace mempool-selected txns with just coinbase plus passed-in txns:
-    pblock->vtx.resize(1);
-    for (const CMutableTransaction& tx : txns)
+    // Add passed-in txns:
+    for (const CMutableTransaction& tx : txns) {
         pblock->vtx.push_back(MakeTransactionRef(tx));
-
-    // IncrementExtraNonce creates a valid coinbase and merkleRoot
-    unsigned int extraNonce = 0;
-    {
-        LOCK(cs_main);
-        IncrementExtraNonce(pblock, chainActive.Tip(), extraNonce);
     }
 
-    while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits)) ++pblock->nNonce;
+    const int nHeight = WITH_LOCK(cs_main, return chainActive.Height()) + 1;
+
+    // Re-compute sapling root
+    pblock->hashFinalSaplingRoot = CalculateSaplingTreeRoot(pblock.get(), nHeight, Params());
+
+    // Find valid PoW
+    assert(SolveBlock(pblock, nHeight));
     return *pblock;
 }
 
-CBlock TestChainSetup::CreateBlock(const std::vector<CMutableTransaction>& txns, const CKey& scriptKey)
+CBlock TestChainSetup::CreateBlock(const std::vector<CMutableTransaction>& txns, const CKey& scriptKey,
+                                   bool fTestBlockValidity)
 {
     CScript scriptPubKey = CScript() <<  ToByteVector(scriptKey.GetPubKey()) << OP_CHECKSIG;
-    return CreateBlock(txns, scriptPubKey);
+    return CreateBlock(txns, scriptPubKey, fTestBlockValidity);
+}
+
+std::shared_ptr<CBlock> FinalizeBlock(std::shared_ptr<CBlock> pblock)
+{
+    pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
+    while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits)) { ++(pblock->nNonce); }
+    return pblock;
 }
 
 TestChainSetup::~TestChainSetup()
 {
 }
 
-CTxMemPoolEntry TestMemPoolEntryHelper::FromTx(CMutableTransaction &tx, CTxMemPool *pool) {
-    const CTransactionRef txn = MakeTransactionRef(tx); // todo: move to the caller side..
-    bool hasNoDependencies = pool ? pool->HasNoInputsOf(tx) : hadNoDependencies;
-    // Hack to assume either its completely dependent on other mempool txs or not at all
-    CAmount inChainValue = hasNoDependencies ? txn->GetValueOut() : 0;
+CTxMemPoolEntry TestMemPoolEntryHelper::FromTx(const CMutableTransaction& tx)
+{
+    CTransaction txn(tx);
+    return FromTx(txn);
+}
 
-    return CTxMemPoolEntry(txn, nFee, nTime, dPriority, nHeight,
-                           hasNoDependencies, inChainValue, spendsCoinbaseOrCoinstake, sigOpCount);
+CTxMemPoolEntry TestMemPoolEntryHelper::FromTx(const CTransaction& txn)
+{
+    return CTxMemPoolEntry(MakeTransactionRef(txn), nFee, nTime, nHeight,
+                           spendsCoinbaseOrCoinstake, sigOpCount);
 }
 
 [[noreturn]] void Shutdown(void* parg)

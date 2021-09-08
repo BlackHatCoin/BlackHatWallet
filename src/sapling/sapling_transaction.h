@@ -14,7 +14,6 @@
 
 #include "sapling/noteencryption.h"
 #include "sapling/sapling.h"
-#include "sapling/proof.h"
 
 #include <boost/variant.hpp>
 
@@ -54,17 +53,7 @@ public:
 
     SpendDescription() {}
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(cv);
-        READWRITE(anchor);
-        READWRITE(nullifier);
-        READWRITE(rk);
-        READWRITE(zkproof);
-        READWRITE(spendAuthSig);
-    }
+    SERIALIZE_METHODS(SpendDescription, obj) { READWRITE(obj.cv, obj.anchor, obj.nullifier, obj.rk, obj.zkproof, obj.spendAuthSig); }
 
     friend bool operator==(const SpendDescription& a, const SpendDescription& b)
     {
@@ -99,17 +88,7 @@ public:
 
     OutputDescription() {}
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(cv);
-        READWRITE(cmu);
-        READWRITE(ephemeralKey);
-        READWRITE(encCiphertext);
-        READWRITE(outCiphertext);
-        READWRITE(zkproof);
-    }
+    SERIALIZE_METHODS(OutputDescription, obj) { READWRITE(obj.cv, obj.cmu, obj.ephemeralKey, obj.encCiphertext, obj.outCiphertext, obj.zkproof); }
 
     friend bool operator==(const OutputDescription& a, const OutputDescription& b)
     {
@@ -139,16 +118,7 @@ public:
     std::vector<OutputDescription> vShieldedOutput;
     binding_sig_t bindingSig = {{0}};
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(*const_cast<CAmount*>(&valueBalance));
-        READWRITE(*const_cast<std::vector<SpendDescription>*>(&vShieldedSpend));
-        READWRITE(*const_cast<std::vector<OutputDescription>*>(&vShieldedOutput));
-        READWRITE(*const_cast<binding_sig_t*>(&bindingSig));
-    }
+    SERIALIZE_METHODS(SaplingTxData, obj) { READWRITE(obj.valueBalance, obj.vShieldedSpend, obj.vShieldedOutput, obj.bindingSig); }
 
     explicit SaplingTxData() : valueBalance(0), vShieldedSpend(), vShieldedOutput() { }
     explicit SaplingTxData(const SaplingTxData& from) : valueBalance(from.valueBalance), vShieldedSpend(from.vShieldedSpend), vShieldedOutput(from.vShieldedOutput), bindingSig(from.bindingSig) {}

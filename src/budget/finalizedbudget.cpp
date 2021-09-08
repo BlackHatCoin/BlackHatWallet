@@ -414,7 +414,7 @@ bool CFinalizedBudget::operator>(const CFinalizedBudget& other) const
     const int count = GetVoteCount();
     const int otherCount = other.GetVoteCount();
 
-    if (count == otherCount) return GetFeeTXHash() > other.GetFeeTXHash();
+    if (count == otherCount) return UintToArith256(GetFeeTXHash()) > UintToArith256(other.GetFeeTXHash());
 
     return count > otherCount;
 }

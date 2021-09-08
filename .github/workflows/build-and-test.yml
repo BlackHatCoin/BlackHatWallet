@@ -19,16 +19,16 @@ jobs:
       - name: Initialize Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.5
+          python-version: 3.6
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install codespell==1.13.0
-          pip install flake8==3.5.0
+          pip install flake8==3.8.3
           pip install vulture==0.29
 
-          curl -s "https://storage.googleapis.com/shellcheck/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar --xz -xf - --directory /tmp/
+          curl -sL "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar --xz -xf - --directory /tmp/
           export PATH="/tmp/shellcheck-${SHELLCHECK_VERSION}:${PATH}"
           echo $PATH
 
@@ -38,20 +38,20 @@ jobs:
 
       - name: Lint
         run: |
-          git checkout -qf -B main refs/remotes/origin/master
+          git checkout -qf -B master refs/remotes/origin/master
           git checkout -qf $GITHUB_SHA
-          contrib/devtools/git-subtree-check.sh src/secp256k1
-          contrib/devtools/git-subtree-check.sh src/univalue
-          contrib/devtools/git-subtree-check.sh src/leveldb
-          contrib/devtools/git-subtree-check.sh src/crc32c
-          contrib/devtools/check-doc.py
-          contrib/devtools/logprint-scanner.py
+          test/lint/git-subtree-check.sh src/secp256k1
+          test/lint/git-subtree-check.sh src/univalue
+          test/lint/git-subtree-check.sh src/leveldb
+          test/lint/git-subtree-check.sh src/crc32c
+          test/lint/git-subtree-check.sh src/chiabls
+          test/lint/check-doc.py
+          test/lint/logprint-scanner.py
+          test/lint/lint-all.sh
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             COMMIT_RANGE="${{ github.base_ref }}..HEAD"
-            contrib/devtools/lint-whitespace.sh
-            contrib/devtools/commit-script-check.sh $COMMIT_RANGE
-            test/lint/lint-qt.sh
+            test/lint/commit-script-check.sh $COMMIT_RANGE
           fi
 
   cmake:
@@ -73,13 +73,13 @@ jobs:
         config:
           - name: Linux
             os: ubuntu-18.04
-            packages: python3-zmq qttools5-dev qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libssl-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev libsodium-dev cargo
+            packages: python3-zmq qttools5-dev qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libqrencode-dev libgmp-dev libsodium-dev cargo
             cc: gcc
             cxx: g++
 
           - name: macOS
             os: macos-10.15
-            packages: python3 autoconf automake berkeley-db4 libtool boost miniupnpc pkg-config protobuf qt5 zmq libevent qrencode gmp libsodium rust
+            packages: python3 autoconf automake berkeley-db4 libtool boost miniupnpc libnatpmp pkg-config qt5 zmq libevent qrencode gmp libsodium rust
             cc: $(brew --prefix llvm)/bin/clang
             cxx: $(brew --prefix llvm)/bin/clang++
 
@@ -90,7 +90,8 @@ jobs:
       - name: Setup Environment
         run: |
           if [[ ${{ matrix.config.os }} = ubuntu* ]]; then
-            sudo apt-get update
+            sudo apt-add-repository "ppa:ondrej/php" -y
+            sudo apt-get --yes update
             sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" ${{ matrix.config.packages }}
           fi
           if [[ ${{ matrix.config.os }} = macos* ]]; then
@@ -163,14 +164,15 @@ jobs:
           - name: x86_64 Linux
             os: ubuntu-18.04
             host: x86_64-unknown-linux-gnu
-            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libqrencode-dev protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev
-            dep_opts: NO_QT=1 NO_UPNP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1
+            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libqrencode-dev libdbus-1-dev libharfbuzz-dev
+            dep_opts: NO_QT=1 NO_UPNP=1 NO_NATPMP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1
 
-          - name: macOS 10.10
+          - name: macOS 10.12
             os: ubuntu-18.04
-            host: x86_64-apple-darwin14
+            host: x86_64-apple-darwin16
             apt_get: cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python3-dev python3-setuptools
-            OSX_SDK: 10.11
+            XCODE_VERSION: 11.3.1
+            XCODE_BUILD_ID: 11C505
 
     steps:
       - name: Get Source
@@ -210,12 +212,15 @@ jobs:
 
           mkdir -p depends/SDKs depends/sdk-sources
 
-          if [ -n "${{ matrix.config.OSX_SDK }}" -a ! -f depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz ]; then
-            curl --location --fail $SDK_URL/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz -o depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz
+          OSX_SDK_BASENAME="Xcode-${{ matrix.config.XCODE_VERSION }}-${{ matrix.config.XCODE_BUILD_ID }}-extracted-SDK-with-libcxx-headers.tar.gz"
+          OSX_SDK_PATH="depends/sdk-sources/${OSX_SDK_BASENAME}"
+
+          if [ -n "${{ matrix.config.XCODE_VERSION }}" ] && [ ! -f "$OSX_SDK_PATH" ]; then
+            curl --location --fail "${SDK_URL}/${OSX_SDK_BASENAME}" -o "$OSX_SDK_PATH"
           fi
 
-          if [ -n "${{ matrix.config.OSX_SDK }}" -a -f depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz ]; then
-            tar -C depends/SDKs -xf depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz
+          if [ -n "${{ matrix.config.XCODE_VERSION }}" ] && [ -f "$OSX_SDK_PATH" ]; then
+            tar -C "depends/SDKs" -xf "$OSX_SDK_PATH"
           fi
 
           if [[ ${{ matrix.config.host }} = *-mingw32 ]]; then
@@ -238,7 +243,7 @@ jobs:
       CCACHE_COMPRESS: 1
       PARAMS_DIR: ${{ github.workspace }}/.blackhat-params
       WINEDEBUG: fixme-all
-      BOOST_TEST_RANDOM: 1${{ github.run_id }}
+      BOOST_TEST_RANDOM: 1 # random seed based on the current time
     defaults:
       run:
         shell: bash
@@ -278,7 +283,7 @@ jobs:
           - name: x86_64 Linux  [GOAL:install]  [bionic]
             os: ubuntu-18.04
             host: x86_64-unknown-linux-gnu
-            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libqrencode-dev protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev
+            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libqrencode-dev libdbus-1-dev libharfbuzz-dev
             unit_tests: true
             functional_tests: true
             goal: install
@@ -298,21 +303,34 @@ jobs:
           - name: x86_64 Linux  [GOAL:install]  [bionic]  [no depends only system libs]
             os: ubuntu-18.04
             host: x86_64-unknown-linux-gnu
-            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libssl1.0-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev libsodium-dev cargo
+            apt_get: python3-zmq qtbase5-dev qttools5-dev-tools libqt5svg5-dev libqt5charts5-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libnatpmp-dev libzmq3-dev libqrencode-dev libgmp-dev libsodium-dev cargo
             unit_tests: true
             no_depends: 1
             goal: install
             BITCOIN_CONFIG: "--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER"
 
-          - name: macOS 10.10  [GOAL:deploy] [no functional tests]
+          - name: macOS 10.12  [GOAL:deploy] [no functional tests]
             os: ubuntu-18.04
-            host: x86_64-apple-darwin14
+            host: x86_64-apple-darwin16
             apt_get: cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python3-dev python3-setuptools
-            OSX_SDK: 10.11
+            XCODE_VERSION: 11.3.1
+            XCODE_BUILD_ID: 11C505
             unit_tests: false
             functional_tests: false
             goal: deploy
             BITCOIN_CONFIG: "--enable-gui --enable-reduce-exports --enable-werror --disable-online-rust"
+
+          - name: macOS 10.15 [GOAL:deploy] [native macOS using syslibs no unit or functional tests]
+            os: macos-10.15
+            host: x86_64-apple-darwin19.6.0
+            brew_install: autoconf automake ccache berkeley-db4 libtool boost miniupnpc pkg-config python3 qt5 zmq libevent qrencode gmp libsodium rust librsvg
+            unit_tests: false
+            functional_tests: false
+            no_depends: 1
+            goal: deploy
+            cc: clang
+            cxx: clang++
+            BITCOIN_CONFIG: "--enable-zmq --enable-gui --enable-reduce-exports --enable-werror"
 
     steps:
       - name: Get Source
@@ -320,8 +338,15 @@ jobs:
 
       - name: Setup Environment
         run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" ${{ matrix.config.apt_get }}
+          if [[ ${{ matrix.config.os }} = ubuntu* ]]; then
+            sudo apt-add-repository "ppa:ondrej/php" -y
+            sudo apt-get --yes update
+            sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" ${{ matrix.config.apt_get }}
+          fi
+          if [[ ${{ matrix.config.os }} = macos* ]]; then
+            brew install ${{ matrix.config.brew_install }}
+            pip3 install ds_store mac_alias
+          fi
 
       - name: depends cache files
         if: matrix.config.no_depends != 1
@@ -366,12 +391,15 @@ jobs:
 
           mkdir -p depends/SDKs depends/sdk-sources
 
-          if [ -n "${{ matrix.config.OSX_SDK }}" -a ! -f depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz ]; then
-            curl --location --fail $SDK_URL/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz -o depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz
+          OSX_SDK_BASENAME="Xcode-${{ matrix.config.XCODE_VERSION }}-${{ matrix.config.XCODE_BUILD_ID }}-extracted-SDK-with-libcxx-headers.tar.gz"
+          OSX_SDK_PATH="depends/sdk-sources/${OSX_SDK_BASENAME}"
+
+          if [ -n "${{ matrix.config.XCODE_VERSION }}" ] && [ ! -f "$OSX_SDK_PATH" ]; then
+            curl --location --fail "${SDK_URL}/${OSX_SDK_BASENAME}" -o "$OSX_SDK_PATH"
           fi
 
-          if [ -n "${{ matrix.config.OSX_SDK }}" -a -f depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz ]; then
-            tar -C depends/SDKs -xf depends/sdk-sources/MacOSX${{ matrix.config.OSX_SDK }}.sdk.tar.gz
+          if [ -n "${{ matrix.config.XCODE_VERSION }}" ] && [ -f "$OSX_SDK_PATH" ]; then
+            tar -C "depends/SDKs" -xf "$OSX_SDK_PATH"
           fi
 
           if [[ ${{ matrix.config.host }} = *-mingw32 ]]; then
@@ -380,8 +408,17 @@ jobs:
             sudo update-binfmts --import /usr/share/binfmts/wine
           fi
 
-          OUTDIR_PATH="$GITHUB_WORKSPACE/$GITHUB_RUN_NUMBER-${{ matrix.config.host }}"
-          BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$GITHUB_WORKSPACE/depends/${{ matrix.config.host }} --bindir=$OUTDIR_PATH/bin --libdir=$OUTDIR_PATH/lib"
+          if [[ ${{ matrix.config.os }} = macos* ]]; then
+            CC=${{ matrix.config.cc }}
+            CXX=${{ matrix.config.cxx }}
+            export CC
+            export CXX
+          fi
+
+          if [[ ${{ matrix.config.os }} = ubuntu* ]]; then
+            OUTDIR_PATH="$GITHUB_WORKSPACE/$GITHUB_RUN_NUMBER-${{ matrix.config.host }}"
+            BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$GITHUB_WORKSPACE/depends/${{ matrix.config.host }} --bindir=$OUTDIR_PATH/bin --libdir=$OUTDIR_PATH/lib"
+          fi
 
           if [ "${{ matrix.config.unit_tests }}" = "true" ] || [ "${{ matrix.config.functional_tests }}" = "true" ]; then
             mkdir -p $PARAMS_DIR
@@ -420,7 +457,11 @@ jobs:
 
           if [ "${{ matrix.config.unit_tests }}" = "true" ]; then
             echo ::group::Unit-Tests
-            LD_LIBRARY_PATH=$GITHUB_WORKSPACE/depends/"${{ matrix.config.host }}"/lib make -j2 check VERBOSE=1
+            if [[ ${{ matrix.config.os }} = ubuntu* ]]; then
+              LD_LIBRARY_PATH=$GITHUB_WORKSPACE/depends/"${{ matrix.config.host }}"/lib make -j2 check VERBOSE=1
+            else
+              make -j2 check VERBOSE=1
+            fi
             echo ::endgroup::
           fi
 

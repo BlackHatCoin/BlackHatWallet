@@ -307,7 +307,7 @@ Are you sure?</source>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Введите новый пароль к кошельку. &lt;br/&gt;Используйте при этом десять &lt;/b&gt;или более случайных символов &lt;/b&gt;или восемь и более слов.</translation>
+        <translation>Введите новый пароль к кошельку. &lt;br/&gt;Используйте при этом десять &lt;/b&gt;или более случайных символов &lt;/b&gt;или восем и более слов.</translation>
     </message>
     <message>
         <source>Encrypt wallet</source>
@@ -527,7 +527,7 @@ for staking</source>
     </message>
     <message>
         <source>0.00 BLKC</source>
-        <translation>0.00 BLKC</translation>
+        <translation>0.00 BLKC </translation>
     </message>
     <message>
         <source>0</source>
@@ -539,7 +539,7 @@ for staking</source>
     </message>
     <message>
         <source>Toggle lock state</source>
-        <translation>Переключить блокировку</translation>
+        <translation>Переключить состояние блокировки</translation>
     </message>
     <message>
         <source>Received with label</source>
@@ -555,7 +555,7 @@ for staking</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
     <message>
         <source>Date</source>
@@ -727,7 +727,7 @@ for staking</source>
     <message>
         <source>You can delegate your BLKCs, letting a hot node (24/7 online node)
 stake on your behalf, while you keep the keys securely offline.</source>
-        <translation>Вы можете делегировать свои BLKC горячему узлу (работаещему 24/7), который будет осуществлять стекинг от вашего имени, в то время как ваши ключи надежно хранятся в автономном режиме.</translation>
+        <translation>Вы можете делегировать свои BLKC, позволяя горячему узлу (онлайн-узлу, работаещему 24/7) делать стекинг от вашего имени, в то время как ключи надежно хранятся в автономном режиме.</translation>
     </message>
     <message>
         <source>Enter owner address</source>
@@ -735,7 +735,7 @@ stake on your behalf, while you keep the keys securely offline.</source>
     </message>
     <message>
         <source>Accept BLKC delegation / Delegate BLKC</source>
-        <translation>Принять делегацию / Делегировать </translation>
+        <translation>Принять делегацию BLKC / Делегировать BLKC</translation>
     </message>
     <message>
         <source>Cold Staking address</source>
@@ -759,7 +759,7 @@ stake on your behalf, while you keep the keys securely offline.</source>
     </message>
     <message>
         <source>Coin Control</source>
-        <translation>Контроль Монет</translation>
+        <translation>Контроль Монеты</translation>
     </message>
     <message>
         <source>Select %1 outputs to delegate.</source>
@@ -943,28 +943,28 @@ address</source>
         <translation>Как получить BLKC</translation>
     </message>
     <message>
-        <source>Amount of staking rewards received.</source>
-        <translation>Сумма полученных вознаграждений за стекинг.</translation>
-    </message>
-    <message>
         <source>Sort by</source>
-        <translation>Сортировать</translation>
+        <translation>Сортировать по</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>Дни</translation>
+        <translation>Дней</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation>Месяцы</translation>
+        <translation>Месяцев</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation>Года</translation>
+        <translation>Лет</translation>
     </message>
     <message>
         <source>Filter by</source>
         <translation>Сортировать по</translation>
+    </message>
+    <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Сумма добытых BLKC и zBLKC</translation>
     </message>
     <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
@@ -1013,7 +1013,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -1165,7 +1165,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
 </context>
 <context>
@@ -1200,7 +1200,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
     <message>
         <source>BlackHat Core</source>
@@ -1413,11 +1413,11 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>Start All</source>
-        <translation>Старт всех</translation>
+        <translation>Запустить все</translation>
     </message>
     <message>
         <source>Start Inactive/s</source>
-        <translation>Старт неактивных</translation>
+        <translation>Запустить неактивные</translation>
     </message>
     <message>
         <source>Masternodes</source>
@@ -1426,12 +1426,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
     <message>
         <source>Full nodes that incentivize node operators to perform the core consensus functions
 and vote on the treasury system receiving a periodic reward.</source>
-        <translation>Узлы сети, которые укрепляют сеть, а также позволяют их операторам выполнять основные консенсусные функции
-и голосовать за систему казначейства, периодически получая вознаграждения.</translation>
+        <translation>Полные узлы, которые стимулируют операторов узлов выполнять основные консенсусные функции
+и голосовать за систему казны периодически отправляя вознаграждения.</translation>
     </message>
     <message>
         <source>Create Masternode Controller</source>
-        <translation>Создать контроллер мастернод</translation>
+        <translation>Создать контроллер мастерноды</translation>
     </message>
     <message>
         <source>No active Masternode yet</source>
@@ -1712,7 +1712,7 @@ STAKING</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
     <message>
         <source>Select payment request file</source>
@@ -1833,8 +1833,8 @@ STAKING</source>
         <translation>Здесь можно выставить язык интерфейса. Изменения вступят в силу после перезапуска BlackHat.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
-        <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше</translation>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
+        <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2269,8 +2269,16 @@ Address: %4
         <translation>Ошибка: невозможно проанализировать файл конфигурации: %1. Используйте только синтаксис key=value.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Ошибка: неправильная комбинация -regtest и -testnet.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Ошибка чтения файла конфигурации мастерноды: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core еще не вышел безопасно...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2342,7 +2350,7 @@ Address: %4
     </message>
     <message>
         <source>Mined</source>
-        <translation>Добыто</translation>
+        <translation>заминированный</translation>
     </message>
     <message>
         <source>Minted</source>
@@ -2525,7 +2533,7 @@ Address: %4
     </message>
     <message>
         <source>&amp;Console</source>
-        <translation>&amp;Консоль</translation>
+        <translation>&amp;Коммандая строка</translation>
     </message>
     <message>
         <source>Clear console</source>
@@ -2661,11 +2669,11 @@ Address: %4
     </message>
     <message>
         <source>Salvage wallet</source>
-        <translation>Восстановление кошелька</translation>
+        <translation>Кошелёк для сбора</translation>
     </message>
     <message>
         <source>Attempt to recover private keys from a corrupt wallet.dat.</source>
-        <translation>Попытка востановить секрентые ключи поврежденного wallet.dat.</translation>
+        <translation>Попытка востановить секрентые ключи битого wallet.dat.</translation>
     </message>
     <message>
         <source>Rescan blockchain files</source>
@@ -2673,7 +2681,7 @@ Address: %4
     </message>
     <message>
         <source>Rescan the block chain for missing wallet transactions.</source>
-        <translation>Пересканировать блокчейн для поиска отсутствующих транзакций в кошельке.</translation>
+        <translation>Пересканировать блокчейн для поиска пропущенных транзакций в кошельке.</translation>
     </message>
     <message>
         <source>Recover transactions 1</source>
@@ -2681,7 +2689,7 @@ Address: %4
     </message>
     <message>
         <source>Recover transactions from blockchain (keep meta-data, e.g. account owner).</source>
-        <translation>Восстановить транзакции из блокчейна (при сохранении мета-данных, таких как владелец кошелька).</translation>
+        <translation>Перезаписать транзакции из блокчейна (при сохранении мета-данных, таких как владелец кошелька).</translation>
     </message>
     <message>
         <source>Recover transactions 2</source>
@@ -2689,7 +2697,7 @@ Address: %4
     </message>
     <message>
         <source>Recover transactions from blockchain (drop meta-data).</source>
-        <translation>Восстановить транзакции из блокчейна (с удалением мета-данных, таких как владелец кошелька).</translation>
+        <translation>Перезаписать транзакции из блокчейна (с удалением мета-данных, таких как владелец кошелька).</translation>
     </message>
     <message>
         <source>Upgrade wallet format</source>
@@ -2705,7 +2713,7 @@ Address: %4
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
-        <translation>Удаляет все локальные папки блокчейна, чтобы кошелек синхронизировался с нуля.</translation>
+        <translation>Удаляет все локальные папки с цепочкой, чтобы кошелек синхронизировался с нуля.</translation>
     </message>
     <message>
         <source>The buttons below will restart the wallet with command-line options to repair the wallet, fix issues with corrupt blockhain files or missing/obsolete transactions.</source>
@@ -2726,11 +2734,11 @@ Address: %4
     </message>
     <message>
         <source>In:</source>
-        <translation>Входящих:</translation>
+        <translation>Ввод:</translation>
     </message>
     <message>
         <source>Out:</source>
-        <translation>Исходящих:</translation>
+        <translation>Вывод:</translation>
     </message>
     <message>
         <source>Welcome to the BlackHat RPC console.</source>
@@ -2794,7 +2802,7 @@ Address: %4
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
-        <translation>ВНИМАНИЕ: активизировались мошенники, которые предлагают пользователям вводить здесь команды, тем самым воруя содержимое их кошелька. Не используйте эту консоль без полного понимания последствий команд.</translation>
+        <translation>ВНИМАНИЕ: активизировались мошенники, которые предлагают пользователям вводить здесь команды и воруя содержимое их кошелька. Не используйте эту консоль без полного понимания последствий команды.</translation>
     </message>
     <message>
         <source>%1 B</source>
@@ -2880,7 +2888,7 @@ Address: %4
     </message>
     <message>
         <source>Generate Address</source>
-        <translation>Новый адрес</translation>
+        <translation>Генерировать адрес</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -2949,10 +2957,6 @@ Address: %4
     <message>
         <source>Address copied to clipboard</source>
         <translation>Адрес скопирован в буфер обмена</translation>
-    </message>
-    <message>
-        <source>Accept transparent or shielded BLKC</source>
-        <translation>Принять transparent или shielded BLKC</translation>
     </message>
 </context>
 <context>
@@ -3097,7 +3101,7 @@ Address: %4
     </message>
     <message>
         <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BLKC address</source>
-        <translation>Остаточная часть значения, полученного от значения входов минус выходов, идет на адрес "сдачи" BLKC</translation>
+        <translation>Остаточная часть значения, полученного от значения входов минус выходов, идет на «изменение» адреса BLKC</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3140,7 +3144,7 @@ Address: %4
     </message>
     <message>
         <source>Custom</source>
-        <translation>Настраиваемая</translation>
+        <translation>Настроенная</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -3152,15 +3156,15 @@ Address: %4
     </message>
     <message>
         <source>Normal</source>
-        <translation>Нормально</translation>
+        <translation>Нормальная</translation>
     </message>
     <message>
         <source>Slow</source>
-        <translation>Медленно</translation>
+        <translation>Медленная</translation>
     </message>
     <message>
         <source>Fast</source>
-        <translation>Быстро</translation>
+        <translation>Быстрая</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3192,10 +3196,6 @@ Address: %4
     <message>
         <source>CANCEL</source>
         <translation>ОТМЕНА</translation>
-    </message>
-    <message>
-        <source>Private message only visible for the recipient(s)</source>
-        <translation>Личное сообщение, которое доступно только получателю(лям)</translation>
     </message>
 </context>
 <context>
@@ -3293,7 +3293,7 @@ These coins will no longer be cold-staked.</source>
     </message>
     <message>
         <source>Coin Control</source>
-        <translation>Контроль Монет</translation>
+        <translation>Контроль Монеты</translation>
     </message>
     <message>
         <source>Select the source of the coins</source>
@@ -3305,7 +3305,7 @@ These coins will no longer be cold-staked.</source>
     </message>
     <message>
         <source>Customize the change address</source>
-        <translation>Настройте адрес сдачи</translation>
+        <translation>Настройте адрес изменения</translation>
     </message>
     <message>
         <source>Open URI</source>
@@ -3392,7 +3392,7 @@ Remember to write it down and store it safely, otherwise you might lose access t
     </message>
     <message>
         <source>Change Passphrase</source>
-        <translation>Изменить пароль</translation>
+        <translation>Изменить фразовый пароль</translation>
     </message>
     <message>
         <source>Backup Wallet</source>
@@ -3629,7 +3629,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>По умолчанию</translation>
+        <translation>Сбросить настройки по умолчанию</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -3684,11 +3684,11 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>Export Accounting</source>
-        <translation>Экспорт финансового учета</translation>
+        <translation>Экспорт учета</translation>
     </message>
     <message>
         <source>Export your wallet's accounting data to a csv file.</source>
-        <translation>Экспорт финансовых данных вашего кошелька в CSV-файл.</translation>
+        <translation>Экспорт учетных данных вашего кошелька в CSV-файл.</translation>
     </message>
     <message>
         <source>Where</source>
@@ -3813,6 +3813,25 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Почему мои BLKC невозможно потратить?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+Недавно полученным BLKC требуется 6 подтверждений в сети,
+чтобы получить право быть расходуемыми. Это может занять примерно 6 минут.
+&lt;/p&gt;&lt;p align="justify"&gt;
+Ваш кошелек BlackHat также должен быть полностью синхронизирован,
+чтобы видеть баланс и расходовать его в сети.
+ &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
@@ -3842,7 +3861,77 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <source>What is a Masternode Controller?</source>
-        <translation>Что такое контроллер Мастерноды?</translation>
+        <translation>Что такое контроллер Мастерноды?
+
+ </translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+Мастернода - это компьютер, на котором запущен базовый кошелек BlackHat с полным узлом и для которого требуется обеспечение в 5000 BLKC для обеспечения дополнительных услуг сети и, в свою очередь, регулярного получения части вознаграждения за блок. Эти услуги в себя включают:
+
+Мгновенные транзакции (SwiftX)
+Децентрализованное управление (Голосование по предложениям)
+Децентрализованная система бюджетирования (Казначейство)
+Проверка транзакций в каждом блоке.
+Выступление в качестве дополнительного полного узла в сети.
+
+Для предоставления таких услуг мастернодам также выплачивается определенная часть вознаграждений за каждый блок. Это может служить пассивным доходом для владельцев мастернод за вычетом их эксплуатационных расходов.
+
+Привилегии мастерноды:
+
+Участие в управлении BlackHat
+Получение вознаграждений за мастерноду
+Товарные опционы для будущей продажи
+Помощь в защите сети BlackHat
+
+Требования:
+
+5 000 BLKC для каждой мастерноды
+Должен храниться в основном кошельке
+Требуется выделенный IP-адрес
+Кошелек мастерноды должен оставаться в сети</translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -3866,148 +3955,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <source>You can read more here</source>
-        <translation>Подробнее вы можете прочитать здесь</translation>
-    </message>
-    <message>
-    <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           BlackHat is a form of digital online money using blockchain technology
-                           that can be easily transferred globally, instantly, and with near
-                           zero fees.  BlackHat incorporates market leading security &amp;
-                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
-                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
-                           allowing all owners of BLKC to participate in earning block rewards
-                           while securing the network with full node wallets, as well as to
-                           run Masternodes to create and vote on proposals.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-    <translation>
-    &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-    BlackHat это форма цифровой валюты, использующая блокчейн технологии,
-        которaя может быть лекко переслана по всему миру, мгновенно и с почти
-    нулевыми комиссиями.  BlackHat объединяет в себе бесопасность &amp;
-    приватность, благодаря консенсусу (Proof of Stake) и слою безопасности
-    Sapling(SHIELD) - протоколу, основанному на zk-SNARKs.
-    &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-    BlackHat работает на Proof of Stake (PoS) алгоритме консенсуса,
-        давая возможность всем владельцам BLKC участвовать в получении награды за блок,
-        тем самым укрепляя сеть своими кошельками, а также запускать
-    Мастерноды, чтобы создавать и голосовать за предложения.
-    &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-    </translation>
-    </message>
-    <message>
-    <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
-    <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Убедитесь, что ваш кошелек полностью синхронизирован и вы используете последнюю версию. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;У вас есть баланс BLKC, имеющий минимум 600 подтверждений в сети. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ваш кошелек должен быть онлайн и разблокирован для стейкинга. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Как только эти условия соблюдены, стекинг должен включиться. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вы можете видеть статус стейкинга в кошельке, наведя мышью на иконку пакета в верхней левой части интерфейса кошелька. Эта иконка будет подсвечена и отображать &amp;quot;Стекинг активен&amp;quot;. Используя интерфейс командной строки (blkc-cli); коммандой &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; можно получить статус стекинга. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-    <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
-                           #support in our Discord&lt;/a&gt;.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-    <translation>
-    &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-    За поддержкой вы можете обратиться в наши чаты и каналы, например
-    &lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
-        #support в нашем Discord&lt;/a&gt;.
-    &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-    </translation>
-    </message>
-    <message>
-    <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           A masternode is a computer running a full node BlackHat core wallet with a
-                           requirement of 5,000 BLKC secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-    <translation>
-    &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-    Мастернода - это компьютер, на котором запущен BlackHat Core кошелек с необходимостью
-    заморозки 5,000 BLKC монет для предоставления дополнительных сервисов
-    для сети, и взамен регулярно получающий часть награды за блок.
-        Эти сервисы включают:
-        &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-        &lt;ul&gt;
-        &lt;li&gt;Децентрализованное самоуправление (Голосование за преложения)&lt;/li&gt;
-    &lt;li&gt;Децентрализованная система бюджетов (Treasury)&lt;/li&gt;
-    &lt;li&gt;Валидация транзакций в каждом блоке&lt;/li&gt;
-    &lt;li&gt;Выполняющая роль узла сети&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-    За предоставление данных сервисов мастерноды получают некоторую часть
-    награды за каждый блок. Это может служить пассивным доходом для
-    владельцев мастернод за вычетом стоимости размещения (сервера).
-    &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-    Преимущества мастернод:
-        &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-        &lt;ul&gt;
-        &lt;li&gt;Участие в самоуправлении BlackHat&lt;/li&gt;
-    &lt;li&gt;Получение наград за мастерноды&lt;/li&gt;
-    &lt;li&gt;Помощь в укреплении сети BlackHat&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-    Требования:
-        &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-        &lt;ul&gt;
-        &lt;li&gt;5,000 BLKC за каждую мастерноду&lt;/li&gt;
-    &lt;li&gt;Монеты должны быть в вашем кошельке&lt;/li&gt;
-    &lt;li&gt;Необходим выделенный IP адрес&lt;/li&gt;
-    &lt;li&gt;Мастернода должна быть онлайн&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-    </translation>
-    </message>
-    <message>
-    <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-    <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Контроллер мастерноды - это кошелек, где находятся 5,000 BLKC монет во время установки и настройки мастерноды. Это кошелек, который может активировать удаленные кошельки мастернод и дающий возможность хранить ваши монеты оффлайн, в то время как удаленные мастерноды работают онлайн. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-    <source>Close FAQ</source>
-    <translation>Закрыть ЧаВо</translation>
+        <translation>Вы можете прочитать подробнее здесь</translation>
     </message>
 </context>
 <context>
@@ -4137,7 +4085,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>По умолчанию</translation>
+        <translation>Сбросить настройки по умолчанию</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -4252,8 +4200,8 @@ Are you sure?
         <translation>Флажок</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
-        <translation>MultiSend позволяет автоматически отправлять до 100% ваших вознаграждений от стекинга или мастернод в список других адресов BLKC после его созревания.</translation>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend позволяет автоматически отправлять до 100% ваших вознаграждений от стекинга или мастернод в список других адресов BlackHat после его созревания.</translation>
     </message>
     <message>
         <source>Active</source>
@@ -4735,11 +4683,11 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <source>Restart Now</source>
-        <translation>Перезагрузить</translation>
+        <translation>Перезагрузить сейчас</translation>
     </message>
     <message>
         <source>Restart Later</source>
-        <translation>Позже</translation>
+        <translation>Перезагрузить позже</translation>
     </message>
     <message>
         <source>Options will be applied on next wallet restart</source>
@@ -5105,7 +5053,7 @@ backup will be created.
     </message>
     <message>
         <source>Mined</source>
-        <translation>Добыто</translation>
+        <translation>заминированный</translation>
     </message>
     <message>
         <source>Converted %1 to z%1</source>
@@ -5248,7 +5196,7 @@ backup will be created.
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ХОРОШО</translation>
     </message>
     <message>
         <source>Confirm Your Transaction</source>
@@ -5256,7 +5204,7 @@ backup will be created.
     </message>
     <message>
         <source>SEND</source>
-        <translation>ОТПРАВИТЬ</translation>
+        <translation>отправить</translation>
     </message>
     <message>
         <source>ID copied</source>
@@ -5388,8 +5336,8 @@ BlackHat Core Wallet</source>
         <translation>Привяжите к указанному адресу для прослушивания соединений JSON-RPC. Используйте [host]: обозначение порта для IPv6. Эта опция может быть указана несколько раз (по умолчанию: привязка ко всем интерфейсам)</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
-        <translation>Не удается получить блокировку в каталоге данных %s. %s, вероятно, уже запущен.</translation>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Не удается получить блокировку в каталоге данных %s. BlackHat Core, вероятно, уже запущен.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -5418,6 +5366,10 @@ BlackHat Core Wallet</source>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
         <translation>Включите функцию администрирования spork с помощью соответствующего закрытого ключа.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Введите режим регрессии, в котором используется специальная цепочка, в которой блоки могут быть решены мгновенно.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -5450,6 +5402,10 @@ BlackHat Core Wallet</source>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>Если paytxfee не установлен, включите достаточно плату, так что транзакции начнут подтверждать в среднем в пределах n блоков (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>В этом режиме контролируется, сколько блоков генерируется немедленно.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -5736,6 +5692,10 @@ BlackHat Core Wallet</source>
         <translation>Информация</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Инициализация проверки работоспособности не удалась. BlackHat Core отключается.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Недостаточно средств.</translation>
     </message>
@@ -5758,6 +5718,10 @@ BlackHat Core Wallet</source>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>Ошибка: обнаружен неподдерживаемый аргумент -checklevel. Контрольный уровень должен быть 4-го уровня.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Выполнять команду, когда лучший блок изменяется и его размер превышает (%s в cmd заменяется блочным хешем, %d с размером блока)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6230,6 +6194,10 @@ BlackHat Core Wallet</source>
         <translation>Это экспериментальное программное обеспечение.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>Это предназначено для инструментов тестирования регрессии и разработки приложений.</translation>
+    </message>
+    <message>
         <source>This is not a masternode. 'local' option disabled.</source>
         <translation>Это не мастернода. Опция 'local' отключена.</translation>
     </message>
@@ -6300,6 +6268,10 @@ BlackHat Core Wallet</source>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Используйте UPnP для отображения порта прослушивания (по умолчанию: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Использовать тестовую сеть</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
@@ -6398,19 +6370,11 @@ BlackHat Core Wallet</source>
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>По умолчанию</translation>
+        <translation>Сбросить настройки по умолчанию</translation>
     </message>
     <message>
         <source>Include delegated</source>
         <translation>Включить делегированного</translation>
-    </message>
-    <message>
-        <source>Transfer coins publicly or privately</source>
-        <translation>Отправить монеты публично или приватно</translation>
-    </message>
-    <message>
-        <source>Select which coins to spend</source>
-        <translation>Выберите какие монеты отправить</translation>
     </message>
 </context>
 </TS>

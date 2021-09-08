@@ -18,7 +18,7 @@
 class CBudgetVote : public CSignedMessage
 {
 public:
-    enum VoteDirection {
+    enum VoteDirection : uint32_t {
         VOTE_ABSTAIN = 0,
         VOTE_YES = 1,
         VOTE_NO = 2
@@ -65,25 +65,7 @@ public:
     void SetTime(const int64_t& _nTime) { nTime = _nTime; }
     void SetValid(bool _fValid) { fValid = _fValid; }
 
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(vin);
-        READWRITE(nProposalHash);
-        int nVoteInt = (int) nVote;
-        READWRITE(nVoteInt);
-        if (ser_action.ForRead())
-            nVote = (VoteDirection) nVoteInt;
-        READWRITE(nTime);
-        READWRITE(vchSig);
-        try
-        {
-            READWRITE(nMessVersion);
-        } catch (...) {
-            nMessVersion = MessageVersion::MESS_VER_STRMESS;
-        }
-    }
+    SERIALIZE_METHODS(CBudgetVote, obj) { READWRITE(obj.vin, obj.nProposalHash, Using<CustomUintFormatter<4>>(obj.nVote), obj.nTime, obj.vchSig, obj.nMessVersion); }
 };
 
 #endif // BUDGET_VOTE_H

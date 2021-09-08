@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # Copyright (c) 2021 The PIVX developers
+# Copyright (c) 2021 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
-from test_framework.test_framework import PivxTestFramework
+from decimal import Decimal
+import os
+import time
+
+from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
     connect_nodes,
@@ -12,11 +17,8 @@ from test_framework.util import (
     set_node_times,
 )
 
-from decimal import Decimal
-import os
-import time
 
-class GovernanceReorgTest(PivxTestFramework):
+class GovernanceReorgTest(BlackHatTestFramework):
 
     def set_test_params(self):
         self.setup_clean_chain = True
@@ -66,10 +68,10 @@ class GovernanceReorgTest(PivxTestFramework):
         # Setup Masternodes
         self.log.info("Masternodes setup...")
         ownerdir = os.path.join(self.options.tmpdir, "node%d" % self.minerAPos, "regtest")
-        self.mnOneTxHash = self.setupMasternode(minerA, minerA, self.masternodeOneAlias,
-                                                ownerdir, self.remoteOnePos, self.mnOnePrivkey)
-        self.mnTwoTxHash = self.setupMasternode(minerA, minerA, self.masternodeTwoAlias,
-                                                ownerdir, self.remoteTwoPos, self.mnTwoPrivkey)
+        self.mnOneCollateral = self.setupMasternode(minerA, minerA, self.masternodeOneAlias,
+                                                    ownerdir, self.remoteOnePos, self.mnOnePrivkey)
+        self.mnTwoCollateral = self.setupMasternode(minerA, minerA, self.masternodeTwoAlias,
+                                                    ownerdir, self.remoteTwoPos, self.mnTwoPrivkey)
 
         # Activate masternodes
         self.log.info("Masternodes activation...")
@@ -84,11 +86,11 @@ class GovernanceReorgTest(PivxTestFramework):
         self.wait_until_mnsync_finished()
         self.controller_start_masternode(minerA, self.masternodeOneAlias)
         self.controller_start_masternode(minerA, self.masternodeTwoAlias)
-        self.wait_until_mn_preenabled(self.mnOneTxHash, 40)
-        self.wait_until_mn_preenabled(self.mnTwoTxHash, 40)
+        self.wait_until_mn_preenabled(self.mnOneCollateral.hash, 40)
+        self.wait_until_mn_preenabled(self.mnOneCollateral.hash, 40)
         self.send_3_pings([mn1, mn2])
-        self.wait_until_mn_enabled(self.mnOneTxHash, 120, [mn1, mn2])
-        self.wait_until_mn_enabled(self.mnTwoTxHash, 120, [mn1, mn2])
+        self.wait_until_mn_enabled(self.mnOneCollateral.hash, 120, [mn1, mn2])
+        self.wait_until_mn_enabled(self.mnOneCollateral.hash, 120, [mn1, mn2])
 
         # activate sporks
         self.log.info("Masternodes enabled. Activating sporks.")

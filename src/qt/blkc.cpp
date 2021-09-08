@@ -27,6 +27,7 @@
 #include "paymentserver.h"
 #include "walletmodel.h"
 #include "interfaces/wallet.h"
+#include "wallet/walletutil.h"
 #endif
 #include "masternodeconfig.h"
 
@@ -34,7 +35,7 @@
 #include "init.h"
 #include "rpc/server.h"
 #include "guiinterface.h"
-#include "util.h"
+#include "util/system.h"
 #include "warnings.h"
 
 #ifdef ENABLE_WALLET
@@ -481,7 +482,6 @@ void BitcoinApplication::initializeResult(int retval)
     returnValue = retval ? 0 : 1;
     if (retval) {
 #ifdef ENABLE_WALLET
-        PaymentServer::LoadRootCAs();
         paymentServer->setOptionsModel(optionsModel);
 #endif
 
@@ -489,15 +489,13 @@ void BitcoinApplication::initializeResult(int retval)
         window->setClientModel(clientModel);
 
 #ifdef ENABLE_WALLET
-        if (pwalletMain) {
-            walletModel = new WalletModel(pwalletMain, optionsModel);
+        // TODO: Expose secondary wallets
+        if (!vpwallets.empty()) {
+            walletModel = new WalletModel(vpwallets[0], optionsModel);
             walletModel->setClientModel(clientModel);
 
             window->addWallet(BLKCGUI::DEFAULT_WALLET, walletModel);
             window->setCurrentWallet(BLKCGUI::DEFAULT_WALLET);
-
-            connect(walletModel, &WalletModel::coinsSent,
-                    paymentServer, &PaymentServer::fetchPaymentACK);
         }
 #endif
 
@@ -548,6 +546,10 @@ WId BitcoinApplication::getMainWinId() const
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char* argv[])
 {
+#ifdef WIN32
+    util::WinCmdLineArgs winArgs;
+    std::tie(argc, argv) = winArgs.get();
+#endif
     SetupEnvironment();
 
     /// 1. Parse command-line options. These take precedence over anything else.
@@ -584,7 +586,6 @@ int main(int argc, char* argv[])
     QApplication::setOrganizationName(QAPP_ORG_NAME);
     QApplication::setOrganizationDomain(QAPP_ORG_DOMAIN);
     QApplication::setApplicationName(QAPP_APP_NAME_DEFAULT);
-    GUIUtil::SubstituteFonts(GetLangTerritory());
 
     /// 4. Initialization of translations, so that intro dialog is in user's language
     // Now that QSettings are accessible, initialize translations
@@ -605,7 +606,7 @@ int main(int argc, char* argv[])
     if (!Intro::pickDataDirectory())
         return 0;
 
-    /// 6. Determine availability of data directory and parse blkc.conf
+    /// 6. Determine availability of data and blocks directory and parse blkc.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!fs::is_directory(GetDataDir(false))) {
         QMessageBox::critical(0, QObject::tr("BlackHat Core"),
@@ -613,7 +614,7 @@ int main(int argc, char* argv[])
         return 1;
     }
     try {
-        gArgs.ReadConfigFile();
+        gArgs.ReadConfigFile(gArgs.GetArg("-conf", BLKC_CONF_FILENAME));
     } catch (const std::exception& e) {
         QMessageBox::critical(0, QObject::tr("BlackHat Core"),
             QObject::tr("Error: Cannot parse configuration file: %1. Only use key=value syntax.").arg(e.what()));
@@ -628,7 +629,7 @@ int main(int argc, char* argv[])
 
     // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
     try {
-        SelectParams(ChainNameFromCommandLine());
+        SelectParams(gArgs.GetChainName());
     } catch(const std::exception& e) {
         QMessageBox::critical(0, QObject::tr("BlackHat Core"), QObject::tr("Error: %1").arg(e.what()));
         return 1;
@@ -687,18 +688,23 @@ int main(int argc, char* argv[])
 
     bool ret = true;
 #ifdef ENABLE_WALLET
-    // Check if the wallet exists or need to be created
-    std::string strWalletFile = gArgs.GetArg("-wallet", DEFAULT_WALLET_DAT);
-    std::string strDataDir = GetDataDir().string();
-    // Wallet file must be a plain filename without a directory
-    fs::path wallet_file_path(strWalletFile);
-    if (strWalletFile != wallet_file_path.filename().string()) {
-        throw std::runtime_error(strprintf(_("Wallet %s resides outside data directory %s"), strWalletFile, strDataDir));
+    // Check if at least one wallet exists, otherwise prompt tutorial
+    bool createTutorial{true};
+    const fs::path wallet_dir = GetWalletDir();
+    gArgs.SoftSetArg("-wallet", "");
+    for (const std::string& wallet_name : gArgs.GetArgs("-wallet")) {
+        auto opRes = VerifyWalletPath(wallet_name);
+        if (!opRes) throw std::runtime_error(opRes.getError());
+        fs::path wallet_path = fs::absolute(wallet_name, wallet_dir);
+        if (!fs::is_regular_file(wallet_path)) {
+            wallet_path /= "wallet.dat";
+        }
+        if (createTutorial && fs::exists(wallet_path)) {
+            // some wallet already exists, don't create tutorial
+            createTutorial = false;
+        }
     }
-
-    fs::path pathBootstrap = GetDataDir() / strWalletFile;
-    if (!fs::exists(pathBootstrap)) {
-        // wallet doesn't exist, popup tutorial screen.
+    if (createTutorial) {
         ret = app.createTutorialScreen();
     }
 #endif

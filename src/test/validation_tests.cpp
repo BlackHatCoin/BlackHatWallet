@@ -1,72 +1,30 @@
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2020-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #include "test/test_blkc.h"
+#include "blockassembler.h"
 #include "primitives/transaction.h"
 #include "sapling/sapling_validation.h"
-#include "tiertwo/specialtx_validation.h"
 #include "test/librust/utiltest.h"
+#include "util/blockstatecatcher.h"
+#include "wallet/test/wallet_test_fixture.h"
 
 #include <boost/test/unit_test.hpp>
 
-BOOST_FIXTURE_TEST_SUITE(validation_tests, TestingSetup)
+BOOST_AUTO_TEST_SUITE(validation_tests)
 
-BOOST_AUTO_TEST_CASE(special_tx_validation_test)
+BOOST_FIXTURE_TEST_CASE(test_simple_shielded_invalid, TestingSetup)
 {
-    // First check, sapling not active, transaction with extra payload
-    CMutableTransaction mtx;
-    mtx.extraPayload = std::vector<uint8_t>(10, 1);
-    CValidationState state;
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, false));
-
-    // Now activate sapling
-    RegtestActivateSapling();
-
-    // After Sapling activation.
-    // v1 can only be Type=0
-    mtx.nType = 1;
-    mtx.nVersion = CTransaction::TxVersion::LEGACY;
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, true));
-    BOOST_CHECK(state.GetRejectReason().find("not supported with version 0"));
-
-    // version >= Sapling, type = 0, payload != null.
-    mtx.nType = 0;
-    mtx.nVersion = CTransaction::TxVersion::SAPLING;
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, true));
-    BOOST_CHECK(state.GetRejectReason().find("doesn't support extra payload"));
-
-    // version >= Sapling, type = 0, payload == null --> pass
-    mtx.extraPayload = nullopt;
-    BOOST_CHECK(CheckSpecialTx(CTransaction(mtx), state, true));
-
-    // nVersion>=2 and nType!=0 without extrapayload
-    mtx.nType = 1;
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, true));
-    BOOST_CHECK(state.GetRejectReason().find("without extra payload"));
-
-    // Size limits
-    mtx.extraPayload = std::vector<uint8_t>(MAX_SPECIALTX_EXTRAPAYLOAD + 1, 1);
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, true));
-    BOOST_CHECK(state.GetRejectReason().find("Special tx payload oversize"));
-
-    // Remove one element, so now it passes the size check
-    mtx.extraPayload->pop_back();
-    BOOST_CHECK(!CheckSpecialTx(CTransaction(mtx), state, true));
-    BOOST_CHECK(state.GetRejectReason().find("with invalid type"));
-
-    RegtestDeactivateSapling();
-}
-
-void test_simple_sapling_invalidity(CMutableTransaction& tx)
-{
+    CMutableTransaction tx;
+    tx.nVersion = CTransaction::TxVersion::SAPLING;
     CAmount nDummyValueOut;
     {
         CMutableTransaction newTx(tx);
         CValidationState state;
 
-        BOOST_CHECK(!CheckTransaction(newTx, false, state, false));
+        BOOST_CHECK(!CheckTransaction(newTx, state, false));
         BOOST_CHECK(state.GetRejectReason() == "bad-txns-vin-empty");
     }
     {
@@ -76,7 +34,7 @@ void test_simple_sapling_invalidity(CMutableTransaction& tx)
         newTx.sapData->vShieldedSpend.emplace_back();
         newTx.sapData->vShieldedSpend[0].nullifier = GetRandHash();
 
-        BOOST_CHECK(!CheckTransaction(newTx, false, state, false));
+        BOOST_CHECK(!CheckTransaction(newTx, state, false));
         BOOST_CHECK(state.GetRejectReason() == "bad-txns-vout-empty");
     }
     {
@@ -113,7 +71,7 @@ void test_simple_sapling_invalidity(CMutableTransaction& tx)
 
         newTx.sapData->vShieldedSpend.emplace_back();
 
-        BOOST_CHECK(!CheckTransaction(newTx, false, state, false, false, true));
+        BOOST_CHECK(!CheckTransaction(newTx, state, false));
         BOOST_CHECK(state.GetRejectReason() == "bad-txns-invalid-sapling");
     }
     {
@@ -132,25 +90,74 @@ void test_simple_sapling_invalidity(CMutableTransaction& tx)
 
         newTx.sapData->vShieldedSpend.emplace_back();
 
-        BOOST_CHECK(!CheckTransaction(newTx, false, state, false, false, true));
+        BOOST_CHECK(!CheckTransaction(newTx, state, false));
         BOOST_CHECK(state.GetRejectReason() == "bad-txns-invalid-sapling");
     }
 }
 
-BOOST_AUTO_TEST_CASE(test_simple_shielded_invalid)
+void CheckBlockZcRejection(std::shared_ptr<CBlock>& pblock, int nHeight, CMutableTransaction& mtx, const std::string& expected_msg)
 {
-    // Switch to regtest parameters so we can activate Sapling
-    SelectParams(CBaseChainParams::REGTEST);
+    pblock->vtx.emplace_back(MakeTransactionRef(mtx));
+    BOOST_CHECK(SolveBlock(pblock, nHeight));
+    BlockStateCatcher stateCatcher(pblock->GetHash());
+    stateCatcher.registerEvent();
+    BOOST_CHECK(!ProcessNewBlock(pblock, nullptr));
+    BOOST_CHECK(stateCatcher.found && !stateCatcher.state.IsValid());
+    BOOST_CHECK_EQUAL(stateCatcher.state.GetRejectReason(), expected_msg);
+    BOOST_CHECK(WITH_LOCK(cs_main, return chainActive.Tip()->GetBlockHash(); ) != pblock->GetHash());
+}
 
-    CMutableTransaction mtx;
-    mtx.nVersion = CTransaction::TxVersion::SAPLING;
+void CheckMempoolZcRejection(CMutableTransaction& mtx, const std::string& expected_msg)
+{
+    LOCK(cs_main);
+    CValidationState state;
+    BOOST_CHECK(!AcceptToMemoryPool(
+            mempool, state, MakeTransactionRef(mtx), true, nullptr, false, true));
+    BOOST_CHECK(!state.IsValid());
+    BOOST_CHECK_EQUAL(state.GetRejectReason(), expected_msg);
+}
 
+/*
+ * Running on regtest to have v5 upgrade enforced at block 1 and test in-block zc rejection
+ */
+BOOST_FIXTURE_TEST_CASE(zerocoin_rejection_tests, WalletRegTestingSetup)
+{
     UpdateNetworkUpgradeParameters(Consensus::UPGRADE_V5_0, Consensus::NetworkUpgrade::ALWAYS_ACTIVE);
-    test_simple_sapling_invalidity(mtx);
-    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_V5_0, Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT);
+    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_ZC_PUBLIC, Consensus::NetworkUpgrade::ALWAYS_ACTIVE);
+    const CChainParams& chainparams = Params();
 
-    // Switch back to mainnet parameters as originally selected in test fixture
-    SelectParams(CBaseChainParams::MAIN);
+    std::unique_ptr<CBlockTemplate> pblocktemplate;
+    CScript scriptPubKey = CScript() << OP_DUP << OP_HASH160 << ParseHex("8d5b4f83212214d6ef693e02e6d71969fddad976") << OP_EQUALVERIFY << OP_CHECKSIG;
+    BOOST_CHECK(pblocktemplate = BlockAssembler(Params(), false).CreateNewBlock(scriptPubKey, &m_wallet, false));
+    pblocktemplate->block.hashPrevBlock = chainparams.GetConsensus().hashGenesisBlock;
+
+    // Base tx
+    CMutableTransaction mtx;
+    CTxIn vin;
+    vin.prevout = COutPoint(UINT256_ZERO, 0);
+    mtx.vin.emplace_back(vin);
+
+    // Zerocoin mints rejection test
+    mtx.vout.emplace_back();
+    mtx.vout[0].scriptPubKey = CScript() << OP_ZEROCOINMINT <<
+                                         CBigNum::randBignum(chainparams.GetConsensus().Zerocoin_Params(false)->coinCommitmentGroup.groupOrder).getvch();
+    mtx.vout[0].nValue = 1 * COIN;
+    std::shared_ptr<CBlock> pblock = std::make_shared<CBlock>(pblocktemplate->block);
+    CheckBlockZcRejection(pblock, 1, mtx, "bad-txns-zc-mint");
+    CheckMempoolZcRejection(mtx, "bad-txns-zc-mint");
+
+    // Zerocoin spends rejection test
+    mtx.vout[0].scriptPubKey = scriptPubKey;
+    mtx.vin[0].scriptSig = CScript() << OP_ZEROCOINSPEND;
+    pblock = std::make_shared<CBlock>(pblocktemplate->block);
+    CheckBlockZcRejection(pblock, 1, mtx, "bad-txns-zc-private-spend");
+    CheckMempoolZcRejection(mtx, "bad-txns-zc-private-spend");
+
+    // Zerocoin public spends rejection test
+    mtx.vin[0].scriptSig = CScript() << OP_ZEROCOINPUBLICSPEND;
+    pblock = std::make_shared<CBlock>(pblocktemplate->block);
+    CheckBlockZcRejection(pblock, 1, mtx, "bad-txns-zc-public-spend");
+    CheckMempoolZcRejection(mtx, "bad-txns-zc-public-spend");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

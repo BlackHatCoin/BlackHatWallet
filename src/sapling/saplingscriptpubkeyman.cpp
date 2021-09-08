@@ -512,6 +512,20 @@ void SaplingScriptPubKeyMan::GetFilteredNotes(
     }
 }
 
+/* Return list of available notes grouped by sapling address. */
+std::map<libzcash::SaplingPaymentAddress, std::vector<SaplingNoteEntry>> SaplingScriptPubKeyMan::ListNotes() const
+{
+    std::vector<SaplingNoteEntry> notes;
+    Optional<libzcash::SaplingPaymentAddress> dummy = nullopt;
+    GetFilteredNotes(notes, dummy);
+
+    std::map<libzcash::SaplingPaymentAddress, std::vector<SaplingNoteEntry>> result;
+    for (const auto& note : notes) {
+        result[note.address].emplace_back(std::move(note));
+    }
+    return result;
+}
+
 Optional<libzcash::SaplingPaymentAddress>
 SaplingScriptPubKeyMan::GetAddressFromInputIfPossible(const uint256& txHash, int index) const
 {
@@ -604,7 +618,7 @@ Optional<std::string> SaplingScriptPubKeyMan::GetOutPointMemo(const CWalletTx& t
         if (IsValidUTF8(memoStr)) return memoStr;
     }
     // non UTF-8 memo. Return as hex encoded raw memo.
-    return HexStr(memo.begin(), end.base());
+    return HexStr(std::vector<unsigned char>(memo.begin(), end.base()));
 }
 
 Optional<std::pair<

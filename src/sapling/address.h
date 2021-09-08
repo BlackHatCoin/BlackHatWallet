@@ -30,13 +30,7 @@ public:
     SaplingPaymentAddress() {}
     SaplingPaymentAddress(const diversifier_t& _d, const uint256& _pk_d) : d(_d), pk_d(_pk_d) { }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(d);
-        READWRITE(pk_d);
-    }
+    SERIALIZE_METHODS(SaplingPaymentAddress, obj) { READWRITE(obj.d, obj.pk_d); }
 
     //! Get the 256-bit SHA256d hash of this payment address.
     uint256 GetHash() const;
@@ -68,14 +62,7 @@ public:
     SaplingFullViewingKey() : ak(), nk(), ovk() { }
     SaplingFullViewingKey(uint256 ak, uint256 nk, uint256 ovk) : ak(ak), nk(nk), ovk(ovk) { }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(ak);
-        READWRITE(nk);
-        READWRITE(ovk);
-    }
+    SERIALIZE_METHODS(SaplingFullViewingKey, obj) { READWRITE(obj.ak, obj.nk, obj.ovk); }
 
     //! Get the fingerprint of this full viewing key (as defined in ZIP 32).
     uint256 GetFingerprint() const;
@@ -103,14 +90,7 @@ public:
     SaplingExpandedSpendingKey() : ask(), nsk(), ovk() { }
     SaplingExpandedSpendingKey(uint256 ask, uint256 nsk, uint256 ovk) : ask(ask), nsk(nsk), ovk(ovk) { }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(ask);
-        READWRITE(nsk);
-        READWRITE(ovk);
-    }
+    SERIALIZE_METHODS(SaplingExpandedSpendingKey, obj) { READWRITE(obj.ask, obj.nsk, obj.ovk); }
 
     SaplingFullViewingKey full_viewing_key() const;
     bool IsNull() { return ask.IsNull() && nsk.IsNull() && ovk.IsNull(); }

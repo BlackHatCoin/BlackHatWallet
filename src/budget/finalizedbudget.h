@@ -107,18 +107,16 @@ public:
     }
 
     // Serialization for local DB
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(CFinalizedBudget, obj)
     {
-        READWRITE(LIMITED_STRING(strBudgetName, 20));
-        READWRITE(nFeeTXHash);
-        READWRITE(nTime);
-        READWRITE(nBlockStart);
-        READWRITE(vecBudgetPayments);
-        READWRITE(fAutoChecked);
-        READWRITE(mapVotes);
-        READWRITE(strProposals);
+        READWRITE(LIMITED_STRING(obj.strBudgetName, 20));
+        READWRITE(obj.nFeeTXHash);
+        READWRITE(obj.nTime);
+        READWRITE(obj.nBlockStart);
+        READWRITE(obj.vecBudgetPayments);
+        READWRITE(obj.fAutoChecked);
+        READWRITE(obj.mapVotes);
+        READWRITE(obj.strProposals);
     }
 
     // Serialization for network messages.
@@ -156,19 +154,14 @@ public:
         nAmount(_nAmount)
     {}
 
-    ADD_SERIALIZE_METHODS;
-
     //for saving to the serialized db
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(*(CScriptBase*)(&payee));
-        READWRITE(nAmount);
-        READWRITE(nProposalHash);
-    }
+    SERIALIZE_METHODS(CTxBudgetPayment, obj) { READWRITE(obj.payee, obj.nAmount, obj.nProposalHash); }
 
     // compare payments by proposal hash
-    inline bool operator>(const CTxBudgetPayment& other) const { return nProposalHash > other.nProposalHash; }
+    inline bool operator>(const CTxBudgetPayment& other) const
+    {
+        return UintToArith256(nProposalHash) > UintToArith256(other.nProposalHash);
+    }
 
 };
 

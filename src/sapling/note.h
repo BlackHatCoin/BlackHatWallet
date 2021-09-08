@@ -89,10 +89,8 @@ public:
 
     boost::optional<SaplingNote> note(const SaplingIncomingViewingKey& ivk) const;
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
+    SERIALIZE_METHODS(SaplingNotePlaintext, obj)
+    {
         unsigned char leadingByte = 0x01;
         READWRITE(leadingByte);
 
@@ -100,10 +98,10 @@ public:
             throw std::ios_base::failure("lead byte of SaplingNotePlaintext is not recognized");
         }
 
-        READWRITE(d);           // 11 bytes
-        READWRITE(value_);      // 8 bytes
-        READWRITE(rcm);         // 32 bytes
-        READWRITE(memo_);       // 512 bytes
+        READWRITE(obj.d);           // 11 bytes
+        READWRITE(obj.value_);      // 8 bytes
+        READWRITE(obj.rcm);         // 32 bytes
+        READWRITE(obj.memo_);       // 512 bytes
     }
 
     boost::optional<SaplingNotePlaintextEncryptionResult> encrypt(const uint256& pk_d) const;
@@ -121,12 +119,10 @@ public:
         esk(_esk)
     {}
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(pk_d);        // 8 bytes
-        READWRITE(esk);         // 8 bytes
+    SERIALIZE_METHODS(SaplingOutgoingPlaintext, obj)
+    {
+        READWRITE(obj.pk_d);        // 8 bytes
+        READWRITE(obj.esk);         // 8 bytes
     }
 
     static boost::optional<SaplingOutgoingPlaintext> decrypt(

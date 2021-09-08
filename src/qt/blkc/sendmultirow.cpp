@@ -35,6 +35,8 @@ SendMultiRow::SendMultiRow(BLKCGUI* _window, PWidget *parent) :
     // future: when we get a designer, this should have another icon. A "memo" icon instead of a "+"
     setCssProperty(ui->btnAddMemo, "btn-secundary-add");
 
+    setCssProperty(ui->checkboxSubtractFeeFromAmount, "combo-light");
+
     // Button menu
     setCssProperty(ui->btnMenu, "btn-menu");
     ui->btnMenu->setVisible(false);
@@ -194,10 +196,6 @@ bool SendMultiRow::validate()
     // Check input validity
     bool retval = true;
 
-    // Skip checks for payment request
-    if (recipient.paymentRequest.IsInitialized())
-        return retval;
-
     // Check address validity, returns false if it's invalid
     QString address = ui->lineEditAddress->text();
     if (address.isEmpty()){
@@ -225,16 +223,12 @@ bool SendMultiRow::validate()
 
 SendCoinsRecipient SendMultiRow::getValue()
 {
-    // Payment request
-    if (recipient.paymentRequest.IsInitialized())
-        return recipient;
-
-    // Normal payment
     recipient.address = getAddress();
     recipient.label = ui->lineEditDescription->text();
     recipient.amount = getAmountValue();
     auto dest = Standard::DecodeDestination(recipient.address.toStdString());
     recipient.isShieldedAddr = boost::get<libzcash::SaplingPaymentAddress>(&dest);
+    recipient.fSubtractFee = getSubtractFeeFromAmount();
     return recipient;
 }
 
@@ -273,6 +267,11 @@ int SendMultiRow::getNumber()
     return number;
 }
 
+bool SendMultiRow::getSubtractFeeFromAmount() const
+{
+    return ui->checkboxSubtractFeeFromAmount->isChecked();
+}
+
 void SendMultiRow::setAddress(const QString& address)
 {
     ui->lineEditAddress->setText(address);
@@ -282,6 +281,12 @@ void SendMultiRow::setAddress(const QString& address)
 void SendMultiRow::setAmount(const QString& amount)
 {
     ui->lineEditAmount->setText(amount);
+}
+
+void SendMultiRow::toggleSubtractFeeFromAmount()
+{
+    bool old = ui->checkboxSubtractFeeFromAmount->isChecked();
+    ui->checkboxSubtractFeeFromAmount->setChecked(!old);
 }
 
 void SendMultiRow::setAddressAndLabelOrDescription(const QString& address, const QString& message)

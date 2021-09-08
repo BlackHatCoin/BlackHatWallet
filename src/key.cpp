@@ -6,7 +6,6 @@
 
 #include "key.h"
 
-#include "uint256.h"
 #include "crypto/common.h"
 #include "crypto/hmac_sha512.h"
 #include "random.h"
@@ -190,7 +189,7 @@ CPrivKey CKey::GetPrivKey() const
     size_t privkeylen;
     privkey.resize(PRIVATE_KEY_SIZE);
     privkeylen = PRIVATE_KEY_SIZE;
-    int ret = ec_privkey_export_der(secp256k1_context_sign, (unsigned char*)&privkey[0], &privkeylen, begin(), fCompressed ? SECP256K1_EC_COMPRESSED : SECP256K1_EC_UNCOMPRESSED);
+    int ret = ec_privkey_export_der(secp256k1_context_sign, (unsigned char*)privkey.data(), &privkeylen, begin(), fCompressed ? SECP256K1_EC_COMPRESSED : SECP256K1_EC_UNCOMPRESSED);
     assert(ret);
     privkey.resize(privkeylen);
     return privkey;
@@ -307,7 +306,6 @@ void CExtKey::SetSeed(const unsigned char* seed, unsigned int nSeedLen)
     CHMAC_SHA512(hashkey, sizeof(hashkey)).Write(seed, nSeedLen).Finalize(vout.data());
     key.Set(vout.data(), vout.data() + 32, true);
     memcpy(chaincode.begin(), vout.data() + 32, 32);
-
     nDepth = 0;
     nChild = 0;
     memset(vchFingerprint, 0, sizeof(vchFingerprint));

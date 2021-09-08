@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
-// Copyright (c) 2016-2020 The PIVX developers
+// Copyright (c) 2009-2021 The Bitcoin developers
+// Copyright (c) 2016-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_WALLETDB_H
-#define BITCOIN_WALLETDB_H
+#ifndef BLKC_WALLETDB_H
+#define BLKC_WALLETDB_H
 
 #include "amount.h"
 #include "wallet/db.h"
@@ -81,16 +81,11 @@ public:
         nCreateTime = nCreateTime_;
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(CKeyMetadata, obj)
     {
-        READWRITE(nVersion);
-        READWRITE(nCreateTime);
-        if (HasKeyOrigin()) {
-            READWRITE(hd_seed_id);
-            READWRITE(key_origin);
+        READWRITE(obj.nVersion, obj.nCreateTime);
+        if (obj.HasKeyOrigin()) {
+            READWRITE(obj.hd_seed_id, obj.key_origin);
         }
     }
 
@@ -115,11 +110,35 @@ public:
  */
 class CWalletDB
 {
+private:
+    template <typename K, typename T>
+    bool WriteIC(const K& key, const T& value, bool fOverwrite = true)
+    {
+        if (!batch.Write(key, value, fOverwrite)) {
+            return false;
+        }
+        m_dbw.IncrementUpdateCounter();
+        return true;
+    }
+
+    template <typename K>
+    bool EraseIC(const K& key)
+    {
+        if (!batch.Erase(key)) {
+            return false;
+        }
+        m_dbw.IncrementUpdateCounter();
+        return true;
+    }
+
 public:
     CWalletDB(CWalletDBWrapper& dbw, const char* pszMode = "r+", bool _fFlushOnClose = true) :
-        batch(dbw, pszMode, _fFlushOnClose)
+        batch(dbw, pszMode, _fFlushOnClose),
+        m_dbw(dbw)
     {
     }
+    CWalletDB(const CWalletDB&) = delete;
+    CWalletDB& operator=(const CWalletDB&) = delete;
 
     bool WriteName(const std::string& strAddress, const std::string& strName);
     bool EraseName(const std::string& strAddress);
@@ -139,9 +158,6 @@ public:
     bool WriteWatchOnly(const CScript& script);
     bool EraseWatchOnly(const CScript& script);
 
-    bool WriteMultiSig(const CScript& script);
-    bool EraseMultiSig(const CScript& script);
-
     bool WriteBestBlock(const CBlockLocator& locator);
     bool ReadBestBlock(CBlockLocator& locator);
 
@@ -150,11 +166,6 @@ public:
     bool WriteStakeSplitThreshold(const CAmount& nStakeSplitThreshold);
     bool WriteUseCustomFee(bool fUse);
     bool WriteCustomFeeValue(const CAmount& nCustomFee);
-    bool WriteMultiSend(std::vector<std::pair<std::string, int> > vMultiSend);
-    bool EraseMultiSend(std::vector<std::pair<std::string, int> > vMultiSend);
-    bool WriteMSettings(bool fMultiSendStake, bool fMultiSendMasternode, int nLastMultiSendHeight);
-    bool WriteMSDisabledAddresses(std::vector<std::string> vDisabledAddresses);
-    bool EraseMSDisabledAddresses(std::vector<std::string> vDisabledAddresses);
     bool WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold);
 
     bool ReadPool(int64_t nPool, CKeyPool& keypool);
@@ -194,20 +205,17 @@ public:
     DBErrors FindWalletTx(CWallet* pwallet, std::vector<uint256>& vTxHash, std::vector<CWalletTx>& vWtx);
     DBErrors ZapWalletTx(CWallet* pwallet, std::vector<CWalletTx>& vWtx);
     /* Try to (very carefully!) recover wallet database (with a possible key type filter) */
-    static bool Recover(const std::string& filename, void *callbackDataIn, bool (*recoverKVcallback)(void* callbackData, CDataStream ssKey, CDataStream ssValue));
-    /* Recover convenience-function to bypass the key filter callback, called when verify failes, recoveres everything */
-    static bool Recover(const std::string& filename);
+    static bool Recover(const fs::path& wallet_path, void *callbackDataIn, bool (*recoverKVcallback)(void* callbackData, CDataStream ssKey, CDataStream ssValue), std::string& out_backup_filename);
+    /* Recover convenience-function to bypass the key filter callback, called when verify fails, recovers everything */
+    static bool Recover(const fs::path& wallet_path, std::string& out_backup_filename);
     /* Recover filter (used as callback), will only let keys (cryptographical keys) as KV/key-type pass through */
     static bool RecoverKeysOnlyFilter(void *callbackData, CDataStream ssKey, CDataStream ssValue);
     /* Function to determin if a certain KV/key-type is a key (cryptographical key) type */
     static bool IsKeyType(const std::string& strType);
     /* verifies the database environment */
-    static bool VerifyEnvironment(const std::string& walletFile, const fs::path& dataDir, std::string& errorStr);
+    static bool VerifyEnvironment(const fs::path& wallet_path, std::string& errorStr);
     /* verifies the database file */
-    static bool VerifyDatabaseFile(const std::string& walletFile, const fs::path& dataDir, std::string& warningStr, std::string& errorStr);
-
-    static void IncrementUpdateCounter();
-    static unsigned int GetUpdateCounter();
+    static bool VerifyDatabaseFile(const fs::path& wallet_path, std::string& warningStr, std::string& errorStr);
 
     //! Begin a new transaction
     bool TxnBegin();
@@ -221,16 +229,13 @@ public:
     bool WriteVersion(int nVersion);
 private:
     CDB batch;
-
-    CWalletDB(const CWalletDB&);
-    void operator=(const CWalletDB&);
+    CWalletDBWrapper& m_dbw;
 };
 
-void NotifyBacked(const CWallet& wallet, bool fSuccess, std::string strMessage);
-bool BackupWallet(const CWallet& wallet, const fs::path& strDest);
-bool AttemptBackupWallet(const CWallet& wallet, const fs::path& pathSrc, const fs::path& pathDest);
+//! Called during init: Automatic backups
+bool AutoBackupWallet(CWallet& wallet, std::string& strBackupWarning, std::string& strBackupError);
 
 //! Compacts BDB state so that wallet.dat is self-contained (if there are changes)
 void MaybeCompactWalletDB();
 
-#endif // BITCOIN_WALLETDB_H
+#endif // BLKC_WALLETDB_H

@@ -17,19 +17,21 @@ private:
     uint256 hashSerial{UINT256_ZERO};
 
 public:
-    CLegacyZBlkcStake() : CStakeInput(nullptr) {}
+    CLegacyZBlkcStake(const CBlockIndex* _pindexFrom, uint32_t _nChecksum, libzerocoin::CoinDenomination _denom, const uint256& _hashSerial) :
+        CStakeInput(_pindexFrom),
+        nChecksum(_nChecksum),
+        denom(_denom),
+        hashSerial(_hashSerial)
+    {}
 
-    explicit CLegacyZBlkcStake(const libzerocoin::CoinSpend& spend);
-    bool InitFromTxIn(const CTxIn& txin) override;
+    static CLegacyZBlkcStake* NewZBlkcStake(const CTxIn& txin, int nHeight);
+
     bool IsZBLKC() const override { return true; }
     uint32_t GetChecksum() const { return nChecksum; }
     const CBlockIndex* GetIndexFrom() const override;
     CAmount GetValue() const override;
     CDataStream GetUniqueness() const override;
-    bool CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut = UINT256_ZERO) override { return false; /* creation disabled */}
-    bool CreateTxOuts(CWallet* pwallet, std::vector<CTxOut>& vout, CAmount nTotal, const bool onlyP2PK) override { return false; /* creation disabled */}
     bool GetTxOutFrom(CTxOut& out) const override { return false; /* not available */ }
-    virtual bool ContextCheck(int nHeight, uint32_t nTime) override;
 };
 
 #endif //BLKC_LEGACY_ZPOS_H

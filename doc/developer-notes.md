@@ -261,6 +261,48 @@ make cov
 # A coverage report will now be accessible at `./test_blkc.coverage/index.html`.
 ```
 
+**Sanitizers**
+BlackHat can be compiled with various "sanitizers" enabled, which add
+instrumentation for issues regarding things like memory safety, thread race
+conditions, or undefined behavior. This is controlled with the
+`--with-sanitizers` configure flag, which should be a comma separated list of
+sanitizers to enable. The sanitizer list should correspond to supported
+`-fsanitize=` options in your compiler. These sanitizers have runtime overhead,
+so they are most useful when testing changes or producing debugging builds.
+Some examples:
+ ```bash
+ # Enable both the address sanitizer and the undefined behavior sanitizer
+ ./configure --with-sanitizers=address,undefined
+ # Enable the thread sanitizer
+ ./configure --with-sanitizers=thread
+ ```
+If you are compiling with GCC you will typically need to install corresponding
+"san" libraries to actually compile with these flags, e.g. libasan for the
+address sanitizer, libtsan for the thread sanitizer, and libubsan for the
+undefined sanitizer. If you are missing required libraries, the configure script
+will fail with a linker error when testing the sanitizer flags.
+The test suite should pass cleanly with the `thread` and `undefined` sanitizers,
+but there are a number of known problems when using the `address` sanitizer. The
+address sanitizer is known to fail in
+[sha256_sse4::Transform](/src/crypto/sha256_sse4.cpp) which makes it unusable
+unless you also use `--disable-asm` when running configure. We would like to fix
+sanitizer issues, so please send pull requests if you can fix any errors found
+by the address sanitizer (or any other sanitizer).
+Not all sanitizer options can be enabled at the same time, e.g. trying to build
+with `--with-sanitizers=address,thread` will fail in the configure script as
+these sanitizers are mutually incompatible. Refer to your compiler manual to
+learn more about these options and which sanitizers are supported by your
+compiler.
+Additional resources:
+* [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html)
+* [LeakSanitizer](https://clang.llvm.org/docs/LeakSanitizer.html)
+* [MemorySanitizer](https://clang.llvm.org/docs/MemorySanitizer.html)
+* [ThreadSanitizer](https://clang.llvm.org/docs/ThreadSanitizer.html)
+* [UndefinedBehaviorSanitizer](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html)
+* [GCC Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+* [Google Sanitizers Wiki](https://github.com/google/sanitizers/wiki)
+* [Issue #12691: Enable -fsanitize flags in Travis](https://github.com/bitcoin/bitcoin/issues/12691)
+
 Locking/mutex usage notes
 -------------------------
 
@@ -300,8 +342,6 @@ Threads
 - ThreadMessageHandler : Higher-level message handling (sending and receiving).
 
 - DumpAddresses : Dumps IP addresses of nodes to peers.dat.
-
-- ThreadFlushWalletDB : Close the wallet.dat file if it hasn't been used in 500ms.
 
 - ThreadRPCServer : Remote procedure call handler, listens on port 8332 for connections and services them.
 
@@ -459,6 +499,12 @@ class A
 
   - *Rationale*: Easier to understand what is happening, thus easier to spot mistakes, even for those
   that are not language lawyers
+
+- Use `Span` as function argument when it can operate on any range-like container.
+
+  - *Rationale*: Compared to `Foo(const vector<int>&)` this avoids the need for a (potentially expensive)
+    conversion to vector if the caller happens to have the input stored in another type of container.
+    However, be aware of the pitfalls documented in [span.h](../src/span.h).
 
 Strings and formatting
 ------------------------
@@ -662,7 +708,7 @@ Others are external projects without a tight relationship with our project.  Cha
 be sent upstream but bugfixes may also be prudent to PR against BlackHat Core so that they can be integrated
 quickly.  Cosmetic changes should be purely taken upstream.
 
-There is a tool in `test/lint/git-subtree-check.sh` to check a subtree directory for consistency with
+There is a tool in `test/lint/git-subtree-check.sh` ([instructions](../test/lint#git-subtree-checksh)) to check a subtree directory for consistency with
 its upstream repository.
 
 Current subtrees include:

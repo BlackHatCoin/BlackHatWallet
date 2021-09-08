@@ -294,7 +294,7 @@ def main():
             args.is_fedora = True
         if os.path.isfile('/etc/centos-release'):
             args.is_centos = True
-        if os.path.isfile('/proc/version') and open('/proc/version', 'r').read().find('Microsoft'):
+        if os.path.isfile('/proc/version') and open('/proc/version', 'r', encoding="utf8").read().find('Microsoft'):
             args.is_wsl = True
 
     if args.kvm and args.docker:
@@ -335,7 +335,7 @@ def main():
     args.macos = 'm' in args.os
 
     # Disable for MacOS if no SDK found
-    if args.macos and not os.path.isfile('gitian-builder/inputs/MacOSX10.11.sdk.tar.gz'):
+    if args.macos and not os.path.isfile('gitian-builder/inputs/Xcode-11.3.1-11C505-extracted-SDK-with-libcxx-headers.tar.gz'):
         print('Cannot build for MacOS, SDK does not exist. Will build for other OSes')
         args.macos = False
 

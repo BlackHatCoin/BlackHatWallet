@@ -3,6 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node disconnect and ban behavior"""
+
 import time
 
 from test_framework.test_framework import BlackHatTestFramework
@@ -12,6 +13,7 @@ from test_framework.util import (
     assert_raises_rpc_error,
     wait_until,
 )
+
 
 class DisconnectBanTest(BlackHatTestFramework):
     def set_test_params(self):

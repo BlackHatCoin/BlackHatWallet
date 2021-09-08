@@ -7,11 +7,11 @@
 Test rescan behavior of importaddress, importpubkey, importprivkey, and
 importmulti RPCs with different types of keys and rescan options.
 
-In the first part of the test, node 0 creates an address for each type of
-import RPC call and sends BTC to it. Then other nodes import the addresses,
-and the test makes listtransactions and getbalance calls to confirm that the
-importing node either did or did not execute rescans picking up the send
-transactions.
+In the first part of the test, node 1 creates an address for each type of
+import RPC call and node 0 sends BTC to it. Then other nodes import the
+addresses, and the test makes listtransactions and getbalance calls to confirm
+that the importing node either did or did not execute rescans picking up the
+send transactions.
 
 In the second part of the test, node 0 sends more BTC to each address, and the
 test makes more listtransactions and getbalance calls to confirm that the
@@ -19,14 +19,20 @@ importing nodes pick up the new transactions regardless of whether rescans
 happened previously.
 """
 
-from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import (assert_raises_rpc_error, connect_nodes, assert_equal, set_node_times)
-
 import collections
 import enum
 import itertools
 
-Call = enum.Enum("Call", "single")
+from test_framework.test_framework import BlackHatTestFramework
+from test_framework.util import (
+    assert_raises_rpc_error,
+    connect_nodes,
+    assert_equal,
+    set_node_times
+)
+
+
+Call = enum.Enum("Call", "single multi")
 Data = enum.Enum("Data", "address pub priv")
 Rescan = enum.Enum("Rescan", "no yes late_timestamp")
 
@@ -69,7 +75,7 @@ class Variant(collections.namedtuple("Variant", "call data rescan prune")):
     def check(self, txid=None, amount=None, confirmations=None):
         """Verify that listreceivedbyaddress returns return expected values."""
 
-        addresses = self.node.listreceivedbyaddress(0, True, self.address['address'])
+        addresses = self.node.listreceivedbyaddress(0, True, True, self.address['address'])
         if self.expected_txs:
             assert_equal(len(addresses[0]["txids"]), self.expected_txs)
 
@@ -91,7 +97,8 @@ class Variant(collections.namedtuple("Variant", "call data rescan prune")):
 
 
 # List of Variants for each way a key or address could be imported.
-IMPORT_VARIANTS = [Variant(*variants) for variants in itertools.product(Call, Data, Rescan, (False, True))]
+# !TODO: import on pruned node
+IMPORT_VARIANTS = [Variant(*variants) for variants in itertools.product(Call, Data, Rescan, [False])]
 
 # List of nodes to import keys to. Half the nodes will have pruning disabled,
 # half will have it enabled. Different nodes will be used for imports that are
@@ -116,7 +123,7 @@ class ImportRescanTest(BlackHatTestFramework):
             if import_node.prune:
                 extra_args[i] += ["-prune=1"]
 
-        self.add_nodes(self.num_nodes, extra_args)
+        self.add_nodes(self.num_nodes, extra_args=extra_args)
         self.start_nodes()
         for i in range(1, self.num_nodes):
             connect_nodes(self.nodes[i], 0)
@@ -125,7 +132,8 @@ class ImportRescanTest(BlackHatTestFramework):
         # Create one transaction on node 0 with a unique amount for
         # each possible type of wallet import RPC.
         for i, variant in enumerate(IMPORT_VARIANTS):
-            variant.address = self.nodes[1].validateaddress(self.nodes[1].getnewaddress())
+            variant.label = "label {} {}".format(i, variant)
+            variant.address = self.nodes[1].validateaddress(self.nodes[1].getnewaddress(variant.label))
             variant.key = self.nodes[1].dumpprivkey(variant.address["address"])
             variant.initial_amount = 10 - (i + 1) / 4.0
             variant.initial_txid = self.nodes[0].sendtoaddress(variant.address["address"], variant.initial_amount)

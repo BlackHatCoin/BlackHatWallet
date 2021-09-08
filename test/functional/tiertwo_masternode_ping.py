@@ -3,6 +3,15 @@
 # Copyright (c) 2021 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php.
+"""
+Test checking masternode ping thread
+Does not use functions of BlackHatTier2TestFramework as we don't want to send
+pings on demand. Here, instead, mocktime is disabled, and we just wait with
+time.sleep to verify that masternodes send pings correctly.
+"""
+
+import os
+import time
 
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
@@ -12,15 +21,6 @@ from test_framework.util import (
     p2p_port,
 )
 
-import os
-import time
-
-"""
-Test checking masternode ping thread
-Does not use functions of BlackHatTier2TestFramework as we don't want to send
-pings on demand. Here, instead, mocktime is disabled, and we just wait with
-time.sleep to verify that masternodes send pings correctly.
-"""
 
 class MasternodePingTest(BlackHatTestFramework):
 
@@ -44,12 +44,12 @@ class MasternodePingTest(BlackHatTestFramework):
         self.log.info("funding masternode controller...")
         masternodeAlias = "mnode"
         mnAddress = owner.getnewaddress(masternodeAlias)
-        collateralTxId = miner.sendtoaddress(mnAddress, Decimal('5000'))
+        collateralTxId = miner.sendtoaddress(mnAddress, Decimal('100'))
         miner.generate(2)
         self.sync_blocks()
         time.sleep(1)
         collateral_rawTx = owner.getrawtransaction(collateralTxId, 1)
-        assert_equal(owner.getbalance(), Decimal('5000'))
+        assert_equal(owner.getbalance(), Decimal('100'))
         assert_greater_than(collateral_rawTx["confirmations"], 0)
 
         # Block time can be up to median time past +1. We might need to wait...
@@ -68,7 +68,7 @@ class MasternodePingTest(BlackHatTestFramework):
         confData = masternodeAlias + " 127.0.0.1:" + str(p2p_port(2)) + " " + \
                    str(mnPrivkey) +  " " + str(collateralTxId) + " " + str(vout)
         destPath = os.path.join(self.options.tmpdir, "node1", "regtest", "masternode.conf")
-        with open(destPath, "a+") as file_object:
+        with open(destPath, "a+", encoding="utf8") as file_object:
             file_object.write("\n")
             file_object.write(confData)
 

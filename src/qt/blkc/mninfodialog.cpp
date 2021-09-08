@@ -5,11 +5,9 @@
 
 #include "qt/blkc/mninfodialog.h"
 #include "qt/blkc/forms/ui_mninfodialog.h"
-#include "walletmodel.h"
-#include "wallet/wallet.h"
+
 #include "guiutil.h"
 #include "qt/blkc/qtutils.h"
-#include <QDateTime>
 
 MnInfoDialog::MnInfoDialog(QWidget *parent) :
     FocusedDialog(parent),
@@ -30,26 +28,30 @@ MnInfoDialog::MnInfoDialog(QWidget *parent) :
     connect(ui->pushExport, &QPushButton::clicked, [this](){ exportMN = true; accept(); });
 }
 
-void MnInfoDialog::setData(QString pubKey, QString name, QString address, QString txId, QString outputIndex, QString status)
+void MnInfoDialog::setData(const QString& _pubKey, const QString& name, const QString& address, const QString& _txId, const QString& outputIndex, const QString& status)
 {
-    this->pubKey = pubKey;
-    this->txId = txId;
-    QString shortPubKey = pubKey;
-    QString shortTxId = txId;
+    this->pubKey = _pubKey;
+    this->txId = _txId;
+    QString shortPubKey = _pubKey;
+    QString shortTxId = _txId;
+    QString shortAddress = address;
     if (shortPubKey.length() > 20) {
         shortPubKey = shortPubKey.left(13) + "..." + shortPubKey.right(13);
     }
     if (shortTxId.length() > 20) {
         shortTxId = shortTxId.left(12) + "..." + shortTxId.right(12);
     }
+    if (shortAddress.length() >= 40) {
+        shortAddress = shortAddress.left(11) + "..." + shortAddress.right(20);
+    }
     ui->textId->setText(shortPubKey);
-    ui->textAddress->setText(address);
+    ui->textAddress->setText(shortAddress);
     ui->textAmount->setText(shortTxId);
     ui->textInputs->setText(outputIndex);
     ui->textStatus->setText(status);
 }
 
-void MnInfoDialog::copyInform(QString& copyStr, QString message)
+void MnInfoDialog::copyInform(const QString& copyStr, const QString& message)
 {
     GUIUtil::setClipboard(copyStr);
     if (!snackBar) snackBar = new SnackBar(nullptr, this);

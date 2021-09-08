@@ -17,6 +17,7 @@
 
 class ClientModel;
 class RPCTimerInterface;
+class WalletModel;
 
 namespace Ui
 {
@@ -38,14 +39,7 @@ public:
     ~RPCConsole();
 
     void setClientModel(ClientModel* model);
-
-    enum MessageClass {
-        MC_ERROR,
-        MC_DEBUG,
-        CMD_REQUEST,
-        CMD_REPLY,
-        CMD_ERROR
-    };
+    void setWalletModel(WalletModel* model);
 
 protected:
     virtual bool eventFilter(QObject* obj, QEvent* event);
@@ -149,6 +143,7 @@ private:
 
     Ui::RPCConsole* ui;
     ClientModel* clientModel;
+    WalletModel* walletModel;
     QStringList history;
     int historyPtr;
     NodeId cachedNodeid;

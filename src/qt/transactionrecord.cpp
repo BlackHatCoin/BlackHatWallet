@@ -7,7 +7,7 @@
 
 #include "transactionrecord.h"
 
-#include "base58.h"
+#include "key_io.h"
 #include "sapling/key_io_sapling.h"
 #include "wallet/wallet.h"
 

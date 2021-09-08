@@ -11,7 +11,7 @@
 #include "init.h"
 #include "guiinterface.h"
 #include "networkstyle.h"
-#include "util.h"
+#include "util/system.h"
 #include "version.h"
 #include "guiutil.h"
 
@@ -98,10 +98,8 @@ void Splash::unsubscribeFromCoreSignals(){
     m_handler_init_message->disconnect();
     m_handler_show_progress->disconnect();
 #ifdef ENABLE_WALLET
-    if (pwalletMain) {
-        m_handler_load_wallet->disconnect();
-        if (m_handler_show_progress_wallet) m_handler_show_progress_wallet->disconnect();
-    }
+    m_handler_load_wallet->disconnect();
+    if (m_handler_show_progress_wallet) m_handler_show_progress_wallet->disconnect();
 #endif
 }
 

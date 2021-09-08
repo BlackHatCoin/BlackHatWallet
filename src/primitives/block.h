@@ -24,7 +24,7 @@ class CBlockHeader
 {
 public:
     // header
-    static const int32_t CURRENT_VERSION=10;    // since v5.1.99
+    static const int32_t CURRENT_VERSION=11;    // since v5.2.99
     int32_t nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
@@ -39,24 +39,16 @@ public:
         SetNull();
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(nVersion);
-        READWRITE(hashPrevBlock);
-        READWRITE(hashMerkleRoot);
-        READWRITE(nTime);
-        READWRITE(nBits);
-        READWRITE(nNonce);
+    SERIALIZE_METHODS(CBlockHeader, obj) {
+        READWRITE(obj.nVersion, obj.hashPrevBlock, obj.hashMerkleRoot, obj.nTime, obj.nBits, obj.nNonce);
 
         //zerocoin active, header changes to include accumulator checksum
-        if(nVersion > 3 && nVersion < 7)
-            READWRITE(nAccumulatorCheckpoint);
+        if(obj.nVersion > 3 && obj.nVersion < 7)
+            READWRITE(obj.nAccumulatorCheckpoint);
 
         // Sapling active
-        if (nVersion >= 8)
-            READWRITE(hashFinalSaplingRoot);
+        if (obj.nVersion >= 8)
+            READWRITE(obj.hashFinalSaplingRoot);
     }
 
     void SetNull()
@@ -108,14 +100,12 @@ public:
         *(static_cast<CBlockHeader*>(this)) = header;
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(*static_cast<CBlockHeader*>(this));
-        READWRITE(vtx);
-        if(vtx.size() > 1 && vtx[1]->IsCoinStake())
-            READWRITE(vchBlockSig);
+    SERIALIZE_METHODS(CBlock, obj)
+    {
+        READWRITEAS(CBlockHeader, obj);
+        READWRITE(obj.vtx);
+        if(obj.vtx.size() > 1 && obj.vtx[1]->IsCoinStake())
+            READWRITE(obj.vchBlockSig);
     }
 
     void SetNull()
@@ -172,14 +162,12 @@ struct CBlockLocator
         vHave = vHaveIn;
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
+    SERIALIZE_METHODS(CBlockLocator, obj)
+    {
         int nVersion = s.GetVersion();
         if (!(s.GetType() & SER_GETHASH))
             READWRITE(nVersion);
-        READWRITE(vHave);
+        READWRITE(obj.vHave);
     }
 
     void SetNull()

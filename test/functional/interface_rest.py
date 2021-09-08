@@ -4,14 +4,17 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the REST API."""
 
-from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
-from struct import *
-from io import BytesIO
 from codecs import encode
-
+from decimal import Decimal
 import http.client
+from io import BytesIO
+import json
+from struct import unpack, pack
 import urllib.parse
+
+from test_framework.test_framework import BlackHatTestFramework
+from test_framework.util import assert_equal, assert_greater_than, connect_nodes, hex_str_to_bytes
+
 
 def deser_uint256(f):
     r = 0

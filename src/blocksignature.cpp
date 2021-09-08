@@ -77,14 +77,17 @@ bool CheckBlockSignature(const CBlock& block)
                 // p2pk scriptsig only contains the signature and p2pkh scriptpubkey only contain the hash.
                 return false;
             } else {
-                int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
+                unsigned int start = 1 + (unsigned int) *txin.scriptSig.begin(); // skip sig
+                if (start >= txin.scriptSig.size() - 1) return false;
                 pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
             }
         } else if (whichType == TX_COLDSTAKE) {
             // pick the public key from the P2CS input
             const CTxIn& txin = block.vtx[1]->vin[0];
-            int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
+            unsigned int start = 1 + (unsigned int) *txin.scriptSig.begin(); // skip sig
+            if (start >= txin.scriptSig.size() - 1) return false;
             start += 1 + (int) *(txin.scriptSig.begin()+start); // skip flag
+            if (start >= txin.scriptSig.size() - 1) return false;
             pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
         }
     }

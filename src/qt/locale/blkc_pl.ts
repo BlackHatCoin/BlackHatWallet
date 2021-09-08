@@ -435,19 +435,7 @@ do stakingu</translation>
         <source>Form</source>
         <translation>Formularz</translation>
     </message>
-    <message>
-        <source>Transparent</source>
-        <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
-    </message>
-    <message>
-        <source>Shielded</source>
-        <translation>Shielded</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>BanTableModel</name>
     <message>
@@ -650,10 +638,6 @@ do stakingu</translation>
     <message>
         <source>yes</source>
         <translation>tak</translation>
-    </message>
-    <message>
-        <source>change in %1</source>
-        <translation>Reszta %1</translation>
     </message>
     <message>
         <source>delegated to %1 for cold staking</source>
@@ -959,10 +943,6 @@ adres</translation>
         <translation>Jak zdobyć BLKC</translation>
     </message>
     <message>
-        <source>Amount of staking rewards received.</source>
-        <translation>Liczba otrzymanych nagród za stakowanie.</translation>
-    </message>
-    <message>
         <source>Sort by</source>
         <translation>Sortuj</translation>
     </message>
@@ -981,6 +961,10 @@ adres</translation>
     <message>
         <source>Filter by</source>
         <translation>Filtruj według</translation>
+    </message>
+    <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Ilość BLKC i zBLKC staked.</translation>
     </message>
     <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
@@ -1628,10 +1612,6 @@ Jesteś pewny?</translation>
         <translation>Wyeksportuj dane, aby uruchomić Masternode na zdalnym serwerze</translation>
     </message>
     <message>
-        <source>Masternode public key copied</source>
-        <translation>Skopiowano klucz publiczny Masternode</translation>
-    </message>
-    <message>
         <source>Collateral tx id copied</source>
         <translation>Skopiowano Collateral tx</translation>
     </message>
@@ -1672,18 +1652,6 @@ Jesteś pewny?</translation>
 </source>
         <translation>KONTAKTY
 </translation>
-    </message>
-    <message>
-        <source>MASTER
-NODES</source>
-        <translation>MASTER
-NODES</translation>
-    </message>
-    <message>
-        <source>COLD
-STAKING</source>
-        <translation>COLD
-STAKING</translation>
     </message>
     <message>
         <source>SETTINGS
@@ -1740,7 +1708,7 @@ STAKING</translation>
     </message>
     <message>
         <source>Invalid URI, not starting with "blkc" prefix</source>
-        <translation>Nieprawidłowy identyfikator URI, nie zaczynający się od prefiksu „blkc”</translation>
+        <translation>Nieprawidłowy identyfikator URI, nie zaczynający się od prefiksu "blkc"</translation>
     </message>
 </context>
 <context>
@@ -1841,8 +1809,8 @@ STAKING</translation>
         <translation>Język interfejsu użytkownika może być wybrany tutaj. Ustawienia ulegną zmianie po restarcie BlackHat</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
-        <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu</translation>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
+        <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2064,10 +2032,6 @@ STAKING</translation>
         <translation>BlackHat Core klient</translation>
     </message>
     <message>
-        <source>Alert!</source>
-        <translation>Alarm!</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Błąd</translation>
     </message>
@@ -2213,11 +2177,7 @@ Adres: %4
         <source>Ping Time</source>
         <translation>Czas Pingu</translation>
     </message>
-    <message>
-        <source>NodeID</source>
-        <translation>ID węzła </translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -2285,12 +2245,16 @@ Adres: %4
         <translation>Błąd: Nie można przeanalizować pliku konfiguracyjnego: %1. Używaj tylko składni klucz=wartość.</translation>
     </message>
     <message>
-        <source>Error: %1</source>
-        <translation>Błąd: %1</translation>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Błąd: nieprawidłowa kombinacja -regtest i -testnet.</translation>
     </message>
     <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Błąd odczytu pliku konfiguracyjnego masternode: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core nie zamkną się jeszcze bezpiecznie ...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2317,14 +2281,6 @@ Adres: %4
         <translation>Cold Staking Kontakt</translation>
     </message>
     <message>
-        <source>Receiving Shielded</source>
-        <translation>Odbieranie Shielded</translation>
-    </message>
-    <message>
-        <source>Contact Shielded</source>
-        <translation>Kontakty Shielded</translation>
-    </message>
-    <message>
         <source>Hidden</source>
         <translation>Ukryty</translation>
     </message>
@@ -2343,10 +2299,6 @@ Adres: %4
     <message>
         <source>Staking Contacts</source>
         <translation>Kontakty Staking</translation>
-    </message>
-    <message>
-        <source>Shielded Contact</source>
-        <translation>Kontakt Shielded</translation>
     </message>
     <message>
         <source>Date desc</source>
@@ -2371,10 +2323,6 @@ Adres: %4
     <message>
         <source>Sent</source>
         <translation>Wysłano</translation>
-    </message>
-    <message>
-        <source>Shield</source>
-        <translation>Shield</translation>
     </message>
     <message>
         <source>Mined</source>
@@ -2862,18 +2810,6 @@ Adres: %4
         <translation>Zeskanuj kod QR lub skopiuj adres, aby otrzymać BLKC</translation>
     </message>
     <message>
-        <source>Transparent</source>
-        <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>Shielded</source>
-        <translation>Shielded</translation>
-    </message>
-    <message>
-        <source>Accept transparent or shielded BLKC</source>
-        <translation>Zaakceptuj transparent albo shielded BLKC</translation>
-    </message>
-    <message>
         <source>Add Label</source>
         <translation>Dodaj etykietę</translation>
     </message>
@@ -3084,7 +3020,7 @@ Adres: %4
     </message>
     <message>
         <source>Custom Change Address</source>
-        <translation>Standardowy adres reszty</translation>
+        <translation>Niestandardowa adresu reszty</translation>
     </message>
     <message>
         <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BLKC address</source>
@@ -3102,11 +3038,7 @@ Adres: %4
         <source>Invalid address</source>
         <translation>Nieprawidłowy adres</translation>
     </message>
-    <message>
-        <source>Cannot use cold staking addresses for change</source>
-        <translation>Nie można użyć adresów cold staking jako adresu reszty</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
@@ -3124,10 +3056,6 @@ Adres: %4
     <message>
         <source>0.00 KB</source>
         <translation>0.00 KB</translation>
-    </message>
-    <message>
-        <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
-        <translation>Dostosuj opłatę transakcyjną, w zależności od wartości opłaty, Twoja transakcja może zostać szybciej uwzględniona w łańcuchu bloków</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -3173,10 +3101,6 @@ Adres: %4
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>Private message only visible for the recipient(s)</source>
-        <translation>Wiadomość prywatna widoczna tylko dla adresatów()</translation>
-    </message>
-    <message>
         <source>SAVE</source>
         <translation>ZAPISZ</translation>
     </message>
@@ -3207,19 +3131,7 @@ Adres: %4
         <source>Enter label</source>
         <translation>Wpisz etykietę</translation>
     </message>
-    <message>
-        <source>Update memo</source>
-        <translation>Zaktualizuj notatkę</translation>
-    </message>
-    <message>
-        <source>Add encrypted memo</source>
-        <translation>Dodaj zaszyfrowaną notatkę</translation>
-    </message>
-    <message>
-        <source>Memo field reset</source>
-        <translation>Resetuj pole notatki</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>SendWidget</name>
     <message>
@@ -3291,10 +3203,6 @@ Monety te nie będą już cold-staked.</translation>
         <translation>Nieprawidłowy adres w URI</translation>
     </message>
     <message>
-        <source>Memo</source>
-        <translation>Notatka</translation>
-    </message>
-    <message>
         <source>Custom Fee %1</source>
         <translation>Ustawiona Opłata %1</translation>
     </message>
@@ -3308,7 +3216,7 @@ Monety te nie będą już cold-staked.</translation>
     </message>
     <message>
         <source>Change Address</source>
-        <translation>Adres Reszty</translation>
+        <translation>Zmiana adresu</translation>
     </message>
     <message>
         <source>Customize the change address</source>
@@ -3323,44 +3231,12 @@ Monety te nie będą już cold-staked.</translation>
         <translation>Przeanalizuj żądanie płatności</translation>
     </message>
     <message>
-        <source>Shield Coins</source>
-        <translation>Shield Coins</translation>
-    </message>
-    <message>
-        <source>Convert all transparent coins into shielded coins</source>
-        <translation>Zamień wszystkie transparentne monety na monety shielded</translation>
-    </message>
-    <message>
-        <source>Unlocked remaining</source>
-        <translation>Pozostałe odblokowane</translation>
-    </message>
-    <message>
-        <source>Cannot perform shielded operations, v5 upgrade isn't being enforced yet!</source>
-        <translation>Nie można wykonywać operacji shielded, aktualizacja do wersji 5 nie jest jeszcze wymuszana!</translation>
-    </message>
-    <message>
-        <source>Preparing transaction</source>
-        <translation>Przygotowanie transakcji</translation>
-    </message>
-    <message>
         <source>You don't have any %1 to select.</source>
         <translation>Nie masz żadnego %1 do wybrania.</translation>
     </message>
     <message>
-        <source>Error generating address to shield BLKCs</source>
-        <translation>Błąd podczas generowania adresu dla shield BLKC</translation>
-    </message>
-    <message>
-        <source>You don't have any transparent BLKCs to shield.</source>
-        <translation>Nie masz żadnych transparentnych BLKCs do shield.</translation>
-    </message>
-    <message>
         <source>No contacts available, you can go to the contacts screen and add some there!</source>
         <translation>Brak dostępnych kontaktów, możesz przejść do ekranu kontaktów i tam dodać!</translation>
-    </message>
-    <message>
-        <source>Add Memo</source>
-        <translation>Dodaj notatkę</translation>
     </message>
     <message>
         <source>Save contact</source>
@@ -3867,10 +3743,6 @@ Wystąpił błąd podczas próby zapisania listy adresów w %1. Proszę spróbuj
         <translation>Często Zadawane Pytania</translation>
     </message>
     <message>
-        <source>Close FAQ</source>
-        <translation>Zamknij FAQ</translation>
-    </message>
-    <message>
         <source>You can read more here</source>
         <translation>Możesz przeczytać więcej tutaj</translation>
     </message>
@@ -3985,11 +3857,7 @@ Wystąpił błąd podczas próby zapisania listy adresów w %1. Proszę spróbuj
         <source>Out:</source>
         <translation>Z</translation>
     </message>
-    <message>
-        <source>No available data</source>
-        <translation>Brak dostępnych danych</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
@@ -4121,8 +3989,8 @@ Jesteś pewny?
         <translation>CheckBox</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
-        <translation>MultiSend pozwala automatycznie wysyłać do 100% stake lub nagrody masternode na listę innych adresów BLKC po ich dojrzaniu.</translation>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend pozwala automatycznie wysyłać do 100% stake lub nagrody masternode na listę innych adresów BlackHat po ich dojrzaniu.</translation>
     </message>
     <message>
         <source>Active</source>
@@ -4913,10 +4781,6 @@ kopia zapasowa zostanie utworzona.
         <translation>Zapłata dla siebie</translation>
     </message>
     <message>
-        <source>Shielded change, transfer between own shielded addresses</source>
-        <translation>Zmiana adresu Shield, transfer między własnymi adresami Shield</translation>
-    </message>
-    <message>
         <source>Stake delegation spent by</source>
         <translation>Delegacja Stake wydana przez</translation>
     </message>
@@ -5021,7 +4885,7 @@ kopia zapasowa zostanie utworzona.
     </message>
     <message>
         <source>Change address</source>
-        <translation>Adres Reszty</translation>
+        <translation>Zmiana adresu</translation>
     </message>
     <message>
         <source>Spendable</source>
@@ -5038,10 +4902,6 @@ kopia zapasowa zostanie utworzona.
     <message>
         <source>Date</source>
         <translation>Data</translation>
-    </message>
-    <message>
-        <source>Memo</source>
-        <translation>Notatka</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -5066,10 +4926,6 @@ kopia zapasowa zostanie utworzona.
     <message>
         <source>ID copied</source>
         <translation>ID skopiowane</translation>
-    </message>
-    <message>
-        <source>Memo copied</source>
-        <translation>Notatka została skopiowana</translation>
     </message>
     <message>
         <source>Delegating to</source>
@@ -5156,7 +5012,7 @@ Portfel BlackHat Core</translation>
     </message>
     <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
-        <translation>>BlackHat to najbardziej innowacyjna na świecie technologia oparta na blockchain Proof of Stake. Opracowany przez zespół wysoce doświadczonych programistów i kryptografów.</translation>
+        <translation>BlackHat to najbardziej innowacyjna na świecie technologia oparta na blockchain Proof of Stake. Opracowany przez zespół wysoce doświadczonych programistów i kryptografów.</translation>
     </message>
     <message>
         <source>The masternode network is BlackHat's second layer network on top of the blockchain that enables our DAO to provide decentralized governance and a treasury.</source>
@@ -5194,6 +5050,10 @@ Portfel BlackHat Core</translation>
         <translation>Powiąż z podanym adresem, aby odsłuchać połączenia JSON-RPC. Użyj [host]:port dla IPv6. Ta opcja może być określona wiele razy (domyślnie: powiązanie ze wszystkimi interfejsami)</translation>
     </message>
     <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Nie można uzyskać dostępu do katalogu danych %s. BlackHat Core prawdopodobnie już działa.</translation>
+    </message>
+    <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
         <translation>Zmień zachowanie automatycznego głosowania w budżecie finalizowanym. mode=auto: Głosuj tylko na dokładne sfinalizowane dopasowanie budżetu do mojego wygenerowanego budżetu. (ciąg, domyślny: auto)</translation>
     </message>
@@ -5220,6 +5080,10 @@ Portfel BlackHat Core</translation>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
         <translation>Włącz funkcję zarządzania sporkami za pomocą odpowiedniego klucza prywatnego.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Wejdź w tryb testu regresyjnego, który wykorzystuje specjalny łańcuch, w którym bloki można natychmiast rozwiązać.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -5252,6 +5116,10 @@ Portfel BlackHat Core</translation>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>Jeśli paytxfee nie jest ustawiony, należy ustawić odpowiednią opłatę, aby transakcje zaczęły potwierdzać średnio w n blokach (domyślnie:%u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>W tym trybie -genproclimit kontroluje, ile bloków jest generowanych natychmiast.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -5538,6 +5406,10 @@ Portfel BlackHat Core</translation>
         <translation>Informacje</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Sprawdzenie poprawności inicjalizacji nie powiodło się. BlackHat Core zamyka się.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Niewystarczające środki.</translation>
     </message>
@@ -5560,6 +5432,10 @@ Portfel BlackHat Core</translation>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>Błąd: Znaleziono nieobsługiwany argument -checklevel. Checklevel musi być poziomem 4.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Wykonaj polecenie, gdy najlepszy blok się zmieni, a jego rozmiar się skończy ( %s w cmd jest zastąpiony skrótem bloku, %d rozmiarem bloku)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -5968,6 +5844,10 @@ Portfel BlackHat Core</translation>
         <translation>To jest oprogramowanie eksperymentalne.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>Jest to przeznaczone do testowania regresji i tworzenia aplikacji.</translation>
+    </message>
+    <message>
         <source>This is not a masternode. 'local' option disabled.</source>
         <translation>To nie jest masternode. opcja „lokalna” wyłączona.</translation>
     </message>
@@ -6036,8 +5916,16 @@ Portfel BlackHat Core</translation>
         <translation>Uaktualnij portfel do najnowszego formatu</translation>
     </message>
     <message>
+        <source>Upgrading coins database...</source>
+        <translation>Aktualizacja bazy danych monet ...</translation>
+    </message>
+    <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Użyj UPnP do mapowania portu nasłuchującego (domyślnie: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Użyj sieci testowej</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
@@ -6109,18 +5997,6 @@ Portfel BlackHat Core</translation>
     <message>
         <source>Send</source>
         <translation>Wyślij</translation>
-    </message>
-    <message>
-        <source>Transparent</source>
-        <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>Shielded</source>
-        <translation>Shielded</translation>
-    </message>
-    <message>
-        <source>Select which coins to spend</source>
-        <translation>Wybierz monety do wydania</translation>
     </message>
     <message>
         <source>BLKC address or contact label</source>

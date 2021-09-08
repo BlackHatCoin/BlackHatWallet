@@ -6,8 +6,6 @@
 #ifndef BITCOIN_ARITH_UINT256_H
 #define BITCOIN_ARITH_UINT256_H
 
-#include "blob_uint256.h"
-#include "uint512.h"
 #include <assert.h>
 #include <cstring>
 #include <stdexcept>
@@ -15,8 +13,6 @@
 #include <string>
 #include <vector>
 
-class blob_uint512;
-class blob_uint256;
 class uint256;
 class uint512;
 
@@ -29,10 +25,11 @@ public:
 template<unsigned int BITS>
 class base_uint
 {
-public:
-    enum { WIDTH=BITS/32 };
+protected:
+    static constexpr int WIDTH = BITS / 32;
     uint32_t pn[WIDTH];
 
+public:
     base_uint()
     {
         for (int i = 0; i < WIDTH; i++)
@@ -295,15 +292,11 @@ public:
         s.read((char*)pn, sizeof(pn));
     }
 
-    // Temporary for migration to blob160/256
-    uint64_t GetCheapHash() const
-    {
-        return GetLow64();
-    }
     void SetNull()
     {
         memset(pn, 0, sizeof(pn));
     }
+
     bool IsNull() const
     {
         for (int i = 0; i < WIDTH; i++)
@@ -363,6 +356,9 @@ public:
     arith_uint256& SetCompact(uint32_t nCompact, bool *pfNegative = NULL, bool *pfOverflow = NULL);
     uint32_t GetCompact(bool fNegative = false) const;
     uint32_t Get32(int n = 0) const { return pn[2 * n]; }
+
+    friend arith_uint256 UintToArith256(const uint256 &a);
+    friend uint256 ArithToUint256(const arith_uint256 &a);
 };
 
 /** 512-bit unsigned big integer. */
@@ -374,15 +370,19 @@ public:
     explicit arith_uint512(const std::string& str) : base_uint<512>(str) {}
     explicit arith_uint512(const std::vector<unsigned char>& vch) : base_uint<512>(vch) {}
 
-    //friend arith_uint512 UintToArith512(const blob_uint512 &a);
-    //friend blob_uint512 ArithToUint512(const arith_uint512 &a);
+    uint256 trim256() const;
+
+    friend arith_uint512 UintToArith512(const uint512 &a);
+    friend uint512 ArithToUint512(const arith_uint512 &a);
 
 };
 
-/** Old classes definitions */
-
-/** End classes definitions */
+uint256 ArithToUint256(const arith_uint256 &);
+arith_uint256 UintToArith256(const uint256 &);
+uint512 ArithToUint512(const arith_uint512 &);
+arith_uint512 UintToArith512(const uint512 &);
 
 const arith_uint256 ARITH_UINT256_ZERO = arith_uint256();
+const arith_uint256 ARITH_UINT256_ONE = arith_uint256(1);
 
 #endif // BITCOIN_UINT256_H

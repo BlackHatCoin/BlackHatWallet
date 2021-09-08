@@ -1,8 +1,8 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS system filesystem thread program_options unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS system filesystem thread unit_test_framework REQUIRED)
 
 set(JSON_TEST_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/data/script_valid.json
@@ -28,7 +28,7 @@ function(GenerateHeaders)
     foreach(file IN LISTS ARGN)
         get_filename_component(VARNAME ${file} NAME_WE)
         set(outFile ${file}.h)
-        set(runCmd ${CMAKE_SOURCE_DIR}/contrib/devtools/gen-json-headers.sh)
+        set(runCmd ${CMAKE_SOURCE_DIR}/contrib/devtools/hexdump_util.sh)
         add_custom_command(
                 OUTPUT ${outFile}
                 COMMAND ${CMAKE_COMMAND} -E echo "namespace json_tests{" > ${outFile}
@@ -38,7 +38,6 @@ function(GenerateHeaders)
                 DEPENDS ${file}
                 COMMENT "Generating ${file}.h"
                 VERBATIM
-
         )
         list(APPEND OutputFileList ${outFile})
     endforeach()
@@ -52,6 +51,36 @@ endfunction()
 
 GenerateHeaders(${JSON_TEST_FILES})
 
+set(RAW_TEST_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/data/asmap.raw)
+
+# Generate raw files
+function(GenerateRaws)
+    set(fileList "")
+    foreach(file IN LISTS ARGN)
+        get_filename_component(filename ${file} NAME_WE)
+        set(outFile ${file}.h)
+        set(runCmd ${CMAKE_SOURCE_DIR}/contrib/devtools/hexdump_util.sh)
+        add_custom_command(
+                OUTPUT ${outFile}
+                COMMAND ${CMAKE_COMMAND} -E echo "static unsigned const char ${filename}_raw[] = {" > ${outFile}
+                COMMAND ${runCmd} ${file} ${outFile}
+                COMMAND ${CMAKE_COMMAND} -E echo "};" >> ${outFile}
+                DEPENDS ${file}
+                COMMENT "Generating raw ${file}.h"
+                VERBATIM
+        )
+        list(APPEND fileList ${outFile})
+    endforeach()
+    install(FILES ${fileList} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/data)
+    add_custom_target(
+            genRaws ALL
+            DEPENDS ${fileList}
+            COMMENT "Processing raw files..."
+    )
+endfunction()
+
+GenerateRaws(${RAW_TEST_FILES})
+
 set(BITCOIN_TEST_SUITE
         ${CMAKE_CURRENT_SOURCE_DIR}/test_blkc.h
         ${CMAKE_CURRENT_SOURCE_DIR}/test_blkc.cpp
@@ -59,6 +88,8 @@ set(BITCOIN_TEST_SUITE
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/sapling_test_fixture.cpp
         ${CMAKE_SOURCE_DIR}/src/wallet/test/wallet_test_fixture.h
         ${CMAKE_SOURCE_DIR}/src/wallet/test/wallet_test_fixture.cpp
+        ${CMAKE_SOURCE_DIR}/src/wallet/test/pos_test_fixture.h
+        ${CMAKE_SOURCE_DIR}/src/wallet/test/pos_test_fixture.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/utiltest.h
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/utiltest.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/json_test_vectors.h
@@ -68,6 +99,8 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/arith_uint256_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/addrman_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/allocator_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/util/blocksutil.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/evo_specialtx_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/libsapling_utils_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/sapling_key_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/pedersen_hash_tests.cpp
@@ -93,6 +126,10 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/crypto_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/cuckoocache_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DoS_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/evo_deterministicmns_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/evo_specialtx_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/flatfile_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fs_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/getarg_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/hash_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/key_tests.cpp
@@ -134,21 +171,24 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/sha256compress_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/upgrades_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/validation_block_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/zerocoindb_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/librust/sapling_rpc_wallet_tests.cpp
         ${CMAKE_SOURCE_DIR}/src/wallet/test/wallet_tests.cpp
         ${CMAKE_SOURCE_DIR}/src/wallet/test/crypto_tests.cpp
         ${CMAKE_SOURCE_DIR}/src/wallet/test/wallet_shielded_balances_tests.cpp
         ${CMAKE_SOURCE_DIR}/src/wallet/test/wallet_sapling_transactions_validations_tests.cpp
+        ${CMAKE_SOURCE_DIR}/src/wallet/test/pos_validations_tests.cpp
         )
 
 set(test_test_blkc_SOURCES ${BITCOIN_TEST_SUITE} ${BITCOIN_TESTS} ${JSON_TEST_FILES})
 add_executable(test_blkc ${test_test_blkc_SOURCES} ${BitcoinHeaders})
-add_dependencies(test_blkc genHeaders libunivalue libsecp256k1 libzcashrust leveldb crc32c)
+add_dependencies(test_blkc genHeaders genRaws libunivalue libsecp256k1 libzcashrust leveldb crc32c bls)
 target_include_directories(test_blkc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_SOURCE_DIR}/src/leveldb
         ${CMAKE_SOURCE_DIR}/src/leveldb/include
         ${CMAKE_SOURCE_DIR}/src/leveldb/helpers/memenv
-        ${LIBEVENT_INCLUDE_DIR})
+        ${LIBEVENT_INCLUDE_DIR}
+        ${GMP_INCLUDE_DIR})
 target_link_libraries(test_blkc PRIVATE
         SERVER_A
         CLI_A
@@ -163,12 +203,9 @@ target_link_libraries(test_blkc PRIVATE
         crc32c
         secp256k1
         rustzcash
-        ${BerkeleyDB_LIBRARIES} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${LIBEVENT_LIB} pthread
+        bls
+        ${BerkeleyDB_LIBRARIES} ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${LIBEVENT_LIB} ${GMP_LIBRARY} pthread
         )
-if(GMP_FOUND)
-    target_link_libraries(test_blkc PRIVATE ${GMP_LIBRARY})
-    target_include_directories(test_blkc PRIVATE ${GMP_INCLUDE_DIR})
-endif()
 if(ZMQ_FOUND)
     target_link_libraries(test_blkc PRIVATE ZMQ_A ${ZMQ_LIB})
     target_include_directories(test_blkc PRIVATE ${ZMQ_INCLUDE_DIR})
@@ -177,6 +214,10 @@ if(MINIUPNP_FOUND)
     target_compile_definitions(test_blkc PRIVATE "-DSTATICLIB -DMINIUPNP_STATICLIB")
     target_link_libraries(test_blkc PRIVATE ${MINIUPNP_LIBRARY})
     target_include_directories(test_blkc PRIVATE ${MINIUPNP_INCLUDE_DIR})
+endif()
+if(NAT-PMP_FOUND)
+    target_link_libraries(test_blkc PRIVATE ${NAT-PMP_LIBRARY})
+    target_include_directories(test_blkc PRIVATE ${NAT-PMP_INCLUDE_DIR})
 endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

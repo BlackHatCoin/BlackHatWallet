@@ -4,10 +4,14 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
 
-from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
+from decimal import Decimal
+import random
+
+from test_framework.messages import CTransaction, CTxIn, CTxOut, COutPoint, ToHex, COIN
 from test_framework.script import CScript, OP_1, OP_DROP, OP_2, OP_HASH160, OP_EQUAL, hash160, OP_TRUE
-from test_framework.mininode import CTransaction, CTxIn, CTxOut, COutPoint, ToHex, COIN
+from test_framework.test_framework import BlackHatTestFramework
+from test_framework.util import connect_nodes, satoshi_round
+
 
 # Use as minTxFee
 MIN_FEE = Decimal("0.00001")
@@ -167,9 +171,9 @@ class EstimateFeeTest(BlackHatTestFramework):
         But first we need to use one node to create a lot of outputs
         which we will use to generate our transactions.
         """
-        self.add_nodes(3, extra_args=[["-minrelaytxfee=0.000001"],
-                                      ["-minrelaytxfee=0.000001", "-blockmaxsize=18000"],
-                                      ["-minrelaytxfee=0.000001", "-blockmaxsize=9000"]])
+        self.add_nodes(3, extra_args=[["-nuparams=PoS:9999", "-nuparams=PoS_v2:9999", "-minrelaytxfee=0.000001"],
+                                      ["-nuparams=PoS:9999", "-nuparams=PoS_v2:9999", "-minrelaytxfee=0.000001", "-blockmaxsize=18000"],
+                                      ["-nuparams=PoS:9999", "-nuparams=PoS_v2:9999", "-minrelaytxfee=0.000001", "-blockmaxsize=9000"]])
         # Use node0 to mine blocks for input splitting
         # Node1 mines small blocks but that are bigger than the expected transaction rate.
         # NOTE: the CreateNewBlock code starts counting block size at 1,000 bytes,
@@ -273,6 +277,7 @@ class EstimateFeeTest(BlackHatTestFramework):
         self.sync_blocks(self.nodes[0:3], wait=.1)
         self.log.info("Final estimates after emptying mempools")
         check_estimates(self.nodes[1], self.fees_per_kb, 2)
+
 
 if __name__ == '__main__':
     EstimateFeeTest().main()

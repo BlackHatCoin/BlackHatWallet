@@ -33,7 +33,12 @@ SettingsWalletOptionsWidget::SettingsWalletOptionsWidget(BLKCGUI* _window, QWidg
     ui->spinBoxStakeSplitThreshold->setAttribute(Qt::WA_MacShowFocusRect, 0);
     setShadow(ui->spinBoxStakeSplitThreshold);
 
-    // Radio buttons
+#ifndef USE_UPNP
+    ui->mapPortUpnp->setVisible(false);
+#endif
+#ifndef USE_NATPMP
+    ui->mapPortNatpmp->setVisible(false);
+#endif
 
     // Title
     ui->labelTitleNetwork->setText(tr("Network"));
@@ -58,31 +63,74 @@ SettingsWalletOptionsWidget::SettingsWalletOptionsWidget(BLKCGUI* _window, QWidg
     connect(ui->pushButtonClean, &QPushButton::clicked, [this] { Q_EMIT discardSettings(); });
 }
 
-void SettingsWalletOptionsWidget::onResetClicked(){
-    if (clientModel) {
-        OptionsModel *optionsModel = clientModel->getOptionsModel();
-        QSettings settings;
-        optionsModel->setWalletDefaultOptions(settings, true);
-        optionsModel->setNetworkDefaultOptions(settings, true);
-        inform(tr("Options reset succeed"));
-    }
+void SettingsWalletOptionsWidget::onResetClicked()
+{
+    QSettings settings;
+    walletModel->resetWalletOptions(settings);
+    clientModel->getOptionsModel()->setNetworkDefaultOptions(settings, true);
+    saveMapPortOptions();
+    inform(tr("Options reset succeed"));
 }
 
-void SettingsWalletOptionsWidget::setMapper(QDataWidgetMapper *mapper){
+void SettingsWalletOptionsWidget::setMapper(QDataWidgetMapper *mapper)
+{
     mapper->addMapping(ui->radioButtonSpend, OptionsModel::SpendZeroConfChange);
-    mapper->addMapping(ui->spinBoxStakeSplitThreshold, OptionsModel::StakeSplitThreshold);
 
     // Network
-    mapper->addMapping(ui->checkBoxMap, OptionsModel::MapPortUPnP);
+    mapper->addMapping(ui->mapPortUpnp, OptionsModel::MapPortUPnP);
+    mapper->addMapping(ui->mapPortNatpmp, OptionsModel::MapPortNatpmp);
     mapper->addMapping(ui->checkBoxAllow, OptionsModel::Listen);
     mapper->addMapping(ui->checkBoxConnect, OptionsModel::ProxyUse);
     mapper->addMapping(ui->lineEditProxy, OptionsModel::ProxyIP);
     mapper->addMapping(ui->lineEditPort, OptionsModel::ProxyPort);
 }
 
+void SettingsWalletOptionsWidget::loadWalletModel()
+{
+    reloadWalletOptions();
+    connect(walletModel, &WalletModel::notifySSTChanged, this, &SettingsWalletOptionsWidget::setSpinBoxStakeSplitThreshold);
+}
+
+void SettingsWalletOptionsWidget::reloadWalletOptions()
+{
+    setSpinBoxStakeSplitThreshold(static_cast<double>(walletModel->getWalletStakeSplitThreshold()) / COIN);
+}
+
 void SettingsWalletOptionsWidget::setSpinBoxStakeSplitThreshold(double val)
 {
     ui->spinBoxStakeSplitThreshold->setValue(val);
+}
+
+double SettingsWalletOptionsWidget::getSpinBoxStakeSplitThreshold() const
+{
+    return ui->spinBoxStakeSplitThreshold->value();
+}
+
+bool SettingsWalletOptionsWidget::saveWalletOnlyOptions()
+{
+    // stake split threshold
+    const CAmount sstOld = walletModel->getWalletStakeSplitThreshold();
+    const CAmount sstNew = static_cast<CAmount>(getSpinBoxStakeSplitThreshold() * COIN);
+    if (sstNew != sstOld) {
+        const double stakeSplitMinimum = walletModel->getSSTMinimum();
+        if (sstNew != 0 && sstNew < static_cast<CAmount>(stakeSplitMinimum * COIN)) {
+            setSpinBoxStakeSplitThreshold(stakeSplitMinimum);
+            inform(tr("Stake Split too low, it shall be either >= %1 or equal to 0 (to disable stake splitting)").arg(stakeSplitMinimum));
+            return false;
+        }
+        walletModel->setWalletStakeSplitThreshold(sstNew);
+    }
+    return true;
+}
+
+void SettingsWalletOptionsWidget::discardWalletOnlyOptions()
+{
+    reloadWalletOptions();
+}
+
+void SettingsWalletOptionsWidget::saveMapPortOptions()
+{
+    clientModel->mapPort(ui->mapPortUpnp->isChecked(), ui->mapPortNatpmp->isChecked());
 }
 
 SettingsWalletOptionsWidget::~SettingsWalletOptionsWidget(){

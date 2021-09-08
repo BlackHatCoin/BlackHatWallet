@@ -4,8 +4,11 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet keypool and interaction with wallet encryption/locking."""
 
+import time
+
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal, assert_raises_rpc_error
+
 
 class KeyPoolTest(BlackHatTestFramework):
     def set_test_params(self):
@@ -15,7 +18,7 @@ class KeyPoolTest(BlackHatTestFramework):
     def run_test(self):
         nodes = self.nodes
         addr_before_encrypting = nodes[0].getnewaddress()
-        addr_before_encrypting_data = nodes[0].validateaddress(addr_before_encrypting)
+        nodes[0].validateaddress(addr_before_encrypting)
 
         # Encrypt wallet and wait to terminate
         nodes[0].node_encrypt_wallet('test')
@@ -23,7 +26,7 @@ class KeyPoolTest(BlackHatTestFramework):
         self.start_node(0, self.extra_args[0])
         # Keep creating keys
         addr = nodes[0].getnewaddress()
-        addr_data = nodes[0].validateaddress(addr)
+        nodes[0].validateaddress(addr)
         assert_raises_rpc_error(-12, "Keypool ran out, please call keypoolrefill first, or unlock the wallet.",
                                 nodes[0].getnewaddress)
 

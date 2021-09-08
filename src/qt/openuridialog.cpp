@@ -26,7 +26,6 @@ OpenURIDialog::OpenURIDialog(QWidget* parent) : QDialog(parent, Qt::WindowSystem
     setCssProperty(ui->labelTitle, "text-title-dialog");
 
     setCssBtnPrimary(ui->pushButtonOK);
-    setCssBtnPrimary(ui->selectFileButton);
     setCssProperty(ui->pushButtonCancel, "btn-dialog-cancel");
 
     initCssEditLine(ui->uriEdit, true);
@@ -57,33 +56,6 @@ void OpenURIDialog::accept()
         QDialog::accept();
     } else {
         setCssEditLineDialog(ui->uriEdit, false, true);
-    }
-}
-
-void OpenURIDialog::on_selectFileButton_clicked()
-{
-    QString filename = GUIUtil::getOpenFileName(this, tr("Select payment request file to open"), "", "", NULL);
-    if (filename.isEmpty())
-        return;
-
-    QFile file(filename);
-    if(!file.exists()) {
-        inform(tr("File not found"));
-        return;
-    }
-
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QByteArray r = file.readAll();
-        if (r.size() > 200) {
-            inform(tr("Parsed data too large"));
-            return;
-        }
-
-        QString str = QString::fromStdString(std::string(r.constData(), r.length()));
-        if (!str.startsWith("blkc")) {
-            inform(tr("Invalid URI, not starting with \"blkc\" prefix"));
-        }
-        ui->uriEdit->setText(str);
     }
 }
 

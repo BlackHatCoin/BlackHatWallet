@@ -14,6 +14,7 @@
 #include "ParamGeneration.h"
 #include <string>
 #include <cmath>
+#include "arith_uint256.h"
 #include "hash.h"
 #include "uint256.h"
 
@@ -38,8 +39,7 @@ namespace libzerocoin {
 /// in length, and 3072 bits is strongly recommended.
 ///
 
-void
-CalculateParams(ZerocoinParams &params, CBigNum N, std::string aux, uint32_t securityLevel)
+void CalculateParams(ZerocoinParams &params, const CBigNum& N, const std::string& aux, uint32_t securityLevel)
 {
     params.initialized = false;
     params.accumulatorParams.initialized = false;
@@ -87,10 +87,10 @@ CalculateParams(ZerocoinParams &params, CBigNum N, std::string aux, uint32_t sec
     // a whole group, just a pair of random generators in QR_N.
     uint32_t resultCtr;
     params.accumulatorParams.accumulatorQRNCommitmentGroup.g = generateIntegerFromSeed(NLen - 1,
-            calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPG),
+            UintToArith256(calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPG)),
                                              &resultCtr).pow_mod(BN_TWO, N);
     params.accumulatorParams.accumulatorQRNCommitmentGroup.h = generateIntegerFromSeed(NLen - 1,
-            calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPH),
+            UintToArith256(calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPH)),
                                              &resultCtr).pow_mod(BN_TWO, N);
 
     // Calculate the accumulator base, which we calculate as "u = C**2 mod N"
@@ -124,8 +124,7 @@ CalculateParams(ZerocoinParams &params, CBigNum N, std::string aux, uint32_t sec
 ///
 /// Returns the hash of the value.
 
-uint256
-calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, std::string label, uint32_t index, uint32_t count)
+uint256 calculateGeneratorSeed(const uint256& seed, const uint256& pSeed, const uint256& qSeed, const std::string& label, uint32_t index, uint32_t count)
 {
     CHashWriter hasher(0,0);
     uint256     hash;
@@ -156,8 +155,7 @@ calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, std::string l
 ///
 /// Returns the hash of the value.
 
-uint256
-calculateSeed(CBigNum modulus, std::string auxString, uint32_t securityLevel, std::string groupName)
+uint256 calculateSeed(const CBigNum& modulus, const std::string& auxString, uint32_t securityLevel, const std::string& groupName)
 {
     CHashWriter hasher(0,0);
     uint256     hash;
@@ -175,8 +173,7 @@ calculateSeed(CBigNum modulus, std::string auxString, uint32_t securityLevel, st
     return hasher.GetHash();
 }
 
-uint256
-calculateHash(uint256 input)
+uint256 calculateHash(const uint256& input)
 {
     CHashWriter hasher(0,0);
 
@@ -243,8 +240,7 @@ calculateGroupParamLengths(uint32_t maxPLen, uint32_t securityLevel,
 /// primes "p" and "q". It uses the procedure in Appendix A.2.3 to
 /// derive two generators "g", "h".
 
-IntegerGroupParams
-deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
+IntegerGroupParams deriveIntegerGroupParams(const uint256& seed, uint32_t pLen, uint32_t qLen)
 {
     IntegerGroupParams result;
     CBigNum p;
@@ -289,8 +285,7 @@ deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 /// Given "q" calculates the description of a group G of prime order "q" embedded within
 /// a field "F_p".
 
-IntegerGroupParams
-deriveIntegerGroupFromOrder(CBigNum &groupOrder)
+IntegerGroupParams deriveIntegerGroupFromOrder(const CBigNum& groupOrder)
 {
     IntegerGroupParams result;
 
@@ -353,10 +348,9 @@ deriveIntegerGroupFromOrder(CBigNum &groupOrder)
 /// algorithms described in FIPS 186-3 Appendix A.1.2 to calculate
 /// primes "p" and "q".
 
-void
-calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
-                              CBigNum *resultModulus, CBigNum *resultGroupOrder,
-                              uint256 *resultPseed, uint256 *resultQseed)
+void calculateGroupModulusAndOrder(const uint256& seed, uint32_t pLen, uint32_t qLen,
+                                   CBigNum *resultModulus, CBigNum *resultGroupOrder,
+                                   uint256 *resultPseed, uint256 *resultQseed)
 {
     // Verify that the seed length is >= qLen
     if (qLen > (sizeof(seed)) * 8) {
@@ -371,14 +365,14 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
     // Generate a random prime for the group order.
     // This may throw an exception, which we'll pass upwards.
     // Result is the value "resultGroupOrder", "qseed" and "qgen_counter".
-    uint256     qseed;
+    arith_uint256     qseed;
     uint32_t    qgen_counter;
-    *resultGroupOrder = generateRandomPrime(qLen, seed, &qseed, &qgen_counter);
+    *resultGroupOrder = generateRandomPrime(qLen, UintToArith256(seed), &qseed, &qgen_counter);
 
     // Using pLen / 2 + 1 as the length and qseed as the input_seed, use the random prime
     // routine to obtain p0 , pseed, and pgen_counter. We pass exceptions upward.
     uint32_t    p0len = ceil((pLen / 2.0) + 1);
-    uint256     pseed;
+    arith_uint256     pseed;
     uint32_t    pgen_counter;
     CBigNum p0 = generateRandomPrime(p0len, qseed, &pseed, &pgen_counter);
 
@@ -388,7 +382,7 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
     // Generate a random integer "x" of pLen bits
     uint32_t iterations;
     CBigNum x = generateIntegerFromSeed(pLen, pseed, &iterations);
-    pseed += (iterations + 1);
+    pseed += iterations + 1;
 
     // Set x = 2^{pLen-1} + (x mod 2^{pLen-1}).
     CBigNum powerOfTwo = BN_TWO.pow(pLen-1);
@@ -428,8 +422,8 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
         if ((resultModulus->gcd(z - BN_ONE)).isOne() &&
                 (z.pow_mod(p0, (*resultModulus))).isOne()) {
             // Success! Return the seeds and primes.
-            *resultPseed = pseed;
-            *resultQseed = qseed;
+            *resultPseed = ArithToUint256(pseed);
+            *resultQseed = ArithToUint256(qseed);
             return;
         }
 
@@ -455,8 +449,7 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
 /// Generates a random group generator deterministically as a function of (seed,pSeed,qSeed)
 /// Uses the algorithm described in FIPS 186-3 Appendix A.2.3.
 
-CBigNum
-calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, CBigNum modulus, CBigNum groupOrder, uint32_t index)
+CBigNum calculateGroupGenerator(const uint256& seed, const uint256& pSeed, const uint256& qSeed, const CBigNum& modulus, const CBigNum& groupOrder, uint32_t index)
 {
     CBigNum result;
 
@@ -499,9 +492,8 @@ calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, CBigNum modu
 /// seed. Uses the Shawe-Taylor algorithm as described in FIPS 186-3
 /// Appendix C.6. This is a recursive function.
 
-CBigNum
-generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
-                    uint32_t *prime_gen_counter)
+CBigNum generateRandomPrime(uint32_t primeBitLen, const arith_uint256& in_seed, arith_uint256 *out_seed,
+                            uint32_t *prime_gen_counter)
 {
     // Verify that primeBitLen is not too small
     if (primeBitLen < 2) {
@@ -513,7 +505,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
         CBigNum result(0);
 
         // Set prime_seed = in_seed, prime_gen_counter = 0.
-        uint256     prime_seed = in_seed;
+        arith_uint256 prime_seed = in_seed;
         (*prime_gen_counter) = 0;
 
         // Loop up to "4 * primeBitLen" iterations.
@@ -590,7 +582,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 
             // Test "c" for primality as follows:
             // 1. First pick an integer "a" in between 2 and (c - 2)
-            CBigNum a = generateIntegerFromSeed(c.bitSize(), (*out_seed), &numIterations);
+            CBigNum a = generateIntegerFromSeed(c.bitSize(), *out_seed, &numIterations);
             a = BN_TWO + (a % (c - BN_THREE));
             (*out_seed) += (numIterations + 1);
 
@@ -616,8 +608,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
     throw std::runtime_error("Unable to generate random prime (too many tests)");
 }
 
-CBigNum
-generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
+CBigNum generateIntegerFromSeed(uint32_t numBits, const arith_uint256& seed, uint32_t *numIterations)
 {
     CBigNum      result(0);
     uint32_t    iterations = ceil((double)numBits / (double)HASH_OUTPUT_BITS);
@@ -630,7 +621,7 @@ generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
     // Loop "iterations" times filling up the value "result" with random bits
     for (uint32_t count = 0; count < iterations; count++) {
         // result += ( H(pseed + count) * 2^{count * p0len} )
-        result += CBigNum(calculateHash(seed + count)) * BN_TWO.pow(count * HASH_OUTPUT_BITS);
+        result += CBigNum(calculateHash(ArithToUint256(seed + count))) * BN_TWO.pow(count * HASH_OUTPUT_BITS);
     }
 
     result = BN_TWO.pow(numBits - 1) + (result % (BN_TWO.pow(numBits - 1)));
@@ -646,8 +637,7 @@ generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 ///
 /// Performs trial division to determine whether a uint32_t is prime.
 
-bool
-primalityTestByTrialDivision(uint32_t candidate)
+bool primalityTestByTrialDivision(uint32_t candidate)
 {
     // TODO: HACK HACK WRONG WRONG
     CBigNum canBignum(candidate);

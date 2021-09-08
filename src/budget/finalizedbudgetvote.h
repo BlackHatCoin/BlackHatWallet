@@ -48,21 +48,7 @@ public:
     void SetTime(const int64_t& _nTime) { nTime = _nTime; }
     void SetValid(bool _fValid) { fValid = _fValid; }
 
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(vin);
-        READWRITE(nBudgetHash);
-        READWRITE(nTime);
-        READWRITE(vchSig);
-        try
-        {
-            READWRITE(nMessVersion);
-        } catch (...) {
-            nMessVersion = MessageVersion::MESS_VER_STRMESS;
-        }
-    }
+    SERIALIZE_METHODS(CFinalizedBudgetVote, obj) { READWRITE(obj.vin, obj.nBudgetHash, obj.nTime, obj.vchSig, obj.nMessVersion); }
 };
 
 #endif // FINALIZED_BUDGET_VOTE_H

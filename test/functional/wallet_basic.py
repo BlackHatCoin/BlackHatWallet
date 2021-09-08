@@ -3,6 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet."""
+
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_array_result,
@@ -34,6 +35,9 @@ class WalletTest(BlackHatTestFramework):
 
     def check_wallet_processed_blocks(self, nodeid, walletinfo):
         assert_equal(self.nodes[nodeid].getblockcount(), walletinfo['last_processed_block'])
+
+    def len_listunspent(self, query_options):
+        return len(self.nodes[1].listunspent(0, 99999, [], 1, query_options))
 
     def run_test(self):
         # Check that there's no UTXO on none of the nodes
@@ -73,6 +77,9 @@ class WalletTest(BlackHatTestFramework):
 
         # Exercise locking of unspent outputs
         unspent_0 = self.nodes[1].listunspent()[0]
+        assert unspent_0["solvable"]
+        assert unspent_0["spendable"]
+        assert unspent_0["safe"]
         unspent_0 = {"txid": unspent_0["txid"], "vout": unspent_0["vout"]}
         self.nodes[1].lockunspent(False, [unspent_0])
         assert_raises_rpc_error(-4, "Insufficient funds", self.nodes[1].sendtoaddress, self.nodes[1].getnewaddress(), 20)
@@ -81,16 +88,32 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(len(self.nodes[1].listlockunspent()), 0)
 
         # Send 21 BLKC from 1 to 0 using sendtoaddress call.
+        # Locked memory should use at least 32 bytes to sign the transaction
+        self.log.info("test getmemoryinfo")
+        memory_before = self.nodes[0].getmemoryinfo()
         self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 21)
-        self.nodes[1].generate(1)
-        self.sync_all(self.nodes[0:3])
+        memory_after = self.nodes[0].getmemoryinfo()
+        assert(memory_before['locked']['used'] + 32 <= memory_after['locked']['used'])
+        self.sync_mempools(self.nodes[0:3])
 
         # Node0 should have two unspent outputs.
+        # One safe, the other one not yet
+        node0utxos = self.nodes[0].listunspent(0)
+        assert_equal(len(node0utxos), 2)
+        newutxos = [x for x in node0utxos if x["txid"] != utxos[0]["txid"]]
+        assert_equal(len(newutxos), 1)
+        assert not newutxos[0]["safe"]
+
+        # Mine the other tx
+        self.nodes[1].generate(1)
+        self.sync_all(self.nodes[0:3])
+        node0utxos = self.nodes[0].listunspent()
+        assert_equal(len(node0utxos), 2)
+        for u in node0utxos:
+            assert u["safe"]
+
         # Create a couple of transactions to send them to node2, submit them through
         # node1, and make sure both node0 and node2 pick them up properly:
-        node0utxos = self.nodes[0].listunspent(1)
-        assert_equal(len(node0utxos), 2)
-
         # create both transactions
         fee_per_kbyte = Decimal('0.001')
         txns_to_send = []
@@ -116,10 +139,11 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(node_2_bal, node_2_expected_bal)
 
         # Send 10 BLKC normal
+        self.log.info("test sendtoaddress")
         address = self.nodes[0].getnewaddress("test")
         self.nodes[2].settxfee(float(fee_per_kbyte))
         txid = self.nodes[2].sendtoaddress(address, 10, "", "")
-        fee = self.nodes[2].gettransaction(txid)["fee"]
+        fee = self.nodes[2].gettransaction(txid)["fee"]     # fee < 0
         node_2_bal -= (Decimal('10') - fee)
         assert_equal(self.nodes[2].getbalance(), node_2_bal)
         self.nodes[2].generate(1)
@@ -128,6 +152,7 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(node_0_bal, Decimal('10'))
 
         # Sendmany 10 BLKC
+        self.log.info("test sendmany")
         txid = self.nodes[2].sendmany('', {address: 10}, 0, "")
         fee = self.nodes[2].gettransaction(txid)["fee"]
         self.nodes[2].generate(1)
@@ -138,9 +163,6 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(self.nodes[0].getbalance(), node_0_bal)
         assert_fee_amount(-fee, self.get_vsize(self.nodes[2].getrawtransaction(txid)), fee_per_kbyte)
 
-        # This will raise an exception since generate does not accept a string
-        assert_raises_rpc_error(-1, "not an integer", self.nodes[0].generate, "2")
-
         # Import address and private key to check correct behavior of spendable unspents
         # 1. Send some coins to generate new UTXO
         address_to_import = self.nodes[2].getnewaddress()
@@ -149,6 +171,7 @@ class WalletTest(BlackHatTestFramework):
         self.sync_all(self.nodes[0:3])
 
         # 2. Import address from node2 to node1
+        self.log.info("test importaddress")
         self.nodes[1].importaddress(address_to_import)
 
         # 3. Validate that the imported address is watch-only on node1
@@ -162,6 +185,7 @@ class WalletTest(BlackHatTestFramework):
 
         # 5. Import private key of the previously imported address on node1
         priv_key = self.nodes[2].dumpprivkey(address_to_import)
+        self.log.info("test importprivkey")
         self.nodes[1].importprivkey(priv_key)
 
         # 6. Check that the unspents are now spendable on node1
@@ -199,6 +223,41 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(len(coinbase_tx_1["transactions"]), 1)
         assert_equal(coinbase_tx_1["transactions"][0]["blockhash"], blocks[1])
         assert_equal(len(self.nodes[0].listsinceblock(blocks[1])["transactions"]), 0)
+
+        # Excercise query_options parameter in listunspent
+        # Node 1 has:
+        # - 1 coin of 1.00 BLKC
+        # - 7 coins of 250.00 BLKC
+        # - 1 coin of 228.9999xxxx BLKC
+        assert_equal(9, self.len_listunspent({}))
+        assert_equal(9, self.len_listunspent({"maximumCount": 10}))
+        assert_equal(2, self.len_listunspent({"maximumCount": 2}))
+        assert_equal(1, self.len_listunspent({"maximumCount": 1}))
+        assert_equal(9, self.len_listunspent({"maximumCount": 0}))
+        assert_equal(9, self.len_listunspent({"minimumAmount": 0.99999999}))
+        assert_equal(9, self.len_listunspent({"minimumAmount": 1.00}))
+        assert_equal(8, self.len_listunspent({"minimumAmount": 1.00000001}))
+        assert_equal(8, self.len_listunspent({"minimumAmount": 228.9999}))
+        assert_equal(7, self.len_listunspent({"minimumAmount": 229.00}))
+        assert_equal(7, self.len_listunspent({"minimumAmount": 250.00}))
+        assert_equal(0, self.len_listunspent({"minimumAmount": 250.00000001}))
+        assert_equal(0, self.len_listunspent({"maximumAmount": 0.99999999}))
+        assert_equal(1, self.len_listunspent({"maximumAmount": 1.00}))
+        assert_equal(1, self.len_listunspent({"maximumAmount": 228.9999}))
+        assert_equal(2, self.len_listunspent({"maximumAmount": 229.00}))
+        assert_equal(2, self.len_listunspent({"maximumAmount": 249.99999999}))
+        assert_equal(9, self.len_listunspent({"maximumAmount": 250.00}))
+        assert_equal(9, self.len_listunspent({"minimumAmount": 1.00000000, "maximumAmount": 250.00}))
+        assert_equal(2, self.len_listunspent({"minimumAmount": 1.00000000, "maximumAmount": 249.99999999}))
+        assert_equal(8, self.len_listunspent({"minimumAmount": 1.00000001, "maximumAmount": 250.00}))
+        assert_equal(7, self.len_listunspent({"minimumAmount": 229.000000, "maximumAmount": 250.00}))
+        assert_equal(7, self.len_listunspent({"minimumAmount": 250.000000, "maximumAmount": 250.00}))
+        assert_equal(8, self.len_listunspent({"minimumAmount": 228.999900, "maximumAmount": 250.00}))
+        assert_equal(0, self.len_listunspent({"minimumAmount": 228.999900, "maximumAmount": 228.00}))
+        assert_equal(1, self.len_listunspent({"minimumAmount": 250.00, "minimumSumAmount": 249.99999999}))
+        assert_equal(2, self.len_listunspent({"minimumAmount": 250.00, "minimumSumAmount": 250.00000001}))
+        assert_equal(5, self.len_listunspent({"minimumAmount": 250.00, "minimumSumAmount": 1250.0000000}))
+        assert_equal(9, self.len_listunspent({"minimumSumAmount": 2500.00}))
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@
 """Test RPC commands for budget proposal creation, submission, and verification."""
 
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal, assert_raises_rpc_error
 
 
 class BudgetProposalTest(BlackHatTestFramework):
@@ -47,8 +47,8 @@ class BudgetProposalTest(BlackHatTestFramework):
         assert_raises_rpc_error(-8, "Invalid block start", self.nodes[0].preparebudget,
                                 name, scheme + url, numcycles, nextsuperblock - budgetcycleblocks, address, cycleamount)
 
-        self.log.info("Test with invalid BLKC address")
-        assert_raises_rpc_error(-5, "Invalid BLKC address", self.nodes[0].preparebudget,
+        self.log.info("Test with invalid BlackHat address")
+        assert_raises_rpc_error(-5, "Invalid BlackHat address", self.nodes[0].preparebudget,
                                 name, scheme + url, numcycles, nextsuperblock, "DBREvBPNQguwuC4YMoCG5FoH1sA2YntvZm", cycleamount)
 
         self.log.info("Test with too low amount")

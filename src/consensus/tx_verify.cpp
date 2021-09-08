@@ -5,9 +5,9 @@
 #include "tx_verify.h"
 
 #include "consensus/consensus.h"
+#include "evo/specialtx.h"
 #include "consensus/zerocoin_verify.h"
 #include "sapling/sapling_validation.h"
-#include "tiertwo/specialtx_validation.h"
 #include "../validation.h"
 
 bool IsFinalTx(const CTransactionRef& tx, int nBlockHeight, int64_t nBlockTime)
@@ -52,7 +52,7 @@ unsigned int GetP2SHSigOpCount(const CTransaction& tx, const CCoinsViewCache& in
     return nSigOps;
 }
 
-bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, CValidationState& state, bool fFakeSerialAttack, bool fColdStakingActive, bool fSaplingActive)
+bool CheckTransaction(const CTransaction& tx, CValidationState& state, bool fColdStakingActive)
 {
     // Basic checks that don't depend on any context
     // Transactions containing empty `vin` must have non-empty `vShieldedSpend`.
@@ -63,12 +63,10 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, CValidationS
         return state.DoS(10, false, REJECT_INVALID, "bad-txns-vout-empty");
 
     // Version check
-    if (fSaplingActive) {
-        // After sapling activation we require 1 <= tx.nVersion < TxVersion::TOOHIGH
-        if (tx.nVersion < 1 || tx.nVersion >= CTransaction::TxVersion::TOOHIGH)
-            return state.DoS(10,
-                    error("%s: Transaction version (%d) too high. Max: %d", __func__, tx.nVersion, int(CTransaction::TxVersion::TOOHIGH) - 1),
-                    REJECT_INVALID, "bad-tx-version-too-high");
+    if (tx.nVersion < 1 || tx.nVersion >= CTransaction::TxVersion::TOOHIGH) {
+        return state.DoS(10,
+                error("%s: Transaction version (%d) too high. Max: %d", __func__, tx.nVersion, int(CTransaction::TxVersion::TOOHIGH) - 1),
+                REJECT_INVALID, "bad-tx-version-too-high");
     }
 
     // Size limits
@@ -76,17 +74,12 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, CValidationS
     static_assert(MAX_TX_SIZE_AFTER_SAPLING > MAX_ZEROCOIN_TX_SIZE, "New max TX size must be bigger than old max TX size");  // sanity
     const unsigned int nMaxSize = tx.IsShieldedTx() ? MAX_TX_SIZE_AFTER_SAPLING : MAX_ZEROCOIN_TX_SIZE;
     if (tx.GetTotalSize() > nMaxSize) {
-        return state.DoS(10, false, REJECT_INVALID, "bad-txns-oversize");
+        return state.DoS(10, error("tx oversize: %d > %d", tx.GetTotalSize(), nMaxSize), REJECT_INVALID, "bad-txns-oversize");
     }
 
     // Dispatch to Sapling validator
     CAmount nValueOut = 0;
-    if (!SaplingValidation::CheckTransaction(tx, state, nValueOut, fSaplingActive)) {
-        return false;
-    }
-
-    // Dispatch to SpecialTx validator
-    if (!CheckSpecialTx(tx, state, fSaplingActive)) {
+    if (!SaplingValidation::CheckTransaction(tx, state, nValueOut)) {
         return false;
     }
 
@@ -112,61 +105,37 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, CValidationS
     }
 
     std::set<COutPoint> vInOutPoints;
-    std::set<CBigNum> vZerocoinSpendSerials;
-    int nZCSpendCount = 0;
-
     for (const CTxIn& txin : tx.vin) {
         // Check for duplicate inputs
         if (vInOutPoints.count(txin.prevout))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-duplicate");
-
-        //duplicate zcspend serials are checked in CheckZerocoinSpend()
         if (!txin.IsZerocoinSpend()) {
             vInOutPoints.insert(txin.prevout);
-        } else if (!txin.IsZerocoinPublicSpend()) {
-            nZCSpendCount++;
-        }
-    }
-
-    if (fZerocoinActive) {
-        if (nZCSpendCount > consensus.ZC_MaxSpendsPerTx)
-            return state.DoS(100, error("CheckTransaction() : there are more zerocoin spends than are allowed in one transaction"));
-
-        //require that a zerocoinspend only has inputs that are zerocoins
-        if (tx.HasZerocoinSpendInputs()) {
-            for (const CTxIn& in : tx.vin) {
-                if (!in.IsZerocoinSpend() && !in.IsZerocoinPublicSpend())
-                    return state.DoS(100,
-                                     error("CheckTransaction() : zerocoinspend contains inputs that are not zerocoins"));
-            }
-
-            // Do not require signature verification if this is initial sync and a block over 24 hours old
-            bool fVerifySignature = !IsInitialBlockDownload() && (GetTime() - chainActive.Tip()->GetBlockTime() < (60*60*24));
-            if (!CheckZerocoinSpend(tx, fVerifySignature, state, fFakeSerialAttack))
-                return state.DoS(100, error("CheckTransaction() : invalid zerocoin spend"));
         }
     }
 
     if (tx.IsCoinBase()) {
         if (tx.vin[0].scriptSig.size() < 2 || tx.vin[0].scriptSig.size() > 150)
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-length");
-    } else if (fZerocoinActive && tx.HasZerocoinSpendInputs()) {
-        if (tx.vin.size() < 1)
-            return state.DoS(10, false, REJECT_INVALID, "bad-zc-spend-min-inputs");
-        if (tx.HasZerocoinPublicSpendInputs()) {
-            // tx has public zerocoin spend inputs
-            if(static_cast<int>(tx.vin.size()) > consensus.ZC_MaxPublicSpendsPerTx)
-                return state.DoS(10, false, REJECT_INVALID, "bad-zc-spend-max-inputs");
-        } else {
-            // tx has regular zerocoin spend inputs
-            if(static_cast<int>(tx.vin.size()) > consensus.ZC_MaxSpendsPerTx)
-                return state.DoS(10, false, REJECT_INVALID, "bad-zc-spend-max-inputs");
-        }
-
     } else {
         for (const CTxIn& txin : tx.vin)
-            if (txin.prevout.IsNull() && (fZerocoinActive && !txin.IsZerocoinSpend()))
+            if (txin.prevout.IsNull() && !txin.IsZerocoinSpend())
                 return state.DoS(10, false, REJECT_INVALID, "bad-txns-prevout-null");
+    }
+
+    return true;
+}
+
+bool ContextualCheckTransaction(const CTransactionRef& tx, CValidationState& state, const CChainParams& chainparams, int nHeight, bool isMined, bool fIBD)
+{
+    // Dispatch to Sapling validator
+    if (!SaplingValidation::ContextualCheckTransaction(*tx, state, chainparams, nHeight, isMined, fIBD)) {
+        return false; // Failure reason has been set in validation state object
+    }
+
+    // Dispatch to ZerocoinTx validator
+    if (!ContextualCheckZerocoinTx(tx, state, chainparams.GetConsensus(), nHeight, isMined)) {
+        return false; // Failure reason has been set in validation state object
     }
 
     return true;

@@ -8,22 +8,22 @@
 #ifndef BLKC_QT_WALLETMODEL_H
 #define BLKC_QT_WALLETMODEL_H
 
-#include "askpassphrasedialog.h"
-#include "paymentrequestplus.h"
-#include "walletmodeltransaction.h"
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
 
 #include "interfaces/wallet.h"
 
-#include "allocators.h" /* for SecureString */
+#include "key.h"
 #include "operationresult.h"
-#include "wallet/wallet.h"
-#include "pairresult.h"
+#include "support/allocators/zeroafterfree.h"
 
 #include <map>
 #include <vector>
 
 #include <QObject>
 #include <QFuture>
+#include <QSettings>
 
 class AddressTableModel;
 class ClientModel;
@@ -70,48 +70,38 @@ public:
     // Quick flag to not have to check the address type more than once.
     bool isShieldedAddr{false};
 
+    // Whether to subtract the tx fee from this recipient
+    bool fSubtractFee{false};
+
     // Amount
     CAmount amount{0};
     // If from a payment request, this is used for storing the memo
     QString message{};
 
-    // If from a payment request, paymentRequest.IsInitialized() will be true
-    PaymentRequestPlus paymentRequest{};
+    // serialized string to ensure load/store is lossless
+    std::string sPaymentRequest{};
+
     // Empty if no authentication or invalid signature/cert/etc.
     QString authenticatedMerchant{};
 
     static const int CURRENT_VERSION = 1;
     int nVersion;
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(SendCoinsRecipient, obj)
     {
-        std::string sAddress = address.toStdString();
-        std::string sLabel = label.toStdString();
-        std::string sMessage = message.toStdString();
-        std::string sPaymentRequest;
-        if (!ser_action.ForRead() && paymentRequest.IsInitialized())
-            paymentRequest.SerializeToString(&sPaymentRequest);
-        std::string sAuthenticatedMerchant = authenticatedMerchant.toStdString();
+        std::string address_str, label_str, message_str, auth_merchant_str;
 
-        READWRITE(this->nVersion);
-        READWRITE(sAddress);
-        READWRITE(sLabel);
-        READWRITE(amount);
-        READWRITE(sMessage);
-        READWRITE(sPaymentRequest);
-        READWRITE(sAuthenticatedMerchant);
+        SER_WRITE(obj, address_str = obj.address.toStdString());
+        SER_WRITE(obj, label_str = obj.label.toStdString());
+        SER_WRITE(obj, message_str = obj.message.toStdString());
+        SER_WRITE(obj, auth_merchant_str = obj.authenticatedMerchant.toStdString());
 
-        if (ser_action.ForRead()) {
-            address = QString::fromStdString(sAddress);
-            label = QString::fromStdString(sLabel);
-            message = QString::fromStdString(sMessage);
-            if (!sPaymentRequest.empty())
-                paymentRequest.parse(QByteArray::fromRawData(sPaymentRequest.data(), sPaymentRequest.size()));
-            authenticatedMerchant = QString::fromStdString(sAuthenticatedMerchant);
-        }
+        READWRITE(obj.nVersion, address_str, label_str, obj.amount, message_str, obj.sPaymentRequest, auth_merchant_str);
+
+        SER_READ(obj, obj.address = QString::fromStdString(address_str));
+        SER_READ(obj, obj.label = QString::fromStdString(label_str));
+        SER_READ(obj, obj.message = QString::fromStdString(message_str));
+        SER_READ(obj, obj.authenticatedMerchant = QString::fromStdString(auth_merchant_str));
     }
 };
 
@@ -152,13 +142,14 @@ public:
     TransactionTableModel* getTransactionTableModel();
     RecentRequestsTableModel* getRecentRequestsTableModel();
 
+    void resetWalletOptions(QSettings& settings);
     bool isTestNetwork() const;
     bool isRegTestNetwork() const;
     bool isShutdownRequested();
     /** Whether cold staking is enabled or disabled in the network **/
     bool isColdStakingNetworkelyEnabled() const;
     bool isSaplingInMaintenance() const;
-    bool isSaplingEnforced() const;
+    bool isV6Enforced() const;
     CAmount getMinColdStakingAmount() const;
     /* current staking status from the miner thread **/
     bool isStakingStatusActive() const;
@@ -169,6 +160,9 @@ public:
     bool isSaplingWalletEnabled() const;
     bool upgradeWallet(std::string& upgradeError);
 
+    // Returns the path to the first wallet db (future: add multi-wallet support)
+    QString getWalletPath();
+
     interfaces::WalletBalances GetWalletBalances() { return m_cached_balances; };
 
     CAmount getBalance(const CCoinControl* coinControl = nullptr, bool fIncludeDelegated = true, bool fUnlockedOnly = false, bool fIncludeShielded = true) const;
@@ -178,6 +172,7 @@ public:
     CAmount getDelegatedBalance() const;
 
     bool isColdStaking() const;
+    void getAvailableP2CSCoins(std::vector<COutput>& vCoins) const;
 
     EncryptionStatus getEncryptionStatus() const;
     bool isWalletUnlocked() const;
@@ -209,7 +204,12 @@ public:
     void setWalletDefaultFee(CAmount fee = DEFAULT_TRANSACTION_FEE);
     bool hasWalletCustomFee();
     bool getWalletCustomFee(CAmount& nFeeRet);
-    void setWalletCustomFee(bool fUseCustomFee, const CAmount& nFee = DEFAULT_TRANSACTION_FEE);
+    void setWalletCustomFee(bool fUseCustomFee, const CAmount nFee = DEFAULT_TRANSACTION_FEE);
+
+    void setWalletStakeSplitThreshold(const CAmount nStakeSplitThreshold);
+    CAmount getWalletStakeSplitThreshold() const;
+    /* Minimum stake split threshold*/
+    double getSSTMinimum() const;
 
     const CWalletTx* getTx(uint256 id);
 
@@ -272,26 +272,35 @@ public:
     int64_t getKeyCreationTime(const CTxDestination& address);
     int64_t getKeyCreationTime(const std::string& address);
     int64_t getKeyCreationTime(const libzcash::SaplingPaymentAddress& address);
-    PairResult getNewAddress(Destination& ret, std::string label = "") const;
+    CallResult<Destination> getNewAddress(const std::string& label = "") const;
     /**
      * Return a new address used to receive for delegated cold stake purpose.
      */
-    PairResult getNewStakingAddress(Destination& ret, std::string label = "") const;
+    CallResult<Destination> getNewStakingAddress(const std::string& label = "") const;
 
     //! Return a new shielded address.
-    PairResult getNewShieldedAddress(QString& shieldedAddrRet, std::string strLabel = "");
+    CallResult<Destination> getNewShieldedAddress(std::string strLabel = "");
+
+    //! Return new wallet rescan reserver
+    WalletRescanReserver getRescanReserver() const { return WalletRescanReserver(wallet); }
 
     bool whitelistAddressFromColdStaking(const QString &addressStr);
     bool blacklistAddressFromColdStaking(const QString &address);
     bool updateAddressBookPurpose(const QString &addressStr, const std::string& purpose);
     std::string getLabelForAddress(const CTxDestination& address);
+    QString getSaplingAddressString(const CWalletTx* wtx, const SaplingOutPoint& op) const;
     bool getKeyId(const CTxDestination& address, CKeyID& keyID);
+    bool getKey(const CKeyID& keyID, CKey& key) const { return wallet->GetKey(keyID, key); }
+    bool haveKey(const CKeyID& keyID) const { return wallet->HaveKey(keyID); }
+    bool addKeys(const CKey& key, const CPubKey& pubkey, WalletRescanReserver& reserver);
 
     bool isMine(const CWDestination& address);
     bool isMine(const QString& addressStr);
     bool IsShieldedDestination(const CWDestination& address);
     bool isUsed(CTxDestination address);
     bool getMNCollateralCandidate(COutPoint& outPoint);
+    // Depth of a wallet transaction or -1 if not found
+    int getWalletTxDepth(const uint256& txHash) const;
     bool isSpent(const COutPoint& outpoint) const;
 
     class ListCoinsKey {
@@ -305,12 +314,18 @@ public:
         }
 
         bool operator<(const ListCoinsKey& key2) const {
-            return this->address < key2.address;
+            return this->address < key2.address ||
+                    (this->address == key2.address && this->stakerAddress < key2.stakerAddress);
         }
     };
 
     class ListCoinsValue {
     public:
+        ListCoinsValue() = delete;
+        ListCoinsValue(const uint256& _txhash, int _outIndex, CAmount _nValue, int64_t _nTime, int _nDepth) :
+            txhash(_txhash), outIndex(_outIndex), nValue(_nValue), nTime(_nTime), nDepth(_nDepth)
+        {}
+
         uint256 txhash;
         int outIndex;
         CAmount nValue;
@@ -336,19 +351,18 @@ public:
     uint256 getLastBlockProcessed() const;
     int getLastBlockProcessedNum() const;
 
-    interfaces::WalletBalances getBalances() { return walletWrapper.getBalances(); };
     bool hasForceCheckBalance() { return fForceCheckBalanceChanged; }
     void setCacheNumBlocks(int _cachedNumBlocks) { cachedNumBlocks = _cachedNumBlocks; }
     int getCacheNumBLocks() { return cachedNumBlocks; }
     void setCacheBlockHash(const uint256& _blockHash) { m_cached_best_block_hash = _blockHash; }
-    uint256 getCacheBlockHash() { return m_cached_best_block_hash; }
     void setfForceCheckBalanceChanged(bool _fForceCheckBalanceChanged) { fForceCheckBalanceChanged = _fForceCheckBalanceChanged; }
     Q_INVOKABLE void checkBalanceChanged(const interfaces::WalletBalances& new_balances);
+    bool processBalanceChangeInternal();
 
     void stop();
 
 private:
-    CWallet* wallet;
+    CWallet* wallet{nullptr};
     // Simple Wallet interface.
     // todo: Goal would be to move every CWallet* call to the wallet wrapper and
     //  in the model only perform the data organization (and QT wrappers) to be presented on the UI.
@@ -357,6 +371,7 @@ private:
     // Listeners
     std::unique_ptr<interfaces::Handler> m_handler_notify_status_changed;
     std::unique_ptr<interfaces::Handler> m_handler_notify_addressbook_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_sst_changed;
     std::unique_ptr<interfaces::Handler> m_handler_notify_transaction_changed;
     std::unique_ptr<interfaces::Handler> m_handler_show_progress;
     std::unique_ptr<interfaces::Handler> m_handler_notify_watch_only_changed;
@@ -383,6 +398,8 @@ private:
 
     QTimer* pollTimer;
     QFuture<void> pollFuture;
+
+    interfaces::WalletBalances getBalances() { return walletWrapper.getBalances(); };
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
@@ -413,6 +430,9 @@ Q_SIGNALS:
 
     // Receive tab address may have changed
     void notifyReceiveAddressChanged();
+
+    /** notify stake-split threshold changed */
+    void notifySSTChanged(const double sstVal);
 
 public Q_SLOTS:
     /* Wallet balances changes */

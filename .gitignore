@@ -13,7 +13,29 @@ src/blkc-cli
 src/blkc-tx
 src/bench/bench_blkc
 src/test/test_blkc
+src/test/test_blkc_fuzzy
 src/qt/test/test_blkc-qt
+src/test/fuzz/address_deserialize
+src/test/fuzz/addrman_deserialize
+src/test/fuzz/banentry_deserialize
+src/test/fuzz/block_deserialize
+src/test/fuzz/blockheader_deserialize
+src/test/fuzz/blocklocator_deserialize
+src/test/fuzz/blockmerkleroot
+src/test/fuzz/blockundo_deserialize
+src/test/fuzz/bloomfilter_deserialize
+src/test/fuzz/coins_deserialize
+src/test/fuzz/diskblockindex_deserialize
+src/test/fuzz/inv_deserialize
+src/test/fuzz/messageheader_deserialize
+src/test/fuzz/netaddr_deserialize
+src/test/fuzz/service_deserialize
+src/test/fuzz/transaction_deserialize
+src/test/fuzz/txoutcompressor_deserialize
+src/test/fuzz/txundo_deserialize
+src/test/fuzz/transaction
+src/test/fuzz/*deserialize
+
 
 # autoreconf
 Makefile.in
@@ -65,7 +87,6 @@ src/qt/test/moc*.cpp
 *.pyc
 *.o
 *.o-*
-*.patch
 .blkc
 *.a
 *.pb.cc
@@ -77,6 +98,10 @@ src/qt/test/moc*.cpp
 
 *.json.h
 *.raw.h
+
+# Only ignore unexpected patches
+*.patch
+!depends/patches/**/*.patch
 
 #libtool object files
 *.lo

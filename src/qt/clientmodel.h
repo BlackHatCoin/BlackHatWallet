@@ -10,6 +10,7 @@
 
 #include "uint256.h"
 #include "chain.h"
+
 #include <QObject>
 #include <QDateTime>
 
@@ -95,12 +96,18 @@ public:
 
     bool getTorInfo(std::string& ip_port) const;
 
+    //! Set the automatic port mapping options
+    static void mapPort(bool use_upnp, bool use_natpmp);
+
     // Start/Stop the masternode polling timer
     void startMasternodesTimer();
     void stopMasternodesTimer();
     // Force a MN count update calling mnmanager directly locking its internal mutex.
     // Future todo: implement an event based update and remove the lock requirement.
     QString getMasternodesCount();
+
+    // Return the specific chain amount value for the MN collateral output.
+    CAmount getMNCollateralRequiredAmount();
 
 private:
     // Listeners

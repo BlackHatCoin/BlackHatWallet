@@ -4,8 +4,7 @@
 # Copyright (c) 2021 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-# Test descendant package tracking code
+"""Test descendant package tracking code"""
 
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
@@ -24,7 +23,7 @@ MAX_DESCENDANTS = 25
 class MempoolPackagesTest(BlackHatTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args = [["-maxorphantx=1000", "-relaypriority=0"], ["-maxorphantx=1000", "-relaypriority=0", "-limitancestorcount=5"]]
+        self.extra_args = [["-maxorphantx=1000"], ["-maxorphantx=1000", "-limitancestorcount=5"]]
 
     # Build a transaction that spends parent_txid:vout
     # Return amount sent
@@ -76,7 +75,7 @@ class MempoolPackagesTest(BlackHatTestFramework):
 
         # Check that descendant modified fees includes fee deltas from
         # prioritisetransaction
-        self.nodes[0].prioritisetransaction(chain[-1], 0, 1000)
+        self.nodes[0].prioritisetransaction(chain[-1], 1000)
         mempool = self.nodes[0].getrawmempool(True)
 
         descendant_fees = 0
@@ -87,13 +86,22 @@ class MempoolPackagesTest(BlackHatTestFramework):
         # Adding one more transaction on to the chain should fail.
         try:
             self.chain_transaction(self.nodes[0],txid, vout, value, fee, 1)
-        except JSONRPCException as e:
+        except JSONRPCException:
             self.log.info("too-long-ancestor-chain successfully rejected")
 
         # Check that prioritising a tx before it's added to the mempool works
+        # First clear the mempool by mining a block.
         self.nodes[0].generate(1)
-        self.nodes[0].prioritisetransaction(chain[-1], 0, 2000)
+        self.sync_blocks()
+        assert_equal(len(self.nodes[0].getrawmempool()), 0)
+        # Prioritise a transaction that has been mined, then add it back to the
+        # mempool by using invalidateblock.
+        self.nodes[0].prioritisetransaction(chain[-1], 2000)
         self.nodes[0].invalidateblock(self.nodes[0].getbestblockhash())
+        # Keep node1's tip synced with node0
+        self.nodes[1].invalidateblock(self.nodes[1].getbestblockhash())
+
+        # Now check that the transaction is in the mempool, with the right modified fee
         mempool = self.nodes[0].getrawmempool(True)
 
         descendant_fees = 0

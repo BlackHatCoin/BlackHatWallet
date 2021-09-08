@@ -6,6 +6,7 @@
 #include "arith_uint256.h"
 
 #include "crypto/common.h"
+#include "uint256.h"
 #include "utilstrencodings.h"
 
 #include <stdio.h>
@@ -22,7 +23,7 @@ base_uint<BITS>::base_uint(const std::vector<unsigned char>& vch)
 {
     if (vch.size() != sizeof(pn))
         throw uint_error("Converting vector of wrong size to base_uint");
-    memcpy(pn, &vch[0], sizeof(pn));
+    memcpy(pn, vch.data(), sizeof(pn));
 }
 
 template <unsigned int BITS>
@@ -74,16 +75,16 @@ base_uint<BITS>& base_uint<BITS>::operator*=(uint32_t b32)
 template <unsigned int BITS>
 base_uint<BITS>& base_uint<BITS>::operator*=(const base_uint& b)
 {
-    base_uint<BITS> a = *this;
-    *this = 0;
+    base_uint<BITS> a;
     for (int j = 0; j < WIDTH; j++) {
         uint64_t carry = 0;
         for (int i = 0; i + j < WIDTH; i++) {
-            uint64_t n = carry + pn[i + j] + (uint64_t)a.pn[j] * b.pn[i];
-            pn[i + j] = n & 0xffffffff;
+            uint64_t n = carry + a.pn[i + j] + (uint64_t)pn[j] * b.pn[i];
+            a.pn[i + j] = n & 0xffffffff;
             carry = n >> 32;
         }
     }
+    *this = a;
     return *this;
 }
 
@@ -312,3 +313,44 @@ uint32_t arith_uint256::GetCompact(bool fNegative) const
     nCompact |= (fNegative && (nCompact & 0x007fffff) ? 0x00800000 : 0);
     return nCompact;
 }
+
+uint256 arith_uint512::trim256() const
+{
+    std::vector<unsigned char> vch;
+    const unsigned char* p = this->begin();
+    for (unsigned int i = 0; i < 32; i++) {
+        vch.push_back(*p++);
+    }
+    return uint256(vch);
+}
+
+uint256 ArithToUint256(const arith_uint256 &a)
+{
+    uint256 b;
+    for(int x=0; x<a.WIDTH; ++x)
+        WriteLE32(b.begin() + x*4, a.pn[x]);
+    return b;
+}
+arith_uint256 UintToArith256(const uint256 &a)
+{
+    arith_uint256 b;
+    for(int x=0; x<b.WIDTH; ++x)
+        b.pn[x] = ReadLE32(a.begin() + x*4);
+    return b;
+}
+
+uint512 ArithToUint512(const arith_uint512 &a)
+{
+    uint512 b;
+    for(int x=0; x<a.WIDTH; ++x)
+        WriteLE32(b.begin() + x*4, a.pn[x]);
+    return b;
+}
+arith_uint512 UintToArith512(const uint512 &a)
+{
+    arith_uint512 b;
+    for(int x=0; x<b.WIDTH; ++x)
+        b.pn[x] = ReadLE32(a.begin() + x*4);
+    return b;
+}
+

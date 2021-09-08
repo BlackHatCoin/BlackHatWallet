@@ -966,6 +966,10 @@ proprietario</translation>
         <translation>Filtra per</translation>
     </message>
     <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Quantità di BLKC e zBLKC dallo stake.</translation>
+    </message>
+    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>Attendi fino a quando il portafoglio non è completamente sincronizzato per vedere il tuo saldo corretto</translation>
     </message>
@@ -1837,8 +1841,8 @@ STAKING</translation>
         <translation>La lingua dell'interfaccia utente può essere impostata qui. Questa impostazione avrà effetto dopo il riavvio di BlackHat.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
-        <translation>Lingua mancante o traduzione incompleta? Aiutaci a contribuire alle traduzioni</translation>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
+        <translation>Lingua mancante o traduzione incompleta? Aiutaci a contribuire alle traduzioni.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2273,8 +2277,16 @@ Indirizzo: %4
         <translation>Errore: impossibile analizzare il file di configurazione: %1. Utilizzare solo la sintassi key=value.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Errore: combinazione non valida di -regtest e -testnet.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Errore durante la lettura del file di configurazione del Masternode: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core non è ancora uscito in modo sicuro...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -3809,12 +3821,36 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>Perché i miei BLKC non sono spendibili?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           BLKC appeni ricevuti richiedono 6 conferme sulla rete
+ per poter essere spendibili, cioè può richiedere ~6 minuti.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Anche il tuo portafoglio BlackHat deve essere completamente sincronizzato
+per vedere e spendere i saldi sulla rete.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
         <source>How do I stake BLKC?</source>
         <translation>Come posso fare lo stake di BLKC?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Assicurati che il tuo wallet sia completamente sincronizzato e che tu stia usando l'ultima versione. 56Il bilancio dei tuoi BLKC deve avere almeno 600 conferme. Per lo stacking il tuo wallet deve rimanere online e deve essere sbloccato. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Una volta portati a termine questi step, siete pronti per avviare lo stacking. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Potete vedere lo stato dello staking nel wallet, passando il mouse sull'icona del pacchetto nella riga in alto a sinistra dell'interfaccia del portafoglio. Il pacchetto sarà illuminato e indicherà &amp;quot;Staking Enabled&amp;quot; per indicare che lo staking è attivo. Usando nella riga di comando dell'interfaccia (blkc-cli); il comando &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; avrai conferma che lo staking è attivo. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>4</source>
@@ -3833,12 +3869,116 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>Dove dovrei andare se ho bisogno di supporto?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
+                           #support in our Discord&lt;/a&gt;.
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Abbiamo canali di supporto nella maggior parte dei nostri gruppi di chat ufficiali, ad esempio
+                           &lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
+                           #support nel nostro Discord&lt;/a&gt;.
+                         </translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>Cos'è un Masternode?</translation>
     </message>
     <message>
         <source>What is a Masternode Controller?</source>
         <translation>Cos'è un Masternode controller?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;Un Masternode Controller wallet è dove i 5.000 BLKC collaterali possono risiedere durante l'impostazione del Masternode Controller remoto. È un portafoglio che può attivare uno o più portafogli masternode remoti e ti consente di mantenere offline le tue valute collaterali mentre il masternode remoto rimane online.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Un masternode è un computer che esegue un portafoglio core BlackHat a nodo completo
+con un requisito di 5.000 BLKC a garanzia per fornire servizi extra
+alla rete e, in cambio, riceve una parte del premio del blocco
+regolarmente. Questi servizi includono:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Transazioni istantanee (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;Una governance decentrata (votazione della proposta)&lt;/li&gt;
+                           &lt;li&gt;Un sistema di bilancio decentralizzato (Tesoreria)&lt;/li&gt;
+                           &lt;li&gt;Convalida delle transazioni all'interno di ciascun blocco&lt;/li&gt;
+                           &lt;li&gt;Funziona come un nodo completo aggiuntivo nella rete&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Per fornire tali servizi, i masternode vengono pagati anche una determinata porzione
+ di ricompensa per ogni blocco. Questo può servire come reddito passivo per il
+ proprietari di masternode detratti i loro costi di gestione.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Vantaggi del Masternode:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Partecipare alla Governance di BlackHat &lt;/li&gt;
+                           &lt;li&gt;Guadagnare i premi del Masternode&lt;/li&gt;
+                           &lt;li&gt;Opzione di una commodity per vendita futura&lt;/li&gt;
+                           &lt;li&gt;Aiuta a proteggere la rete BlackHat&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requisiti:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per singolo Masternode
+                           &lt;li&gt;Devono essere conservati in un portafoglio core&lt;/li&gt;
+                           &lt;li&gt;Necessita un indirizzo IP dedicato&lt;/li&gt;
+                           &lt;li&gt;Il portafoglio del Masternode deve rimanere online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -4107,8 +4247,8 @@ Sei sicuro?
         <translation>CheckBox</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
-        <translation>MultiSend ti consente di inviare automaticamente fino al 100% dei tuoi stake o ricompense masternode a un elenco di altri indirizzi BLKC dopo la loro maturazione.</translation>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend ti consente di inviare automaticamente fino al 100% dei tuoi stake o ricompense masternode a un elenco di altri indirizzi BlackHat dopo la loro maturazione.</translation>
     </message>
     <message>
         <source>Active</source>
@@ -5244,6 +5384,10 @@ Portafoglio BlackHat Core.</translation>
         <translation>Associa l'indirizzo indicato per ascoltare le connessioni JSON-RPC. Usa la notazione [host]:porta per IPv6. Questa opzione può essere specificata più volte (impostazione predefinita: associa a tutte le interfacce)</translation>
     </message>
     <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Impossibile allocare la directory di dati %s. Probabilmente BlackHat Core è già in esecuzione.</translation>
+    </message>
+    <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
         <translation>Modifica il comportamento di votazione automatica del budget finalizzato. mode=auto: vota solo per la corrispondenza esatta del budget finalizzato al mio budget generato. (stringa, impostazione predefinita: auto)</translation>
     </message>
@@ -5270,6 +5414,10 @@ Portafoglio BlackHat Core.</translation>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
         <translation>Abilitare la funzionalità di amministrazione di spork con la chiave privata appropriata.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Entra nella modalità test di regressione, che utilizza una catena speciale in cui i blocchi possono essere risolti istantaneamente.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -5302,6 +5450,10 @@ Portafoglio BlackHat Core.</translation>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>Se paytxfee non è impostato, includere una commissione sufficiente in modo che le transazioni inizino la conferma in media entro n blocchi (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>In questa modalità -genproclimit controlla quanti blocchi vengono generati immediatamente.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -5588,6 +5740,10 @@ Portafoglio BlackHat Core.</translation>
         <translation>Informazioni</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Verifica dell'integrità dell'inizializzazione non riuscita. BlackHat Core si sta spegnendo.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Fondi insufficienti.</translation>
     </message>
@@ -5610,6 +5766,10 @@ Portafoglio BlackHat Core.</translation>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>Errore: argomento non supportato -checklevel trovato. Il livello di controllo deve essere di livello 4.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Esegui comando quando il blocco migliore cambia e la sua dimensione è finita (%s in cmd è sostituito dall'hash del blocco, %d con la dimensione del blocco)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6086,6 +6246,10 @@ Portafoglio BlackHat Core.</translation>
         <translation>Questo è un software sperimentale.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>Questo è destinato agli strumenti di test di regressione e allo sviluppo di app.</translation>
+    </message>
+    <message>
         <source>This is not a masternode. 'local' option disabled.</source>
         <translation>Questo non è un masternode. opzione "locale" disattivata.</translation>
     </message>
@@ -6156,6 +6320,10 @@ Portafoglio BlackHat Core.</translation>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Utilizzare UPnP per mappare la porta di ascolto (default: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Usa la rete di test</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>

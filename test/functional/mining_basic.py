@@ -6,16 +6,18 @@
 
 - getmininginfo
 - getblocktemplate proposal mode
-- submitblock"""
+- submitblock
+"""
 
-import copy
 from binascii import b2a_hex
+import copy
 from decimal import Decimal
 
 from test_framework.blocktools import create_coinbase
-from test_framework.mininode import CBlock
+from test_framework.messages import CBlock
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
+
 
 def b2x(b):
     return b2a_hex(b).decode('ascii')

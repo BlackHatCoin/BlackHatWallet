@@ -50,7 +50,7 @@ CWalletTx& AddShieldedBalanceToWallet(CAmount inputAmount,
 {
 
     // Dummy wallet, used to generate the dummy transparent input key and sign it in the transaction builder
-    CWallet dummyWallet;
+    CWallet dummyWallet("dummy", CWalletDBWrapper::CreateDummy());
     dummyWallet.SetMinVersion(FEATURE_SAPLING);
     dummyWallet.SetupSPKM(false, true);
     LOCK(dummyWallet.cs_wallet);
@@ -135,10 +135,10 @@ BOOST_AUTO_TEST_CASE(GetShieldedSimpleCachedCreditAndDebit)
     //////// Credit ////////
     ///////////////////////
 
-    auto consensusParams = RegtestActivateSapling();
+    auto consensusParams = Params().GetConsensus();
 
     // Main wallet
-    CWallet &wallet = *pwalletMain;
+    CWallet &wallet = m_wallet;
     LOCK2(cs_main, wallet.cs_wallet);
     setupWallet(wallet);
 
@@ -192,9 +192,6 @@ BOOST_AUTO_TEST_CASE(GetShieldedSimpleCachedCreditAndDebit)
     // Checks that the only shielded output of this tx is change.
     BOOST_CHECK(wallet.GetSaplingScriptPubKeyMan()->IsNoteSaplingChange(
             SaplingOutPoint(wtxDebitUpdated.GetHash(), 0), pa));
-
-    // Revert to default
-    RegtestDeactivateSapling();
 }
 
 libzcash::SaplingPaymentAddress getNewDummyShieldedAddress()
@@ -238,10 +235,10 @@ CWalletTx& buildTxAndLoadToWallet(CWallet& wallet, const libzcash::SaplingExtend
  */
 BOOST_AUTO_TEST_CASE(VerifyShieldedToRemoteShieldedCachedBalance)
 {
-    auto consensusParams = RegtestActivateSapling();
+    auto consensusParams = Params().GetConsensus();
 
     // Main wallet
-    CWallet &wallet = *pwalletMain;
+    CWallet &wallet = m_wallet;
     LOCK2(cs_main, wallet.cs_wallet);
     setupWallet(wallet);
 
@@ -281,9 +278,6 @@ BOOST_AUTO_TEST_CASE(VerifyShieldedToRemoteShieldedCachedBalance)
     // Plus, change should be same and be cached as well
     BOOST_CHECK_EQUAL(wtxDebitUpdated.GetShieldedChange(), expectedShieldedChange);
     BOOST_CHECK(wtxDebitUpdated.fShieldedChangeCached);
-
-    // Revert to default
-    RegtestDeactivateSapling();
 }
 
 struct FakeBlock
@@ -321,10 +315,10 @@ FakeBlock SimpleFakeMine(CWalletTx& wtx, SaplingMerkleTree& currentTree, CWallet
  */
 BOOST_AUTO_TEST_CASE(GetShieldedAvailableCredit)
 {
-    auto consensusParams = RegtestActivateSapling();
+    auto consensusParams = Params().GetConsensus();
 
     // Main wallet
-    CWallet &wallet = *pwalletMain;
+    CWallet &wallet = m_wallet;
     LOCK2(cs_main, wallet.cs_wallet);
     setupWallet(wallet);
 
@@ -365,7 +359,7 @@ BOOST_AUTO_TEST_CASE(GetShieldedAvailableCredit)
     std::vector<SaplingOutPoint> ops = {saplingEntries[0].op};
     uint256 anchor;
     std::vector<boost::optional<SaplingWitness>> witnesses;
-    pwalletMain->GetSaplingScriptPubKeyMan()->GetSaplingNoteWitnesses(ops, witnesses, anchor);
+    wallet.GetSaplingScriptPubKeyMan()->GetSaplingNoteWitnesses(ops, witnesses, anchor);
     SaplingSpendValues sapSpendValues{saplingEntries[0].note, anchor, *witnesses[0]};
 
     // Remote destination values

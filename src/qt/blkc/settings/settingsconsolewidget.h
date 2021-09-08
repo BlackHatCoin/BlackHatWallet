@@ -35,14 +35,6 @@ public:
     void loadClientModel() override;
     void showEvent(QShowEvent *event) override;
 
-    enum MessageClass {
-        MC_ERROR,
-        MC_DEBUG,
-        CMD_REQUEST,
-        CMD_REPLY,
-        CMD_ERROR
-    };
-
 public Q_SLOTS:
     void clear(bool clearHistory = true);
     void response(int category, const QString &message) { messageInternal(category, message); };

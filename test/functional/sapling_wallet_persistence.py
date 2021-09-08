@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018 The Zcash developers
-# Copyright (c) 2021 The PIVX developers
+# Copyright (c) 20202 The PIVX developers
 # Copyright (c) 2021 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
+from test_framework.util import assert_true
 
 class SaplingWalletPersistenceTest(BlackHatTestFramework):
 

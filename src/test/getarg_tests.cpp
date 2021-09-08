@@ -4,7 +4,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "util.h"
+#include "util/system.h"
 #include "test/test_blkc.h"
 
 #include <string>
@@ -29,7 +29,7 @@ static void ResetArgs(const std::string& strArg)
     for (std::string& s : vecArg)
         vecChar.push_back(s.c_str());
 
-    gArgs.ParseParameters(vecChar.size(), &vecChar[0]);
+    gArgs.ParseParameters(vecChar.size(), vecChar.data());
 }
 
 BOOST_AUTO_TEST_CASE(boolarg)

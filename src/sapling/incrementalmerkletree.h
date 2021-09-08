@@ -24,33 +24,35 @@ public:
     std::vector<std::vector<bool>> authentication_path;
     std::vector<bool> index;
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    template<typename Stream>
+    void Serialize(Stream &s) const
     {
         std::vector<std::vector<unsigned char>> pathBytes;
         uint64_t indexInt;
-        if (ser_action.ForRead()) {
-            READWRITE(pathBytes);
-            READWRITE(indexInt);
-            MerklePath &us = *(const_cast<MerklePath*>(this));
-            for (size_t i = 0; i < pathBytes.size(); i++) {
-                us.authentication_path.push_back(convertBytesVectorToVector(pathBytes[i]));
-                us.index.push_back((indexInt >> ((pathBytes.size() - 1) - i)) & 1);
+        assert(authentication_path.size() == index.size());
+        pathBytes.resize(authentication_path.size());
+        for (size_t i = 0; i < authentication_path.size(); i++) {
+            pathBytes[i].resize((authentication_path[i].size()+7)/8);
+            for (unsigned int p = 0; p < authentication_path[i].size(); p++) {
+                pathBytes[i][p / 8] |= authentication_path[i][p] << (7-(p % 8));
             }
-        } else {
-            assert(authentication_path.size() == index.size());
-            pathBytes.resize(authentication_path.size());
-            for (size_t i = 0; i < authentication_path.size(); i++) {
-                pathBytes[i].resize((authentication_path[i].size()+7)/8);
-                for (unsigned int p = 0; p < authentication_path[i].size(); p++) {
-                    pathBytes[i][p / 8] |= authentication_path[i][p] << (7-(p % 8));
-                }
-            }
-            indexInt = convertVectorToInt(index);
-            READWRITE(pathBytes);
-            READWRITE(indexInt);
+        }
+        indexInt = convertVectorToInt(index);
+        ::Serialize(s, pathBytes);
+        ::Serialize(s, indexInt);
+    }
+
+    template<typename Stream>
+    void Unserialize(Stream &s)
+    {
+        std::vector<std::vector<unsigned char>> pathBytes;
+        uint64_t indexInt;
+        ::Unserialize(s, pathBytes);
+        ::Unserialize(s, indexInt);
+        MerklePath &us = *(const_cast<MerklePath*>(this));
+        for (size_t i = 0; i < pathBytes.size(); i++) {
+            us.authentication_path.push_back(convertBytesVectorToVector(pathBytes[i]));
+            us.index.push_back((indexInt >> ((pathBytes.size() - 1) - i)) & 1);
         }
     }
 
@@ -111,16 +113,10 @@ public:
         return IncrementalWitness<Depth, Hash>(*this);
     }
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(IncrementalMerkleTree, obj)
     {
-        READWRITE(left);
-        READWRITE(right);
-        READWRITE(parents);
-
-        wfcheck();
+        READWRITE(obj.left, obj.right, obj.parents);
+        obj.wfcheck();
     }
 
     static Hash empty_root() {
@@ -182,16 +178,10 @@ public:
 
     void append(Hash obj);
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(IncrementalWitness, obj)
     {
-        READWRITE(tree);
-        READWRITE(filled);
-        READWRITE(cursor);
-
-        cursor_depth = tree.next_depth(filled.size());
+        READWRITE(obj.tree, obj.filled, obj.cursor);
+        SER_READ(obj, obj.cursor_depth = obj.tree.next_depth(obj.filled.size()));
     }
 
     template <size_t D, typename H>

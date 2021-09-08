@@ -107,19 +107,17 @@ public:
     }
 
     // Serialization for local DB
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(CBudgetProposal, obj)
     {
-        READWRITE(LIMITED_STRING(strProposalName, 20));
-        READWRITE(LIMITED_STRING(strURL, 64));
-        READWRITE(nBlockStart);
-        READWRITE(nBlockEnd);
-        READWRITE(nAmount);
-        READWRITE(*(CScriptBase*)(&address));
-        READWRITE(nFeeTXHash);
-        READWRITE(nTime);
-        READWRITE(mapVotes);
+        READWRITE(LIMITED_STRING(obj.strProposalName, 20));
+        READWRITE(LIMITED_STRING(obj.strURL, 64));
+        READWRITE(obj.nBlockStart);
+        READWRITE(obj.nBlockEnd);
+        READWRITE(obj.nAmount);
+        READWRITE(obj.address);
+        READWRITE(obj.nFeeTXHash);
+        READWRITE(obj.nTime);
+        READWRITE(obj.mapVotes);
     }
 
     // Serialization for network messages.
@@ -128,13 +126,17 @@ public:
     void Relay();
 
     // compare proposals by proposal hash
-    inline bool operator>(const CBudgetProposal& other) const { return GetHash() > other.GetHash(); }
+    inline bool operator>(const CBudgetProposal& other) const
+    {
+        return UintToArith256(GetHash()) > UintToArith256(other.GetHash());
+    }
+    //
     // compare proposals pointers by net yes count (solve tie with feeHash)
     static inline bool PtrHigherYes(CBudgetProposal* a, CBudgetProposal* b)
     {
         const int netYes_a = a->GetYeas() - a->GetNays();
         const int netYes_b = b->GetYeas() - b->GetNays();
-        if (netYes_a == netYes_b) return a->GetFeeTXHash() > b->GetFeeTXHash();
+        if (netYes_a == netYes_b) return UintToArith256(a->GetFeeTXHash()) > UintToArith256(b->GetFeeTXHash());
         return netYes_a > netYes_b;
     }
 

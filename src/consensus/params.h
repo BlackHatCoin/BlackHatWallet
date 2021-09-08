@@ -35,6 +35,8 @@ enum UpgradeIndex : uint32_t {
     UPGRADE_V4_0,
     UPGRADE_V5_0,
     UPGRADE_V5_2,
+    UPGRADE_V5_3,
+    UPGRADE_V6_0,
     UPGRADE_TESTDUMMY,
     // NOTE: Also add new upgrades to NetworkUpgradeInfo in upgrades.cpp
     MAX_NETWORK_UPGRADES
@@ -88,6 +90,7 @@ struct NetworkUpgrade {
 struct Params {
     uint256 hashGenesisBlock;
     bool fPowAllowMinDifficultyBlocks;
+    bool fPowNoRetargeting;
     uint256 powLimit;
     uint256 posLimitV1;
     uint256 posLimitV2;
@@ -96,8 +99,8 @@ struct Params {
     int nCoinbaseMaturity;
     int nFutureTimeDriftPoW;
     int nFutureTimeDriftPoS;
-    int nMasternodeCountDrift;
     CAmount nMaxMoneyOut;
+    CAmount nMNCollateralAmt;
     int nPoolMaxTransactions;
     int64_t nProposalEstablishmentTime;
     int nStakeMinAge;
@@ -162,6 +165,7 @@ struct Params {
     CAmount ZC_MinMintFee;
     int ZC_MinStakeDepth;
     int ZC_TimeStart;
+    int ZC_HeightStart;
 
     libzerocoin::ZerocoinParams* Zerocoin_Params(bool useModulusV1) const
     {

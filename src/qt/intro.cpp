@@ -11,7 +11,7 @@
 #include "fs.h"
 #include "guiutil.h"
 
-#include "util.h"
+#include "util/system.h"
 #include "qt/blkc/qtutils.h"
 
 #include <QFileDialog>
@@ -194,7 +194,10 @@ bool Intro::pickDataDirectory()
             }
             dataDir = intro.getDataDirectory();
             try {
-                TryCreateDirectory(GUIUtil::qstringToBoostPath(dataDir));
+                if (TryCreateDirectories(GUIUtil::qstringToBoostPath(dataDir))) {
+                    // If a new data directory has been created, make wallets subdirectory too
+                    TryCreateDirectories(GUIUtil::qstringToBoostPath(dataDir) / "wallets");
+                }
                 break;
             } catch (const fs::filesystem_error& e) {
                 QMessageBox::critical(0, tr("BlackHat Core"),

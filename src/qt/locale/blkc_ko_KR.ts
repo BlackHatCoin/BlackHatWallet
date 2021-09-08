@@ -977,6 +977,10 @@ address</source>
         <translation>Filter by</translation>
     </message>
     <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>스테이킹 된 BLKC와 zBLKC 양</translation>
+    </message>
+    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>정확한 잔액을 보기 위해 지갑이 완전히 동기화될 때까지 기다려주세요.</translation>
     </message>
@@ -1341,7 +1345,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;5,000 BlackHat의 트랜잭션은&lt;/p&gt;&lt;p&gt;지갑의 새로운 빈 주소로 만들어질 것입니다.&lt;/p&gt;&lt;p&gt;그 주소는 마스터노드 이름에 따라 레이블링됩니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;5,000 BLKC의 트랜잭션은&lt;/p&gt;&lt;p&gt;지갑의 새로운 빈 주소로 만들어질 것입니다.&lt;/p&gt;&lt;p&gt;그 주소는 마스터노드 이름에 따라 레이블링됩니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1527,7 +1531,7 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
     </message>
     <message>
         <source>What is a Masternode?</source>
-        <translation>마스터노드란 무엇인가요?</translation>
+        <translation>마스터로드란?</translation>
     </message>
     <message>
         <source>FAQ explaining what Masternodes are</source>
@@ -1845,7 +1849,7 @@ STAKING</source>
         <translation>사용자 인터페이스 언어를 설정할 수 있습니다. 이 설정은 BlackHat을 다시 시작한 후에 적용됩니다.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
         <translation>지원 언어가 없거나 번역이 불완전한가요? 번역을 도와주세요</translation>
     </message>
     <message>
@@ -2132,7 +2136,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start blkc: click-to-pay handler</source>
-        <translation>blkc을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
+        <translation>BLKC을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BLKC address or malformed URI parameters.</source>
@@ -2285,8 +2289,16 @@ Address: %4
         <translation>오류: 설정 파일을 분석할 수 없습니다: %1. 항상 key=value 문법을 사용해 주세요.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>오류: -regtest와 -testnet은 함께 사용할 수 없습니다.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>마스터노드 설정 파일 읽기 오류: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core가 아직 안전하게 종료되지 않았습니다....</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -3653,7 +3665,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>What is a Masternode?</source>
-        <translation>마스터노드란 무엇인가요?</translation>
+        <translation>마스터로드란?</translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -3886,7 +3898,7 @@ Are you sure?
         <translation>체크박스</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
         <translation>멀티 전송 기능은 확인된 새로 받은 스테이킹 혹은 마스터노드 보상을 100% 전부 까지 지정된 다른 주소로 자동 전송할수 있는 기능입니다.</translation>
     </message>
     <message>
@@ -4851,6 +4863,10 @@ BlackHat Core Wallet</translation>
         <translation>JSON-RPC연결 수신을 위해 주어진 주소를 지정합니다. [host]: IPv6 포트 표기법 사용. 이 옵션은 여러번 지정할 수 있습니다. (기본값 : 모든 인터페이스에 지정)</translation>
     </message>
     <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>        &lt;translation&gt;잠겨진 데이터 디렉토리 %s 를 가져올 수 없습니다. BlackHat Core는 이미 실행 중입니다.</translation>
+    </message>
+    <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
         <translation>최종 budget 투표 자동 작동 값을 변경합니다. mode=auto: 오직 내가 생성한 budget과 최종 budget이 정확히 일치할때 투표합니다. (string, 기본값: 자동)</translation>
     </message>
@@ -4873,6 +4889,10 @@ BlackHat Core Wallet</translation>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
         <translation>올바른 개인키로 spork 관리 기능을 사용 가능</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>리그레션 테스트에 들어갑니다. 특수 체인을 사용하며 블록들을 바로 푸는 것이 가능합니다.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -4901,6 +4921,10 @@ BlackHat Core Wallet</translation>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>paytxfee가 설정되어 있지 않는 경우 충분한 수수료를 넣어야만 평균이내 n블록들을 확인하고 트랜잭션를 시작합니다 (기본값: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>이 모드에서 -genproclimit는 즉시 생성되는 블록 수를 제어합니다.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -5167,6 +5191,10 @@ BlackHat Core Wallet</translation>
         <translation>정보</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>초기화 정확성 검사에 실패 했습니다. BlackHat Core가 종료됩니다.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>충분하지 않은 금액.</translation>
     </message>
@@ -5189,6 +5217,10 @@ BlackHat Core Wallet</translation>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>에러 : 지원하지않는 argument -checklevel 발견된.  Checklevel는 레벨 4이어야 합니다.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -5531,6 +5563,10 @@ BlackHat Core Wallet</translation>
         <translation>이것은 실험용 소프트웨어입니다.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>이것은 리그레션 테스팅 및 앱 개발을 위해 만들어졌습니다.</translation>
+    </message>
+    <message>
         <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
         <translation>제대로 동작하지 않는 피어와 연결을 끊을 임계값 (기본값: %u)</translation>
     </message>
@@ -5585,6 +5621,10 @@ BlackHat Core Wallet</translation>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>수신 포트를 매핑하려면 UPnP를 사용하십시오 (기본값: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>테스트 네트워크를 사용합니다</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

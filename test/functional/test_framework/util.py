@@ -16,7 +16,7 @@ import re
 from subprocess import CalledProcessError
 import time
 
-from . import coverage
+from . import coverage, messages
 from .authproxy import AuthServiceProxy, JSONRPCException
 
 logger = logging.getLogger("TestFramework.utils")
@@ -305,11 +305,9 @@ def initialize_datadir(dirname, n):
     datadir = get_datadir_path(dirname, n)
     if not os.path.isdir(datadir):
         os.makedirs(datadir)
-    rpc_u, rpc_p = rpc_auth_pair(n)
     with open(os.path.join(datadir, "blkc.conf"), 'w', encoding='utf8') as f:
         f.write("regtest=1\n")
-        f.write("rpcuser=" + rpc_u + "\n")
-        f.write("rpcpassword=" + rpc_p + "\n")
+        f.write("[regtest]\n")
         f.write("port=" + str(p2p_port(n)) + "\n")
         f.write("rpcport=" + str(rpc_port(n)) + "\n")
         f.write("server=1\n")
@@ -318,13 +316,17 @@ def initialize_datadir(dirname, n):
         f.write("listenonion=0\n")
         f.write("spendzeroconfchange=1\n")
         f.write("printtoconsole=0\n")
+        f.write("natpmp=0\n")
     return datadir
-
-def rpc_auth_pair(n):
-    return 'rpcuser�' + str(n), 'rpcpass�' + str(n)
 
 def get_datadir_path(dirname, n):
     return os.path.join(dirname, "node" + str(n))
+
+def append_config(dirname, n, options):
+    datadir = get_datadir_path(dirname, n)
+    with open(os.path.join(datadir, "blkc.conf"), 'a', encoding='utf8') as f:
+        for option in options:
+            f.write(option + "\n")
 
 def get_auth_cookie(datadir):
     user = None
@@ -339,7 +341,7 @@ def get_auth_cookie(datadir):
                     assert password is None  # Ensure that there is only one rpcpassword line
                     password = line.split("=")[1].strip("\n")
     if os.path.isfile(os.path.join(datadir, "regtest", ".cookie")):
-        with open(os.path.join(datadir, "regtest", ".cookie"), 'r') as f:
+        with open(os.path.join(datadir, "regtest", ".cookie"), 'r', encoding="utf8") as f:
             userpass = f.read()
             split_userpass = userpass.split(':')
             user = split_userpass[0]
@@ -561,8 +563,7 @@ def find_vout_for_address(node, txid, addr):
             return i
     raise RuntimeError("Vout not found for address: txid=%s, addr=%s" % (txid, addr))
 
-### BlackHat specific utils ###
-vZC_DENOMS = [1, 5, 10, 50, 100, 500, 1000, 5000]
+# BlackHat specific utils
 DEFAULT_FEE = 0.01
 SPORK_ACTIVATION_TIME = 1563253447
 SPORK_DEACTIVATION_TIME = 4070908800
@@ -586,3 +587,38 @@ def get_coinstake_address(node, expected_utxos=None):
     addrs = [a for a in set(addrs) if addrs.count(a) == expected_utxos]
     assert(len(addrs) > 0)
     return addrs[0]
+
+# Deterministic masternodes
+def is_coin_locked_by(node, outpoint):
+    return outpoint.to_json() in node.listlockunspent()
+
+def get_collateral_vout(json_tx):
+    funding_txidn = -1
+    for o in json_tx["vout"]:
+        if o["value"] == Decimal('100'):
+            funding_txidn = o["n"]
+            break
+    assert_greater_than(funding_txidn, -1)
+    return funding_txidn
+
+# owner and voting keys are created from controller node.
+# operator key and address are created, if operator_addr_and_key is None.
+def create_new_dmn(idx, controller, payout_addr, operator_addr_and_key):
+    port = p2p_port(idx) if idx <= MAX_NODES else p2p_port(MAX_NODES) + (idx - MAX_NODES)
+    ipport = "127.0.0.1:" + str(port)
+    owner_addr = controller.getnewaddress("mnowner-%d" % idx)
+    voting_addr = controller.getnewaddress("mnvoting-%d" % idx)
+    if operator_addr_and_key is None:
+        operator_addr = controller.getnewaddress("mnoperator-%d" % idx)
+        operator_key = controller.dumpprivkey(operator_addr)
+    else:
+        operator_addr = operator_addr_and_key[0]
+        operator_key = operator_addr_and_key[1]
+    return messages.Masternode(idx, owner_addr, operator_addr, voting_addr, ipport, payout_addr, operator_key)
+
+def spend_mn_collateral(spender, dmn):
+    inputs = [dmn.collateral.to_json()]
+    outputs = {spender.getnewaddress(): Decimal('99.99')}
+    sig_res = spender.signrawtransaction(spender.createrawtransaction(inputs, outputs))
+    assert_equal(sig_res['complete'], True)
+    return spender.sendrawtransaction(sig_res['hex'])

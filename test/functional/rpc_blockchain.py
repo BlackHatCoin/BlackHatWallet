@@ -19,15 +19,11 @@ Tests correspond to code in rpc/blockchain.cpp.
 """
 
 from decimal import Decimal
-import http.client
-import subprocess
 
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
-    assert_greater_than,
     assert_greater_than_or_equal,
-    assert_raises,
     assert_raises_rpc_error,
     assert_is_hex_string,
     assert_is_hash_string,
@@ -38,7 +34,7 @@ class BlockchainTest(BlackHatTestFramework):
         self.num_nodes = 1
 
     def run_test(self):
-        #self._test_getblockchaininfo()
+        self._test_getblockchaininfo()
         self._test_gettxoutsetinfo()
         self._test_getblockheader()
         #self._test_getdifficulty()
@@ -54,6 +50,10 @@ class BlockchainTest(BlackHatTestFramework):
             'chainwork',
             'difficulty',
             'headers',
+            'initial_block_downloading',
+            'shield_pool_value',
+            'softforks',
+            'upgrades',
             'verificationprogress',
             'warnings',
         ]

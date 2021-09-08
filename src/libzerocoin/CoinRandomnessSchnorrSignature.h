@@ -40,13 +40,7 @@ public:
      */
     bool Verify(const ZerocoinParams* zcparams, const CBigNum& S, const CBigNum& C, const uint256 msghash) const;
 
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(alpha);
-        READWRITE(beta);
-    }
+    SERIALIZE_METHODS(CoinRandomnessSchnorrSignature, obj) { READWRITE(obj.alpha, obj.beta); }
 
 private:
     // signature components

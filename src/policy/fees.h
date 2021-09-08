@@ -183,7 +183,6 @@ static const double SUFFICIENT_FEETXS = 1;
 static constexpr double MIN_FEERATE = 10;
 static const double MAX_FEERATE = 1e7;
 static const double INF_FEERATE = 1e16;
-static const double INF_PRIORITY = 1e25;
 
 // We have to lump transactions into buckets based on feerate, but we want to be able
 // to give accurate estimates over a large range of potential fees and priorities
@@ -205,16 +204,16 @@ public:
 
     /** Process all the transactions that have been included in a block */
     void processBlock(unsigned int nBlockHeight,
-                      std::vector<CTxMemPoolEntry>& entries, bool fCurrentEstimate);
+                      std::vector<const CTxMemPoolEntry*>& entries);
 
     /** Process a transaction confirmed in a block*/
-    void processBlockTx(unsigned int nBlockHeight, const CTxMemPoolEntry& entry);
+    bool processBlockTx(unsigned int nBlockHeight, const CTxMemPoolEntry* entry);
 
     /** Process a transaction accepted to the mempool*/
-    void processTransaction(const CTxMemPoolEntry& entry, bool fCurrentEstimate);
+    void processTransaction(const CTxMemPoolEntry& entry, bool validFeeEstimate);
 
     /** Remove a transaction from the mempool tracking stats*/
-    void removeTx(uint256 hash);
+    bool removeTx(const uint256& hash);
 
     /** Return a feerate estimate */
     CFeeRate estimateFee(int confTarget);
@@ -224,20 +223,6 @@ public:
      *  estimate at the lowest target where one can be given.
      */
     CFeeRate estimateSmartFee(int confTarget, int *answerFoundAtTarget, const CTxMemPool& pool);
-
-    /** Return a priority estimate.
-     *  DEPRECATED
-     *  Returns -1
-     */
-    double estimatePriority(int confTarget);
-
-    /** Estimate priority needed to get be included in a block within
-     *  confTarget blocks.
-     *  DEPRECATED
-     *  Returns -1 unless mempool is currently limited then returns INF_PRIORITY
-     *  answerFoundAtTarget is set to confTarget
-     */
-    double estimateSmartPriority(int confTarget, int *answerFoundAtTarget, const CTxMemPool& pool);
 
     /** Write estimation data to a file */
     void Write(CAutoFile& fileout);
@@ -260,5 +245,8 @@ private:
 
     /** Classes to track historical data on transaction confirmations */
     TxConfirmStats feeStats;
+
+    unsigned int trackedTxs;
+    unsigned int untrackedTxs;
 };
 #endif /*BITCOIN_POLICYESTIMATOR_H */

@@ -598,8 +598,8 @@ BOOST_AUTO_TEST_CASE( methods ) // GetHex SetHex begin() end() size() GetLow64 G
     BOOST_CHECK(R1L.GetLow64()  == R1LLow64);
     BOOST_CHECK(HalfL.GetLow64() ==0x0000000000000000ULL);
     BOOST_CHECK(OneL.GetLow64() ==0x0000000000000001ULL);
-    BOOST_CHECK(GetSerializeSize(R1L, 0, PROTOCOL_VERSION) == 32);
-    BOOST_CHECK(GetSerializeSize(ZeroL, 0,PROTOCOL_VERSION) == 32);
+    BOOST_CHECK(GetSerializeSize(R1L, PROTOCOL_VERSION) == 32);
+    BOOST_CHECK(GetSerializeSize(ZeroL, PROTOCOL_VERSION) == 32);
 
     CDataStream ss(0, PROTOCOL_VERSION);
     ss << R1L;
@@ -646,8 +646,8 @@ BOOST_AUTO_TEST_CASE( methods ) // GetHex SetHex begin() end() size() GetLow64 G
     BOOST_CHECK(R1S.GetLow64()  == R1LLow64);
     BOOST_CHECK(HalfS.GetLow64() ==0x0000000000000000ULL);
     BOOST_CHECK(OneS.GetLow64() ==0x0000000000000001ULL);
-    BOOST_CHECK(GetSerializeSize(R1S, 0, PROTOCOL_VERSION) == 20);
-    BOOST_CHECK(GetSerializeSize(ZeroS, 0, PROTOCOL_VERSION) == 20);
+    BOOST_CHECK(GetSerializeSize(R1S, PROTOCOL_VERSION) == 20);
+    BOOST_CHECK(GetSerializeSize(ZeroS, PROTOCOL_VERSION) == 20);
 
     ss << R1S;
     BOOST_CHECK(ss.str() == std::string(R1Array,R1Array+20));

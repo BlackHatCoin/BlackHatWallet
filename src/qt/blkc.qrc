@@ -62,6 +62,7 @@
         <file alias="ic-arrow-white-right">blkc/res/img/ic-arrow-white-right.svg</file>
         <file alias="ic-check-active">blkc/res/img/ic-check-active.svg</file>
         <file alias="ic-check-box">blkc/res/img/ic-check-box.svg</file>
+        <file alias="ic-check-box-light">blkc/res/img/ic-check-box-light.svg</file>
         <file alias="ic-check-box-liliac-indeterminate">blkc/res/img/ic-check-box-liliac-indeterminate.svg</file>
         <file alias="ic-check-connect-off">blkc/res/img/ic-check-connect-off.svg</file>
         <file alias="ic-check-connect">blkc/res/img/ic-check-connect.svg</file>

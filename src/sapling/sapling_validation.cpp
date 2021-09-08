@@ -9,7 +9,7 @@
 #include "consensus/consensus.h" // for MAX_BLOCK_SIZE_CURRENT
 #include "script/interpreter.h" // for SigHash
 #include "consensus/validation.h" // for CValidationState
-#include "util.h" // for error()
+#include "util/system.h" // for error()
 #include "consensus/upgrades.h" // for CurrentEpochBranchId()
 
 #include <librustzcash.h>
@@ -17,7 +17,7 @@
 namespace SaplingValidation {
 
 // Verifies that Shielded txs are properly formed and performs content-independent checks
-bool CheckTransaction(const CTransaction& tx, CValidationState& state, CAmount& nValueOut, bool fIsSaplingActive)
+bool CheckTransaction(const CTransaction& tx, CValidationState& state, CAmount& nValueOut)
 {
     bool hasSaplingData = tx.hasSaplingData();
 
@@ -38,12 +38,6 @@ bool CheckTransaction(const CTransaction& tx, CValidationState& state, CAmount& 
     if (tx.IsCoinStake() || tx.IsCoinBase() || tx.HasZerocoinSpendInputs() || tx.HasZerocoinMintOutputs())
         return state.DoS(100, error("%s: Sapling version with invalid data", __func__),
                          REJECT_INVALID, "bad-txns-invalid-sapling");
-
-    // If the v5 upgrade was not enforced, then let's not perform any check
-    if (!fIsSaplingActive) {
-        return state.DoS(100, error("%s: Sapling not activated", __func__),
-                         REJECT_INVALID, "bad-txns-invalid-sapling-act");
-    }
 
     // Upgrade enforced, basic version rules passing, let's check it
     return CheckTransactionWithoutProofVerification(tx, state, nValueOut);
@@ -139,6 +133,11 @@ bool ContextualCheckTransaction(
     // If Sapling is not active return quickly and don't perform any check here.
     // basic data checks are performed in CheckTransaction which is ALWAYS called before ContextualCheckTransaction.
     if (!chainparams.GetConsensus().NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V5_0)) {
+        // If the v5 upgrade was not enforced, then let's not perform any check
+        if (tx.IsShieldedTx()) {
+            return state.DoS(dosLevelConstricting, error("%s: Sapling not activated", __func__),
+                             REJECT_INVALID, "bad-txns-invalid-sapling-act");
+        }
         return true;
     }
 

@@ -11,13 +11,16 @@
 #include <vector>
 
 class CBlockIndex;
+class CChainParams;
 class CCoinsViewCache;
 class CValidationState;
 
 /** Transaction validation functions */
 
 /** Context-independent validity checks */
-bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, CValidationState& state, bool fFakeSerialAttack = false, bool fColdStakingActive=false, bool fSaplingActive=false);
+bool CheckTransaction(const CTransaction& tx, CValidationState& state, bool fColdStakingActive);
+/** Context-dependent validity checks */
+bool ContextualCheckTransaction(const CTransactionRef& tx, CValidationState& state, const CChainParams& chainparams, int nHeight, bool isMined, bool fIBD);
 
 /**
  * Count ECDSA signature operations the old-fashioned (pre-0.6) way

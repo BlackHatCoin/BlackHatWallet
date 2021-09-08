@@ -4,18 +4,22 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+import random
+from time import sleep
+
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
 )
-import random
-from time import sleep
+
 
 class BlockHashCacheTest(BlackHatTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
+        # This test can go up to block 400 (2 * CACHE_SIZE). Delay POS activation
+        self.extra_args = [['-nuparams=PoS:401', '-nuparams=BlackHat_v3.4:402']]
 
     def log_title(self):
         title = "*** Starting %s ***" % self.__class__.__name__
@@ -101,7 +105,6 @@ class BlockHashCacheTest(BlackHatTestFramework):
         self.start_nodes()
         assert_equal(self.node.getcachedblockhashes(), cache)
         self.log.info("All good.")
-
 
 
 if __name__ == '__main__':

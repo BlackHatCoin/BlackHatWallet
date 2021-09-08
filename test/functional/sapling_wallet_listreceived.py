@@ -5,9 +5,16 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
-from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
 from decimal import Decimal
+
+from test_framework.test_framework import BlackHatTestFramework
+from test_framework.util import (
+    assert_equal,
+    assert_false,
+    assert_raises_rpc_error,
+    assert_true,
+    bytes_to_hex_str
+)
 
 my_memo_str = "What, so everyone’s supposed to sleep every single night now?\n"\
               "You realize that nighttime makes up half of all time?"
@@ -122,7 +129,7 @@ class ListReceivedTest (BlackHatTestFramework):
         assert_equal(r, r2)
 
         # Get the note nullifier
-        lsu = self.nodes[1].listshieldunspent();
+        lsu = self.nodes[1].listshieldunspent()
         assert_equal(len(lsu), 1)
         nullifier = lsu[0]["nullifier"]
 

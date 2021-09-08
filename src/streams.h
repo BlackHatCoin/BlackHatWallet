@@ -8,8 +8,8 @@
 #ifndef BITCOIN_STREAMS_H
 #define BITCOIN_STREAMS_H
 
-#include "allocators.h"
 #include "serialize.h"
+#include "support/allocators/zeroafterfree.h"
 
 #include <algorithm>
 #include <assert.h>
@@ -23,6 +23,49 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+template<typename Stream>
+class OverrideStream
+{
+    Stream* stream;
+
+    const int nType;
+    const int nVersion;
+
+public:
+    OverrideStream(Stream* stream_, int nType_, int nVersion_) : stream(stream_), nType(nType_), nVersion(nVersion_) {}
+
+    template<typename T>
+    OverrideStream<Stream>& operator<<(const T& obj)
+    {
+        // Serialize to this stream
+        ::Serialize(*this, obj);
+        return (*this);
+    }
+
+    template<typename T>
+    OverrideStream<Stream>& operator>>(T&& obj)
+    {
+        // Unserialize from this stream
+        ::Unserialize(*this, obj);
+        return (*this);
+    }
+
+    void write(const char* pch, size_t nSize)
+    {
+        stream->write(pch, nSize);
+    }
+
+    void read(char* pch, size_t nSize)
+    {
+        stream->read(pch, nSize);
+    }
+
+    int GetVersion() const { return nVersion; }
+    int GetType() const { return nType; }
+    size_t size() const { return stream->size(); }
+    void ignore(size_t size) { return stream->ignore(size); }
+};
 
 /** Double ended buffer combining vector and stream-like interfaces.
  *
@@ -131,8 +174,8 @@ public:
         vch.clear();
         nReadPos = 0;
     }
-    iterator insert(iterator it, const char& x = char()) { return vch.insert(it, x); }
-    void insert(iterator it, size_type n, const char& x) { vch.insert(it, n, x); }
+    iterator insert(iterator it, const char x = char()) { return vch.insert(it, x); }
+    void insert(iterator it, size_type n, const char x) { vch.insert(it, n, x); }
     value_type* data()                               { return vch.data() + nReadPos; }
     const value_type* data() const                   { return vch.data() + nReadPos; }
 
@@ -268,7 +311,7 @@ public:
     {
         // Special case: stream << stream concatenates like stream += stream
         if (!vch.empty())
-            s.write((char*)&vch[0], vch.size() * sizeof(vch[0]));
+            s.write((char*)vch.data(), vch.size() * sizeof(value_type));
     }
 
     template <typename T>
@@ -280,7 +323,7 @@ public:
     }
 
     template <typename T>
-    CBaseDataStream& operator>>(T& obj)
+    CBaseDataStream& operator>>(T&& obj)
     {
         // Unserialize from this stream
         ::Unserialize(*this, obj);
@@ -409,10 +452,6 @@ public:
 class CAutoFile
 {
 private:
-    // Disallow copies
-    CAutoFile(const CAutoFile&);
-    CAutoFile& operator=(const CAutoFile&);
-
     const int nType;
     const int nVersion;
 
@@ -428,6 +467,10 @@ public:
     {
         fclose();
     }
+
+    // Disallow copies
+    CAutoFile(const CAutoFile&) = delete;
+    CAutoFile& operator=(const CAutoFile&) = delete;
 
     void fclose()
     {
@@ -504,8 +547,8 @@ public:
         return (*this);
     }
 
-    template <typename T>
-    CAutoFile& operator>>(T& obj)
+    template<typename T>
+    CAutoFile& operator>>(T&& obj)
     {
         // Unserialize from this stream
         if (!file)
@@ -524,10 +567,6 @@ public:
 class CBufferedFile
 {
 private:
-    // Disallow copies
-    CBufferedFile(const CBufferedFile&);
-    CBufferedFile& operator=(const CBufferedFile&);
-
     const int nType;
     const int nVersion;
 
@@ -549,19 +588,20 @@ protected:
             readNow = nAvail;
         if (readNow == 0)
             return false;
-        size_t read = fread((void*)&vchBuf[pos], 1, readNow, src);
-        if (read == 0) {
-            throw std::ios_base::failure(feof(src) ? "CBufferedFile::Fill : end of file" : "CBufferedFile::Fill : fread failed");
-        } else {
-            nSrcPos += read;
-            return true;
+        size_t nBytes = fread((void*)&vchBuf[pos], 1, readNow, src);
+        if (nBytes == 0) {
+            throw std::ios_base::failure(feof(src) ? "CBufferedFile::Fill: end of file" : "CBufferedFile::Fill: fread failed");
         }
+        nSrcPos += nBytes;
+        return true;
     }
 
 public:
     CBufferedFile(FILE* fileIn, uint64_t nBufSize, uint64_t nRewindIn, int nTypeIn, int nVersionIn) :
         nType(nTypeIn), nVersion(nVersionIn), nSrcPos(0), nReadPos(0), nReadLimit((uint64_t)(-1)), nRewind(nRewindIn), vchBuf(nBufSize, 0)
     {
+        if (nRewindIn >= nBufSize)
+            throw std::ios_base::failure("Rewind limit must be less than buffer size");
         src = fileIn;
     }
 
@@ -569,6 +609,13 @@ public:
     {
         fclose();
     }
+
+    int GetVersion() const { return nVersion; }
+    int GetType() const { return nType; }
+
+    // Disallow copies
+    CBufferedFile(const CBufferedFile&) = delete;
+    CBufferedFile& operator=(const CBufferedFile&) = delete;
 
     void fclose()
     {
@@ -589,8 +636,6 @@ public:
     {
         if (nSize + nReadPos > nReadLimit)
             throw std::ios_base::failure("Read attempted past buffer limit");
-        if (nSize + nRewind > vchBuf.size())
-            throw std::ios_base::failure("Read larger than buffer size");
         while (nSize > 0) {
             if (nReadPos == nSrcPos)
                 Fill();
@@ -613,47 +658,34 @@ public:
         return nReadPos;
     }
 
-    // rewind to a given reading position
-    bool SetPos(uint64_t nPos)
-    {
-        nReadPos = nPos;
-        if (nReadPos + nRewind < nSrcPos) {
-            nReadPos = nSrcPos - nRewind;
+    //! rewind to a given reading position
+    bool SetPos(uint64_t nPos) {
+        size_t bufsize = vchBuf.size();
+        if (nPos + bufsize < nSrcPos) {
+            // rewinding too far, rewind as far as possible
+            nReadPos = nSrcPos - bufsize;
             return false;
-        } else if (nReadPos > nSrcPos) {
+        }
+        if (nPos > nSrcPos) {
+            // can't go this far forward, go as far as possible
             nReadPos = nSrcPos;
             return false;
-        } else {
-            return true;
         }
-    }
-
-    bool Seek(uint64_t nPos)
-    {
-        long nLongPos = nPos;
-        if (nPos != (uint64_t)nLongPos)
-            return false;
-        if (fseek(src, nLongPos, SEEK_SET))
-            return false;
-        nLongPos = ftell(src);
-        nSrcPos = nLongPos;
-        nReadPos = nLongPos;
+        nReadPos = nPos;
         return true;
     }
 
-    // prevent reading beyond a certain position
-    // no argument removes the limit
-    bool SetLimit(uint64_t nPos = (uint64_t)(-1))
-    {
+    //! prevent reading beyond a certain position
+    //! no argument removes the limit
+    bool SetLimit(uint64_t nPos = std::numeric_limits<uint64_t>::max()) {
         if (nPos < nReadPos)
             return false;
         nReadLimit = nPos;
         return true;
     }
 
-    template <typename T>
-    CBufferedFile& operator>>(T& obj)
-    {
+    template<typename T>
+    CBufferedFile& operator>>(T&& obj) {
         // Unserialize from this stream
         ::Unserialize(*this, obj);
         return (*this);

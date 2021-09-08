@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The PIVX Core developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020 The BlackHat Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+from decimal import Decimal
 
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
@@ -10,7 +11,6 @@ from test_framework.util import (
     assert_raises_rpc_error,
 )
 
-from decimal import Decimal
 
 # Test mempool interaction with Sapling transactions
 class SaplingMempoolTest(BlackHatTestFramework):

@@ -27,8 +27,9 @@ static const bool DEFAULT_PRINTPRIORITY = false;
 #ifdef ENABLE_WALLET
     /** Run the miner threads */
     void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads);
-    /** Generate a new block, without valid proof-of-work */
-    std::unique_ptr<CBlockTemplate> CreateNewBlockWithKey(CReserveKey* reservekey, CWallet* pwallet);
+    /** Generate a new PoW block, without valid proof-of-work */
+    std::unique_ptr<CBlockTemplate> CreateNewBlockWithKey(std::unique_ptr<CReserveKey>& reservekey, CWallet* pwallet);
+    std::unique_ptr<CBlockTemplate> CreateNewBlockWithScript(const CScript& coinbaseScript, CWallet* pwallet);
 
     void BitcoinMiner(CWallet* pwallet, bool fProofOfStake);
     void ThreadStakeMinter();

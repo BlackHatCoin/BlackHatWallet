@@ -18,7 +18,6 @@
 #include "uint256.h"
 #include <streams.h>
 #include <utilstrencodings.h>
-#include "zblkc/zerocoin.h"
 #include "chainparams.h"
 
 static int const PUBSPEND_SCHNORR = 4;
@@ -45,29 +44,18 @@ public:
     unsigned int outputIndex = -1;
     libzerocoin::PublicCoin pubCoin;
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-
-        READWRITE(version);
-
-        if (version < PUBSPEND_SCHNORR) {
-            READWRITE(coinSerialNumber);
-            READWRITE(randomness);
-            READWRITE(pubkey);
-            READWRITE(vchSig);
-
+    SERIALIZE_METHODS(PublicCoinSpend, obj) {
+        READWRITE(obj.version);
+        if (obj.version < PUBSPEND_SCHNORR) {
+            READWRITE(obj.coinSerialNumber, obj.randomness, obj.pubkey, obj.vchSig);
         } else {
-            READWRITE(coinVersion);
-            if (coinVersion < libzerocoin::PrivateCoin::PUBKEY_VERSION) {
-                READWRITE(coinSerialNumber);
+            READWRITE(obj.coinVersion);
+            if (obj.coinVersion < libzerocoin::PUBKEY_VERSION) {
+                READWRITE(obj.coinSerialNumber);
+            } else {
+                READWRITE(obj.pubkey, obj.vchSig);
             }
-            else {
-                READWRITE(pubkey);
-                READWRITE(vchSig);
-            }
-            READWRITE(schnorrSig);
+            READWRITE(obj.schnorrSig);
         }
     }
 };

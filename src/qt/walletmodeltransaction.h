@@ -7,6 +7,9 @@
 
 #include "walletmodel.h"
 
+#include "amount.h"
+#include "primitives/transaction.h"
+
 #include <QObject>
 
 class SendCoinsRecipient;
@@ -35,6 +38,9 @@ public:
     CReserveKey* getPossibleKeyChange();
 
     CTransactionRef& getTransaction();
+
+    // return the number of recipients with subtract-fee-from-amount
+    unsigned int subtractFeeFromRecipents() const;
 
     // Whether should create a +v2 tx or go simple and create a v1.
     bool useV2{false};

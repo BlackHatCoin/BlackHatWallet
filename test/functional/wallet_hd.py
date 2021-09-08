@@ -131,7 +131,7 @@ class WalletHDTest(BlackHatTestFramework):
         # otherwise node1 would auto-recover all funds in flag the keypool keys as used
         shutil.rmtree(os.path.join(self.nodes[1].datadir, "regtest", "blocks"))
         shutil.rmtree(os.path.join(self.nodes[1].datadir, "regtest", "chainstate"))
-        shutil.copyfile(os.path.join(self.nodes[1].datadir, "hd.bak"), os.path.join(self.nodes[1].datadir, "regtest", "wallet.dat"))
+        shutil.copyfile(os.path.join(self.nodes[1].datadir, "hd.bak"), os.path.join(self.nodes[1].datadir, "regtest", "wallets", "wallet.dat"))
         self.start_node(1)
 
         # Assert that derivation is deterministic
@@ -150,16 +150,15 @@ class WalletHDTest(BlackHatTestFramework):
         self.start_node(1, extra_args=self.extra_args[1] + ['-rescan'])
         assert_equal(self.nodes[1].getbalance(), NUM_HD_ADDS + NUM_SHIELD_ADDS + 1)
 
-        # Delete chain and resync (without recreating shield addresses)
+        # Try a RPC based rescan
         self.stop_node(1)
         shutil.rmtree(os.path.join(self.nodes[1].datadir, "regtest", "blocks"))
         shutil.rmtree(os.path.join(self.nodes[1].datadir, "regtest", "chainstate"))
-        shutil.copyfile(os.path.join(self.nodes[1].datadir, "hd.bak"), os.path.join(self.nodes[1].datadir, "regtest", "wallet.dat"))
+        shutil.copyfile(os.path.join(self.nodes[1].datadir, "hd.bak"), os.path.join(self.nodes[1].datadir, "regtest", "wallets", "wallet.dat"))
         self.start_and_connect_node1()
         # Wallet automatically scans blocks older than key on startup (but shielded addresses need to be regenerated)
         assert_equal(self.nodes[1].getbalance(), NUM_HD_ADDS + 1)
-
-        """ todo: Implement rescanblockchain
+        # Wallet automatically scans blocks older than key on startup
         out = self.nodes[1].rescanblockchain(0, 1)
         assert_equal(out['start_height'], 0)
         assert_equal(out['stop_height'], 1)
@@ -167,7 +166,6 @@ class WalletHDTest(BlackHatTestFramework):
         assert_equal(out['start_height'], 0)
         assert_equal(out['stop_height'], self.nodes[1].getblockcount())
         assert_equal(self.nodes[1].getbalance(), NUM_HD_ADDS + 1)
-        """
 
         # send a tx and make sure its using the internal chain for the changeoutput
         txid = self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 1)
@@ -215,7 +213,7 @@ class WalletHDTest(BlackHatTestFramework):
 
         # Delete wallet and recover from first seed
         self.stop_node(1)
-        os.remove(os.path.join(self.nodes[1].datadir, "regtest", "wallet.dat"))
+        os.remove(os.path.join(self.nodes[1].datadir, "regtest", "wallets", "wallet.dat"))
         self.start_node(1)
         # Regenerate old shield addresses
         self.log.info("Restore from seed ...")

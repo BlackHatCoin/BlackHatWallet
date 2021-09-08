@@ -13,6 +13,7 @@ from test_framework.util import (
     set_node_times,
 )
 
+
 def connect_nodes_bi(nodes, a, b):
     connect_nodes(nodes[a], b)
     connect_nodes(nodes[b], a)

@@ -65,6 +65,13 @@ const CBlockIndex* CChain::FindFork(const CBlockIndex* pindex) const
     return pindex;
 }
 
+CBlockIndex* CChain::FindEarliestAtLeast(int64_t nTime) const
+{
+    std::vector<CBlockIndex*>::const_iterator lower = std::lower_bound(vChain.begin(), vChain.end(), nTime,
+        [](CBlockIndex* pBlock, const int64_t& time) -> bool { return pBlock->GetBlockTimeMax() < time; });
+    return (lower == vChain.end() ? nullptr : *lower);
+}
+
 /** Turn the lowest '1' bit in the binary representation of a number into a '0'. */
 int static inline InvertLowestOne(int n) { return n & (n - 1); }
 
@@ -79,12 +86,13 @@ int static inline GetSkipHeight(int height)
     return (height & 1) ? InvertLowestOne(InvertLowestOne(height - 1)) + 1 : InvertLowestOne(height);
 }
 
-CBlockIndex* CBlockIndex::GetAncestor(int height)
+const CBlockIndex* CBlockIndex::GetAncestor(int height) const
 {
-    if (height > nHeight || height < 0)
-        return NULL;
+    if (height > nHeight || height < 0) {
+        return nullptr;
+    }
 
-    CBlockIndex* pindexWalk = this;
+    const CBlockIndex* pindexWalk = this;
     int heightWalk = nHeight;
     while (heightWalk > height) {
         int heightSkip = GetSkipHeight(heightWalk);
@@ -95,6 +103,7 @@ CBlockIndex* CBlockIndex::GetAncestor(int height)
             pindexWalk = pindexWalk->pskip;
             heightWalk = heightSkip;
         } else {
+            assert(pindexWalk->pprev);
             pindexWalk = pindexWalk->pprev;
             heightWalk--;
         }
@@ -102,9 +111,9 @@ CBlockIndex* CBlockIndex::GetAncestor(int height)
     return pindexWalk;
 }
 
-const CBlockIndex* CBlockIndex::GetAncestor(int height) const
+CBlockIndex* CBlockIndex::GetAncestor(int height)
 {
-    return const_cast<CBlockIndex*>(this)->GetAncestor(height);
+    return const_cast<CBlockIndex*>(static_cast<const CBlockIndex*>(this)->GetAncestor(height));
 }
 
 void CBlockIndex::BuildSkip()
@@ -135,9 +144,9 @@ std::string CBlockIndex::ToString() const
         GetBlockHash().ToString());
 }
 
-CDiskBlockPos CBlockIndex::GetBlockPos() const
+FlatFilePos CBlockIndex::GetBlockPos() const
 {
-    CDiskBlockPos ret;
+    FlatFilePos ret;
     if (nStatus & BLOCK_HAVE_DATA) {
         ret.nFile = nFile;
         ret.nPos = nDataPos;
@@ -145,9 +154,9 @@ CDiskBlockPos CBlockIndex::GetBlockPos() const
     return ret;
 }
 
-CDiskBlockPos CBlockIndex::GetUndoPos() const
+FlatFilePos CBlockIndex::GetUndoPos() const
 {
-    CDiskBlockPos ret;
+    FlatFilePos ret;
     if (nStatus & BLOCK_HAVE_UNDO) {
         ret.nFile = nFile;
         ret.nPos = nUndoPos;
@@ -210,9 +219,6 @@ int64_t CBlockIndex::GetMedianTimePast() const
 unsigned int CBlockIndex::GetStakeEntropyBit() const
 {
     unsigned int nEntropyBit = ((GetBlockHash().GetCheapHash()) & 1);
-    if (gArgs.GetBoolArg("-printstakemodifier", false))
-        LogPrintf("GetStakeEntropyBit: nHeight=%u hashBlock=%s nEntropyBit=%u\n", nHeight, GetBlockHash().ToString().c_str(), nEntropyBit);
-
     return nEntropyBit;
 }
 

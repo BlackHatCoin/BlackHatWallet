@@ -23,7 +23,8 @@
        * submit block to node
        * if node crashed on/after submitting:
          - restart until recovery succeeds
-         - check that utxo matches node3 using gettxoutsetinfo"""
+         - check that utxo matches node3 using gettxoutsetinfo
+"""
 
 import errno
 import http.client
@@ -31,10 +32,10 @@ import random
 import sys
 import time
 
+from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut, ToHex
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
-from test_framework.script import *
-from test_framework.mininode import *
+from test_framework.util import assert_equal, create_confirmed_utxos, hex_str_to_bytes
+
 
 HTTP_DISCONNECT_ERRORS = [http.client.CannotSendRequest]
 try:
@@ -51,8 +52,8 @@ class ChainstateWriteCrashTest(BlackHatTestFramework):
         self.setup_clean_chain = False
         # Need a bit of extra time for the nodes to start up for this test
 
-        self.chain_params = ['-nuparams=v5_shield:90000', '-nuparams=BLKC_v4.0:90000',
-                             '-nuparams=BLKC_v3.4:90000', '-nuparams=Zerocoin_Public:90000',
+        self.chain_params = ['-nuparams=v5_shield:90000', '-nuparams=BlackHat_v4.0:90000',
+                             '-nuparams=BlackHat_v3.4:90000', '-nuparams=Zerocoin_Public:90000',
                              '-nuparams=Zerocoin_v2:90000', '-nuparams=Zerocoin:90000',
                              '-nuparams=PoS_v2:90000', '-nuparams=PoS:90000']
         # Set -maxmempool=0 to turn off mempool memory sharing with dbcache

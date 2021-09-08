@@ -70,7 +70,7 @@ public:
         assert(!IsSpent());
         uint32_t code = nHeight * 4 + (fCoinBase ? 2 : 0) + (fCoinStake ? 1 : 0);
         ::Serialize(s, VARINT(code));
-        ::Serialize(s, CTxOutCompressor(REF(out)));
+        ::Serialize(s, Using<TxOutCompression>(out));
     }
 
     template<typename Stream>
@@ -80,7 +80,7 @@ public:
         nHeight = code >> 2;
         fCoinBase = code & 2;
         fCoinStake = code & 1;
-        ::Unserialize(s, REF(CTxOutCompressor(out)));
+        ::Unserialize(s, Using<TxOutCompression>(out));
     }
 
     bool IsSpent() const {
@@ -301,6 +301,11 @@ protected:
 public:
     CCoinsViewCache(CCoinsView *baseIn);
 
+    /**
+     * By deleting the copy constructor, we prevent accidentally using it when one intends to create a cache on top of a base cache.
+     */
+    CCoinsViewCache(const CCoinsViewCache &) = delete;
+
     // Sapling methods
     bool GetSaplingAnchorAt(const uint256 &rt, SaplingMerkleTree &tree) const override;
     bool GetNullifier(const uint256 &nullifier) const override;
@@ -390,13 +395,6 @@ public:
     //! Check whether all prevouts of the transaction are present in the UTXO set represented by this view
     bool HaveInputs(const CTransaction& tx) const;
 
-    /**
-     * Return priority of tx at height nHeight. Also calculate the sum of the values of the inputs
-     * that are already in the chain.  These are the inputs that will age and increase priority as
-     * new blocks are added to the chain.
-     */
-    double GetPriority(const CTransaction& tx, int nHeight, CAmount &inChainInputValue) const;
-
     /*
      * Return the depth of a coin at height nHeight, or -1 if not found
      */
@@ -438,11 +436,6 @@ private:
             const uint256 &currentRoot,
             Tree &tree
     );
-
-    /**
-      * By making the copy constructor private, we prevent accidentally using it when one intends to create a cache on top of a base cache.
-      */
-    CCoinsViewCache(const CCoinsViewCache &);
 };
 
 //! Utility function to add all of a transaction's outputs to a cache.

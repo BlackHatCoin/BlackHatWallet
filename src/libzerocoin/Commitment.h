@@ -55,12 +55,7 @@ private:
     CBigNum randomness;
     const CBigNum contents;
 
-    ADD_SERIALIZE_METHODS;
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
-    {
-        READWRITE(commitmentValue); READWRITE(randomness); READWRITE(contents);
-    }
+    SERIALIZE_METHODS(Commitment, obj) { READWRITE(obj.commitmentValue, obj.randomness, obj.contents); }
 };
 } /* namespace libzerocoin */
 #endif /* COMMITMENT_H_ */

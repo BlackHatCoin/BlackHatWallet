@@ -5,7 +5,7 @@
 """Test RPC commands for signing and verifying messages."""
 
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import assert_equal
+# from test_framework.util import assert_equal
 
 class SignMessagesTest(BlackHatTestFramework):
     def set_test_params(self):

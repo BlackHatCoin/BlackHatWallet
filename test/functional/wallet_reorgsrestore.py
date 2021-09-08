@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # Copyright (c) 2019 The Bitcoin Core developers
-# Copyright (c) 2021 The PIVX Core developers
+# Copyright (c) 2021 The BlackHat Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php.
-
 """Test tx status in case of reorgs while wallet being shutdown.
 
 Wallet txn status rely on block connection/disconnection for its
@@ -24,6 +23,7 @@ from test_framework.util import (
         connect_nodes,
         disconnect_nodes,
 )
+
 
 class ReorgsRestoreTest(BlackHatTestFramework):
     def set_test_params(self):
@@ -91,7 +91,7 @@ class ReorgsRestoreTest(BlackHatTestFramework):
         # Node0 wallet file is loaded on longest sync'ed node1
         self.stop_node(1)
         self.nodes[0].backupwallet(os.path.join(self.nodes[0].datadir, 'wallet.bak'))
-        shutil.copyfile(os.path.join(self.nodes[0].datadir, 'wallet.bak'), os.path.join(self.nodes[1].datadir, 'regtest', 'wallet.dat'))
+        shutil.copyfile(os.path.join(self.nodes[0].datadir, 'wallet.bak'), os.path.join(self.nodes[1].datadir, 'regtest', "wallets", 'wallet.dat'))
         self.start_node(1)
         tx_after_reorg = self.nodes[1].gettransaction(txid)
         # Check that normal confirmed tx is confirmed again but with different blockhash

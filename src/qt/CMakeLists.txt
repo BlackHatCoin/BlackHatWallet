@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
 
 set(QT_MINIMUM_VERSION 5.5.1)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -67,16 +67,6 @@ endif()
 file(GLOB LOCAL_QT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 source_group("QtHeaders" FILES ${LOCAL_QT_HEADERS})
 
-find_package(Protobuf REQUIRED)
-if(Protobuf_FOUND)
-    message(STATUS "Found Protobuf compiler: ${Protobuf_PROTOC_EXECUTABLE}")
-    message(STATUS "Found Protobuf library: ${Protobuf_LIBRARIES}")
-endif()
-include_directories(${PROTOBUF_INCLUDE_DIRS})
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/paymentrequest.proto)
-
 SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/bantablemodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/bitcoinaddressvalidator.cpp
@@ -87,13 +77,13 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/intro.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/networkstyle.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/notificator.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/optionsdialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/optionsmodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/peertablemodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/platformstyle.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/qvalidatedlineedit.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/qvaluecombobox.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/rpcconsole.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/rpcexecutor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/trafficgraphwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utilitydialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/addressbookpage.cpp
@@ -103,7 +93,6 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/coincontroltreewidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/editaddressdialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/openuridialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/paymentrequestplus.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/paymentserver.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/recentrequeststablemodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/transactionfilterproxy.cpp
@@ -163,8 +152,6 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsfaqwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsinformationwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsmainoptionswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsmultisenddialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsmultisendwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingssignmessagewidgets.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingswalletoptionswidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingswalletrepairwidget.cpp
@@ -173,13 +160,6 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/welcomecontentwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/splash.cpp
         )
-
-# Workaround until the old rpcconsole UI window is fully removed
-set_property(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsconsolewidget.cpp PROPERTY SKIP_AUTOMOC ON)
-execute_process(
-        COMMAND ${MOC_BIN} -o moc_settingsconsolewidget.cpp settingsconsolewidget.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings
-)
 
 execute_process(
         COMMAND ${MOC_BIN} -o moc_pfborderimage.cpp pfborderimage.h
@@ -200,10 +180,9 @@ target_include_directories(qt_stuff PUBLIC ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings
-        ${OPENSSL_INCLUDE_DIR}
         ${BerkeleyDB_INCLUDE_DIRS}
         )
-set_property(TARGET qt_stuff PROPERTY CXX_STANDARD 11)
+set_property(TARGET qt_stuff PROPERTY CXX_STANDARD 14)
 
 file(GLOB QT_TRANSLATIONS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/locale/*.ts)
 
@@ -217,23 +196,19 @@ QT5_ADD_RESOURCES(QRC_RESOURCE blkc.qrc)
 QT5_ADD_RESOURCES(QRC_LOCALE_RESOURCE blkc_locale.qrc)
 
 add_executable(blkc-qt blkc.cpp ${QM} ${QRC_RESOURCE} ${QRC_LOCALE_RESOURCE})
-add_dependencies(blkc-qt translations_target libunivalue libsecp256k1 libzcashrust leveldb crc32c)
-target_include_directories(blkc-qt PUBLIC ${ENDIAN_INCLUDES})
+add_dependencies(blkc-qt translations_target libunivalue libsecp256k1 libzcashrust leveldb crc32c bls)
+target_include_directories(blkc-qt PUBLIC ${ENDIAN_INCLUDES} ${GMP_INCLUDE_DIR})
 target_link_libraries(blkc-qt
         qt_stuff
         univalue
         SERVER_A WALLET_A COMMON_A ZEROCOIN_A UTIL_A SAPLING_A BITCOIN_CRYPTO_A CLI_A
-        leveldb crc32c secp256k1 rustzcash
-        ${BerkeleyDB_LIBRARIES} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${LIBEVENT_LIB}
-        ${sodium_LIBRARY_RELEASE}
+        leveldb crc32c secp256k1 rustzcash bls
+        ${BerkeleyDB_LIBRARIES} ${Boost_LIBRARIES} ${LIBEVENT_LIB}
+        ${sodium_LIBRARY_RELEASE} ${GMP_LIBRARY}
         -ldl pthread
         )
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(blkc-qt "-framework Cocoa")
-endif()
-if(GMP_FOUND)
-    target_link_libraries(blkc-qt ${GMP_LIBRARY})
-    target_include_directories(blkc-qt PUBLIC ${GMP_INCLUDE_DIR})
 endif()
 if(ZMQ_FOUND)
     target_link_libraries(blkc-qt ZMQ_A ${ZMQ_LIB})
@@ -247,6 +222,10 @@ if(MINIUPNP_FOUND)
     target_compile_definitions(blkc-qt PUBLIC "-DSTATICLIB -DMINIUPNP_STATICLIB")
     target_link_libraries(blkc-qt ${MINIUPNP_LIBRARY})
     target_include_directories(blkc-qt PUBLIC ${MINIUPNP_INCLUDE_DIR})
+endif()
+if(NAT-PMP_FOUND)
+    target_link_libraries(blkc-qt ${NAT-PMP_LIBRARY})
+    target_include_directories(blkc-qt PUBLIC ${NAT-PMP_INCLUDE_DIR})
 endif()
 
 target_link_libraries(blkc-qt Qt5::Gui Qt5::Core Qt5::Widgets Qt5::Network Qt5::Svg ${QT_LIBRARIES})

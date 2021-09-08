@@ -13,7 +13,6 @@
 #include "qt/blkc/addressholder.h"
 #include "walletmodel.h"
 #include "guiutil.h"
-#include "pairresult.h"
 
 #include <QModelIndex>
 #include <QColor>
@@ -252,23 +251,16 @@ void ReceiveWidget::onNewAddressClicked()
             return;
         }
 
-        QString strAddress;
-        PairResult r(false);
-        if (!shieldedMode) {
-            Destination address;
-            r = walletModel->getNewAddress(address, "");
-            strAddress = QString::fromStdString(address.ToString());
-        } else {
-            r = walletModel->getNewShieldedAddress(strAddress, "");
-        }
+        CallResult<Destination> r = !shieldedMode ? walletModel->getNewAddress("") :
+                walletModel->getNewShieldedAddress("");
 
         // Check validity
-        if (!r.result) {
-            inform(r.status->c_str());
+        if (!r) {
+            inform(r.getError().c_str());
             return;
         }
 
-        refreshView(strAddress);
+        refreshView(QString::fromStdString(r.getObjResult()->ToString()));
         inform(tr("New address created"));
     } catch (const std::runtime_error& error) {
         // Error generating address

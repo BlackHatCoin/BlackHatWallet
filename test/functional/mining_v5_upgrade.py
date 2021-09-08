@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+# Copyright (c) 2012-2021 The PIVX developers
+# Copyright (c) 2021 The BlackHat developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+"""Simple test checking chain movement after v5 enforcement."""
 
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal
 
-"""
-Simple test checking chain movement after v5 enforcement.
-"""
 
 class MiningV5UpgradeTest(BlackHatTestFramework):
 

@@ -25,28 +25,33 @@ class uint256;
 //! No need to periodic flush if at least this much space still available.
 static constexpr int MAX_BLOCK_COINSDB_USAGE = 10;
 //! -dbcache default (MiB)
-static const int64_t nDefaultDbCache = 100;
+static const int64_t nDefaultDbCache = 300;
 //! -dbbatchsize default (bytes)
 static const int64_t nDefaultDbBatchSize = 16 << 20;
-//! max. -dbcache in (MiB)
+//! max. -dbcache (MiB)
 static const int64_t nMaxDbCache = sizeof(void*) > 4 ? 16384 : 1024;
-//! min. -dbcache in (MiB)
+//! min. -dbcache (MiB)
 static const int64_t nMinDbCache = 4;
+//! Max memory allocated to block tree DB specific cache, if no -txindex (MiB)
+static const int64_t nMaxBlockDBCache = 2;
+//! Max memory allocated to block tree DB specific cache, if -txindex (MiB)
+// Unlike for the UTXO database, for the txindex scenario the leveldb cache make
+// a meaningful difference: https://github.com/bitcoin/bitcoin/pull/8273#issuecomment-229601991
+static const int64_t nMaxBlockDBAndTxIndexCache = 1024;
+//! Max memory allocated to coin DB specific cache (MiB)
+static const int64_t nMaxCoinsDBCache = 8;
 
-struct CDiskTxPos : public CDiskBlockPos
+struct CDiskTxPos : public FlatFilePos
 {
     unsigned int nTxOffset; // after header
 
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action)
+    SERIALIZE_METHODS(CDiskTxPos, obj)
     {
-        READWRITE(*static_cast<CDiskBlockPos*>(this));
-        READWRITE(VARINT(nTxOffset));
+        READWRITEAS(FlatFilePos, obj);
+        READWRITE(VARINT(obj.nTxOffset));
     }
 
-    CDiskTxPos(const CDiskBlockPos& blockIn, unsigned int nTxOffsetIn) : CDiskBlockPos(blockIn.nFile, blockIn.nPos), nTxOffset(nTxOffsetIn)
+    CDiskTxPos(const FlatFilePos& blockIn, unsigned int nTxOffsetIn) : FlatFilePos(blockIn.nFile, blockIn.nPos), nTxOffset(nTxOffsetIn)
     {
     }
 
@@ -57,7 +62,7 @@ struct CDiskTxPos : public CDiskBlockPos
 
     void SetNull()
     {
-        CDiskBlockPos::SetNull();
+        FlatFilePos::SetNull();
         nTxOffset = 0;
     }
 };
@@ -125,25 +130,22 @@ class CBlockTreeDB : public CDBWrapper
 public:
     CBlockTreeDB(size_t nCacheSize, bool fMemory = false, bool fWipe = false);
 
-private:
-    CBlockTreeDB(const CBlockTreeDB&);
-    void operator=(const CBlockTreeDB&);
+    CBlockTreeDB(const CBlockTreeDB&) = delete;
+    CBlockTreeDB& operator=(const CBlockTreeDB&) = delete;
 
-public:
     bool WriteBlockIndex(const CDiskBlockIndex& blockindex);
     bool WriteBatchSync(const std::vector<std::pair<int, const CBlockFileInfo*> >& fileInfo, int nLastFile, const std::vector<const CBlockIndex*>& blockinfo);
-    bool ReadBlockFileInfo(int nFile, CBlockFileInfo& fileinfo);
+    bool ReadBlockFileInfo(int nFile, CBlockFileInfo& info);
     bool ReadLastBlockFile(int& nFile);
-    bool WriteReindexing(bool fReindex);
-    bool ReadReindexing(bool& fReindex);
+    bool WriteReindexing(bool fReindexing);
+    bool ReadReindexing(bool& fReindexing);
     bool ReadTxIndex(const uint256& txid, CDiskTxPos& pos);
-    bool WriteTxIndex(const std::vector<std::pair<uint256, CDiskTxPos> >& list);
+    bool WriteTxIndex(const std::vector<std::pair<uint256, CDiskTxPos> >& vect);
     bool WriteFlag(const std::string& name, bool fValue);
     bool ReadFlag(const std::string& name, bool& fValue);
     bool WriteInt(const std::string& name, int nValue);
     bool ReadInt(const std::string& name, int& nValue);
     bool LoadBlockIndexGuts(std::function<CBlockIndex*(const uint256&)> insertBlockIndex);
-    bool ReadLegacyBlockIndex(const uint256& blockHash, CLegacyBlockIndex& biRet);
 };
 
 /** Zerocoin database (zerocoin/) */
@@ -157,26 +159,42 @@ private:
     void operator=(const CZerocoinDB&);
 
 public:
-    /** Write zBLKC mints to the zerocoinDB in a batch */
-    bool WriteCoinMintBatch(const std::vector<std::pair<libzerocoin::PublicCoin, uint256> >& mintInfo);
-    bool ReadCoinMint(const CBigNum& bnPubcoin, uint256& txHash);
-    bool ReadCoinMint(const uint256& hashPubcoin, uint256& hashTx);
-    /** Write zBLKC spends to the zerocoinDB in a batch */
-    bool WriteCoinSpendBatch(const std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& spendInfo);
+    /** Write zBLKC spends to the zerocoinDB in a batch
+     * Pair of: CBigNum -> coinSerialNumber and uint256 -> txHash.
+     */
+    bool WriteCoinSpendBatch(const std::vector<std::pair<CBigNum, uint256> >& spendInfo);
     bool ReadCoinSpend(const CBigNum& bnSerial, uint256& txHash);
-    bool ReadCoinSpend(const uint256& hashSerial, uint256 &txHash);
-    bool EraseCoinMint(const CBigNum& bnPubcoin);
     bool EraseCoinSpend(const CBigNum& bnSerial);
-    bool WipeCoins(std::string strType);
 
-    /** Map supply [denom] --> supply     */
-    bool WriteZCSupply(const std::map<libzerocoin::CoinDenomination, int64_t>& mapZCS);
-    bool ReadZCSupply(std::map<libzerocoin::CoinDenomination, int64_t>& mapZCS) const;
     /** Accumulators (only for zPoS IBD): [checksum, denom] --> block height **/
-    bool WriteAccChecksum(const uint32_t& nChecksum, const libzerocoin::CoinDenomination denom, const int nHeight);
-    bool ReadAccChecksum(const uint32_t& nChecksum, const libzerocoin::CoinDenomination denom, int& nHeightRet);
-    bool EraseAccChecksum(const uint32_t& nChecksum, const libzerocoin::CoinDenomination denom);
-    bool WipeAccChecksums();
+    bool WriteAccChecksum(const uint32_t nChecksum, const libzerocoin::CoinDenomination denom, const int nHeight);
+    bool ReadAccChecksum(const uint32_t nChecksum, const libzerocoin::CoinDenomination denom, int& nHeightRet);
+    bool ReadAll(std::map<std::pair<uint32_t, libzerocoin::CoinDenomination>, int>& mapCheckpoints);
+    bool EraseAccChecksum(const uint32_t nChecksum, const libzerocoin::CoinDenomination denom);
+    void WipeAccChecksums();
+};
+
+class AccumulatorCache
+{
+private:
+    // underlying database
+    CZerocoinDB* db{nullptr};
+    // in-memory map [checksum, denom] --> block height
+    std::map<std::pair<uint32_t, libzerocoin::CoinDenomination>, int> mapCheckpoints;
+
+public:
+    explicit AccumulatorCache(CZerocoinDB* _db) : db(_db)
+    {
+        assert(db != nullptr);
+        bool res = db->ReadAll(mapCheckpoints);
+        assert(res);
+    }
+
+    Optional<int> Get(uint32_t checksum, libzerocoin::CoinDenomination denom);
+    void Set(uint32_t checksum, libzerocoin::CoinDenomination denom, int height);
+    void Erase(uint32_t checksum, libzerocoin::CoinDenomination denom);
+    void Flush();
+    void Wipe();
 };
 
 #endif // BITCOIN_TXDB_H

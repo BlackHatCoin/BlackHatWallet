@@ -217,6 +217,9 @@ class LEVELDB_EXPORT SequentialFile {
   //
   // REQUIRES: External synchronization
   virtual Status Skip(uint64_t n) = 0;
+
+  // Get a name for the file, only for error reporting
+  virtual std::string GetName() const = 0;
 };
 
 // A file abstraction for randomly reading the contents of a file.
@@ -240,6 +243,9 @@ class LEVELDB_EXPORT RandomAccessFile {
   // Safe for concurrent use by multiple threads.
   virtual Status Read(uint64_t offset, size_t n, Slice* result,
                       char* scratch) const = 0;
+
+  // Get a name for the file, only for error reporting
+  virtual std::string GetName() const = 0;
 };
 
 // A file abstraction for sequential writing.  The implementation
@@ -258,6 +264,9 @@ class LEVELDB_EXPORT WritableFile {
   virtual Status Close() = 0;
   virtual Status Flush() = 0;
   virtual Status Sync() = 0;
+
+  // Get a name for the file, only for error reporting
+  virtual std::string GetName() const = 0;
 };
 
 // An interface for writing log messages.

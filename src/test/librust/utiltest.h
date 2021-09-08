@@ -29,9 +29,6 @@ struct TransparentInput {
     CAmount amount;
 };
 
-const Consensus::Params& RegtestActivateSapling();
-
-void RegtestDeactivateSapling();
 
 libzcash::SaplingExtendedSpendingKey GetTestMasterSaplingSpendingKey();
 

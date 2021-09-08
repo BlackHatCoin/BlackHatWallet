@@ -651,10 +651,6 @@ za staking</translation>
         <translation>da</translation>
     </message>
     <message>
-        <source>This label turns red, if recipient receives an amount smaller than %1 (transparent) / %2 (shield).</source>
-        <translation>Ova oznaka postaje crvena ako primatelj primi iznos manji od %1 (transparentan) / %2 (zaštićeni).</translation>
-    </message>
-    <message>
         <source>Can vary +/- %1 u%2 per input.</source>
         <translation>Može varirati +/- %1 u%2 po unosu.</translation>
     </message>
@@ -672,7 +668,7 @@ za staking</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>nema</translation>
+        <translation>ne</translation>
     </message>
     <message>
         <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
@@ -748,8 +744,7 @@ za staking</translation>
     <message>
         <source>You can delegate your BLKCs, letting a hot node (24/7 online node)
 stake on your behalf, while you keep the keys securely offline.</source>
-        <translation>Možete delegirati vaše novčiće, dozvoljavajući drugom novčaniku (koji radi 24/7)
-staking u vaše ime, dok su vaši novčići spremljeni na sigurnom.</translation>
+        <translation>Možete delegirati vaše novčiće, dozvoljavajući drugom novčaniku (koji radi 24/7) staking u vaše ime, dok su vaši novčići spremljeni na sigurnom.</translation>
     </message>
     <message>
         <source>Enter owner address</source>
@@ -785,7 +780,7 @@ staking u vaše ime, dok su vaši novčići spremljeni na sigurnom.</translation
     </message>
     <message>
         <source>Select %1 outputs to delegate.</source>
-        <translation>Označi %1 novčiće za delegirati.</translation>
+        <translation>Označi %1 izlaze za delegirati.</translation>
     </message>
     <message>
         <source>Create Cold Staking Address</source>
@@ -958,7 +953,7 @@ vlasnika</translation>
     </message>
     <message>
         <source>View your account's history</source>
-        <translation>Pogledajte povijest vašeg novčanika</translation>
+        <translation>Pogledajte vašu povijest računa</translation>
     </message>
     <message>
         <source>How to get BLKC</source>
@@ -983,6 +978,10 @@ vlasnika</translation>
     <message>
         <source>Filter by</source>
         <translation>Filtriraj prema</translation>
+    </message>
+    <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Iznos BLKC i zBLKC koji se stake-a.</translation>
     </message>
     <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
@@ -1856,8 +1855,8 @@ STAKING</translation>
         <translation>Jezik korisničkog sučelja možete postaviti ovdje. Postavke će stupiti na snagu nakon ponovnog pokretanja BlackHat novčanika.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations</source>
-        <translation>Jezik nedostaje ili prijevod nije potpun? Pomozite s prijevodom</translation>
+        <source>Language missing or translation incomplete? Help contributing translations.</source>
+        <translation>Jezik nedostaje ili prijevod nije potpun? Pomozite s prijevodom.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2076,11 +2075,7 @@ STAKING</translation>
     </message>
     <message>
         <source>BlackHat Core client</source>
-        <translation>BlackHatX Core Klijent</translation>
-    </message>
-    <message>
-        <source>Alert!</source>
-        <translation>Oprez!</translation>
+        <translation>BlackHat Core Klijent</translation>
     </message>
     <message>
         <source>Error</source>
@@ -2300,8 +2295,16 @@ Adresa: %4
         <translation>Greška: Ne mogu parsirati konfiguracijsku datoteku: %1. Koristite samo sintaksu key=value.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Greška: Neispravna kombinacija -regtest i -testnet.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Greška pri čitanju masternode konfiguracijske datoteke: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core nije ugašen sigurno...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2988,7 +2991,7 @@ pokušajte otključati novčanik</translation>
     </message>
     <message>
         <source>Address label saved</source>
-        <translation>Oznaka adrese spremljena</translation>
+        <translation>Naziv adrese spremljen</translation>
     </message>
     <message>
         <source>Error storing address label</source>
@@ -3043,7 +3046,7 @@ pokušajte otključati novčanik</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(nema oznake)</translation>
+        <translation>(bez oznake)</translation>
     </message>
     <message>
         <source>(no message)</source>
@@ -3541,7 +3544,7 @@ Uz naknadu %2
         <source>Keep your wallet safe by doing regular backups and storing your backup file externally.
 This option creates a wallet.dat file that can be used to recover your whole balance (transactions and addresses) on another device</source>
         <translation>Čuvajte svoj novčanik redovitim sigurnosnim kopijama i vanjskom pohranom sigurnosne kopije.
-Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelog stanja (transakcija i adresa) na drugom računalu</translation>
+Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelog stanja (transakcija i adresa) na drugom uređaju</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3551,7 +3554,7 @@ Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelo
         <source>This will decrypt the whole wallet data and encrypt it back with the new passphrase.
 Remember to write it down and store it safely, otherwise you might lose access to your funds</source>
         <translation>Ovo će dekriptirati cijele podatke novčanika i kriptirati ih nazad s novom lozinkom.
-Ne zaboravite zapisati i sigurno pohraniti novu lozinku, jer u protivnom ćete izgubiti pristup svojim sredstvima</translation>
+Ne zaboravite zapisati i sigurno pohraniti lozinku, jer u protivnom možete izgubiti pristup svojim sredstvima</translation>
     </message>
     <message>
         <source>Change Passphrase</source>
@@ -3847,8 +3850,7 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
     </message>
     <message>
         <source>Export Accounting</source>
-        <translation>Izvezi računovodstvene
-podatke</translation>
+        <translation>Izvezi računovodstvene podatke</translation>
     </message>
     <message>
         <source>Export your wallet's accounting data to a csv file.</source>
@@ -3978,12 +3980,36 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>Zašto se moji BLKC ne mogu potrošiti?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+Novoprimljeni BLKC zahtjeva 6 potvrda na mreži
+da bi se mogao potrošiti što može potrajati ~6 minuta.
+&lt;/p&gt;&lt;p align="justify"&gt;
+Vaš BlackHat novčanik takođjer treba biti u potpunosti sinkroniziran
+da biste vidjeli i mogli potrošiti sredstva na mreži.
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
         <source>How do I stake BLKC?</source>
         <translation>Kako stakeat BLKC?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Provjerite da je vaš novčanik u potpunosti sinkroniziran i da koristite najnoviju verziju novčanika. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Morate imati iznos BLKC novčića s najmanje 600 potvrda na blockchainu. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Novčanik mora biti upaljen i otključan za staking. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Kada se prate svi ti koraci, staking bi trebao biti omogućen. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Status stakinga možete vidjeti prolaskom miša preko staking ikonice u gornjem desnom kutu. Staking ikona (kutija) će svijetliti i prikazivati &amp;quot;Staking omogućen&amp;quot; i naznačiti da se aktivno stake-a. Koristeći sučelje naredbene trake (blkc-cli); naredba &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; će potvrditi da je staking aktivan. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>4</source>
@@ -4002,6 +4028,51 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>Gdje se trebam javiti ako mi treba pomoć?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           BlackHat is a form of digital online money using blockchain technology
+                           that can be easily transferred globally, instantly, and with near
+                           zero fees.  BlackHat incorporates market leading security &amp;
+                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
+                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
+                           allowing all owners of BLKC to participate in earning block rewards
+                           while securing the network with full node wallets, as well as to
+                           run Masternodes to create and vote on proposals.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+BlackHat je oblik digitalnog online novca koji koristi blockchain tehnologiju
+koji se lako može slati i primati globalno, trenutno, i gotovo bez naknade.
+BlackHat uključuje vodeću sigurnost  i privatnost na tržištu
+i takođjer je prva PoS (Proof of Stake) kriptovaluta
+koja je implementirala Sapling (SHIELD) i anoniman zk-SNARKs baziran protokol.
+&lt;/p&gt;&lt;p align="justify"&gt;
+BlackHat koristi algoritam konsenzusa Proof of Stake (PoS),
+omogućujući svim vlasnicima BLKC-a sudjelovanje u zarađi blokovih nagrada
+dok osiguravaju mrežu full node novčanicima, kao i
+vodjenje Masternode-ova za stvaranje i glasanje o prijedlozima.
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
+                           #support in our Discord&lt;/a&gt;.
+                         </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+Imamo korisničku podršku u većini naših službenih chat grupa, na primjer
+&lt;a style='color: #989898' href='https://blackhatco.in/discord'&gt;
+#support na Discordu&lt;/a&gt;.
+</translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>Što je Masternode?</translation>
     </message>
@@ -4010,9 +4081,98 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>Što je Masternode Controller?</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;Masternode Controller novčanik je mjesto gdje zalog od 5,000 BLKC može stajati tijekom Controller-Remote podešavanja masternode-a. To je novčanik koji može aktivirati Remote masternode novčanik(e) i omogućiti Vam držanje zaloga novčića offline dok Remote masternode novčanik ostaje online.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+Masternode je računalo koje pokreće full node BlackHat Core novčanik sa
+zahtjevanih 5,000 BLKC-a osiguranog zaloga da pruži dodatne usluge
+mreži, i zauzvrat redovito primi dio nagrade blokova.
+Te usluge uključuju:
+&lt;/p&gt;&lt;p align="justify"&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Trenutne transakcije (SwiftX)&lt;/li&gt;
+&lt;li&gt;Decentralizirano upravljanje (glasanje o zahtjevima)&lt;/li&gt;
+&lt;li&gt;Decentralizirani sustav proračuna (riznica)&lt;/li&gt;
+&lt;li&gt;Validacija transakcija unutar svakog bloka&lt;/li&gt;
+&lt;li&gt;Djeluje kao dodatni full node u mreži&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/p&gt;&lt;p align="justify"&gt;
+Za pružanje takvih usluga, masternode-ovi bivaju plaćeni odredjenim
+dijelom nagrade za svaki blok. To može služiti kao pasivan dohodak
+vlasnicima masternode-ova umanjeno za troškove održavanja.
+&lt;/p&gt;&lt;p align="justify"&gt;
+
+Povlastice masternode-ova:
+&lt;/p&gt;&lt;p align="justify"&gt;
+&lt;ul&gt;
+&lt;li&gt;Sudjelovanje u upravljanju BlackHat-a&lt;/li&gt;
+&lt;li&gt;Zaradjivanje Masternode nagrada&lt;/li&gt;
+&lt;li&gt;Robna opcija za buduću prodaju&lt;/li&gt;
+&lt;li&gt;Pomaže u osiguravanju BlackHat mreže&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;&lt;p align="justify"&gt;
+
+Zahtjevi:
+&lt;/p&gt;&lt;p align="justify"&gt;
+&lt;ul&gt;
+&lt;li&gt;5,000 BLKC po svakom Masternode-u&lt;/li&gt;
+&lt;li&gt;Mora biti pohranjem u Core novčaniku&lt;/li&gt;
+&lt;li&gt;Mora biti jedinstvena IP adresa&lt;/li&gt;
+&lt;li&gt;Masternode novčanik treba ostati online&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</translation>
+    </message>
+    <message>
         <source>Frequently Asked Questions</source>
-        <translation>Najčešće postavljena
-pitanja</translation>
+        <translation>Najčešće postavljena pitanja</translation>
     </message>
     <message>
         <source>Close FAQ</source>
@@ -4149,11 +4309,7 @@ pitanja</translation>
         <source>Out:</source>
         <translation>Iz:</translation>
     </message>
-    <message>
-        <source>No available data</source>
-        <translation>Nema dostupnih podataka</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
@@ -4285,8 +4441,8 @@ Jeste li sigurni?
         <translation>PotvrdniOkvir</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BLKC addresses after it matures.</source>
-        <translation>MultiSend vam omogućuje da automatski pošaljete do 100% svog uloga ili nagrade masternode na popis drugih BLKC adresa nakon što sazriju.</translation>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend vam omogućuje da automatski pošaljete do 100% svog uloga ili nagrade masternode na popis drugih BlackHat adresa nakon što sazriju.</translation>
     </message>
     <message>
         <source>Active</source>
@@ -4389,7 +4545,7 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
     </message>
     <message>
         <source>Sign/Verify Message</source>
-        <translation>Potpiši/Ovjeri Poruku</translation>
+        <translation>Potpiši/Ovjeri poruku</translation>
     </message>
     <message>
         <source>Sign</source>
@@ -4599,7 +4755,7 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
     </message>
     <message>
         <source>Rescan blockchain file</source>
-        <translation>Pretraži blockchain datoteku</translation>
+        <translation>Preskenirajte blockchain datoteku</translation>
     </message>
     <message>
         <source>Rescan the blockchain for missing wallet transactions</source>
@@ -4682,8 +4838,7 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
     </message>
     <message>
         <source>Export Accounting</source>
-        <translation>Izvezi računovodstvene
-podatke</translation>
+        <translation>Izvezi računovodstvene podatke</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -4773,7 +4928,7 @@ podatke</translation>
     </message>
     <message>
         <source>Restart Later</source>
-        <translation>Pokreni kasnije</translation>
+        <translation>Ponovno pokreni kasnije</translation>
     </message>
     <message>
         <source>Options will be applied on next wallet restart</source>
@@ -4915,13 +5070,33 @@ Jeste li sigurni?
         <source>Staking not active</source>
         <translation>Staking nije aktivan</translation>
     </message>
+    <message numerus="yes">
+        <source>%n active connection(s)</source>
+        <translation><numerusform>%n aktivna veza</numerusform><numerusform>%n aktivnih veza</numerusform><numerusform>%n aktivnih veza</numerusform></translation>
+    </message>
     <message>
         <source>Synchronized - Block: %1</source>
         <translation>Sinkronizirano - Blok: %1</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n sat</numerusform><numerusform>%n sati</numerusform><numerusform>%n sati</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n dan</numerusform><numerusform>%n dana</numerusform><numerusform>%n dana</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n tjedan</numerusform><numerusform>%n tjedana</numerusform><numerusform>%n tjedana</numerusform></translation>
+    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 i %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n year(s)</source>
+        <translation><numerusform>%n godina</numerusform><numerusform>%n godina</numerusform><numerusform>%n godina</numerusform></translation>
     </message>
     <message>
         <source>Wallet Upgrade</source>
@@ -5028,7 +5203,7 @@ stvorit će se nova sigurnosna kopija.
     </message>
     <message>
         <source>Available (Locked included)</source>
-        <translation>Raspoloživo (Uključujući zaključane)</translation>
+        <translation>Raspoloživo (Zaključani uključeni)</translation>
     </message>
     <message>
         <source>The wallet has been successfully upgraded to HD.</source>
@@ -5095,6 +5270,10 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Address</source>
         <translation>Adresa</translation>
+    </message>
+    <message numerus="yes">
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Otvoreno još %n blok</numerusform><numerusform>Otvoreno još %n blokova</numerusform><numerusform>Otvoreno još %n blokova</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -5211,10 +5390,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Shielded send to</source>
         <translation>Zaštićeno slanje na</translation>
-    </message>
-    <message>
-        <source>Burned BLKCs</source>
-        <translation>Uništeni BLKCovi</translation>
     </message>
     <message>
         <source>watch-only</source>
@@ -5502,6 +5677,10 @@ BlackHat temeljni novčanik</translation>
         <translation>Pridržavajte se na navedenu adresu da biste slušali veze JSON-RPC. Koristite [host]: port notation za IPv6. Ova se opcija može odrediti više puta (zadano: vezati se na sva sučelja)</translation>
     </message>
     <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Nije moguće dobiti zaključavanje na direktoriju podataka %s. BlackHat Core vjerojatno već radi.</translation>
+    </message>
+    <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
         <translation>Promjena ponašanja glasova na automatskom finaliziranom proračunu. mode = auto: Glasujte samo za točan završeni proračun s mojim generiranim proračunom. (niz, zadani: automatski)</translation>
     </message>
@@ -5528,6 +5707,10 @@ BlackHat temeljni novčanik</translation>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
         <translation>Omogućite funkcionalnost administracije s odgovarajućim privatnim ključem.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Unesite način rada regresije, koji koristi poseban lanac u kojem blokovi mogu biti riješeni odmah.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
@@ -5560,6 +5743,10 @@ BlackHat temeljni novčanik</translation>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
         <translation>Ako paytxfee nije postavljen, uključite dovoljnu naknadu kako bi transakcije započele potvrdu u prosjeku unutar n blokova (zadana vrijednost: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>U ovom načinu rada -genproclimit kontrolira koliko blokova se generiraju odmah.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
@@ -5847,12 +6034,12 @@ BlackHat temeljni novčanik</translation>
         <translation>Informacije</translation>
     </message>
     <message>
-        <source>Insufficient funds.</source>
-        <translation>Nedovoljna sredstva.</translation>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Provjera ispravnosti inicijalizacije nije uspjela. BlackHat Core se zatvara.</translation>
     </message>
     <message>
-        <source>Invalid -masternodeaddr port %d, isn't the same as the peer port %d</source>
-        <translation>Neispravan -masternodeaddr port %d, nije isti kao peer port %d</translation>
+        <source>Insufficient funds.</source>
+        <translation>Nedovoljna sredstva.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -5873,6 +6060,10 @@ BlackHat temeljni novčanik</translation>
     <message>
         <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
         <translation>Pogreška: pronađen je nepotpuni argument. Checklevel mora biti razina 4.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Izvrši naredbu kada se najbolji blok promjeni i kada njegova veličina premaši (%s u cmd je zamijenjen s blok hashom, %d s veličinom bloka)</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6443,6 +6634,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Ovo je eksperimentalni softver.</translation>
     </message>
     <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>To je namijenjeno alatima za test regresije i razvoju aplikacija.</translation>
+    </message>
+    <message>
         <source>This is not a masternode. 'local' option disabled.</source>
         <translation>Ovo nije masternode. 'lokalna' opcija isključena.</translation>
     </message>
@@ -6511,8 +6706,16 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nadogradnja novčanika u najnoviji format</translation>
     </message>
     <message>
+        <source>Upgrading coins database...</source>
+        <translation>Nadograđjujem novčanu bazu podataka...</translation>
+    </message>
+    <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Koristite UPnP za mapiranje priključka za slušanje (zadano: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Koristi testnu mrežu</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>

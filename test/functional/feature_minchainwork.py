@@ -20,6 +20,7 @@ import time
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import connect_nodes, assert_equal
 
+
 # 2 hashes required per regtest block (with no difficulty adjustment)
 REGTEST_WORK_PER_BLOCK = 2
 
