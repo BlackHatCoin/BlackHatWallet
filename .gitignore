@@ -64,6 +64,7 @@ libtool
 src/config/blkc-config.h
 src/config/blkc-config.h.in
 src/config/stamp-h1
+src/obj
 share/setup.nsi
 share/qt/Info.plist
 contrib/devtools/split-debug.sh

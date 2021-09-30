@@ -4,6 +4,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "timedata.h"
 
 #include "chainparams.h"
@@ -78,7 +82,7 @@ void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample, int nOffsetLimit)
             SetMiscWarning("");
         } else {
             nTimeOffset = (nMedian > 0 ? 1 : -1) * nOffsetLimit;
-            std::string strMessage = _("Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.");
+            std::string strMessage = strprintf(_("Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly."), PACKAGE_NAME);
             SetMiscWarning(strMessage);
             LogPrintf("*** %s\n", strMessage);
             uiInterface.ThreadSafeMessageBox(strMessage, "", CClientUIInterface::MSG_ERROR);

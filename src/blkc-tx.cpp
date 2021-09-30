@@ -4,6 +4,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "clientversion.h"
 #include "coins.h"
 #include "core_io.h"
@@ -44,43 +48,42 @@ static bool AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || gArgs.IsArgSet("-?") || gArgs.IsArgSet("-h") || gArgs.IsArgSet("-help")) {
         // First part of help message is specific to this utility
-        std::string strUsage = _("BlackHat Core blkc-tx utility version") + " " + FormatFullVersion() + "\n\n" +
-                               _("Usage:") + "\n" +
-                               "  blkc-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded blkc transaction") + "\n" +
-                               "  blkc-tx [options] -create [commands]   " + _("Create hex-encoded blkc transaction") + "\n" +
+        std::string strUsage = PACKAGE_NAME " blkc-tx utility version " + FormatFullVersion() + "\n\n" +
+                               "Usage:  blkc-tx [options] <hex-tx> [commands]  Update hex-encoded blkc transaction\n" +
+                               "or:     blkc-tx [options] -create [commands]   Create hex-encoded blkc transaction\n" +
                                "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());
 
-        strUsage = HelpMessageGroup(_("Options:"));
-        strUsage += HelpMessageOpt("-?", _("This help message"));
-        strUsage += HelpMessageOpt("-create", _("Create new, empty TX."));
-        strUsage += HelpMessageOpt("-json", _("Select JSON output"));
-        strUsage += HelpMessageOpt("-txid", _("Output only the hex-encoded transaction id of the resultant transaction."));
-        strUsage += HelpMessageOpt("-regtest", _("Enter regression test mode, which uses a special chain in which blocks can be solved instantly."));
-        strUsage += HelpMessageOpt("-testnet", _("Use the test network"));
+        strUsage = HelpMessageGroup("Options:");
+        strUsage += HelpMessageOpt("-?", "This help message");
+        strUsage += HelpMessageOpt("-create", "Create new, empty TX.");
+        strUsage += HelpMessageOpt("-json", "Select JSON output");
+        strUsage += HelpMessageOpt("-txid", "Output only the hex-encoded transaction id of the resultant transaction.");
+        strUsage += HelpMessageOpt("-regtest", "Enter regression test mode, which uses a special chain in which blocks can be solved instantly.");
+        strUsage += HelpMessageOpt("-testnet", "Use the test network");
 
         fprintf(stdout, "%s", strUsage.c_str());
 
 
-        strUsage = HelpMessageGroup(_("Commands:"));
-        strUsage += HelpMessageOpt("delin=N", _("Delete input N from TX"));
-        strUsage += HelpMessageOpt("delout=N", _("Delete output N from TX"));
-        strUsage += HelpMessageOpt("in=TXID:VOUT", _("Add input to TX"));
-        strUsage += HelpMessageOpt("locktime=N", _("Set TX lock time to N"));
-        strUsage += HelpMessageOpt("nversion=N", _("Set TX version to N"));
-        strUsage += HelpMessageOpt("outaddr=VALUE:ADDRESS", _("Add address-based output to TX"));
-        strUsage += HelpMessageOpt("outscript=VALUE:SCRIPT", _("Add raw script output to TX"));
-        strUsage += HelpMessageOpt("sign=SIGHASH-FLAGS", _("Add zero or more signatures to transaction") + ". " +
-            _("This command requires JSON registers:") +
-            _("prevtxs=JSON object") + ", " +
-            _("privatekeys=JSON object") + ". " +
-            _("See signrawtransaction docs for format of sighash flags, JSON objects."));
+        strUsage = HelpMessageGroup("Commands:");
+        strUsage += HelpMessageOpt("delin=N", "Delete input N from TX");
+        strUsage += HelpMessageOpt("delout=N", "Delete output N from TX");
+        strUsage += HelpMessageOpt("in=TXID:VOUT", "Add input to TX");
+        strUsage += HelpMessageOpt("locktime=N", "Set TX lock time to N");
+        strUsage += HelpMessageOpt("nversion=N", "Set TX version to N");
+        strUsage += HelpMessageOpt("outaddr=VALUE:ADDRESS", "Add address-based output to TX");
+        strUsage += HelpMessageOpt("outscript=VALUE:SCRIPT", "Add raw script output to TX");
+        strUsage += HelpMessageOpt("sign=SIGHASH-FLAGS", "Add zero or more signatures to transaction. "
+            "This command requires JSON registers:"
+            "prevtxs=JSON object, "
+            "privatekeys=JSON object. "
+            "See signrawtransaction docs for format of sighash flags, JSON objects.");
         fprintf(stdout, "%s", strUsage.c_str());
 
-        strUsage = HelpMessageGroup(_("Register Commands:"));
-        strUsage += HelpMessageOpt("load=NAME:FILENAME", _("Load JSON file FILENAME into register NAME"));
-        strUsage += HelpMessageOpt("set=NAME:JSON-STRING", _("Set register NAME to given JSON-STRING"));
+        strUsage = HelpMessageGroup("Register Commands:");
+        strUsage += HelpMessageOpt("load=NAME:FILENAME", "Load JSON file FILENAME into register NAME");
+        strUsage += HelpMessageOpt("set=NAME:JSON-STRING", "Set register NAME to given JSON-STRING");
         fprintf(stdout, "%s", strUsage.c_str());
 
         return false;

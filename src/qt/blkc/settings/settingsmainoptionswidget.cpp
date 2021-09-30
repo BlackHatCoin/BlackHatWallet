@@ -52,7 +52,7 @@ SettingsMainOptionsWidget::SettingsMainOptionsWidget(BLKCGUI* _window, QWidget *
     setCssProperty({ui->labelTitleSizeDb, ui->labelTitleThreads}, "text-main-settings");
 
     // Switch
-    ui->pushSwitchStart->setText(tr("Start BlackHat on system login"));
+    ui->pushSwitchStart->setText(tr("Start %1 on system login").arg(PACKAGE_NAME));
     ui->pushSwitchStart->setProperty("cssClass", "btn-switch");
 
 #ifdef Q_OS_MAC

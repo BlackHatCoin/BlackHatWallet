@@ -105,9 +105,7 @@ public:
 
             // First check if the amount of txs exceeds the UI limit
             if (txesSize > MAX_AMOUNT_LOADED_RECORDS) {
-                // Sort the txs by date just to be really really sure that them are ordered.
-                // (this extra calculation should be removed in the future if can ensure that
-                // txs are stored in order in the db, which is what should be happening)
+                // Sort the txs by date
                 sort(walletTxes.begin(), walletTxes.end(),
                         [](const CWalletTx & a, const CWalletTx & b) -> bool {
                          return a.GetTxTime() > b.GetTxTime();
@@ -154,6 +152,10 @@ public:
                     nFirstLoadedTxTime = convertRes.nFirstLoadedTxTime;
                 }
             }
+
+            // Now that all records have been cached, sort them by tx hash
+            std::sort(cachedWallet.begin(), cachedWallet.end(), TxLessThan());
+
         } else {
             // Single thread flow
             ConvertTxToVectorResult convertRes = convertTxToRecords(wallet, walletTxes);

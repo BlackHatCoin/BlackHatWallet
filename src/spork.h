@@ -88,8 +88,9 @@ public:
     int64_t GetSporkValue(SporkId nSporkID);
     // Create/Sign/Relay the spork message, and update the maps
     bool UpdateSpork(SporkId nSporkID, int64_t nValue);
-    // Add spork message to mapSporks and mapSporksActive
-    void AddOrUpdateSporkMessage(const CSporkMessage& spork);
+    // Add spork message to mapSporks and mapSporksActive.
+    // if flush=true, save to DB as well
+    void AddOrUpdateSporkMessage(const CSporkMessage& spork, bool flush = false);
 
     bool IsSporkActive(SporkId nSporkID);
     std::string GetSporkNameByID(SporkId id);

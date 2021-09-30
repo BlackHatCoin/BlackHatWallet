@@ -936,7 +936,8 @@
                       <string notr="true">padding:1px;</string>
                      </property>
                      <property name="text">
-                      <string>Welcome to BlackHat Core Wallet</string>
+                      <string>Welcome to
+%1 Wallet</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignCenter</set>

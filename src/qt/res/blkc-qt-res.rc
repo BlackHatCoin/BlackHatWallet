@@ -20,13 +20,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "BlackHat"
-            VALUE "FileDescription",    "BlackHat Core (OSS GUI client for BlackHat)"
+            VALUE "FileDescription",    PACKAGE_NAME " (OSS GUI client for BlackHat)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "blkc-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "blkc-qt.exe"
-            VALUE "ProductName",        "BlackHat Core"
+            VALUE "ProductName",        PACKAGE_NAME
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

@@ -4520,7 +4520,7 @@ UniValue setautocombinethreshold(const JSONRPCRequest& request)
             "}\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("setautocombinethreshold", "500.12") + HelpExampleRpc("setautocombinethreshold", "500.12"));
+            HelpExampleCli("setautocombinethreshold", "true 500.12") + HelpExampleRpc("setautocombinethreshold", "true, 500.12"));
 
     RPCTypeCheck(request.params, {UniValue::VBOOL, UniValue::VNUM});
 

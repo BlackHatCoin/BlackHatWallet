@@ -46,10 +46,8 @@ private:
     // Cached last address
     SendCoinsRecipient *info{nullptr};
 
-    QPixmap *qrImage{nullptr};
-
-    void updateQr(QString str);
-    void inform(QString text);
+    void updateQr(const QString& str);
+    void inform(const QString& text);
 };
 
 #endif // REQUESTDIALOG_H
