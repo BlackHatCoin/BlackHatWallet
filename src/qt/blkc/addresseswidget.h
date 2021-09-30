@@ -8,13 +8,11 @@
 
 #include "qt/blkc/pwidget.h"
 #include "addresstablemodel.h"
-#include "qt/blkc/tooltipmenu.h"
 #include "furabstractlistitemdelegate.h"
-#include "qt/blkc/addressfilterproxymodel.h"
 
 #include <QWidget>
 
-class AddressViewDelegate;
+class AddressFilterProxyModel;
 class TooltipMenu;
 class BLKCGUI;
 class WalletModel;
@@ -36,7 +34,6 @@ public:
     ~AddressesWidget();
 
     void loadWalletModel() override;
-    void onNewContactClicked();
 
 private Q_SLOTS:
     void handleAddressClicked(const QModelIndex &index);
@@ -56,7 +53,6 @@ private:
     AddressTableModel* addressTablemodel = nullptr;
     AddressFilterProxyModel *filter = nullptr;
 
-    bool isOnMyAddresses = true;
     TooltipMenu* menu = nullptr;
 
     // Cached index

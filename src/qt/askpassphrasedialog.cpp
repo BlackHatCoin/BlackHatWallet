@@ -5,6 +5,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "askpassphrasedialog.h"
 #include "ui_askpassphrasedialog.h"
 #include <QGraphicsDropShadowEffect>
@@ -348,9 +352,9 @@ void AskPassphraseDialog::warningMessage()
     openStandardDialog(
             tr("Wallet encrypted"),
             "<qt>" +
-            tr("BlackHat will close now to finish the encryption process. "
+            tr("%1 will close now to finish the encryption process. "
                "Remember that encrypting your wallet cannot fully protect "
-               "your BLKCs from being stolen by malware infecting your computer.") +
+               "your BLKCs from being stolen by malware infecting your computer.").arg(PACKAGE_NAME) +
             "<br><br><b>" +
             tr("IMPORTANT: Any previous backups you have made of your wallet file "
                "should be replaced with the newly generated, encrypted wallet file. "

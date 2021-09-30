@@ -6,6 +6,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "wallet/wallet.h"
 
 #include "budget/budgetmanager.h"
@@ -4130,10 +4134,10 @@ CWallet* CWallet::CreateWalletFromFile(const std::string& name, const fs::path& 
             UIWarning(strprintf(_("Warning: error reading %s! All keys read correctly, but transaction data"
                          " or address book entries might be missing or incorrect."), walletFile));
         } else if (nLoadWalletRet == DB_TOO_NEW) {
-            UIError(strprintf(_("Error loading %s: Wallet requires newer version of BlackHat Core"), walletFile));
+            UIError(strprintf(_("Error loading %s: Wallet requires newer version of %s"), walletFile, PACKAGE_NAME));
             return nullptr;
         } else if (nLoadWalletRet == DB_NEED_REWRITE) {
-            UIError(_("Wallet needed to be rewritten: restart BlackHat Core to complete"));
+            UIError(strprintf(_("Wallet needed to be rewritten: restart %s to complete"), PACKAGE_NAME));
             return nullptr;
         } else {
             UIError(strprintf(_("Error loading %s\n"), walletFile));

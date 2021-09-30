@@ -3,6 +3,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "qt/blkc/settings/settingsfaqwidget.h"
 #include "qt/blkc/settings/forms/ui_settingsfaqwidget.h"
 #include "clientmodel.h"
@@ -116,11 +120,12 @@ SettingsFaqWidget::SettingsFaqWidget(BLKCGUI* parent, ClientModel* _model) :
 
     QString masternodeContent = formatFAQContent(
         formatFAQParagraph(
-            tr("A masternode is a computer running a full node BlackHat core wallet with a "
-               "requirement of %1 secured collateral to provide extra services "
+            tr("A masternode is a computer running a full node %1 wallet with a "
+               "requirement of %2 secured collateral to provide extra services "
                "to the network and in return, receive a portion of the block reward "
                "regularly. These services include:")
-               .arg(GUIUtil::formatBalance(clientModel->getMNCollateralRequiredAmount(), BitcoinUnits::BLKC)) +
+                .arg(PACKAGE_NAME)
+                .arg(GUIUtil::formatBalance(clientModel->getMNCollateralRequiredAmount(), BitcoinUnits::BLKC)) +
             formatFAQUnorderedList(
                 formatFAQListItem(tr("A decentralized governance (Proposal Voting)")) +
                 formatFAQListItem(tr("A decentralized budgeting system (Treasury)")) +

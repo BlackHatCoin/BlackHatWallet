@@ -20,7 +20,7 @@ void AddressLabelRow::init(bool isLightTheme, bool isHover)
     updateState(isLightTheme, isHover, false);
 }
 
-void AddressLabelRow::updateView(QString address, QString label)
+void AddressLabelRow::updateView(const QString& address, const QString& label)
 {
     ui->lblAddress->setText(address);
     ui->lblLabel->setText(label);

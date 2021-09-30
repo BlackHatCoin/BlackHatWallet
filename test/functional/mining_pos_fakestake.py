@@ -150,7 +150,7 @@ class FakeStakeTest(BlackHatTestFramework):
         prevModifier = self.nodes[1].getblock(prevBlockHash)['stakeModifier']
         block = self.stake_block(1, 7, 258, prevBlockHash, prevModifier, "0",
                                  self.get_prevouts(1, list(self.utxos_to_spend)), self.mocktime, "", [], False)
-        self.send_block_and_check_error(block, "tx inputs spent/not-available on forked chain pre-split")
+        self.send_block_and_check_error(block, "bad-txns-inputs-spent-fork-pre-split")
         assert_equal(self.nodes[1].getblockcount(), 260)
         self.log.info("--> Test_2 passed")
 
@@ -246,7 +246,7 @@ class FakeStakeTest(BlackHatTestFramework):
                 elif isMainChain:
                     reject_log = "tx inputs spent/not-available on main chain"
                 else:
-                    reject_log = "tx inputs spent on forked chain post-split"
+                    reject_log = "bad-txns-inputs-spent-fork-post-split"
                 self.send_block_and_check_error(block, reject_log)
             else:
                 var = self.nodes[1].submitblock(bytes_to_hex_str(block.serialize()))

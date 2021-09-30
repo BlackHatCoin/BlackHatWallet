@@ -9,7 +9,6 @@
 #include "qt/blkc/addnewcontactdialog.h"
 #include "qt/blkc/qtutils.h"
 #include "qt/blkc/myaddressrow.h"
-#include "qt/blkc/furlistrow.h"
 #include "qt/blkc/addressholder.h"
 #include "walletmodel.h"
 #include "guiutil.h"
@@ -146,11 +145,10 @@ void ReceiveWidget::refreshView(const QModelIndex& tl, const QModelIndex& br)
     return refreshView(index.data(Qt::DisplayRole).toString());
 }
 
-void ReceiveWidget::refreshView(QString refreshAddress)
+void ReceiveWidget::refreshView(const QString& refreshAddress)
 {
     try {
-        QString latestAddress = (refreshAddress.isEmpty()) ? this->addressTableModel->getAddressToShow(shieldedMode) : refreshAddress;
-
+        const QString& latestAddress = (refreshAddress.isEmpty()) ? addressTableModel->getAddressToShow(shieldedMode) : refreshAddress;
         if (latestAddress.isEmpty()) {
             // Check for generation errors
             ui->labelQrImg->setText(tr("No available address\ntry unlocking the wallet"));
@@ -190,7 +188,7 @@ void ReceiveWidget::updateLabel()
     }
 }
 
-void ReceiveWidget::updateQr(QString& address)
+void ReceiveWidget::updateQr(const QString& address)
 {
     info->address = address;
     QString uri = GUIUtil::formatBitcoinURI(*info);
@@ -200,8 +198,7 @@ void ReceiveWidget::updateQr(QString& address)
     QColor qrColor("#323232");
     QPixmap pixmap = encodeToQr(uri, error, qrColor);
     if (!pixmap.isNull()) {
-        qrImage = &pixmap;
-        ui->labelQrImg->setPixmap(qrImage->scaled(ui->labelQrImg->width(), ui->labelQrImg->height()));
+        ui->labelQrImg->setPixmap(pixmap.scaled(ui->labelQrImg->width(), ui->labelQrImg->height()));
     } else {
         ui->labelQrImg->setText(!error.isEmpty() ? error : "Error encoding address");
     }
@@ -237,6 +234,7 @@ void ReceiveWidget::onLabelClicked()
                 inform(tr("Error storing address label"));
             }
         }
+        dialog->deleteLater();
         isShowingDialog = false;
     }
 }

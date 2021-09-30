@@ -46,7 +46,7 @@ private Q_SLOTS:
     void onLabelClicked();
     void onCopyClicked();
     void refreshView(const QModelIndex& tl, const QModelIndex& br);
-    void refreshView(QString refreshAddress = QString());
+    void refreshView(const QString& refreshAddress = QString());
     void handleAddressClicked(const QModelIndex &index);
     void onSortChanged(int idx);
     void onSortOrderChanged(int idx);
@@ -63,14 +63,12 @@ private:
 
     // Cached last address
     SendCoinsRecipient *info{nullptr};
-    // Cached qr
-    QPixmap *qrImage{nullptr};
 
     // Cached sort type and order
     AddressTableModel::ColumnIndex sortType = AddressTableModel::Label;
     Qt::SortOrder sortOrder = Qt::AscendingOrder;
 
-    void updateQr(QString& address);
+    void updateQr(const QString& address);
     void updateLabel();
     void showAddressGenerationDialog(bool isPaymentRequest);
     void sortAddresses();

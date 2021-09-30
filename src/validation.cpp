@@ -861,7 +861,6 @@ CAmount GetBlockValue(int nHeight)
 
 int64_t GetMasternodePayment(int nHeight)
 {
-    //return GetBlockValue(nHeight) * 0.6 * COIN;
     return GetBlockValue(nHeight) * 0.6;
 }
 
@@ -3115,8 +3114,10 @@ static bool CheckInBlockDoubleSpends(const CBlock& block, int nHeight, CValidati
  * Return false also when the fork is longer than -maxreorg.
  * Return true otherwise.
  * Save in pindexFork the index of the pre-split block (last common block with the active chain).
+ * Remove from the outpoints set, any coin that was created in the fork (we don't
+ * need to check that it was unspent on the active chain before the split).
  */
-static bool IsUnspentOnFork(const std::unordered_set<COutPoint, SaltedOutpointHasher>& outpoints,
+static bool IsUnspentOnFork(std::unordered_set<COutPoint, SaltedOutpointHasher>& outpoints,
                             const std::set<CBigNum>& serials,
                             const CBlockIndex* startIndex, CValidationState& state, const CBlockIndex*& pindexFork)
 {
@@ -3124,33 +3125,48 @@ static bool IsUnspentOnFork(const std::unordered_set<COutPoint, SaltedOutpointHa
     int readBlock = 0;
     pindexFork = startIndex;
     for ( ; !chainActive.Contains(pindexFork); pindexFork = pindexFork->pprev) {
-        // read block
-        CBlock bl;
-        if (!ReadBlockFromDisk(bl, pindexFork)) {
-            return error("%s: block %s not on disk", __func__, pindexFork->GetBlockHash().GetHex());
-        }
         // Check if the forked chain is longer than the max reorg limit
         if (++readBlock == gArgs.GetArg("-maxreorg", DEFAULT_MAX_REORG_DEPTH)) {
             // TODO: Remove this chain from disk.
             return error("%s: forked chain longer than maximum reorg limit", __func__);
         }
+        if (pindexFork->pprev == nullptr) {
+            return error("%s: null pprev for block %s", __func__, pindexFork->GetBlockHash().GetHex());
+        }
+
+        // if there are no coins left, don't read the block
+        if (outpoints.empty() && serials.empty()) continue;
+
+        // read block
+        CBlock bl;
+        if (!ReadBlockFromDisk(bl, pindexFork)) {
+            return error("%s: block %s not on disk", __func__, pindexFork->GetBlockHash().GetHex());
+        }
         // Loop through every tx of this block
-        for (const auto& tx : bl.vtx) {
+        // (reversed because we first check spent outpoints, and then remove created ones)
+        for (auto it = bl.vtx.rbegin(); it != bl.vtx.rend(); ++it) {
+            CTransactionRef tx = *it;
             // Loop through every input of this tx
             for (const CTxIn& in: tx->vin) {
                 // check if any of the provided outpoints/serials is being spent
                 if (!in.IsZerocoinSpend()) {
                     // regular utxo
                     if (outpoints.find(in.prevout) != outpoints.end()) {
-                        return state.DoS(100, error("%s: tx inputs spent on forked chain post-split (%s)", __func__, in.prevout.ToString()));
+                        return state.DoS(100, error("bad-txns-inputs-spent-fork-post-split"));
                     }
                 } else {
                     // zerocoin serial
                     const CBigNum& s = TxInToZerocoinSpend(in).getCoinSerialNumber();
                     if (serials.find(s) != serials.end()) {
-                        return state.DoS(100, error("%s: zc serials spent on forked chain post-split", __func__));
+                        return state.DoS(100, false, REJECT_INVALID, "bad-txns-serials-spent-fork-post-split");
                     }
                 }
+            }
+            // Then remove from the outpoints set, any coin created by this tx
+            const uint256& txid = tx->GetHash();
+            for (size_t i = 0; i < tx->vout.size(); i++) {
+                // erase if present (no-op if not)
+                outpoints.erase(COutPoint(txid, i));
             }
         }
     }
@@ -3162,15 +3178,15 @@ static bool IsUnspentOnFork(const std::unordered_set<COutPoint, SaltedOutpointHa
 
 /*
  * Check whether ALL the provided inputs (regular utxos) are SPENT on the currently active chain.
- * Start from startIndex and go upwards on the active chain, up to the tip.
+ * Start from the block on top of pindexFork, and go upwards on the active chain, up to the tip.
  * Remove from the 'outpoints' set, all the inputs spent by transactions included in the scanned
  * blocks. At the end, return true if the set is empty (all outpoints are spent), and false
  * otherwise (some outpoint is unspent).
  */
-static bool IsSpentOnActiveChain(std::unordered_set<COutPoint, SaltedOutpointHasher>& outpoints, const CBlockIndex* startIndex)
+static bool IsSpentOnActiveChain(std::unordered_set<COutPoint, SaltedOutpointHasher>& outpoints, const CBlockIndex* pindexFork)
 {
-    assert(chainActive.Contains(startIndex));
-    const int height_start = startIndex->nHeight;
+    assert(chainActive.Contains(pindexFork));
+    const int height_start = pindexFork->nHeight + 1;
     const int height_end = chainActive.Height();
 
     // Go upwards on the active chain till the tip
@@ -3254,10 +3270,12 @@ static bool AcceptBlock(const CBlock& block, CValidationState& state, CBlockInde
 
         // If this is a fork, check if all the tx inputs were spent in the fork
         // Start at the block we're adding on to.
+        // Also remove from spent_outpoints any coin that was created in the fork
         const CBlockIndex* pindexFork{nullptr}; // index of the split block (last common block between fork and active chain)
         if (isBlockFromFork && !IsUnspentOnFork(spent_outpoints, spent_serials, pindexPrev, state, pindexFork)) {
             return false;
         }
+        assert(!isBlockFromFork || pindexFork != nullptr);
 
         // Reject forks below maxdepth
         if (isBlockFromFork && chainActive.Height() - pindexFork->nHeight > gArgs.GetArg("-maxreorg", DEFAULT_MAX_REORG_DEPTH)) {
@@ -3279,6 +3297,10 @@ static bool AcceptBlock(const CBlock& block, CValidationState& state, CBlockInde
         for (auto it = spent_outpoints.begin(); it != spent_outpoints.end(); /* no increment */) {
             const Coin& coin = pcoinsTip->AccessCoin(*it);
             if (!coin.IsSpent()) {
+                // if this is on a fork, then the coin must be created before the split
+                if (isBlockFromFork && (int) coin.nHeight > pindexFork->nHeight) {
+                    return state.DoS(100, error("bad-txns-inputs-created-post-split"));
+                }
                 // unspent on active chain
                 it = spent_outpoints.erase(it);
             } else {
@@ -3289,14 +3311,19 @@ static bool AcceptBlock(const CBlock& block, CValidationState& state, CBlockInde
             }
         }
         if (isBlockFromFork && !spent_outpoints.empty()) {
-            // Some coins were spent on the active chain.
+            // Some coins are not spent on the fork post-split, but cannot be found in the coins cache.
+            // So they were either created on the fork, or spent on the active chain.
+            // Since coins created in the fork are removed by IsUnspentOnFork(), if there are some coins left,
+            // they were spent on the active chain.
+            // If some of them was not spent after the split, then the block is invalid.
             // Walk the active chain, starting from pindexFork, going upwards till the chain tip, and check if
             // all of these coins were spent by transactions included in the scanned blocks.
             // If ALL of them are spent, then accept the block.
             // Otherwise reject it, as it means that this blocks includes a transaction with an input that is
             // either already spent before the chain split, or non-existent.
-            if (!IsSpentOnActiveChain(spent_outpoints, pindexFork))
-                return error("%s: tx inputs spent/not-available on forked chain pre-split", __func__);
+            if (!IsSpentOnActiveChain(spent_outpoints, pindexFork)) {
+                return state.DoS(100, error("bad-txns-inputs-spent-fork-pre-split"));
+            }
         }
 
         // ZPOS contextual checks

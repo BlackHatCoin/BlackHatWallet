@@ -5,6 +5,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include "config/blkc-config.h"
+#endif
+
 #include "intro.h"
 #include "ui_intro.h"
 
@@ -114,8 +118,8 @@ Intro::Intro(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::W
     setCssProperty(ui->frame, "container-welcome-step2");
     setCssProperty(ui->container, "container-welcome-stack");
     setCssProperty(ui->frame_2, "container-welcome");
-    setCssProperty(ui->label_2, "text-title-welcome");
-    setCssProperty(ui->label_4, "text-intro-white");
+    setCssProperty(ui->welcomeLabel, "text-title-welcome");
+    setCssProperty(ui->storageLabel, "text-intro-white");
     setCssProperty(ui->sizeWarningLabel, "text-intro-white");
     setCssProperty(ui->freeSpace, "text-intro-white");
     setCssProperty(ui->errorMessage, "text-intro-white");
@@ -130,7 +134,9 @@ Intro::Intro(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::W
     connect(ui->pushButtonOk, &QPushButton::clicked, this, &Intro::accept);
     connect(ui->pushButtonCancel, &QPushButton::clicked, this, &Intro::close);
 
-    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(BLOCK_CHAIN_SIZE / GB_BYTES));
+    ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(PACKAGE_NAME));
+    ui->storageLabel->setText(ui->storageLabel->text().arg(PACKAGE_NAME));
+    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(PACKAGE_NAME).arg(BLOCK_CHAIN_SIZE / GB_BYTES));
     startThread();
 }
 
@@ -200,7 +206,7 @@ bool Intro::pickDataDirectory()
                 }
                 break;
             } catch (const fs::filesystem_error& e) {
-                QMessageBox::critical(0, tr("BlackHat Core"),
+                QMessageBox::critical(nullptr, PACKAGE_NAME,
                     tr("Error: Specified data directory \"%1\" cannot be created.").arg(dataDir));
                 // fall through, back to choosing screen
             }

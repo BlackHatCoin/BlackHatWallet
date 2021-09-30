@@ -7,7 +7,6 @@
 #define RECEIVEDIALOG_H
 
 #include "qt/blkc/focuseddialog.h"
-#include <QPixmap>
 
 class SendCoinsRecipient;
 
@@ -23,13 +22,12 @@ public:
     explicit ReceiveDialog(QWidget *parent = nullptr);
     ~ReceiveDialog();
 
-    void updateQr(QString address);
+    void updateQr(const QString& address);
 
 private Q_SLOTS:
     void onCopy();
 private:
     Ui::ReceiveDialog *ui{nullptr};
-    QPixmap *qrImage{nullptr};
     SendCoinsRecipient *info{nullptr};
 };
 

@@ -163,21 +163,20 @@ void RequestDialog::showEvent(QShowEvent *event)
     if (ui->lineEditAmount) ui->lineEditAmount->setFocus();
 }
 
-void RequestDialog::updateQr(QString str)
+void RequestDialog::updateQr(const QString& str)
 {
     QString uri = GUIUtil::formatBitcoinURI(*info);
     ui->labelQrImg->setText("");
     QString error;
     QPixmap pixmap = encodeToQr(uri, error);
     if (!pixmap.isNull()) {
-        qrImage = &pixmap;
-        ui->labelQrImg->setPixmap(qrImage->scaled(ui->labelQrImg->width(), ui->labelQrImg->height()));
+        ui->labelQrImg->setPixmap(pixmap.scaled(ui->labelQrImg->width(), ui->labelQrImg->height()));
     } else {
         ui->labelQrImg->setText(!error.isEmpty() ? error : "Error encoding address");
     }
 }
 
-void RequestDialog::inform(QString text)
+void RequestDialog::inform(const QString& text)
 {
     if (!snackBar)
         snackBar = new SnackBar(nullptr, this);
