@@ -3006,7 +3006,8 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend,
     CAmount nFeePay,
     bool fIncludeDelegated,
     bool* fStakeDelegationVoided,
-    int nExtraSize)
+    int nExtraSize,
+    int nMinDepth)
 {
     CAmount nValue = 0;
     int nChangePosRequest = nChangePosInOut;
@@ -3031,6 +3032,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend,
     CWallet::AvailableCoinsFilter coinFilter;
     coinFilter.fOnlySpendable = true;
     coinFilter.fIncludeDelegated = fIncludeDelegated;
+    coinFilter.minDepth = nMinDepth;
 
     {
         std::set<std::pair<const CWalletTx*,unsigned int> > setCoins;

@@ -2222,9 +2222,20 @@ void CConnman::RelayInv(CInv& inv)
 {
     LOCK(cs_vNodes);
     for (CNode* pnode : vNodes){
-        if((pnode->nServices == NODE_BLOOM_WITHOUT_MN) && inv.IsMasterNodeType())continue;
+        if (!pnode->fSuccessfullyConnected) continue;
+        if ((pnode->nServices == NODE_BLOOM_WITHOUT_MN) && inv.IsMasterNodeType()) continue;
         if (pnode->nVersion >= ActiveProtocol())
             pnode->PushInventory(inv);
+    }
+}
+
+void CConnman::RemoveAskFor(const uint256& invHash, int invType)
+{
+    mapAlreadyAskedFor.erase(CInv(invType, invHash));
+
+    LOCK(cs_vNodes);
+    for (const auto& pnode : vNodes) {
+        pnode->AskForInvReceived(invHash);
     }
 }
 
@@ -2369,6 +2380,18 @@ void CNode::AskFor(const CInv& inv)
     else
         mapAlreadyAskedFor.insert(std::make_pair(inv, nRequestTime));
     mapAskFor.insert(std::make_pair(nRequestTime, inv));
+}
+
+void CNode::AskForInvReceived(const uint256& invHash)
+{
+    setAskFor.erase(invHash);
+    for (auto it = mapAskFor.begin(); it != mapAskFor.end();) {
+        if (it->second.hash == invHash) {
+            it = mapAskFor.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
 
 bool CConnman::NodeFullyConnected(const CNode* pnode)

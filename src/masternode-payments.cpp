@@ -443,6 +443,12 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
 
         if (pfrom->nVersion < ActiveProtocol()) return;
 
+        {
+            // Clear inv request
+            LOCK(cs_main);
+            g_connman->RemoveAskFor(winner.GetHash(), MSG_MASTERNODE_WINNER);
+        }
+
         int nHeight = mnodeman.GetBestHeight();
 
         if (masternodePayments.mapMasternodePayeeVotes.count(winner.GetHash())) {
@@ -499,7 +505,10 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
                 // If it's not a DMN, then it could be a non-synced MN.
                 // Let's try to request the MN to the node.
                 // (the AskForMN() will only broadcast it every 10 min).
-                mnodeman.AskForMN(pfrom, winner.vinMasternode);
+
+                // But, only ask for missing items after the initial syncing process is complete
+                //   otherwise will think a full sync succeeded when they return a result
+                if (pfrom && masternodeSync.IsSynced()) mnodeman.AskForMN(pfrom, winner.vinMasternode);
             }
             return;
         }
@@ -512,7 +521,9 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
         }
 
         if (masternodePayments.AddWinningMasternode(winner)) {
-            winner.Relay();
+            // Relay only if we are synchronized.
+            // Makes no sense to relay MNWinners to the peers from where we are syncing them.
+            if (masternodeSync.IsSynced()) winner.Relay();
             masternodeSync.AddedMasternodeWinner(winner.GetHash());
         }
     }

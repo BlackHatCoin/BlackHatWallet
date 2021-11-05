@@ -18,7 +18,7 @@
 #include <boost/variant.hpp>
 
 // transaction.h comment: spending taddr output requires CTxIn >= 148 bytes and typical taddr txout is 34 bytes
-#define CTXIN_SPEND_DUST_SIZE   148
+#define CTXIN_SPEND_DUST_SIZE   149
 #define CTXOUT_REGULAR_SIZE     34
 
 // These constants are defined in the protocol § 7.1:

@@ -39,6 +39,10 @@ protected:
     // Memory Only. Updated in NewBlock (blocks arrive in order)
     std::atomic<int> nBestHeight;
 
+    // Spam protection
+    // who's asked for the complete budget sync and the last time
+    std::map<CNetAddr, int64_t> mAskedUsForBudgetSync; // guarded by cs_budgets and cs_proposals.
+
     // Returns a const pointer to the budget with highest vote count
     const CFinalizedBudget* GetBudgetWithHighestVoteCount(int chainHeight) const;
     int GetHighestVoteCount(int chainHeight) const;
@@ -162,6 +166,11 @@ public:
             mapSeenFinalizedBudgetVotes.clear();
             mapOrphanFinalizedBudgetVotes.clear();
         }
+        {
+            LOCK2(cs_budgets, cs_proposals);
+            mAskedUsForBudgetSync.clear();
+        }
+
         LogPrintf("Budget object cleared\n");
     }
     void CheckAndRemove();

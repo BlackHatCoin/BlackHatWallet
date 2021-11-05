@@ -122,12 +122,12 @@
         <translation>Адреса получения</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Это ваши BLKC-адреса для отправки платежей. Перед отправкой монет всегда проверяйте сумму и адрес получателя.</translation>
+        <source>These are your BlackHat addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Это ваши BlackHat-адреса для отправки платежей. Перед отправкой монет всегда проверяйте сумму и адрес получателя.</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Это ваши BLKC-адреса для получения платежей. Для каждой транзакции рекомендуется использовать новый адрес получения.</translation>
+        <source>These are your BlackHat addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Это ваши BlackHat-адреса для получения платежей. Для каждой транзакции рекомендуется использовать новый адрес получения.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -361,10 +361,6 @@ for staking</source>
     <message>
         <source>CANCEL</source>
         <translation>ОТМЕНА</translation>
-    </message>
-    <message>
-        <source>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
-        <translation>BlackHat сейчас закроется, чтобы завершить процесс шифрования. Помните, что шифрование вашего кошелька не может полностью защитить ваши BLKC от кражи с использованием вредоносного ПО.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -652,18 +648,6 @@ for staking</source>
     <message>
         <source>no</source>
         <translation>нет</translation>
-    </message>
-    <message>
-        <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
-        <translation>Этот маркер становится красным если размер транзакции превысит 1000 байт.</translation>
-    </message>
-    <message>
-        <source>This means a fee of at least %1 per kB is required.</source>
-        <translation>Это означает, что необходима комиссия в размере как минимум %1 за kB</translation>
-    </message>
-    <message>
-        <source>Can vary +/- 1 byte per input.</source>
-        <translation>Может вариировать +/- 1 байт на каждый ввод</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -963,10 +947,6 @@ address</source>
         <translation>Сортировать по</translation>
     </message>
     <message>
-        <source>Amount of BLKC and zBLKC staked.</source>
-        <translation>Сумма добытых BLKC и zBLKC</translation>
-    </message>
-    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>Для того, чтобы увидеть правильный баланс, пожалуйста, дождитесь полной синхронизации кошелька</translation>
     </message>
@@ -1059,8 +1039,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Изменить адрес отправки</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BLKC address.</source>
-        <translation>Введенный адрес "%1" не является BLKC адресом.</translation>
+        <source>The entered address "%1" is not a valid BlackHat address.</source>
+        <translation>Введенный адрес "%1" не является BlackHat адресом.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1112,56 +1092,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>версия</translation>
     </message>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
         <source>(%1-bit)</source>
         <translation>(%1-бит)</translation>
     </message>
     <message>
-        <source>About BlackHat Core</source>
-        <translation>О BlackHat Core</translation>
-    </message>
-    <message>
         <source>Command-line options</source>
         <translation>Параметры командной строки</translation>
-    </message>
-    <message>
-        <source>Usage:</source>
-        <translation>Применение:</translation>
-    </message>
-    <message>
-        <source>command-line options</source>
-        <translation>параметры командной строки</translation>
-    </message>
-    <message>
-        <source>UI Options:</source>
-        <translation>Опции интерфейса</translation>
-    </message>
-    <message>
-        <source>Choose data directory on startup (default: %u)</source>
-        <translation>Выберите директорию для данных при запуске (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: %u)</source>
-        <translation>Показывать загрузочную заставку при запуске (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Hide QT staking charts on startup (default: %u)</source>
-        <translation>Скрыть график стекинга QT при запуске (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Задайте язык, например "de_DE"(по умолчанию: язык системы)</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Запускать свёрнутым</translation>
-    </message>
-    <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Задать корневой сертификат SSL для платежных запросов (по умолчанию: -system-)</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1173,18 +1109,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     <message>
         <source>Welcome</source>
         <translation>Добро пожаловать</translation>
-    </message>
-    <message>
-        <source>Welcome to BlackHat Core.</source>
-        <translation>Добро пожаловать в BlackHat Core.</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</source>
-        <translation>Поскольку это первый запуск программы, вы можете выбрать, где будут храниться данные BlackHat Core.</translation>
-    </message>
-    <message>
-        <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>BlackHat Core загрузит и сохранит копию цепочки блоков BlackHat. Каталог будет занимать около %1GB и со временем размер будет увеличиваться. Кроме того, в этом каталоге будет храниться кошелек.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1201,10 +1125,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     <message>
         <source>OK</source>
         <translation>ХОРОШО</translation>
-    </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1325,10 +1245,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     <message>
         <source>Make sure you have this amount of coins.</source>
         <translation>Убедитесь, что у вас есть такое количество монет.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;На новый пустой адрес в вашем кошельке&lt;/p&gt;&lt;p&gt; будет сделана транзакция в 5 000 BLKC. &lt;/p&gt;&lt;p&gt;Адрес отмечен под именем мастерноды.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1503,10 +1419,6 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
     <message>
         <source>Masternode data copied to the clipboard.</source>
         <translation>Данные Мастерноды скопированы в буфер обмена.</translation>
-    </message>
-    <message>
-        <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
-        <translation>Недостаточно баланса для создания мастерноды, требуется 5000 %1.</translation>
     </message>
     <message>
         <source>Remote Masternode Data</source>
@@ -1699,40 +1611,12 @@ STAKING</source>
         <translation>Открыть URI</translation>
     </message>
     <message>
-        <source>Open payment request from URI or file</source>
-        <translation>Запросить платеж через URI или файл</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>Текстовая метка</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>ОТМЕНА</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>ХОРОШО</translation>
-    </message>
-    <message>
-        <source>Select payment request file</source>
-        <translation>Выберите файл запроса платежа</translation>
-    </message>
-    <message>
-        <source>Select payment request file to open</source>
-        <translation>Выберите файл запроса платежа чтобы его открыть</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>Файл не найден</translation>
-    </message>
-    <message>
-        <source>Parsed data too large</source>
-        <translation>Проанализированные данные слишком большие</translation>
-    </message>
-    <message>
-        <source>Invalid URI, not starting with "blkc" prefix</source>
-        <translation>Неверный URI, не начинается с префикса "blkc"</translation>
     </message>
 </context>
 <context>
@@ -1743,290 +1627,7 @@ STAKING</source>
     </message>
 </context>
 <context>
-    <name>OptionsDialog</name>
-    <message>
-        <source>Options</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
-        <source>&amp;Main</source>
-        <translation>&amp;Основной</translation>
-    </message>
-    <message>
-        <source>Size of &amp;database cache</source>
-        <translation>Размер кэша &amp;базы данных</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
-        <source>Number of script &amp;verification threads</source>
-        <translation>Количество сценариев &amp;проверочных потоков</translation>
-    </message>
-    <message>
-        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
-        <translation>(0 = авто, &lt;0 = оставить свободных ядер)</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>К&amp;ошелек</translation>
-    </message>
-    <message>
-        <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>Отключив проведение неподтвержденных изменений все изменения о транзакции &lt;br/&gt;не будут использованы пока транзакция не получит хотя бы одно подтверждение.&lt;br/&gt;Также это влияет на расчет вашего баланса.</translation>
-    </message>
-    <message>
-        <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть клиентский порт BlackHat через роутер. Ваш роутер должен поддерживать UPnP, а сам сервис должен быть включен.</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside</source>
-        <translation>Принимать внешние подключения</translation>
-    </message>
-    <message>
-        <source>Allow incoming connections</source>
-        <translation>Разрешить входящие подключения</translation>
-    </message>
-    <message>
-        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>&amp;Подключиться через SOCKS5 (прокси-сервер по умолчанию):</translation>
-    </message>
-    <message>
-        <source>Expert</source>
-        <translation>Эксперт</translation>
-    </message>
-    <message>
-        <source>Automatically start BlackHat after logging in to the system.</source>
-        <translation>Автоматически запускать BlackHat после входа в систему.</translation>
-    </message>
-    <message>
-        <source>&amp;Start BlackHat on system login</source>
-        <translation>&amp;Запускать BlackHat при входе в систему</translation>
-    </message>
-    <message>
-        <source>Whether to show coin control features or not.</source>
-        <translation>Показывает или скрывает особенности управления монетами.</translation>
-    </message>
-    <message>
-        <source>Enable coin &amp;control features</source>
-        <translation>Включить функции &amp;управления монет</translation>
-    </message>
-    <message>
-        <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
-        <translation>Показать список всех ваших мастернод в первой вкладке&lt;br/&gt;и всех мастернод в сети во второй вкладке.</translation>
-    </message>
-    <message>
-        <source>Show Masternodes Tab</source>
-        <translation>Показать вкладку Мастернод</translation>
-    </message>
-    <message>
-        <source>&amp;Spend unconfirmed change</source>
-        <translation>&amp;Проведение неподтвержденных изменений</translation>
-    </message>
-    <message>
-        <source>&amp;Network</source>
-        <translation>&amp;Сеть</translation>
-    </message>
-    <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting BlackHat.</source>
-        <translation>Здесь можно выставить язык интерфейса. Изменения вступят в силу после перезапуска BlackHat.</translation>
-    </message>
-    <message>
-        <source>Language missing or translation incomplete? Help contributing translations.</source>
-        <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Карта порта, использующего &amp;UPnP</translation>
-    </message>
-    <message>
-        <source>Enable automatic minting of BLKC units to zBLKC</source>
-        <translation>Невозможно автоматически отчеканить единицы BLKC для zBLKC</translation>
-    </message>
-    <message>
-        <source>Enable zBLKC Automint</source>
-        <translation>Невозможно авточеканка  zBLKC</translation>
-    </message>
-    <message>
-        <source>Enable automatic zBLKC minting from specific addresses</source>
-        <translation>Включить автоматическое чеканку zBLKC с определенных адресов</translation>
-    </message>
-    <message>
-        <source>Enable Automint Addresses</source>
-        <translation>Включить адреса с автоматической чеканкой</translation>
-    </message>
-    <message>
-        <source>Percentage of incoming BLKC which get automatically converted to zBLKC via Zerocoin Protocol (min: 10%)</source>
-        <translation>Процент приходящих BLKC, которые автоматически конвертируются в zBLKC благодаря Zerocoin протоколу (min: 10%)</translation>
-    </message>
-    <message>
-        <source>Percentage of autominted zBLKC</source>
-        <translation>Процент  авточеканненых zBLKC</translation>
-    </message>
-    <message>
-        <source>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</source>
-        <translation>Подождите с автоматическим преобразованием в Zerocoin, пока не будет достаточно BLKC для этой номинации.</translation>
-    </message>
-    <message>
-        <source>Preferred Automint zBLKC Denomination</source>
-        <translation>Предпочитаемый номинал авточеканной  монеты  zBLKC</translation>
-    </message>
-    <message>
-        <source>Stake split threshold:</source>
-        <translation>Порог разделения доли:</translation>
-    </message>
-    <message>
-        <source>Connect to the BlackHat network through a SOCKS5 proxy.</source>
-        <translation>Подключиться к сети BlackHat через SOCKS5 прокси.</translation>
-    </message>
-    <message>
-        <source>Proxy &amp;IP:</source>
-        <translation>&amp;IP адрес:</translation>
-    </message>
-    <message>
-        <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
-        <translation>IP-адрес прокси сервера (например: IPv4: 127.0.0.1 / IPv6: ::1)</translation>
-    </message>
-    <message>
-        <source>&amp;Port:</source>
-        <translation>&amp;Порт</translation>
-    </message>
-    <message>
-        <source>Port of the proxy (e.g. 9050)</source>
-        <translation>Порт прокси сервера (например: 9050)</translation>
-    </message>
-    <message>
-        <source>&amp;Window</source>
-        <translation>&amp;Окно</translation>
-    </message>
-    <message>
-        <source>Show only a tray icon after minimizing the window.</source>
-        <translation>После сворачивания окна показывать только значок в трее.</translation>
-    </message>
-    <message>
-        <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>&amp;Свернуть в трей, а не на панель задач</translation>
-    </message>
-    <message>
-        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Сворачивать окно при закрывании вместо выхода из приложения. При включении этой опции покинуть приложение можно только после нажатия Выйти в меню программы.</translation>
-    </message>
-    <message>
-        <source>M&amp;inimize on close</source>
-        <translation>C&amp;ворачивать при закрытии</translation>
-    </message>
-    <message>
-        <source>&amp;Display</source>
-        <translation>&amp;Экран</translation>
-    </message>
-    <message>
-        <source>User Interface &amp;language:</source>
-        <translation>&amp;Язык Интерфейса</translation>
-    </message>
-    <message>
-        <source>User Interface Theme:</source>
-        <translation>Тема Интерфейса</translation>
-    </message>
-    <message>
-        <source>Unit to show amounts in:</source>
-        <translation>Единица для отображения сумм в:</translation>
-    </message>
-    <message>
-        <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Выберите стандарную дробную величину, которая будет показываться в графическом интерфейсе и при отправке монет.</translation>
-    </message>
-    <message>
-        <source>Decimal digits</source>
-        <translation>Десятичная разрядность</translation>
-    </message>
-    <message>
-        <source>Hide empty balances</source>
-        <translation>Скрыть пустые балансы</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes in transaction lists</source>
-        <translation>Скрыть орфаны в списках транзакций</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes</source>
-        <translation>Скрыть орфаны</translation>
-    </message>
-    <message>
-        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>Сторониие ссылки (такие как block exporer), которые отображаются в закладке "транзакции" как контекстное меню. %s в ссыле будет замещено хэшем транзакции. Ссылки отделяются друг от друга вертикальной чертой |.</translation>
-    </message>
-    <message>
-        <source>Third party transaction URLs</source>
-        <translation>Сторонние ссылки</translation>
-    </message>
-    <message>
-        <source>Active command-line options that override above options:</source>
-        <translation>Активные опции коммандной строки, которые переписывают опции выше:</translation>
-    </message>
-    <message>
-        <source>Reset all client options to default.</source>
-        <translation>Вернуть стандартные настройки клиента</translation>
-    </message>
-    <message>
-        <source>&amp;Reset Options</source>
-        <translation>&amp;Сбросить Настройки</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Отмена</translation>
-    </message>
-    <message>
-        <source>Any</source>
-        <translation>Любой</translation>
-    </message>
-    <message>
-        <source>default</source>
-        <translation>по-умолчанию</translation>
-    </message>
-    <message>
-        <source>none</source>
-        <translation>ничего</translation>
-    </message>
-    <message>
-        <source>Confirm options reset</source>
-        <translation>Подтвердить сброс настроек</translation>
-    </message>
-    <message>
-        <source>Client restart required to activate changes.</source>
-        <translation>Для применения изменений требуется перезапуск клиента.</translation>
-    </message>
-    <message>
-        <source>Client will be shutdown, do you want to proceed?</source>
-        <translation>Клиент будет закрыт, вы хотите продолжить?</translation>
-    </message>
-    <message>
-        <source>This change would require a client restart.</source>
-        <translation>Это изменение потребует перезапуска клиента.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy address is invalid.</source>
-        <translation>Указан недопустимый адрес прокси-сервера.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy port is invalid.</source>
-        <translation>Указан недопустимый порт прокси-сервера.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy settings are invalid.</source>
-        <translation>Указаны недопустимые настройки прокси-сервера.</translation>
-    </message>
-</context>
-<context>
     <name>BLKCGUI</name>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
     <message>
         <source>Wallet</source>
         <translation>Кошелек</translation>
@@ -2052,10 +1653,6 @@ STAKING</source>
         <translation>Завершить работу</translation>
     </message>
     <message>
-        <source>BlackHat Core client</source>
-        <translation>Клиент BlackHat Core</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
@@ -2070,10 +1667,6 @@ STAKING</source>
     <message>
         <source>System Message</source>
         <translation>Системное сообщение</translation>
-    </message>
-    <message>
-        <source>Sent MultiSend transaction</source>
-        <translation>Отправленная MultiSend транзакция</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -2107,14 +1700,6 @@ Address: %4
         <translation>Обработка ссылок</translation>
     </message>
     <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation> Недопустимый URL-адрес запроса платежа: %1</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Обработка файла запроса на оплату</translation>
-    </message>
-    <message>
         <source>Invalid payment address %1</source>
         <translation>Неверный адрес оплаты %1</translation>
     </message>
@@ -2123,68 +1708,8 @@ Address: %4
         <translation>Не удалось запустить blkc: обработчик click-to-pay </translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BLKC address or malformed URI parameters.</source>
-        <translation>URI не интерпретируется! Причиной этому может быть неверный BLKC адрес или неверные параметеры URI.</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Файл запроса оплаты нечитается! Причиной может быть неверный файл запроса оплаты.</translation>
-    </message>
-    <message>
-        <source>Payment request rejected</source>
-        <translation>Запрос на оплату отклонен</translation>
-    </message>
-    <message>
-        <source>Payment request network doesn't match client network.</source>
-        <translation>Сеть запроса на оплату отличается от сети клиента.</translation>
-    </message>
-    <message>
-        <source>Payment request has expired.</source>
-        <translation>Запрос на оплату просрочен.</translation>
-    </message>
-    <message>
-        <source>Payment request is not initialized.</source>
-        <translation>Запрос на оплату не инициализирован.</translation>
-    </message>
-    <message>
-        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
-        <translation>Неверифицированные запросы на оплату к пользовательским скриптам оплаты не поддерживается.</translation>
-    </message>
-    <message>
-        <source>Requested payment amount of %1 is too small (considered dust).</source>
-        <translation>Запрашиваемая сумма оплаты %1 слишком мала (considered dust).</translation>
-    </message>
-    <message>
-        <source>Refund from %1</source>
-        <translation>Сумма возврата от %1</translation>
-    </message>
-    <message>
-        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
-        <translation>Запрос на оплату %1 слишком велик (%2 байт, разрешено %3 байт).</translation>
-    </message>
-    <message>
-        <source>Payment request DoS protection</source>
-        <translation>Защита от DoS атак, использующих запросы на оплату</translation>
-    </message>
-    <message>
-        <source>Error communicating with %1: %2</source>
-        <translation>Ошибка коммуникации с %1: %2</translation>
-    </message>
-    <message>
-        <source>Payment request cannot be parsed!</source>
-        <translation>Запрос на оплату непонятен!</translation>
-    </message>
-    <message>
-        <source>Bad response from server %1</source>
-        <translation>Неожиданный ответ сервера %1</translation>
-    </message>
-    <message>
-        <source>Network request error</source>
-        <translation>Ошибка обращения к сети</translation>
-    </message>
-    <message>
-        <source>Payment acknowledged</source>
-        <translation>Оплата принята к обработке</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
+        <translation>URI не интерпретируется! Причиной этому может быть неверный BlackHat адрес или неверные параметеры URI.</translation>
     </message>
 </context>
 <context>
@@ -2209,8 +1734,8 @@ Address: %4
         <translation>Сумма</translation>
     </message>
     <message>
-        <source>Enter BLKC address (e.g. %1)</source>
-        <translation>Введите адрес BLKC (например, %1)</translation>
+        <source>Enter BlackHat address (e.g. %1)</source>
+        <translation>Введите адрес BlackHat (например, %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2257,10 +1782,6 @@ Address: %4
         <translation>Произошла фатальная ошибка. BlackHat больше не может безопасно продолжать работу и завершит работу.</translation>
     </message>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
         <translation>Ошибка: указанного каталогп данных "%1" не существует.</translation>
     </message>
@@ -2269,16 +1790,8 @@ Address: %4
         <translation>Ошибка: невозможно проанализировать файл конфигурации: %1. Используйте только синтаксис key=value.</translation>
     </message>
     <message>
-        <source>Error: Invalid combination of -regtest and -testnet.</source>
-        <translation>Ошибка: неправильная комбинация -regtest и -testnet.</translation>
-    </message>
-    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Ошибка чтения файла конфигурации мастерноды: %1</translation>
-    </message>
-    <message>
-        <source>BlackHat Core didn't yet exit safely...</source>
-        <translation>BlackHat Core еще не вышел безопасно...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2496,10 +2009,6 @@ Address: %4
         <translation>Протокол отладки</translation>
     </message>
     <message>
-        <source>Build date</source>
-        <translation>Дата сборки</translation>
-    </message>
-    <message>
         <source>Current number of blocks</source>
         <translation>Текущее количество блоков</translation>
     </message>
@@ -2656,18 +2165,6 @@ Address: %4
         <translation>смещение по времени</translation>
     </message>
     <message>
-        <source>Custom Backup Path:</source>
-        <translation>Пользовательский путь резервного копирования:</translation>
-    </message>
-    <message>
-        <source>Custom zBLKC Backup Path:</source>
-        <translation>Пользовательский путь резервного копирования zBLKC:</translation>
-    </message>
-    <message>
-        <source>Custom Backups Threshold:</source>
-        <translation>Порог пользовательских резервных копий:</translation>
-    </message>
-    <message>
         <source>Salvage wallet</source>
         <translation>Кошелёк для сбора</translation>
     </message>
@@ -2795,10 +2292,6 @@ Address: %4
     <message>
         <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
         <translation>Используйте стрелки вверх и вниз для навигации в разделе истории и %1 для очистки экрана.</translation>
-    </message>
-    <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Введите &lt;b&gt;help&lt;/b&gt; для просмотра доступных команд.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -3009,8 +2502,8 @@ Address: %4
         <translation>BLKC</translation>
     </message>
     <message>
-        <source>Instead of sharing only a BLKC address, you can create a payment request, bundling up more information</source>
-        <translation>Вместо того, чтобы делиться только адресом BLKC, вы можете создать запрос на оплату, связывая больше информации</translation>
+        <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
+        <translation>Вместо того, чтобы делиться только адресом BlackHat, вы можете создать запрос на оплату, связывая больше информации</translation>
     </message>
     <message>
         <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
@@ -3100,8 +2593,8 @@ Address: %4
         <translation>Смена адреса</translation>
     </message>
     <message>
-        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BLKC address</source>
-        <translation>Остаточная часть значения, полученного от значения входов минус выходов, идет на «изменение» адреса BLKC</translation>
+        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BlackHat address</source>
+        <translation>Остаточная часть значения, полученного от значения входов минус выходов, идет на «изменение» адреса BlackHat</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3312,10 +2805,6 @@ These coins will no longer be cold-staked.</source>
         <translation>Открыть URI</translation>
     </message>
     <message>
-        <source>Parse a payment request</source>
-        <translation>Анализ запроса на оплату</translation>
-    </message>
-    <message>
         <source>Unlocked remaining</source>
         <translation>Остается разблокированным</translation>
     </message>
@@ -3430,9 +2919,9 @@ Remember to write it down and store it safely, otherwise you might lose access t
         <translation>Инструмент BIP38</translation>
     </message>
     <message>
-        <source>Encrypt your BLKC addresses (key pair actually) using BIP38 encryption.
+        <source>Encrypt your BlackHat addresses (key pair actually) using BIP38 encryption.
 Using this mechanism you can share your keys without middle-man risk, only need to store your passphrase safely</source>
-        <translation>Зашифруйте свои адреса BLKC (фактически, пару ключей), используя шифрование BIP38.
+        <translation>Зашифруйте свои адреса BlackHat (фактически, пару ключей), используя шифрование BIP38.
 С помощью этого механизма вы можете делиться своими ключами без риска посредника, вам нужно только безопасно хранить вашу парольную фразу</translation>
     </message>
     <message>
@@ -3468,8 +2957,8 @@ Using this mechanism you can share your keys without middle-man risk, only need 
         <translation>Расшифровать ключ</translation>
     </message>
     <message>
-        <source>BLKC address</source>
-        <translation>Адрес BLKC</translation>
+        <source>BlackHat address</source>
+        <translation>Адрес BlackHat</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -3607,10 +3096,6 @@ Verify that you have installed a predetermined text editor.</source>
     <message>
         <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
         <translation>Используйте стрелки вверх и вниз для навигации в разделе истории и %1 для очистки экрана.</translation>
-    </message>
-    <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Введите &lt;b&gt;help&lt;/b&gt; для просмотра доступных команд.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -3813,25 +3298,6 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Почему мои BLKC невозможно потратить?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Недавно полученным BLKC требуется 6 подтверждений в сети,
-чтобы получить право быть расходуемыми. Это может занять примерно 6 минут.
-&lt;/p&gt;&lt;p align="justify"&gt;
-Ваш кошелек BlackHat также должен быть полностью синхронизирован,
-чтобы видеть баланс и расходовать его в сети.
- &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
-    </message>
-    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
@@ -3866,74 +3332,6 @@ There was an error trying to save the address list to %1. Please try again.</sou
  </translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           A masternode is a computer running a full node BlackHat core wallet with a
-                           requirement of 5,000 BLKC secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-Мастернода - это компьютер, на котором запущен базовый кошелек BlackHat с полным узлом и для которого требуется обеспечение в 5000 BLKC для обеспечения дополнительных услуг сети и, в свою очередь, регулярного получения части вознаграждения за блок. Эти услуги в себя включают:
-
-Мгновенные транзакции (SwiftX)
-Децентрализованное управление (Голосование по предложениям)
-Децентрализованная система бюджетирования (Казначейство)
-Проверка транзакций в каждом блоке.
-Выступление в качестве дополнительного полного узла в сети.
-
-Для предоставления таких услуг мастернодам также выплачивается определенная часть вознаграждений за каждый блок. Это может служить пассивным доходом для владельцев мастернод за вычетом их эксплуатационных расходов.
-
-Привилегии мастерноды:
-
-Участие в управлении BlackHat
-Получение вознаграждений за мастерноду
-Товарные опционы для будущей продажи
-Помощь в защите сети BlackHat
-
-Требования:
-
-5 000 BLKC для каждой мастерноды
-Должен храниться в основном кошельке
-Требуется выделенный IP-адрес
-Кошелек мастерноды должен оставаться в сети</translation>
-    </message>
-    <message>
         <source>Frequently Asked Questions</source>
         <translation>Часто задаваемые вопросы</translation>
     </message>
@@ -3957,7 +3355,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <source>You can read more here</source>
         <translation>Вы можете прочитать подробнее здесь</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>SettingsInformationWidget</name>
     <message>
@@ -4112,10 +3510,6 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Количество потоков проверки скрипта</translation>
     </message>
     <message>
-        <source>Start BlackHat on system login</source>
-        <translation>Запускать BlackHat при входе в систему</translation>
-    </message>
-    <message>
         <source>Minimize to the tray instead of the taskbar</source>
         <translation>Свернуть в трей вместо панели задач</translation>
     </message>
@@ -4140,160 +3534,6 @@ Are you sure?
     <message>
         <source>Options reset succeed</source>
         <translation>Сброс настроек выполнен успешно</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsMultisendDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Вид</translation>
-    </message>
-    <message>
-        <source>Transaction Details</source>
-        <translation>Детали транзакции</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>Текстовая метка</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>ОТМЕНА</translation>
-    </message>
-    <message>
-        <source>SAVE</source>
-        <translation>СОХРАНИТЬ</translation>
-    </message>
-    <message>
-        <source>New recipient for multisend</source>
-        <translation>Новый получатель для мультиотправки</translation>
-    </message>
-    <message>
-        <source>Address Label (optional)</source>
-        <translation>Лейбл Адреса (необязательно)</translation>
-    </message>
-    <message>
-        <source>Enter label to be saved with this address</source>
-        <translation>Введите лейбл для сохранения с этим адресом</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation>Процент</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsMultisendWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Вид</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>Текстовая метка</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>Недоступно</translation>
-    </message>
-    <message>
-        <source>CheckBox</source>
-        <translation>Флажок</translation>
-    </message>
-    <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
-        <translation>MultiSend позволяет автоматически отправлять до 100% ваших вознаграждений от стекинга или мастернод в список других адресов BlackHat после его созревания.</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation>Активно</translation>
-    </message>
-    <message>
-        <source>Disable</source>
-        <translation>Отключить</translation>
-    </message>
-    <message>
-        <source>No active recipient yet</source>
-        <translation>Пока нет активных получателей</translation>
-    </message>
-    <message>
-        <source>Send stakes</source>
-        <translation>Отправить вознаграждения за стекинг</translation>
-    </message>
-    <message>
-        <source>Send masternode rewards</source>
-        <translation>Отправить вознаграждения за мастерноду</translation>
-    </message>
-    <message>
-        <source>ADD RECIPIENT</source>
-        <translation>ДОБАВИТЬ ПОЛУЧАТЕЛЯ</translation>
-    </message>
-    <message>
-        <source>CLEAR ALL</source>
-        <translation>ОЧИСТИТЬ ВСЕ</translation>
-    </message>
-    <message>
-        <source>Cannot perform operation, wallet locked</source>
-        <translation>Невозможно выполнить операцию, кошелек заблокирован</translation>
-    </message>
-    <message>
-        <source>Clear succeed</source>
-        <translation>Очистка успешно завершена</translation>
-    </message>
-    <message>
-        <source>Clear all failed, could not locate address in wallet file</source>
-        <translation>Полная очистка не удалась. Не удалось найти адрес в файле кошелька</translation>
-    </message>
-    <message>
-        <source>Cannot add multisend recipient, wallet locked</source>
-        <translation>Невозможно добавить получателя мультисендинга, кошелек заблокирован</translation>
-    </message>
-    <message>
-        <source>The entered address: %1 is invalid.
-Please check the address and try again.</source>
-        <translation>Введенный адрес: %1 неверен.
-Пожалуйста, проверьте адрес и попробуйте еще раз.</translation>
-    </message>
-    <message>
-        <source>Invalid percentage, please enter values from 1 to 100.</source>
-        <translation>Неверный процент, введите значения от 1 до 100.</translation>
-    </message>
-    <message>
-        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
-        <translation>Общая сумма вашего вектора MultiSend превышает 100% ваших вознаграждения за стекинг</translation>
-    </message>
-    <message>
-        <source>Error saving  MultiSend, failed saving properties to the database.</source>
-        <translation>Ошибка при сохранении MultiSend. Не удалось сохранить свойства в базе данных.</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend, no available recipients</source>
-        <translation>Невозможно активировать MultiSend. Нет доступных получателей</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend
-Check one or both of the check boxes to send on stake and/or masternode rewards</source>
-        <translation>Невозможно активировать MultiSend.
-Проверьте один или оба флажка для отправки вознаграждений за стекинг и / или мастерноду.</translation>
-    </message>
-    <message>
-        <source>MultiSend activated but writing settings to DB failed</source>
-        <translation>MultiSend активирован, но запись настроек в DB не удалась</translation>
-    </message>
-    <message>
-        <source>MultiSend activated</source>
-        <translation>MultiSend активирован</translation>
-    </message>
-    <message>
-        <source>First multiSend address invalid</source>
-        <translation>Первый адрес мультиотправки неверен</translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated but writing settings to DB failed</source>
-        <translation>MultiSend деактивирован, но запись настроек в DB не удалась </translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated</source>
-        <translation>MultiSend деактивирован </translation>
     </message>
 </context>
 <context>
@@ -4327,8 +3567,8 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>Сообщение</translation>
     </message>
     <message>
-        <source>BLKC address or contact label</source>
-        <translation>BLKC адрес или лейбл контакта</translation>
+        <source>BlackHat address or contact label</source>
+        <translation>BlackHat адрес или лейбл контакта</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -4485,6 +3725,10 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <source>Options reset succeed</source>
         <translation>Сброс настроек выполнен успешно</translation>
     </message>
+    <message>
+        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
+        <translation>Разделение стекинга слишком низкое, оно должно быть либо &gt;= %1, либо равно 0 (чтобы отключить разделение стекинга)</translation>
+    </message>
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
@@ -4592,10 +3836,6 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>Кошелек</translation>
     </message>
     <message>
-        <source>Multisend</source>
-        <translation>Multisend</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Экспорт учета</translation>
     </message>
@@ -4668,10 +3908,6 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>Клиент будет закрыт, вы хотите продолжить?</translation>
     </message>
     <message>
-        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
-        <translation>Разделение стекинга слишком низкое, оно должно быть либо &gt;= %1, либо равно 0 (чтобы отключить разделение стекинга)</translation>
-    </message>
-    <message>
         <source>Restart required</source>
         <translation>Необходима перезагрузка</translation>
     </message>
@@ -4719,10 +3955,6 @@ Are you sure?
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>BlackHat Core is shutting down...</source>
-        <translation>BlackHat Core выключается...</translation>
-    </message>
-    <message>
         <source>Do not shut down the computer until this window disappears.</source>
         <translation>Не выключайте этот компьютер пока это окно не исчезнет.</translation>
     </message>
@@ -4747,10 +3979,6 @@ Are you sure?
     <message>
         <source>Loading…</source>
         <translation>Загрузка...</translation>
-    </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
     </message>
 </context>
 <context>
@@ -4856,10 +4084,6 @@ backup will be created.
     <message>
         <source>Wallet unlock cancelled</source>
         <translation>Разблокировка кошелька отменена</translation>
-    </message>
-    <message>
-        <source>Tor Active: %1</source>
-        <translation>Активные Tor: %1</translation>
     </message>
     <message>
         <source>Tor Disabled</source>
@@ -5287,12 +4511,6 @@ Select fewer inputs with coin control.</source>
         <translation>Выбрать язык</translation>
     </message>
     <message>
-        <source>Welcome to
-BlackHat Core Wallet</source>
-        <translation>Добро пожаловать
-в основной кошелек BlackHat</translation>
-    </message>
-    <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
         <translation>BlackHat - самая инновационная в мире технология на основе блокчейна Proof of Stake. Разработана командой опытных разработчиков и криптографов.</translation>
     </message>
@@ -5320,188 +4538,16 @@ BlackHat Core Wallet</source>
 <context>
     <name>blkc-core</name>
     <message>
-        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
-        <translation>Разрешить соединения JSON-RPC из указанного источника. Действительно для  &lt;ip&gt; одного IP (например, 1.2.3.4), сетевой / сетевой маски (например, 1.2.3.4/255.255.255.0) или сети / CIDR (например, 1.2.3.4/24). Эта опция может быть указана несколько раз</translation>
-    </message>
-    <message>
-        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
-        <translation>Привяжите к указанному адресу и всегда слушайте его. Использовать [host]: обозначение порта для IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
-        <translation>Привяжите к указанным адресам и сверстникам-сверстникам, подключающимся к нему. Использовать [host]: обозначение порта для IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
-        <translation>Привяжите к указанному адресу для прослушивания соединений JSON-RPC. Используйте [host]: обозначение порта для IPv6. Эта опция может быть указана несколько раз (по умолчанию: привязка ко всем интерфейсам)</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
-        <translation>Не удается получить блокировку в каталоге данных %s. BlackHat Core, вероятно, уже запущен.</translation>
-    </message>
-    <message>
-        <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
-        <translation>Изменить автоматическое окончательное поведение бюджета. mode = auto: Голосовать за точный окончательный бюджет, соответствующий моему сгенерированному бюджету. (строка, по умолчанию: авто)</translation>
-    </message>
-    <message>
-        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
-        <translation>Непрерывные транзакции с ограничениями по скорости до &lt;n&gt;* 1000 байт в минуту (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>Создавайте новые файлы с разрешениями по умолчанию для системы, вместо umask 077 (эффективны только с отключенной функцией кошелька)</translation>
-    </message>
-    <message>
-        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
-        <translation>Удалите все транзакции кошелька и восстановите только те части блок-цепи через -rescan при запуске</translation>
-    </message>
-    <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
         <translation>Распространяется по лицензии программного обеспечения MIT, см. Сопроводительный файл COPYING или &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
-    </message>
-    <message>
-        <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
-        <translation>Включить функцию холодного стекинга (0-1, по умолчанию:%u). Отключено, если стекинг = 0</translation>
-    </message>
-    <message>
-        <source>Enable spork administration functionality with the appropriate private key.</source>
-        <translation>Включите функцию администрирования spork с помощью соответствующего закрытого ключа.</translation>
-    </message>
-    <message>
-        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
-        <translation>Введите режим регрессии, в котором используется специальная цепочка, в которой блоки могут быть решены мгновенно.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Ошибка: Прослушивание входящих соединений не выполнено (при возврате ошибки %s)</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Ошибка: обнаружен неподдерживаемый аргумент -socks. Настройка версии SOCKS больше невозможна, поддерживаются только прокси SOCKS5.</translation>
-    </message>
-    <message>
-        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
-        <translation>Исключить отладочную информацию для категории. Может использоваться вместе с -debug=1 для вывода журналов отладки для всех категорий, кроме одной или нескольких указанных категорий.</translation>
-    </message>
-    <message>
-        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
-        <translation>Выполните команду, когда получено соответствующее предупреждение, или мы видим очень длинную развилку (%s в cmd заменяется сообщением)</translation>
-    </message>
-    <message>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation>Выполнять команду при изменении транзакции кошелька (%s в cmd заменяется на TxID)</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation>Выполнить команду, когда лучший блок изменяется (%s в cmd заменяется блочным хэшем)</translation>
-    </message>
-    <message>
-        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Сбросить активность базы данных из пула памяти в журнал диска каждый &lt;n&gt; мегабайт (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
-        <translation>Если paytxfee не установлен, включите достаточно плату, так что транзакции начнут подтверждать в среднем в пределах n блоков (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
-        <translation>В этом режиме контролируется, сколько блоков генерируется немедленно.</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation>Недопустимая сумма для -maxtxfee =&lt;amount&gt;: '%s' (должна быть минимальная плата %s для предотвращения застревания транзакций)</translation>
-    </message>
-    <message>
-        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
-        <translation>Приоритет транзакции журнала и плата за kB при выполнении блоков добычи (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
-        <translation>Поддерживание полного индекса транзакции, используемого вызовом rvc getrawtransaction (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum average size of an index occurrence in the block spam filter (default: %u)</source>
-        <translation>Максимально средний размер входа индекса в фильтр нежелательной почты (по умолчанию:%u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
-        <translation>Максимальный размер данных в транзакциях передачи данных, которые мы передаем,  (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of the list of indexes in the block spam filter (default: %u)</source>
-        <translation>Максимальный размер списка индексов в фильтре нежелательной почты (по умолчанию:%u)</translation>
-    </message>
-    <message>
-        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
-        <translation>Максимальная общая сумма комиссий за использование транзакции с одним кошельком, слишком низкая, может прервать крупные транзакции (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
-        <translation>Количество секунд, чтобы не допустить повторного подключения неверных пользователей (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
-        <translation>Выходная информация отладки (по умолчанию: %u, поставка &lt;category&gt; необязательна)</translation>
-    </message>
-    <message>
-        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
-        <translation>Ранжирование учетных данных для каждого прокси-соединения. Это позволяет изолировать Tor поток (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
-        <translation>Требовать высокий приоритет для передачи бесплатных или низкооплачиваемых транзакций (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to console instead of debug.log file (default: %u)</source>
-        <translation>Отправлять трассировку / отладочную информацию на консоль вместо файла debug.log (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
-        <translation>Установите максимальный размер транзакций с высоким приоритетом / низкой оплатой в байтах (по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
-        <translation>Задайте количество потоков проверки скриптов (%u до %d, 0 = auto, &lt;0 = оставить много ядер бесплатно, по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
-        <translation>Установите количество потоков для генерации монет, если включено (-1 = все ядра, по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
-        <translation>Поддержка фильтрации блоков и транзакций с фильтрами цветения (по умолчанию: %u)</translation>
-    </message>
-    <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
         <translation>База данных блоков содержит блок, который показывается, как из будущего. Это может быть связано с неправильной настройкой даты и времени на вашем компьютере. Перестройте базу данных блоков только в том случае, если вы уверены, что дата и время вашего компьютера указаны верно</translation>
-    </message>
-    <message>
-        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation>Этот продукт включает программное обеспечение, разработанное OpenSSL Project для использования в OpenSSL Toolkit &lt;https://www.openssl.org/&gt; и криптографическом программном обеспечении, написанном Эриком Яном и программным обеспечением UPnP, написанным Томасом Бернардом.</translation>
-    </message>
-    <message>
-        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
-        <translation>Общая длина строки версии сети (%i) превышает максимальную длину (%i). Уменьшите количество или размер uacomments.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer. BlackHat Core is probably already running.</source>
-        <translation>Не удалось привязать к %s на этом компьютере. BlackHat Core, вероятно, уже запущен.</translation>
-    </message>
-    <message>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation>Используйте отдельный прокси SOCKS5 для доступа к сверстникам через скрытые сервисы Tor (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Предупреждение: -maxtxfee установлен очень высоко! Тарифы на эту сумму могут быть оплачены по одной транзакции.</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Предупреждение: -paytxfee установлен очень высоко! Это комиссия за транзакцию, которую вы заплатите, если вы отправляете транзакцию.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Внимание: проверьте правильность даты и времени вашего компьютера! Если ваши часы ошибочны, BlackHat Core не будет работать должным образом.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5512,68 +4558,12 @@ BlackHat Core Wallet</source>
         <translation>Предупреждение: Мы, похоже, не полностью согласны с нашими сверстниками! Возможно, вам потребуется обновить или другие узлы, возможно, потребуется обновить.</translation>
     </message>
     <message>
-        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
-        <translation>Список белых списков, соединяющихся с данной сетевой маской или IP-адресом. Может быть указано несколько раз.</translation>
-    </message>
-    <message>
-        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
-        <translation>Учетные записи белых списков не могут быть запрещены DoS, и их транзакции всегда передаются, даже если они уже находятся в мэппуле, полезными, например, для шлюза</translation>
-    </message>
-    <message>
-        <source>(default: %s)</source>
-        <translation>(неуплата: %s)</translation>
-    </message>
-    <message>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Принять командную строку и команды JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Accept public REST requests (default: %u)</source>
-        <translation>Принимать публичные запросы REST (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Добавьте узел для подключения и попытку сохранить соединение открытым</translation>
-    </message>
-    <message>
-        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
-        <translation>Всегда запрашивать одноранговые адреса через DNS-поиск (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Append comment to the user agent string</source>
-        <translation>Добавить комментарий к строке агента пользователя</translation>
-    </message>
-    <message>
-        <source>Automatically create Tor hidden service (default: %d)</source>
-        <translation>Автоматически создавать скрытую службу Tor (по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Block creation options:</source>
-        <translation>Варианты создания блока:</translation>
-    </message>
-    <message>
-        <source>Connect through SOCKS5 proxy</source>
-        <translation>Подключение через прокси SOCKS5</translation>
-    </message>
-    <message>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Подключитесь к узлу для получения одноранговых адресов и отключите</translation>
-    </message>
-    <message>
-        <source>Connection options:</source>
-        <translation>Варианты подключения:</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
         <translation>Copyright (C) 2009-%i Разработчики Bitcoin Core</translation>
     </message>
     <message>
         <source>Copyright (C) 2014-%i The Dash Core Developers</source>
         <translation>Copyright (C) 2014-%i Разработчики Dash Core</translation>
-    </message>
-    <message>
-        <source>Copyright (C) 2015-%i The BlackHat Core Developers</source>
-        <translation>Copyright (C) 2015-%i Разработчики BlackHat Core</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5584,26 +4574,6 @@ BlackHat Core Wallet</source>
         <translation>Не удалось разобрать masternode.conf</translation>
     </message>
     <message>
-        <source>Debugging/Testing options:</source>
-        <translation>Параметры отладки / тестирования:</translation>
-    </message>
-    <message>
-        <source>Delete blockchain folders and resync from scratch</source>
-        <translation>Удаление папок-цепочек и повторная синхронизация с нуля</translation>
-    </message>
-    <message>
-        <source>Disable OS notifications for incoming transactions (default: %u)</source>
-        <translation>Отключить уведомления ОС для входящих транзакций (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
-        <translation>Откройте собственный IP-адрес (по умолчанию: 1 при прослушивании и без -externalip)</translation>
-    </message>
-    <message>
-        <source>Do not load the wallet and disable wallet RPC calls</source>
-        <translation>Не загружайте кошелек и отключите вызовы RPC кошелька</translation>
-    </message>
-    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Вы хотите перестроить базу данных блоков сейчас?</translation>
     </message>
@@ -5612,12 +4582,12 @@ BlackHat Core Wallet</source>
         <translation>Загрузка выполнена</translation>
     </message>
     <message>
-        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
-        <translation>Разрешить клиенту действовать как мастернод (0-1, по умолчанию: %u)</translation>
-    </message>
-    <message>
         <source>Error initializing block database</source>
         <translation>Ошибка инициализации базы данных блоков</translation>
+    </message>
+    <message>
+        <source>Error initializing wallet database environment %s!</source>
+        <translation>Ошибка инициализации среды базы данных кошелька %s!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -5644,44 +4614,12 @@ BlackHat Core Wallet</source>
         <translation>Ошибка. Недостаточно места на диске!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Ошибка: Неподдерживаемый аргумент -tor найден, используйте -onion.</translation>
-    </message>
-    <message>
-        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation>Не удалось прослушивать любой порт. Используйте -listen = 0, если вы этого хотите.</translation>
-    </message>
-    <message>
         <source>Failed to parse host:port string</source>
         <translation>Не удалось проанализировать хост: строка порта</translation>
     </message>
     <message>
-        <source>Force safe mode (default: %u)</source>
-        <translation>Режим принудительной защиты (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Generate coins (default: %u)</source>
-        <translation>Создание монет (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
-        <translation>Сколько блоков проверяется при запуске (по умолчанию: %u, 0 = all)</translation>
-    </message>
-    <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Если &lt;category&gt;не предоставляется, выводит всю информацию об отладке.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Импорт ...</translation>
-    </message>
-    <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Импортирует блоки из внешнего файла blk000 ?? .dat</translation>
-    </message>
-    <message>
-        <source>Include IP addresses in debug output (default: %u)</source>
-        <translation>Включить IP-адреса в отладочном выходе (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -5692,76 +4630,12 @@ BlackHat Core Wallet</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
-        <translation>Инициализация проверки работоспособности не удалась. BlackHat Core отключается.</translation>
-    </message>
-    <message>
         <source>Insufficient funds.</source>
         <translation>Недостаточно средств.</translation>
     </message>
     <message>
-        <source>Invalid -onion address or hostname: '%s'</source>
-        <translation>Недопустимый -онионный адрес или имя хоста: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (должен быть не менее%s)</translation>
-    </message>
-    <message>
-        <source>Invalid netmask specified in -whitelist: '%s'</source>
-        <translation>Недопустимая сетевая маска, указанная в -whitelist: '%s'</translation>
-    </message>
-    <message>
         <source>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</source>
         <translation>Это предварительная версия сборки - используйте на свой страх и риск - не используйте для ставок или коммерческих приложений!</translation>
-    </message>
-    <message>
-        <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
-        <translation>Ошибка: обнаружен неподдерживаемый аргумент -checklevel. Контрольный уровень должен быть 4-го уровня.</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
-        <translation>Выполнять команду, когда лучший блок изменяется и его размер превышает (%s в cmd заменяется блочным хешем, %d с размером блока)</translation>
-    </message>
-    <message>
-        <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
-        <translation>Укажите собственный путь резервного копирования, чтобы добавить копию любой резервной копии кошелька. Если задано как dir, каждая резервная копия генерирует файл с отметкой времени. Если он установлен как файл, он будет переписывать в этот файл каждую резервную копию.</translation>
-    </message>
-    <message>
-        <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt; возможно:</translation>
-    </message>
-    <message>
-        <source>Attempt to force blockchain corruption recovery</source>
-        <translation>Попытка принудительного восстановления блокады</translation>
-    </message>
-    <message>
-        <source>Display the stake modifier calculations in the debug.log file.</source>
-        <translation>Отображение расчетов модификатора кола в файле debug.log.</translation>
-    </message>
-    <message>
-        <source>Display verbose coin stake messages in the debug.log file.</source>
-        <translation>Отображать подробные сообщения с монетами в файле debug.log.</translation>
-    </message>
-    <message>
-        <source>Enable publish hash block in &lt;address&gt;</source>
-        <translation>Включить публикацию хеш-блока в &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish hash transaction in &lt;address&gt;</source>
-        <translation>Включить публикацию хеш-транзакции в &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw block in &lt;address&gt;</source>
-        <translation>Включить публикацию необработанного блока в&lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw transaction in &lt;address&gt;</source>
-        <translation>Включить публикацию необработанных транзакций в &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable staking functionality (0-1, default: %u)</source>
-        <translation>Включить функцию разбивки (0-1, по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
@@ -5772,20 +4646,8 @@ BlackHat Core Wallet</source>
         <translation>Недопустимая сумма для -%s = &lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation>Непрерывные  &lt;n&gt; транзакции в памяти (по умолчанию: %u)</translation>
-    </message>
-    <message>
         <source>Line: %d</source>
         <translation>Линия: %d</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Слушайте подключения JSON-RPC &lt;port&gt; (по умолчанию: %u или testnet: %u)</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Слушайте подключения  &lt;port&gt;(по умолчанию: %u или testnet: %u)</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -5820,136 +4682,24 @@ BlackHat Core Wallet</source>
         <translation>Загрузка кошелька ...</translation>
     </message>
     <message>
-        <source>Location of the auth cookie (default: data dir)</source>
-        <translation>Расположение файла cookie auth (по умолчанию: data dir)</translation>
-    </message>
-    <message>
-        <source>Lock masternodes from masternode configuration file (default: %u)</source>
-        <translation>Блокировка masternodes из файла конфигурации masternode (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>Lookup (): Invalid -proxy адрес или имя хоста: '%s'</translation>
-    </message>
-    <message>
         <source>MNs synchronization pending...</source>
         <translation>Ожидается синхронизация Мастернод...</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
-        <translation>Поддерживать большинство  &lt;n&gt; соединений со сверстниками (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Masternode options:</source>
-        <translation>Параметры Masternode:</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Максимальный буфер приема для каждого соединения&lt;n&gt;* 1000 байтов (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Максимальный буфер отправки для каждого соединения &lt;n&gt;* 1000 байтов (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Need to specify a port with -whitebind: '%s'</source>
-        <translation>Необходимо указать порт с -whitebind: '%s'</translation>
-    </message>
-    <message>
-        <source>Node relay options:</source>
-        <translation>Варианты реле узла:</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
         <translation>Недостаточно доступных дескрипторов файлов.</translation>
     </message>
     <message>
-        <source>Number of custom location backups to retain (default: %d)</source>
-        <translation>Количество резервных копий пользовательского местоположения для сохранения (по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>On first run, create a legacy wallet instead of a HD wallet</source>
-        <translation>При первом запуске создайте предыдущий кошелек вместо HD-кошелька</translation>
-    </message>
-    <message>
-        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
-        <translation>Учитывать встроенные контрольные точки с использованием цепочки блоков (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
-        <translation>Только подключение к узлам в сети &lt;net&gt; (ipv4, ipv6 или лук)</translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation>Опции:</translation>
-    </message>
-    <message>
-        <source>Password for JSON-RPC connections</source>
-        <translation>Пароль для подключений JSON-RPC</translation>
-    </message>
-    <message>
         <source>Peers are being disconnected due time differences.</source>
         <translation>Пиры отключены из-за разницы во времени.</translation>
     </message>
     <message>
-        <source>Use block spam filter (default: %u)</source>
-        <translation>Использовать блок спам-фильтр (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>isValid (): Invalid -proxy адрес или имя хоста: '%s'</translation>
+        <source>Wallet %s resides outside data directory %s</source>
+        <translation>Кошелек %s находится за пределами каталога данных %s</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
         <translation>Подготовка к повторной синхронизации ...</translation>
-    </message>
-    <message>
-        <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
-        <translation>Подключаться только к указанному узлу(ам); -noconnect или -connect = 0 отдельно для отключения автоматического соединения</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</source>
-        <translation>Не принимать транзакции, если у какой-либо истории будет &lt;n&gt; или больше в -mempool (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</source>
-        <translation>Не принимайте транзакции, если у любой истории было бы больше чем &lt;n&gt; килобайтов в -mempool (по умолчанию: %u).</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</source>
-        <translation>Не принимать транзакции, если число истории в -mempool &lt;n&gt; или больше (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
-        <translation>Не принимать транзакции, размер которых со всей историей в -mempool превышает &lt;n&gt; килобайтов (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
-        <translation>Не хранить транзакции в mempool дольше, чем &lt;n&gt; часов (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
-        <translation>Комиссия (в %s/Кб), меньше чем это, считаются с нулевой комиссией за ретрансляцию, майнинг и создание транзакций (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Комиссия (в %s/Кбайт) меньше этого значения считается с нулевой комиссией за создание транзакции (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</source>
-        <translation>Минимальная положительная сумма (в BLKC), разрешенная GUI и RPC для порога разделения стекинга (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Пожалуйста, проверьте правильность даты и времени на вашем компьютере! Если ваши часы не точны, BlackHat Core не будет работать должным образом.</translation>
-    </message>
-    <message>
-        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
-        <translation>Запросить адреса одноранговых узлов через DNS-поиск, если мало адресов (по умолчанию: 1, если -connect / -noconnect)</translation>
-    </message>
-    <message>
-        <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
-        <translation>Укажите местоположение файла журнала отладки: это может быть абсолютный путь или путь относительно каталога данных (по умолчанию: %s)</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -5964,10 +4714,6 @@ BlackHat Core Wallet</source>
         <translation>Активный Мастернода не инициализирована.</translation>
     </message>
     <message>
-        <source>Allows deprecated RPC method(s) to be used</source>
-        <translation>Позволяет использовать устаревшие метод(ы) RPC</translation>
-    </message>
-    <message>
         <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
         <translation>Невозможно сгенерировать ключ изменения адреса. Пожалуйста, сначала позвоните в keypoolrefill.</translation>
     </message>
@@ -5980,26 +4726,18 @@ BlackHat Core Wallet</source>
         <translation>Изменить индекс вне диапазона</translation>
     </message>
     <message>
-        <source>Error: -listen must be true if -masternode is set.</source>
-        <translation>Ошибка: -listen должен быть истинным, если установлена -masternode.</translation>
-    </message>
-    <message>
-        <source>Error: -maxmempool must be at least %d MB</source>
-        <translation>Ошибка: -maxmempool должен быть не менее %d МБ</translation>
-    </message>
-    <message>
         <source>Failed to accept tx in the memory pool (reason: %s)
 </source>
         <translation>Не удалось принять tx в пул памяти (причина: %s)
 </translation>
     </message>
     <message>
-        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
-        <translation>Комиссия (в %s/кБ) для добавления к отправляемым транзакциям (по умолчанию: %s)</translation>
-    </message>
-    <message>
         <source>Invalid -masternodeaddr address: %s</source>
         <translation>Неверный адрес -masternodeaddr: %s</translation>
+    </message>
+    <message>
+        <source>Invalid -masternodeaddr port %d, only %d is supported on %s-net.</source>
+        <translation>Неверный порт %d -masternodeaddr, Только %d поддерживается в %s-net.</translation>
     </message>
     <message>
         <source>Invalid port %d detected in masternode.conf</source>
@@ -6010,152 +4748,20 @@ BlackHat Core Wallet</source>
         <translation>Неверная ошибка статуса.</translation>
     </message>
     <message>
-        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Хранить пул памяти транзакций ниже &lt;n&gt; мегабайтов (по умолчанию: %u)</translation>
-    </message>
-    <message>
         <source>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</source>
         <translation>Keypool закончился, пожалуйста, сначала позвоните в keypoolrefill или разблокируйте кошелек.</translation>
-    </message>
-    <message>
-        <source>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</source>
-        <translation>Ограничить размер кэша подписи до &lt;n&gt; МБ (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>No error</source>
         <translation>Нет ошибки</translation>
     </message>
     <message>
-        <source>Prepend debug output with timestamp (default: %u)</source>
-        <translation>Подготовить вывод отладки с отметкой времени (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Print version and exit</source>
-        <translation>Версия для печати и выхода</translation>
-    </message>
-    <message>
-        <source>RPC server options:</source>
-        <translation>Параметры сервера RPC:</translation>
-    </message>
-    <message>
-        <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
-        <translation>Случайно отбрасывайте 1 из всех  &lt;n&gt; сетевых сообщений</translation>
-    </message>
-    <message>
-        <source>Randomly fuzz 1 of every &lt;n&gt; network messages</source>
-        <translation>Случайно fuzz 1 каждого &lt;n&gt; сетевые сообщения</translation>
-    </message>
-    <message>
-        <source>Rebuild block chain index from current blk000??.dat files</source>
-        <translation>Перестроить индекс цепочки блоков из текущих файлов blk000 ?? .dat</translation>
-    </message>
-    <message>
-        <source>Relay and mine data carrier transactions (default: %u)</source>
-        <translation>Операции передачи данных реле и мины (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Relay non-P2SH multisig (default: %u)</source>
-        <translation>Реле не-P2SH multisig (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Повторите сканирование цепочки блоков для пропущенных транзакций в кошельке.</translation>
-    </message>
-    <message>
         <source>Rescanning...</source>
         <translation>Повторное сканирование ...</translation>
     </message>
     <message>
-        <source>Run a thread to flush wallet periodically (default: %u)</source>
-        <translation>Запустите поток, чтобы периодически очищать кошелек (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Run in the background as a daemon and accept commands</source>
-        <translation>Запускать в фоновом режиме в качестве демона и принимать команды</translation>
-    </message>
-    <message>
-        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
-        <translation>Установите размер кеша базы данных в мегабайтах (от %d до %d, по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Set external address:port to get to this masternode (example: %s)</source>
-        <translation>Задайте внешний адрес: порт, чтобы перейти к этому masternode (пример: %s)</translation>
-    </message>
-    <message>
-        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
-        <translation>Установите размер пула ключей&lt;n&gt;(по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum block size in bytes (default: %d)</source>
-        <translation>Установите максимальный размер блока в байтах (по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Set minimum block size in bytes (default: %u)</source>
-        <translation>Установите минимальный размер блока в байтах (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Set the Maximum reorg depth (default: %u)</source>
-        <translation>Установите максимальную глубину реорганизации (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Set the masternode private key</source>
-        <translation>Задайте личный ключ масштаба</translation>
-    </message>
-    <message>
-        <source>Set the number of threads to service RPC calls (default: %d)</source>
-        <translation>Задайте количество потоков для обслуживания вызовов RPC (по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
-        <translation>Устанавливает флаг DB_PRIVATE в среде db кошелька (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Show all debugging options (usage: --help -help-debug)</source>
-        <translation>Показать все параметры отладки (использование: --help -help-debug)</translation>
-    </message>
-    <message>
-        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation>Сжать файл debug.log при запуске клиента (по умолчанию: 1, когда нет -debug)</translation>
-    </message>
-    <message>
         <source>Signing transaction failed</source>
         <translation>Не удалось подписать транзакцию</translation>
-    </message>
-    <message>
-        <source>Specify configuration file (default: %s)</source>
-        <translation>Укажите конфигурационный файл (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation>Укажите время ожидания соединения в миллисекундах (минимум: 1, по умолчанию: %d)</translation>
-    </message>
-    <message>
-        <source>Specify data directory</source>
-        <translation>Укажите каталог данных</translation>
-    </message>
-    <message>
-        <source>Specify masternode configuration file (default: %s)</source>
-        <translation>Укажите конфигурационный файл (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: %s)</source>
-        <translation>Укажите файл pid (по умолчанию: %s)</translation>
-    </message>
-    <message>
-        <source>Specify wallet file (within data directory)</source>
-        <translation>Укажите файл кошелька (в каталоге данных)</translation>
-    </message>
-    <message>
-        <source>Specify your own public address</source>
-        <translation>Укажите свой собственный общедоступный адрес</translation>
-    </message>
-    <message>
-        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
-        <translation>Проводить неподтвержденные изменения при отправке транзакций (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Stop running after importing blocks from disk (default: %u)</source>
-        <translation>Прекратить работу после импорта блоков с диска (по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
@@ -6186,16 +4792,8 @@ BlackHat Core Wallet</source>
         <translation>Пороговое значение не может быть меньше, чем %s</translation>
     </message>
     <message>
-        <source>This help message</source>
-        <translation>Это справочное сообщение</translation>
-    </message>
-    <message>
         <source>This is experimental software.</source>
         <translation>Это экспериментальное программное обеспечение.</translation>
-    </message>
-    <message>
-        <source>This is intended for regression testing tools and app development.</source>
-        <translation>Это предназначено для инструментов тестирования регрессии и разработки приложений.</translation>
     </message>
     <message>
         <source>This is not a masternode. 'local' option disabled.</source>
@@ -6204,18 +4802,6 @@ BlackHat Core Wallet</source>
     <message>
         <source>This is not a masternode.</source>
         <translation>Это не мастернода.</translation>
-    </message>
-    <message>
-        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
-        <translation>Порог для отключения ошибочных сверстников (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Tor control port password (default: empty)</source>
-        <translation>Пароль управляющего порта Tor (по умолчанию: пустой)</translation>
-    </message>
-    <message>
-        <source>Tor control port to use if onion listening enabled (default: %s)</source>
-        <translation>Tor для использования при включенном прослушивании лука (по умолчанию: %s)</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -6254,52 +4840,16 @@ BlackHat Core Wallet</source>
         <translation>Не удалось запустить HTTP-сервер. Подробнее см. Журнал отладки.</translation>
     </message>
     <message>
-        <source>Unknown network specified in -onlynet: '%s'</source>
-        <translation>Неизвестная сеть, указанная в -onlynet: '%s'</translation>
-    </message>
-    <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation>Неподдерживаемая категория протоколирования %s =%s.</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Обновление кошелька до последнего формата</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation>Используйте UPnP для отображения порта прослушивания (по умолчанию: %u)</translation>
-    </message>
-    <message>
-        <source>Use the test network</source>
-        <translation>Использовать тестовую сеть</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation>Комментарий агента пользователя (%s) содержит небезопасные символы.</translation>
     </message>
     <message>
-        <source>Username for JSON-RPC connections</source>
-        <translation>Имя пользователя для соединений JSON-RPC</translation>
-    </message>
-    <message>
         <source>Verifying blocks...</source>
         <translation>Проверка блоков ...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet...</source>
-        <translation>Проверка кошелька ...</translation>
-    </message>
-    <message>
-        <source>Wallet needed to be rewritten: restart BlackHat Core to complete</source>
-        <translation>Кошелек необходимо переписать: перезапустите BlackHat Core, чтобы завершить</translation>
-    </message>
-    <message>
-        <source>Wallet options:</source>
-        <translation>Параметры кошелька:</translation>
-    </message>
-    <message>
-        <source>Wallet window title</source>
-        <translation>Название окна кошелька</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -6310,28 +4860,8 @@ BlackHat Core Wallet</source>
         <translation>Внимание: эта версия устарела, требуется обновление!</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Предупреждение: Неподдерживаемый аргумент -benchmark игнорируется, используйте -debug = bench.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Предупреждение. Неподдерживаемый аргумент -debugnet игнорируется, используйте -debug = net.</translation>
-    </message>
-    <message>
-        <source>You need to rebuild the database using -reindex to change -txindex</source>
-        <translation>Вам нужно перестроить базу данных с помощью -reindex для изменения -txindex</translation>
-    </message>
-    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Замена всех транзакций из кошелька ...</translation>
-    </message>
-    <message>
-        <source>ZeroMQ notification options:</source>
-        <translation>Опции уведомления ZeroMQ:</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>на старте</translation>
     </message>
 </context>
 <context>
@@ -6343,10 +4873,6 @@ BlackHat Core Wallet</source>
     <message>
         <source>Send</source>
         <translation>Отправить</translation>
-    </message>
-    <message>
-        <source>BLKC address or contact label</source>
-        <translation>BLKC адрес или лейбл контакта</translation>
     </message>
     <message>
         <source>Amount</source>

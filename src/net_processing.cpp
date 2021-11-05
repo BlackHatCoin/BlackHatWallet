@@ -911,16 +911,11 @@ bool static PushTierTwoGetDataRequest(const CInv& inv,
         if (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
             const auto& mnb = it->second;
 
-            // Just to be double sure, do not broadcast BIP155 addresses pre-v5.3 enforcement
-            if (mnb.isBIP155Addr && !Params().GetConsensus().NetworkUpgradeActive(chainHeight, Consensus::UPGRADE_V5_3)) {
-                return false;
-            }
-
-            int version = mnb.isBIP155Addr ? PROTOCOL_VERSION | ADDRV2_FORMAT : PROTOCOL_VERSION;
+            int version = !mnb.addr.IsAddrV1Compatible() ? PROTOCOL_VERSION | ADDRV2_FORMAT : PROTOCOL_VERSION;
             CDataStream ss(SER_NETWORK, version);
             ss.reserve(1000);
             ss << mnb;
-            std::string msgType = mnb.isBIP155Addr ? NetMsgType::MNBROADCAST2 : NetMsgType::MNBROADCAST;
+            std::string msgType = !mnb.addr.IsAddrV1Compatible() ? NetMsgType::MNBROADCAST2 : NetMsgType::MNBROADCAST;
             connman->PushMessage(pfrom, msgMaker.Make(msgType, ss));
             return true;
         }
@@ -1378,16 +1373,26 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
             bool fAlreadyHave = AlreadyHave(inv);
             LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom->id);
 
-            if (!fAlreadyHave && !fImporting && !fReindex && inv.type != MSG_BLOCK)
-                pfrom->AskFor(inv);
-
-
             if (inv.type == MSG_BLOCK) {
                 UpdateBlockAvailability(pfrom->GetId(), inv.hash);
                 if (!fAlreadyHave && !fImporting && !fReindex && !mapBlocksInFlight.count(inv.hash)) {
                     // Add this to the list of blocks to request
                     vToFetch.push_back(inv);
                     LogPrint(BCLog::NET, "getblocks (%d) %s to peer=%d\n", pindexBestHeader->nHeight, inv.hash.ToString(), pfrom->id);
+                }
+            } else {
+                // Allowed inv request types while we are in IBD
+                static std::set<int> allowWhileInIBDObjs = {
+                        MSG_SPORK
+                };
+
+                // If we don't have it, check if we should ask for it now or
+                // wait until we are sync
+                if (!fAlreadyHave) {
+                    bool allowWhileInIBD = allowWhileInIBDObjs.count(inv.type);
+                    if (allowWhileInIBD || !IsInitialBlockDownload()) {
+                        pfrom->AskFor(inv);
+                    }
                 }
             }
 
