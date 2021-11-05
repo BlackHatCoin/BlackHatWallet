@@ -2349,7 +2349,10 @@ static UniValue legacy_sendmany(CWallet* const pwallet, const UniValue& sendTo, 
                                                nullptr,     // coinControl
                                                true,        // sign
                                                0,           // nFeePay
-                                               fIncludeDelegated);
+                                               fIncludeDelegated,
+                                               nullptr, // fStakeDelegationVoided
+                                               0, // default extra size
+                                               nMinDepth);
     if (!fCreated)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, strFailReason);
     const CWallet::CommitResult& res = pwallet->CommitTransaction(txNew, keyChange, g_connman.get());

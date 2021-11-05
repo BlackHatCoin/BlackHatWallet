@@ -122,12 +122,12 @@
         <translation>Direcciones de recepción</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son tus direcciones BLKC para realizar pagos. Verifica siempre la cantidad y la dirección de recepción antes de enviar monedas.</translation>
+        <source>These are your BlackHat addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son tus direcciones BlackHat para realizar pagos. Verifica siempre la cantidad y la dirección de recepción antes de enviar monedas.</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Estas son sus direcciones BLKC para recibir pagos. Es recomendable usar una nueva dirección de recepción para cada transacción.</translation>
+        <source>These are your BlackHat addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Estas son sus direcciones BlackHat para recibir pagos. Es recomendable usar una nueva dirección de recepción para cada transacción.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -1035,8 +1035,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Editar dirección de envío</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BLKC address.</source>
-        <translation>La dirección introducida "%1" no es una dirección BLKC válida.</translation>
+        <source>The entered address "%1" is not a valid BlackHat address.</source>
+        <translation>La dirección introducida "%1" no es una dirección BlackHat válida.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -2060,7 +2060,7 @@ Dirección: %4
         <translation>No se puede iniciar blkc: módulo click-to-pay</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BLKC address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
         <translation>¡El identificador de la dirección no puede ser analizado! Esto puede ser causado por una dirección BLKC inválida o parámetros del identificador malformados.</translation>
     </message>
     <message>
@@ -2146,8 +2146,8 @@ Dirección: %4
         <translation>Cantidad</translation>
     </message>
     <message>
-        <source>Enter BLKC address (e.g. %1)</source>
-        <translation>Introduzca una dirección BLKC (p.e. %1)</translation>
+        <source>Enter BlackHat address (e.g. %1)</source>
+        <translation>Introduzca una dirección BlackHat (p.e. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2992,8 +2992,8 @@ Dirección: %4
         <translation>Cambio de dirección personalizado</translation>
     </message>
     <message>
-        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BLKC address</source>
-        <translation>El resto del valor resultante de las entradas menos el valor de las salidas va al "cambio" de dirección de BLKC</translation>
+        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BlackHat address</source>
+        <translation>El resto del valor resultante de las entradas menos el valor de las salidas va al "cambio" de dirección de BlackHat</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3306,8 +3306,8 @@ Estas monedas ya no serán puestas en Cold-Staked</translation>
         <translation>LLAVE DESENCRIPTADA</translation>
     </message>
     <message>
-        <source>BLKC address</source>
-        <translation>Dirección BLKC</translation>
+        <source>BlackHat address</source>
+        <translation>Dirección BlackHat</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -4142,8 +4142,8 @@ Marque una o ambas casillas de verificación para enviar recompensas de stake y/
         <translation>Mensaje</translation>
     </message>
     <message>
-        <source>BLKC address or contact label</source>
-        <translation>Dirección BLKC o etiqueta de contacto</translation>
+        <source>BlackHat address or contact label</source>
+        <translation>Dirección BlackHat o etiqueta de contacto</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -5891,7 +5891,7 @@ BlackHat Core Wallet</translation>
         <translation>Enviar</translation>
     </message>
     <message>
-        <source>BLKC address or contact label</source>
+        <source>BlackHat address or contact label</source>
         <translation>Dirección BLKC o etiqueta de contacto</translation>
     </message>
     <message>

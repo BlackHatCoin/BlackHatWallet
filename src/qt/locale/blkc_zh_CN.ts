@@ -114,12 +114,12 @@
         <translation>接收地址</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这是用于发送BLKC的地址。在发送BLKC之前，请认真核查发送金额和接收地址。</translation>
+        <source>These are your BlackHat addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>这是用于发送BLKC的地址。在发送BlackHat之前，请认真核查发送金额和接收地址。</translation>
     </message>
     <message>
-        <source>These are your BLKC addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这是用于接收BLKC的钱包地址。建议每一笔交易都使用一个新的钱包地址。</translation>
+        <source>These are your BlackHat addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>这是用于接收BlackHat的钱包地址。建议每一笔交易都使用一个新的钱包地址。</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -992,7 +992,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>编辑发送地址</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BLKC address.</source>
+        <source>The entered address "%1" is not a valid BlackHat address.</source>
         <translation>所输入的地址“%1”不是有效的BLKC地址。</translation>
     </message>
     <message>
@@ -1979,8 +1979,8 @@ Address: %4
         <translation>无法启动blkc:点击支付处理程序</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BLKC address or malformed URI parameters.</source>
-        <translation>URI不能被解析!这可能是由无效的BLKC地址或格式错误的URI参数造成的。</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
+        <translation>URI不能被解析!这可能是由无效的BlackHat地址或格式错误的URI参数造成的。</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2065,8 +2065,8 @@ Address: %4
         <translation>金额</translation>
     </message>
     <message>
-        <source>Enter BLKC address (e.g. %1)</source>
-        <translation>输入BLKC a地址(e.g. %1)</translation>
+        <source>Enter BlackHat address (e.g. %1)</source>
+        <translation>输入BlackHat a地址(e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2859,8 +2859,8 @@ Address: %4
         <translation>自定义更改地址</translation>
     </message>
     <message>
-        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BLKC address</source>
-        <translation>输入值减去输出值所得的值的其余部分归为“更改”BLKC地址</translation>
+        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BlackHat address</source>
+        <translation>输入值减去输出值所得的值的其余部分归为“更改”BlackHat地址</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3165,8 +3165,8 @@ These coins will no longer be cold-staked.</source>
         <translation>解密钥匙</translation>
     </message>
     <message>
-        <source>BLKC address</source>
-        <translation>BLKC地址</translation>
+        <source>BlackHat address</source>
+        <translation>BlackHat地址</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -4003,7 +4003,7 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>消息 </translation>
     </message>
     <message>
-        <source>BLKC address or contact label</source>
+        <source>BlackHat address or contact label</source>
         <translation>BLKC 地址或者联系人标签</translation>
     </message>
     <message>
@@ -5756,8 +5756,8 @@ BlackHat核心钱包</translation>
         <translation>发送</translation>
     </message>
     <message>
-        <source>BLKC address or contact label</source>
-        <translation>BLKC 地址或者联系人标签</translation>
+        <source>BlackHat address or contact label</source>
+        <translation>BlackHat 地址或者联系人标签</translation>
     </message>
     <message>
         <source>Amount</source>

@@ -72,12 +72,13 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
  */
 static Checkpoints::MapCheckpoints mapCheckpoints = {
     {202000, uint256S("2f642ef67d0e053c068bf812dca5ed315302137dbdea571c7d7efc223d394fd7")}, //!< BlackHat v5.3.0 enforced
+    {263600, uint256S("a9a78f8593c140e5821f87c00ad5266fb2c2144d749276fa0744519858f1722b")}, //!< New Checkpoint
 };
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1619782200, // * UNIX timestamp of last checkpoint block
-    0,    // * total number of transactions between genesis and last checkpoint
+    1636109565, // * UNIX timestamp of last checkpoint block
+    601789,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
     3000        // * estimated number of transactions per day after checkpoint
 };

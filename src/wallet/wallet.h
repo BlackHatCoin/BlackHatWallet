@@ -1055,7 +1055,8 @@ public:
         CAmount nFeePay = 0,
         bool fIncludeDelegated = false,
         bool* fStakeDelegationVoided = nullptr,
-        int nExtraSize = 0);
+        int nExtraSize = 0,
+        int nMinDepth = 0);
 
     bool CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CTransactionRef& tx, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl = NULL, CAmount nFeePay = 0, bool fIncludeDelegated = false);
 

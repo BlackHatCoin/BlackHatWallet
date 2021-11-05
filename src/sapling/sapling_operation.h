@@ -12,10 +12,6 @@
 #include "primitives/transaction.h"
 #include "wallet/wallet.h"
 
-// transaction.h comment: spending taddr output requires CTxIn >= 148 bytes and typical taddr txout is 34 bytes
-#define CTXIN_SPEND_DUST_SIZE   148
-#define CTXOUT_REGULAR_SIZE     34
-
 class CCoinControl;
 struct TxValues;
 

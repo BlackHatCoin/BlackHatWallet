@@ -210,6 +210,7 @@ void WelcomeContentWidget::checkLanguage()
         settings.sync();
         Q_EMIT onLanguageSelected();
         ui->retranslateUi(this);
+        ui->labelTitle2->setText(ui->labelTitle2->text().arg(PACKAGE_NAME));
     }
 }
 

@@ -166,6 +166,21 @@ public:
     };
 
     template<typename Callable>
+    bool ForEachNodeInRandomOrderContinueIf(Callable&& func)
+    {
+        FastRandomContext ctx;
+        LOCK(cs_vNodes);
+        std::vector<CNode*> nodesCopy = vNodes;
+        std::shuffle(nodesCopy.begin(), nodesCopy.end(), ctx);
+        for (auto&& node : nodesCopy)
+            if (NodeFullyConnected(node)) {
+                if (!func(node))
+                    return false;
+            }
+        return true;
+    };
+
+    template<typename Callable>
     void ForEachNode(Callable&& func)
     {
         LOCK(cs_vNodes);
@@ -206,6 +221,9 @@ public:
         }
         post();
     };
+
+    // Clears AskFor requests for every known peer
+    void RemoveAskFor(const uint256& invHash, int invType);
 
     void RelayInv(CInv& inv);
     bool IsNodeConnected(const CAddress& addr);
@@ -774,6 +792,8 @@ public:
     }
 
     void AskFor(const CInv& inv);
+    // inv response received, clear it from the waiting inv set.
+    void AskForInvReceived(const uint256& invHash);
 
     bool HasFulfilledRequest(std::string strRequest)
     {

@@ -479,6 +479,7 @@ void CoinControlDialog::updateLabelLocked()
         } else
             ui->labelLocked->setVisible(false);
     } else {
+        ui->labelLocked->setVisible(false);
         // TODO: implement locked notes functionality inside the wallet..
     }
 }
@@ -550,9 +551,6 @@ TotalAmounts CoinControlDialog::getTotals() const
             // shielded in/outs len sizes
             t.nBytes += (GetCompactSize(nShieldIns) + GetCompactSize(nShieldOuts));
         }
-
-        // !TODO: ExtraPayload size for special txes. For now 1 byte for nullopt.
-        t.nBytes += 1;
 
         // nVersion, nType, nLockTime
         t.nBytes += 8;
