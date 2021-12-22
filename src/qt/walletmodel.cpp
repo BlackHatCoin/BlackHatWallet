@@ -7,12 +7,14 @@
 
 #include "walletmodel.h"
 
-#include "init.h"   // for ShutdownRequested()
+#include "budget/budgetproposal.h"
 #include "interfaces/handler.h"
 #include "sapling/key_io_sapling.h"
 #include "sapling/sapling_operation.h"
 #include "sapling/transaction_builder.h"
+#include "shutdown.h"
 #include "spork.h"
+#include "wallet/fees.h"
 
 #include "qt/addresstablemodel.h"
 #include "qt/clientmodel.h"
@@ -30,6 +32,14 @@
 #include <QTimer>
 #include <utility>
 
+// Util function
+template <typename T>
+static std::string toHexStr(const T& obj)
+{
+    CDataStream ss(SER_DISK, CLIENT_VERSION);
+    ss << obj;
+    return HexStr(ss);
+}
 
 WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* parent) : QObject(parent), wallet(wallet), walletWrapper(*wallet),
                                                                                          optionsModel(optionsModel),
@@ -42,7 +52,11 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
     addressTableModel = new AddressTableModel(wallet, this);
     transactionTableModel = new TransactionTableModel(wallet, this);
     recentRequestsTableModel = new RecentRequestsTableModel(wallet, this);
+}
 
+void WalletModel::init()
+{
+    transactionTableModel->init();
     // This timer will be fired repeatedly to update the balance
     pollTimer = new QTimer(this);
     connect(pollTimer, &QTimer::timeout, this, &WalletModel::pollBalanceChanged);
@@ -309,7 +323,7 @@ void WalletModel::pollFinished()
 
 void WalletModel::stop()
 {
-    if(pollFuture.isRunning()) {
+    if (pollFuture.isRunning()) {
         pollFuture.cancel();
         pollFuture.setPaused(true);
     }
@@ -336,7 +350,7 @@ bool WalletModel::getWalletCustomFee(CAmount& nFeeRet)
 void WalletModel::setWalletCustomFee(bool fUseCustomFee, const CAmount nFee)
 {
     LOCK(wallet->cs_wallet);
-    CWalletDB db(wallet->GetDBHandle());
+    WalletBatch db(wallet->GetDBHandle());
     if (wallet->fUseCustomFee != fUseCustomFee) {
         wallet->fUseCustomFee = fUseCustomFee;
         db.WriteUseCustomFee(fUseCustomFee);
@@ -568,7 +582,6 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
 
     {
         LOCK2(cs_main, wallet->cs_wallet);
-        QList<SendCoinsRecipient> recipients = transaction.getRecipients();
 
         CReserveKey* keyChange = transaction.getPossibleKeyChange();
         const CWallet::CommitResult& res = wallet->CommitTransaction(newTx, keyChange, g_connman.get());
@@ -625,8 +638,7 @@ OperationResult WalletModel::PrepareShieldedTransaction(WalletModelTransaction* 
     if (!opResult) return opResult;
 
     // Create the operation
-    int nextBlockHeight = cachedNumBlocks + 1;
-    SaplingOperation operation(Params().GetConsensus(), nextBlockHeight, wallet);
+    SaplingOperation operation(Params().GetConsensus(), wallet);
     auto operationResult = operation.setRecipients(recipients)
              ->setTransparentKeyChange(modelTransaction->getPossibleKeyChange())
              ->setSelectTransparentCoins(fromTransparent)
@@ -644,6 +656,27 @@ OperationResult WalletModel::PrepareShieldedTransaction(WalletModelTransaction* 
     txRef = MakeTransactionRef(operation.getFinalTx());
     modelTransaction->setTransactionFee(operation.getFee()); // in the future, fee will be dynamically calculated.
     return operationResult;
+}
+
+OperationResult WalletModel::createAndSendProposalFeeTx(CBudgetProposal& proposal)
+{
+    CTransactionRef wtx;
+    const uint256& nHash = proposal.GetHash();
+    CReserveKey keyChange(wallet);
+    if (!wallet->CreateBudgetFeeTX(wtx, nHash, keyChange, false)) { // 50 BLKC collateral for proposal
+        return {false , "Error making fee transaction for proposal. Please check your wallet balance."};
+    }
+
+    // send the tx to the network
+    mapValue_t extraValues;
+    extraValues.emplace("proposal", toHexStr(proposal));
+    const CWallet::CommitResult& res = wallet->CommitTransaction(wtx, &keyChange, g_connman.get(), &extraValues);
+    if (res.status != CWallet::CommitStatus::OK) {
+        return {false, strprintf("Cannot commit proposal fee transaction: %s", res.ToString())};
+    }
+    // Everything went fine, set the fee tx hash
+    proposal.SetFeeTxHash(wtx->GetHash());
+    return {true};
 }
 
 const CWalletTx* WalletModel::getTx(uint256 id)
@@ -1172,3 +1205,7 @@ int WalletModel::getLastBlockProcessedNum() const
     return m_client_model ? m_client_model->getLastBlockProcessedHeight() : 0;
 }
 
+CAmount WalletModel::getNetMinFee()
+{   // future: unify minimum required fee.
+    return GetRequiredFee(1000);
+}

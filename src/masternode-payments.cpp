@@ -18,6 +18,7 @@
 #include "sync.h"
 #include "util/system.h"
 #include "utilmoneystr.h"
+#include "validation.h"
 
 
 /** Object for who's going to get paid on which blocks */
@@ -162,25 +163,16 @@ std::string CMasternodePaymentWinner::GetStrMessage() const
     return vinMasternode.prevout.ToStringShort() + std::to_string(nBlockHeight) + HexStr(payee);
 }
 
-bool CMasternodePaymentWinner::IsValid(CNode* pnode, std::string& strError, int chainHeight)
+bool CMasternodePaymentWinner::IsValid(CNode* pnode, CValidationState& state, int chainHeight)
 {
     int n = mnodeman.GetMasternodeRank(vinMasternode, nBlockHeight - 100);
-    bool guard = Params().GetConsensus().NetworkUpgradeActive(chainHeight, Consensus::UPGRADE_V5_3);
-    if ((guard && n < 1) || n > MNPAYMENTS_SIGNATURES_TOTAL) {
-        //It's common to have masternodes mistakenly think they are in the top 10
-        // We don't want to print all of these messages, or punish them unless they're way off
-        if (n > MNPAYMENTS_SIGNATURES_TOTAL * 2) {
-            strError = strprintf("Masternode not in the top %d (%d)", MNPAYMENTS_SIGNATURES_TOTAL * 2, n);
-            LogPrint(BCLog::MASTERNODE,"CMasternodePaymentWinner::IsValid - %s\n", strError);
-            //if (masternodeSync.IsSynced()) Misbehaving(pnode->GetId(), 20);
-        }
-        return false;
+    if (n < 1 || n > MNPAYMENTS_SIGNATURES_TOTAL) {
+        return state.Error(strprintf("Masternode not in the top %d (%d)", MNPAYMENTS_SIGNATURES_TOTAL, n));
     }
 
     // Must be a P2PKH
-    if (guard && !payee.IsPayToPublicKeyHash()) {
-        LogPrint(BCLog::MASTERNODE, "%s - payee must be a P2PKH\n", __func__);
-        return false;
+    if (!payee.IsPayToPublicKeyHash()) {
+        return state.Error("payee must be a P2PKH");
     }
 
     return true;
@@ -226,9 +218,11 @@ bool IsBlockValueValid(int nHeight, CAmount& nExpectedValue, CAmount nMinted, CA
         }
     }
 
-    // !todo: remove after V5.3 enforcement and default it to true
-    const bool isUpgradeEnforced = consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V5_3);
-    return (!isUpgradeEnforced || nMinted >= 0) && nMinted <= nExpectedValue;
+    if (nMinted < 0 && consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V5_3)) {
+        return false;
+    }
+
+    return nMinted <= nExpectedValue;
 }
 
 bool IsBlockPayeeValid(const CBlock& block, const CBlockIndex* pindexPrev)
@@ -332,9 +326,7 @@ bool CMasternodePayments::GetLegacyMasternodeTxOut(int nHeight, std::vector<CTxO
     CScript payee;
     if (!GetBlockPayee(nHeight, payee)) {
         //no masternode detected
-        const Consensus::Params& consensus = Params().GetConsensus();
-        const uint256& hash = consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V5_3) ?
-                              mnodeman.GetHashAtHeight(nHeight - 1) : consensus.hashGenesisBlock;
+        const uint256& hash = mnodeman.GetHashAtHeight(nHeight - 1);
         MasternodeRef winningNode = mnodeman.GetCurrentMasterNode(hash);
         if (winningNode) {
             payee = winningNode->GetPayeeScript();
@@ -434,7 +426,7 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
         }
 
         pfrom->FulfilledRequest(NetMsgType::GETMNWINNERS);
-        masternodePayments.Sync(pfrom, nCountNeeded);
+        Sync(pfrom, nCountNeeded);
         LogPrint(BCLog::MASTERNODE, "mnget - Sent Masternode winners to peer %i\n", pfrom->GetId());
     } else if (strCommand == NetMsgType::MNWINNER) { //Masternode Payments Declare Winner
         //this is required in litemodef
@@ -449,84 +441,89 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
             g_connman->RemoveAskFor(winner.GetHash(), MSG_MASTERNODE_WINNER);
         }
 
-        int nHeight = mnodeman.GetBestHeight();
+        CValidationState state;
+        ProcessMNWinner(winner, pfrom, state);
+    }
+}
 
-        if (masternodePayments.mapMasternodePayeeVotes.count(winner.GetHash())) {
-            LogPrint(BCLog::MASTERNODE, "mnw - Already seen - %s bestHeight %d\n", winner.GetHash().ToString().c_str(), nHeight);
-            masternodeSync.AddedMasternodeWinner(winner.GetHash());
-            return;
-        }
+bool CMasternodePayments::ProcessMNWinner(CMasternodePaymentWinner& winner, CNode* pfrom, CValidationState& state)
+{
+    int nHeight = mnodeman.GetBestHeight();
 
-        int nFirstBlock = nHeight - (mnodeman.CountEnabled() * 1.25);
-        if (winner.nBlockHeight < nFirstBlock || winner.nBlockHeight > nHeight + 20) {
-            LogPrint(BCLog::MASTERNODE, "mnw - winner out of range - FirstBlock %d Height %d bestHeight %d\n", nFirstBlock, winner.nBlockHeight, nHeight);
-            return;
-        }
+    if (mapMasternodePayeeVotes.count(winner.GetHash())) {
+        LogPrint(BCLog::MASTERNODE, "mnw - Already seen - %s bestHeight %d\n", winner.GetHash().ToString().c_str(), nHeight);
+        masternodeSync.AddedMasternodeWinner(winner.GetHash());
+        return false;
+    }
 
-        // reject old signature version
-        if (winner.nMessVersion != MessageVersion::MESS_VER_HASH) {
-            LogPrint(BCLog::MASTERNODE, "mnw - rejecting old message version %d\n", winner.nMessVersion);
-            return;
-        }
+    int nFirstBlock = nHeight - (mnodeman.CountEnabled() * 1.25);
+    if (winner.nBlockHeight < nFirstBlock || winner.nBlockHeight > nHeight + 20) {
+        LogPrint(BCLog::MASTERNODE, "mnw - winner out of range - FirstBlock %d Height %d bestHeight %d\n", nFirstBlock, winner.nBlockHeight, nHeight);
+        return state.Error("block height out of range");
+    }
 
-        std::string strError = "";
-        if (!winner.IsValid(pfrom, strError, nHeight)) {
-            // if(strError != "") LogPrint(BCLog::MASTERNODE,"mnw - invalid message - %s\n", strError);
-            return;
-        }
+    // reject old signature version
+    if (winner.nMessVersion != MessageVersion::MESS_VER_HASH) {
+        LogPrint(BCLog::MASTERNODE, "mnw - rejecting old message version %d\n", winner.nMessVersion);
+        return state.Error("mnw old message version");
+    }
 
-        if (!masternodePayments.CanVote(winner.vinMasternode.prevout, winner.nBlockHeight)) {
-            //  LogPrint(BCLog::MASTERNODE,"mnw - masternode already voted - %s\n", winner.vinMasternode.prevout.ToStringShort());
-            return;
-        }
-
-        // See if this winner was signed with a dmn or a legacy masternode
-        bool fDeterministic{false};
-        Optional<CKeyID> mnKeyID = nullopt;
-        auto mnList = deterministicMNManager->GetListAtChainTip();
-        auto dmn = mnList.GetMNByCollateral(winner.vinMasternode.prevout);
-        if (dmn) {
-            fDeterministic = true;
-            mnKeyID = Optional<CKeyID>(dmn->pdmnState->keyIDOperator);
-        } else {
-            const CMasternode* pmn = mnodeman.Find(winner.vinMasternode.prevout);
-            if (pmn) {
-                mnKeyID = Optional<CKeyID>(pmn->pubKeyMasternode.GetID());
-            }
-        }
-
-        // Check not found MN
-        if (mnKeyID == nullopt) {
-            // If it's a DMN, the node is misbehaving.
-            if (fDeterministic) {
-                LOCK(cs_main);
-                Misbehaving(pfrom->GetId(), 20);
-            } else {
-                // If it's not a DMN, then it could be a non-synced MN.
-                // Let's try to request the MN to the node.
-                // (the AskForMN() will only broadcast it every 10 min).
-
-                // But, only ask for missing items after the initial syncing process is complete
-                //   otherwise will think a full sync succeeded when they return a result
-                if (pfrom && masternodeSync.IsSynced()) mnodeman.AskForMN(pfrom, winner.vinMasternode);
-            }
-            return;
-        }
-
-        if (!winner.CheckSignature(*mnKeyID)) {
-            LogPrint(BCLog::MASTERNODE, "%s : mnw - invalid signature\n", __func__);
-            LOCK(cs_main);
-            Misbehaving(pfrom->GetId(), 20);
-            return;
-        }
-
-        if (masternodePayments.AddWinningMasternode(winner)) {
-            // Relay only if we are synchronized.
-            // Makes no sense to relay MNWinners to the peers from where we are syncing them.
-            if (masternodeSync.IsSynced()) winner.Relay();
-            masternodeSync.AddedMasternodeWinner(winner.GetHash());
+    // See if the mnw signer exists, and whether it's a legacy or DMN masternode
+    const CMasternode* pmn{nullptr};
+    auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByCollateral(winner.vinMasternode.prevout);
+    if (dmn == nullptr) {
+        // legacy masternode
+        pmn = mnodeman.Find(winner.vinMasternode.prevout);
+        if (pmn == nullptr) {
+            // it could be a non-synced masternode. ask for the mnb
+            LogPrint(BCLog::MASTERNODE, "mnw - unknown masternode %s\n", winner.vinMasternode.prevout.hash.ToString());
+            // Only ask for missing items after the initial syncing process is complete
+            //   otherwise will think a full sync succeeded when they return a result
+            if (pfrom && masternodeSync.IsSynced()) mnodeman.AskForMN(pfrom, winner.vinMasternode);
+            return state.Error("Non-existent mnwinner voter");
         }
     }
+    // either deterministic or legacy. not both
+    assert((dmn && !pmn) || (!dmn && pmn));
+
+    // See if the masternode is in the quorum (top-MNPAYMENTS_SIGNATURES_TOTAL)
+    if (!winner.IsValid(pfrom, state, nHeight)) {
+        // error cause set internally
+        return false;
+    }
+
+    // See if this masternode has already voted for this block height
+    if (!CanVote(winner.vinMasternode.prevout, winner.nBlockHeight)) {
+        return state.Error("MN already voted");
+    }
+
+    // Check signature
+    bool is_valid_sig = dmn ? winner.CheckSignature(dmn->pdmnState->pubKeyOperator.Get())
+                            : winner.CheckSignature(pmn->pubKeyMasternode.GetID());
+
+    if (!is_valid_sig) {
+        LogPrint(BCLog::MASTERNODE, "%s : mnw - invalid signature for %s masternode: %s\n",
+                __func__, (dmn ? "deterministic" : "legacy"), winner.vinMasternode.prevout.hash.ToString());
+        if (pfrom) {
+            LOCK(cs_main);
+            Misbehaving(pfrom->GetId(), 20);
+        }
+        return state.Error("invalid voter mnwinner signature");
+    }
+
+    // Record vote
+    RecordWinnerVote(winner.vinMasternode.prevout, winner.nBlockHeight);
+
+    // Add winner
+    AddWinningMasternode(winner);
+
+    // Relay only if we are synchronized.
+    // Makes no sense to relay MNWinners to the peers from where we are syncing them.
+    if (masternodeSync.IsSynced()) winner.Relay();
+    masternodeSync.AddedMasternodeWinner(winner.GetHash());
+
+    // valid
+    return true;
 }
 
 bool CMasternodePayments::GetBlockPayee(int nBlockHeight, CScript& payee) const
@@ -563,19 +560,10 @@ bool CMasternodePayments::IsScheduled(const CMasternode& mn, int nNotBlockHeight
     return false;
 }
 
-bool CMasternodePayments::AddWinningMasternode(CMasternodePaymentWinner& winnerIn)
+void CMasternodePayments::AddWinningMasternode(CMasternodePaymentWinner& winnerIn)
 {
-    // check winner height
-    if (winnerIn.nBlockHeight - 100 > mnodeman.GetBestHeight() + 1) {
-        return error("%s: mnw - invalid height %d > %d", __func__, winnerIn.nBlockHeight - 100, mnodeman.GetBestHeight() + 1);
-    }
-
     {
         LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
-
-        if (mapMasternodePayeeVotes.count(winnerIn.GetHash())) {
-            return false;
-        }
 
         mapMasternodePayeeVotes[winnerIn.GetHash()] = winnerIn;
 
@@ -589,8 +577,6 @@ bool CMasternodePayments::AddWinningMasternode(CMasternodePaymentWinner& winnerI
     ExtractDestination(winnerIn.payee, addr);
     LogPrint(BCLog::MASTERNODE, "mnw - Adding winner %s for block %d\n", EncodeDestination(addr), winnerIn.nBlockHeight);
     mapMasternodeBlocks[winnerIn.nBlockHeight].AddPayee(winnerIn.payee, 1);
-
-    return true;
 }
 
 bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
@@ -732,6 +718,8 @@ void CMasternodePayments::UpdatedBlockTip(const CBlockIndex *pindexNew, const CB
 
 void CMasternodePayments::ProcessBlock(int nBlockHeight)
 {
+    LogPrintf("%s: Processing block %d\n", __func__, nBlockHeight);
+
     // No more mnw messages after transition to DMN
     if (deterministicMNManager->LegacyMNObsolete()) {
         return;
@@ -739,8 +727,10 @@ void CMasternodePayments::ProcessBlock(int nBlockHeight)
     if (!fMasterNode) return;
 
     // Get the active masternode (operator) key
-    CKey mnKey; CKeyID mnKeyID; CTxIn mnVin;
-    if (!GetActiveMasternodeKeys(mnKey, mnKeyID, mnVin)) {
+    CTxIn mnVin;
+    Optional<CKey> mnKey{nullopt};
+    CBLSSecretKey blsKey;
+    if (!GetActiveMasternodeKeys(mnVin, mnKey, blsKey)) {
         return;
     }
 
@@ -748,12 +738,12 @@ void CMasternodePayments::ProcessBlock(int nBlockHeight)
     int n = mnodeman.GetMasternodeRank(mnVin, nBlockHeight - 100);
 
     if (n == -1) {
-        LogPrint(BCLog::MASTERNODE, "CMasternodePayments::ProcessBlock - Unknown Masternode\n");
+        LogPrintf("%s: ERROR: active masternode is not registered yet\n", __func__);
         return;
     }
 
     if (n > MNPAYMENTS_SIGNATURES_TOTAL) {
-        LogPrint(BCLog::MASTERNODE, "CMasternodePayments::ProcessBlock - Masternode not in the top %d (%d)\n", MNPAYMENTS_SIGNATURES_TOTAL, n);
+        LogPrintf("%s: active masternode not in the top %d (%d)\n", __func__, MNPAYMENTS_SIGNATURES_TOTAL, n);
         return;
     }
 
@@ -764,25 +754,40 @@ void CMasternodePayments::ProcessBlock(int nBlockHeight)
         return;
     }
 
+    // check winner height
+    if (nBlockHeight - 100 > mnodeman.GetBestHeight() + 1) {
+        LogPrintf("%s: mnw - invalid height %d > %d", __func__, nBlockHeight - 100, mnodeman.GetBestHeight() + 1);
+        return;
+    }
+
     // pay to the oldest MN that still had no payment but its input is old enough and it was active long enough
     int nCount = 0;
     MasternodeRef pmn = mnodeman.GetNextMasternodeInQueueForPayment(nBlockHeight, true, nCount);
 
     if (pmn == nullptr) {
-        LogPrint(BCLog::MASTERNODE,"%s: Failed to find masternode to pay\n", __func__);
+        LogPrintf("%s: Failed to find masternode to pay\n", __func__);
         return;
     }
 
     CMasternodePaymentWinner newWinner(mnVin, nBlockHeight);
     newWinner.AddPayee(pmn->GetPayeeScript());
-    if (!newWinner.Sign(mnKey, mnKeyID)) {
-        LogPrintf("%s: Failed to sign masternode winner\n", __func__);
-        return;
+    if (mnKey != nullopt) {
+        // Legacy MN
+        if (!newWinner.Sign(*mnKey, mnKey->GetPubKey().GetID())) {
+            LogPrintf("%s: Failed to sign masternode winner\n", __func__);
+            return;
+        }
+    } else {
+        // DMN
+        if (!newWinner.Sign(blsKey)) {
+            LogPrintf("%s: Failed to sign masternode winner with DMN\n", __func__);
+            return;
+        }
     }
-    if (!AddWinningMasternode(newWinner)) {
-        return;
-    }
+
+    AddWinningMasternode(newWinner);
     newWinner.Relay();
+    LogPrintf("%s: Relayed winner %s\n", __func__, newWinner.GetHash().ToString());
     nLastBlockHeight = nBlockHeight;
 }
 
@@ -814,6 +819,19 @@ std::string CMasternodePayments::ToString() const
     info << "Votes: " << (int)mapMasternodePayeeVotes.size() << ", Blocks: " << (int)mapMasternodeBlocks.size();
 
     return info.str();
+}
+
+bool CMasternodePayments::CanVote(const COutPoint& outMasternode, int nBlockHeight) const
+{
+    LOCK(cs_mapMasternodePayeeVotes);
+    const auto it = mapMasternodesLastVote.find(outMasternode);
+    return it == mapMasternodesLastVote.end() || it->second != nBlockHeight;
+}
+
+void CMasternodePayments::RecordWinnerVote(const COutPoint& outMasternode, int nBlockHeight)
+{
+    LOCK(cs_mapMasternodePayeeVotes);
+    mapMasternodesLastVote[outMasternode] = nBlockHeight;
 }
 
 bool IsCoinbaseValueValid(const CTransactionRef& tx, CAmount nBudgetAmt, CValidationState& _state, int nBlockHeight)

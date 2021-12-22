@@ -55,8 +55,9 @@ QString dateTimeStr(qint64 nTime);
 // Render BLKC addresses in monospace font
 QFont bitcoinAddressFont();
 
-// Parse string into a CAmount value
-CAmount parseValue(const QString& text, int displayUnit, bool* valid_out = 0);
+// Parse string into a CAmount value.
+// Return 0 if the value is invalid
+CAmount parseValue(const QString& amount, int displayUnit = 0);
 
 // Format an amount
 QString formatBalance(CAmount amount, int nDisplayUnit = 0, bool isZblkc = false);

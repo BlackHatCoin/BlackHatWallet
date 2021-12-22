@@ -10,6 +10,7 @@
 #include <map>
 #include <mutex>
 #include <memory>
+#include <unordered_map>
 
 /**
  * OS-dependent allocation and deallocation of locked/pinned memory pages.
@@ -21,7 +22,7 @@ public:
     virtual ~LockedPageAllocator() {}
     /** Allocate and lock memory pages.
      * If len is not a multiple of the system page size, it is rounded up.
-     * Returns 0 in case of allocation failure.
+     * Returns nullptr in case of allocation failure.
      *
      * If locking the memory pages could not be accomplished it will still
      * return the memory, however the lockingSuccess flag will be false.
@@ -53,27 +54,6 @@ public:
     Arena(const Arena& other) = delete; // non construction-copyable
     Arena& operator=(const Arena&) = delete; // non copyable
 
-    /** A chunk of memory.
-     */
-    struct Chunk
-    {
-        /** Most significant bit of size_t. This is used to mark
-         * in-usedness of chunk.
-         */
-        const static size_t SIZE_MSB = 1LLU << ((sizeof(size_t)*8)-1);
-        /** Maximum size of a chunk */
-        const static size_t MAX_SIZE = SIZE_MSB - 1;
-
-        Chunk(size_t size_in, bool used_in):
-            size(size_in | (used_in ? SIZE_MSB : 0)) {}
-
-        bool isInUse() const { return size & SIZE_MSB; }
-        void setInUse(bool used_in) { size = (size & ~SIZE_MSB) | (used_in ? SIZE_MSB : 0); }
-        size_t getSize() const { return size & ~SIZE_MSB; }
-        void setSize(size_t size_in) { size = (size & SIZE_MSB) | size_in; }
-    private:
-        size_t size;
-    };
     /** Memory statistics. */
     struct Stats
     {
@@ -109,10 +89,19 @@ public:
      */
     bool addressInArena(void *ptr) const { return ptr >= base && ptr < end; }
 private:
-    /** Map of chunk address to chunk information. This class makes use of the
-     * sorted order to merge previous and next chunks during deallocation.
-     */
-    std::map<char*, Chunk> chunks;
+    typedef std::multimap<size_t, char*> SizeToChunkSortedMap;
+    /** Map to enable O(log(n)) best-fit allocation, as it's sorted by size */
+    SizeToChunkSortedMap size_to_free_chunk;
+
+    typedef std::unordered_map<char*, SizeToChunkSortedMap::const_iterator> ChunkToSizeMap;
+    /** Map from begin of free chunk to its node in size_to_free_chunk */
+    ChunkToSizeMap chunks_free;
+    /** Map from end of free chunk to its node in size_to_free_chunk */
+    ChunkToSizeMap chunks_free_end;
+
+    /** Map from begin of used chunk to its size */
+    std::unordered_map<char*, size_t> chunks_used;
+
     /** Base address of arena */
     char* base;
     /** End address of arena */

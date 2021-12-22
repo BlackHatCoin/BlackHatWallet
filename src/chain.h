@@ -14,7 +14,6 @@
 #include "chainparams.h"
 #include "flatfile.h"
 #include "optional.h"
-#include "pow.h"
 #include "primitives/block.h"
 #include "timedata.h"
 #include "tinyformat.h"

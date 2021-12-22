@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>Nueva Direccion</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Dirección</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>Presionar el botón</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>CANCELAR</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Bob Allen</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Nombre de contacto</translation>
@@ -296,14 +265,6 @@ Are you sure?</source>
     <message>
         <source>Passphrase Dialog</source>
         <translation>Diálogo de contraseña</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>EtiquetaDeTexto</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>Presionar el botón</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -426,10 +387,6 @@ para staking</translation>
 </context>
 <context>
     <name>BalanceBubble</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     </context>
 <context>
     <name>BanTableModel</name>
@@ -445,16 +402,8 @@ para staking</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Ahorros</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -525,10 +474,6 @@ para staking</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -639,8 +584,16 @@ para staking</translation>
         <translation>Puede variar +/- %1 u%2 por entrada.</translation>
     </message>
     <message>
+        <source>change in %1</source>
+        <translation>cambio en %1</translation>
+    </message>
+    <message>
         <source>delegated to %1 for cold staking</source>
         <translation>delegar a %1 para hacer cold staking</translation>
+    </message>
+    <message>
+        <source>Delegated to %1</source>
+        <translation>Delegado a %1</translation>
     </message>
     <message>
         <source>Select All</source>
@@ -661,10 +614,6 @@ para staking</translation>
 </context>
 <context>
     <name>ColdStakingWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Dirección del propietario (opcional, si está vacía se creará una nueva dirección)</translation>
@@ -688,6 +637,10 @@ para staking</translation>
     <message>
         <source>Delegate</source>
         <translation>Delegado</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtrar</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -896,18 +849,86 @@ del propietario </translation>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
+        <source>Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Destinatario</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>Resumen</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>Crear Nueva Propuesta</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Nombre de Propuesta</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>URL de Propuesta</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>Beneficiario de Propuesta</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Dirección</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Meses</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>Resumen de Propuesta</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCELAR</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>SIGUIENTE </translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>ATRÁS</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>El nombre de la propuesta no puede estar vacío</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Cantidad incorrecta</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Enviar</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Sin contactos disponibles, ¡puedes ir a la pantalla de contactos y añadir alguno allí!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>Transacciones</translation>
@@ -989,10 +1010,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1057,13 +1074,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1086,6 +1096,37 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>No se puede crear un directorio de datos aquí.</translation>
     </message>
 </context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Date</source>
+        <translation>Fecha</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Ordenar por</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Todos</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtrar</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Espera hasta que el nodo esté completamente sincronizado</translation>
+    </message>
+    </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
@@ -1147,28 +1188,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>EtiquetaDeTexto</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Cargando</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Desbloquear wallet</translation>
@@ -1185,10 +1210,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>tx colateral no encontrado</translation>
     </message>
@@ -1199,10 +1220,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1324,10 +1341,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Iniciar Todo</translation>
@@ -1494,10 +1507,6 @@ Are you sure?</source>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>Información de Masternodes</translation>
     </message>
@@ -1539,18 +1548,34 @@ Are you sure?</source>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
+        <source>Select All</source>
+        <translation>Deseleccionar Todo</translation>
     </message>
-</context>
+    <message>
+        <source>Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Estado</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCELAR</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Sí</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1594,10 +1619,6 @@ EN FRIO</translation>
 </translation>
     </message>
     <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
-    </message>
-    <message>
         <source>v%1</source>
         <translation>v%1</translation>
     </message>
@@ -1615,13 +1636,6 @@ EN FRIO</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
     </message>
 </context>
 <context>
@@ -1729,6 +1743,36 @@ Dirección: %4
         <translation>ID del Nodo</translation>
     </message>
 </context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Sí</translation>
+    </message>
+    </context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Nombre de Propuesta</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Estado</translation>
+    </message>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -1983,10 +2027,6 @@ Dirección: %4
         <translation>Nombre de cliente</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>Número de conexiones</translation>
     </message>
@@ -2207,10 +2247,6 @@ Dirección: %4
         <translation>Reconstruir el índice del blockchain desde los archivos blk000??.dat actuales.</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>resincronizando:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Eliminar todos los directorios locales del blockchain y sincronizar la wallet desde el principio.</translation>
     </message>
@@ -2350,10 +2386,6 @@ Dirección: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Mi Dirección</translation>
     </message>
@@ -2369,10 +2401,6 @@ Dirección: %4
 <context>
     <name>ReceiveWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Escanee el código QR o copie la dirección para recibir BLKC</translation>
     </message>
@@ -2387,6 +2415,10 @@ Dirección: %4
     <message>
         <source>Copy</source>
         <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtrar</translation>
     </message>
     <message>
         <source>Receive</source>
@@ -2491,24 +2523,12 @@ Dirección: %4
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Cantidad</translation>
     </message>
     <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>En lugar de compartir solo una dirección BlackHat, puede crear una solicitud de pago, agrupando más información</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2582,10 +2602,6 @@ Dirección: %4
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>CANCELAR</translation>
     </message>
@@ -2617,20 +2633,8 @@ Dirección: %4
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Recomendada</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -2676,10 +2680,6 @@ Dirección: %4
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <source>SAVE</source>
         <translation>GUARDAR</translation>
     </message>
@@ -2694,10 +2694,6 @@ Dirección: %4
 </context>
 <context>
     <name>SendMultiRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Enter address</source>
         <translation>Ingresa la dirección</translation>
@@ -2853,10 +2849,6 @@ Estas monedas ya no serán puestas en Cold-Staked</translation>
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Cambiar la Frase de la Contraseña de la Wallet</translation>
     </message>
@@ -2907,10 +2899,6 @@ Recuerde anotarlos y almacenarlos de forma segura, de lo contrario, podría perd
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Importar dirección</translation>
@@ -3061,10 +3049,6 @@ Con este mecanismo puede compartir sus claves sin riesgo de intermediarios, solo
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Console</source>
         <translation>Consola</translation>
     </message>
@@ -3105,10 +3089,6 @@ Verifica que tengas instalado un editor de texto predeterminado.</translation>
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Ocultar las gráficas de stake del tablero</translation>
@@ -3165,10 +3145,6 @@ Verifica que tengas instalado un editor de texto predeterminado.</translation>
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Exportar Contabilidad</translation>
     </message>
@@ -3177,8 +3153,8 @@ Verifica que tengas instalado un editor de texto predeterminado.</translation>
         <translation>Exporta los datos contables de tu wallet a un archivo csv.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Donde</translation>
+        <source>Export Transaction History</source>
+        <translation>Exportar Histórico de Transacciones</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3189,20 +3165,8 @@ Verifica que tengas instalado un editor de texto predeterminado.</translation>
         <translation>Exportar Libreta de Direcciones</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>Exportar CSV</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Exportar lista de direcciones</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_tx_csv_export(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_addresses_csv_export(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Archivo separado por comas (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3268,20 +3232,12 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) ¿Qué es BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) ¿Por qué mis BLKC no se pueden gastar?</translation>
-    </message>
-    <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3305,7 +3261,7 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
     </message>
     <message>
         <source>How do I stake BLKC?</source>
-        <translation>¿Cómo apuesto BLKc?</translation>
+        <translation>¿Cómo apuesto BLKC?</translation>
     </message>
     <message>
         <source>4</source>
@@ -3358,10 +3314,6 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
     </context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Monitor de Red</translation>
@@ -3470,10 +3422,6 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Window</source>
         <translation>Ventana</translation>
     </message>
@@ -3538,10 +3486,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Firmar/Verificar Mensaje</translation>
@@ -3635,10 +3579,6 @@ Are you sure?
         <translation>Por favor compruebe la firma e inténtelo otra vez.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>La firma no coincide con el resumen del mensaje.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Falló la verificación del mensaje.</translation>
     </message>
@@ -3653,10 +3593,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Reestablecer los valores predeterminados</translation>
@@ -3732,10 +3668,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Reparación de wallet </translation>
@@ -3823,10 +3755,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>Datos de la Wallet</translation>
@@ -3960,22 +3888,7 @@ Are you sure?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Contacto Guardado</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Cargando....</translation>
@@ -3990,10 +3903,6 @@ Are you sure?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Copiar</translation>
@@ -4013,10 +3922,6 @@ Are you sure?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Available</source>
         <translation>Disponible </translation>
@@ -4347,10 +4252,6 @@ una nueva copia de seguridad.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Detalles de Transacción</translation>
     </message>
@@ -4365,14 +4266,6 @@ una nueva copia de seguridad.
     <message>
         <source>Output Index</source>
         <translation>Índice de Salida</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>Mayo 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4415,10 +4308,6 @@ una nueva copia de seguridad.
         <translation>Fecha</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>EtiquetaDeTexto</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>CANCELAR</translation>
     </message>
@@ -4448,14 +4337,18 @@ una nueva copia de seguridad.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
+        <source>CANCEL</source>
+        <translation>CANCELAR</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Sí</translation>
     </message>
     </context>
 <context>
@@ -4540,6 +4433,13 @@ Seleccione menos entradas con control de monedas.</translation>
         <translation>por defecto</translation>
     </message>
 </context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <source>Available</source>
+        <translation>Disponible </translation>
+    </message>
+    </context>
 <context>
     <name>blkc-core</name>
     <message>
@@ -4905,10 +4805,6 @@ Ejecute 'sapling-fetch-params' o './util/fetch-params.sh' y luego reinicie.</tra
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Enviar</translation>

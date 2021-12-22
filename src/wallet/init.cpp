@@ -34,7 +34,7 @@ std::string GetWalletHelpString(bool showDebug)
     strUsage += HelpMessageOpt("-walletdir=<dir>", "Specify directory to hold wallets (default: <datadir>/wallets if it exists, otherwise <datadir>)");
     strUsage += HelpMessageOpt("-walletnotify=<cmd>", "Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)");
     strUsage += HelpMessageOpt("-zapwallettxes=<mode>", "Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup"
-                                                        "(1 = keep tx meta data e.g. payment request information, 2 = drop tx meta data)");
+        "(1 = keep tx meta data e.g. payment request information, 2 = drop tx meta data)");
     strUsage += HelpMessageGroup("Mining/Staking options:");
     strUsage += HelpMessageOpt("-coldstaking=<n>", strprintf("Enable cold staking functionality (0-1, default: %u). Disabled if staking=0", DEFAULT_COLDSTAKING));
     strUsage += HelpMessageOpt("-gen", strprintf("Generate coins (default: %u)", DEFAULT_GENERATE));
@@ -134,7 +134,7 @@ bool WalletParameterInteraction()
         else
             return UIError(AmountErrMsg("minstakesplit", gArgs.GetArg("-minstakesplit", "")));
     }
-    nTxConfirmTarget = gArgs.GetArg("-txconfirmtarget", 1);
+    nTxConfirmTarget = gArgs.GetArg("-txconfirmtarget", DEFAULT_TX_CONFIRM_TARGET);
     bSpendZeroConfChange = gArgs.GetBoolArg("-spendzeroconfchange", DEFAULT_SPEND_ZEROCONF_CHANGE);
     bdisableSystemnotifications = gArgs.GetBoolArg("-disablesystemnotifications", false);
 
@@ -175,26 +175,26 @@ bool WalletVerify()
         }
 
         std::string strError;
-        if (!CWalletDB::VerifyEnvironment(wallet_path, strError)) {
+        if (!WalletBatch::VerifyEnvironment(wallet_path, strError)) {
             return UIError(strError);
         }
 
         if (gArgs.GetBoolArg("-salvagewallet", false)) {
             // Recover readable keypairs:
-            CWallet dummyWallet("dummy", CWalletDBWrapper::CreateDummy());
+            CWallet dummyWallet("dummy", WalletDatabase::CreateDummy());
             std::string backup_filename;
             // Even if we don't use this lock in this function, we want to preserve
             // lock order in LoadToWallet if query of chain state is needed to know
             // tx status. If lock can't be taken, tx confirmation status may be not
             // reliable.
             LOCK(cs_main);
-            if (!CWalletDB::Recover(wallet_path, (void *)&dummyWallet, CWalletDB::RecoverKeysOnlyFilter, backup_filename)) {
+            if (!WalletBatch::Recover(wallet_path, (void *)&dummyWallet, WalletBatch::RecoverKeysOnlyFilter, backup_filename)) {
                 return false;
             }
         }
 
         std::string strWarning;
-        bool dbV = CWalletDB::VerifyDatabaseFile(wallet_path, strWarning, strError);
+        bool dbV = WalletBatch::VerifyDatabaseFile(wallet_path, strWarning, strError);
         if (!strWarning.empty()) {
             UIWarning(strWarning);
         }

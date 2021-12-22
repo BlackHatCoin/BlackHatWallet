@@ -188,6 +188,8 @@ Use the `-v` option for verbose output.
 | Lint test | Dependency | Version [used by CI](../.github/workflows/build-and-test.yml) | Installation
 |-----------|:----------:|:-------------------------------------------:|--------------
 | [`lint-python.sh`](lint/lint-python.sh) | [flake8](https://gitlab.com/pycqa/flake8) | [3.8.3](https://github.com/bitcoin/bitcoin/pull/15257) | `pip3 install flake8==3.8.3`
+| [`lint-shell.sh`](lint/lint-shell.sh) | [ShellCheck](https://github.com/koalaman/shellcheck) | [0.7.1](https://github.com/bitcoin/bitcoin/pull/15166) | [details...](https://github.com/koalaman/shellcheck#installing)
+| [`lint-shell.sh`](lint/lint-shell.sh) | [yq](https://github.com/kislyuk/yq) | default | `pip3 install yq`
 
 Please be aware that on Linux distributions all dependencies are usually available as packages, but could be outdated.
 

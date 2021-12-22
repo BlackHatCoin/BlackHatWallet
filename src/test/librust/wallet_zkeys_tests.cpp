@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(wallet_zkeys_tests)
   * LoadSaplingZKeyMetadata()
   */
 BOOST_FIXTURE_TEST_CASE(StoreAndLoadSaplingZkeys, TestingSetup) {
-    CWallet wallet("dummy", CWalletDBWrapper::CreateDummy());
+    CWallet wallet("dummy", WalletDatabase::CreateDummy());
     LOCK(wallet.cs_wallet);
     // wallet should be empty
     std::set<libzcash::SaplingPaymentAddress> addrs;
@@ -130,12 +130,12 @@ BOOST_FIXTURE_TEST_CASE(StoreAndLoadSaplingZkeys, TestingSetup) {
 }
 
 /**
-  * This test covers methods on CWalletDB to load/save crypted sapling z keys.
+  * This test covers methods on WalletBatch to load/save crypted sapling z keys.
   */
 BOOST_FIXTURE_TEST_CASE(WriteCryptedSaplingZkeyDirectToDb, BasicTestingSetup) {
     fs::path path = fs::absolute("testWallet1", GetWalletDir());
     path.make_preferred();
-    std::unique_ptr<CWallet> testWallet = std::make_unique<CWallet>("testWallet1", CWalletDBWrapper::Create(path));
+    std::unique_ptr<CWallet> testWallet = std::make_unique<CWallet>("testWallet1", WalletDatabase::Create(path));
     bool fFirstRun;
     BOOST_CHECK_EQUAL(testWallet->LoadWallet(fFirstRun), DB_LOAD_OK);
     BOOST_CHECK(!testWallet->HasSaplingSPKM());
@@ -172,7 +172,7 @@ BOOST_FIXTURE_TEST_CASE(WriteCryptedSaplingZkeyDirectToDb, BasicTestingSetup) {
 
     // Create a new wallet from the existing wallet path
     fFirstRun = false;
-    std::unique_ptr<CWallet> wallet2 = std::make_unique<CWallet>("testWallet1", CWalletDBWrapper::Create(path));
+    std::unique_ptr<CWallet> wallet2 = std::make_unique<CWallet>("testWallet1", WalletDatabase::Create(path));
     BOOST_CHECK_EQUAL(DB_LOAD_OK, wallet2->LoadWallet(fFirstRun));
 
     // Confirm it's not the same as the other wallet

@@ -10,6 +10,7 @@
 
 #include "blockassembler.h"
 #include "consensus/merkle.h"
+#include "bls/bls_wrapper.h"
 #include "guiinterface.h"
 #include "evo/deterministicmns.h"
 #include "evo/evodb.h"
@@ -18,6 +19,7 @@
 #include "net_processing.h"
 #include "rpc/server.h"
 #include "rpc/register.h"
+#include "pow.h"
 #include "script/sigcache.h"
 #include "sporkdb.h"
 #include "txmempool.h"
@@ -44,6 +46,7 @@ BasicTestingSetup::BasicTestingSetup(const std::string& chainName)
     : m_path_root(fs::temp_directory_path() / "test_blkc" / strprintf("%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(1 << 30))))
 {
     ECC_Start();
+    BLSInit();
     SetupEnvironment();
     InitSignatureCache();
     fCheckBlockIndex = true;
@@ -82,10 +85,11 @@ TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(cha
         // our unit tests aren't testing multiple parts of the code at once.
         GetMainSignals().RegisterBackgroundSignalScheduler(scheduler);
 
-        // Register EvoNotificationInterface
         g_connman = std::make_unique<CConnman>(0x1337, 0x1337); // Deterministic randomness for tests.
         connman = g_connman.get();
-        pEvoNotificationInterface = new EvoNotificationInterface(*connman);
+
+        // Register EvoNotificationInterface
+        pEvoNotificationInterface = new EvoNotificationInterface();
         RegisterValidationInterface(pEvoNotificationInterface);
 
         // Ideally we'd move all the RPC tests to the functional testing framework
@@ -112,6 +116,7 @@ TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(cha
 
 TestingSetup::~TestingSetup()
 {
+        scheduler.stop();
         threadGroup.interrupt_all();
         threadGroup.join_all();
         GetMainSignals().FlushBackgroundCallbacks();

@@ -1,14 +1,16 @@
-// Copyright (c) 2018 The Zcash developers
+// Copyright (c) 2018-2020 The ZCash developers
+// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #include "sapling/zip32.h"
 
 #include "hash.h"
 #include "random.h"
+#include "sapling/prf.h"
 #include "streams.h"
 #include "version.h"
-#include "sapling/prf.h"
 
 #include <librustzcash.h>
 #include <sodium.h>
@@ -59,7 +61,7 @@ uint256 ovkForShieldingFromTaddr(HDSeed& seed) {
 
 namespace libzcash {
 
-boost::optional<SaplingExtendedFullViewingKey> SaplingExtendedFullViewingKey::Derive(uint32_t i) const
+Optional<SaplingExtendedFullViewingKey> SaplingExtendedFullViewingKey::Derive(uint32_t i) const
 {
     CDataStream ss_p(SER_NETWORK, PROTOCOL_VERSION);
     ss_p << *this;
@@ -76,11 +78,11 @@ boost::optional<SaplingExtendedFullViewingKey> SaplingExtendedFullViewingKey::De
         ss_i >> xfvk_i;
         return xfvk_i;
     } else {
-        return boost::none;
+        return nullopt;
     }
 }
 
-boost::optional<std::pair<diversifier_index_t, libzcash::SaplingPaymentAddress>>
+Optional<std::pair<diversifier_index_t, libzcash::SaplingPaymentAddress>>
     SaplingExtendedFullViewingKey::Address(diversifier_index_t j) const
 {
     CDataStream ss_xfvk(SER_NETWORK, PROTOCOL_VERSION);
@@ -98,7 +100,7 @@ boost::optional<std::pair<diversifier_index_t, libzcash::SaplingPaymentAddress>>
         ss_addr >> addr;
         return std::make_pair(j_ret, addr);
     } else {
-        return boost::none;
+        return nullopt;
     }
 }
 

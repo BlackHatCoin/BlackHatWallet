@@ -21,7 +21,7 @@ from test_framework.util import (
     assert_true,
     connect_nodes,
     get_datadir_path,
-    satoshi_round,
+    satoshi_round
 )
 import shutil
 import os
@@ -236,10 +236,24 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.check_vote_existence(firstProposal.name, self.mnOneCollateral.hash, "YES", True)
         self.log.info("all good, MN1 vote accepted everywhere!")
 
+        # before broadcast the second vote, let's drop the budget data of ownerOne.
+        # so the node is forced to send a single proposal sync when the, now orphan, proposal vote is received.
+        self.log.info("Testing single proposal re-sync based on an orphan vote, dropping budget data...")
+        self.ownerOne.cleanbudget(try_sync=False)
+        assert_equal(self.ownerOne.getbudgetprojection(), []) # empty
+        assert_equal(self.ownerOne.getbudgetinfo(), [])
+
         # now let's vote for the proposal with the second MN
         self.log.info("Voting with MN2...")
         voteResult = self.ownerTwo.mnbudgetvote("alias", firstProposal.proposalHash, "yes", self.masternodeTwoAlias, True)
         assert_equal(voteResult["detail"][0]["result"], "success")
+
+        # check orphan vote proposal re-sync
+        self.log.info("checking orphan vote based proposal re-sync...")
+        time.sleep(5) # wait a bit before check it
+        self.check_proposal_existence(firstProposal.name, firstProposal.proposalHash)
+        self.check_vote_existence(firstProposal.name, self.mnOneCollateral.hash, "YES", True)
+        self.log.info("all good, orphan vote based proposal re-sync succeeded")
 
         # check that the vote was accepted everywhere
         self.stake(1, [self.remoteOne, self.remoteTwo])
@@ -277,7 +291,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.stake(2, [self.remoteOne, self.remoteTwo])
 
         # assert that there is no budget finalization first.
-        assert_true(len(self.ownerOne.mnfinalbudget("show")) == 0)
+        assert_equal(len(self.ownerOne.mnfinalbudget("show")), 0)
 
         # suggest the budget finalization and confirm the tx (+4 blocks).
         budgetFinHash = self.broadcastbudgetfinalization(self.miner,
@@ -289,22 +303,38 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.check_budget_finalization_sync(0, "OK")
 
         self.log.info("budget finalization synced!, now voting for the budget finalization..")
+        # Connecting owner to all the other nodes.
+        self.connect_to_all(self.ownerOnePos)
 
         voteResult = self.ownerOne.mnfinalbudget("vote-many", budgetFinHash, True)
         assert_equal(voteResult["detail"][0]["result"], "success")
+        time.sleep(2) # wait a bit
+        self.stake(2, [self.remoteOne, self.remoteTwo])
+        self.check_budget_finalization_sync(1, "OK")
         self.log.info("Remote One voted successfully.")
+
+        # before broadcast the second finalization vote, let's drop the budget data of remoteOne.
+        # so the node is forced to send a single fin sync when the, now orphan, vote is received.
+        self.log.info("Testing single fin re-sync based on an orphan vote, dropping budget data...")
+        self.remoteOne.cleanbudget(try_sync=False)
+        assert_equal(self.remoteOne.getbudgetprojection(), []) # empty
+        assert_equal(self.remoteOne.getbudgetinfo(), [])
+
+        # vote for finalization with MN2 and the DMN
         voteResult = self.ownerTwo.mnfinalbudget("vote-many", budgetFinHash, True)
         assert_equal(voteResult["detail"][0]["result"], "success")
         self.log.info("Remote Two voted successfully.")
         voteResult = self.remoteDMN1.mnfinalbudget("vote", budgetFinHash)
         assert_equal(voteResult["detail"][0]["result"], "success")
         self.log.info("DMN voted successfully.")
+        time.sleep(2) # wait a bit
         self.stake(2, [self.remoteOne, self.remoteTwo])
 
         self.log.info("checking finalization votes..")
         self.check_budget_finalization_sync(3, "OK")
+        self.log.info("orphan vote based finalization re-sync succeeded")
 
-        self.stake(8, [self.remoteOne, self.remoteTwo])
+        self.stake(6, [self.remoteOne, self.remoteTwo])
         addrInfo = self.miner.listreceivedbyaddress(0, False, False, firstProposal.paymentAddr)
         assert_equal(addrInfo[0]["amount"], firstProposal.amountPerCycle)
 
@@ -342,9 +372,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.log.info("restarting node..")
         self.start_node(self.ownerTwoPos)
         self.ownerTwo.setmocktime(self.mocktime)
-        for i in range(self.num_nodes):
-            if i is not self.ownerTwoPos:
-                self.connect_nodes_bi(self.nodes, self.ownerTwoPos, i)
+        self.connect_to_all(self.ownerTwoPos)
         self.stake(2, [self.remoteOne, self.remoteTwo])
 
         self.log.info("syncing node..")
@@ -352,6 +380,25 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         for i in range(self.num_nodes):
             assert_equal(len(self.nodes[i].getbudgetinfo()), 16)
         self.log.info("resync (2): budget data resynchronized successfully!")
+
+        # Let's now verify the remote budget data relay.
+        # Drop the budget data and generate blocks until someone incrementally sync us
+        # (this is done once every 28 blocks on regtest).
+        self.log.info("Testing incremental sync from peers, dropping budget data...")
+        self.remoteDMN1.cleanbudget(try_sync=False)
+        assert_equal(self.remoteDMN1.getbudgetprojection(), []) # empty
+        assert_equal(self.remoteDMN1.getbudgetinfo(), [])
+        self.log.info("Generating blocks until someone syncs the node..")
+        self.stake(40, [self.remoteOne, self.remoteTwo])
+        time.sleep(5) # wait a little bit
+        self.log.info("Checking budget sync..")
+        for i in range(self.num_nodes):
+            assert_equal(len(self.nodes[i].getbudgetinfo()), 16)
+        self.check_vote_existence(firstProposal.name, self.mnOneCollateral.hash, "YES", True)
+        self.check_vote_existence(firstProposal.name, self.mnTwoCollateral.hash, "YES", True)
+        self.check_vote_existence(firstProposal.name, self.proRegTx1, "YES", True)
+        self.check_budget_finalization_sync(3, "OK")
+        self.log.info("Remote incremental sync succeeded")
 
         # now let's verify that votes expire properly.
         # Drop one MN and one DMN
@@ -361,6 +408,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.stake(15, [self.remoteTwo]) # create blocks to remove staled votes
         time.sleep(2) # wait a little bit
         self.check_vote_existence(firstProposal.name, self.mnOneCollateral.hash, "YES", False)
+        self.check_budget_finalization_sync(2, "OK") # budget finalization vote removal
         self.log.info("MN1 vote expired after collateral spend, all good")
 
         self.log.info("expiring DMN1..")
@@ -370,9 +418,22 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         self.stake(15, [self.remoteTwo]) # create blocks to remove staled votes
         time.sleep(2) # wait a little bit
         self.check_vote_existence(firstProposal.name, self.proRegTx1, "YES", False)
+        self.check_budget_finalization_sync(1, "OK") # budget finalization vote removal
         self.log.info("DMN vote expired after collateral spend, all good")
 
-
+        # Check that the budget is removed 200 blocks after the last payment
+        assert_equal(len(self.miner.mnfinalbudget("show")), 1)
+        blocks_to_mine = nextSuperBlockHeight + 200 - self.miner.getblockcount()
+        self.log.info("Mining %d more blocks to check expired budget removal..." % blocks_to_mine)
+        self.stake(blocks_to_mine - 1, [self.remoteTwo])
+        # finalized budget must still be there
+        self.miner.checkbudgets()
+        assert_equal(len(self.miner.mnfinalbudget("show")), 1)
+        # after one more block it must be removed
+        self.stake(1, [self.remoteTwo])
+        self.miner.checkbudgets()
+        assert_equal(len(self.miner.mnfinalbudget("show")), 0)
+        self.log.info("All good.")
 
 if __name__ == '__main__':
     MasternodeGovernanceBasicTest().main()

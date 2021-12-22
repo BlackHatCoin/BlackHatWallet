@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   lint:
     env:
-      SHELLCHECK_VERSION: v0.6.0
+      SHELLCHECK_VERSION: v0.7.1
       LC_ALL: C
     runs-on: ubuntu-18.04
     defaults:
@@ -27,10 +27,9 @@ jobs:
           pip install codespell==1.13.0
           pip install flake8==3.8.3
           pip install vulture==0.29
+          pip install yq
 
           curl -sL "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar --xz -xf - --directory /tmp/
-          export PATH="/tmp/shellcheck-${SHELLCHECK_VERSION}:${PATH}"
-          echo $PATH
 
       - name: Set TRAVIS_BRANCH workaround env variable
         if: github.event_name == 'pull_request'
@@ -38,6 +37,9 @@ jobs:
 
       - name: Lint
         run: |
+          export PATH="/tmp/shellcheck-${SHELLCHECK_VERSION}:${PATH}"
+          echo $PATH
+
           git checkout -qf -B master refs/remotes/origin/master
           git checkout -qf $GITHUB_SHA
           test/lint/git-subtree-check.sh src/secp256k1
@@ -307,7 +309,7 @@ jobs:
             unit_tests: true
             no_depends: 1
             goal: install
-            BITCOIN_CONFIG: "--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER"
+            BITCOIN_CONFIG: "--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS='-DARENA_DEBUG -DDEBUG_LOCKORDER'"
 
           - name: macOS 10.12  [GOAL:deploy] [no functional tests]
             os: ubuntu-18.04

@@ -80,7 +80,7 @@ void CBudgetProposal::SyncVotes(CNode* pfrom, bool fPartial, int& nInvCount) con
 
 bool CBudgetProposal::IsHeavilyDownvoted(bool fNewRules)
 {
-    if (GetNays() - GetYeas() > (fNewRules ? 3 : 1) * mnodeman.CountEnabled(ActiveProtocol()) / 10) {
+    if (GetNays() - GetYeas() > (fNewRules ? 3 : 1) * mnodeman.CountEnabled() / 10) {
         strInvalid = "Heavily Downvoted";
         return true;
     }
@@ -115,7 +115,7 @@ bool CBudgetProposal::CheckStartEnd()
 bool CBudgetProposal::CheckAmount(const CAmount& nTotalBudget)
 {
     // check minimum amount
-    if (nAmount < 10 * COIN) {
+    if (nAmount < PROPOSAL_MIN_AMOUNT) {
         strInvalid = "Invalid nAmount (too low)";
         return false;
     }
@@ -158,9 +158,9 @@ bool CBudgetProposal::IsWellFormed(const CAmount& nTotalBudget)
     return CheckStartEnd() && CheckAmount(nTotalBudget) && CheckAddress();
 }
 
-bool CBudgetProposal::IsExpired(int nCurrentHeight)
+bool CBudgetProposal::updateExpired(int nCurrentHeight)
 {
-    if (nBlockEnd < nCurrentHeight) {
+    if (IsExpired(nCurrentHeight)) {
         strInvalid = "Proposal expired";
         return true;
     }
@@ -179,7 +179,7 @@ bool CBudgetProposal::UpdateValid(int nCurrentHeight)
         if (IsHeavilyDownvoted(fNewRules)) return false;
     }
 
-    if (IsExpired(nCurrentHeight)) {
+    if (updateExpired(nCurrentHeight)) {
         return false;
     }
 
@@ -213,6 +213,11 @@ bool CBudgetProposal::IsPassing(int nBlockStartBudget, int nBlockEndBudget, int 
     return true;
 }
 
+bool CBudgetProposal::IsExpired(int nCurrentHeight) const
+{
+    return nBlockEnd < nCurrentHeight;
+}
+
 bool CBudgetProposal::AddOrUpdateVote(const CBudgetVote& vote, std::string& strError)
 {
     std::string strAction = "New vote inserted:";
@@ -233,12 +238,6 @@ bool CBudgetProposal::AddOrUpdateVote(const CBudgetVote& vote, std::string& strE
             return false;
         }
         strAction = "Existing vote updated:";
-    }
-
-    if (voteTime > GetTime() + (60 * 60)) {
-        strError = strprintf("new vote is too far ahead of current time - %s - nTime %lli - Max Time %lli\n", vote.GetHash().ToString(), voteTime, GetTime() + (60 * 60));
-        LogPrint(BCLog::MNBUDGET, "%s: %s\n", __func__, strError);
-        return false;
     }
 
     mapVotes[mnId] = vote;
@@ -289,15 +288,6 @@ int CBudgetProposal::GetVoteCount(CBudgetVote::VoteDirection vd) const
     return ret;
 }
 
-std::vector<uint256> CBudgetProposal::GetVotesHashes() const
-{
-    std::vector<uint256> vRet;
-    for (const auto& it: mapVotes) {
-        vRet.push_back(it.second.GetHash());
-    }
-    return vRet;
-}
-
 int CBudgetProposal::GetBlockStartCycle() const
 {
     //end block is half way through the next cycle (so the proposal will be removed much after the payment is sent)
@@ -322,7 +312,7 @@ int CBudgetProposal::GetTotalPaymentCount() const
 
 int CBudgetProposal::GetRemainingPaymentCount(int nCurrentHeight) const
 {
-    // If this budget starts in the future, this value will be wrong
+    // If the proposal is already finished (passed the end block cycle), the payments value will be negative
     int nPayments = (GetBlockEndCycle() - GetBlockCycle(nCurrentHeight)) / Params().GetConsensus().nBudgetCycleBlocks - 1;
     // Take the lowest value
     return std::min(nPayments, GetTotalPaymentCount());

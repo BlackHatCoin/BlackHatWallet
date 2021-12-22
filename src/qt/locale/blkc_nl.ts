@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>Nieuw Adres</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Adres</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>DrukKnop</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>Annuleren</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Bob Allen</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Contactpersoon</translation>
@@ -296,14 +265,6 @@ Weet u het zeker?</translation>
     <message>
         <source>Passphrase Dialog</source>
         <translation>Wachtwoordzin dialoog</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>DrukKnop</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -427,16 +388,8 @@ voor bewijs van Inzet</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparant</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -457,16 +410,8 @@ voor bewijs van Inzet</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Besparingen</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -537,10 +482,6 @@ voor bewijs van Inzet</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -673,10 +614,6 @@ voor bewijs van Inzet</translation>
 </context>
 <context>
     <name>ColdStakingWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Eigenaarsadres (optioneel, indien leeg wordt er een nieuw adres aangemaakt)</translation>
@@ -908,18 +845,54 @@ address</source>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Maanden</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Akkoord</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>VOLGENDE</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>TERUG</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Ongeldige hoeveelheid</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Zenden</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Geen beschikbare contacten, je kan naar het contactscherm gaan en daar enkele toevoegen!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>Transacties</translation>
@@ -1002,10 +975,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Akkoord</translation>
     </message>
@@ -1070,13 +1039,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1099,6 +1061,33 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
         <translation>Kan de data directory hier niet aanmaken.</translation>
     </message>
 </context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sorteervolgorde</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Wacht tot de node volledig gesynchroniseerd is</translation>
+    </message>
+    </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
@@ -1160,28 +1149,12 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Aan het laden</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Portemonnee Ontgrendelen</translation>
@@ -1198,10 +1171,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Terugbetalingstransactie niet gevonden</translation>
     </message>
@@ -1212,10 +1181,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1337,10 +1302,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Alles starten</translation>
@@ -1511,10 +1472,6 @@ Weet je het zeker?</translation>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>Masternode informatie</translation>
     </message>
@@ -1556,18 +1513,34 @@ Weet je het zeker?</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Select All</source>
+        <translation>Selecteer Alles</translation>
     </message>
-</context>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1611,10 +1584,6 @@ STAKING</translation>
 </translation>
     </message>
     <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
-    </message>
-    <message>
         <source>v%1</source>
         <translation>v%1</translation>
     </message>
@@ -1632,13 +1601,6 @@ STAKING</translation>
     <message>
         <source>OK</source>
         <translation>Akkoord</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
     </message>
 </context>
 <context>
@@ -1750,6 +1712,32 @@ Adres: %4
         <translation>NodeID</translation>
     </message>
 </context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>ja</translation>
+    </message>
+    </context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -2008,10 +1996,6 @@ Adres: %4
         <translation>Client naam</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>NB</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>Aantal connecties</translation>
     </message>
@@ -2232,10 +2216,6 @@ Adres: %4
         <translation>Herstel blockchain index van huidige blk000??.dat bestanden.</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>-resync:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Verwijder alle lokale blockchain mappen zodat de portemonnee alles opnieuw kan hersynchroniseren.</translation>
     </message>
@@ -2375,10 +2355,6 @@ Adres: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Mijn Adres</translation>
     </message>
@@ -2393,10 +2369,6 @@ Adres: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Scan de QR code of kopieer het adres om BLKC te ontvangen</translation>
@@ -2524,24 +2496,12 @@ Adres: %4
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Bedrag</translation>
     </message>
     <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>In plaats van een BlackHat-adres te delen, kunt u een betalingsverzoek creëren dat meer informatie bundelt.</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z</translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2615,10 +2575,6 @@ Adres: %4
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>Annuleren</translation>
     </message>
@@ -2650,20 +2606,8 @@ Adres: %4
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Aanbevolen</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -2709,10 +2653,6 @@ Adres: %4
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>SAVE</source>
         <translation>Opslaan</translation>
     </message>
@@ -2727,10 +2667,6 @@ Adres: %4
 </context>
 <context>
     <name>SendMultiRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Enter address</source>
         <translation>Voeg adres toe</translation>
@@ -2886,10 +2822,6 @@ Deze munten zullen niet langer cold-staked zijn.</translation>
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Wijzig Portemonnee Wachtwoord</translation>
     </message>
@@ -2940,10 +2872,6 @@ Vergeet deze niet op te schrijven en veilig te bewaren, anders verlies je mogeli
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Adres Importeren</translation>
@@ -3094,10 +3022,6 @@ Door gebruik te maken van dit mechanisme kan je jouw sleutels delen zonder het r
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Console</source>
         <translation>Console</translation>
     </message>
@@ -3138,10 +3062,6 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Verberg stakegrafieken in het dashboard</translation>
@@ -3198,10 +3118,6 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Exporteer Accounting</translation>
     </message>
@@ -3210,8 +3126,8 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Exporteer je portemonnee's accountinggegevens naar een csv bestand.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Waar</translation>
+        <source>Export Transaction History</source>
+        <translation>Exporteer Transactiegeschiedenis</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3222,20 +3138,8 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Adreslijst Exporteren</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>CSV Exporteren</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Exporteer Adreslijst</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_tx_csv_export(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_addresses_csv_export(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Kommagescheiden bestand (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3301,20 +3205,12 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) Wat is BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) Waarom is mijn BLKC niet besteedbaar?</translation>
-    </message>
-    <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3395,10 +3291,6 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
     </context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Netwerkmonitor</translation>
@@ -3511,10 +3403,6 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Window</source>
         <translation>Venster</translation>
     </message>
@@ -3579,10 +3467,6 @@ Weet u het zeker?
 </context>
 <context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Onderteken/Verifiëer Bericht</translation>
@@ -3676,10 +3560,6 @@ Weet u het zeker?
         <translation>Controleer de handtekening en probeer het opnieuw.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>De handtekening kwam niet overeen met de berichtverdeling.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Bericht verificatie mislukt.</translation>
     </message>
@@ -3694,10 +3574,6 @@ Weet u het zeker?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Terugzetten naar standaardinstelling</translation>
@@ -3773,10 +3649,6 @@ Weet u het zeker?
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Portemonnee Herstel</translation>
@@ -3864,10 +3736,6 @@ Weet u het zeker?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>Portemonnee Data</translation>
@@ -4001,22 +3869,7 @@ Weet je zeker dat?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Contact Bewaard</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Laden...</translation>
@@ -4031,10 +3884,6 @@ Weet je zeker dat?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Kopieren</translation>
@@ -4054,10 +3903,6 @@ Weet je zeker dat?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>transparent</source>
         <translation>transparant</translation>
@@ -4392,10 +4237,6 @@ nieuwe back-up aangemaakt worden.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Transactie details</translation>
     </message>
@@ -4410,14 +4251,6 @@ nieuwe back-up aangemaakt worden.
     <message>
         <source>Output Index</source>
         <translation>Outputindex</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>25 Mei, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4460,10 +4293,6 @@ nieuwe back-up aangemaakt worden.
         <translation>Datum</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>Annuleren</translation>
     </message>
@@ -4497,20 +4326,20 @@ nieuwe back-up aangemaakt worden.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>No</source>
+        <translation>Nee</translation>
     </message>
     <message>
-        <source>-0.000585 BLKC</source>
-        <translation>-0.000585 BLKC</translation>
+        <source>Yes</source>
+        <translation>ja</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>WalletModel</name>
     <message>
@@ -4593,6 +4422,13 @@ Selecteer minder invoeren met muntcontrole.</translation>
         <translation>standaard</translation>
     </message>
 </context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <source>Available</source>
+        <translation>Beschikbaar</translation>
+    </message>
+    </context>
 <context>
     <name>blkc-core</name>
     <message>
@@ -4962,10 +4798,6 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Zenden</translation>

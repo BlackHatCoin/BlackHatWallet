@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(TransparentToSapling)
 
     // Create a shielding transaction from transparent to Sapling
     // 0.5 t-BLKC in, 0.4 shielded-BLKC out, 0.1 t-BLKC fee
-    auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+    auto builder = TransactionBuilder(consensusParams, &keystore);
     builder.AddTransparentInput(COutPoint(uint256S("1234"), 0), scriptPubKey, 50000000);
     builder.AddSaplingOutput(fvk_from.ovk, pk, 40000000, {});
     builder.SetFee(10000000);
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(SaplingToSapling)
     // Create a Sapling-only transaction
     // --- 0.4 shielded-BLKC in, 0.299 shielded-BLKC out, 0.1 shielded-BLKC fee, 0.001 shielded-BLKC change (added to fee)
     auto testNote = GetTestSaplingNote(pa, 40000000);
-    auto builder = TransactionBuilder(consensusParams, 2);
+    auto builder = TransactionBuilder(consensusParams);
     builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
     builder.SetFee(10000000);
 
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(SaplingToSapling)
 
     // --- Now try with 1 shielded-BLKC in, 0.5 shielded-BLKC out, 0.1 shielded-BLKC fee, 0.4 shielded-BLKC change
     auto testNote2 = GetTestSaplingNote(pa, 100000000);
-    auto builder2 = TransactionBuilder(consensusParams, 2);
+    auto builder2 = TransactionBuilder(consensusParams);
     builder2.AddSaplingSpend(expsk, testNote2.note, testNote2.tree.root(), testNote2.tree.witness());
     builder2.SetFee(10000000);
     builder2.AddSaplingOutput(fvk.ovk, pa, 50000000, {});
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(SaplingToSapling)
 
 BOOST_AUTO_TEST_CASE(ThrowsOnTransparentInputWithoutKeyStore)
 {
-    auto builder = TransactionBuilder(Params().GetConsensus(), 1);
+    auto builder = TransactionBuilder(Params().GetConsensus());
     BOOST_CHECK_THROW(builder.AddTransparentInput(COutPoint(), CScript(), 1), std::runtime_error);
 }
 
@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE(RejectsInvalidTransparentOutput)
 {
     // Default CTxDestination type is an invalid address
     CTxDestination taddr;
-    auto builder = TransactionBuilder(Params().GetConsensus(), 1);
+    auto builder = TransactionBuilder(Params().GetConsensus());
     BOOST_CHECK_THROW(builder.AddTransparentOutput(taddr, 50), std::runtime_error);
 }
 
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(RejectsInvalidTransparentChangeAddress)
 {
     // Default CTxDestination type is an invalid address
     CTxDestination taddr;
-    auto builder = TransactionBuilder(Params().GetConsensus(), 1);
+    auto builder = TransactionBuilder(Params().GetConsensus());
     BOOST_CHECK_THROW(builder.SendChangeTo(taddr), std::runtime_error);
 }
 
@@ -146,14 +146,14 @@ BOOST_AUTO_TEST_CASE(FailsWithNegativeChange)
 
     // Fail if there is only a Sapling output
     // 0.5 shielded-BLKC out, 0.1 t-BLKC fee
-    auto builder = TransactionBuilder(consensusParams, 1);
+    auto builder = TransactionBuilder(consensusParams);
     builder.AddSaplingOutput(fvk.ovk, pa, 50000000, {});
     builder.SetFee(10000000);
     BOOST_CHECK_EQUAL("Change cannot be negative", builder.Build().GetError());
 
     // Fail if there is only a transparent output
     // 0.5 t-BLKC out, 0.1 t-BLKC fee
-    builder = TransactionBuilder(consensusParams, 1, &keystore);
+    builder = TransactionBuilder(consensusParams, &keystore);
     builder.AddTransparentOutput(taddr, 50000000);
     builder.SetFee(10000000);
     BOOST_CHECK_EQUAL("Change cannot be negative", builder.Build().GetError());
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(ChangeOutput)
 
     // No change address and no Sapling spends
     {
-        auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+        auto builder = TransactionBuilder(consensusParams, &keystore);
         builder.SetFee(10000000);
         builder.AddTransparentInput(COutPoint(), scriptPubKey, 25000000);
         BOOST_CHECK_EQUAL("Could not determine change address", builder.Build().GetError());
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(ChangeOutput)
 
     // Change to the same address as the first Sapling spend
     {
-        auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+        auto builder = TransactionBuilder(consensusParams, &keystore);
         builder.SetFee(10000000);
         builder.AddTransparentInput(COutPoint(), scriptPubKey, 25000000);
         builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE(ChangeOutput)
 
     // Change to a Sapling address
     {
-        auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+        auto builder = TransactionBuilder(consensusParams, &keystore);
         builder.SetFee(10000000);
         builder.AddTransparentInput(COutPoint(), scriptPubKey, 25000000);
         builder.SendChangeTo(zChangeAddr, fvkOut.ovk);
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(ChangeOutput)
 
     // Change to a transparent address
     {
-        auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+        auto builder = TransactionBuilder(consensusParams, &keystore);
         builder.SetFee(10000000);
         builder.AddTransparentInput(COutPoint(), scriptPubKey, 25000000);
         builder.SendChangeTo(taddr);
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_CASE(SetFee)
 
     // Configured fee (auto with SaplingOperation)
     {
-        auto builder = TransactionBuilder(consensusParams, 1);
+        auto builder = TransactionBuilder(consensusParams);
         builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
         builder.AddSaplingOutput(fvk.ovk, pa, 3 * COIN, {});
 
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(CheckSaplingTxVersion)
     auto pk = sk.default_address();
 
     // Cannot add Sapling outputs to a non-Sapling transaction
-    auto builder = TransactionBuilder(consensusParams, 1);
+    auto builder = TransactionBuilder(consensusParams);
     builder.SetFee(10000000);
     try {
         builder.AddSaplingOutput(uint256(), pk, 12345, {});

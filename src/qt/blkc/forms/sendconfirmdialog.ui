@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">N/A</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -799,7 +799,7 @@ background:transparent;
                    <item>
                     <widget class="QLabel" name="textChange">
                      <property name="text">
-                      <string>D7VFR83SQbie…BhjcWJtcfip5krte2Z </string>
+                      <string notr="true">N/A</string>
                      </property>
                     </widget>
                    </item>
@@ -902,7 +902,7 @@ background:transparent;
                    <item row="1" column="0">
                     <widget class="QLabel" name="textDate">
                      <property name="text">
-                      <string>May 25, 2017</string>
+                      <string notr="true">N/A</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1060,7 +1060,7 @@ background:transparent;
                 <item>
                  <widget class="QLabel" name="labelWarning">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string notr="true">N/A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>

@@ -32,6 +32,7 @@ static void DeserializeAndCheckBlockTest(benchmark::State& state)
     stream.write(&a, 1); // Prevent compaction
 
     SelectParams(CBaseChainParams::MAIN);
+    const static auto verify_handle = std::make_unique<ECCVerifyHandle>();
 
     while (state.KeepRunning()) {
         CBlock block; // Note that CBlock caches its checked state, so we need to recreate it here
@@ -44,5 +45,5 @@ static void DeserializeAndCheckBlockTest(benchmark::State& state)
     }
 }
 
-BENCHMARK(DeserializeBlockTest);
-BENCHMARK(DeserializeAndCheckBlockTest);
+BENCHMARK(DeserializeBlockTest, 130);
+BENCHMARK(DeserializeAndCheckBlockTest, 160);

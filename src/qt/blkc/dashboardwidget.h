@@ -82,9 +82,9 @@ public:
     QMap<int, std::pair<qint64, qint64>> amountsByCache;
     qreal maxValue = 0;
     qint64 totalBlkc = 0;
-    qint64 totalZblkc = 0;
+    qint64 totalMN = 0;
     QList<qreal> valuesBlkc;
-    QList<qreal> valueszBlkc;
+    QList<qreal> valuesMN;
     QStringList xLabels;
 };
 
@@ -123,7 +123,7 @@ private Q_SLOTS:
     void onSortTypeChanged(const QString& value);
     void updateDisplayUnit();
     void showList();
-    void onTxArrived(const QString& hash, const bool isCoinStake, const bool isCSAnyType);
+    void onTxArrived(const QString& hash, const bool isCoinStake, const bool isMNReward, const bool isCSAnyType);
 
 #ifdef USE_QTCHARTS
     void windowResizeEvent(QResizeEvent* event);
@@ -166,7 +166,7 @@ private:
     int yearFilter{0};
     int monthFilter{0};
     int dayStart{1};
-    bool hasZblkcStakes{false};
+    bool hasMNRewards{false};
 
     ChartData* chartData{nullptr};
     bool hasStakes{false};
@@ -178,11 +178,11 @@ private:
     bool refreshChart();
     void tryChartRefresh();
     void updateStakeFilter();
-    const QMap<int, std::pair<qint64, qint64>> getAmountBy();
+    QMap<int, std::pair<qint64, qint64>> getAmountBy();
     bool loadChartData(bool withMonthNames);
     void updateAxisX(const QStringList *arg = nullptr);
     void setChartShow(ChartShowType type);
-    std::pair<int, int> getChartRange(QMap<int, std::pair<qint64, qint64>> amountsBy);
+    std::pair<int, int> getChartRange(const QMap<int, std::pair<qint64, qint64>>& amountsBy);
 
 private Q_SLOTS:
     void onChartRefreshed();

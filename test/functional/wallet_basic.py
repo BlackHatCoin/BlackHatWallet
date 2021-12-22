@@ -204,13 +204,14 @@ class WalletTest(BlackHatTestFramework):
             '-rescan',
             '-reindex',
         ]
+        chainlimit = 6
         for m in maintenance:
             self.log.info("check " + m)
             self.stop_nodes()
             # set lower ancestor limit for later
-            self.start_node(0, [m])
-            self.start_node(1, [m])
-            self.start_node(2, [m])
+            self.start_node(0, [m, "-limitancestorcount="+str(chainlimit)])
+            self.start_node(1, [m, "-limitancestorcount="+str(chainlimit)])
+            self.start_node(2, [m, "-limitancestorcount="+str(chainlimit)])
             if m == '-reindex':
                 # reindex will leave rpc warm up "early"; Wait for it to finish
                 wait_until(lambda: [block_count] * 3 == [self.nodes[i].getblockcount() for i in range(3)])
@@ -223,6 +224,27 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(len(coinbase_tx_1["transactions"]), 1)
         assert_equal(coinbase_tx_1["transactions"][0]["blockhash"], blocks[1])
         assert_equal(len(self.nodes[0].listsinceblock(blocks[1])["transactions"]), 0)
+
+        # ==Check that wallet prefers to use coins that don't exceed mempool limits =====
+
+        # Get all non-zero utxos together
+        chain_addrs = [self.nodes[0].getnewaddress(), self.nodes[0].getnewaddress()]
+        singletxid = self.nodes[0].sendtoaddress(chain_addrs[0], self.nodes[0].getbalance(), "", "", True)
+        self.nodes[0].generate(1)
+        node0_balance = self.nodes[0].getbalance()
+        # Split into two chains
+        rawtx = self.nodes[0].createrawtransaction([{"txid":singletxid, "vout":0}], {chain_addrs[0]:node0_balance/2-Decimal('0.01'), chain_addrs[1]:node0_balance/2-Decimal('0.01')})
+        signedtx = self.nodes[0].signrawtransaction(rawtx)
+        singletxid = self.nodes[0].sendrawtransaction(signedtx["hex"])
+        self.nodes[0].generate(1)
+        assert_equal(len(self.nodes[0].listunspent()), 2)
+
+        # Make a long chain of unconfirmed payments without hitting mempool limit
+        txid_list = []
+        for _ in range(chainlimit * 2):
+            txid_list.append(self.nodes[0].sendtoaddress(chain_addrs[0], Decimal('0.0001')))
+        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit*2)
+        assert_equal(len(txid_list), chainlimit*2)
 
         # Excercise query_options parameter in listunspent
         # Node 1 has:

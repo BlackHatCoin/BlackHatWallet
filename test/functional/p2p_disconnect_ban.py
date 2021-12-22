@@ -68,7 +68,7 @@ class DisconnectBanTest(BlackHatTestFramework):
         assert_equal("192.168.0.1/32", listBeforeShutdown[2]['address'])
         # Move time forward by 3 seconds so the third ban has expired
         self.nodes[1].setmocktime(old_time + 3)
-        assert_equal(len(self.nodes[1].listbanned()), 4)
+        assert_equal(len(self.nodes[1].listbanned()), 3)
 
         self.stop_node(1)
         self.start_node(1)

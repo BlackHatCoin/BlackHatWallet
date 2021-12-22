@@ -16,7 +16,7 @@ Release Process
 ### Before every major release
 
 * Update hardcoded [seeds](/contrib/seeds/README.md), see [this pull request](https://github.com/bitcoin/bitcoin/pull/7415) for an example.
-* Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
+* Update [`BLOCK_CHAIN_SIZE` and `TESTNET_BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead for each respective network.
 * Update `src/chainparams.cpp` with statistics about the transaction count and rate.
 * On both the master branch and the new release branch:
   - update `CLIENT_VERSION_MINOR` in [`configure.ac`](../configure.ac)

@@ -12,7 +12,6 @@
 #include "bitcoinunits.h"
 #include "coincontrol.h"
 #include "guiutil.h"
-#include "init.h"
 #include "optionsmodel.h"
 #include "policy/policy.h"
 #include "txmempool.h"
@@ -715,13 +714,16 @@ void CoinControlDialog::loadAvailableCoin(bool treeMode,
     // vout index
     itemOutput->setText(COLUMN_VOUT_INDEX, QString::number(outIndex));
 
-    // disable locked coins
-    const bool isLockedCoin = model->isLockedCoin(txhash, outIndex);
-    if (isLockedCoin) {
-        --nSelectableInputs;
-        coinControl->UnSelect({txhash, outIndex}); // just to be sure
-        itemOutput->setDisabled(true);
-        itemOutput->setIcon(COLUMN_CHECKBOX, QIcon(":/icons/lock_closed"));
+    // disable locked coins (!TODO: implement locked notes)
+    bool isLockedCoin{false};
+    if (fSelectTransparent) {
+        isLockedCoin = model->isLockedCoin(txhash, outIndex);
+        if (isLockedCoin) {
+            --nSelectableInputs;
+            coinControl->UnSelect({txhash, outIndex}); // just to be sure
+            itemOutput->setDisabled(true);
+            itemOutput->setIcon(COLUMN_CHECKBOX, QIcon(":/icons/lock_closed"));
+        }
     }
 
     // set checkbox
@@ -827,6 +829,12 @@ void CoinControlDialog::updateView()
     // sort view
     sortView(sortColumn, sortOrder);
     ui->treeWidget->setEnabled(true);
+
+    // TODO: Remove this once note locking is functional
+    // Hide or show locking button and context menu items
+    lockAction->setVisible(fSelectTransparent);
+    unlockAction->setVisible(fSelectTransparent);
+    ui->pushButtonToggleLock->setVisible(fSelectTransparent);
 }
 
 void CoinControlDialog::refreshDialog()

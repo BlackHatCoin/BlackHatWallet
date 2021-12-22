@@ -14,7 +14,6 @@
 #include "bitcoinunits.h"
 #include "guiutil.h"
 
-#include "init.h"
 #include "mapport.h"
 #include "net.h"
 #include "netbase.h"

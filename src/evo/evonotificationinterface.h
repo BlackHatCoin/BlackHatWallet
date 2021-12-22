@@ -11,7 +11,6 @@
 class EvoNotificationInterface : public CValidationInterface
 {
 public:
-    explicit EvoNotificationInterface(CConnman& connmanIn): connman(connmanIn) {}
     virtual ~EvoNotificationInterface() = default;
 
     // a small helper to initialize current block height in sub-modules on startup
@@ -21,9 +20,6 @@ protected:
     // CValidationInterface
     void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload) override;
     void NotifyMasternodeListChanged(bool undo, const CDeterministicMNList& oldMNList, const CDeterministicMNListDiff& diff) override;
-
-private:
-    CConnman& connman;
 };
 
 #endif // EVONOTIFICATIONINTERFACE_H

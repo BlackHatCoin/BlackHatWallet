@@ -111,7 +111,7 @@ ReceiveWidget::ReceiveWidget(BLKCGUI* parent) :
     connect(ui->listViewAddress, &QListView::clicked, this, &ReceiveWidget::handleAddressClicked);
     connect(ui->btnRequest, &OptionButton::clicked, this, &ReceiveWidget::onRequestClicked);
     connect(ui->btnMyAddresses, &OptionButton::clicked, this, &ReceiveWidget::onMyAddressesClicked);
-    connect(ui->lineEditFilter, &QLineEdit::textChanged, [this](){filterChanged(ui->lineEditFilter->text());});
+    connect(ui->lineEditFilter, &QLineEdit::textChanged, this, &ReceiveWidget::filterChanged);
 
     ui->pushLeft->setChecked(true);
     connect(ui->pushLeft, &QPushButton::clicked, [this](){onTransparentSelected(true);});

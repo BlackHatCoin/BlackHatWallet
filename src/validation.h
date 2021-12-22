@@ -224,9 +224,6 @@ bool AcceptToMemoryPoolWithTime(CTxMemPool& pool, CValidationState &state, const
                                 bool* pfMissingInputs, int64_t nAcceptTime, bool fOverrideMempoolLimit = false,
                                 bool fRejectInsaneFee = false, bool ignoreFees = false);
 
-/** Convert CValidationState to a human-readable message for logging */
-std::string FormatStateMessage(const CValidationState &state);
-
 CAmount GetMinRelayFee(const CTransaction& tx, const CTxMemPool& pool, unsigned int nBytes);
 CAmount GetMinRelayFee(unsigned int nBytes);
 /**

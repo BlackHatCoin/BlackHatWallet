@@ -83,7 +83,7 @@ public:
 
 class SaplingOperation {
 public:
-    explicit SaplingOperation(const Consensus::Params& consensusParams, int nHeight, CWallet* _wallet);
+    explicit SaplingOperation(const Consensus::Params& consensusParams, CWallet* _wallet);
     ~SaplingOperation();
 
     OperationResult build();

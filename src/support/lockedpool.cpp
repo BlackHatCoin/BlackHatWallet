@@ -26,6 +26,12 @@
 #include <unistd.h> // for sysconf
 #endif
 
+#include <algorithm>
+#ifdef ARENA_DEBUG
+#include <iomanip>
+#include <iostream>
+#endif
+
 LockedPoolManager* LockedPoolManager::_instance = nullptr;
 std::once_flag LockedPoolManager::init_flag;
 
@@ -45,7 +51,9 @@ Arena::Arena(void *base_in, size_t size_in, size_t alignment_in):
     base(static_cast<char*>(base_in)), end(static_cast<char*>(base_in) + size_in), alignment(alignment_in)
 {
     // Start with one free chunk that covers the entire arena
-    chunks.emplace(base, Chunk(size_in, false));
+    auto it = size_to_free_chunk.emplace(size_in, base);
+    chunks_free.emplace(base, it);
+    chunks_free_end.emplace(base + size_in, it);
 }
 
 Arena::~Arena()
@@ -57,24 +65,34 @@ void* Arena::alloc(size_t size)
     // Round to next multiple of alignment
     size = align_up(size, alignment);
 
-    // Don't handle zero-sized chunks, or those bigger than MAX_SIZE
-    if (size == 0 || size >= Chunk::MAX_SIZE) {
+    // Don't handle zero-sized chunks
+    if (size == 0)
         return nullptr;
-    }
 
-    for (auto& chunk: chunks) {
-        if (!chunk.second.isInUse() && size <= chunk.second.getSize()) {
-            char* base = chunk.first;
-            size_t leftover = chunk.second.getSize() - size;
-            if (leftover > 0) { // Split chunk
-                chunks.emplace(base + size, Chunk(leftover, false));
-                chunk.second.setSize(size);
-            }
-            chunk.second.setInUse(true);
-            return reinterpret_cast<void*>(base);
-        }
+    // Pick a large enough free-chunk. Returns an iterator pointing to the first element that is not less than key.
+    // This allocation strategy is best-fit. According to "Dynamic Storage Allocation: A Survey and Critical Review",
+    // Wilson et. al. 1995, http://www.scs.stanford.edu/14wi-cs140/sched/readings/wilson.pdf, best-fit and first-fit
+    // policies seem to work well in practice.
+    auto size_ptr_it = size_to_free_chunk.lower_bound(size);
+    if (size_ptr_it == size_to_free_chunk.end())
+        return nullptr;
+
+    // Create the used-chunk, taking its space from the end of the free-chunk
+    const size_t size_remaining = size_ptr_it->first - size;
+    auto alloced = chunks_used.emplace(size_ptr_it->second + size_remaining, size).first;
+    chunks_free_end.erase(size_ptr_it->second + size_ptr_it->first);
+    if (size_ptr_it->first == size) {
+        // whole chunk is used up
+        chunks_free.erase(size_ptr_it->second);
+    } else {
+        // still some memory left in the chunk
+        auto it_remaining = size_to_free_chunk.emplace(size_remaining, size_ptr_it->second);
+        chunks_free[size_ptr_it->second] = it_remaining;
+        chunks_free_end.emplace(size_ptr_it->second + size_remaining, it_remaining);
     }
-    return nullptr;
+    size_to_free_chunk.erase(size_ptr_it);
+
+    return reinterpret_cast<void*>(alloced->first);
 }
 
 void Arena::free(void *ptr)
@@ -83,65 +101,63 @@ void Arena::free(void *ptr)
     if (ptr == nullptr) {
         return;
     }
-    auto i = chunks.find(static_cast<char*>(ptr));
-    if (i == chunks.end() || !i->second.isInUse()) {
+
+    // Remove chunk from used map
+    auto i = chunks_used.find(static_cast<char*>(ptr));
+    if (i == chunks_used.end()) {
         throw std::runtime_error("Arena: invalid or double free");
     }
+    std::pair<char*, size_t> freed = *i;
+    chunks_used.erase(i);
 
-    i->second.setInUse(false);
+    // coalesce freed with previous chunk
+    auto prev = chunks_free_end.find(freed.first);
+    if (prev != chunks_free_end.end()) {
+        freed.first -= prev->second->first;
+        freed.second += prev->second->first;
+        size_to_free_chunk.erase(prev->second);
+        chunks_free_end.erase(prev);
+    }
 
-    if (i != chunks.begin()) { // Absorb into previous chunk if exists and free
-        auto prev = i;
-        --prev;
-        if (!prev->second.isInUse()) {
-            // Absorb current chunk size into previous chunk.
-            prev->second.setSize(prev->second.getSize() + i->second.getSize());
-            // Erase current chunk. Erasing does not invalidate current
-            // iterators for a map, except for that pointing to the object
-            // itself, which will be overwritten in the next statement.
-            chunks.erase(i);
-            // From here on, the previous chunk is our current chunk.
-            i = prev;
-        }
+    // coalesce freed with chunk after freed
+    auto next = chunks_free.find(freed.first + freed.second);
+    if (next != chunks_free.end()) {
+        freed.second += next->second->first;
+        size_to_free_chunk.erase(next->second);
+        chunks_free.erase(next);
     }
-    auto next = i;
-    ++next;
-    if (next != chunks.end()) { // Absorb next chunk if exists and free
-        if (!next->second.isInUse()) {
-            // Absurb next chunk size into current chunk
-            i->second.setSize(i->second.getSize() + next->second.getSize());
-            // Erase next chunk.
-            chunks.erase(next);
-        }
-    }
+
+    // Add/set space with coalesced free chunk
+    auto it = size_to_free_chunk.emplace(freed.second, freed.first);
+    chunks_free[freed.first] = it;
+    chunks_free_end[freed.first + freed.second] = it;
 }
 
 Arena::Stats Arena::stats() const
 {
-    Arena::Stats r;
-    r.used = r.free = r.total = r.chunks_used = r.chunks_free = 0;
-    for (const auto& chunk: chunks) {
-        if (chunk.second.isInUse()) {
-            r.used += chunk.second.getSize();
-            r.chunks_used += 1;
-        } else {
-            r.free += chunk.second.getSize();
-            r.chunks_free += 1;
-        }
-        r.total += chunk.second.getSize();
-    }
+    Arena::Stats r{ 0, 0, 0, chunks_used.size(), chunks_free.size() };
+    for (const auto& chunk: chunks_used)
+        r.used += chunk.second;
+    for (const auto& chunk: chunks_free)
+        r.free += chunk.second->first;
+    r.total = r.used + r.free;
     return r;
 }
 
 #ifdef ARENA_DEBUG
+static void printchunk(void* base, size_t sz, bool used) {
+    std::cout <<
+        "0x" << std::hex << std::setw(16) << std::setfill('0') << base <<
+        " 0x" << std::hex << std::setw(16) << std::setfill('0') << sz <<
+        " 0x" << used << std::endl;
+}
 void Arena::walk() const
 {
-    for (const auto& chunk: chunks) {
-        std::cout <<
-            "0x" << std::hex << std::setw(16) << std::setfill('0') << chunk.first <<
-            " 0x" << std::hex << std::setw(16) << std::setfill('0') << chunk.second.getSize() <<
-            " 0x" << chunk.second.isInUse() << std::endl;
-    }
+    for (const auto& chunk: chunks_used)
+        printchunk(chunk.first, chunk.second, true);
+    std::cout << std::endl;
+    for (const auto& chunk: chunks_free)
+        printchunk(chunk.first, chunk.second->first, false);
     std::cout << std::endl;
 }
 #endif
@@ -224,11 +240,21 @@ PosixLockedPageAllocator::PosixLockedPageAllocator()
     page_size = sysconf(_SC_PAGESIZE);
 #endif
 }
+
+// Some systems (at least OS X) do not define MAP_ANONYMOUS yet and define
+// MAP_ANON which is deprecated
+#ifndef MAP_ANONYMOUS
+#define MAP_ANONYMOUS MAP_ANON
+#endif
+
 void *PosixLockedPageAllocator::AllocateLocked(size_t len, bool *lockingSuccess)
 {
     void *addr;
     len = align_up(len, page_size);
     addr = mmap(nullptr, len, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+    if (addr == MAP_FAILED) {
+        return nullptr;
+    }
     if (addr) {
         *lockingSuccess = mlock(addr, len) == 0;
     }
@@ -269,6 +295,11 @@ LockedPool::~LockedPool()
 void* LockedPool::alloc(size_t size)
 {
     std::lock_guard<std::mutex> lock(mutex);
+
+    // Don't handle impossible sizes
+    if (size == 0 || size > ARENA_SIZE)
+        return nullptr;
+
     // Try allocating from each current arena
     for (auto &arena: arenas) {
         void *addr = arena.alloc(size);
@@ -300,9 +331,7 @@ void LockedPool::free(void *ptr)
 LockedPool::Stats LockedPool::stats() const
 {
     std::lock_guard<std::mutex> lock(mutex);
-    LockedPool::Stats r;
-    r.used = r.free = r.total = r.chunks_used = r.chunks_free = 0;
-    r.locked = cumulative_bytes_locked;
+    LockedPool::Stats r{0, 0, 0, cumulative_bytes_locked, 0, 0};
     for (const auto &arena: arenas) {
         Arena::Stats i = arena.stats();
         r.used += i.used;

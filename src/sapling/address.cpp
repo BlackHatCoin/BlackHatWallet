@@ -1,9 +1,15 @@
+// Copyright (c) 2016-2020 The ZCash developers
+// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021 The BlackHat developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
+
 #include "sapling/address.h"
+
+#include "hash.h"
 #include "sapling/noteencryption.h"
 #include "sapling/prf.h"
 #include "sapling/sapling_util.h"
-
-#include "hash.h"
 #include "streams.h"
 
 #include <librustzcash.h>
@@ -65,20 +71,20 @@ SaplingSpendingKey SaplingSpendingKey::random() {
     }
 }
 
-boost::optional<SaplingPaymentAddress> SaplingIncomingViewingKey::address(diversifier_t d) const {
+Optional<SaplingPaymentAddress> SaplingIncomingViewingKey::address(diversifier_t d) const {
     uint256 pk_d;
     if (librustzcash_check_diversifier(d.data())) {
         librustzcash_ivk_to_pkd(this->begin(), d.data(), pk_d.begin());
         return SaplingPaymentAddress(d, pk_d);
     } else {
-        return boost::none;
+        return nullopt;
     }
 }
 
 SaplingPaymentAddress SaplingSpendingKey::default_address() const {
     // Iterates within default_diversifier to ensure a valid address is returned
     auto addrOpt = full_viewing_key().in_viewing_key().address(default_diversifier(*this));
-    assert(addrOpt != boost::none);
+    assert(addrOpt != nullopt);
     return addrOpt.value();
 }
 

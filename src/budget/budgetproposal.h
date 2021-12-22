@@ -16,6 +16,13 @@ static const CAmount BUDGET_FEE_TX_OLD = (50 * COIN);
 static const CAmount BUDGET_FEE_TX = (5 * COIN);
 static const int64_t BUDGET_VOTE_UPDATE_MIN = 60 * 60;
 
+// Minimum value for a proposal to be considered valid
+static const CAmount PROPOSAL_MIN_AMOUNT = 10 * COIN;
+
+// Net ser values
+static const size_t PROP_URL_MAX_SIZE = 64;
+static const size_t PROP_NAME_MAX_SIZE = 20;
+
 class CBudgetManager;
 
 //
@@ -32,7 +39,7 @@ private:
 
     // Functions used inside UpdateValid()/IsWellFormed - setting strInvalid
     bool IsHeavilyDownvoted(bool fNewRules);
-    bool IsExpired(int nCurrentHeight);
+    bool updateExpired(int nCurrentHeight);
     bool CheckStartEnd();
     bool CheckAmount(const CAmount& nTotalBudget);
     bool CheckAddress();
@@ -72,6 +79,7 @@ public:
 
     bool IsEstablished() const;
     bool IsPassing(int nBlockStartBudget, int nBlockEndBudget, int mnCount) const;
+    bool IsExpired(int nCurrentHeight) const;
 
     std::string GetName() const { return strProposalName; }
     std::string GetURL() const { return strURL; }
@@ -86,13 +94,14 @@ public:
     const uint256& GetFeeTXHash() const { return nFeeTXHash;  }
     double GetRatio() const;
     int GetVoteCount(CBudgetVote::VoteDirection vd) const;
-    std::vector<uint256> GetVotesHashes() const;
+    std::map<COutPoint, CBudgetVote> GetVotes() const { return mapVotes; }
     int GetYeas() const { return GetVoteCount(CBudgetVote::VOTE_YES); }
     int GetNays() const { return GetVoteCount(CBudgetVote::VOTE_NO); }
-    int GetAbstains() const { return GetVoteCount(CBudgetVote::VOTE_ABSTAIN); };
+    int GetAbstains() const { return GetVoteCount(CBudgetVote::VOTE_ABSTAIN); }
     CAmount GetAmount() const { return nAmount; }
     void SetAllotted(CAmount nAllottedIn) { nAllotted = nAllottedIn; }
     CAmount GetAllotted() const { return nAllotted; }
+    void SetFeeTxHash(const uint256& txid) { nFeeTXHash = txid; }
 
     uint256 GetHash() const
     {
@@ -109,8 +118,8 @@ public:
     // Serialization for local DB
     SERIALIZE_METHODS(CBudgetProposal, obj)
     {
-        READWRITE(LIMITED_STRING(obj.strProposalName, 20));
-        READWRITE(LIMITED_STRING(obj.strURL, 64));
+        READWRITE(LIMITED_STRING(obj.strProposalName, PROP_NAME_MAX_SIZE));
+        READWRITE(LIMITED_STRING(obj.strURL, PROP_URL_MAX_SIZE));
         READWRITE(obj.nBlockStart);
         READWRITE(obj.nBlockEnd);
         READWRITE(obj.nAmount);
@@ -124,6 +133,11 @@ public:
     bool ParseBroadcast(CDataStream& broadcast);
     CDataStream GetBroadcast() const;
     void Relay();
+
+    inline bool operator==(const CBudgetProposal& other) const
+    {
+        return GetHash() == other.GetHash();
+    }
 
     // compare proposals by proposal hash
     inline bool operator>(const CBudgetProposal& other) const

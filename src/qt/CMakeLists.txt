@@ -50,7 +50,7 @@ if (QRCODE_FOUND)
 endif()
 
 find_program(MOC_BIN NAMES moc moc-qt5 qt5-moc
-        PATHS /usr/lib/qt5/bin /usr/lib/x86_64-linux-gnu/qt5/bin /usr/local/opt/qt/bin /usr/local/opt/qt5/bin
+        PATHS /usr/lib/qt5/bin /usr/lib/x86_64-linux-gnu/qt5/bin /usr/local/opt/qt/bin /usr/local/opt/qt5/bin /opt/homebrew/opt/qt5/bin
         NO_DEFAULT_PATH
         NO_SYSTEM_ENVIRONMENT_PATH)
 if (MOC_BIN)
@@ -145,6 +145,12 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/addresseswidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/defaultdialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/coldstakingwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/mnselectiondialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/proposalcard.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/votedialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/createproposaldialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/proposalinfodialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/governancewidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsbackupwallet.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsbittoolwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingsconsolewidget.cpp
@@ -159,6 +165,7 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings/settingswidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/welcomecontentwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/splash.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/blkc/governancemodel.cpp
         )
 
 execute_process(
@@ -177,6 +184,9 @@ target_include_directories(qt_stuff PUBLIC ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/leveldb/include
         ${CMAKE_SOURCE_DIR}/src/univalue/include
         ${CMAKE_SOURCE_DIR}/src/secp256k1/include
+        ${CMAKE_SOURCE_DIR}/src/chiabls/src
+        ${relic_SOURCE_DIR}/include
+        ${relic_BINARY_DIR}/include
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings

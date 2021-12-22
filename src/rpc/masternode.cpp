@@ -7,7 +7,6 @@
 #include "activemasternode.h"
 #include "db.h"
 #include "evo/deterministicmns.h"
-#include "init.h"
 #include "key_io.h"
 #include "masternode-payments.h"
 #include "masternode-sync.h"
@@ -16,6 +15,7 @@
 #include "netbase.h"
 #include "rpc/server.h"
 #ifdef ENABLE_WALLET
+#include "wallet/wallet.h"
 #include "wallet/rpcwallet.h"
 #endif
 
@@ -133,7 +133,7 @@ static inline bool filterMasternode(const UniValue& dmno, const std::string& str
                              || (filter(dmno["collateralHash"].get_str(), strFilter))
                              || (filter(dmno["collateralAddress"].get_str(), strFilter))
                              || (filter(dmno["dmnstate"]["ownerAddress"].get_str(), strFilter))
-                             || (filter(dmno["dmnstate"]["operatorAddress"].get_str(), strFilter))
+                             || (filter(dmno["dmnstate"]["operatorPubKey"].get_str(), strFilter))
                              || (filter(dmno["dmnstate"]["votingAddress"].get_str(), strFilter));
 }
 
@@ -178,8 +178,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
         mnList.ForEachMN(false, [&](const CDeterministicMNCPtr& dmn) {
             UniValue obj(UniValue::VOBJ);
             dmn->ToJson(obj);
-            bool fEnabled = dmn->pdmnState->nPoSeBanHeight == -1;
-            if (filterMasternode(obj, strFilter, fEnabled)) {
+            if (filterMasternode(obj, strFilter, !dmn->IsPoSeBanned())) {
                 ret.push_back(obj);
             }
         });
@@ -192,6 +191,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
     int nHeight = chainTip->nHeight;
     auto mnList = deterministicMNManager->GetListAtChainTip();
 
+    int count_enabled = mnodeman.CountEnabled();
     std::vector<std::pair<int64_t, MasternodeRef>> vMasternodeRanks = mnodeman.GetMasternodeRanks(nHeight);
     for (int pos=0; pos < (int) vMasternodeRanks.size(); pos++) {
         const auto& s = vMasternodeRanks[pos];
@@ -204,7 +204,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
             if (dmn) {
                 UniValue obj(UniValue::VOBJ);
                 dmn->ToJson(obj);
-                bool fEnabled = dmn->pdmnState->nPoSeBanHeight == -1;
+                bool fEnabled = !dmn->IsPoSeBanned();
                 if (filterMasternode(obj, strFilter, fEnabled)) {
                     // Added for backward compatibility with legacy masternodes
                     obj.pushKV("type", "deterministic");
@@ -245,7 +245,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
         obj.pushKV("version", mn.protocolVersion);
         obj.pushKV("lastseen", (int64_t)mn.lastPing.sigTime);
         obj.pushKV("activetime", (int64_t)(mn.lastPing.sigTime - mn.sigTime));
-        obj.pushKV("lastpaid", (int64_t)mnodeman.GetLastPaid(s.second, chainTip));
+        obj.pushKV("lastpaid", (int64_t)mnodeman.GetLastPaid(s.second, count_enabled, chainTip));
 
         ret.push_back(obj);
     }
@@ -276,21 +276,19 @@ UniValue getmasternodecount (const JSONRPCRequest& request)
 
     UniValue obj(UniValue::VOBJ);
     int nCount = 0;
-    int ipv4 = 0, ipv6 = 0, onion = 0;
-
     const CBlockIndex* pChainTip = GetChainTip();
     if (!pChainTip) return "unknown";
 
     mnodeman.GetNextMasternodeInQueueForPayment(pChainTip->nHeight, true, nCount, pChainTip);
-    int total = mnodeman.CountNetworks(ipv4, ipv6, onion);
+    auto infoMNs = mnodeman.getMNsInfo();
 
-    obj.pushKV("total", total);
-    obj.pushKV("stable", mnodeman.stable_size());
-    obj.pushKV("enabled", mnodeman.CountEnabled());
+    obj.pushKV("total", infoMNs.total);
+    obj.pushKV("stable", infoMNs.stableSize);
+    obj.pushKV("enabled", infoMNs.enabledSize);
     obj.pushKV("inqueue", nCount);
-    obj.pushKV("ipv4", ipv4);
-    obj.pushKV("ipv6", ipv6);
-    obj.pushKV("onion", onion);
+    obj.pushKV("ipv4", infoMNs.ipv4);
+    obj.pushKV("ipv6", infoMNs.ipv6);
+    obj.pushKV("onion", infoMNs.onion);
 
     return obj;
 }
@@ -706,7 +704,7 @@ UniValue getmasternodestatus(const JSONRPCRequest& request)
         }
         const CActiveMasternodeInfo* amninfo = activeMasternodeManager->GetInfo();
         UniValue mnObj(UniValue::VOBJ);
-        auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByOperatorKey(amninfo->keyIDOperator);
+        auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByOperatorKey(amninfo->pubKeyOperator);
         if (dmn) {
             dmn->ToJson(mnObj);
         }

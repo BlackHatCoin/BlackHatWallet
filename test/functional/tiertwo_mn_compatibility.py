@@ -61,6 +61,12 @@ class MasternodeCompatibilityTest(BlackHatTier2TestFramework):
         assert_equal(status["dmnstate"]["PoSePenalty"], 0)
         assert_equal(status["status"], "Ready")
 
+    def check_mn_enabled_count(self, enabled, total):
+        for node in self.nodes:
+            node_count = node.getmasternodecount()
+            assert_equal(node_count['enabled'], enabled)
+            assert_equal(node_count['total'], total)
+
     """
     Checks the block at specified height
     Returns the address of the mn paid (in the coinbase), and the json coinstake tx
@@ -92,6 +98,9 @@ class MasternodeCompatibilityTest(BlackHatTier2TestFramework):
         self.mn_addresses = {}
         self.enable_mocktime()
         self.setup_3_masternodes_network()
+
+        # start with 3 masternodes (2 legacy + 1 DMN)
+        self.check_mn_enabled_count(3, 3)
 
         # add two more nodes to the network
         self.remoteDMN2 = self.nodes[self.remoteDMN2Pos]
@@ -125,6 +134,7 @@ class MasternodeCompatibilityTest(BlackHatTier2TestFramework):
         self.remoteDMN2.initmasternode(self.dmn2Privkey, "", True)
 
         # check list and status
+        self.check_mn_enabled_count(4, 4) # 2 legacy + 2 DMN
         txHashSet.add(self.proRegTx2)
         self.check_mn_list(self.miner, txHashSet)
         self.check_mns_status(self.remoteDMN2, self.proRegTx2)
@@ -157,6 +167,7 @@ class MasternodeCompatibilityTest(BlackHatTier2TestFramework):
 
         # The legacy masternode must no longer be in the list
         # and the DMN must have taken its place
+        self.check_mn_enabled_count(4, 4)  # 1 legacy + 3 DMN
         txHashSet.remove(self.mnOneCollateral.hash)
         txHashSet.add(self.proRegTx3)
         for node in self.nodes:
@@ -171,6 +182,7 @@ class MasternodeCompatibilityTest(BlackHatTier2TestFramework):
         self.send_3_pings()
 
         # the masternode list hasn't changed
+        self.check_mn_enabled_count(4, 4)
         for node in self.nodes:
             self.check_mn_list(node, txHashSet)
         self.log.info("Masternode list correctly unchanged in all nodes.")

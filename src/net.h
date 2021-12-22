@@ -12,6 +12,7 @@
 #include "addrman.h"
 #include "bloom.h"
 #include "compat.h"
+#include "crypto/siphash.h"
 #include "fs.h"
 #include "hash.h"
 #include "limitedmap.h"
@@ -56,8 +57,10 @@ static constexpr size_t MAX_ADDR_TO_SEND = 1000;
 static const unsigned int MAX_PROTOCOL_MESSAGE_LENGTH = 2 * 1024 * 1024;
 /** Maximum length of strSubVer in `version` message */
 static const unsigned int MAX_SUBVERSION_LENGTH = 256;
-/** Maximum number of outgoing nodes */
+/** Maximum number of automatic outgoing nodes */
 static const int MAX_OUTBOUND_CONNECTIONS = 16;
+/** Maximum number of addnode outgoing nodes */
+static const int MAX_ADDNODE_CONNECTIONS = 16;
 /** -listen default */
 static const bool DEFAULT_LISTEN = true;
 /** The maximum number of entries in mapAskFor */
@@ -132,6 +135,7 @@ public:
         ServiceFlags nRelevantServices = NODE_NONE;
         int nMaxConnections = 0;
         int nMaxOutbound = 0;
+        int nMaxAddnode = 0;
         int nMaxFeeler = 0;
         int nBestHeight = 0;
         CClientUIInterface* uiInterface = nullptr;
@@ -146,7 +150,7 @@ public:
     void Stop();
     void Interrupt();
     bool BindListenPort(const CService &bindAddr, std::string& strError, bool fWhitelisted = false);
-    bool OpenNetworkConnection(const CAddress& addrConnect, bool fCountFailure, CSemaphoreGrant* grantOutbound = NULL, const char* strDest = NULL, bool fOneShot = false, bool fFeeler = false);
+    void OpenNetworkConnection(const CAddress& addrConnect, bool fCountFailure, CSemaphoreGrant* grantOutbound = nullptr, const char* strDest = nullptr, bool fOneShot = false, bool fFeeler = false, bool fAddnode = false);
     bool CheckIncomingNonce(uint64_t nonce);
 
     bool ForNode(NodeId id, std::function<bool(CNode* pnode)> func);
@@ -384,8 +388,10 @@ private:
     ServiceFlags nRelevantServices{NODE_NONE};
 
     std::unique_ptr<CSemaphore> semOutbound;
+    std::unique_ptr<CSemaphore> semAddnode;
     int nMaxConnections{0};
     int nMaxOutbound{0};
+    int nMaxAddnode;
     int nMaxFeeler{0};
     std::atomic<int> nBestHeight;
     CClientUIInterface* clientInterface{nullptr};
@@ -493,6 +499,7 @@ public:
     int nVersion;
     std::string cleanSubVer;
     bool fInbound;
+    bool fAddnode;
     int nStartingHeight;
     uint64_t nSendBytes;
     mapMsgCmdSize mapSendBytesPerMsgCmd;
@@ -593,9 +600,9 @@ public:
     bool fWhitelisted; // This peer can bypass DoS banning.
     bool fFeeler;      // If true this node is being used as a short lived feeler.
     bool fOneShot;
+    bool fAddnode;
     bool fClient;
     const bool fInbound;
-    bool fNetworkNode;
     /**
      * Whether the peer has signaled support for receiving ADDRv2 (BIP155)
      * messages, implying a preference to receive ADDRv2 instead of ADDR ones.
@@ -612,7 +619,6 @@ public:
     RecursiveMutex cs_filter;
     std::unique_ptr<CBloomFilter> pfilter;
     std::atomic<int> nRefCount;
-    const NodeId id;
 
     const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv;
@@ -675,6 +681,7 @@ public:
     CNode& operator=(const CNode&) = delete;
 
 private:
+    const NodeId id;
     const uint64_t nLocalHostNonce;
     // Services offered to this peer
     const ServiceFlags nLocalServices;

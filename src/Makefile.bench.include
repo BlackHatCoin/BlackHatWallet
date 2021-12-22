@@ -19,17 +19,21 @@ bench_bench_blkc_SOURCES = \
   bench/bench.h \
   bench/Examples.cpp \
   bench/base58.cpp \
+  bench/bls.cpp \
+  bench/bls_dkg.cpp \
   bench/checkblock.cpp \
   bench/checkqueue.cpp \
   bench/data.h \
   bench/data.cpp \
   bench/chacha20.cpp \
   bench/crypto_hash.cpp \
+  bench/ecdsa.cpp \
   bench/lockedpool.cpp \
   bench/perf.cpp \
   bench/perf.h \
   bench/prevector.cpp \
-  bench/util_time.cpp
+  bench/util_time.cpp \
+  bench/walletprocessblock.cpp
 
 nodist_bench_bench_blkc_SOURCES = $(GENERATED_BENCH_FILES)
 
@@ -39,7 +43,7 @@ bench_bench_blkc_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_COMMON) \
-  $(LIBBITCOIN_UNIVALUE) \
+  $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBLEVELDB) \

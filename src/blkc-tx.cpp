@@ -413,13 +413,6 @@ static bool findSighashFlags(int& flags, const std::string& flagStr)
     return false;
 }
 
-uint256 ParseHashUO(std::map<std::string, UniValue>& o, std::string strKey)
-{
-    if (!o.count(strKey))
-        return UINT256_ZERO;
-    return ParseHashUV(o[strKey], strKey);
-}
-
 static inline int64_t roundint64(double d)
 {
     return (int64_t)(d > 0 ? d + 0.5 : d - 0.5);
@@ -436,15 +429,6 @@ static CAmount AmountFromValue(const UniValue& value)
     if (!Params().GetConsensus().MoneyRange(nAmount))
         throw std::runtime_error("Amount out of range");
     return nAmount;
-}
-
-std::vector<unsigned char> ParseHexUO(std::map<std::string, UniValue>& o, std::string strKey)
-{
-    if (!o.count(strKey)) {
-        std::vector<unsigned char> emptyVec;
-        return emptyVec;
-    }
-    return ParseHexUV(o[strKey], strKey);
 }
 
 static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)

@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>Nova adresa</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Adresa</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>TipkaZaPritisak</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Ivan Horvat</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Ime kontakta</translation>
@@ -296,14 +265,6 @@ Jeste li sigurni?</translation>
     <message>
         <source>Passphrase Dialog</source>
         <translation>Dijaloški okvir za lozinku</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>TipkaZaPritisak</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -431,16 +392,8 @@ za staking</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparentno</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -461,16 +414,8 @@ za staking</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Ušteđjevina</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -541,10 +486,6 @@ za staking</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -690,10 +631,6 @@ za staking</translation>
 <context>
     <name>ColdStakingWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Adresa vlasnika (neobavezno, ako ostavite prazno automatski će se stvoriti nova adresa)</translation>
     </message>
@@ -716,6 +653,10 @@ za staking</translation>
     <message>
         <source>Delegate</source>
         <translation>Ovlasti</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -924,18 +865,106 @@ vlasnika</translation>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Primatelj</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>Sažetak</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>Napravi novi prijedlog</translation>
+    </message>
+    <message>
+        <source>Make sure you have 50 BLKC for the proposal fee</source>
+        <translation>Provjerite imate li 50 BLKC za naknadu za prijedlog</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Naziv prijedloga</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>URL prijedloga</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>Primatelj prijedloga</translation>
+    </message>
+    <message>
+        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
+        <translation>Dodajte traženi broj uplata, iznos po uplati i adresu primatelja.</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresa</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Mjeseci</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>Sažetak prijedloga</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>DALJE</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>NAZAD</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>Naziv prijedloga ne može biti prazan</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation>Naziv prijedloga ne smije sadržavati znakove koji nisu UTF-8</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Neispravan iznos</translation>
+    </message>
+    <message>
+        <source>Invalid payment address</source>
+        <translation>Nevažeća adresa za isplatu</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Pošalji</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Dalje</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Nema dostupnih kontakata, možete otići na zaslon s kontaktima i tamo ih dodati!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>Tranksacije</translation>
@@ -1022,10 +1051,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1090,13 +1115,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1117,6 +1135,135 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     <message>
         <source>Cannot create data directory here.</source>
         <translation>Ovdje nije moguće stvoriti direktorij za podatke.</translation>
+    </message>
+</context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Governance</source>
+        <translation>Upravljanje</translation>
+    </message>
+    <message>
+        <source>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</source>
+        <translation>Pregledajte, pratite, glasajte i podnesite prijedloge za isplatu iz proračuna.
+Budite dio DAO-a. </translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sortiraj prema</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Sve</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Prolazi</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Ne prolazi</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Na čekanju</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filter</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced to see the correct information</source>
+        <translation>Pričekajte da se čvor u potpunosti sinkronizira da biste vidjeli točne informacije</translation>
+    </message>
+    <message>
+        <source>Prepare and submit a new proposal.</source>
+        <translation>Pripremite i podnesite novi prijedlog.</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Pričekajte dok se čvor u potpunosti ne sinkronizira</translation>
+    </message>
+    <message>
+        <source>Cannot vote for the proposal yet, wait until it's confirmed by the network</source>
+        <translation>Još se ne može glasati za prijedlog, pričekajte da ga mreža potvrdi</translation>
+    </message>
+    <message>
+        <source>Vote emitted successfully!</source>
+        <translation>Glasanje je uspješno poslano!</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation>Nije moguće izraditi prijedlog, novčanik je zaključan</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
+        <translation>Nije moguće izraditi prijedlog, morate imati najmanje %1 za plaćanje naknade za prijedlog</translation>
+    </message>
+    <message>
+        <source>Proposal transaction fee broadcasted!</source>
+        <translation>Emitirana naknada za transakciju prijedloga!</translation>
+    </message>
+    <message>
+        <source>Copy Url</source>
+        <translation>Kopiraj URL</translation>
+    </message>
+    <message>
+        <source>Open Url</source>
+        <translation>Otvori URL</translation>
+    </message>
+    <message>
+        <source>More Info</source>
+        <translation>Više informacija</translation>
+    </message>
+    <message>
+        <source>Proposal URL copied to clipboard</source>
+        <translation>URL prijedloga kopiran je u međjuspremnik</translation>
+    </message>
+    <message>
+        <source>Open Proposal URL</source>
+        <translation>Otvorite URL prijedloga</translation>
+    </message>
+    <message>
+        <source>The following URL will be opened in the default browser</source>
+        <translation>Sljedeći URL će se otvoriti u zadanom pregledniku</translation>
+    </message>
+    <message>
+        <source>Are you sure?
+(Always verify the URL validity before opening it)
+</source>
+        <translation>Jeste li sigurni?
+(Uvijek provjerite valjanost URL-a prije nego što ga otvorite)
+</translation>
+    </message>
+    <message>
+        <source>Failed to open proposal URL</source>
+        <translation>Otvaranje URL-a prijedloga nije uspjelo</translation>
+    </message>
+    <message>
+        <source>Next superblock today!
+%2 blocks to go.</source>
+        <translation>Sljedeći superblok danas!
+%2 bloka do kraja.</translation>
+    </message>
+    <message>
+        <source>Next superblock in %1 days.
+%2 blocks to go.</source>
+        <translation>Sljedeći superblok za %1 dana.
+%2 bloka do kraja.</translation>
     </message>
 </context>
 <context>
@@ -1196,28 +1343,12 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Učitavanje</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Otključaj novčanik</translation>
@@ -1234,10 +1365,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Transakcija zaloga nije pronađjena</translation>
     </message>
@@ -1248,10 +1375,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1371,6 +1494,10 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
         <translation>na novu praznu adresu u novčaniku.</translation>
     </message>
     <message>
+        <source>The Address is labeled under the master node's name.</source>
+        <translation>Adresa je označena pod imenom masternodeova.</translation>
+    </message>
+    <message>
         <source>walletModel not set</source>
         <translation>novčanikModel nije postavljen</translation>
     </message>
@@ -1389,10 +1516,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Pokreni sve</translation>
@@ -1567,10 +1690,6 @@ Jeste li sigurni?</translation>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>Informacije o Masternode-u</translation>
     </message>
@@ -1612,18 +1731,70 @@ Jeste li sigurni?</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Select Masternodes</source>
+        <translation>Odaberite Masternodeove</translation>
+    </message>
+    <message>
+        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
+        <translation>Svaki Masternode odnosi se na jedan glas, možete odabrati koji će glasati za prijedlog</translation>
+    </message>
+    <message>
+        <source>Amount of votes:</source>
+        <translation>Količina glasova:</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Označi sve</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation>Glasaj</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>SELECT VOTES</source>
+        <translation>ODABERITE GLASOVE</translation>
+    </message>
+    <message>
+        <source>Unselect All</source>
+        <translation>Odznači sve</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>The direction of the already broadcasted vote</source>
+        <translation>Smjer već emitiranog glasanja</translation>
+    </message>
+    <message>
+        <source>No vote has been emitted from this Masternode</source>
+        <translation>Nijedan glas nije emitiran s ovog Masternodea</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
+        <translation>Vrijeme između glasova je prerano, morate pričekati %1 minuta da promijenite svoj glas</translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1649,6 +1820,10 @@ Jeste li sigurni?</translation>
 </translation>
     </message>
     <message>
+        <source>DAO</source>
+        <translation>DAO</translation>
+    </message>
+    <message>
         <source>MASTER
 NODES</source>
         <translation>MASTER
@@ -1665,10 +1840,6 @@ STAKING</translation>
 </source>
         <translation>POSTAVKE
 </translation>
-    </message>
-    <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -1692,13 +1863,6 @@ STAKING</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
     </message>
 </context>
 <context>
@@ -1808,6 +1972,96 @@ Adresa: %4
     <message>
         <source>NodeID</source>
         <translation>NodeID</translation>
+    </message>
+</context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>Vote</source>
+        <translation>Glasaj</translation>
+    </message>
+    <message>
+        <source>Inactive proposal</source>
+        <translation>Neaktivan prijedlog</translation>
+    </message>
+    <message>
+        <source>%1 of %2 months left</source>
+        <translation>Ostalo je %1 od %2 mjeseca</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Na čekanju</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Završeno</translation>
+    </message>
+    <message>
+        <source>No Votes</source>
+        <translation>Nema glasova</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Ne prolazi</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Prolazi</translation>
+    </message>
+</context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>Proposal Information</source>
+        <translation>Informacije o prijedlogu</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Naziv prijedloga</translation>
+    </message>
+    <message>
+        <source>Recipient</source>
+        <translation>Primatelj</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>End Block</source>
+        <translation>Završni blok</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Start Block</source>
+        <translation>Početni blok</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Positive Votes</source>
+        <translation>Glasovi za</translation>
+    </message>
+    <message>
+        <source>Negative Votes</source>
+        <translation>Glasovi protiv</translation>
     </message>
 </context>
 <context>
@@ -2092,10 +2346,6 @@ Adresa: %4
         <translation>Ime klijenta</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>Broj veza</translation>
     </message>
@@ -2316,10 +2566,6 @@ Adresa: %4
         <translation>Obnovi blockchain indeks iz trenutnih blk000??.dat datoteka.</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>-resinkronizacija:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Briše sve lokalne blockchain direktorije pa se novčanik sinkronizira od početka.</translation>
     </message>
@@ -2459,10 +2705,6 @@ Adresa: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Moja adresa</translation>
     </message>
@@ -2477,10 +2719,6 @@ Adresa: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Skeniraj QR kod ili kopiraj adresu da bi primio BLKC</translation>
@@ -2622,24 +2860,12 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Iznos</translation>
     </message>
     <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>Umjesto da dijelite samo BlackHat adresu, možete stvoriti zahtjev za plaćanjem, skupljajući više informacija</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z</translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2713,10 +2939,6 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
     </message>
@@ -2748,20 +2970,8 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Preporučeno</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobajt</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -2792,6 +3002,10 @@ pokušajte otključati novčanik</translation>
         <translation>Brzo</translation>
     </message>
     <message>
+        <source>Invalid custom fee amount</source>
+        <translation>Nevažeći iznos prilagođene naknade</translation>
+    </message>
+    <message>
         <source>SAVE</source>
         <translation>SPREMI</translation>
     </message>
@@ -2807,24 +3021,8 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>Private message only visible for the recipient(s)</source>
         <translation>Privatna poruka vidljiva samo primatelju(ima)</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -2841,10 +3039,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>SendMultiRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Enter address</source>
         <translation>Unesite adresu</translation>
@@ -2899,6 +3093,10 @@ Do you want to continue?</source>
     <message>
         <source>Maximum amount of outputs reached</source>
         <translation>Maksimalni iznos rezultata dosegnut</translation>
+    </message>
+    <message>
+        <source>Parse a BlackHat URI</source>
+        <translation>Raščlani BlackHat URI</translation>
     </message>
     <message>
         <source>Invalid entry, previous entries must be valid before add a new one</source>
@@ -3095,10 +3293,6 @@ Uz naknadu %2
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Promjeni lozinku novčanika</translation>
     </message>
@@ -3149,10 +3343,6 @@ Ne zaboravite zapisati i sigurno pohraniti novu lozinku, jer u protivnom ćete i
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Uvezi adresu</translation>
@@ -3276,6 +3466,10 @@ Korištenjem ovog mehanizma možete dijeliti vaše ključeve bez rizika posredni
         <translation>Provjerite ključ i lozinku te pokušajte ponovo.</translation>
     </message>
     <message>
+        <source>Wallet is currently rescanning. Abort existing rescan or wait.</source>
+        <translation>Novčanik se trenutno ponovno skenira. Prekinite postojeće ponovno skeniranje ili pričekajte.</translation>
+    </message>
+    <message>
         <source>Data Not Valid.</source>
         <translation>Podaci nisu valjani.</translation>
     </message>
@@ -3302,10 +3496,6 @@ Korištenjem ovog mehanizma možete dijeliti vaše ključeve bez rizika posredni
 </context>
 <context>
     <name>SettingsConsoleWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Console</source>
         <translation>Konzola</translation>
@@ -3347,10 +3537,6 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Sakrijte stake grafikone na nadzornoj ploči</translation>
@@ -3407,10 +3593,6 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Izvezi računovodstvene
 podatke</translation>
@@ -3420,8 +3602,8 @@ podatke</translation>
         <translation>Izvezite računovodstvene podatke Vašeg novčanika u CSV datoteku.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Gdje</translation>
+        <source>Export Transaction History</source>
+        <translation>Izvezi povijest transakcija</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3432,20 +3614,8 @@ podatke</translation>
         <translation>Izvezi imenik</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>Izvezi CSV</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Izvezi popis adresa</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_transakcije_csv_izvoz(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_adrese_csv_izvoz(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Datoteka odvojena zarezom (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3511,20 +3681,12 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) Što je BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) Zašto se moji BLKC ne mogu potrošiti?</translation>
-    </message>
-    <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3608,6 +3770,14 @@ pitanja</translation>
         <translation>BlackHat je oblik digitalnog internetskog novca koji koristi blockchain tehnologiju koji se može lako prenositi globalno, odmah i gotovo bez naknade. BlackHat uključuje vodeću sigurnost i privatnost na tržištu, a ujedno je i prva PoS (Proof of Stake) kriptovaluta koja je implementirala Sapling (SHIELD), protokol privatnosti zasnovan na zk-SNARKs tehnologiji.</translation>
     </message>
     <message>
+        <source>BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, allowing all owners of BLKC to participate in earning block rewards while securing the network with full node wallets, as well as to run Masternodes to create and vote on proposals.</source>
+        <translation>BlackHat koristi algoritam sustava konsenzusa Proof of Stake (PoS), koji svim vlasnicima BLKC-a omogućuje sudjelovanje u zarađjivanju nagrada za blokove dok osiguravaju mrežu sa vlastitim čvorovima, kao i da pokreću Masternode za kreiranje i glasanje o prijedlozima. </translation>
+    </message>
+    <message>
+        <source>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</source>
+        <translation>Za novoprimljeni BLKC potrebno je 6 potvrda na mreži da bi postao prihvatljiv za potrošnju što može potrajati ~6 minuta.</translation>
+    </message>
+    <message>
         <source>Your BlackHat wallet also needs to be completely synchronized to see and spend balances on the network.</source>
         <translation>Vaš BlackHat novčanik također mora biti potpuno sinkroniziran da biste mogli vidjeti i trošiti sredstva na mreži.</translation>
     </message>
@@ -3640,8 +3810,20 @@ pitanja</translation>
         <translation>#support na našem Discordu</translation>
     </message>
     <message>
+        <source>%1 per single Masternode instance</source>
+        <translation>%1 po jednoj instanci Masternodea</translation>
+    </message>
+    <message>
+        <source>A decentralized governance (Proposal Voting)</source>
+        <translation>Decentralizirano upravljanje (glasanje o prijedlogu)</translation>
+    </message>
+    <message>
         <source>A decentralized budgeting system (Treasury)</source>
         <translation>Sustav decentraliziranog proračuna (riznica)</translation>
+    </message>
+    <message>
+        <source>Act as an additional full node in the network</source>
+        <translation>Djeluj kao dodatni puni čvor u mreži</translation>
     </message>
     <message>
         <source>For providing such services, masternodes are also paid a certain portion of reward for each block. This can serve as a passive income to the masternode owners minus their running cost.</source>
@@ -3686,10 +3868,6 @@ pitanja</translation>
 </context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Mrežni nadzor</translation>
@@ -3802,10 +3980,6 @@ pitanja</translation>
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Window</source>
         <translation>Prozor</translation>
     </message>
@@ -3874,10 +4048,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Potpiši/Ovjeri Poruku</translation>
@@ -3971,10 +4141,6 @@ Jeste li sigurni?
         <translation>Provjerite potpis i pokušajte ponovo.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>Potpis se nije podudarao s digestom poruka.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Potvrda poruke nije uspjela.</translation>
     </message>
@@ -3989,10 +4155,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Resetiraj na početno stanje</translation>
@@ -4068,10 +4230,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Popravak novčanika</translation>
@@ -4159,10 +4317,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>Podaci o novčaniku</translation>
@@ -4301,22 +4455,7 @@ Jeste li sigurni?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Kontakt spremljen</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Učitavanje...</translation>
@@ -4331,10 +4470,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Kopiraj</translation>
@@ -4354,10 +4489,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>transparent</source>
         <translation>transparentno</translation>
@@ -4398,13 +4529,33 @@ Jeste li sigurni?
         <source>Staking not active</source>
         <translation>Staking nije aktivan</translation>
     </message>
+    <message numerus="yes">
+        <source>%n active connection(s)</source>
+        <translation><numerusform>%n aktivna veza</numerusform><numerusform>%n aktivnih veza</numerusform><numerusform>%n aktivnih veza</numerusform></translation>
+    </message>
     <message>
         <source>Synchronized - Block: %1</source>
         <translation>Sinkronizirano - Blok: %1</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n sat</numerusform><numerusform>%n sati</numerusform><numerusform>%n sati</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n dan</numerusform><numerusform>%n dana</numerusform><numerusform>%n dana</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n tjedan</numerusform><numerusform>%n tjedana</numerusform><numerusform>%n tjedana</numerusform></translation>
+    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 i %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n year(s)</source>
+        <translation><numerusform>%n godina</numerusform><numerusform>%n godina</numerusform><numerusform>%n godina</numerusform></translation>
     </message>
     <message>
         <source>Wallet Upgrade</source>
@@ -4579,6 +4730,10 @@ stvorit će se nova sigurnosna kopija.
         <source>Address</source>
         <translation>Adresa</translation>
     </message>
+    <message numerus="yes">
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Otvoreno za još %n blok</numerusform><numerusform>Otvoreno za još %n blokova</numerusform><numerusform>Otvoreno za još %n blokova</numerusform></translation>
+    </message>
     <message>
         <source>Open until %1</source>
         <translation>Otvoreno do %1</translation>
@@ -4743,10 +4898,6 @@ stvorit će se nova sigurnosna kopija.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Detalji tranksacije</translation>
     </message>
@@ -4761,14 +4912,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Output Index</source>
         <translation>Izlazni indeks</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>May 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4813,10 +4956,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Memo</source>
         <translation>Pisana poruka</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -4864,20 +5003,62 @@ stvorit će se nova sigurnosna kopija.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Vote For Proposal</source>
+        <translation>Glasajte za prijedlog</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation>Odaberite smjer glasanja i masternode koji će glasati za to</translation>
     </message>
     <message>
-        <source>-0.000585 BLKC</source>
-        <translation>-0.000585 BLKC</translation>
+        <source>Select Voting Masternodes</source>
+        <translation>Odaberite Masternodeove za glasanje</translation>
     </message>
-</context>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>VOTE</source>
+        <translation>GLASAJ</translation>
+    </message>
+    <message>
+        <source>You can change your vote later</source>
+        <translation>Svoj glas možete promijeniti kasnije</translation>
+    </message>
+    <message>
+        <source>%1 months remaining</source>
+        <translation>Preostalo %1 mjeseci</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>Select a vote direction</source>
+        <translation>Odaberite smjer glasanja</translation>
+    </message>
+    <message>
+        <source>Missing voting masternodes selection</source>
+        <translation>Nedostaje odabir masternoda za glasanje</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes</source>
+        <translation>Vrijeme između glasova je prekratno, morate pričekati %1 minuta</translation>
+    </message>
+    <message>
+        <source>You have voted with %1 Masternodes for this proposal
+Change votes</source>
+        <translation>Glasali ste s %1 Masternodeova za ovaj prijedlog
+Promijeni glasove</translation>
+    </message>
+    </context>
 <context>
     <name>WalletModel</name>
     <message>
@@ -4967,6 +5148,25 @@ Odaberite manje ulaza pomoću Upravljanja novčićima.</translation>
     </message>
 </context>
 <context>
+    <name>governancewidget</name>
+    <message>
+        <source>No active proposals yet</source>
+        <translation>Još nema aktivnih prijedloga</translation>
+    </message>
+    <message>
+        <source>Budget Distribution</source>
+        <translation>Raspodjela proračuna</translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation>Raspoloživo</translation>
+    </message>
+    <message>
+        <source>Allocated</source>
+        <translation>Dodijeljeno</translation>
+    </message>
+</context>
+<context>
     <name>blkc-core</name>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
@@ -5018,12 +5218,20 @@ Odaberite manje ulaza pomoću Upravljanja novčićima.</translation>
 </translation>
     </message>
     <message>
+        <source>Deterministic masternodes are not enforced yet</source>
+        <translation>Deterministički masternodeovi se još ne provode</translation>
+    </message>
+    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Želite li sada obnoviti bazu podataka blokova?</translation>
     </message>
     <message>
         <source>Done loading</source>
         <translation>Završeno učitavanje</translation>
+    </message>
+    <message>
+        <source>Elliptic curve cryptography sanity check failure. Aborting.</source>
+        <translation>Neuspjeh provjere ispravnosti kriptografije eliptičke krivulje. Prekidanje.</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
@@ -5220,6 +5428,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Priprema za resinkronizaciju...</translation>
     </message>
     <message>
+        <source>Legacy masternode system disabled. Use %s to start as deterministic masternode</source>
+        <translation>Naslijeđeni sustav masternode je onemogućen. Koristite %s za početak kao deterministički masternode</translation>
+    </message>
+    <message>
         <source>System error while flushing the chainstate after pruning invalid entries. Possible corrupt database.</source>
         <translation>Sistemska pogreška pri ispiranju stanja lanca nakon uklanjanja nevažećih unosa. Moguće da je oštećena baza podataka.</translation>
     </message>
@@ -5242,6 +5454,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
     <message>
         <source>Cannot resolve -%s address: '%s'</source>
         <translation>Ne mogu riješiti -%s adresu: '%s'</translation>
+    </message>
+    <message>
+        <source>Cannot write to data directory '%s'; check permissions.</source>
+        <translation>Nije moguće pisati u imenik podataka '%s'; provjerite dopuštenja sustava.</translation>
     </message>
     <message>
         <source>Change index out of range</source>
@@ -5274,6 +5490,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nevažeći blok aktivacije (%s)</translation>
     </message>
     <message>
+        <source>Invalid mnoperatorprivatekey. Please see the documentation.</source>
+        <translation>Nevažeći mnooperatorprivatekey. Molimo pogledajte dokumentaciju.</translation>
+    </message>
+    <message>
         <source>Invalid network upgrade (%s)</source>
         <translation>Nevažeća nadogradnja mreže (%s)</translation>
     </message>
@@ -5300,6 +5520,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
     <message>
         <source>No error</source>
         <translation>Nema grešaka</translation>
+    </message>
+    <message>
+        <source>OS cryptographic RNG sanity check failure. Aborting.</source>
+        <translation>Neuspjeh provjere ispravnosti kriptografskog RNG-a OS-a. Prekidanje.</translation>
     </message>
     <message>
         <source>Reaccepting wallet transactions...</source>
@@ -5354,12 +5578,28 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Ovo je eksperimentalni softver.</translation>
     </message>
     <message>
+        <source>This is not a deterministic masternode. 'local' option disabled.</source>
+        <translation>Ovo nije deterministički masternode. 'lokalna' opcija onemogućena.</translation>
+    </message>
+    <message>
         <source>This is not a masternode. 'local' option disabled.</source>
         <translation>Ovo nije masternode. 'lokalna' opcija isključena.</translation>
     </message>
     <message>
         <source>This is not a masternode.</source>
         <translation>Ovo nije masternode.</translation>
+    </message>
+    <message>
+        <source>Invalid -wallet path '%s'. -wallet path should point to a directory where wallet.dat and database/log.?????????? files can be stored, a location where such a directory could be created or (for backwards compatibility) the name of an existing data file in -walletdir (%s)</source>
+        <translation>Nevažeći put do novčanika '%s'. -puta novčanika treba upućivati na direktorij u kojem se nalazi wallet.dat i baza podataka/log.?????????? datoteke se mogu pohraniti, mjesto gdje bi se takav direktorij mogao stvoriti ili (za kompatibilnost unatrag) naziv postojeće podatkovne datoteke u -walletdir (%s)</translation>
+    </message>
+    <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>Provjerite jesu li datum i vrijeme na vašem računalu točni! Ako je vaš sat pogrešan, %s neće raditi ispravno.</translation>
+    </message>
+    <message>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>Upozorenje: Provjerite jesu li datum i vrijeme na vašem računalu točni! Ako je vaš sat pogrešan, %s neće raditi ispravno. </translation>
     </message>
     <message>
         <source>Copyright (C) 2015-%i The %s Developers</source>
@@ -5394,6 +5634,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nije moguće vezati se na %s na ovom računalu (vezanje vraćene pogreške %s)</translation>
     </message>
     <message>
+        <source>Unable to generate initial key!</source>
+        <translation>Nije moguće generirati početni ključ!</translation>
+    </message>
+    <message>
         <source>Unable to generate keys</source>
         <translation>Nije moguće generiranje ključeva</translation>
     </message>
@@ -5404,6 +5648,14 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation>Nije moguće pokrenuti HTTP poslužitelj. Detalje potražite u debug logu.</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument %s ignored, use %s</source>
+        <translation>Upozorenje: Nepodržani argument %s zanemaren, koristite %s</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument %s ignored, use %s.</source>
+        <translation>Upozorenje: Nepodržani argument %s zanemaren, koristite %s. </translation>
     </message>
     <message>
         <source>You can not start a masternode in litemode</source>
@@ -5440,10 +5692,6 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Pošalji</translation>

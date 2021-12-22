@@ -10,7 +10,6 @@
 #define BITCOIN_CHAINPARAMS_H
 
 #include "chainparamsbase.h"
-#include "checkpoints.h"
 #include "consensus/params.h"
 #include "primitives/block.h"
 #include "protocol.h"
@@ -23,6 +22,15 @@ struct CDNSSeedData {
     std::string host;
     bool supportsServiceBitsFiltering;
     CDNSSeedData(const std::string& strHost, bool supportsServiceBitsFilteringIn = false) : host(strHost), supportsServiceBitsFiltering(supportsServiceBitsFilteringIn) {}
+};
+
+typedef std::map<int, uint256> MapCheckpoints;
+
+struct CCheckpointData {
+    const MapCheckpoints* mapCheckpoints;
+    int64_t nTimeLastCheckpoint;
+    int64_t nTransactionsLastCheckpoint;
+    double fTransactionsPerDay;
 };
 
 /**
@@ -80,7 +88,7 @@ public:
     const std::vector<unsigned char>& Base58Prefix(Base58Type type) const { return base58Prefixes[type]; }
     const std::string& Bech32HRP(Bech32Type type) const { return bech32HRPs[type]; }
     const std::vector<uint8_t>& FixedSeeds() const { return vFixedSeeds; }
-    virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
+    virtual const CCheckpointData& Checkpoints() const = 0;
 
     bool IsRegTestNet() const { return NetworkIDString() == CBaseChainParams::REGTEST; }
     bool IsTestnet() const { return NetworkIDString() == CBaseChainParams::TESTNET; }

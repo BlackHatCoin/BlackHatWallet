@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2020 The PIVX developers
+// Copyright (c) 2015-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
@@ -8,7 +8,6 @@
 #include "primitives/transaction.h"
 
 #include "hash.h"
-#include "script/standard.h"
 #include "tinyformat.h"
 #include "utilstrencodings.h"
 
@@ -82,23 +81,6 @@ uint256 CTxOut::GetHash() const
     return SerializeHash(*this);
 }
 
-bool CTxOut::GetKeyIDFromUTXO(CKeyID& keyIDRet) const
-{
-    std::vector<valtype> vSolutions;
-    txnouttype whichType;
-    if (scriptPubKey.empty() || !Solver(scriptPubKey, whichType, vSolutions))
-        return false;
-    if (whichType == TX_PUBKEY) {
-        keyIDRet = CPubKey(vSolutions[0]).GetID();
-        return true;
-    }
-    if (whichType == TX_PUBKEYHASH || whichType == TX_COLDSTAKE) {
-        keyIDRet = CKeyID(uint160(vSolutions[0]));
-        return true;
-    }
-    return false;
-}
-
 bool CTxOut::IsZerocoinMint() const
 {
     return scriptPubKey.IsZerocoinMint();
@@ -150,16 +132,6 @@ bool CTransaction::HasZerocoinMintOutputs() const
     return false;
 }
 
-bool CTransaction::HasZerocoinPublicSpendInputs() const
-{
-    // The wallet only allows publicSpend inputs in the same tx and not a combination between blkc and zblkc
-    for(const CTxIn& txin : vin) {
-        if (txin.IsZerocoinPublicSpend())
-            return true;
-    }
-    return false;
-}
-
 bool CTransaction::IsCoinStake() const
 {
     if (vin.empty())
@@ -184,15 +156,15 @@ bool CTransaction::HasP2CSOutputs() const
 CAmount CTransaction::GetValueOut() const
 {
     CAmount nValueOut = 0;
-    for (std::vector<CTxOut>::const_iterator it(vout.begin()); it != vout.end(); ++it) {
+    for (const CTxOut& out : vout) {
         // BlackHat: previously MoneyRange() was called here. This has been replaced with negative check and boundary wrap check.
-        if (it->nValue < 0)
+        if (out.nValue < 0)
             throw std::runtime_error("CTransaction::GetValueOut() : value out of range : less than 0");
 
-        if ((nValueOut + it->nValue) < nValueOut)
+        if (nValueOut + out.nValue < nValueOut)
             throw std::runtime_error("CTransaction::GetValueOut() : value out of range : wraps the int64_t boundary");
 
-        nValueOut += it->nValue;
+        nValueOut += out.nValue;
     }
 
     // Sapling
@@ -247,9 +219,9 @@ std::string CTransaction::ToString() const
         ss << ", extraPayload.size=" << extraPayload->size();
     }
     ss << ")\n";
-    for (unsigned int i = 0; i < vin.size(); i++)
-        ss << "    " << vin[i].ToString() << "\n";
-    for (unsigned int i = 0; i < vout.size(); i++)
-        ss << "    " << vout[i].ToString() << "\n";
+    for (const auto& in : vin)
+        ss << "    " << in.ToString() << "\n";
+    for (const auto& out : vout)
+        ss << "    " << out.ToString() << "\n";
     return ss.str();
 }

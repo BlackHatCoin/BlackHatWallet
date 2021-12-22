@@ -78,7 +78,7 @@ class MultiWalletTest(BlackHatTestFramework):
 
         # should not initialize if one wallet is a copy of another
         shutil.copyfile(wallet_dir('w8'), wallet_dir('w8_copy'))
-        exp_stderr = r"CDB: Can't open database w8_copy \(duplicates fileid \w+ from w8\)"
+        exp_stderr = r"BerkeleyBatch: Can't open database w8_copy \(duplicates fileid \w+ from w8\)"
         self.nodes[0].assert_start_raises_init_error(['-wallet=w8', '-wallet=w8_copy'], exp_stderr, match=ErrorMatch.PARTIAL_REGEX)
 
         # should not initialize if wallet file is a symlink

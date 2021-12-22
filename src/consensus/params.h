@@ -101,7 +101,6 @@ struct Params {
     int nFutureTimeDriftPoS;
     CAmount nMaxMoneyOut;
     CAmount nMNCollateralAmt;
-    int nPoolMaxTransactions;
     int64_t nProposalEstablishmentTime;
     int nStakeMinAge;
     int nStakeMinDepth;
@@ -118,7 +117,6 @@ struct Params {
     int height_last_invalid_UTXO;
     int height_last_ZC_AccumCheckpoint;
     int height_last_ZC_WrappedSerials;
-    int height_ZC_RecalcAccumulators;
 
     // Map with network updates
     NetworkUpgrade vUpgrades[MAX_NETWORK_UPGRADES];

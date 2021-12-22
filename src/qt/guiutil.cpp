@@ -12,7 +12,6 @@
 #include "qvalidatedlineedit.h"
 #include "walletmodel.h"
 
-#include "init.h"
 #include "policy/policy.h"
 #include "primitives/transaction.h"
 #include "protocol.h"
@@ -95,7 +94,7 @@ QFont bitcoinAddressFont()
  * return validity.
  * @note Must return 0 if !valid.
  */
-CAmount parseValue(const QString& text, int displayUnit, bool* valid_out)
+static CAmount parseValue(const QString& text, int displayUnit, bool* valid_out)
 {
     CAmount val = 0;
     bool valid = BitcoinUnits::parse(displayUnit, text, &val);
@@ -106,6 +105,16 @@ CAmount parseValue(const QString& text, int displayUnit, bool* valid_out)
     if (valid_out)
         *valid_out = valid;
     return valid ? val : 0;
+}
+
+/**
+ * Returns 0 if the value is invalid
+ */
+CAmount parseValue(const QString& amount, int displayUnit)
+{
+    bool isValid = false;
+    CAmount value = GUIUtil::parseValue(amount, displayUnit, &isValid);
+    return isValid ? value : 0;
 }
 
 QString formatBalance(CAmount amount, int nDisplayUnit, bool isZblkc)

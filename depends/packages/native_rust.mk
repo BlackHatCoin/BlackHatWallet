@@ -1,18 +1,20 @@
 package=native_rust
-$(package)_version=1.42.0
+$(package)_version=1.54.0
 $(package)_download_path=https://depends.pivx.org
-$(package)_file_name_x86_64_linux=rust-$($(package)_version)-x86_64-unknown-linux-gnu.tar.gz
-$(package)_sha256_hash_x86_64_linux=fce33280b344ab0fecc55be24632a3c0086fd763f4df1d59013dfc0e49f0356c
-$(package)_file_name_arm_linux=rust-$($(package)_version)-arm-unknown-linux-gnueabihf.tar.gz
-$(package)_sha256_hash_arm_linux=a19a1d46fa08681429d888ec06e127ce94ac16d7d95d3f1ee586a0cac63ffe5b
-$(package)_file_name_armv7l_linux=rust-$($(package)_version)-armv7-unknown-linux-gnueabihf.tar.gz
-$(package)_sha256_hash_armv7l_linux=9476f34dc6a957524ea6034005fa493659c45c2b1048c7a50a03d8fc0a06f7f1
-$(package)_file_name_aarch64_linux=rust-$($(package)_version)-aarch64-unknown-linux-gnu.tar.gz
-$(package)_sha256_hash_aarch64_linux=a8fc3d4c626fab76b16fc6f875118a8d4cd6a1e3a4c9a98497e45f1c5429b9c6
-$(package)_file_name_x86_64_darwin=rust-$($(package)_version)-x86_64-apple-darwin.tar.gz
-$(package)_sha256_hash_x86_64_darwin=db1055c46e0d54b99da05e88c71fea21b3897e74a4f5ff9390e934f3f050c0a8
-$(package)_file_name_x86_64_freebsd=rust-$($(package)_version)-x86_64-unknown-freebsd.tar.gz
-$(package)_sha256_hash_x86_64_freebsd=230bcf17e4383fba85d3c87fe25d17737459fe561a5f4668fe70dcac2da4e17c
+$(package)_file_name_x86_64_linux=rust-$($(package)_version)-x86_64-unknown-linux-gnu.tar.xz
+$(package)_sha256_hash_x86_64_linux=e1451b0d0c65d7d15ddc8a300714c8280bcda052a9cee10ef5bcb62b23640be2
+$(package)_file_name_arm_linux=rust-$($(package)_version)-arm-unknown-linux-gnueabihf.tar.xz
+$(package)_sha256_hash_arm_linux=4076345ec13ac9fcc721c34f1400b80605fcd57d9dd87196bad27bc70fd13a9a
+$(package)_file_name_armv7l_linux=rust-$($(package)_version)-armv7-unknown-linux-gnueabihf.tar.xz
+$(package)_sha256_hash_armv7l_linux=4076345ec13ac9fcc721c34f1400b80605fcd57d9dd87196bad27bc70fd13a9a
+$(package)_file_name_aarch64_linux=rust-$($(package)_version)-aarch64-unknown-linux-gnu.tar.xz
+$(package)_sha256_hash_aarch64_linux=604f537eae89f96c2377e12df609a70e26ebea7169e1bb8b2fec20f1ee288c0a
+$(package)_file_name_x86_64_darwin=rust-$($(package)_version)-x86_64-apple-darwin.tar.xz
+$(package)_sha256_hash_x86_64_darwin=5be9bfc9b3d4f170bc9fd44815179ca58fd8614a41e5be2e2369970b4286f004
+$(package)_file_name_aarch64_darwin=rust-$($(package)_version)-aarch64-apple-darwin.tar.xz
+$(package)_sha256_hash_aarch64_darwin=e52314376d5258f3fb3ec6b9e0164bfca1c15ed276bd0d772e5392ea8531afe4
+$(package)_file_name_x86_64_freebsd=rust-$($(package)_version)-x86_64-unknown-freebsd.tar.xz
+$(package)_sha256_hash_x86_64_freebsd=b5a96a9eb960bbfe527dba5549067102849fa80daabf524d367455c7b80232e1
 
 # Mapping from GCC canonical hosts to Rust targets
 # If a mapping is not present, we assume they are identical, unless $host_os is
@@ -26,21 +28,22 @@ $(package)_rust_target_x86_64-pc-linux-gnu=x86_64-unknown-linux-gnu
 $(package)_rust_target_armv7l-unknown-linux-gnueabihf=arm-unknown-linux-gnueabihf
 
 # Mapping from Rust targets to SHA-256 hashes
-$(package)_rust_std_sha256_hash_arm-unknown-linux-gnueabihf=538790218a9515ef8e32c29a3f6d0d242281345fc8a5f0b0e1452bd350633e15
-$(package)_rust_std_sha256_hash_aarch64-unknown-linux-gnu=0d32e9600074b0b5e741d154dc72874e598a34e3b33818a0dc9d7a2243d75b7a
-$(package)_rust_std_sha256_hash_i686-unknown-linux-gnu=5bc82c00a62f5da9d3b6573a9880b1aa163cc524a02579a04a0889abc3020fc9
-$(package)_rust_std_sha256_hash_x86_64-unknown-linux-gnu=face97f81c746b884ac9a6062b2ac99b1f4c314199d0a90c57a0adb0a01dcdc8
-$(package)_rust_std_sha256_hash_riscv64gc-unknown-linux-gnu=4029ef6a767018af3a32f7ffa5aeef728dc763fc541e95395cf9924c1b9ca6f0
-$(package)_rust_std_sha256_hash_x86_64-apple-darwin=1d61e9ed5d29e1bb4c18e13d551c6d856c73fb8b410053245dc6e0d3b3a0e92c
-$(package)_rust_std_sha256_hash_x86_64-pc-windows-gnu=8a8389f3860df6f42fbf8b76a62ddc7b9b6fe6d0fb526dcfc42faab1005bfb6d
+$(package)_rust_std_sha256_hash_arm-unknown-linux-gnueabihf=d985d233a58ff1daa43dad80c4250e7ab0048f314b34fa6f101e82ffa2e7e203
+$(package)_rust_std_sha256_hash_aarch64-unknown-linux-gnu=eb63553ef39e3efd636ef1408fe11ffcea0e21f0ddeae3c8ba679e35938d3ec2
+$(package)_rust_std_sha256_hash_i686-unknown-linux-gnu=259c2a184a169742362fa46de25330d48dea686e18989535e6076ff34dd6c1e9
+$(package)_rust_std_sha256_hash_x86_64-unknown-linux-gnu=feac42bfc2e1ea699b192dee33cc65cdfb26da91a923c07e2720afff2ac29a19
+$(package)_rust_std_sha256_hash_riscv64gc-unknown-linux-gnu=980946800fb970613d555e67634b9c4e605bc18f3a4d0b42ffb4fbe46ce79387
+$(package)_rust_std_sha256_hash_x86_64-apple-darwin=d6533d147e5844feb3af26a02c71c78332462334b554af577f68898aeb7a6d3d
+$(package)_rust_std_sha256_hash_aarch64-apple-darwin=f6c87ba69889f4efdba616990b1dadbed5fe76746bf5f1c07ccc618a96b78e99
+$(package)_rust_std_sha256_hash_x86_64-pc-windows-gnu=afbe72d6b6afa41acfa98a228b06ed047d7f8208c93f3d2e4a56a54196e03373
 
 define rust_target
-$(if $($(1)_rust_target_$(2)),$($(1)_rust_target_$(2)),$(if $(findstring darwin,$(3)),x86_64-apple-darwin,$(2)))
+$(if $($(1)_rust_target_$(2)),$($(1)_rust_target_$(2)),$(if $(findstring darwin,$(3)),$(if $(findstring aarch64,$(host_arch)),aarch64-apple-darwin,x86_64-apple-darwin),$(2)))
 endef
 
 ifneq ($(canonical_host),$(build))
 $(package)_rust_target=$(call rust_target,$(package),$(canonical_host),$(host_os))
-$(package)_exact_file_name=rust-std-$($(package)_version)-$($(package)_rust_target).tar.gz
+$(package)_exact_file_name=rust-std-$($(package)_version)-$($(package)_rust_target).tar.xz
 $(package)_exact_sha256_hash=$($(package)_rust_std_sha256_hash_$($(package)_rust_target))
 $(package)_build_subdir=buildos
 $(package)_extra_sources=$($(package)_file_name_$(build_arch)_$(build_os))
@@ -63,7 +66,7 @@ endef
 
 define $(package)_stage_cmds
   bash ./install.sh --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig && \
-  ../$(canonical_host)/install.sh --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
+  ../$(canonical_host)/install.sh --without=rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
 endef
 else
 
@@ -80,6 +83,6 @@ define $(package)_extract_cmds
 endef
 
 define $(package)_stage_cmds
-  bash ./$(canonical_host)/install.sh --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
+  bash ./$(canonical_host)/install.sh --without=rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
 endef
 endif

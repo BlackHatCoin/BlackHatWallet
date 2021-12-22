@@ -9,7 +9,6 @@
 #include "qt/blkc/txrow.h"
 #include "qt/blkc/qtutils.h"
 #include "guiutil.h"
-#include "walletmodel.h"
 #include "clientmodel.h"
 #include "optionsmodel.h"
 #include "utiltime.h"
@@ -54,7 +53,9 @@ DashboardWidget::DashboardWidget(BLKCGUI* parent) :
     // Staking Information
     setCssSubtitleScreen(ui->labelMessage);
     setCssProperty(ui->labelSquareBlkc, "square-chart-blkc");
+    setCssProperty(ui->labelSquareMN, "square-chart-mn");
     setCssProperty(ui->labelBlkc, "text-chart-blkc");
+    setCssProperty(ui->labelMN, "text-chart-mn");
 
     // Staking Amount
     QFont fontBold;
@@ -62,6 +63,7 @@ DashboardWidget::DashboardWidget(BLKCGUI* parent) :
 
     setCssProperty(ui->labelChart, "legend-chart");
     setCssProperty(ui->labelAmountBlkc, "text-stake-blkc-disable");
+    setCssProperty(ui->labelAmountMN, "text-stake-mn-disable");
 
     setCssProperty({ui->pushButtonAll,  ui->pushButtonMonth, ui->pushButtonYear}, "btn-check-time");
     setCssProperty({ui->comboBoxMonths,  ui->comboBoxYears}, "btn-combo-chart-selected");
@@ -218,13 +220,13 @@ void DashboardWidget::loadWalletModel()
     updateDisplayUnit();
 }
 
-void DashboardWidget::onTxArrived(const QString& hash, const bool isCoinStake, const bool isCSAnyType)
+void DashboardWidget::onTxArrived(const QString& hash, const bool isCoinStake, const bool isMNReward, const bool isCSAnyType)
 {
     showList();
     if (!isVisible()) return;
 #ifdef USE_QTCHARTS
-    if (isCoinStake) {
-        // Update value if this is our first stake
+    if (isCoinStake || isMNReward) {
+        // Update value if this is our first stake/reward
         if (!hasStakes && stakesFilter)
             hasStakes = stakesFilter->rowCount() > 0;
         tryChartRefresh();
@@ -517,8 +519,8 @@ void DashboardWidget::updateStakeFilter()
     }
 }
 
-// pair BLKC, zBLKC
-const QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy()
+// pair BLKC, MN Reward
+QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy()
 {
     if (filterUpdateNeeded) {
         filterUpdateNeeded = false;
@@ -526,12 +528,12 @@ const QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy()
     }
     const int size = stakesFilter->rowCount();
     QMap<int, std::pair<qint64, qint64>> amountBy;
-    // Get all of the stakes
+    // Get all the stakes
     for (int i = 0; i < size; ++i) {
         QModelIndex modelIndex = stakesFilter->index(i, TransactionTableModel::ToAddress);
         qint64 amount = llabs(modelIndex.data(TransactionTableModel::AmountRole).toLongLong());
         QDate date = modelIndex.data(TransactionTableModel::DateRole).toDateTime().date();
-        bool isBlkc = modelIndex.data(TransactionTableModel::TypeRole).toInt() != TransactionRecord::StakeZBLKC;
+        bool isBlkc = modelIndex.data(TransactionTableModel::TypeRole).toInt() != TransactionRecord::MNReward;
 
         int time = 0;
         switch (chartShow) {
@@ -561,7 +563,7 @@ const QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy()
                 amountBy[time] = std::make_pair(amount, 0);
             } else {
                 amountBy[time] = std::make_pair(0, amount);
-                hasZblkcStakes = true;
+                hasMNRewards = true;
             }
         }
     }
@@ -576,7 +578,7 @@ bool DashboardWidget::loadChartData(bool withMonthNames)
     }
 
     chartData = new ChartData();
-    chartData->amountsByCache = getAmountBy(); // pair BLKC, zBLKC
+    chartData->amountsByCache = getAmountBy(); // pair BLKC, MN Reward
 
     std::pair<int,int> range = getChartRange(chartData->amountsByCache);
     if (range.first == 0 && range.second == 0) {
@@ -590,21 +592,21 @@ bool DashboardWidget::loadChartData(bool withMonthNames)
     for (int j = range.first; j < range.second; j++) {
         int num = (isOrderedByMonth && j > daysInMonth) ? (j % daysInMonth) : j;
         qreal blkc = 0;
-        qreal zblkc = 0;
+        qreal mn = 0;
         if (chartData->amountsByCache.contains(num)) {
             std::pair <qint64, qint64> pair = chartData->amountsByCache[num];
             blkc = (pair.first != 0) ? pair.first / 100000000 : 0;
-            zblkc = (pair.second != 0) ? pair.second / 100000000 : 0;
+            mn = (pair.second != 0) ? pair.second / 100000000 : 0;
             chartData->totalBlkc += pair.first;
-            chartData->totalZblkc += pair.second;
+            chartData->totalMN += pair.second;
         }
 
         chartData->xLabels << ((withMonthNames) ? monthsNames[num - 1] : QString::number(num));
 
         chartData->valuesBlkc.append(blkc);
-        chartData->valueszBlkc.append(zblkc);
+        chartData->valuesMN.append(mn);
 
-        int max = std::max(blkc, zblkc);
+        int max = std::max(blkc, mn);
         if (max > chartData->maxValue) {
             chartData->maxValue = max;
         }
@@ -663,8 +665,8 @@ void DashboardWidget::onChartRefreshed()
         axisX->clear();
     }
     // init sets
-    set0 = new QBarSet(CURRENCY_UNIT.c_str());
-    set1 = new QBarSet("z" + QString(CURRENCY_UNIT.c_str()));
+    set0 = new QBarSet(tr("Stakes"));
+    set1 = new QBarSet(tr("MN"));
     set0->setColor(QColor(92,75,125));
     set1->setColor(QColor(176,136,255));
 
@@ -676,20 +678,23 @@ void DashboardWidget::onChartRefreshed()
     series->attachAxis(axisY);
 
     set0->append(chartData->valuesBlkc);
-    set1->append(chartData->valueszBlkc);
+    set1->append(chartData->valuesMN);
 
     // Total
     nDisplayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-    if (chartData->totalBlkc > 0 || chartData->totalZblkc > 0) {
+    if (chartData->totalBlkc > 0 || chartData->totalMN > 0) {
         setCssProperty(ui->labelAmountBlkc, "text-stake-blkc");
+        setCssProperty(ui->labelAmountMN, "text-stake-mn");
     } else {
         setCssProperty(ui->labelAmountBlkc, "text-stake-blkc-disable");
+        setCssProperty(ui->labelAmountMN, "text-stake-mn-disable");
     }
-    forceUpdateStyle({ui->labelAmountBlkc});
+    forceUpdateStyle({ui->labelAmountBlkc, ui->labelAmountMN});
     ui->labelAmountBlkc->setText(GUIUtil::formatBalance(chartData->totalBlkc, nDisplayUnit));
+    ui->labelAmountMN->setText(GUIUtil::formatBalance(chartData->totalMN, nDisplayUnit));
 
     series->append(set0);
-    if (hasZblkcStakes)
+    if (hasMNRewards)
         series->append(set1);
 
     // bar width
@@ -749,7 +754,7 @@ void DashboardWidget::onChartRefreshed()
     isLoading = false;
 }
 
-std::pair<int, int> DashboardWidget::getChartRange(QMap<int, std::pair<qint64, qint64>> amountsBy)
+std::pair<int, int> DashboardWidget::getChartRange(const QMap<int, std::pair<qint64, qint64>>& amountsBy)
 {
     switch (chartShow) {
         case YEAR:
@@ -879,7 +884,11 @@ void DashboardWidget::onHideChartsChanged(bool fHide)
             stakesFilter->setDynamicSortFilter(false);
             stakesFilter->setSortCaseSensitivity(Qt::CaseInsensitive);
             stakesFilter->setFilterCaseSensitivity(Qt::CaseInsensitive);
-            stakesFilter->setOnlyStakes(true);
+            stakesFilter->setTypeFilter(TransactionFilterProxy::TYPE(TransactionRecord::StakeMint) |
+                                        TransactionFilterProxy::TYPE(TransactionRecord::Generated) |
+                                        TransactionFilterProxy::TYPE(TransactionRecord::StakeZBLKC) |
+                                        TransactionFilterProxy::TYPE(TransactionRecord::StakeDelegated) |
+                                        TransactionFilterProxy::TYPE(TransactionRecord::MNReward));
         }
         stakesFilter->setSourceModel(txModel);
         hasStakes = stakesFilter->rowCount() > 0;

@@ -12,6 +12,8 @@
 #include <string>
 #include <chrono>
 
+void UninterruptibleSleep(const std::chrono::microseconds& n);
+
 /**
  * DEPRECATED
  * Use either GetSystemTimeInSeconds (not mockable) or GetTime<T> (mockable)

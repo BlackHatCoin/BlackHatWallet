@@ -1,4 +1,4 @@
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
@@ -20,9 +20,9 @@ struct TxValues
     CAmount target{0};
 };
 
-SaplingOperation::SaplingOperation(const Consensus::Params& consensusParams, int nHeight, CWallet* _wallet) :
+SaplingOperation::SaplingOperation(const Consensus::Params& consensusParams, CWallet* _wallet) :
     wallet(_wallet),
-    txBuilder(consensusParams, nHeight, _wallet)
+    txBuilder(consensusParams, _wallet)
 {
     assert (wallet != nullptr);
 };
@@ -410,7 +410,7 @@ static CacheCheckResult CheckCachedNote(CWallet* pwallet,
         if (sspkm->IsSaplingSpent(*(nd.nullifier))) {
             LogPrintf("Removed note %s as it appears to be already spent.\n", noteStr);
             prevTx.MarkDirty();
-            CWalletDB(pwallet->GetDBHandle(), "r+").WriteTx(prevTx);
+            WalletBatch(pwallet->GetDBHandle(), "r+").WriteTx(prevTx);
             pwallet->NotifyTransactionChanged(pwallet, t.op.hash, CT_UPDATED);
             return CacheCheckResult::SPENT;
         }
@@ -513,7 +513,7 @@ OperationResult SaplingOperation::loadUnspentNotes(TxValues& txValues, uint256& 
 
     // Fetch Sapling anchor and witnesses
     uint256 anchor;
-    std::vector<boost::optional<SaplingWitness>> witnesses;
+    std::vector<Optional<SaplingWitness>> witnesses;
     wallet->GetSaplingScriptPubKeyMan()->GetSaplingNoteWitnesses(ops, witnesses, anchor);
 
     // Add Sapling spends

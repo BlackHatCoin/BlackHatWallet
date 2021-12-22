@@ -104,6 +104,9 @@ $(package)_config_opts_darwin += -device-option MAC_MIN_VERSION=$(OSX_MIN_VERSIO
 $(package)_config_opts_darwin += -device-option MAC_TARGET=$(host)
 endif
 
+# for macOS on Apple Silicon (ARM) see https://bugreports.qt.io/browse/QTBUG-85279
+$(package)_config_opts_aarch64_darwin += -device-option QMAKE_APPLE_DEVICE_ARCHS=arm64
+
 $(package)_config_opts_linux  = -qt-xkbcommon-x11
 $(package)_config_opts_linux += -qt-xcb
 $(package)_config_opts_linux += -no-xcb-xlib

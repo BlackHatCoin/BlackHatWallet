@@ -1,8 +1,8 @@
 // Copyright (c) 2016-2020 The ZCash developers
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 /*
 See the Zcash protocol specification for more information.
@@ -12,10 +12,9 @@ https://github.com/zcash/zips/blob/master/protocol/protocol.pdf
 #ifndef ZC_NOTE_ENCRYPTION_H_
 #define ZC_NOTE_ENCRYPTION_H_
 
-#include "uint256.h"
-
-#include "sapling/address.h"
+#include "optional.h"
 #include "sapling/sapling.h"
+#include "uint256.h"
 
 #include <array>
 
@@ -47,9 +46,9 @@ protected:
 
 public:
 
-    static boost::optional<SaplingNoteEncryption> FromDiversifier(diversifier_t d);
+    static Optional<SaplingNoteEncryption> FromDiversifier(diversifier_t d);
 
-    boost::optional<SaplingEncCiphertext> encrypt_to_recipient(
+    Optional<SaplingEncCiphertext> encrypt_to_recipient(
         const uint256 &pk_d,
         const SaplingEncPlaintext &message
     );
@@ -72,7 +71,7 @@ public:
 
 // Attempts to decrypt a Sapling note. This will not check that the contents
 // of the ciphertext are correct.
-boost::optional<SaplingEncPlaintext> AttemptSaplingEncDecryption(
+Optional<SaplingEncPlaintext> AttemptSaplingEncDecryption(
     const SaplingEncCiphertext &ciphertext,
     const uint256 &ivk,
     const uint256 &epk
@@ -80,7 +79,7 @@ boost::optional<SaplingEncPlaintext> AttemptSaplingEncDecryption(
 
 // Attempts to decrypt a Sapling note using outgoing plaintext.
 // This will not check that the contents of the ciphertext are correct.
-boost::optional<SaplingEncPlaintext> AttemptSaplingEncDecryption (
+Optional<SaplingEncPlaintext> AttemptSaplingEncDecryption (
     const SaplingEncCiphertext &ciphertext,
     const uint256 &epk,
     const uint256 &esk,
@@ -89,7 +88,7 @@ boost::optional<SaplingEncPlaintext> AttemptSaplingEncDecryption (
 
 // Attempts to decrypt a Sapling note. This will not check that the contents
 // of the ciphertext are correct.
-boost::optional<SaplingOutPlaintext> AttemptSaplingOutDecryption(
+Optional<SaplingOutPlaintext> AttemptSaplingOutDecryption(
     const SaplingOutCiphertext &ciphertext,
     const uint256 &ovk,
     const uint256 &cv,

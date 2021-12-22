@@ -1072,8 +1072,7 @@ class BlackHatTestFramework():
         collateralAdd = mnOwner.getnewaddress("dmn")
         ipport = "127.0.0.1:" + str(p2p_port(mnRemotePos))
         ownerAdd = mnOwner.getnewaddress("dmn_owner")
-        operatorAdd = mnOwner.getnewaddress("dmn_operator")
-        operatorKey = mnOwner.dumpprivkey(operatorAdd)
+        bls_keypair = mnOwner.generateblskeypair()
         votingAdd = mnOwner.getnewaddress("dmn_voting")
         if strType == "fund":
             # send to the owner the collateral tx cost + some dust for the ProReg and fee
@@ -1083,7 +1082,7 @@ class BlackHatTestFramework():
             assert_greater_than(mnOwner.getrawtransaction(fundingTxId, 1)["confirmations"], 0)
             # create and send the ProRegTx funding the collateral
             proTxId = mnOwner.protx_register_fund(collateralAdd, ipport, ownerAdd,
-                                                  operatorAdd, votingAdd, collateralAdd)
+                                                  bls_keypair["public"], votingAdd, collateralAdd)
         elif strType == "internal":
             mnOwner.getnewaddress("dust")
             # send to the owner the collateral tx cost + some dust for the ProReg and fee
@@ -1100,13 +1099,13 @@ class BlackHatTestFramework():
             assert_greater_than(collateralTxId_n, -1)
             assert_greater_than(json_tx["confirmations"], 0)
             proTxId = mnOwner.protx_register(collateralTxId, collateralTxId_n, ipport, ownerAdd,
-                                             operatorAdd, votingAdd, collateralAdd)
+                                             bls_keypair["public"], votingAdd, collateralAdd)
         elif strType == "external":
             self.log.info("Setting up ProRegTx with collateral externally-signed...")
             # send the tx from the miner
             payoutAdd = mnOwner.getnewaddress("payout")
             register_res = miner.protx_register_prepare(outpoint.hash, outpoint.n, ipport, ownerAdd,
-                                                        operatorAdd, votingAdd, payoutAdd)
+                                                        bls_keypair["public"], votingAdd, payoutAdd)
             self.log.info("ProTx prepared")
             message_to_sign = register_res["signMessage"]
             collateralAdd = register_res["collateralAddress"]
@@ -1121,7 +1120,7 @@ class BlackHatTestFramework():
         self.stake_and_sync(self.nodes.index(miner), 1)
         assert_greater_than(self.nodes[mnRemotePos].getrawtransaction(proTxId, 1)["confirmations"], 0)
         assert proTxId in self.nodes[mnRemotePos].protx_list(False)
-        return proTxId, operatorKey
+        return proTxId, bls_keypair["secret"]
 
     def setupMasternode(self,
                         mnOwner,
@@ -1188,10 +1187,10 @@ class BlackHatTestFramework():
         # create and send the ProRegTx funding the collateral
         if op_rew is None:
             dmn.proTx = controller.protx_register_fund(collateral_addr, dmn.ipport, dmn.owner,
-                                                       dmn.operator, dmn.voting, dmn.payee)
+                                                       dmn.operator_pk, dmn.voting, dmn.payee)
         else:
             dmn.proTx = controller.protx_register_fund(collateral_addr, dmn.ipport, dmn.owner,
-                                                       dmn.operator, dmn.voting, dmn.payee,
+                                                       dmn.operator_pk, dmn.voting, dmn.payee,
                                                        op_rew["reward"], op_rew["address"])
         dmn.collateral = COutPoint(int(dmn.proTx, 16),
                                    get_collateral_vout(controller.getrawtransaction(dmn.proTx, True)))
@@ -1213,7 +1212,7 @@ class BlackHatTestFramework():
         # create and send the ProRegTx
         dmn.collateral = COutPoint(int(funding_txid, 16), get_collateral_vout(json_tx))
         dmn.proTx = controller.protx_register(funding_txid, dmn.collateral.n, dmn.ipport, dmn.owner,
-                                              dmn.operator, dmn.voting, dmn.payee)
+                                              dmn.operator_pk, dmn.voting, dmn.payee)
 
     """
     Create a ProReg tx, referencing a collateral signed externally (eg. HW wallets).
@@ -1232,7 +1231,7 @@ class BlackHatTestFramework():
         dmn.collateral = outpoint
         # Prepare the message to be signed externally by the owner of the collateral (the controller)
         reg_tx = miner.protx_register_prepare("%064x" % outpoint.hash, outpoint.n, dmn.ipport, dmn.owner,
-                                              dmn.operator, dmn.voting, dmn.payee)
+                                              dmn.operator_pk, dmn.voting, dmn.payee)
         sig = controller.signmessage(reg_tx["collateralAddress"], reg_tx["signMessage"])
         if fSubmit:
             dmn.proTx = miner.protx_register_submit(reg_tx["tx"], sig)
@@ -1248,12 +1247,12 @@ class BlackHatTestFramework():
              outpoint:         (COutPoint) collateral outpoint to be used with "external".
                                  It must be owned by the controller (proTx is sent from the miner).
                                  If not provided, a new utxo is created, sending it from the miner.
-             op_addr_and_key:  (list of strings) List with two entries, operator address (0) and private key (1).
+             op_blskeys:      (list of strings) List with two entries, operator public (0) and private (1) key.
                                  If not provided, a new address-key pair is generated.
     :return: dmn:              (Masternode) the deterministic masternode object
     """
     def register_new_dmn(self, idx, miner_idx, controller_idx, strType,
-                         payout_addr=None, outpoint=None, op_addr_and_key=None):
+                         payout_addr=None, outpoint=None, op_blskeys=None):
         # Prepare remote node
         assert idx != miner_idx
         assert idx != controller_idx
@@ -1265,7 +1264,7 @@ class BlackHatTestFramework():
         collateral_addr = controller_node.getnewaddress("mncollateral-%d" % idx)
         if payout_addr is None:
             payout_addr = collateral_addr
-        dmn = create_new_dmn(idx, controller_node, payout_addr, op_addr_and_key)
+        dmn = create_new_dmn(idx, controller_node, payout_addr, op_blskeys)
 
         # Create ProRegTx
         self.log.info("Creating%s proRegTx for deterministic masternode idx=%d..." % (
@@ -1315,7 +1314,7 @@ class BlackHatTestFramework():
             mn2 = protxs[mn.proTx]
             collateral = mn.collateral.to_json()
             assert_equal(mn.owner, mn2["dmnstate"]["ownerAddress"])
-            assert_equal(mn.operator, mn2["dmnstate"]["operatorAddress"])
+            assert_equal(mn.operator_pk, mn2["dmnstate"]["operatorPubKey"])
             assert_equal(mn.voting, mn2["dmnstate"]["votingAddress"])
             assert_equal(mn.ipport, mn2["dmnstate"]["service"])
             assert_equal(mn.payee, mn2["dmnstate"]["payoutAddress"])
@@ -1334,7 +1333,7 @@ class BlackHatTestFramework():
         assert_equal(pl["service"], dmn.ipport)
         assert_equal(pl["ownerAddress"], dmn.owner)
         assert_equal(pl["votingAddress"], dmn.voting)
-        assert_equal(pl["operatorAddress"], dmn.operator)
+        assert_equal(pl["operatorPubKey"], dmn.operator_pk)
         assert_equal(pl["payoutAddress"], dmn.payee)
 
 

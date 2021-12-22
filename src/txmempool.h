@@ -14,6 +14,7 @@
 
 #include "amount.h"
 #include "coins.h"
+#include "crypto/siphash.h"
 #include "indirectmap.h"
 #include "policy/feerate.h"
 #include "primitives/transaction.h"
@@ -27,6 +28,7 @@
 #include <boost/multi_index/sequenced_index.hpp>
 
 class CAutoFile;
+class CBLSPublicKey;
 
 
 /** Fake height value used in Coin to signify they are only in the memory pool (since 0.8) */
@@ -496,6 +498,7 @@ private:
     std::multimap<uint256, uint256> mapProTxRefs; // proTxHash -> transaction (all TXs that refer to an existing proTx)
     std::map<CService, uint256> mapProTxAddresses;
     std::map<CKeyID, uint256> mapProTxPubKeyIDs;
+    std::map<uint256, uint256> mapProTxBlsPubKeyHashes;
     std::map<COutPoint, uint256> mapProTxCollaterals;
 
     void UpdateParent(txiter entry, txiter parent, bool add);
@@ -615,6 +618,9 @@ public:
     /** Expire all transaction (and their dependencies) in the mempool older than time. Return the number of removed transactions. */
     int Expire(int64_t time);
 
+    /** Returns false if the transaction is in the mempool and not within the chain limit specified. */
+    bool TransactionWithinChainLimit(const uint256& txid, size_t chainLimit) const;
+
     /** @returns true if the mempool is fully loaded */
     bool IsLoaded() const;
 
@@ -709,6 +715,7 @@ private:
     void addUncheckedSpecialTx(const CTransaction& tx);
     void removeUncheckedSpecialTx(const CTransaction& tx);
     void removeProTxPubKeyConflicts(const CTransaction &tx, const CKeyID &keyId);
+    void removeProTxPubKeyConflicts(const CTransaction& tx, const CBLSPublicKey& pubKey);
     void removeProTxCollateralConflicts(const CTransaction &tx, const COutPoint &collateralOutpoint);
     void removeProTxSpentCollateralConflicts(const CTransaction &tx);
     void removeProTxConflicts(const CTransaction &tx);

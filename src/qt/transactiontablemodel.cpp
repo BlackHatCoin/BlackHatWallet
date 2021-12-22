@@ -129,6 +129,7 @@ public:
                 tasks.append(
                         QtConcurrent::run(
                                 convertTxToRecords,
+                                this,
                                 wallet,
                                 std::vector<CWalletTx>(walletTxes.begin() + totalSumSize, walletTxes.begin() + totalSumSize + subsetSize)
                         )
@@ -138,8 +139,8 @@ public:
 
             // Now take the remaining ones and do the work here
             std::size_t const remainingSize = txesSize - totalSumSize;
-            auto res = convertTxToRecords(wallet,
-                                          std::vector<CWalletTx>(walletTxes.end() - remainingSize, walletTxes.end())
+            auto res = convertTxToRecords(this, wallet,
+                                              std::vector<CWalletTx>(walletTxes.end() - remainingSize, walletTxes.end())
             );
             cachedWallet.append(res.records);
             nFirstLoadedTxTime = res.nFirstLoadedTxTime;
@@ -158,13 +159,22 @@ public:
 
         } else {
             // Single thread flow
-            ConvertTxToVectorResult convertRes = convertTxToRecords(wallet, walletTxes);
+            ConvertTxToVectorResult convertRes = convertTxToRecords(this, wallet, walletTxes);
             cachedWallet.append(convertRes.records);
             nFirstLoadedTxTime = convertRes.nFirstLoadedTxTime;
         }
     }
 
-    static ConvertTxToVectorResult convertTxToRecords(const CWallet* wallet, const std::vector<CWalletTx>& walletTxes) {
+    void emitTxLoaded(const TransactionRecord& rec)
+    {
+        Q_EMIT parent->txLoaded(QString::fromStdString(rec.hash.GetHex()),
+                                rec.type, rec.status.status);
+    }
+
+    static ConvertTxToVectorResult convertTxToRecords(TransactionTablePriv* tablePriv,
+                                                      const CWallet* wallet,
+                                                      const std::vector<CWalletTx>& walletTxes)
+    {
         ConvertTxToVectorResult res;
         for (const auto& tx : walletTxes) {
             QList<TransactionRecord> records = TransactionRecord::decomposeTransaction(wallet, tx);
@@ -172,6 +182,9 @@ public:
             qint64 time = records.first().time;
             if (res.nFirstLoadedTxTime == 0 || res.nFirstLoadedTxTime > time) {
                 res.nFirstLoadedTxTime = time;
+            }
+            for (const auto& rec : records) {
+                tablePriv->emitTxLoaded(rec);
             }
             res.records.append(records);
         }
@@ -297,10 +310,13 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel* paren
                                                                                      fProcessingQueuedTransactions(false)
 {
     columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
-    priv->refreshWallet();
 
     connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &TransactionTableModel::updateDisplayUnit);
+}
 
+void TransactionTableModel::init()
+{
+    priv->refreshWallet();
     subscribeToCoreSignals();
 }
 
@@ -326,7 +342,7 @@ void TransactionTableModel::updateTransaction(const QString& hash, int status, b
     priv->updateWallet(updated, status, showTransaction, rec);
 
     if (!rec.isNull())
-        Q_EMIT txArrived(hash, rec.isCoinStake(), rec.isAnyColdStakingType());
+        Q_EMIT txArrived(hash, rec.isCoinStake(), rec.isMNReward(), rec.isAnyColdStakingType());
 }
 
 void TransactionTableModel::updateConfirmations()
@@ -420,6 +436,8 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
         return tr("Received with");
     case TransactionRecord::MNReward:
         return tr("Masternode Reward");
+    case TransactionRecord::BudgetPayment:
+        return tr("Budget Payment");
     case TransactionRecord::RecvFromOther:
         return tr("Received from");
     case TransactionRecord::SendToAddress:
@@ -478,6 +496,7 @@ QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord* wtx
     case TransactionRecord::StakeMint:
     case TransactionRecord::StakeZBLKC:
     case TransactionRecord::MNReward:
+    case TransactionRecord::BudgetPayment:
         return QIcon(":/icons/tx_mined");
     case TransactionRecord::RecvWithAddress:
     case TransactionRecord::RecvFromOther:
@@ -505,6 +524,7 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord* wtx, b
         return QString::fromStdString(wtx->address) + watchAddress;
     case TransactionRecord::RecvWithAddress:
     case TransactionRecord::MNReward:
+    case TransactionRecord::BudgetPayment:
     case TransactionRecord::SendToAddress:
     case TransactionRecord::Generated:
     case TransactionRecord::StakeMint:

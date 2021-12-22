@@ -10,11 +10,11 @@
 #include "blockassembler.h"
 #include "chainparams.h"
 #include "core_io.h"
-#include "init.h"
 #include "key_io.h"
 #include "miner.h"
 #include "net.h"
 #include "rpc/server.h"
+#include "shutdown.h"
 #include "util/blockstatecatcher.h"
 #include "validationinterface.h"
 #ifdef ENABLE_WALLET

@@ -29,8 +29,8 @@ public:
     {
     }
 
-    enum Status {
-        Confirmed, /**< Have 6 or more confirmations (normal tx) or fully mature (mined tx) **/
+    enum Status : uint16_t{
+        Confirmed = 0, /**< Have 6 or more confirmations (normal tx) or fully mature (mined tx) **/
         /// Normal (sent/received) transactions
         OpenUntilDate,  /**< Transaction not yet final, waiting for date */
         OpenUntilBlock, /**< Transaction not yet final, waiting for block */
@@ -73,8 +73,8 @@ public:
 class TransactionRecord
 {
 public:
-    enum Type {
-        Other,
+    enum Type : uint16_t {
+        Other = 0,
         Generated,
         StakeMint,
         StakeZBLKC,
@@ -82,6 +82,7 @@ public:
         SendToOther,
         RecvWithAddress,
         MNReward,
+        BudgetPayment,
         RecvFromOther,
         SendToSelf,
         ZerocoinMint,
@@ -197,6 +198,9 @@ public:
     /** Return true if the tx is a coinstake
      */
     bool isCoinStake() const;
+
+    /** Return true if the tx is a MN reward */
+    bool isMNReward() const;
 
     /** Return true if the tx is a any cold staking type tx.
      */

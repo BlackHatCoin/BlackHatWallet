@@ -22,6 +22,7 @@
 #include "netbase.h"
 #include "guiinterface.h"
 #include "util/system.h"
+#include "validation.h"
 #include "warnings.h"
 
 #include <stdint.h>
@@ -77,11 +78,13 @@ int ClientModel::getNumConnections(unsigned int flags) const
 
 QString ClientModel::getMasternodeCountString() const
 {
-    int ipv4 = 0, ipv6 = 0, onion = 0;
-    int total = mnodeman.CountNetworks(ipv4, ipv6, onion);
-    int nUnknown = total - ipv4 - ipv6 - onion;
-    if(nUnknown < 0) nUnknown = 0;
-    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number(total)).arg(QString::number((int)ipv4)).arg(QString::number((int)ipv6)).arg(QString::number((int)onion)).arg(QString::number((int)nUnknown));
+    const auto& info = mnodeman.getMNsInfo();
+    int unknown = std::max(0, info.total - info.ipv4 - info.ipv6 - info.onion);
+    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number(info.total))
+                                                                        .arg(QString::number(info.ipv4))
+                                                                        .arg(QString::number(info.ipv6))
+                                                                        .arg(QString::number(info.onion))
+                                                                        .arg(QString::number(unknown));
 }
 
 QString ClientModel::getMasternodesCount()

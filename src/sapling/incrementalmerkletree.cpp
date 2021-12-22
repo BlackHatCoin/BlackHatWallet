@@ -1,5 +1,5 @@
-// Copyright (c) 2016-2018 The Zcash developers
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2016-2020 The ZCash developers
+// Copyright (c) 2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
@@ -8,6 +8,7 @@
 
 #include "crypto/sha256.h"
 #include "sapling/incrementalmerkletree.h"
+
 #include <librustzcash.h>
 
 namespace libzcash {
@@ -933,17 +934,17 @@ void IncrementalMerkleTree<Depth, Hash>::append(Hash obj) {
         right = obj;
     } else {
         // Combine the leaves and propagate it up the tree
-        boost::optional<Hash> combined = Hash::combine(*left, *right, 0);
+        Optional<Hash> combined = Hash::combine(*left, *right, 0);
 
         // Set the "left" leaf to the object and make the "right" leaf none
         left = obj;
-        right = boost::none;
+        right = nullopt;
 
         for (size_t i = 0; i < Depth; i++) {
             if (i < parents.size()) {
                 if (parents[i]) {
                     combined = Hash::combine(*parents[i], *combined, i+1);
-                    parents[i] = boost::none;
+                    parents[i] = nullopt;
                 } else {
                     parents[i] = *combined;
                     break;
@@ -1120,7 +1121,7 @@ void IncrementalWitness<Depth, Hash>::append(Hash obj) {
 
         if (cursor->is_complete(cursor_depth)) {
             filled.push_back(cursor->root(cursor_depth));
-            cursor = boost::none;
+            cursor = nullopt;
         }
     } else {
         cursor_depth = tree.next_depth(filled.size());

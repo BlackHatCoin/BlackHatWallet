@@ -84,19 +84,7 @@ endif
 cargo-build: $(CARGO_CONFIGURED)
 	$(RUST_ENV_VARS) $(CARGO) build $(RUST_BUILD_OPTS) --manifest-path $(top_srcdir)/Cargo.toml
 
-if TARGET_WINDOWS
-LIBRUSTZCASH_WIN=$(top_builddir)/target/$(RUST_TARGET)/release/rustzcash.lib
-
-$(LIBRUSTZCASH_WIN): cargo-build
-
-# This ensures that the Rust library is correctly linked in by libtool.
-# See https://github.com/rust-lang/rust/issues/69904 for the underlying cause.
-$(LIBRUSTZCASH): $(LIBRUSTZCASH_WIN)
-	$(AM_V_at)cp $< $@
-
-else
 $(LIBRUSTZCASH): cargo-build
-endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*.h) $(wildcard secp256k1/src/*.c) $(wildcard secp256k1/include/*)
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C $(@D) $(@F)
@@ -162,6 +150,9 @@ BITCOIN_CORE_H = \
   bip38.h \
   bloom.h \
   blocksignature.h \
+  bls/bls_ies.h \
+  bls/bls_worker.h \
+  bls/bls_wrapper.h \
   chain.h \
   chainparams.h \
   chainparamsbase.h \
@@ -189,6 +180,7 @@ BITCOIN_CORE_H = \
   core_io.h \
   cuckoocache.h \
   crypter.h \
+  ctpl.h \
   cyclingvector.h \
   evo/deterministicmns.h \
   evo/evodb.h \
@@ -224,6 +216,7 @@ BITCOIN_CORE_H = \
   budget/budgetvote.h \
   budget/finalizedbudget.h \
   budget/finalizedbudgetvote.h \
+  budget/budgetutil.h \
   mapport.h \
   memusage.h \
   masternode.h \
@@ -253,7 +246,6 @@ BITCOIN_CORE_H = \
   pubkey.h \
   random.h \
   randomenv.h \
-  reverselock.h \
   reverse_iterate.h \
   rpc/client.h \
   rpc/protocol.h \
@@ -269,6 +261,7 @@ BITCOIN_CORE_H = \
   script/standard.h \
   script/script_error.h \
   serialize.h \
+  shutdown.h \
   span.h \
   spork.h \
   sporkdb.h \
@@ -276,9 +269,12 @@ BITCOIN_CORE_H = \
   stakeinput.h \
   script/ismine.h \
   streams.h \
+  support/allocators/mt_pooled_secure.h \
+  support/allocators/pooled_secure.h \
   support/allocators/secure.h \
   support/allocators/zeroafterfree.h \
   support/cleanse.h \
+  support/events.h \
   support/lockedpool.h \
   sync.h \
   threadsafety.h \
@@ -298,6 +294,7 @@ BITCOIN_CORE_H = \
   util/macros.h \
   util/string.h \
   util/threadnames.h \
+  util/validation.h \
   utilstrencodings.h \
   utilmoneystr.h \
   utiltime.h \
@@ -336,6 +333,9 @@ libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   bloom.cpp \
   blocksignature.cpp \
+  bls/bls_ies.cpp \
+  bls/bls_worker.cpp \
+  bls/bls_wrapper.cpp \
   chain.cpp \
   checkpoints.cpp \
   consensus/params.cpp \
@@ -375,6 +375,7 @@ libbitcoin_server_a_SOURCES = \
   rpc/server.cpp \
   script/sigcache.cpp \
   script/ismine.cpp \
+  shutdown.cpp \
   sporkdb.cpp \
   timedata.cpp \
   torcontrol.cpp \
@@ -451,6 +452,8 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha3.h \
   crypto/sha3.cpp \
   crypto/sha512.h \
+  crypto/siphash.cpp \
+  crypto/siphash.h \
   crypto/hmac_sha256.h \
   crypto/rfc6979_hmac_sha256.h \
   crypto/hmac_sha512.h \
@@ -502,6 +505,7 @@ libbitcoin_common_a_SOURCES = \
   budget/budgetvote.cpp \
   budget/finalizedbudget.cpp \
   budget/finalizedbudgetvote.cpp \
+  budget/budgetutil.cpp \
   chainparams.cpp \
   consensus/upgrades.cpp \
   coins.cpp \
@@ -570,6 +574,7 @@ libbitcoin_util_a_SOURCES = \
   util/threadnames.cpp \
   utilstrencodings.cpp \
   util/string.cpp \
+  util/validation.cpp \
   utiltime.cpp \
   $(BITCOIN_CORE_H) \
   $(LIBSAPLING_H)

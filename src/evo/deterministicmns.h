@@ -8,6 +8,7 @@
 #define BLKC_DETERMINISTICMNS_H
 
 #include "arith_uint256.h"
+#include "bls/bls_wrapper.h"
 #include "dbwrapper.h"
 #include "evo/evodb.h"
 #include "evo/providertx.h"
@@ -40,7 +41,7 @@ public:
     uint256 confirmedHashWithProRegTxHash;
 
     CKeyID keyIDOwner;
-    CKeyID keyIDOperator;
+    CBLSLazyPublicKey pubKeyOperator;
     CKeyID keyIDVoting;
     CService addr;
     CScript scriptPayout;
@@ -51,7 +52,7 @@ public:
     explicit CDeterministicMNState(const ProRegPL& pl)
     {
         keyIDOwner = pl.keyIDOwner;
-        keyIDOperator = pl.keyIDOperator;
+        pubKeyOperator.Set(pl.pubKeyOperator);
         keyIDVoting = pl.keyIDVoting;
         addr = pl.addr;
         scriptPayout = pl.scriptPayout;
@@ -71,7 +72,7 @@ public:
         READWRITE(obj.confirmedHash);
         READWRITE(obj.confirmedHashWithProRegTxHash);
         READWRITE(obj.keyIDOwner);
-        READWRITE(obj.keyIDOperator);
+        READWRITE(obj.pubKeyOperator);
         READWRITE(obj.keyIDVoting);
         READWRITE(obj.addr);
         READWRITE(obj.scriptPayout);
@@ -80,7 +81,7 @@ public:
 
     void ResetOperatorFields()
     {
-        keyIDOperator = CKeyID();
+        pubKeyOperator.Set(CBLSPublicKey());
         addr = CService();
         scriptOperatorPayout = CScript();
         nRevocationReason = ProUpRevPL::REASON_NOT_SPECIFIED;
@@ -120,7 +121,7 @@ public:
         Field_confirmedHash                     = 0x0040,
         Field_confirmedHashWithProRegTxHash     = 0x0080,
         Field_keyIDOwner                        = 0x0100,
-        Field_keyIDOperator                     = 0x0200,
+        Field_pubKeyOperator                     = 0x0200,
         Field_keyIDVoting                       = 0x0400,
         Field_addr                              = 0x0800,
         Field_scriptPayout                      = 0x1000,
@@ -137,7 +138,7 @@ public:
     DMN_STATE_DIFF_LINE(confirmedHash) \
     DMN_STATE_DIFF_LINE(confirmedHashWithProRegTxHash) \
     DMN_STATE_DIFF_LINE(keyIDOwner) \
-    DMN_STATE_DIFF_LINE(keyIDOperator) \
+    DMN_STATE_DIFF_LINE(pubKeyOperator) \
     DMN_STATE_DIFF_LINE(keyIDVoting) \
     DMN_STATE_DIFF_LINE(addr) \
     DMN_STATE_DIFF_LINE(scriptPayout) \
@@ -214,6 +215,7 @@ public:
     }
 
     uint64_t GetInternalId() const;
+    bool IsPoSeBanned() const { return pdmnState->nPoSeBanHeight != -1; }
 
     std::string ToString() const;
     void ToJson(UniValue& obj) const;
@@ -322,7 +324,7 @@ public:
     {
         size_t count = 0;
         for (const auto& p : mnMap) {
-            if (IsMNValid(p.second)) {
+            if (!p.second->IsPoSeBanned()) {
                 count++;
             }
         }
@@ -333,7 +335,7 @@ public:
     void ForEachMN(bool onlyValid, Callback&& cb) const
     {
         for (const auto& p : mnMap) {
-            if (!onlyValid || IsMNValid(p.second)) {
+            if (!onlyValid || !p.second->IsPoSeBanned()) {
                 cb(p.second);
             }
         }
@@ -345,11 +347,6 @@ public:
     uint32_t GetTotalRegisteredCount() const { return nTotalRegisteredCount; }
     void SetHeight(int _height)                  { nHeight = _height; }
     void SetBlockHash(const uint256& _blockHash) { blockHash = _blockHash; }
-
-    bool IsMNValid(const uint256& proTxHash) const;
-    bool IsMNPoSeBanned(const uint256& proTxHash) const;
-    bool IsMNValid(const CDeterministicMNCPtr& dmn) const;
-    bool IsMNPoSeBanned(const CDeterministicMNCPtr& dmn) const;
 
     bool HasMN(const uint256& proTxHash) const
     {
@@ -365,7 +362,7 @@ public:
     }
     CDeterministicMNCPtr GetMN(const uint256& proTxHash) const;
     CDeterministicMNCPtr GetValidMN(const uint256& proTxHash) const;
-    CDeterministicMNCPtr GetMNByOperatorKey(const CKeyID& keyID);
+    CDeterministicMNCPtr GetMNByOperatorKey(const CBLSPublicKey& pubKey);
     CDeterministicMNCPtr GetMNByCollateral(const COutPoint& collateralOutpoint) const;
     CDeterministicMNCPtr GetValidMNByCollateral(const COutPoint& collateralOutpoint) const;
     CDeterministicMNCPtr GetMNByService(const CService& service) const;

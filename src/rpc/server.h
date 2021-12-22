@@ -26,7 +26,6 @@ namespace RPCServer
     void OnStarted(std::function<void ()> slot);
     void OnStopped(std::function<void ()> slot);
     void OnPreCommand(std::function<void (const CRPCCommand&)> slot);
-    void OnPostCommand(std::function<void (const CRPCCommand&)> slot);
 }
 
 class CBlockIndex;

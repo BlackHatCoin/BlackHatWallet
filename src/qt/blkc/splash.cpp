@@ -12,9 +12,9 @@
 #include "QFile"
 
 #include "interfaces/handler.h"
-#include "init.h"
 #include "guiinterface.h"
 #include "networkstyle.h"
+#include "shutdown.h"
 #include "util/system.h"
 #include "version.h"
 #include "guiutil.h"

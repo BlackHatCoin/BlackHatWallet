@@ -1,12 +1,18 @@
+// Copyright (c) 2016-2020 The ZCash developers
+// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021 The BlackHat developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
+
 #ifndef ZC_ADDRESS_H_
 #define ZC_ADDRESS_H_
 
-#include "uint256.h"
-#include "serialize.h"
+#include "optional.h"
 #include "sapling/sapling.h"
+#include "serialize.h"
+#include "uint256.h"
 
 #include <array>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 
 namespace libzcash {
@@ -50,7 +56,7 @@ public:
     SaplingIncomingViewingKey(uint256 ivk) : uint256(ivk) { }
 
     // Can pass in diversifier for Sapling addr
-    boost::optional<SaplingPaymentAddress> address(diversifier_t d) const;
+    Optional<SaplingPaymentAddress> address(diversifier_t d) const;
 };
 
 class SaplingFullViewingKey {

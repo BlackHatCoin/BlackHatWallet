@@ -178,7 +178,7 @@ public:
     std::string GetStrMessage() const override;
     CTxIn GetVin() const { return vinMasternode; };
 
-    bool IsValid(CNode* pnode, std::string& strError, int chainHeight);
+    bool IsValid(CNode* pnode, CValidationState& state, int chainHeight);
     void Relay();
 
     void AddPayee(const CScript& payeeIn)
@@ -212,7 +212,6 @@ private:
 public:
     std::map<uint256, CMasternodePaymentWinner> mapMasternodePayeeVotes;
     std::map<int, CMasternodeBlockPayees> mapMasternodeBlocks;
-    std::map<COutPoint, int> mapMasternodesLastVote; //prevout, nBlockHeight
 
     CMasternodePayments()
     {
@@ -228,7 +227,7 @@ public:
 
     void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload) override;
 
-    bool AddWinningMasternode(CMasternodePaymentWinner& winner);
+    void AddWinningMasternode(CMasternodePaymentWinner& winner);
     void ProcessBlock(int nBlockHeight);
 
     void Sync(CNode* node, int nCountNeeded);
@@ -244,27 +243,20 @@ public:
     bool IsTransactionValid(const CTransaction& txNew, const CBlockIndex* pindexPrev);
     bool IsScheduled(const CMasternode& mn, int nNotBlockHeight);
 
-    bool CanVote(const COutPoint& outMasternode, int nBlockHeight)
-    {
-        LOCK(cs_mapMasternodePayeeVotes);
-
-        if (mapMasternodesLastVote.count(outMasternode)) {
-            if (mapMasternodesLastVote[outMasternode] == nBlockHeight) {
-                return false;
-            }
-        }
-
-        //record this masternode voted
-        mapMasternodesLastVote[outMasternode] = nBlockHeight;
-        return true;
-    }
-
+    bool ProcessMNWinner(CMasternodePaymentWinner& winner, CNode* pfrom, CValidationState& state);
     void ProcessMessageMasternodePayments(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
     std::string GetRequiredPaymentsString(int nBlockHeight);
     void FillBlockPayee(CMutableTransaction& txCoinbase, CMutableTransaction& txCoinstake, const CBlockIndex* pindexPrev, bool fProofOfStake) const;
     std::string ToString() const;
 
     SERIALIZE_METHODS(CMasternodePayments, obj) { READWRITE(obj.mapMasternodePayeeVotes, obj.mapMasternodeBlocks); }
+
+private:
+    // keep track of last voted height for mnw signers
+    std::map<COutPoint, int> mapMasternodesLastVote; //prevout, nBlockHeight
+
+    bool CanVote(const COutPoint& outMasternode, int nBlockHeight) const;
+    void RecordWinnerVote(const COutPoint& outMasternode, int nBlockHeight);
 };
 
 

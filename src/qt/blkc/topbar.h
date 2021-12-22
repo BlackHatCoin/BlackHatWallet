@@ -58,6 +58,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void themeChanged(bool isLight);
     void walletSynced(bool isSync);
+    void tierTwoSynced(bool isSync);
     void onShowHideColdStakingChanged(bool show);
 
 protected:

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string notr="true">N/A</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_1">
    <property name="spacing">
@@ -818,6 +818,9 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditName">
+            <property name="maxLength">
+             <number>25</number>
+            </property>
             <property name="placeholderText">
              <string notr="true">e.g. user_masternode</string>
             </property>

@@ -80,7 +80,7 @@ public:
     void AddedBudgetItem(const uint256& hash);
     void SwitchToNextAsset();
     std::string GetSyncStatus();
-    void ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
+    void ProcessSyncStatusMsg(int nItemID, int itemCount);
     bool IsBudgetFinEmpty();
     bool IsBudgetPropEmpty();
 
@@ -124,6 +124,9 @@ private:
 
     // Check if an update is needed
     void CheckAndUpdateSyncStatus();
+
+    // Mark sync timeout
+    void syncTimeout(const std::string& reason);
 };
 
 #endif

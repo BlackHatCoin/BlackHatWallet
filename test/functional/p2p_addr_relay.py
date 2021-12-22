@@ -59,8 +59,8 @@ class AddrTest(BlackHatTestFramework):
         msg.addrs = ADDRS
         with self.nodes[0].assert_debug_log([
                 'Added 10 addresses from 127.0.0.1: 0 tried',
-                'received: addr (301 bytes) peer=1',
-                'sending addr (301 bytes) peer=2',
+                'received: addr (301 bytes) peer=0',
+                'sending addr (301 bytes) peer=1',
         ]):
             addr_source.send_and_ping(msg)
             self.nodes[0].setmocktime(int(time.time()) + 30 * 60)

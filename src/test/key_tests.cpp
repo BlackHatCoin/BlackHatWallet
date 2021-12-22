@@ -32,29 +32,6 @@ static const std::string addr2C = "DNBVSAoc2whPFjZVAZ1pQbXPJk1LRrDC8Q";
 static const std::string strAddressBad ="Xta1praZQjyELweyMByXyiREw1ZRsjXzVP";
 
 
-#ifdef KEY_TESTS_DUMPINFO
-void dumpKeyInfo(uint256 privkey)
-{
-    CKey key;
-    key.resize(32);
-    memcpy(&secret[0], &privkey, 32);
-    std::vector<unsigned char> sec;
-    sec.resize(32);
-    memcpy(&sec[0], &secret[0], 32);
-    printf("  * secret (hex): %s\n", HexStr(sec).c_str());
-
-    for (int nCompressed=0; nCompressed<2; nCompressed++)
-    {
-        printf("    * secret (base58): %s\n", KeyIO::EncodeSecret(secret));
-        CKey key;
-        key.SetSecret(secret, fCompressed);
-        std::vector<unsigned char> vchPubKey = key.GetPubKey();
-        printf("    * pubkey (hex): %s\n", HexStr(vchPubKey).c_str());
-        printf("    * address (base58): %s\n", EncodeDestination(vchPubKey).c_str());
-    }
-}
-#endif
-
 BOOST_FIXTURE_TEST_SUITE(key_tests, TestingSetup)
 
 BOOST_AUTO_TEST_CASE(key_test1)

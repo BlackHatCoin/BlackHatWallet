@@ -38,7 +38,7 @@ ZC_DISABLE_IPFS="${ZC_DISABLE_IPFS:-}"
 ZC_DISABLE_CURL="${ZC_DISABLE_CURL:-}"
 
 function fetch_wget {
-    if [ -z "$WGETCMD" ] || ! [ -z "$ZC_DISABLE_WGET" ]; then
+    if [ -z "$WGETCMD" ] || [ -n "$ZC_DISABLE_WGET" ]; then
         return 1
     fi
 
@@ -59,7 +59,7 @@ EOF
 }
 
 function fetch_ipfs {
-    if [ -z "$IPFSCMD" ] || ! [ -z "$ZC_DISABLE_IPFS" ]; then
+    if [ -z "$IPFSCMD" ] || [ -n "$ZC_DISABLE_IPFS" ]; then
         return 1
     fi
 
@@ -75,7 +75,7 @@ EOF
 }
 
 function fetch_curl {
-    if [ -z "$CURLCMD" ] || ! [ -z "$ZC_DISABLE_CURL" ]; then
+    if [ -z "$CURLCMD" ] || [ -n "$ZC_DISABLE_CURL" ]; then
         return 1
     fi
 
@@ -137,7 +137,7 @@ function fetch_params {
         cat "${dlname}.part.1" "${dlname}.part.2" > "${dlname}"
         rm "${dlname}.part.1" "${dlname}.part.2"
 
-        "$SHA256CMD" $SHA256ARGS -c <<EOF
+        "$SHA256CMD" "$SHA256ARGS" -c <<EOF
 $expectedhash  $dlname
 EOF
 

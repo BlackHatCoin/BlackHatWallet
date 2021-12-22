@@ -18,6 +18,7 @@
 #include "activemasternode.h"
 #include "addrman.h"
 #include "amount.h"
+#include "bls/bls_wrapper.h"
 #include "budget/budgetdb.h"
 #include "budget/budgetmanager.h"
 #include "checkpoints.h"
@@ -34,7 +35,6 @@
 #include "masternode-payments.h"
 #include "masternodeconfig.h"
 #include "masternodeman.h"
-#include "messagesigner.h"
 #include "miner.h"
 #include "netbase.h"
 #include "net_processing.h"
@@ -45,15 +45,14 @@
 #include "script/sigcache.h"
 #include "script/standard.h"
 #include "scheduler.h"
+#include "shutdown.h"
 #include "spork.h"
 #include "sporkdb.h"
-#include "evo/deterministicmns.h"
 #include "evo/evodb.h"
 #include "txdb.h"
 #include "torcontrol.h"
 #include "guiinterface.h"
 #include "guiinterfaceutil.h"
-#include "util/asmap.h"
 #include "util/system.h"
 #include "utilmoneystr.h"
 #include "util/threadnames.h"
@@ -90,7 +89,6 @@
 
 
 volatile bool fFeeEstimatesInitialized = false;
-volatile bool fRestartRequested = false; // true: restart false: shutdown
 static const bool DEFAULT_PROXYRANDOMIZE = true;
 static const bool DEFAULT_REST_ENABLE = false;
 static const bool DEFAULT_DISABLE_SAFEMODE = false;
@@ -141,7 +139,7 @@ CClientUIInterface uiInterface;  // Declared but not defined in guiinterface.h
 // created by AppInit() or the Qt main() function.
 //
 // A clean exit happens when StartShutdown() or the SIGTERM
-// signal handler sets fRequestShutdown, which triggers
+// signal handler sets ShutdownRequested(), which triggers
 // the DetectShutdownThread(), which interrupts the main thread group.
 // DetectShutdownThread() then exits, which causes AppInit() to
 // continue (it .joins the shutdown thread).
@@ -151,20 +149,9 @@ CClientUIInterface uiInterface;  // Declared but not defined in guiinterface.h
 // threads have exited.
 //
 // Shutdown for Qt is very similar, only it uses a QTimer to detect
-// fRequestShutdown getting set, and then does the normal Qt
+// ShutdownRequested() getting set, and then does the normal Qt
 // shutdown thing.
 //
-
-std::atomic<bool> fRequestShutdown{false};
-
-void StartShutdown()
-{
-    fRequestShutdown = true;
-}
-bool ShutdownRequested()
-{
-    return fRequestShutdown || fRestartRequested;
-}
 
 class CCoinsViewErrorCatcher : public CCoinsViewBacked
 {
@@ -204,11 +191,9 @@ void Interrupt()
         g_connman->Interrupt();
 }
 
-/** Preparing steps before shutting down or restarting the wallet */
-void PrepareShutdown()
+void Shutdown()
 {
-    fRequestShutdown = true;  // Needed when we shutdown the wallet
-    fRestartRequested = true; // Needed when we restart the wallet
+    StartShutdown();  // Needed when we shutdown the wallet
     LogPrintf("%s: In progress...\n", __func__);
     static RecursiveMutex cs_Shutdown;
     TRY_LOCK(cs_Shutdown, lockShutdown);
@@ -242,6 +227,7 @@ void PrepareShutdown()
 
     // After everything has been shut down, but before things get flushed, stop the
     // CScheduler/checkqueue threadGroup
+    scheduler.stop();
     threadGroup.interrupt_all();
     threadGroup.join_all();
 
@@ -332,28 +318,14 @@ void PrepareShutdown()
 
 #ifndef WIN32
     try {
-        fs::remove(GetPidFile());
+        if (!fs::remove(GetPidFile())) {
+            LogPrintf("%s: Unable to remove PID file: File does not exist\n", __func__);
+        }
     } catch (const fs::filesystem_error& e) {
         LogPrintf("%s: Unable to remove pidfile: %s\n", __func__, e.what());
     }
 #endif
-}
 
-/**
-* Shutdown is split into 2 parts:
-* Part 1: shut down everything but the main wallet instance (done in PrepareShutdown() )
-* Part 2: delete wallet instance
-*
-* In case of a restart PrepareShutdown() was already called before, but this method here gets
-* called implicitly when the parent object is deleted. In this case we have to skip the
-* PrepareShutdown() part because it was already executed and just delete the wallet instance.
-*/
-void Shutdown()
-{
-    // Shutdown part 1: prepare shutdown
-    if (!fRestartRequested) {
-        PrepareShutdown();
-    }
 #ifdef ENABLE_WALLET
     for (CWalletRef pwallet : vpwallets) {
         delete pwallet;
@@ -775,11 +747,16 @@ bool InitSanityCheck(void)
         return false;
     }
 
-    if (!glibc_sanity_test() || !glibcxx_sanity_test())
+    if (!glibc_sanity_test() || !glibcxx_sanity_test()) {
         return false;
+    }
 
     if (!Random_SanityCheck()) {
         UIError(_("OS cryptographic RNG sanity check failure. Aborting."));
+        return false;
+    }
+
+    if (!BLSInit()) {
         return false;
     }
 
@@ -1053,12 +1030,11 @@ bool AppInitParameterInteraction()
     nMaxConnections = std::max(nUserMaxConnections, 0);
 
     // Trim requested connection counts, to fit into system limitations
-    nMaxConnections = std::max(std::min(nMaxConnections, (int) (FD_SETSIZE - nBind - MIN_CORE_FILEDESCRIPTORS)), 0);
-    nFD = RaiseFileDescriptorLimit(nMaxConnections + MIN_CORE_FILEDESCRIPTORS);
+    nMaxConnections = std::max(std::min(nMaxConnections, (int)(FD_SETSIZE - nBind - MIN_CORE_FILEDESCRIPTORS - MAX_ADDNODE_CONNECTIONS)), 0);
+    nFD = RaiseFileDescriptorLimit(nMaxConnections + MIN_CORE_FILEDESCRIPTORS + MAX_ADDNODE_CONNECTIONS);
     if (nFD < MIN_CORE_FILEDESCRIPTORS)
         return UIError(_("Not enough file descriptors available."));
-    if (nFD - MIN_CORE_FILEDESCRIPTORS < nMaxConnections)
-        nMaxConnections = nFD - MIN_CORE_FILEDESCRIPTORS;
+    nMaxConnections = std::min(nFD - MIN_CORE_FILEDESCRIPTORS - MAX_ADDNODE_CONNECTIONS, nMaxConnections);
 
     // ********************************************************* Step 3: parameter-to-internal-flags
 
@@ -1247,7 +1223,7 @@ bool AppInitMain()
     LogPrintf("Default data directory %s\n", GetDefaultDataDir().string());
     LogPrintf("Using data directory %s\n", GetDataDir().string());
     LogPrintf("Using config file %s\n", GetConfigFile(gArgs.GetArg("-conf", BLKC_CONF_FILENAME)).string());
-    LogPrintf("Using at most %i connections (%i file descriptors available)\n", nMaxConnections, nFD);
+    LogPrintf("Using at most %i automatic connections (%i file descriptors available)\n", nMaxConnections, nFD);
     std::ostringstream strErrors;
 
     // Warn about relative -datadir path.
@@ -1525,7 +1501,7 @@ bool AppInitMain()
     }
 #endif
 
-    pEvoNotificationInterface = new EvoNotificationInterface(connman);
+    pEvoNotificationInterface = new EvoNotificationInterface();
     RegisterValidationInterface(pEvoNotificationInterface);
 
     // ********************************************************* Step 7: load block chain
@@ -1718,7 +1694,7 @@ bool AppInitMain()
                     "", CClientUIInterface::MSG_ERROR | CClientUIInterface::BTN_ABORT);
                 if (fRet) {
                     fReindex = true;
-                    fRequestShutdown = false;
+                    AbortShutdown();
                 } else {
                     LogPrintf("Aborted block database rebuild. Exiting.\n");
                     return false;
@@ -1846,7 +1822,7 @@ bool AppInitMain()
 
     //flag our cached items so we send them to our peers
     g_budgetman.ResetSync();
-    g_budgetman.ClearSeen();
+    g_budgetman.ReloadMapSeen();
 
     RegisterValidationInterface(&g_budgetman);
 
@@ -1902,7 +1878,7 @@ bool AppInitMain()
     }
 
     //get the mode of budget voting for this masternode
-    strBudgetMode = gArgs.GetArg("-budgetvotemode", "auto");
+    g_budgetman.strBudgetMode = gArgs.GetArg("-budgetvotemode", "auto");
 
 #ifdef ENABLE_WALLET
     // !TODO: remove after complete transition to DMN
@@ -1936,7 +1912,7 @@ bool AppInitMain()
     }
 
     LogPrintf("fLiteMode %d\n", fLiteMode);
-    LogPrintf("Budget Mode %s\n", strBudgetMode.c_str());
+    LogPrintf("Budget Mode %s\n", g_budgetman.strBudgetMode.c_str());
 
     threadGroup.create_thread(std::bind(&ThreadCheckMasternodes));
 
@@ -1977,6 +1953,7 @@ bool AppInitMain()
     connOptions.nRelevantServices = nRelevantServices;
     connOptions.nMaxConnections = nMaxConnections;
     connOptions.nMaxOutbound = std::min(MAX_OUTBOUND_CONNECTIONS, connOptions.nMaxConnections);
+    connOptions.nMaxAddnode = MAX_ADDNODE_CONNECTIONS;
     connOptions.nMaxFeeler = 1;
     connOptions.nBestHeight = chain_active_height;
     connOptions.uiInterface = &uiInterface;

@@ -54,7 +54,7 @@ CWalletTx GetValidSaplingReceive(const Consensus::Params& consensusParams,
                                  std::vector<ShieldedDestination> vDest,
                                  const CWallet* pwalletIn)
 {
-    auto builder = TransactionBuilder(consensusParams, 1, &keyStoreFrom);
+    auto builder = TransactionBuilder(consensusParams, &keyStoreFrom);
     builder.SetFee(0);
 
     // From transparent inputs

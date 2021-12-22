@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2020 The PIVX developers
+// Copyright (c) 2015-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
@@ -173,7 +173,6 @@ public:
     }
 
     uint256 GetHash() const;
-    bool GetKeyIDFromUTXO(CKeyID& keyIDRet) const;
 
     bool IsZerocoinMint() const;
 
@@ -360,7 +359,6 @@ public:
     CAmount GetShieldedValueIn() const;
 
     bool HasZerocoinSpendInputs() const;
-    bool HasZerocoinPublicSpendInputs() const;
 
     bool HasZerocoinMintOutputs() const;
 

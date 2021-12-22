@@ -168,7 +168,9 @@ public:
                                    bool fProofOfStake = false,
                                    std::vector<CStakeableOutput>* availableCoins = nullptr,
                                    bool fNoMempoolTx = false,
-                                   bool fTestValidity = true);
+                                   bool fTestValidity = true,
+                                   CBlockIndex* prevBlock = nullptr,
+                                   bool stopPoSOnNewBlock = true);
 
 private:
     // utility functions

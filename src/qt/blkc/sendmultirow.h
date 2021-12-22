@@ -44,7 +44,6 @@ public:
     /** Return whether the entry is still empty and unedited */
     bool isClear();
     void setOnlyStakingAddressAccepted(bool onlyStakingAddress);
-    CAmount getAmountValue(QString str);
 
     void setAddress(const QString& address);
     void setLabel(const QString& label);

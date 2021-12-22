@@ -11,7 +11,6 @@
 #include "script/script.h"
 #include "script/standard.h"
 #include "util/system.h"
-#include "init.h"
 #include "uint256.h"
 
 #include "wallet/wallet.h"

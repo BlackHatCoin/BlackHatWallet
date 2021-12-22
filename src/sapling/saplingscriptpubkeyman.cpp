@@ -1,10 +1,11 @@
 // Copyright (c) 2016-2020 The ZCash developers
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #include "sapling/saplingscriptpubkeyman.h"
+
 #include "chain.h" // for CBlockIndex
 #include "validation.h" // for ReadBlockFromDisk()
 
@@ -68,7 +69,7 @@ void SaplingScriptPubKeyMan::UpdateSaplingNullifierNoteMapWithTx(CWalletTx& wtx)
             if (nd.nullifier) {
                 mapSaplingNullifiersToNotes.erase(item.second.nullifier.get());
             }
-            nd.nullifier = boost::none;
+            nd.nullifier = nullopt;
         } else {
             const libzcash::SaplingIncomingViewingKey& ivk = *(nd.ivk);
             uint64_t position = nd.witnesses.front().position();
@@ -138,53 +139,49 @@ void CopyPreviousWitnesses(NoteDataMap& noteDataMap, int indexHeight, int64_t nW
     }
 }
 
-template<typename NoteDataMap>
-void AppendNoteCommitment(NoteDataMap& noteDataMap, int indexHeight, int64_t nWitnessCacheSize, const uint256& note_commitment)
+void AppendNoteCommitment(SaplingNoteData* nd, int indexHeight, int64_t nWitnessCacheSize, const uint256& note_commitment)
 {
-    for (auto& item : noteDataMap) {
-        auto* nd = &(item.second);
-        // skip externally sent notes
-        if (!nd->IsMyNote()) continue;
-        if (nd->witnessHeight < indexHeight && nd->witnesses.size() > 0) {
-            // Check the validity of the cache
-            // See comment in CopyPreviousWitnesses about validity.
-            assert(nWitnessCacheSize >= (int64_t) nd->witnesses.size());
-            nd->witnesses.front().append(note_commitment);
-        }
+    // skip externally sent notes
+    if (!nd->IsMyNote()) return;
+    // No empty witnesses can reach here. Before any append, the note must be already witnessed.
+    if (nd->witnessHeight < indexHeight && nd->witnesses.size() > 0) {
+        // Check the validity of the cache
+        // See comment in CopyPreviousWitnesses about validity.
+        assert(nWitnessCacheSize >= (int64_t) nd->witnesses.size());
+        nd->witnesses.front().append(note_commitment);
     }
 }
 
-template<typename OutPoint, typename NoteData, typename Witness>
-void WitnessNoteIfMine(std::map<OutPoint, NoteData>& noteDataMap, int indexHeight, int64_t nWitnessCacheSize, const OutPoint& key, const Witness& witness)
+template<typename Witness>
+void WitnessNoteIfMine(SaplingNoteData* nd,
+                       int indexHeight,
+                       int64_t nWitnessCacheSize,
+                       const Witness& witness)
 {
-    auto ndIt = noteDataMap.find(key);
-    if (ndIt != noteDataMap.end()) {
-        auto* nd = &ndIt->second;
-        // skip externally sent and already witnessed notes
-        if (!nd->IsMyNote() || nd->witnessHeight >= indexHeight) return;
-        if (nd->witnesses.size() > 0) {
-            // We think this can happen because we write out the
-            // witness cache state after every block increment or
-            // decrement, but the block index itself is written in
-            // batches. So if the node crashes in between these two
-            // operations, it is possible for IncrementNoteWitnesses
-            // to be called again on previously-cached blocks. This
-            // doesn't affect existing cached notes because of the
-            // NoteData::witnessHeight checks. See #1378 for details.
-            LogPrintf("Inconsistent witness cache state found for %s\n- Cache size: %d\n- Top (height %d): %s\n- New (height %d): %s\n",
-                      key.ToString(), nd->witnesses.size(),
-                      nd->witnessHeight,
-                      nd->witnesses.front().root().GetHex(),
-                      indexHeight,
-                      witness.root().GetHex());
-            nd->witnesses.clear();
-        }
-        nd->witnesses.push_front(witness);
-        // Set height to one less than pindex so it gets incremented
-        nd->witnessHeight = indexHeight - 1;
-        // Check the validity of the cache
-        assert(nWitnessCacheSize >= (int64_t) nd->witnesses.size());
+    assert(nd);
+    // skip externally sent and already witnessed notes
+    if (!nd->IsMyNote() || nd->witnessHeight >= indexHeight) return;
+    if (!nd->witnesses.empty()) {
+        // We think this can happen because we write out the
+        // witness cache state after every block increment or
+        // decrement, but the block index itself is written in
+        // batches. So if the node crashes in between these two
+        // operations, it is possible for IncrementNoteWitnesses
+        // to be called again on previously-cached blocks. This
+        // doesn't affect existing cached notes because of the
+        // NoteData::witnessHeight checks. See #1378 for details.
+        LogPrintf("Inconsistent witness cache state found\n- Cache size: %d\n- Top (height %d): %s\n- New (height %d): %s\n",
+                  nd->witnesses.size(), nd->witnessHeight,
+                  nd->witnesses.front().root().GetHex(),
+                  indexHeight,
+                  witness.root().GetHex());
+        nd->witnesses.clear();
     }
+    nd->witnesses.push_front(witness);
+    // Set height to one less than pindex so it gets incremented
+    nd->witnessHeight = indexHeight - 1;
+    // Check the validity of the cache
+    assert(nWitnessCacheSize >= (int64_t) nd->witnesses.size());
 }
 
 template<typename NoteDataMap>
@@ -204,48 +201,82 @@ void UpdateWitnessHeights(NoteDataMap& noteDataMap, int indexHeight, int64_t nWi
 }
 
 void SaplingScriptPubKeyMan::IncrementNoteWitnesses(const CBlockIndex* pindex,
-                                     const CBlock* pblock,
-                                     SaplingMerkleTree& saplingTree)
+                                                    const CBlock* pblock,
+                                                    SaplingMerkleTree& saplingTreeRes)
 {
     LOCK(wallet->cs_wallet);
     int chainHeight = pindex->nHeight;
-    for (std::pair<const uint256, CWalletTx>& wtxItem : wallet->mapWallet) {
-        ::CopyPreviousWitnesses(wtxItem.second.mapSaplingNoteData, chainHeight, nWitnessCacheSize);
-    }
 
+    // Set the update cache flag.
+    int64_t prevWitCacheSize = nWitnessCacheSize;
     if (nWitnessCacheSize < WITNESS_CACHE_SIZE) {
         nWitnessCacheSize += 1;
         nWitnessCacheNeedsUpdate = true;
     }
 
+    // 1) Loop over the block txs and gather the note commitments ordered.
+    // If the wtx is from this wallet, witness it and append the following block note commitments on top.
+    std::vector<uint256> noteCommitments;
+    std::vector<std::pair<CWalletTx*, SaplingNoteData*>> inBlockArrivingNotes;
     for (const auto& tx : pblock->vtx) {
         if (!tx->IsShieldedTx()) continue;
 
-        const uint256& hash = tx->GetHash();
-        bool txIsOurs = wallet->mapWallet.count(hash);
+        const auto& hash = tx->GetHash();
+        auto it = wallet->mapWallet.find(hash);
+        bool txIsOurs = it != wallet->mapWallet.end();
 
-        // Sapling
         for (uint32_t i = 0; i < tx->sapData->vShieldedOutput.size(); i++) {
-            const uint256& note_commitment = tx->sapData->vShieldedOutput[i].cmu;
-            saplingTree.append(note_commitment);
+            const auto& cmu = tx->sapData->vShieldedOutput[i].cmu;
+            noteCommitments.emplace_back(cmu);
 
-            // Increment existing witnesses
-            for (std::pair<const uint256, CWalletTx>& wtxItem : wallet->mapWallet) {
-                ::AppendNoteCommitment(wtxItem.second.mapSaplingNoteData, chainHeight, nWitnessCacheSize, note_commitment);
+            // Append note commitment to the in-block wallet's notes.
+            // This is processed here because we already looked for the wtx on
+            // the WitnessNoteIfMine call and only need to append the follow-up block notes,
+            // not every block note (check below).
+            for (auto& item : inBlockArrivingNotes) {
+                ::AppendNoteCommitment(item.second, chainHeight, nWitnessCacheSize, cmu);
             }
 
-            // If this is our note, witness it
+            // If tx is from this wallet, try to witness the note for the first time (if exists).
+            // And add it to the in-block arriving txs.
+            saplingTreeRes.append(cmu);
             if (txIsOurs) {
-                SaplingOutPoint outPoint {hash, i};
-                ::WitnessNoteIfMine(wallet->mapWallet.at(hash).mapSaplingNoteData, chainHeight, nWitnessCacheSize, outPoint, saplingTree.witness());
+                CWalletTx* wtx = &it->second;
+                auto ndIt = wtx->mapSaplingNoteData.find({hash, i});
+                if (ndIt != wtx->mapSaplingNoteData.end()) {
+                    SaplingNoteData* nd = &ndIt->second;
+                    ::WitnessNoteIfMine(nd, chainHeight, nWitnessCacheSize, saplingTreeRes.witness());
+                    inBlockArrivingNotes.emplace_back(std::make_pair(wtx, nd));
+                }
             }
         }
-
     }
 
-    // Update witness heights
-    for (std::pair<const uint256, CWalletTx>& wtxItem : wallet->mapWallet) {
-        ::UpdateWitnessHeights(wtxItem.second.mapSaplingNoteData, chainHeight, nWitnessCacheSize);
+    // 2) Mark already sync wtx, so we don't process them again.
+    for (auto& item : inBlockArrivingNotes) {
+        ::UpdateWitnessHeights(item.first->mapSaplingNoteData, chainHeight, nWitnessCacheSize);
+    }
+
+    // 3) Loop over the shield txs in the wallet's map (excluding the wtx arriving in this block) and for each tx:
+    //    a) Copy the previous witness.
+    //    b) Append all new notes commitments
+    //    c) Update witness last processed height
+    for (auto& it : wallet->mapWallet) {
+        CWalletTx& wtx = it.second;
+        if (!wtx.mapSaplingNoteData.empty()) {
+            // Create copy of the previous witness (verifying pre-arriving block witness cache size)
+            ::CopyPreviousWitnesses(wtx.mapSaplingNoteData, chainHeight, prevWitCacheSize);
+
+            // Append new notes commitments.
+            for (auto& noteComm : noteCommitments) {
+                for (auto& item : wtx.mapSaplingNoteData) {
+                    AppendNoteCommitment(&(item.second), chainHeight, nWitnessCacheSize, noteComm);
+                }
+            }
+
+            // Set last processed height.
+            ::UpdateWitnessHeights(wtx.mapSaplingNoteData, chainHeight, nWitnessCacheSize);
+        }
     }
 
     // For performance reasons, we write out the witness cache in
@@ -896,7 +927,7 @@ libzcash::SaplingPaymentAddress SaplingScriptPubKeyMan::GenerateNewSaplingZKey()
     } while (wallet->HaveSaplingSpendingKey(xsk.ToXFVK()));
 
     // Update the chain model in the database
-    if (!CWalletDB(wallet->GetDBHandle()).WriteHDChain(hdChain))
+    if (!WalletBatch(wallet->GetDBHandle()).WriteHDChain(hdChain))
         throw std::runtime_error(std::string(__func__) + ": Writing HD chain model failed");
 
     // Create new metadata
@@ -1002,7 +1033,7 @@ bool SaplingScriptPubKeyMan::AddSaplingZKey(
 
     if (!wallet->IsCrypted()) {
         auto ivk = sk.expsk.full_viewing_key().in_viewing_key();
-        return CWalletDB(wallet->GetDBHandle()).WriteSaplingZKey(ivk, sk, mapSaplingZKeyMetadata[ivk]);
+        return WalletBatch(wallet->GetDBHandle()).WriteSaplingZKey(ivk, sk, mapSaplingZKeyMetadata[ivk]);
     }
 
     return true;
@@ -1049,7 +1080,7 @@ bool SaplingScriptPubKeyMan::AddSaplingIncomingViewingKey(
     }
 
     if (!wallet->IsCrypted()) {
-        return CWalletDB(wallet->GetDBHandle()).WriteSaplingPaymentAddress(addr, ivk);
+        return WalletBatch(wallet->GetDBHandle()).WriteSaplingPaymentAddress(addr, ivk);
     }
 
     return true;
@@ -1084,12 +1115,12 @@ bool SaplingScriptPubKeyMan::AddCryptedSaplingSpendingKeyDB(const libzcash::Sapl
         return false;
     {
         LOCK(wallet->cs_wallet);
-        if (wallet->pwalletdbEncryption) {
-            return wallet->pwalletdbEncryption->WriteCryptedSaplingZKey(extfvk,
+        if (wallet->encrypted_batch) {
+            return wallet->encrypted_batch->WriteCryptedSaplingZKey(extfvk,
                                                                 vchCryptedSecret,
                                                                 mapSaplingZKeyMetadata[extfvk.fvk.in_viewing_key()]);
         } else {
-            return CWalletDB(wallet->GetDBHandle()).WriteCryptedSaplingZKey(extfvk,
+            return WalletBatch(wallet->GetDBHandle()).WriteCryptedSaplingZKey(extfvk,
                                                                     vchCryptedSecret,
                                                                     mapSaplingZKeyMetadata[extfvk.fvk.in_viewing_key()]);
         }
@@ -1176,7 +1207,7 @@ void SaplingScriptPubKeyMan::SetHDSeed(const CKeyID& keyID, bool force, bool mem
 
     // Update the commonOVK to recover t->shield notes
     commonOVK = getCommonOVKFromSeed();
-    if (!memonly && !CWalletDB(wallet->GetDBHandle()).WriteSaplingCommonOVK(*commonOVK)) {
+    if (!memonly && !WalletBatch(wallet->GetDBHandle()).WriteSaplingCommonOVK(*commonOVK)) {
         throw std::runtime_error(std::string(__func__) + ": writing sapling commonOVK failed");
     }
 }
@@ -1187,7 +1218,7 @@ void SaplingScriptPubKeyMan::SetHDChain(CHDChain& chain, bool memonly)
     if (chain.chainType != HDChain::ChainCounterType::Sapling)
         throw std::runtime_error(std::string(__func__) + ": trying to store an invalid chain type");
 
-    if (!memonly && !CWalletDB(wallet->GetDBHandle()).WriteHDChain(chain))
+    if (!memonly && !WalletBatch(wallet->GetDBHandle()).WriteHDChain(chain))
         throw std::runtime_error(std::string(__func__) + ": writing sapling chain failed");
 
     hdChain = chain;
@@ -1204,7 +1235,7 @@ uint256 SaplingScriptPubKeyMan::getCommonOVK()
 
     // Else, look for it in the database
     uint256 ovk;
-    if (CWalletDB(wallet->GetDBHandle()).ReadSaplingCommonOVK(ovk)) {
+    if (WalletBatch(wallet->GetDBHandle()).ReadSaplingCommonOVK(ovk)) {
         commonOVK = std::move(ovk);
         return *commonOVK;
     }
@@ -1213,7 +1244,7 @@ uint256 SaplingScriptPubKeyMan::getCommonOVK()
     // So we should always call this after unlocking the wallet during a spend
     // from a transparent address, or when changing/setting the HD seed.
     commonOVK = getCommonOVKFromSeed();
-    if (!CWalletDB(wallet->GetDBHandle()).WriteSaplingCommonOVK(*commonOVK)) {
+    if (!WalletBatch(wallet->GetDBHandle()).WriteSaplingCommonOVK(*commonOVK)) {
         throw std::runtime_error("Unable to write sapling Common OVK to database");
     }
     return *commonOVK;

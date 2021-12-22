@@ -132,10 +132,8 @@ std::string TransactionBuilderResult::GetError() {
 
 TransactionBuilder::TransactionBuilder(
     const Consensus::Params& _consensusParams,
-    int _nHeight,
     CKeyStore* _keystore) :
     consensusParams(_consensusParams),
-    nHeight(_nHeight),
     keystore(_keystore)
 {
     Clear();

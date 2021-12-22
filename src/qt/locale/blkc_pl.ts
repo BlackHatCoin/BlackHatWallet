@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>Nowy adres</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Adres</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>Naciśnij przycisk</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>ANULUJ</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Bob Allen</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Nazwa Kontaktu</translation>
@@ -296,14 +265,6 @@ Jesteś pewny?</translation>
     <message>
         <source>Passphrase Dialog</source>
         <translation>Okno dialogowe "Passphrase"</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstZakładka</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>Naciśnij przycisk</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -432,16 +393,8 @@ do stakingu</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -462,16 +415,8 @@ do stakingu</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Oszczędności</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -542,10 +487,6 @@ do stakingu</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -691,10 +632,6 @@ do stakingu</translation>
 <context>
     <name>ColdStakingWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Adres właściciela (opcjonalnie, jeśli pusty, zostanie utworzony nowy adres)</translation>
     </message>
@@ -717,6 +654,10 @@ do stakingu</translation>
     <message>
         <source>Delegate</source>
         <translation>Deleguj</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtr</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -926,18 +867,54 @@ adres</translation>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Ilość</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Miesięcy</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>ANULUJ</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>KOLEJNY</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>WSTECZ</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>nieprawidłowa kwota</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Wyślij</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Brak dostępnych kontaktów, możesz przejść do ekranu kontaktów i tam dodać!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>Transakcje</translation>
@@ -1025,10 +1002,6 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1093,13 +1066,6 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1122,6 +1088,37 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
         <translation>Nie można tutaj utworzyć katalogu danych.</translation>
     </message>
 </context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Ilość</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sortuj</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystko</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filtr</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Poczekaj, aż węzeł zostanie w pełni zsynchronizowany</translation>
+    </message>
+    </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
@@ -1199,28 +1196,12 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstZakładka</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Ładowanie</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Odblokuj portfel</translation>
@@ -1237,10 +1218,6 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Nie znaleziono Collateral tx</translation>
     </message>
@@ -1251,10 +1228,6 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1396,10 +1369,6 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Start All</translation>
@@ -1574,10 +1543,6 @@ Jesteś pewny?</translation>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>Informacje o Masternode</translation>
     </message>
@@ -1619,18 +1584,34 @@ Jesteś pewny?</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
+        <source>Select All</source>
+        <translation>Zaznacz wszystko</translation>
     </message>
-</context>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>ANULUJ</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1674,10 +1655,6 @@ STAKING</translation>
 </translation>
     </message>
     <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
-    </message>
-    <message>
         <source>v%1</source>
         <translation>v%1</translation>
     </message>
@@ -1699,13 +1676,6 @@ STAKING</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
     </message>
 </context>
 <context>
@@ -1821,6 +1791,32 @@ Adres: %4
         <translation>ID węzła </translation>
     </message>
 </context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    </context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Ilość</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -1949,7 +1945,7 @@ Adres: %4
     </message>
     <message>
         <source>Shielded Recv</source>
-        <translation>Odbiór ekranowany</translation>
+        <translation>Odbiór Shielded</translation>
     </message>
     <message>
         <source>Shielded Contact</source>
@@ -2101,10 +2097,6 @@ Adres: %4
     <message>
         <source>Client name</source>
         <translation>Nazwa klienta</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
     </message>
     <message>
         <source>Number of connections</source>
@@ -2327,10 +2319,6 @@ Adres: %4
         <translation>Przebuduj indeks łańcucha bloków z bieżących plików blk000??.dat</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>-resync:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Usuwa wszystkie lokalne foldery blockchain, aby portfel synchronizował się od początku.</translation>
     </message>
@@ -2478,10 +2466,6 @@ Adres: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Mój adres</translation>
     </message>
@@ -2496,10 +2480,6 @@ Adres: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Zeskanuj kod QR lub skopiuj adres, aby otrzymać BLKC</translation>
@@ -2641,24 +2621,12 @@ spróbuj odblokować portfel</translation>
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Ilość</translation>
     </message>
     <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>Zamiast udostępniać tylko adres BlackHat, możesz utworzyć żądanie zapłaty, łącząc więcej informacji</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z</translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2732,10 +2700,6 @@ spróbuj odblokować portfel</translation>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>ANULUJ</translation>
     </message>
@@ -2767,20 +2731,8 @@ spróbuj odblokować portfel</translation>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Zalecane</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -2826,10 +2778,6 @@ spróbuj odblokować portfel</translation>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>Private message only visible for the recipient(s)</source>
         <translation>Wiadomość prywatna widoczna tylko dla adresatów()</translation>
     </message>
@@ -2848,10 +2796,6 @@ spróbuj odblokować portfel</translation>
 </context>
 <context>
     <name>SendMultiRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Enter address</source>
         <translation>Podaj adres</translation>
@@ -3087,10 +3031,6 @@ Czy chce Pan/Pani kontynuować bez notatki?
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Zmień hasło portfela</translation>
     </message>
@@ -3129,10 +3069,6 @@ Czy chce Pan/Pani kontynuować bez notatki?
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Adres importu</translation>
@@ -3277,10 +3213,6 @@ Czy chce Pan/Pani kontynuować bez notatki?
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Console</source>
         <translation>Konsola</translation>
     </message>
@@ -3329,10 +3261,6 @@ Sprawdź, czy zainstalowałeś określony edytor tekstu.</translation>
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Ukryj wykresy stake na pulpicie</translation>
@@ -3389,10 +3317,6 @@ Sprawdź, czy zainstalowałeś określony edytor tekstu.</translation>
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Wyeksportuj Księgowość</translation>
     </message>
@@ -3401,8 +3325,8 @@ Sprawdź, czy zainstalowałeś określony edytor tekstu.</translation>
         <translation>Wyeksportuj Księgowość portfela do pliku csv.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Gdzie</translation>
+        <source>Export Transaction History</source>
+        <translation>Eksportuj historię transakcji</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3413,20 +3337,8 @@ Sprawdź, czy zainstalowałeś określony edytor tekstu.</translation>
         <translation>Eksportuj książkę adresową</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>Eksportuj CSV</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Eksportuj listę adresów</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_tx_csv_export(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_addresses_csv_export(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Plik rozdzielony przecinkami (* .csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3492,20 +3404,12 @@ Wystąpił błąd podczas próby zapisania listy adresów w %1. Proszę spróbuj
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) Co to jest BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) Dlaczego mojego BLKC nie można wydać?</translation>
-    </message>
-    <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3631,10 +3535,6 @@ Wystąpił błąd podczas próby zapisania listy adresów w %1. Proszę spróbuj
 <context>
     <name>SettingsInformationWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Network Monitor</source>
         <translation>Monitor sieci</translation>
     </message>
@@ -3746,10 +3646,6 @@ Wystąpił błąd podczas próby zapisania listy adresów w %1. Proszę spróbuj
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
@@ -3814,10 +3710,6 @@ Jesteś pewny?
 </context>
 <context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Podpisz / zweryfikuj wiadomość</translation>
@@ -3911,10 +3803,6 @@ Jesteś pewny?
         <translation>Sprawdź podpis i spróbuj ponownie.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>Podpis nie pasuje do skrótu wiadomości.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Weryfikacja wiadomości nieudana.</translation>
     </message>
@@ -3929,10 +3817,6 @@ Jesteś pewny?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Przywróć ustawienia domyślne</translation>
@@ -3997,10 +3881,6 @@ Jesteś pewny?
 <context>
     <name>SettingsWalletRepairWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Wallet Repair</source>
         <translation>Naprawa portfela</translation>
     </message>
@@ -4063,10 +3943,6 @@ Jesteś pewny?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>Dane portfela</translation>
@@ -4200,22 +4076,7 @@ Jesteś pewny?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Kontakt zapisany</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Ładowanie…</translation>
@@ -4230,10 +4091,6 @@ Jesteś pewny?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>kopiuj</translation>
@@ -4253,10 +4110,6 @@ Jesteś pewny?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Available</source>
         <translation>Dostępny</translation>
@@ -4551,10 +4404,6 @@ kopia zapasowa zostanie utworzona.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Szczegóły Transakcji</translation>
     </message>
@@ -4569,14 +4418,6 @@ kopia zapasowa zostanie utworzona.
     <message>
         <source>Output Index</source>
         <translation>Indeks wyjściowy</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>Maj 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4623,10 +4464,6 @@ kopia zapasowa zostanie utworzona.
         <translation>Notatka</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>TekstZakładka</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>ANULUJ</translation>
     </message>
@@ -4660,14 +4497,18 @@ kopia zapasowa zostanie utworzona.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
+        <source>CANCEL</source>
+        <translation>ANULUJ</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
     </message>
     </context>
 <context>
@@ -4748,6 +4589,13 @@ Wybierz mniej nominałów kontrolą monet.</translation>
         <translation>domyślny</translation>
     </message>
 </context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <source>Available</source>
+        <translation>Dostępny</translation>
+    </message>
+    </context>
 <context>
     <name>blkc-core</name>
     <message>
@@ -5059,10 +4907,6 @@ Wybierz mniej nominałów kontrolą monet.</translation>
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Wyślij</translation>

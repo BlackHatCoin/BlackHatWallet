@@ -8,6 +8,7 @@
 #include "txmempool.h"
 
 #include "clientversion.h"
+#include "bls/bls_wrapper.h"
 #include "evo/deterministicmns.h"
 #include "evo/specialtx.h"
 #include "evo/providertx.h"
@@ -379,7 +380,7 @@ void CTxMemPool::addUncheckedSpecialTx(const CTransaction& tx)
             }
             mapProTxAddresses.emplace(pl.addr, txid);
             mapProTxPubKeyIDs.emplace(pl.keyIDOwner, txid);
-            mapProTxPubKeyIDs.emplace(pl.keyIDOperator, txid);
+            mapProTxBlsPubKeyHashes.emplace(pl.pubKeyOperator.GetHash(), txid);
             break;
         }
 
@@ -397,7 +398,7 @@ void CTxMemPool::addUncheckedSpecialTx(const CTransaction& tx)
             bool ok = GetTxPayload(tx, pl);
             assert(ok);
             mapProTxRefs.emplace(pl.proTxHash, txid);
-            mapProTxPubKeyIDs.emplace(pl.keyIDOperator, tx.GetHash());
+            mapProTxBlsPubKeyHashes.emplace(pl.pubKeyOperator.GetHash(), txid);
             break;
         }
 
@@ -504,7 +505,7 @@ void CTxMemPool::removeUncheckedSpecialTx(const CTransaction& tx)
             mapProTxCollaterals.erase(pl.collateralOutpoint);
             mapProTxAddresses.erase(pl.addr);
             mapProTxPubKeyIDs.erase(pl.keyIDOwner);
-            mapProTxPubKeyIDs.erase(pl.keyIDOperator);
+            mapProTxBlsPubKeyHashes.erase(pl.pubKeyOperator.GetHash());
             break;
         }
 
@@ -522,7 +523,7 @@ void CTxMemPool::removeUncheckedSpecialTx(const CTransaction& tx)
             bool ok = GetTxPayload(tx, pl);
             assert(ok);
             eraseProTxRef(pl.proTxHash, txid);
-            mapProTxPubKeyIDs.erase(pl.keyIDOperator);
+            mapProTxBlsPubKeyHashes.erase(pl.pubKeyOperator.GetHash());
             break;
         }
 
@@ -725,6 +726,16 @@ void CTxMemPool::removeProTxPubKeyConflicts(const CTransaction& tx, const CKeyID
     }
 }
 
+void CTxMemPool::removeProTxPubKeyConflicts(const CTransaction& tx, const CBLSPublicKey& pubKey)
+{
+    if (mapProTxBlsPubKeyHashes.count(pubKey.GetHash())) {
+        const uint256& conflictHash = mapProTxBlsPubKeyHashes.at(pubKey.GetHash());
+        if (conflictHash != tx.GetHash() && mapTx.count(conflictHash)) {
+            removeRecursive(mapTx.find(conflictHash)->GetTx(), MemPoolRemovalReason::CONFLICT);
+        }
+    }
+}
+
 void CTxMemPool::removeProTxCollateralConflicts(const CTransaction &tx, const COutPoint &collateralOutpoint)
 {
     if (mapProTxCollaterals.count(collateralOutpoint)) {
@@ -793,7 +804,7 @@ void CTxMemPool::removeProTxConflicts(const CTransaction &tx)
                 }
             }
             removeProTxPubKeyConflicts(tx, pl.keyIDOwner);
-            removeProTxPubKeyConflicts(tx, pl.keyIDOperator);
+            removeProTxPubKeyConflicts(tx, pl.pubKeyOperator);
             if (!pl.collateralOutpoint.hash.IsNull()) {
                 removeProTxCollateralConflicts(tx, pl.collateralOutpoint);
             }
@@ -821,7 +832,7 @@ void CTxMemPool::removeProTxConflicts(const CTransaction &tx)
                 LogPrint(BCLog::MEMPOOL, "%s: ERROR: Invalid transaction payload, tx: %s", __func__, tx.ToString());
                 return;
             }
-            removeProTxPubKeyConflicts(tx, pl.keyIDOperator);
+            removeProTxPubKeyConflicts(tx, pl.pubKeyOperator);
             break;
         }
 
@@ -910,7 +921,6 @@ void CTxMemPool::check(const CCoinsViewCache* pcoins) const
         setEntries setParentCheck;
         int64_t parentSizes = 0;
         unsigned int parentSigOpCount = 0;
-        bool fHasZerocoinSpends = false;
         for (const CTxIn& txin : tx.vin) {
             // Check that every mempool transaction's inputs refer to available coins, or other mempool tx's.
             indexed_transaction_set::const_iterator it2 = mapTx.find(txin.prevout.hash);
@@ -922,20 +932,14 @@ void CTxMemPool::check(const CCoinsViewCache* pcoins) const
                     parentSizes += it2->GetTxSize();
                     parentSigOpCount += it2->GetSigOpCount();
                 }
-            } else if(!txin.IsZerocoinSpend() && !txin.IsZerocoinPublicSpend()) {
-                assert(pcoins->HaveCoin(txin.prevout));
             } else {
-                fHasZerocoinSpends = true;
+                assert(pcoins->HaveCoin(txin.prevout));
             }
             // Check whether its inputs are marked in mapNextTx.
-            if(!fHasZerocoinSpends) {
-                auto it3 = mapNextTx.find(txin.prevout);
-                assert(it3 != mapNextTx.end());
-                assert(it3->first == &txin.prevout);
-                assert(*it3->second == tx);
-            } else {
-                fDependsWait=false;
-            }
+            auto it3 = mapNextTx.find(txin.prevout);
+            assert(it3 != mapNextTx.end());
+            assert(it3->first == &txin.prevout);
+            assert(*it3->second == tx);
             i++;
         }
         // sapling txes
@@ -969,22 +973,21 @@ void CTxMemPool::check(const CCoinsViewCache* pcoins) const
         assert(it->GetModFeesWithAncestors() == nFeesCheck);
 
         // Check children against mapNextTx
-        if (!fHasZerocoinSpends) {
-            CTxMemPool::setEntries setChildrenCheck;
-            auto iter = mapNextTx.lower_bound(COutPoint(it->GetTx().GetHash(), 0));
-            int64_t childSizes = 0;
-            for (; iter != mapNextTx.end() && iter->first->hash == tx.GetHash(); ++iter) {
-                txiter childit = mapTx.find(iter->second->GetHash());
-                assert(childit != mapTx.end()); // mapNextTx points to in-mempool transactions
-                if (setChildrenCheck.insert(childit).second) {
-                    childSizes += childit->GetTxSize();
-                }
+        CTxMemPool::setEntries setChildrenCheck;
+        auto iter = mapNextTx.lower_bound(COutPoint(it->GetTx().GetHash(), 0));
+        int64_t childSizes = 0;
+        for (; iter != mapNextTx.end() && iter->first->hash == tx.GetHash(); ++iter) {
+            txiter childit = mapTx.find(iter->second->GetHash());
+            assert(childit != mapTx.end()); // mapNextTx points to in-mempool transactions
+            if (setChildrenCheck.insert(childit).second) {
+                childSizes += childit->GetTxSize();
             }
-            assert(setChildrenCheck == GetMemPoolChildren(it));
-            // Also check to make sure size is greater than sum with immediate children.
-            // just a sanity check, not definitive that this calc is correct...
-            assert(it->GetSizeWithDescendants() >= (uint64_t)(childSizes + it->GetTxSize()));
         }
+        assert(setChildrenCheck == GetMemPoolChildren(it));
+        // Also check to make sure size is greater than sum with immediate children.
+        // just a sanity check, not definitive that this calc is correct...
+        assert(it->GetSizeWithDescendants() >= (uint64_t)(childSizes + it->GetTxSize()));
+
 
         if (fDependsWait)
             waitingOnDependants.push_back(&(*it));
@@ -1154,7 +1157,8 @@ bool CTxMemPool::existsProviderTxConflict(const CTransaction &tx) const
                 LogPrint(BCLog::MEMPOOL, "%s: ERROR: Invalid transaction payload, tx: %s", __func__, tx.ToString());
                 return true; // i.e. can't decode payload == conflict
             }
-            if (mapProTxAddresses.count(pl.addr) || mapProTxPubKeyIDs.count(pl.keyIDOwner) || mapProTxPubKeyIDs.count(pl.keyIDOperator)) {
+            if (mapProTxAddresses.count(pl.addr) || mapProTxPubKeyIDs.count(pl.keyIDOwner) ||
+                    mapProTxBlsPubKeyHashes.count(pl.pubKeyOperator.GetHash())) {
                 return true;
             }
             if (!pl.collateralOutpoint.hash.IsNull()) {
@@ -1186,8 +1190,8 @@ bool CTxMemPool::existsProviderTxConflict(const CTransaction &tx) const
                 LogPrint(BCLog::MEMPOOL, "%s: ERROR: Invalid transaction payload, tx: %s", __func__, tx.ToString());
                 return true; // i.e. can't decode payload == conflict
             }
-            auto it = mapProTxPubKeyIDs.find(pl.keyIDOperator);
-            return it != mapProTxPubKeyIDs.end() && it->second != pl.proTxHash;
+            auto it = mapProTxBlsPubKeyHashes.find(pl.pubKeyOperator.GetHash());
+            return it != mapProTxBlsPubKeyHashes.end() && it->second != pl.proTxHash;
         }
 
     }
@@ -1484,6 +1488,12 @@ void CTxMemPool::TrimToSize(size_t sizelimit, std::vector<COutPoint>* pvNoSpends
         LogPrint(BCLog::MEMPOOL, "Removed %u txn, rolling minimum fee bumped to %s\n", nTxnRemoved, maxFeeRateRemoved.ToString());
 }
 
+bool CTxMemPool::TransactionWithinChainLimit(const uint256& txid, size_t chainLimit) const {
+    LOCK(cs);
+    auto it = mapTx.find(txid);
+    return it == mapTx.end() || (it->GetCountWithAncestors() < chainLimit &&
+       it->GetCountWithDescendants() < chainLimit);
+}
 
 bool CTxMemPool::IsLoaded() const
 {

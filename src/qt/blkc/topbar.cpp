@@ -481,8 +481,9 @@ void TopBar::setNumBlocks(int count)
         if (masternodeSync.IsSynced()) {
             // Node synced
             ui->pushButtonSync->setButtonText(tr("Synchronized - Block: %1").arg(QString::number(count)));
-            progressBar->setRange(0,100);
+            progressBar->setRange(0, 100);
             progressBar->setValue(100);
+            Q_EMIT tierTwoSynced(true);
             return;
         } else {
 

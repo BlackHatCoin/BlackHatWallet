@@ -18,8 +18,7 @@
 #include "guiinterface.h"
 #include "qt/blkc/qtutils.h"
 #include "qt/blkc/defaultdialog.h"
-
-#include "init.h"
+#include "shutdown.h"
 #include "util/system.h"
 
 #include <QApplication>
@@ -127,6 +126,7 @@ BLKCGUI::BLKCGUI(const NetworkStyle* networkStyle, QWidget* parent) :
         addressesWidget = new AddressesWidget(this);
         masterNodesWidget = new MasterNodesWidget(this);
         coldStakingWidget = new ColdStakingWidget(this);
+        governancewidget = new GovernanceWidget(this);
         settingsWidget = new SettingsWidget(this);
 
         // Add to parent
@@ -136,6 +136,7 @@ BLKCGUI::BLKCGUI(const NetworkStyle* networkStyle, QWidget* parent) :
         stackedContainer->addWidget(addressesWidget);
         stackedContainer->addWidget(masterNodesWidget);
         stackedContainer->addWidget(coldStakingWidget);
+        stackedContainer->addWidget(governancewidget);
         stackedContainer->addWidget(settingsWidget);
         stackedContainer->setCurrentWidget(dashboard);
 
@@ -203,6 +204,8 @@ void BLKCGUI::connectActions()
     connect(masterNodesWidget, &MasterNodesWidget::execDialog, this, &BLKCGUI::execDialog);
     connect(coldStakingWidget, &ColdStakingWidget::showHide, this, &BLKCGUI::showHide);
     connect(coldStakingWidget, &ColdStakingWidget::execDialog, this, &BLKCGUI::execDialog);
+    connect(governancewidget, &GovernanceWidget::showHide, this, &BLKCGUI::showHide);
+    connect(governancewidget, &GovernanceWidget::execDialog, this, &BLKCGUI::execDialog);
     connect(settingsWidget, &SettingsWidget::execDialog, this, &BLKCGUI::execDialog);
 }
 
@@ -254,6 +257,7 @@ void BLKCGUI::setClientModel(ClientModel* _clientModel)
         sendWidget->setClientModel(clientModel);
         masterNodesWidget->setClientModel(clientModel);
         settingsWidget->setClientModel(clientModel);
+        governancewidget->setClientModel(clientModel);
 
         // Receive and report messages from client model
         connect(clientModel, &ClientModel::message, this, &BLKCGUI::message);
@@ -262,6 +266,7 @@ void BLKCGUI::setClientModel(ClientModel* _clientModel)
         });
         connect(topBar, &TopBar::walletSynced, dashboard, &DashboardWidget::walletSynced);
         connect(topBar, &TopBar::walletSynced, coldStakingWidget, &ColdStakingWidget::walletSynced);
+        connect(topBar, &TopBar::tierTwoSynced, governancewidget, &GovernanceWidget::tierTwoSynced);
 
         // Get restart command-line parameters and handle restart
         connect(settingsWidget, &SettingsWidget::handleRestart, [this](QStringList arg){handleRestart(arg);});
@@ -509,6 +514,11 @@ void BLKCGUI::goToColdStaking()
     showTop(coldStakingWidget);
 }
 
+void BLKCGUI::goToGovernance()
+{
+    showTop(governancewidget);
+}
+
 void BLKCGUI::goToSettings(){
     showTop(settingsWidget);
 }
@@ -610,6 +620,19 @@ void BLKCGUI::openFAQ(SettingsFaqWidget::Section section)
 
 
 #ifdef ENABLE_WALLET
+void BLKCGUI::setGovModel(GovernanceModel* govModel)
+{
+    if (!stackedContainer || !clientModel) return;
+    governancewidget->setGovModel(govModel);
+}
+
+void BLKCGUI::setMNModel(MNModel* mnModel)
+{
+    if (!stackedContainer || !clientModel) return;
+    governancewidget->setMNModel(mnModel);
+    masterNodesWidget->setMNModel(mnModel);
+}
+
 bool BLKCGUI::addWallet(const QString& name, WalletModel* walletModel)
 {
     // Single wallet supported for now..
@@ -625,6 +648,7 @@ bool BLKCGUI::addWallet(const QString& name, WalletModel* walletModel)
     addressesWidget->setWalletModel(walletModel);
     masterNodesWidget->setWalletModel(walletModel);
     coldStakingWidget->setWalletModel(walletModel);
+    governancewidget->setWalletModel(walletModel);
     settingsWidget->setWalletModel(walletModel);
 
     // Connect actions..
@@ -635,6 +659,7 @@ bool BLKCGUI::addWallet(const QString& name, WalletModel* walletModel)
     connect(sendWidget, &SendWidget::message,this, &BLKCGUI::message);
     connect(receiveWidget, &ReceiveWidget::message,this, &BLKCGUI::message);
     connect(addressesWidget, &AddressesWidget::message,this, &BLKCGUI::message);
+    connect(governancewidget, &GovernanceWidget::message,this, &BLKCGUI::message);
     connect(settingsWidget, &SettingsWidget::message, this, &BLKCGUI::message);
 
     // Pass through transaction notifications

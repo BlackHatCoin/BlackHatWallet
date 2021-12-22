@@ -8,7 +8,6 @@
 
 #include "qt/blkc/pwidget.h"
 #include "qt/blkc/furabstractlistitemdelegate.h"
-#include "qt/blkc/mnmodel.h"
 #include "qt/blkc/tooltipmenu.h"
 #include "walletmodel.h"
 
@@ -18,6 +17,7 @@
 #include <QWidget>
 
 class BLKCGUI;
+class MNModel;
 
 namespace Ui {
 class MasterNodesWidget;
@@ -35,8 +35,7 @@ public:
 
     explicit MasterNodesWidget(BLKCGUI *parent = nullptr);
     ~MasterNodesWidget();
-
-    void loadWalletModel() override;
+    void setMNModel(MNModel* _mnModel);
 
     void run(int type) override;
     void onError(QString error, int type) override;
@@ -68,7 +67,6 @@ private:
     bool checkMNsNetwork();
     void startAlias(const QString& strAlias);
     bool startAll(QString& failedMN, bool onlyMissing);
-    bool startMN(const CMasternodeConfig::CMasternodeEntry& mne, std::string& strError);
 };
 
 #endif // MASTERNODESWIDGET_H

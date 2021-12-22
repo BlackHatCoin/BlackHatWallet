@@ -144,7 +144,7 @@
            <item>
             <widget class="QLabel" name="labelCoinControlAmount">
              <property name="text">
-              <string>0.00 BLKC</string>
+              <string notr="true">N/A</string>
              </property>
             </widget>
            </item>
@@ -206,7 +206,7 @@ padding-right:4px;</string>
            <item>
             <widget class="QLabel" name="labelCoinControlQuantity">
              <property name="text">
-              <string>0</string>
+              <string notr="true">0</string>
              </property>
             </widget>
            </item>
@@ -591,7 +591,7 @@ padding-right:4px;</string>
            <item>
             <widget class="QLabel" name="labelCoinControlBytes">
              <property name="text">
-              <string>0</string>
+              <string notr="true">0</string>
              </property>
             </widget>
            </item>
@@ -683,7 +683,7 @@ padding-right:4px;</string>
            <item>
             <widget class="QLabel" name="labelCoinControlChange">
              <property name="text">
-              <string>0</string>
+              <string notr="true">0</string>
              </property>
             </widget>
            </item>

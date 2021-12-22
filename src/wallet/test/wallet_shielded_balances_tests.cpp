@@ -1,4 +1,4 @@
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
@@ -15,7 +15,6 @@
 #include "wallet/wallet.h"
 
 #include <boost/filesystem.hpp>
-
 #include <boost/test/unit_test.hpp>
 
 CAmount fee = COIN; // Hardcoded fee
@@ -50,7 +49,7 @@ CWalletTx& AddShieldedBalanceToWallet(CAmount inputAmount,
 {
 
     // Dummy wallet, used to generate the dummy transparent input key and sign it in the transaction builder
-    CWallet dummyWallet("dummy", CWalletDBWrapper::CreateDummy());
+    CWallet dummyWallet("dummy", WalletDatabase::CreateDummy());
     dummyWallet.SetMinVersion(FEATURE_SAPLING);
     dummyWallet.SetupSPKM(false, true);
     LOCK(dummyWallet.cs_wallet);
@@ -99,7 +98,7 @@ SaplingSpendValues UpdateWalletInternalNotesData(CWalletTx& wtx, const SaplingOu
             wtx.tx->sapData->vShieldedOutput[sapPoint.n].ephemeralKey,
             wtx.tx->sapData->vShieldedOutput[sapPoint.n].cmu);
     assert(static_cast<bool>(maybe_pt));
-    boost::optional<libzcash::SaplingNotePlaintext> notePlainText = maybe_pt.get();
+    Optional<libzcash::SaplingNotePlaintext> notePlainText = maybe_pt.get();
     libzcash::SaplingNote note = notePlainText->note(ivk).get();
 
     // Append note to the tree
@@ -163,7 +162,7 @@ BOOST_AUTO_TEST_CASE(GetShieldedSimpleCachedCreditAndDebit)
     CAmount firstDebitShieldedChange = firstDebit - fee;
 
     // Create the spending transaction
-    auto builder = TransactionBuilder(consensusParams, 1, &wallet);
+    auto builder = TransactionBuilder(consensusParams, &wallet);
     builder.SetFee(fee);
     builder.AddSaplingSpend(
             extskOut.expsk,
@@ -206,7 +205,7 @@ CWalletTx& buildTxAndLoadToWallet(CWallet& wallet, const libzcash::SaplingExtend
                                   const CAmount& destAmount, const Consensus::Params& consensus)
 {
     // Create the spending transaction
-    auto builder = TransactionBuilder(consensus, 1, &wallet);
+    auto builder = TransactionBuilder(consensus, &wallet);
     builder.SetFee(fee);
     builder.AddSaplingSpend(
             extskOut.expsk,
@@ -358,7 +357,7 @@ BOOST_AUTO_TEST_CASE(GetShieldedAvailableCredit)
 
     std::vector<SaplingOutPoint> ops = {saplingEntries[0].op};
     uint256 anchor;
-    std::vector<boost::optional<SaplingWitness>> witnesses;
+    std::vector<Optional<SaplingWitness>> witnesses;
     wallet.GetSaplingScriptPubKeyMan()->GetSaplingNoteWitnesses(ops, witnesses, anchor);
     SaplingSpendValues sapSpendValues{saplingEntries[0].note, anchor, *witnesses[0]};
 

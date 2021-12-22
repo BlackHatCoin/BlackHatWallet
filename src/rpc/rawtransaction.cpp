@@ -9,7 +9,6 @@
 #include "core_io.h"
 #include "evo/specialtx.h"
 #include "evo/providertx.h"
-#include "init.h"
 #include "keystore.h"
 #include "key_io.h"
 #include "validationinterface.h"

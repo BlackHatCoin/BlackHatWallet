@@ -120,6 +120,16 @@ class WalletlabelsTest(BlackHatTestFramework):
             label.verify(node)
             assert_raises_rpc_error(-11, "No addresses with label", node.getaddressesbylabel, "")
 
+        if not self.options.legacywallet:
+            # Check that setlabel can assign a label to a new unused shield address.
+            for label in labels:
+                shield_address = node.getnewshieldaddress()
+                node.setlabel(shield_address, label.name)
+                label.add_address(shield_address)
+                label.purpose[shield_address] = "shielded_receive"
+                label.verify(node)
+                assert_raises_rpc_error(-11, "No addresses with label", node.getaddressesbylabel, "")
+
         # Check that addmultisigaddress can assign labels.
         for label in labels:
             addresses = []

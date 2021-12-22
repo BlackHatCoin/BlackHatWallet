@@ -5,13 +5,12 @@ set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost COMPONENTS system filesystem thread unit_test_framework REQUIRED)
 
 set(JSON_TEST_FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/data/script_valid.json
+        ${CMAKE_CURRENT_SOURCE_DIR}/data/script_tests.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/base58_keys_valid.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/sig_canonical.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/sig_noncanonical.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/base58_encode_decode.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/base58_keys_invalid.json
-        ${CMAKE_CURRENT_SOURCE_DIR}/data/script_invalid.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/tx_invalid.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/tx_valid.json
         ${CMAKE_CURRENT_SOURCE_DIR}/data/sighash.json
@@ -118,6 +117,7 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/bech32_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/budget_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/bip32_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bls_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/checkblock_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Checkpoints_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/coins_tests.cpp
@@ -135,6 +135,7 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/key_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/dbwrapper_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/main_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/mnpayments_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/mempool_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/merkle_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/miner_tests.cpp
@@ -144,6 +145,7 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/pmt_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/policyestimator_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/prevector_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/raii_event_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/random_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/reverselock_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/rpc_tests.cpp

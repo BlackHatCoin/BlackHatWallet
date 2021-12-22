@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2020 The PIVX developers
+// Copyright (c) 2017-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -7,6 +7,23 @@
 
 #include "script/standard.h"
 #include "zblkcchain.h"
+
+static bool GetKeyIDFromUTXO(const CTxOut& utxo, CKeyID& keyIDRet)
+{
+    std::vector<valtype> vSolutions;
+    txnouttype whichType;
+    if (utxo.scriptPubKey.empty() || !Solver(utxo.scriptPubKey, whichType, vSolutions))
+        return false;
+    if (whichType == TX_PUBKEY) {
+        keyIDRet = CPubKey(vSolutions[0]).GetID();
+        return true;
+    }
+    if (whichType == TX_PUBKEYHASH || whichType == TX_COLDSTAKE) {
+        keyIDRet = CKeyID(uint160(vSolutions[0]));
+        return true;
+    }
+    return false;
+}
 
 bool SignBlockWithKey(CBlock& block, const CKey& key)
 {
@@ -22,7 +39,7 @@ bool SignBlock(CBlock& block, const CKeyStore& keystore)
     if (block.IsProofOfWork()) {
         bool fFoundID = false;
         for (const CTxOut& txout : block.vtx[0]->vout) {
-            if (!txout.GetKeyIDFromUTXO(keyID))
+            if (!GetKeyIDFromUTXO(txout, keyID))
                 continue;
             fFoundID = true;
             break;
@@ -30,7 +47,7 @@ bool SignBlock(CBlock& block, const CKeyStore& keystore)
         if (!fFoundID)
             return error("%s: failed to find key for PoW", __func__);
     } else {
-        if (!block.vtx[1]->vout[1].GetKeyIDFromUTXO(keyID))
+        if (!GetKeyIDFromUTXO(block.vtx[1]->vout[1], keyID))
             return error("%s: failed to find key for PoS", __func__);
     }
 

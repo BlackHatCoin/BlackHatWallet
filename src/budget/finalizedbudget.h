@@ -38,7 +38,7 @@ private:
     std::string strInvalid;
 
     // Functions used inside IsWellFormed/UpdateValid - setting strInvalid
-    bool IsExpired(int nCurrentHeight);
+    bool updateExpired(int nCurrentHeight);
     bool CheckStartEnd();
     bool CheckAmount(const CAmount& nTotalBudget);
     bool CheckName();
@@ -52,6 +52,8 @@ protected:
     std::string strProposals;
 
 public:
+    static constexpr unsigned int MAX_PROPOSALS_PER_CYCLE = 100;
+
     // Set in CBudgetManager::AddFinalizedBudget via CheckCollateral
     int64_t nTime;
 
@@ -85,7 +87,7 @@ public:
     int GetBlockStart() const { return nBlockStart; }
     int GetBlockEnd() const { return nBlockStart + (int)(vecBudgetPayments.size() - 1); }
     const uint256& GetFeeTXHash() const { return nFeeTXHash;  }
-    int GetVoteCount() const { return (int)mapVotes.size(); }
+    int GetVoteCount() const;
     std::vector<uint256> GetVotesHashes() const;
     bool IsPaidAlready(const uint256& nProposalHash, const uint256& nBlockHash, int nBlockHeight) const;
     TrxValidationStatus IsTransactionValid(const CTransaction& txNew, const uint256& nBlockHash, int nBlockHeight) const;

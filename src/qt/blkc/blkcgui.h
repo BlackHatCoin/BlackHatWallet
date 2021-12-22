@@ -22,6 +22,7 @@
 #include "qt/blkc/receivewidget.h"
 #include "qt/blkc/addresseswidget.h"
 #include "qt/blkc/coldstakingwidget.h"
+#include "qt/blkc/governancewidget.h"
 #include "qt/blkc/masternodeswidget.h"
 #include "qt/blkc/snackbar.h"
 #include "qt/blkc/settings/settingswidget.h"
@@ -71,6 +72,7 @@ public Q_SLOTS:
     void goToReceive();
     void goToAddresses();
     void goToMasterNodes();
+    void goToGovernance();
     void goToColdStaking();
     void goToSettings();
     void goToSettingsInfo();
@@ -97,6 +99,8 @@ public Q_SLOTS:
     /** Show incoming transaction notification for new transactions. */
     void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address);
 #ifdef ENABLE_WALLET
+    void setGovModel(GovernanceModel* govModel);
+    void setMNModel(MNModel* mnModel);
     /** Set the wallet model.
         The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
         functionality.
@@ -139,6 +143,7 @@ private:
     AddressesWidget *addressesWidget = nullptr;
     MasterNodesWidget *masterNodesWidget = nullptr;
     ColdStakingWidget *coldStakingWidget = nullptr;
+    GovernanceWidget* governancewidget{nullptr};
     SettingsWidget* settingsWidget = nullptr;
 
     SnackBar *snackBar = nullptr;
@@ -169,7 +174,7 @@ private:
     void unsubscribeFromCoreSignals();
 
 public Q_SLOTS:
-    /** called by a timer to check if fRequestShutdown has been set **/
+    /** called by a timer to check if ShutdownRequested() **/
     void detectShutdown();
 
 private Q_SLOTS:

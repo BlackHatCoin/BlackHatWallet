@@ -61,8 +61,14 @@ extern bool fPayAtLeastCustomFee;
 static const CAmount DEFAULT_TRANSACTION_FEE = 0;
 //! -paytxfee will warn if called with a higher fee than this amount (in satoshis) per KB
 static const CAmount nHighTransactionFeeWarning = 0.1 * COIN;
+//! -mintxfee default
+static const CAmount DEFAULT_TRANSACTION_MINFEE = 10000;
 //! -maxtxfee default
 static const CAmount DEFAULT_TRANSACTION_MAXFEE = 1 * COIN;
+//! minimum change amount
+static const CAmount MIN_CHANGE = CENT;
+//! -txconfirmtarget default
+static const unsigned int DEFAULT_TX_CONFIRM_TARGET = 1;
 //! -maxtxfee will warn if called with a higher fee than this amount (in satoshis)
 static const CAmount nHighTransactionMaxFeeWarning = 100 * nHighTransactionFeeWarning;
 //! -minstakesplit default
@@ -600,7 +606,7 @@ private:
     std::string m_name;
 
     /** Internal database handle. */
-    std::unique_ptr<CWalletDBWrapper> dbw;
+    std::unique_ptr<WalletDatabase> database;
 
     /**
      * The following is used to keep track of how far behind the wallet is
@@ -663,6 +669,9 @@ private:
                                                      const bool fIncludeDelegated,
                                                      const bool fIncludeLocked) const;
 
+    /** Return the selected known outputs */
+    std::vector<COutput> GetOutputsFromCoinControl(const CCoinControl* coinControl);
+
     //! Destination --> label/purpose mapping.
     std::map<CWDestination, AddressBook::CAddressBookData> mapAddressBook;
 
@@ -684,6 +693,8 @@ public:
         assert(m_last_block_processed_height >= 0);
         return m_last_block_processed_height;
     };
+    /** Get last block processed height locking the wallet */
+    int GetLastBlockHeightLockWallet() const;
     /** Set last block processed height, currently only use in unit test */
     void SetLastBlockProcessed(const CBlockIndex* pindex) EXCLUSIVE_LOCKS_REQUIRED(cs_wallet)
     {
@@ -711,7 +722,7 @@ public:
 
     bool fWalletUnlockStaking;
 
-    CWalletDB* pwalletdbEncryption;
+    WalletBatch* encrypted_batch;
 
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
 
@@ -737,18 +748,18 @@ public:
     /** Get database handle used by this wallet. Ideally this function would
      * not be necessary.
      */
-    CWalletDBWrapper* GetDBHandlePtr() const { return dbw.get(); }
-    CWalletDBWrapper& GetDBHandle() const { return *dbw; }
+    WalletDatabase* GetDBHandlePtr() const { return database.get(); }
+    WalletDatabase& GetDBHandle() const { return *database; }
 
     /** Get a name for this wallet for logging/debugging purposes.
      */
     const std::string& GetName() const { return m_name; }
 
     /** Get the path to the wallet's db file */
-    fs::path GetPathToDBFile() { return dbw->GetPathToFile(); }
+    fs::path GetPathToDBFile() { return database->GetPathToFile(); }
 
     /** Construct wallet with specified name and database implementation. */
-    CWallet(std::string name, std::unique_ptr<CWalletDBWrapper> dbw_in);
+    CWallet(std::string name, std::unique_ptr<WalletDatabase> dbw_in);
     ~CWallet();
     void SetNull();
 
@@ -808,14 +819,21 @@ public:
         unsigned int nMaximumCount{0}; // 0 means not active
     };
 
-    //! >> Available coins (generic)
+    /**
+     * populate vCoins with vector of available COutputs.
+     */
     bool AvailableCoins(std::vector<COutput>* pCoins,   // --> populates when != nullptr
                         const CCoinControl* coinControl = nullptr,
                         AvailableCoinsFilter coinsFilter = AvailableCoinsFilter()
                         ) const;
     //! >> Available coins (spending)
     bool SelectCoinsToSpend(const std::vector<COutput>& vAvailableCoins, const CAmount& nTargetValue, std::set<std::pair<const CWalletTx*, unsigned int> >& setCoinsRet, CAmount& nValueRet, const CCoinControl* coinControl = nullptr) const;
-    bool SelectCoinsMinConf(const CAmount& nTargetValue, int nConfMine, int nConfTheirs, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*, unsigned int> >& setCoinsRet, CAmount& nValueRet) const;
+
+    /**
+     * Select coins until nTargetValue is reached. Return the actual value
+     * and the corresponding coin set.
+     */
+    bool SelectCoinsMinConf(const CAmount& nTargetValue, int nConfMine, int nConfTheirs, uint64_t nMaxAncestors, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*, unsigned int> >& setCoinsRet, CAmount& nValueRet) const;
     //! >> Available coins (staking)
     bool StakeableCoins(std::vector<CStakeableOutput>* pCoins = nullptr);
     //! >> Available coins (P2CS)
@@ -990,7 +1008,7 @@ public:
      * Increment the next transaction order id
      * @return next transaction order id
      */
-    int64_t IncOrderPosNext(CWalletDB* pwalletdb = NULL);
+    int64_t IncOrderPosNext(WalletBatch* batch = NULL);
 
     void MarkDirty();
     bool AddToWallet(const CWalletTx& wtxIn, bool fFlushOnClose = true);
@@ -1050,7 +1068,7 @@ public:
         CAmount& nFeeRet,
         int& nChangePosInOut,
         std::string& strFailReason,
-        const CCoinControl* coinControl = NULL,
+        const CCoinControl* coinControl = nullptr,
         bool sign = true,
         CAmount nFeePay = 0,
         bool fIncludeDelegated = false,
@@ -1058,7 +1076,7 @@ public:
         int nExtraSize = 0,
         int nMinDepth = 0);
 
-    bool CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CTransactionRef& tx, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl = NULL, CAmount nFeePay = 0, bool fIncludeDelegated = false);
+    bool CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CTransactionRef& tx, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl = nullptr, CAmount nFeePay = 0, bool fIncludeDelegated = false, bool* fStakeDelegationVoided = nullptr, int nExtraSize = 0, int nMinDepth = 0);
 
     // enumeration for CommitResult (return status of CommitTransaction)
     enum CommitStatus
@@ -1077,12 +1095,13 @@ public:
         std::string ToString() const;
     };
     CWallet::CommitResult CommitTransaction(CTransactionRef tx, CReserveKey& opReservekey, CConnman* connman);
-    CWallet::CommitResult CommitTransaction(CTransactionRef tx, CReserveKey* reservekey, CConnman* connman);
+    CWallet::CommitResult CommitTransaction(CTransactionRef tx, CReserveKey* reservekey, CConnman* connman, mapValue_t* extraValues=nullptr);
     bool CreateCoinStake(const CBlockIndex* pindexPrev,
                          unsigned int nBits,
                          CMutableTransaction& txNew,
                          int64_t& nTxNewTime,
-                         std::vector<CStakeableOutput>* availableCoins) const;
+                         std::vector<CStakeableOutput>* availableCoins,
+                         bool stopOnNewBlock = true) const;
     bool SignCoinStake(CMutableTransaction& txNew) const;
     void AutoCombineDust(CConnman* connman);
 
@@ -1123,7 +1142,7 @@ public:
     CAmount GetChange(const CTransactionRef& tx) const;
 
     void SetBestChain(const CBlockLocator& loc) override;
-    void SetBestChainInternal(CWalletDB& walletdb, const CBlockLocator& loc); // only public for testing purposes, must never be called directly in any other situation
+    void SetBestChainInternal(WalletBatch& batch, const CBlockLocator& loc); // only public for testing purposes, must never be called directly in any other situation
     // Force balance recomputation if any transaction got conflicted
     void MarkAffectedTransactionsDirty(const CTransaction& tx); // only public for testing purposes, must never be called directly in any other situation
 
@@ -1150,7 +1169,7 @@ public:
     unsigned int GetStakingKeyPoolSize();
 
     //! signify that a particular wallet feature is now used. this may change nWalletVersion and nWalletMaxVersion if those are lower
-    bool SetMinVersion(enum WalletFeature, CWalletDB* pwalletdbIn = NULL, bool fExplicit = false);
+    bool SetMinVersion(enum WalletFeature, WalletBatch* batch_in = NULL, bool fExplicit = false);
 
     //! change which version we're allowed to upgrade to (note that this does not immediately imply upgrading to that format)
     bool SetMaxVersion(int nVersion);

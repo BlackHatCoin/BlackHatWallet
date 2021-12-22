@@ -3,7 +3,6 @@ QT_TS = \
   qt/locale/blkc_en.ts \
   qt/locale/blkc_en_US.ts \
   qt/locale/blkc_es.ts \
-  qt/locale/blkc_es_ES.ts \
   qt/locale/blkc_fr_FR.ts \
   qt/locale/blkc_hr_HR.ts \
   qt/locale/blkc_it.ts \

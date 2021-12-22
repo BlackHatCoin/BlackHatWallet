@@ -11,6 +11,7 @@
 #include "key.h"
 #include "messagesigner.h"
 #include "net.h"
+#include "primitives/transaction.h"
 #include "serialize.h"
 #include "sync.h"
 #include "timedata.h"
@@ -59,7 +60,7 @@ public:
     const CTxIn GetVin() const { return vin; };
     bool IsNull() const { return blockHash.IsNull() || vin.prevout.IsNull(); }
 
-    bool CheckAndUpdate(int& nDos, int nChainHeight, bool fRequireAvailable = true, bool fCheckSigTimeOnly = false);
+    bool CheckAndUpdate(int& nDos, bool fRequireAvailable = true, bool fCheckSigTimeOnly = false);
     void Relay();
 
     CMasternodePing& operator=(const CMasternodePing& other) = default;
@@ -163,7 +164,7 @@ public:
         Unserialize(s);
     }
 
-    bool UpdateFromNewBroadcast(CMasternodeBroadcast& mnb, int chainHeight);
+    bool UpdateFromNewBroadcast(CMasternodeBroadcast& mnb);
 
     CMasternode::state GetActiveState() const;
 
@@ -220,9 +221,6 @@ public:
 
     bool IsValidNetAddr() const;
 
-    /// Is the input associated with collateral public key? (and there is 5000 BLKC - checking if valid masternode)
-    bool IsInputAssociatedWithPubkey() const;
-
     /*
      * This is used only by the compatibility code for DMN, which don't share the public key (but the keyid).
      * Used by the payment-logic to include the necessary information in a temporary MasternodeRef object
@@ -250,8 +248,7 @@ public:
     CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubKey newPubkey, CPubKey newPubkey2, int protocolVersionIn, const CMasternodePing& _lastPing);
     CMasternodeBroadcast(const CMasternode& mn);
 
-    bool CheckAndUpdate(int& nDoS, int nChainHeight);
-    bool CheckInputsAndAdd(int chainHeight, int& nDos);
+    bool CheckAndUpdate(int& nDoS);
 
     uint256 GetHash() const;
 

@@ -51,7 +51,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
 
     def register_masternode(self, from_node, dmn, collateral_addr):
         dmn.proTx = from_node.protx_register_fund(collateral_addr, dmn.ipport, dmn.owner,
-                                                  dmn.operator, dmn.voting, dmn.payee)
+                                                  dmn.operator_pk, dmn.voting, dmn.payee)
         dmn.collateral = COutPoint(int(dmn.proTx, 16),
                                    get_collateral_vout(from_node.getrawtransaction(dmn.proTx, True)))
 
@@ -142,7 +142,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         self.log.info("Testing in-mempool duplicate-operator rejection...")
         dmn_A2 = create_new_dmn(free_idx, nodeA, collateral_addr, None)
         free_idx += 1
-        dmn_A2.operator = mempool_dmn1.operator
+        dmn_A2.operator_pk = mempool_dmn1.operator_pk
         assert_raises_rpc_error(-26, "protx-dup",
                                 self.register_masternode, nodeA, dmn_A2, collateral_addr)
         assert dmn_A2.proTx not in nodeA.getrawmempool()
@@ -171,24 +171,28 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         self.protx_register_ext(nodeA, nodeA, mempool_dmn4, mempool_dmn4.collateral, True)
 
         # Now send a valid proUpServ tx to the mempool, without mining it
-        proupserv1_txid = nodeA.protx_update_service(pre_split_mn1.proTx, "127.0.0.1:1000")
+        proupserv1_txid = nodeA.protx_update_service(pre_split_mn1.proTx,
+                                                     "127.0.0.1:1000", "", pre_split_mn1.operator_sk)
 
         # Try sending another update, reusing the same ip of the previous mempool tx
         self.log.info("Testing proUpServ in-mempool duplicate-IP rejection...")
-        assert_raises_rpc_error(-26, "protx-dup", nodeA.protx_update_service, mnsA[0].proTx, "127.0.0.1:1000")
+        assert_raises_rpc_error(-26, "protx-dup", nodeA.protx_update_service,
+                                mnsA[0].proTx, "127.0.0.1:1000", "", mnsA[0].operator_sk)
 
         # Now send other two valid proUpServ txes to the mempool, without mining them
-        proupserv2_txid = nodeA.protx_update_service(mnsA[3].proTx, "127.0.0.1:2000")
-        proupserv3_txid = nodeA.protx_update_service(pre_split_mn1.proTx, "127.0.0.1:1001")
+        proupserv2_txid = nodeA.protx_update_service(mnsA[3].proTx,
+                                                     "127.0.0.1:2000", "", mnsA[3].operator_sk)
+        proupserv3_txid = nodeA.protx_update_service(pre_split_mn1.proTx,
+                                                     "127.0.0.1:1001", "", pre_split_mn1.operator_sk)
 
         # Send valid proUpReg tx to the mempool
-        operator_to_reuse = nodeA.getnewaddress()
+        operator_to_reuse = nodeA.generateblskeypair()["public"]
         proupreg1_txid = nodeA.protx_update_registrar(mnsA[4].proTx, operator_to_reuse, "", "")
 
         # Try sending another one, reusing the operator key used by another mempool proTx
         self.log.info("Testing proUpReg in-mempool duplicate-operator-key rejection...")
         assert_raises_rpc_error(-26, "protx-dup", nodeA.protx_update_registrar,
-                                mnsA[5].proTx, mempool_dmn1.operator, "", "")
+                                mnsA[5].proTx, mempool_dmn1.operator_pk, "", "")
 
         # Now send other two valid proUpServ txes to the mempool, without mining them
         new_voting_address = nodeA.getnewaddress()
@@ -197,8 +201,8 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
 
         # Send two valid proUpRev txes to the mempool, without mining them
         self.log.info("Revoking two masternodes...")
-        prouprev1_txid = nodeA.protx_revoke(mnsA[6].proTx)
-        prouprev2_txid = nodeA.protx_revoke(pre_split_mn2.proTx)
+        prouprev1_txid = nodeA.protx_revoke(mnsA[6].proTx, mnsA[6].operator_sk)
+        prouprev2_txid = nodeA.protx_revoke(pre_split_mn2.proTx, pre_split_mn2.operator_sk)
 
         # Now nodeA has 4 proReg txes in its mempool, 3 proUpServ txes, 3 proUpReg txes, and 2 proUpRev
         mempoolA = nodeA.getrawmempool()
@@ -269,7 +273,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         # Register one masternode reusing the operator-key of the proUpReg mempool tx on chainA
         dmnop = create_new_dmn(free_idx, nodeB, collateral_addr, None)
         free_idx += 1
-        dmnop.operator = operator_to_reuse
+        dmnop.operator_pk = operator_to_reuse
         mnsB.append(dmnop)
         self.register_masternode(nodeB, dmnop, collateral_addr)
 
@@ -329,7 +333,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         assert rereg_mn.proTx not in mempoolA
         assert replay_mn.proTx not in mempoolA
         assert pre_split_mn1.proTx not in mempoolA
-        assert pre_split_mn1.proTx not in mempoolA
+        assert pre_split_mn2.proTx not in mempoolA
 
         # Mine a block from nodeA so the mempool txes get included
         self.log.info("Mining mempool txes...")
@@ -345,9 +349,10 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         pre_split_mn1.voting = new_voting_address
         mnsB.append(pre_split_mn1)
         # prouprev2 has revoked pre_split masternode 2
-        pre_split_mn2.ipport = "[::]:0"
-        pre_split_mn2.operator = ""
-        pre_split_mn2.operator_key = None
+        mnsB.remove(pre_split_mn2)
+        pre_split_mn2.revoked()
+        mnsB.append(pre_split_mn2)
+
         # the ProReg txes, that were added back to the mempool from the
         # disconnected blocks, have been mined again
         mns_all = mnsA + mnsB

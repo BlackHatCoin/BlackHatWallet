@@ -157,8 +157,16 @@ AC_DEFINE([LOWER],   [8], [Use implementation provided by the lower layer.])
 use_pkgconfig=yes
 case $host in
   *darwin*)
-     CPU_ARCH="x64"
-     AC_DEFINE([ARCH], [X64], [Architecture.])
+     case $host_cpu in
+       x86_64)
+         CPU_ARCH="x64"
+         AC_DEFINE([ARCH], [X64], [Architecture.])
+         ;;
+       aarch*)
+         CPU_ARCH="none"
+         AC_DEFINE([ARCH], [ARM], [Architecture.])
+         ;;
+     esac
      AC_DEFINE([WSIZE], [64], [Size of word in this architecture.])
      AC_DEFINE([SEED], [UDEV], [Chosen random generator seeder.])
      AC_DEFINE([FP_QNRES], [], [Use -1 as quadratic non-residue.])
@@ -172,8 +180,8 @@ case $host in
 
          gmp_prefix=`$BREW --prefix gmp 2>/dev/null`
          if test x$gmp_prefix != x; then
-           GMP_CPPFLAGS="-I$gmp_prefix/include"
-           GMP_LIBS="-L$gmp_prefix/lib"
+           CPPFLAGS="$CPPFLAGS -I$gmp_prefix/include"
+           LIBS="$LIBS -L$gmp_prefix/lib"
          fi
        fi
      fi
@@ -387,7 +395,7 @@ AC_DEFINE(MULTI, PTHREAD, Chosen multithreading API.)
 AC_DEFINE(TIMER, CYCLE, Chosen timer.)
 
 
-AC_CHECK_HEADER(gmp.h,[AC_CHECK_LIB(gmp, __gmpz_init,[has_gmp=yes; GMP_LIBS=-lgmp;])], AC_MSG_ERROR(gmp headers missing),)
+AC_CHECK_HEADER(gmp.h,[AC_CHECK_LIB(gmp, __gmpz_init,[has_gmp=yes; LIBS="$LIBS -lgmp";])], AC_MSG_ERROR(gmp headers missing),)
 
 if test x$has_gmp = xyes; then
   AC_DEFINE(ARITH, GMP, Arithmetic backend.)
@@ -452,8 +460,6 @@ AC_SUBST(CPU_ARCH)
 AC_SUBST(RAND_PATH, hashd)
 AC_SUBST(SODIUM_CPPFLAGS)
 AC_SUBST(SODIUM_LIBS)
-AC_SUBST(GMP_CPPFLAGS)
-AC_SUBST(GMP_LIBS)
 AC_SUBST(RELIC_CPPFLAGS)
 AC_SUBST(WARN_CFLAGS)
 AC_SUBST(NOWARN_CFLAGS)

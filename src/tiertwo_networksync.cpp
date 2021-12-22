@@ -94,6 +94,9 @@ bool CMasternodeSync::MessageDispatcher(CNode* pfrom, std::string& strCommand, C
         int nCount;
         vRecv >> nItemID >> nCount;
 
+        // Update stats
+        ProcessSyncStatusMsg(nItemID, nCount);
+
         // this means we will receive no further communication on the first sync
         switch (nItemID) {
             case MASTERNODE_SYNC_LIST: {
@@ -129,12 +132,12 @@ void CMasternodeSync::PushMessage(CNode* pnode, const char* msg, Args&&... args)
 template <typename... Args>
 void CMasternodeSync::RequestDataTo(CNode* pnode, const char* msg, bool forceRequest, Args&&... args)
 {
-    const auto& it = peersSyncState.find(pnode->id);
+    const auto& it = peersSyncState.find(pnode->GetId());
     bool exist = it != peersSyncState.end();
     if (!exist || forceRequest) {
         // Erase it if this is a forced request
         if (exist) {
-            peersSyncState.at(pnode->id).mapMsgData.erase(msg);
+            peersSyncState.at(pnode->GetId()).mapMsgData.erase(msg);
         }
         // send the message
         PushMessage(pnode, msg, std::forward<Args>(args)...);
@@ -142,7 +145,7 @@ void CMasternodeSync::RequestDataTo(CNode* pnode, const char* msg, bool forceReq
         // Add data to the tier two peers sync state
         TierTwoPeerData peerData;
         peerData.mapMsgData.emplace(msg, std::make_pair(GetTime(), false));
-        peersSyncState.emplace(pnode->id, peerData);
+        peersSyncState.emplace(pnode->GetId(), peerData);
     } else {
         // Check if we have sent the message or not
         TierTwoPeerData& peerData = it->second;

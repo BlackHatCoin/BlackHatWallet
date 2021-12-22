@@ -7,6 +7,7 @@
 #include "activemasternode.h"
 
 #include "addrman.h"
+#include "bls/bls_wrapper.h"
 #include "evo/providertx.h"
 #include "masternode-sync.h"
 #include "masternode.h"
@@ -15,6 +16,7 @@
 #include "messagesigner.h"
 #include "netbase.h"
 #include "protocol.h"
+#include "validation.h"
 
 // Keep track of the active Masternode
 CActiveDeterministicMasternodeManager* activeMasternodeManager{nullptr};
@@ -55,19 +57,19 @@ std::string CActiveDeterministicMasternodeManager::GetStatus() const
 
 OperationResult CActiveDeterministicMasternodeManager::SetOperatorKey(const std::string& strMNOperatorPrivKey)
 {
-
     LOCK(cs_main); // Lock cs_main so the node doesn't perform any action while we setup the Masternode
     LogPrintf("Initializing deterministic masternode...\n");
     if (strMNOperatorPrivKey.empty()) {
         return errorOut("ERROR: Masternode operator priv key cannot be empty.");
     }
-    if (!CMessageSigner::GetKeysFromSecret(strMNOperatorPrivKey, info.keyOperator, info.keyIDOperator)) {
+    if (!info.keyOperator.SetHexStr(strMNOperatorPrivKey)) {
         return errorOut(_("Invalid mnoperatorprivatekey. Please see the documentation."));
     }
+    info.pubKeyOperator = info.keyOperator.GetPublicKey();
     return OperationResult(true);
 }
 
-OperationResult CActiveDeterministicMasternodeManager::GetOperatorKey(CKey& key, CKeyID& keyID, CDeterministicMNCPtr& dmn) const
+OperationResult CActiveDeterministicMasternodeManager::GetOperatorKey(CBLSSecretKey& key, CDeterministicMNCPtr& dmn) const
 {
     if (!IsReady()) {
         return errorOut("Active masternode not ready");
@@ -76,12 +78,11 @@ OperationResult CActiveDeterministicMasternodeManager::GetOperatorKey(CKey& key,
     if (!dmn) {
         return errorOut(strprintf("Active masternode %s not registered or PoSe banned", info.proTxHash.ToString()));
     }
-    if (info.keyIDOperator != dmn->pdmnState->keyIDOperator) {
+    if (info.pubKeyOperator != dmn->pdmnState->pubKeyOperator.Get()) {
         return errorOut("Active masternode operator key changed or revoked");
     }
-    // return keys
+    // return key
     key = info.keyOperator;
-    keyID = info.keyIDOperator;
     return OperationResult(true);
 }
 
@@ -120,18 +121,14 @@ void CActiveDeterministicMasternodeManager::Init()
 
     CDeterministicMNList mnList = deterministicMNManager->GetListAtChainTip();
 
-    CDeterministicMNCPtr dmn = mnList.GetMNByOperatorKey(info.keyIDOperator);
+    CDeterministicMNCPtr dmn = mnList.GetMNByOperatorKey(info.pubKeyOperator);
     if (!dmn) {
         // MN not appeared on the chain yet
         return;
     }
 
-    if (!mnList.IsMNValid(dmn->proTxHash)) {
-        if (mnList.IsMNPoSeBanned(dmn->proTxHash)) {
-            state = MASTERNODE_POSE_BANNED;
-        } else {
-            state = MASTERNODE_REMOVED;
-        }
+    if (dmn->IsPoSeBanned()) {
+        state = MASTERNODE_POSE_BANNED;
         return;
     }
 
@@ -152,7 +149,7 @@ void CActiveDeterministicMasternodeManager::Init()
         const std::string& strService = info.service.ToString();
         LogPrintf("%s: Checking inbound connection to '%s'\n", __func__, strService);
         SOCKET hSocket;
-        bool fConnected = ConnectSocket(info.service, hSocket, nConnectTimeout) && IsSelectableSocket(hSocket);
+        bool fConnected = ConnectSocketDirectly(info.service, hSocket, nConnectTimeout) && IsSelectableSocket(hSocket);
         CloseSocket(hSocket);
 
         if (!fConnected) {
@@ -182,17 +179,22 @@ void CActiveDeterministicMasternodeManager::UpdatedBlockTip(const CBlockIndex* p
         return;
 
     if (state == MASTERNODE_READY) {
-        auto oldMNList = deterministicMNManager->GetListForBlock(pindexNew->pprev);
-        auto newMNList = deterministicMNManager->GetListForBlock(pindexNew);
-        if (!newMNList.IsMNValid(info.proTxHash)) {
+        auto newDmn = deterministicMNManager->GetListForBlock(pindexNew).GetValidMN(info.proTxHash);
+        if (newDmn == nullptr) {
             // MN disappeared from MN list
             Reset(MASTERNODE_REMOVED);
             return;
         }
 
-        auto oldDmn = oldMNList.GetMN(info.proTxHash);
-        auto newDmn = newMNList.GetMN(info.proTxHash);
-        if (newDmn->pdmnState->keyIDOperator != oldDmn->pdmnState->keyIDOperator) {
+        auto oldDmn = deterministicMNManager->GetListForBlock(pindexNew->pprev).GetMN(info.proTxHash);
+        if (oldDmn == nullptr) {
+            // should never happen if state is MASTERNODE_READY
+            LogPrintf("%s: WARNING: unable to find active mn %s in prev block list %s\n",
+                      __func__, info.proTxHash.ToString(), pindexNew->pprev->GetBlockHash().ToString());
+            return;
+        }
+
+        if (newDmn->pdmnState->pubKeyOperator != oldDmn->pdmnState->pubKeyOperator) {
             // MN operator key changed or revoked
             Reset(MASTERNODE_OPERATOR_KEY_CHANGED);
             return;
@@ -236,15 +238,12 @@ OperationResult initMasternode(const std::string& _strMasterNodePrivKey, const s
         return errorOut("ERROR: Empty masternodeaddr");
     }
 
-    // Global params set
-    strMasterNodeAddr = _strMasterNodeAddr;
-
     // Address parsing.
     const CChainParams& params = Params();
     int nPort = 0;
     int nDefaultPort = params.GetDefaultPort();
     std::string strHost;
-    SplitHostPort(strMasterNodeAddr, nPort, strHost);
+    SplitHostPort(_strMasterNodeAddr, nPort, strHost);
 
     // Allow for the port number to be omitted here and just double check
     // that if a port is supplied, it matches the required default port.
@@ -255,7 +254,7 @@ OperationResult initMasternode(const std::string& _strMasterNodePrivKey, const s
     }
     CService addrTest(LookupNumeric(strHost.c_str(), nPort));
     if (!addrTest.IsValid()) {
-        return errorOut(strprintf(_("Invalid -masternodeaddr address: %s"), strMasterNodeAddr));
+        return errorOut(strprintf(_("Invalid -masternodeaddr address: %s"), _strMasterNodeAddr));
     }
 
     // Peer port needs to match the masternode public one for IPv4 and IPv6.
@@ -318,7 +317,7 @@ void CActiveMasternode::ManageStatus()
 
     if (status == ACTIVE_MASTERNODE_SYNC_IN_PROCESS) status = ACTIVE_MASTERNODE_INITIAL;
 
-    if (status == ACTIVE_MASTERNODE_INITIAL) {
+    if (status == ACTIVE_MASTERNODE_INITIAL || (pmn && status == ACTIVE_MASTERNODE_NOT_CAPABLE)) {
         if (pmn) {
             if (pmn->protocolVersion != PROTOCOL_VERSION) {
                 LogPrintf("%s: ERROR Trying to start a masternode running an old protocol version, "
@@ -469,32 +468,39 @@ void CActiveMasternode::GetKeys(CKey& _privKeyMasternode, CPubKey& _pubKeyMaster
     _pubKeyMasternode = pubKeyMasternode;
 }
 
-bool GetActiveMasternodeKeys(CKey& key, CKeyID& keyID, CTxIn& vin)
+bool GetActiveDMNKeys(CBLSSecretKey& key, CTxIn& vin)
+{
+    if (activeMasternodeManager == nullptr) {
+        return error("%s: Active Masternode not initialized", __func__);
+    }
+    CDeterministicMNCPtr dmn;
+    auto res = activeMasternodeManager->GetOperatorKey(key, dmn);
+    if (!res) {
+        return error("%s: %s", __func__, res.getError());
+    }
+    vin = CTxIn(dmn->collateralOutpoint);
+    return true;
+}
+
+bool GetActiveMasternodeKeys(CTxIn& vin, Optional<CKey>& key, CBLSSecretKey& blsKey)
 {
     if (activeMasternodeManager != nullptr) {
         // deterministic mn
-        CDeterministicMNCPtr dmn;
-        auto res = activeMasternodeManager->GetOperatorKey(key, keyID, dmn);
-        if (!res) {
-            LogPrint(BCLog::MNBUDGET,"%s: %s\n", __func__, res.getError());
-            return false;
-        }
-        vin = CTxIn(dmn->collateralOutpoint);
-        return true;
+        key = nullopt;
+        return GetActiveDMNKeys(blsKey, vin);
     }
-
     // legacy mn
     if (activeMasternode.vin == nullopt) {
-        LogPrint(BCLog::MNBUDGET,"%s: Active Masternode not initialized\n", __func__);
-        return false;
+        return error("%s: Active Masternode not initialized", __func__);
     }
     if (activeMasternode.GetStatus() != ACTIVE_MASTERNODE_STARTED) {
-        LogPrint(BCLog::MNBUDGET,"%s: MN not started (%s)\n", __func__, activeMasternode.GetStatusMessage());
-        return false;
+        return error("%s: MN not started (%s)", __func__, activeMasternode.GetStatusMessage());
     }
-    CPubKey mnPubKey;
-    activeMasternode.GetKeys(key, mnPubKey);
-    keyID = mnPubKey.GetID();
     vin = *activeMasternode.vin;
+    CKey sk;
+    CPubKey pk;
+    activeMasternode.GetKeys(sk, pk);
+    key = Optional<CKey>(sk);
+    blsKey.Reset();
     return true;
 }

@@ -24,19 +24,19 @@ TooltipMenu::TooltipMenu(BLKCGUI *_window, QWidget *parent) :
     connect(ui->btnLast, &QPushButton::clicked, this, &TooltipMenu::lastClicked);
 }
 
-void TooltipMenu::setEditBtnText(QString btnText){
+void TooltipMenu::setEditBtnText(const QString& btnText){
     ui->btnEdit->setText(btnText);
 }
 
-void TooltipMenu::setDeleteBtnText(QString btnText){
+void TooltipMenu::setDeleteBtnText(const QString& btnText){
     ui->btnDelete->setText(btnText);
 }
 
-void TooltipMenu::setCopyBtnText(QString btnText){
+void TooltipMenu::setCopyBtnText(const QString& btnText){
     ui->btnCopy->setText(btnText);
 }
 
-void TooltipMenu::setLastBtnText(QString btnText, int minHeight){
+void TooltipMenu::setLastBtnText(const QString& btnText, int minHeight){
     ui->btnLast->setText(btnText);
     ui->btnLast->setMinimumHeight(minHeight);
 }

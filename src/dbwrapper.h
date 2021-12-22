@@ -173,11 +173,6 @@ public:
         return CDataStream(slKey.data(), slKey.data() + slKey.size(), SER_DISK, CLIENT_VERSION);
     }
 
-    unsigned int GetKeySize()
-    {
-        return piter->key().size();
-    }
-
     template<typename V> bool GetValue(V& value)
     {
         leveldb::Slice slValue = piter->value();
@@ -484,18 +479,6 @@ public:
             return parentIt->GetKey();
         } else {
             return transactionIt->first;
-        }
-    }
-
-    unsigned int GetKeySize()
-    {
-        if (!Valid()) {
-            return 0;
-        }
-        if (curIsParent) {
-            return parentIt->GetKeySize();
-        } else {
-            return transactionIt->first.vKey.size();
         }
     }
 

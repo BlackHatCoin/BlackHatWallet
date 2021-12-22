@@ -50,6 +50,12 @@ QT_FORMS_UI = \
   qt/blkc/forms/addresseswidget.ui \
   qt/blkc/forms/defaultdialog.ui \
   qt/blkc/forms/coldstakingwidget.ui \
+  qt/blkc/forms/proposalcard.ui \
+  qt/blkc/forms/mnselectiondialog.ui \
+  qt/blkc/forms/votedialog.ui \
+  qt/blkc/forms/createproposaldialog.ui \
+  qt/blkc/forms/proposalinfodialog.ui \
+  qt/blkc/forms/governancewidget.ui \
   qt/blkc/settings/forms/settingsbackupwallet.ui \
   qt/blkc/settings/forms/settingsexportcsv.ui \
   qt/blkc/settings/forms/settingsbittoolwidget.ui \
@@ -136,6 +142,12 @@ QT_MOC_CPP = \
   qt/blkc/moc_addresseswidget.cpp \
   qt/blkc/moc_defaultdialog.cpp \
   qt/blkc/moc_coldstakingwidget.cpp \
+  qt/blkc/moc_proposalcard.cpp \
+  qt/blkc/moc_mnselectiondialog.cpp \
+  qt/blkc/moc_votedialog.cpp \
+  qt/blkc/moc_createproposaldialog.cpp \
+  qt/blkc/moc_proposalinfodialog.cpp \
+  qt/blkc/moc_governancewidget.cpp \
   qt/blkc/settings/moc_settingsbackupwallet.cpp \
   qt/blkc/settings/moc_settingsexportcsv.cpp \
   qt/blkc/settings/moc_settingsbittoolwidget.cpp \
@@ -249,6 +261,13 @@ BITCOIN_QT_H = \
   qt/blkc/addresseswidget.h \
   qt/blkc/defaultdialog.h \
   qt/blkc/coldstakingwidget.h \
+  qt/blkc/governancemodel.h \
+  qt/blkc/proposalcard.h \
+  qt/blkc/mnselectiondialog.h \
+  qt/blkc/votedialog.h \
+  qt/blkc/createproposaldialog.h \
+  qt/blkc/proposalinfodialog.h \
+  qt/blkc/governancewidget.h \
   qt/blkc/settings/settingsbackupwallet.h \
   qt/blkc/settings/settingsexportcsv.h \
   qt/blkc/settings/settingsbittoolwidget.h \
@@ -485,7 +504,21 @@ RES_ICONS = \
   qt/blkc/res/img/ic-information.svg \
   qt/blkc/res/img/ic-information-hover.svg \
   qt/blkc/res/img/ani-loading-dark.gif \
-  qt/blkc/res/img/ani-loading.gif
+  qt/blkc/res/img/ani-loading.gif \
+  qt/blkc/res/img/ic-check-vote.svg \
+  qt/blkc/res/img/ic-check-vote-active.svg \
+  qt/blkc/res/img/ic-check-vote-dark.svg \
+  qt/blkc/res/img/ic-check-vote-active-dark.svg \
+  qt/blkc/res/img/ic-check-block.svg \
+  qt/blkc/res/img/ic-filter.svg \
+  qt/blkc/res/img/ic-link.svg \
+  qt/blkc/res/img/ic-nav-governance.svg \
+  qt/blkc/res/img/ic-nav-governance-active.svg \
+  qt/blkc/res/img/ic-nav-governance-hover.svg \
+  qt/blkc/res/img/ic-time.svg \
+  qt/blkc/res/img/ic-link-hover.svg \
+  qt/blkc/res/img/img-empty-governance.svg \
+  qt/blkc/res/img/img-empty-dark-governance.svg
 
 BITCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
@@ -569,6 +602,13 @@ BITCOIN_QT_WALLET_CPP = \
   qt/blkc/addresseswidget.cpp \
   qt/blkc/defaultdialog.cpp \
   qt/blkc/coldstakingwidget.cpp \
+  qt/blkc/governancemodel.cpp \
+  qt/blkc/proposalcard.cpp \
+  qt/blkc/mnselectiondialog.cpp \
+  qt/blkc/votedialog.cpp \
+  qt/blkc/createproposaldialog.cpp \
+  qt/blkc/proposalinfodialog.cpp \
+  qt/blkc/governancewidget.cpp \
   qt/blkc/settings/settingsbackupwallet.cpp \
   qt/blkc/settings/settingsexportcsv.cpp \
   qt/blkc/settings/settingsbittoolwidget.cpp \

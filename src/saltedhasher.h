@@ -5,7 +5,7 @@
 #ifndef SALTEDHASHER_H
 #define SALTEDHASHER_H
 
-#include "hash.h"
+#include "crypto/siphash.h"
 #include "uint256.h"
 
 /** Helper classes for std::unordered_map and std::unordered_set hashing */

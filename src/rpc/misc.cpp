@@ -8,10 +8,10 @@
 
 #include "clientversion.h"
 #include "httpserver.h"
-#include "init.h"
 #include "key_io.h"
 #include "sapling/key_io_sapling.h"
 #include "masternode-sync.h"
+#include "messagesigner.h"
 #include "net.h"
 #include "netbase.h"
 #include "rpc/server.h"
@@ -590,15 +590,8 @@ UniValue verifymessage(const JSONRPCRequest& request)
     if (fInvalid)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Malformed base64 encoding");
 
-    CHashWriter ss(SER_GETHASH, 0);
-    ss << strMessageMagic;
-    ss << strMessage;
-
-    CPubKey pubkey;
-    if (!pubkey.RecoverCompact(ss.GetHash(), vchSig))
-        return false;
-
-    return (pubkey.GetID() == *keyID);
+    std::string strError;
+    return CMessageSigner::VerifyMessage(*keyID, vchSig, strMessage, strError);
 }
 
 UniValue setmocktime(const JSONRPCRequest& request)

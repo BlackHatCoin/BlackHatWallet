@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">N/A</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,2">
    <property name="spacing">
@@ -512,14 +512,14 @@
                </size>
               </property>
               <property name="text">
-               <string>Staking Rewards</string>
+               <string>Staking/MN Rewards</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QLabel" name="labelMessage">
               <property name="text">
-               <string>Amount of staking rewards received.</string>
+               <string>Amount of BLKC stakes and masternodes rewards.</string>
               </property>
              </widget>
             </item>
@@ -567,7 +567,17 @@
           <item>
            <widget class="QLabel" name="labelAmountBlkc">
             <property name="text">
-             <string notr="true">0 BLKC</string>
+             <string notr="true">0 Stakes</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelAmountMN">
+            <property name="text">
+             <string notr="true">0 MN</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -645,7 +655,7 @@
                 <item>
                  <widget class="QLabel" name="labelChart">
                   <property name="text">
-                   <string>Staking statistics</string>
+                   <string>Rewards statistics</string>
                   </property>
                  </widget>
                 </item>
@@ -684,7 +694,7 @@
                 <item>
                  <widget class="QLabel" name="labelBlkc">
                   <property name="text">
-                   <string notr="true">BLKC</string>
+                   <string notr="true">Stakes</string>
                   </property>
                  </widget>
                 </item>
@@ -703,6 +713,32 @@
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="labelSquareMN">
+                  <property name="minimumSize">
+                   <size>
+                    <width>14</width>
+                    <height>14</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>14</width>
+                    <height>14</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="labelMN">
+                  <property name="text">
+                   <string>Masternode</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>

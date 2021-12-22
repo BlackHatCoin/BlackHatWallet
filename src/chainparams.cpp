@@ -70,12 +70,12 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
  *    timestamp before)
  * + Contains no strange transactions
  */
-static Checkpoints::MapCheckpoints mapCheckpoints = {
+static MapCheckpoints mapCheckpoints = {
     {202000, uint256S("2f642ef67d0e053c068bf812dca5ed315302137dbdea571c7d7efc223d394fd7")}, //!< BlackHat v5.3.0 enforced
     {263600, uint256S("a9a78f8593c140e5821f87c00ad5266fb2c2144d749276fa0744519858f1722b")}, //!< New Checkpoint
 };
 
-static const Checkpoints::CCheckpointData data = {
+static const CCheckpointData data = {
     &mapCheckpoints,
     1636109565, // * UNIX timestamp of last checkpoint block
     601789,    // * total number of transactions between genesis and last checkpoint
@@ -83,21 +83,21 @@ static const Checkpoints::CCheckpointData data = {
     3000        // * estimated number of transactions per day after checkpoint
 };
 
-static Checkpoints::MapCheckpoints mapCheckpointsTestnet = {
+static MapCheckpoints mapCheckpointsTestnet = {
     {0, uint256S("0x001")},
 };
 
-static const Checkpoints::CCheckpointData dataTestnet = {
+static const CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
     1619785800,
     0,
     0
 };
 
-static Checkpoints::MapCheckpoints mapCheckpointsRegtest = {
+static MapCheckpoints mapCheckpointsRegtest = {
         {0, uint256S("0x001")}
 };
-static const Checkpoints::CCheckpointData dataRegtest = {
+static const CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
     1619785860,
     0,
@@ -128,7 +128,6 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 21000000 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
-        consensus.nPoolMaxTransactions = 3;
         consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMinDepth = 600;
@@ -145,7 +144,6 @@ public:
         consensus.height_last_invalid_UTXO = 0;
         consensus.height_last_ZC_AccumCheckpoint = 0;
         consensus.height_last_ZC_WrappedSerials = 0;
-        consensus.height_ZC_RecalcAccumulators = 0;
 
         // Zerocoin-related params
         consensus.ZC_Modulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -230,7 +228,7 @@ public:
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviews";
     }
 
-    const Checkpoints::CCheckpointData& Checkpoints() const
+    const CCheckpointData& Checkpoints() const
     {
         return data;
     }
@@ -264,7 +262,6 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 21000000 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
-        consensus.nPoolMaxTransactions = 3;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMinDepth = 100;
@@ -281,7 +278,6 @@ public:
         consensus.height_last_invalid_UTXO = -1;
         consensus.height_last_ZC_AccumCheckpoint = -1;
         consensus.height_last_ZC_WrappedSerials = -1;
-        consensus.height_ZC_RecalcAccumulators = 999999999;
         consensus.ZC_HeightStart = 0;
 
         // Zerocoin-related params
@@ -355,7 +351,7 @@ public:
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviewtestsapling";
     }
 
-    const Checkpoints::CCheckpointData& Checkpoints() const
+    const CCheckpointData& Checkpoints() const
     {
         return dataTestnet;
     }
@@ -388,10 +384,9 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 43199500 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
-        consensus.nPoolMaxTransactions = 2;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 0;
-        consensus.nStakeMinDepth = 2;
+        consensus.nStakeMinDepth = 20;
         consensus.nTargetTimespan = 40 * 60;
         consensus.nTargetTimespanV2 = 30 * 60;
         consensus.nTargetSpacing = 1 * 60;
@@ -409,8 +404,6 @@ public:
         consensus.height_last_invalid_UTXO = -1;
         consensus.height_last_ZC_AccumCheckpoint = 310;     // no checkpoints on regtest
         consensus.height_last_ZC_WrappedSerials = -1;
-        consensus.height_ZC_RecalcAccumulators = 999999999;
-        consensus.ZC_HeightStart = 0;
 
         // Zerocoin-related params
         consensus.ZC_Modulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -425,6 +418,7 @@ public:
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 10;
         consensus.ZC_TimeStart = 0;                 // not implemented on regtest
+        consensus.ZC_HeightStart = 0;
 
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight =
@@ -480,7 +474,7 @@ public:
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviewtestsapling";
     }
 
-    const Checkpoints::CCheckpointData& Checkpoints() const
+    const CCheckpointData& Checkpoints() const
     {
         return dataRegtest;
     }

@@ -4,12 +4,7 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <location filename="../blkc/forms/addnewaddressdialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+39"/>
+        <location filename="../blkc/forms/addnewaddressdialog.ui" line="+53"/>
         <source>New Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19,12 +14,7 @@
         <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>PushButton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+42"/>
+        <location line="+61"/>
         <source>CANCEL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37,12 +27,7 @@
 <context>
     <name>AddNewContactDialog</name>
     <message>
-        <location filename="../blkc/forms/addnewcontactdialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+240"/>
+        <location filename="../blkc/forms/addnewcontactdialog.ui" line="+254"/>
         <source>CANCEL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -197,24 +182,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <location filename="../blkc/forms/addresslabelrow.ui" line="+20"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+39"/>
-        <source>Bob Allen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+23"/>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <location filename="../addresstablemodel.cpp" line="+317"/>
@@ -245,12 +212,7 @@
 <context>
     <name>AddressesWidget</name>
     <message>
-        <location filename="../blkc/forms/addresseswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+342"/>
+        <location filename="../blkc/forms/addresseswidget.ui" line="+356"/>
         <source>Contact name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -360,19 +322,6 @@ Are you sure?</source>
         <location filename="../forms/askpassphrasedialog.ui" line="+32"/>
         <source>Passphrase Dialog</source>
         <translation>Passphrase Dialog</translation>
-    </message>
-    <message>
-        <location line="+41"/>
-        <location line="+78"/>
-        <location line="+56"/>
-        <location line="+57"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+90"/>
-        <source>PushButton</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+90"/>
@@ -537,23 +486,12 @@ for staking</source>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <location filename="../blkc/forms/balancebubble.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+49"/>
+        <location filename="../blkc/forms/balancebubble.ui" line="+75"/>
         <source>Transparent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
-        <location line="+26"/>
-        <source>0.00 blkc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-13"/>
+        <location line="+28"/>
         <source>Shielded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -574,22 +512,12 @@ for staking</source>
 <context>
     <name>CSRow</name>
     <message>
-        <location filename="../blkc/forms/csrow.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+71"/>
+        <location filename="../blkc/forms/csrow.ui" line="+85"/>
         <source>Savings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>0,00 BLKC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
+        <location line="+34"/>
         <source>address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -607,7 +535,7 @@ for staking</source>
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+83"/>
+        <location filename="../clientmodel.cpp" line="+82"/>
         <source>Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -671,21 +599,13 @@ for staking</source>
         <translation>Amount</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+124"/>
+        <location line="-269"/>
         <location line="+461"/>
         <source>0.00 BLKC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-523"/>
-        <location line="+385"/>
-        <location line="+92"/>
-        <source>0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-319"/>
+        <location line="-365"/>
         <location filename="../coincontroldialog.cpp" line="+143"/>
         <source>Select all</source>
         <translation type="unfinished"></translation>
@@ -866,12 +786,7 @@ for staking</source>
 <context>
     <name>ColdStakingWidget</name>
     <message>
-        <location filename="../blkc/forms/coldstakingwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+341"/>
+        <location filename="../blkc/forms/coldstakingwidget.ui" line="+355"/>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -901,7 +816,12 @@ for staking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-38"/>
+        <location line="+340"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-378"/>
         <source>Clear All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -916,7 +836,7 @@ for staking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/coldstakingwidget.cpp" line="+801"/>
+        <location filename="../blkc/coldstakingwidget.cpp" line="+806"/>
         <source>Total Staking: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -967,7 +887,7 @@ stake on your behalf, while you keep the keys securely offline.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-293"/>
+        <location line="-298"/>
         <source>Coin Control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -988,7 +908,7 @@ and stake them on their owner&apos;s behalf.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+40"/>
         <source>My Cold Staking Addresses</source>
         <translation type="unfinished"></translation>
     </message>
@@ -998,7 +918,7 @@ and stake them on their owner&apos;s behalf.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+257"/>
+        <location line="+258"/>
         <source>Invalid entry</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1146,22 +1066,137 @@ address</source>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <location filename="../blkc/forms/contactdropdownrow.ui" line="+20"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <location filename="../blkc/forms/createproposaldialog.ui" line="+520"/>
+        <location line="+613"/>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <location line="-569"/>
+        <source>Receiver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+124"/>
+        <source>Create New Proposal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Make sure you have 50 BLKC for the proposal fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Proposal Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <location line="+448"/>
+        <source>Proposal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-355"/>
+        <source>Proposal Payee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <location line="+256"/>
+        <source>Address</source>
+        <translation type="unfinished">Address</translation>
+    </message>
+    <message>
+        <location line="-237"/>
+        <location line="+206"/>
+        <source>Amount</source>
+        <translation type="unfinished">Amount</translation>
+    </message>
+    <message>
+        <location line="-185"/>
+        <location line="+240"/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-121"/>
+        <source>Proposal Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+222"/>
+        <source>CANCEL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../blkc/createproposaldialog.cpp" line="+60"/>
+        <source>NEXT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>BACK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+118"/>
+        <source>Proposal name cannot be empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Invalid amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Invalid payment address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
     <message>
-        <location filename="../blkc/forms/dashboardwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+79"/>
+        <location filename="../blkc/forms/dashboardwidget.ui" line="+93"/>
         <source>Transactions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1268,12 +1303,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>DefaultDialog</name>
     <message>
-        <location filename="../blkc/forms/defaultdialog.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+228"/>
+        <location filename="../blkc/forms/defaultdialog.ui" line="+242"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1352,14 +1382,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <location filename="../blkc/forms/expandablebutton.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <location filename="../intro.cpp" line="+73"/>
@@ -1385,6 +1407,159 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <location line="+6"/>
         <source>Cannot create data directory here.</source>
         <translation>Cannot create data directory here.</translation>
+    </message>
+</context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <location filename="../blkc/governancewidget.cpp" line="+44"/>
+        <source>Governance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Date</source>
+        <translation type="unfinished">Date</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Amount</source>
+        <translation type="unfinished">Amount</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Sort by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>All</source>
+        <translation type="unfinished">All</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Passing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Not Passing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Waiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Please wait until the node is fully synced to see the correct information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Prepare and submit a new proposal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <source>Please wait until the node is fully synced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Cannot vote for the proposal yet, wait until it&apos;s confirmed by the network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Vote emitted successfully!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Proposal transaction fee broadcasted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Copy Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>More Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Proposal URL copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Open Proposal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The following URL will be opened in the default browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Are you sure?
+(Always verify the URL validity before opening it)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Failed to open proposal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Next superblock today!
+%2 blocks to go.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Next superblock in %1 days.
+%2 blocks to go.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1482,35 +1657,15 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>LoadingDialog</name>
     <message>
-        <location filename="../blkc/forms/loadingdialog.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+69"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+44"/>
+        <location filename="../blkc/forms/loadingdialog.ui" line="+127"/>
         <source>Loading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
     <message>
-        <location filename="../blkc/forms/lockunlock.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+90"/>
+        <location filename="../blkc/forms/lockunlock.ui" line="+104"/>
         <source>Unlock Wallet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1528,11 +1683,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MNRow</name>
     <message>
-        <location filename="../blkc/forms/mnrow.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
         <location filename="../blkc/mnrow.cpp" line="+25"/>
         <source>Collateral tx not found</source>
         <translation type="unfinished"></translation>
@@ -1546,12 +1696,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MasterNodeWizardDialog</name>
     <message>
-        <location filename="../blkc/forms/masternodewizarddialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+182"/>
+        <location filename="../blkc/forms/masternodewizarddialog.ui" line="+196"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1591,7 +1736,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Set Masternode IP and Port</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1601,12 +1746,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-223"/>
+        <location line="-226"/>
         <source>Make sure you have this amount of coins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+148"/>
         <source>Address of the node that must always be online running the actual master node.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1719,12 +1864,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MasterNodesWidget</name>
     <message>
-        <location filename="../blkc/forms/masternodeswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+281"/>
+        <location filename="../blkc/forms/masternodeswidget.ui" line="+295"/>
         <source>Start All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1755,7 +1895,7 @@ and vote on the treasury system receiving a periodic reward.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/masternodeswidget.cpp" line="+168"/>
+        <location filename="../blkc/masternodeswidget.cpp" line="+167"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1842,7 +1982,7 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-248"/>
         <source>What is a Masternode?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1862,7 +2002,7 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+248"/>
+        <location line="+246"/>
         <source>You are just about to export the required data to run a Masternode
 on a remote server to your clipboard.
 
@@ -1920,12 +2060,7 @@ Are you sure?</source>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <location filename="../blkc/forms/mninfodialog.ui" line="+20"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+84"/>
+        <location filename="../blkc/forms/mninfodialog.ui" line="+104"/>
         <source>Masternode Information</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1976,22 +2111,88 @@ Are you sure?</source>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <location filename="../blkc/forms/myaddressrow.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <location filename="../blkc/forms/mnselectiondialog.ui" line="+117"/>
+        <source>Select Masternodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+113"/>
+        <source>Amount of votes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <location filename="../blkc/mnselectiondialog.cpp" line="+104"/>
+        <source>Select All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Vote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Status</source>
+        <translation type="unfinished">Status</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>CANCEL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>SELECT VOTES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../blkc/mnselectiondialog.cpp" line="+0"/>
+        <source>Unselect All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The direction of the already broadcasted vote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>No vote has been emitted from this Masternode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
     <message>
-        <location filename="../blkc/forms/navmenuwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+156"/>
+        <location filename="../blkc/forms/navmenuwidget.ui" line="+170"/>
         <source>HOME
 </source>
         <translation type="unfinished"></translation>
@@ -2016,6 +2217,11 @@ Are you sure?</source>
     </message>
     <message>
         <location line="+26"/>
+        <source>DAO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>MASTER
 NODES</source>
         <translation type="unfinished"></translation>
@@ -2030,11 +2236,6 @@ STAKING</source>
         <location line="+26"/>
         <source>SETTINGS
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+46"/>
-        <source>V 1.0.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2067,14 +2268,6 @@ STAKING</source>
     </message>
 </context>
 <context>
-    <name>OptionButton</name>
-    <message>
-        <location filename="../blkc/forms/optionbutton.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-</context>
-<context>
     <name>BLKCGUI</name>
     <message>
         <location filename="../blkc/blkcgui.cpp" line="+70"/>
@@ -2087,7 +2280,7 @@ STAKING</source>
         <translation type="unfinished">Node</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+102"/>
         <source>&amp;Show / Hide</source>
         <translation type="unfinished">&amp;Show / Hide</translation>
     </message>
@@ -2107,17 +2300,17 @@ STAKING</source>
         <translation type="unfinished">Quit application</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+41"/>
         <source>%1 client</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+48"/>
         <source>Alert!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+131"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
@@ -2137,7 +2330,7 @@ STAKING</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+262"/>
+        <location line="+282"/>
         <source>Sent transaction</source>
         <translation type="unfinished">Sent transaction</translation>
     </message>
@@ -2213,6 +2406,122 @@ Address: %4
     </message>
 </context>
 <context>
+    <name>ProposalCard</name>
+    <message>
+        <location filename="../blkc/forms/proposalcard.ui" line="+355"/>
+        <source>Vote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../blkc/proposalcard.cpp" line="+43"/>
+        <source>Inactive proposal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last month in course</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 of %2 months left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Waiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>No Votes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Not Passing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Passing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <location filename="../blkc/forms/proposalinfodialog.ui" line="+116"/>
+        <source>Proposal Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+168"/>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+80"/>
+        <source>Proposal Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+98"/>
+        <source>Recipient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Amount</source>
+        <translation type="unfinished">Amount</translation>
+    </message>
+    <message>
+        <location line="+54"/>
+        <source>End Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Status</source>
+        <translation type="unfinished">Status</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Start Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+56"/>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+85"/>
+        <source>Positive Votes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Negative Votes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../bitcoinunits.cpp" line="+281"/>
@@ -2220,7 +2529,7 @@ Address: %4
         <translation>Amount</translation>
     </message>
     <message>
-        <location filename="../guiutil.cpp" line="+127"/>
+        <location filename="../guiutil.cpp" line="+137"/>
         <source>Enter BlackHat address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2276,7 +2585,7 @@ Address: %4
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="../blkc.cpp" line="+533"/>
+        <location filename="../blkc.cpp" line="+544"/>
         <source>A fatal error occurred. BlackHat can no longer continue safely and will quit.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2536,7 +2845,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/coldstakingwidget.cpp" line="-711"/>
+        <location filename="../blkc/coldstakingwidget.cpp" line="-716"/>
         <source>Address with no label</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2569,40 +2878,7 @@ Address: %4
         <translation>Client name</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <location line="+23"/>
-        <location line="+26"/>
-        <location line="+23"/>
-        <location line="+20"/>
-        <location line="+30"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+36"/>
-        <location line="+23"/>
-        <location line="+20"/>
-        <location line="+516"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+23"/>
-        <location line="+26"/>
-        <location line="+23"/>
-        <location line="+78"/>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
-        <location line="-1077"/>
+        <location line="+145"/>
         <source>Number of connections</source>
         <translation>Number of connections</translation>
     </message>
@@ -2879,12 +3155,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
-        <source>-resync:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+30"/>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3072,12 +3343,7 @@ Address: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <location filename="../blkc/forms/receivedialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+81"/>
+        <location filename="../blkc/forms/receivedialog.ui" line="+95"/>
         <source>My Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3095,12 +3361,7 @@ Address: %4
 <context>
     <name>ReceiveWidget</name>
     <message>
-        <location filename="../blkc/forms/receivewidget.ui" line="+20"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+61"/>
+        <location filename="../blkc/forms/receivewidget.ui" line="+81"/>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3275,32 +3536,17 @@ try unlocking the wallet</source>
 <context>
     <name>RequestDialog</name>
     <message>
-        <location filename="../blkc/forms/requestdialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+242"/>
+        <location filename="../blkc/forms/requestdialog.ui" line="+256"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
     <message>
-        <location line="+74"/>
-        <source>BLKC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-117"/>
+        <location line="-43"/>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+332"/>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+53"/>
+        <location line="+385"/>
         <source>COPY ADDRESS</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3340,7 +3586,7 @@ try unlocking the wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/requestdialog.cpp" line="+48"/>
+        <location filename="../blkc/requestdialog.cpp" line="+47"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
@@ -3350,7 +3596,7 @@ try unlocking the wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/requestdialog.cpp" line="+27"/>
+        <location filename="../blkc/requestdialog.cpp" line="+28"/>
         <source>Creates an address to receive coin delegations and be able to stake them.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3365,12 +3611,12 @@ try unlocking the wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+12"/>
         <source>Address label cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>Invalid amount</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3388,12 +3634,7 @@ try unlocking the wallet</source>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <location filename="../blkc/forms/sendchangeaddressdialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+238"/>
+        <location filename="../blkc/forms/sendchangeaddressdialog.ui" line="+252"/>
         <location filename="../blkc/sendchangeaddressdialog.cpp" line="+64"/>
         <source>CANCEL</source>
         <translation type="unfinished"></translation>
@@ -3432,27 +3673,12 @@ try unlocking the wallet</source>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <location filename="../blkc/forms/sendcustomfeedialog.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+190"/>
+        <location filename="../blkc/forms/sendcustomfeedialog.ui" line="+204"/>
         <source>Recommended</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
-        <source>BLKC/kilobyte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-63"/>
-        <source>0.00 KB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-69"/>
+        <location line="-46"/>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3487,12 +3713,17 @@ try unlocking the wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+125"/>
+        <source>Invalid custom fee amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../blkc/forms/sendcustomfeedialog.ui" line="+260"/>
         <source>SAVE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/sendcustomfeedialog.cpp" line="+90"/>
+        <location filename="../blkc/sendcustomfeedialog.cpp" line="-32"/>
         <source>Fee too high. Must be below: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3505,26 +3736,12 @@ try unlocking the wallet</source>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <location filename="../blkc/forms/sendmemodialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+137"/>
+        <location filename="../blkc/forms/sendmemodialog.ui" line="+151"/>
         <source>Private message only visible for the recipient(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;.SF NS Text&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+65"/>
+        <location line="+117"/>
         <source>SAVE</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3542,12 +3759,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SendMultiRow</name>
     <message>
-        <location filename="../blkc/forms/sendmultirow.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+118"/>
+        <location filename="../blkc/forms/sendmultirow.ui" line="+144"/>
         <source>Enter address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3572,7 +3784,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/sendmultirow.cpp" line="+94"/>
+        <location filename="../blkc/sendmultirow.cpp" line="+93"/>
         <source>Update memo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3844,12 +4056,7 @@ Do you want to continue?
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsbackupwallet.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+147"/>
+        <location filename="../blkc/settings/forms/settingsbackupwallet.ui" line="+161"/>
         <source>Change Wallet Passphrase</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3911,12 +4118,7 @@ Remember to write it down and store it safely, otherwise you might lose access t
 <context>
     <name>SettingsBitToolWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsbittoolwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+459"/>
+        <location filename="../blkc/settings/forms/settingsbittoolwidget.ui" line="+473"/>
         <source>Import Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4109,12 +4311,7 @@ Using this mechanism you can share your keys without middle-man risk, only need 
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsconsolewidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+46"/>
+        <location filename="../blkc/settings/forms/settingsconsolewidget.ui" line="+60"/>
         <source>Console</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4173,12 +4370,7 @@ Verify that you have installed a predetermined text editor.</source>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsdisplayoptionswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+194"/>
+        <location filename="../blkc/settings/forms/settingsdisplayoptionswidget.ui" line="+208"/>
         <source>Hide stake charts in the dashboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4247,12 +4439,7 @@ Verify that you have installed a predetermined text editor.</source>
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsexportcsv.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+41"/>
+        <location filename="../blkc/settings/forms/settingsexportcsv.ui" line="+55"/>
         <source>Export Accounting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4263,44 +4450,31 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <location line="+35"/>
-        <source>Where</source>
+        <location filename="../blkc/settings/settingsexportcsv.cpp" line="+61"/>
+        <source>Export Transaction History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+115"/>
-        <location filename="../blkc/settings/settingsexportcsv.cpp" line="+70"/>
+        <location filename="../blkc/settings/settingsexportcsv.cpp" line="+8"/>
         <location line="+7"/>
         <source>Select folder...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-48"/>
+        <location filename="../blkc/settings/settingsexportcsv.cpp" line="-15"/>
         <source>Export Address Book</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/settings/settingsexportcsv.cpp" line="-16"/>
-        <source>Export CSV</source>
-        <translation type="unfinished"></translation>
+        <location filename="../blkc/settings/settingsexportcsv.cpp" line="+1"/>
+        <source>Comma separated file (*.csv)</source>
+        <translation type="unfinished">Comma separated file (*.csv)</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Export Address List</source>
-        <translation type="unfinished">Export Address List</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <location line="+72"/>
         <source>Please select a folder to export the csv file first.</source>
         <translation type="unfinished"></translation>
@@ -4373,12 +4547,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsfaqwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+152"/>
+        <location filename="../blkc/settings/forms/settingsfaqwidget.ui" line="+166"/>
         <source>1) What is BlackHat?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4388,12 +4557,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+148"/>
-        <source>https://blackhatco.in/</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+135"/>
+        <location line="+283"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4631,12 +4795,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
 <context>
     <name>SettingsInformationWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsinformationwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+102"/>
+        <location filename="../blkc/settings/forms/settingsinformationwidget.ui" line="+116"/>
         <source>Network Monitor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4774,12 +4933,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingsmainoptionswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+278"/>
+        <location filename="../blkc/settings/forms/settingsmainoptionswidget.ui" line="+292"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4860,12 +5014,7 @@ Are you sure?
 <context>
     <name>SettingsSignMessageWidgets</name>
     <message>
-        <location filename="../blkc/settings/forms/settingssignmessagewidgets.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+64"/>
+        <location filename="../blkc/settings/forms/settingssignmessagewidgets.ui" line="+78"/>
         <source>Sign/Verify Message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4885,7 +5034,7 @@ Are you sure?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/settings/settingssignmessagewidgets.cpp" line="+47"/>
+        <location filename="../blkc/settings/settingssignmessagewidgets.cpp" line="+48"/>
         <source>Select mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4938,26 +5087,26 @@ Are you sure?
     </message>
     <message>
         <location line="+48"/>
-        <location line="+55"/>
+        <location line="+52"/>
         <source>The entered address is invalid.</source>
         <translation type="unfinished">The entered address is invalid.</translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-52"/>
         <location line="+8"/>
-        <location line="+47"/>
+        <location line="+44"/>
         <location line="+7"/>
         <source>Please check the address and try again.</source>
         <translation type="unfinished">Please check the address and try again.</translation>
     </message>
     <message>
-        <location line="-54"/>
-        <location line="+54"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>The entered address does not refer to a key.</source>
         <translation type="unfinished">The entered address does not refer to a key.</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-44"/>
         <source>Wallet unlock was cancelled.</source>
         <translation type="unfinished">Wallet unlock was cancelled.</translation>
     </message>
@@ -4967,7 +5116,7 @@ Are you sure?
         <translation type="unfinished">Private key for the entered address is not available.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+9"/>
         <source>Message signing failed.</source>
         <translation type="unfinished">Message signing failed.</translation>
     </message>
@@ -4977,23 +5126,17 @@ Are you sure?
         <translation type="unfinished">Message signed.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+33"/>
         <source>The signature could not be decoded.</source>
         <translation type="unfinished">The signature could not be decoded.</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+12"/>
         <source>Please check the signature and try again.</source>
         <translation type="unfinished">Please check the signature and try again.</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>The signature did not match the message digest.</source>
-        <translation type="unfinished">The signature did not match the message digest.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+9"/>
         <source>Message verification failed.</source>
         <translation type="unfinished">Message verification failed.</translation>
     </message>
@@ -5011,12 +5154,7 @@ Are you sure?
 <context>
     <name>SettingsWalletOptionsWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingswalletoptionswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+450"/>
+        <location filename="../blkc/settings/forms/settingswalletoptionswidget.ui" line="+464"/>
         <source>Reset to default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5120,12 +5258,7 @@ Are you sure?
 <context>
     <name>SettingsWalletRepairWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingswalletrepairwidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+94"/>
+        <location filename="../blkc/settings/forms/settingswalletrepairwidget.ui" line="+108"/>
         <location filename="../blkc/settings/settingswalletrepairwidget.cpp" line="+22"/>
         <source>Wallet Repair</source>
         <translation type="unfinished"></translation>
@@ -5234,12 +5367,7 @@ Are you sure?
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../blkc/settings/forms/settingswidget.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+255"/>
+        <location filename="../blkc/settings/forms/settingswidget.ui" line="+269"/>
         <source>Wallet Data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5403,27 +5531,9 @@ Are you sure?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <location filename="../blkc/forms/snackbar.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+51"/>
-        <source>Contact Stored</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
     <message>
-        <location filename="../blkc/forms/splash.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+143"/>
+        <location filename="../blkc/forms/splash.ui" line="+169"/>
         <source>Loading…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5439,12 +5549,7 @@ Are you sure?
 <context>
     <name>TooltipMenu</name>
     <message>
-        <location filename="../blkc/forms/tooltipmenu.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location filename="../blkc/forms/tooltipmenu.ui" line="+86"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5467,12 +5572,7 @@ Are you sure?
 <context>
     <name>TopBar</name>
     <message>
-        <location filename="../blkc/forms/topbar.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+103"/>
+        <location filename="../blkc/forms/topbar.ui" line="+129"/>
         <source>transparent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5483,7 +5583,7 @@ Are you sure?
     </message>
     <message>
         <location line="+213"/>
-        <location filename="../blkc/topbar.cpp" line="+668"/>
+        <location filename="../blkc/topbar.cpp" line="+669"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5498,13 +5598,13 @@ Are you sure?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../blkc/topbar.cpp" line="-369"/>
-        <location line="+341"/>
+        <location filename="../blkc/topbar.cpp" line="-370"/>
+        <location line="+342"/>
         <source>Wallet Unlocked for staking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-312"/>
         <source>Error generating address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5537,7 +5637,7 @@ Are you sure?
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+35"/>
+        <location line="+36"/>
         <source>%n hour(s)</source>
         <translation type="unfinished">
             <numerusform>%n hour</numerusform>
@@ -5601,13 +5701,13 @@ backup will be created.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+513"/>
+        <location line="-446"/>
+        <location line="+514"/>
         <source>Tor Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-523"/>
+        <location line="-524"/>
         <source>FAQ</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5655,13 +5755,13 @@ backup will be created.
     </message>
     <message>
         <location line="+119"/>
-        <location line="+376"/>
+        <location line="+377"/>
         <source>Wallet Locked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-360"/>
-        <location line="+368"/>
+        <location line="-361"/>
+        <location line="+369"/>
         <source>Wallet Unlocked</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5765,7 +5865,7 @@ backup will be created.
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+298"/>
+        <location filename="../transactiontablemodel.cpp" line="+311"/>
         <source>Date</source>
         <translation>Date</translation>
     </message>
@@ -5780,7 +5880,7 @@ backup will be created.
         <translation>Address</translation>
     </message>
     <message numerus="yes">
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Open for %n more block(s)</source>
         <translation>
             <numerusform>Open for %n more block</numerusform>
@@ -5991,12 +6091,7 @@ backup will be created.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <location filename="../blkc/forms/sendconfirmdialog.ui" line="+26"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+90"/>
+        <location filename="../blkc/forms/sendconfirmdialog.ui" line="+116"/>
         <location filename="../blkc/sendconfirmdialog.cpp" line="+75"/>
         <source>Transaction Details</source>
         <translation type="unfinished"></translation>
@@ -6019,17 +6114,7 @@ backup will be created.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+167"/>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+103"/>
-        <source>May 25, 2017</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-621"/>
+        <location line="-351"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6084,12 +6169,7 @@ backup will be created.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+100"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+51"/>
+        <location line="+151"/>
         <source>CANCEL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6145,27 +6225,84 @@ backup will be created.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <location filename="../blkc/forms/txrow.ui" line="+20"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+142"/>
-        <source>+0.000585 BLKC</source>
+        <location filename="../blkc/forms/votedialog.ui" line="+92"/>
+        <source>Vote For Proposal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>-0.000585 BLKC</source>
+        <location line="+50"/>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+276"/>
+        <location filename="../blkc/votedialog.cpp" line="+170"/>
+        <source>Select Voting Masternodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+47"/>
+        <source>CANCEL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>VOTE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>You can change your vote later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../blkc/votedialog.cpp" line="-110"/>
+        <source>%1 months remaining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Select a vote direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Missing voting masternodes selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Time between votes is too soon, have to wait %1 minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>You have voted with %1 Masternodes for this proposal
+Change votes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>%1 Masternodes selected to vote</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+539"/>
+        <location filename="../walletmodel.cpp" line="+553"/>
         <source>Send Coins</source>
         <translation>Send Coins</translation>
     </message>
@@ -6264,6 +6401,34 @@ Select fewer inputs with coin control.</source>
         <location filename="../blkc/welcomecontentwidget.cpp" line="+183"/>
         <source>default</source>
         <translation type="unfinished">default</translation>
+    </message>
+</context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <location filename="../blkc/forms/governancewidget.ui" line="+436"/>
+        <source>No active proposals yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+83"/>
+        <source>Budget Distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Funds accessible for the proposals&apos; implementation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+86"/>
+        <source>Allocated</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7106,12 +7271,7 @@ Please run &apos;sapling-fetch-params&apos; or &apos;./util/fetch-params.sh&apos
 <context>
     <name>send</name>
     <message>
-        <location filename="../blkc/forms/send.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location filename="../blkc/forms/send.ui" line="+74"/>
         <location line="+629"/>
         <source>Send</source>
         <translation type="unfinished"></translation>

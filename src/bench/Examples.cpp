@@ -14,7 +14,7 @@ static void Sleep100ms(benchmark::State& state)
     }
 }
 
-BENCHMARK(Sleep100ms);
+BENCHMARK(Sleep100ms, 10);
 
 // Extremely fast-running benchmark:
 #include <math.h>
@@ -30,4 +30,4 @@ static void Trig(benchmark::State& state)
     }
 }
 
-BENCHMARK(Trig);
+BENCHMARK(Trig, 12 * 1000 * 1000);

@@ -121,7 +121,7 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         # Check that SPORK 17 is disabled
         assert (not self.isColdStakingEnforced())
         self.log.info("Creating a stake-delegation tx before cold staking enforcement...")
-        assert_raises_rpc_error(-4, "Failed to accept tx in the memory pool (reason: cold-stake-inactive (code 16))\nTransaction canceled.",
+        assert_raises_rpc_error(-4, "Failed to accept tx in the memory pool (reason: cold-stake-inactive)\nTransaction canceled.",
                                 self.nodes[0].delegatestake, staker_address, INPUT_VALUE, owner_address,
                                 False, False, False, True)
         self.log.info("Good. Cold Staking NOT ACTIVE yet.")
@@ -224,7 +224,8 @@ class BLKC_ColdStakingTest(BlackHatTestFramework):
         assert_raises_rpc_error(-26, "mandatory-script-verify-flag-failed (Script failed an OP_CHECKCOLDSTAKEVERIFY operation",
                                 self.spendUTXOwithNode, u, 1)
         self.log.info("Good. Cold staker was NOT able to spend (failed OP_CHECKCOLDSTAKEVERIFY)")
-        self.mocktime = self.generate_pos(2, self.mocktime)
+        for _ in range(20): # Staking min depth
+            self.mocktime = self.generate_pos(2, self.mocktime)
         self.sync_blocks()
 
         # 9) check that the staker can use the coins to stake a block with internal miner.

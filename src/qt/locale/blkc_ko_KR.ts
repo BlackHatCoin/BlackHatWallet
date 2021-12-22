@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>새로운 주소</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>주소</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>누르기</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>취소</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>밥 앨런</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>연락처 이름</translation>
@@ -294,14 +263,6 @@ Are you sure?</source>
     <message>
         <source>Passphrase Dialog</source>
         <translation>암호 대화상자</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>텍스트라벨</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>누르기</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -424,16 +385,8 @@ for staking</source>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -454,16 +407,8 @@ for staking</source>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>계좌</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -534,10 +479,6 @@ for staking</source>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -656,6 +597,10 @@ for staking</source>
         <translation>콜드 스테이킹 주소 %1 로 위임 됨</translation>
     </message>
     <message>
+        <source>Delegated to %1</source>
+        <translation>%1 에게 위임됨</translation>
+    </message>
+    <message>
         <source>Select All</source>
         <translation>모두 선택</translation>
     </message>
@@ -674,10 +619,6 @@ for staking</source>
 </context>
 <context>
     <name>ColdStakingWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>오너 주소 (선택과목, 입력 하지 않을경우 새로운 주소가 생성됨)</translation>
@@ -701,6 +642,10 @@ for staking</source>
     <message>
         <source>Delegate</source>
         <translation>위임 함</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>필터</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -908,18 +853,98 @@ address</source>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
+        <source>Name</source>
+        <translation>이름</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>받는주소</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>요약</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>새로운 프로포절 만들기</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>프로포절 명</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>프로포절 URL</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>프로포절 수취 주소</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>주소</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>금액</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>월</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>프로포절 요약</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>취소</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>선택</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>다음</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>이전</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>프로포절 명이 비어있으면 안됩니다.</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation>프로포절 명은 UTF-8 문자만 지원합니다</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>잘못된 수량</translation>
+    </message>
+    <message>
+        <source>Invalid payment address</source>
+        <translation>잘못된 결제 주소</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>보내기</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>다음</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>존재하는 연락처가 없습니다. 연락처 화면에서 추가 하실수 있습니다.</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>전송</translation>
@@ -1005,10 +1030,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>선택</translation>
     </message>
@@ -1073,13 +1094,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1102,6 +1116,69 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>여기에 디렉토리를 만들 수 없습니다.</translation>
     </message>
 </context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Governance</source>
+        <translation>거버넌스</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>날짜</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>금액</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>이름</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>정렬</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>전체</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>필터</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>노드가 완전히 동기화될 때까지 기다려주세요.</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation>지갑이 잠겨 있어, 프로포절을 만들수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Copy Url</source>
+        <translation>URL 복사</translation>
+    </message>
+    <message>
+        <source>Open Url</source>
+        <translation>URL 열기</translation>
+    </message>
+    <message>
+        <source>More Info</source>
+        <translation>추가 내용</translation>
+    </message>
+    <message>
+        <source>Proposal URL copied to clipboard</source>
+        <translation>프로포절 URL 이 클립보드에 복사되었습니다.</translation>
+    </message>
+    <message>
+        <source>Open Proposal URL</source>
+        <translation>프로포절 URL 열기</translation>
+    </message>
+    <message>
+        <source>Failed to open proposal URL</source>
+        <translation>프로포절 URL 열기가 실패하였습니다</translation>
+    </message>
+    </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
@@ -1167,28 +1244,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>텍스트라벨</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>불러오는 중</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>지갑 잠금 해제</translation>
@@ -1205,10 +1266,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Collateral tx를 찾을 수 없습니다.</translation>
     </message>
@@ -1219,10 +1276,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1344,10 +1397,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>모두 시작</translation>
@@ -1516,10 +1565,6 @@ Are you sure?</source>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>마스터노드 정보</translation>
     </message>
@@ -1561,18 +1606,50 @@ Are you sure?</source>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
+        <source>Select Masternodes</source>
+        <translation>마스터노드 선택</translation>
     </message>
-</context>
+    <message>
+        <source>Select All</source>
+        <translation>모두 선택</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>이름</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation>투표</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>상태</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>취소</translation>
+    </message>
+    <message>
+        <source>SELECT VOTES</source>
+        <translation>투표 선택</translation>
+    </message>
+    <message>
+        <source>Unselect All</source>
+        <translation>모두 선택 해제</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1598,6 +1675,10 @@ Are you sure?</source>
 </translation>
     </message>
     <message>
+        <source>DAO</source>
+        <translation>DAO</translation>
+    </message>
+    <message>
         <source>MASTER
 NODES</source>
         <translation>마스터
@@ -1616,10 +1697,6 @@ STAKING</source>
 </translation>
     </message>
     <message>
-        <source>V 1.0.0</source>
-        <translation>V.1.0.0</translation>
-    </message>
-    <message>
         <source>v%1</source>
         <translation>v%1</translation>
     </message>
@@ -1631,19 +1708,16 @@ STAKING</source>
         <translation>URI 열기</translation>
     </message>
     <message>
+        <source>Open BlackHat URI</source>
+        <translation>BlackHat URI 열기</translation>
+    </message>
+    <message>
         <source>CANCEL</source>
         <translation>취소</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>선택</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
     </message>
 </context>
 <context>
@@ -1729,7 +1803,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start blkc: click-to-pay handler</source>
-        <translation>BLKC을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
+        <translation>blkc을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
@@ -1755,6 +1829,56 @@ Address: %4
         <translation>노드ID</translation>
     </message>
 </context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>Vote</source>
+        <translation>투표</translation>
+    </message>
+    <message>
+        <source>Inactive proposal</source>
+        <translation>비활성화된 프로포절</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    </context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>프로포절 명</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>금액</translation>
+    </message>
+    <message>
+        <source>End Block</source>
+        <translation>마지막 블록</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>상태</translation>
+    </message>
+    <message>
+        <source>Start Block</source>
+        <translation>시작 블록</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -2001,10 +2125,6 @@ Address: %4
         <translation>클라이언트 이름</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>연결된 수</translation>
     </message>
@@ -2206,8 +2326,7 @@ Address: %4
     </message>
     <message>
         <source>Recover transactions from blockchain (keep meta-data, e.g. account owner).</source>
-        <translation>블록체인에서 거래내역 복구 (메타 데이터 저장 예: 사용자 주소)
-</translation>
+        <translation>블록체인에서 거래내역 복구 (메타 데이터 저장 예: 사용자 주소)</translation>
     </message>
     <message>
         <source>Recover transactions 2</source>
@@ -2224,10 +2343,6 @@ Address: %4
     <message>
         <source>Rebuild block chain index from current blk000??.dat files.</source>
         <translation>현재 blk000??.dat로 부터 블록체인 인덱스 재작성</translation>
-    </message>
-    <message>
-        <source>-resync:</source>
-        <translation>-resync:</translation>
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
@@ -2369,10 +2484,6 @@ Address: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>내 주소</translation>
     </message>
@@ -2387,10 +2498,6 @@ Address: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
@@ -2514,20 +2621,8 @@ Address: %4
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>금액</translation>
-    </message>
-    <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2581,10 +2676,6 @@ Address: %4
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>취소</translation>
     </message>
@@ -2608,20 +2699,8 @@ Address: %4
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>권장</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/Kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -2663,10 +2742,6 @@ Address: %4
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>SAVE</source>
         <translation>저장</translation>
     </message>
@@ -2682,10 +2757,6 @@ Address: %4
 <context>
     <name>SendMultiRow</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Enter address</source>
         <translation>주소 입력</translation>
     </message>
@@ -2699,7 +2770,7 @@ Address: %4
     </message>
     <message>
         <source>Update memo</source>
-        <translation>메모 업데이트</translation>
+        <translation>메모 수정하기</translation>
     </message>
     <message>
         <source>Add encrypted memo</source>
@@ -2872,10 +2943,6 @@ Do you wish to proceed without memo?
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>지갑 암호 변경</translation>
     </message>
@@ -2914,10 +2981,6 @@ Do you wish to proceed without memo?
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>주소 가져오기</translation>
@@ -3066,10 +3129,6 @@ Do you wish to proceed without memo?
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Console</source>
         <translation>콘솔</translation>
     </message>
@@ -3111,10 +3170,6 @@ Verify that you have installed a predetermined text editor.</source>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>홈 화면에서 스테이킹 차트를 숨김</translation>
     </message>
@@ -3129,6 +3184,10 @@ Verify that you have installed a predetermined text editor.</source>
     <message>
         <source>Display</source>
         <translation>디스플레이</translation>
+    </message>
+    <message>
+        <source>Customize the display view options</source>
+        <translation>디스플레이 옵션 설정</translation>
     </message>
     <message>
         <source>Language</source>
@@ -3166,10 +3225,6 @@ Verify that you have installed a predetermined text editor.</source>
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>회계 데이터 출력</translation>
     </message>
@@ -3178,8 +3233,8 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>지갑의 회계 기록을 csv 포멧 파일로 출력할수 있습니다.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>위치</translation>
+        <source>Export Transaction History</source>
+        <translation>트랜잭션 내역 내보내기</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3190,12 +3245,8 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>주소집 내보내기</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>CSV 내보내기</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>주소록 내보내기</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>콤마로 구분 된 파일 (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3237,10 +3288,6 @@ Verify that you have installed a predetermined text editor.</source>
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>1</source>
         <translation>1</translation>
     </message>
@@ -3278,7 +3325,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>3) How do I stake BLKC?</source>
-        <translation>BLKC 스테이킹은 어떻게 하나요?</translation>
+        <translation>3) BLKC 스테이킹은 어떻게 하나요?</translation>
     </message>
     <message>
         <source>4) Where I should go if I need support?</source>
@@ -3296,13 +3343,25 @@ Verify that you have installed a predetermined text editor.</source>
         <source>You can read more here</source>
         <translation>여기에서 더 알아볼 수 있습니다</translation>
     </message>
-    </context>
+    <message>
+        <source>Requirements:</source>
+        <translation>요구 사항:</translation>
+    </message>
+    <message>
+        <source>Must be stored in a core wallet</source>
+        <translation>코어 지갑에 보관 해야함</translation>
+    </message>
+    <message>
+        <source>Need dedicated IP address</source>
+        <translation>전용 IP 주소가 필요함</translation>
+    </message>
+    <message>
+        <source>Masternode wallet to remain online</source>
+        <translation>마스터노드 지갑은 온라인 상태를 유지 해야함</translation>
+    </message>
+</context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>네트워크 모니터</translation>
@@ -3318,6 +3377,10 @@ Verify that you have installed a predetermined text editor.</source>
     <message>
         <source>Client Version:</source>
         <translation>클라이언트 버전:</translation>
+    </message>
+    <message>
+        <source>BerkeleyDB version:</source>
+        <translation>BerkeleyDB 버전:</translation>
     </message>
     <message>
         <source>Datadir:</source>
@@ -3376,6 +3439,14 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>메인 옵션</translation>
     </message>
     <message>
+        <source>Wallet Conf</source>
+        <translation>지갑 Conf</translation>
+    </message>
+    <message>
+        <source>Backups</source>
+        <translation>백업들</translation>
+    </message>
+    <message>
         <source>No information</source>
         <translation>정보 없음</translation>
     </message>
@@ -3395,13 +3466,13 @@ Verify that you have installed a predetermined text editor.</source>
         <source>Out:</source>
         <translation>출력:</translation>
     </message>
-    </context>
+    <message>
+        <source>No available data</source>
+        <translation>데이터가 없음</translation>
+    </message>
+</context>
 <context>
     <name>SettingsMainOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Window</source>
         <translation>윈도우</translation>
@@ -3464,10 +3535,6 @@ Are you sure?
 <context>
     <name>SettingsSignMessageWidgets</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Sign/Verify Message</source>
         <translation>메세지 서명 / 검증</translation>
     </message>
@@ -3478,6 +3545,10 @@ Are you sure?
     <message>
         <source>Verify</source>
         <translation>검증</translation>
+    </message>
+    <message>
+        <source>Write message here...</source>
+        <translation>메세지를 입력 하세요</translation>
     </message>
     <message>
         <source>Select mode</source>
@@ -3556,10 +3627,6 @@ Are you sure?
         <translation>서명을 확인하고 다시 시도해주세요.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>서명이 메세지 요약과 일치하지 않습니다.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>메세지 확인에 실패하였습니다.</translation>
     </message>
@@ -3574,10 +3641,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>기본값으로 리셋</translation>
@@ -3595,6 +3658,10 @@ Are you sure?
         <translation>지갑의 내부 설정 옵션</translation>
     </message>
     <message>
+        <source>Stake split threshold</source>
+        <translation>Stake split threshold</translation>
+    </message>
+    <message>
         <source>Spend unconfirmed change</source>
         <translation>확인되지 않은 잔돈 전송</translation>
     </message>
@@ -3605,6 +3672,22 @@ Are you sure?
     <message>
         <source>Customize the node network options</source>
         <translation>네트워크 노드 설정 옵션</translation>
+    </message>
+    <message>
+        <source>Map port using NAT-PMP</source>
+        <translation>NAT-PMP 를 사용하여 포트 매핑</translation>
+    </message>
+    <message>
+        <source>Connect through SOCKS5 proxy (default proxy)</source>
+        <translation>SOCKS5 프록시를 통해 연결 (기본 프록시)</translation>
+    </message>
+    <message>
+        <source>Proxy IP</source>
+        <translation>프록시 IP 주소</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>포트</translation>
     </message>
     <message>
         <source>Enter port</source>
@@ -3633,10 +3716,6 @@ Are you sure?
     </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>지갑 복구</translation>
@@ -3674,6 +3753,14 @@ Are you sure?
         <translation>색인 재구축</translation>
     </message>
     <message>
+        <source>Delete local blockchain</source>
+        <translation>로컬 블럭체인 삭제</translation>
+    </message>
+    <message>
+        <source>Deletes all local blockchain folders so the wallet synchronizes from scratch</source>
+        <translation>재 동기화를 위해 모든 블록체인 폴더 삭제</translation>
+    </message>
+    <message>
         <source>This will delete your local blockchain folders and the wallet will synchronize the complete Blockchain from scratch.&lt;br /&gt;&lt;br /&gt;</source>
         <translation>그러면 로컬 블록 체인 폴더가 삭제되고 Wallet은 전체 Blockchain을 처음부터 동기화합니다.</translation>
     </message>
@@ -3696,10 +3783,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>지갑 데이터</translation>
@@ -3735,6 +3818,10 @@ Are you sure?
     <message>
         <source>Display</source>
         <translation>디스플레이</translation>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation>디버그</translation>
     </message>
     <message>
         <source>Information</source>
@@ -3829,22 +3916,7 @@ Are you sure?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>주소 저장됨</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>로딩중...</translation>
@@ -3859,10 +3931,6 @@ Are you sure?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>복사</translation>
@@ -3883,8 +3951,8 @@ Are you sure?
 <context>
     <name>TopBar</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
+        <source>transparent</source>
+        <translation>transparent</translation>
     </message>
     <message>
         <source>shielded</source>
@@ -3926,9 +3994,25 @@ Are you sure?
         <source>Synchronized - Block: %1</source>
         <translation>동기화 - Block : %1</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n 시간</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n 일</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n 주</numerusform></translation>
+    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 그리고 %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n year(s)</source>
+        <translation><numerusform>%n 년</numerusform></translation>
     </message>
     <message>
         <source>Wallet Upgrade</source>
@@ -3981,6 +4065,10 @@ NOTE: 업그레이드 이후에는
         <translation>콜드 스테이킹 비활성화 상태</translation>
     </message>
     <message>
+        <source> %54 Synchronizing..</source>
+        <translation> %54 동기화중..</translation>
+    </message>
+    <message>
         <source>Light Theme</source>
         <translation>밝은 테마</translation>
     </message>
@@ -3999,6 +4087,10 @@ NOTE: 업그레이드 이후에는
     <message>
         <source>Wallet Unlocked</source>
         <translation>지갑 잠김</translation>
+    </message>
+    <message>
+        <source>Upgrade to Sapling Wallet</source>
+        <translation>Sapling 지갑으로 업그레이드</translation>
     </message>
     <message>
         <source>Tor Active</source>
@@ -4194,10 +4286,6 @@ NOTE: 업그레이드 이후에는
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>전송 상세내역</translation>
     </message>
@@ -4212,14 +4300,6 @@ NOTE: 업그레이드 이후에는
     <message>
         <source>Output Index</source>
         <translation>출력 인덱스</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>May 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4243,7 +4323,7 @@ NOTE: 업그레이드 이후에는
     </message>
     <message>
         <source>Change address</source>
-        <translation>거스름 주소</translation>
+        <translation>주소 변경</translation>
     </message>
     <message>
         <source>Spendable</source>
@@ -4266,10 +4346,6 @@ NOTE: 업그레이드 이후에는
         <translation>메모</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>텍스트라벨</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>취소</translation>
     </message>
@@ -4284,6 +4360,14 @@ NOTE: 업그레이드 이후에는
     <message>
         <source>SEND</source>
         <translation>보내기</translation>
+    </message>
+    <message>
+        <source>Note From Address</source>
+        <translation>주소 노트</translation>
+    </message>
+    <message>
+        <source>Index</source>
+        <translation>인덱스</translation>
     </message>
     <message>
         <source>ID copied</source>
@@ -4307,20 +4391,44 @@ NOTE: 업그레이드 이후에는
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
+        <source>Vote For Proposal</source>
+        <translation>프로포절에 투표하기</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation>투표할 방향과 마스터노드 선택</translation>
     </message>
     <message>
-        <source>-0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select Voting Masternodes</source>
+        <translation>투표할 마스터노드 선택</translation>
     </message>
-</context>
+    <message>
+        <source>CANCEL</source>
+        <translation>취소</translation>
+    </message>
+    <message>
+        <source>VOTE</source>
+        <translation>투표</translation>
+    </message>
+    <message>
+        <source>You can change your vote later</source>
+        <translation>나중에 투표 변경 가능합니다</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>Select a vote direction</source>
+        <translation>투표 방향 선택</translation>
+    </message>
+    </context>
 <context>
     <name>WalletModel</name>
     <message>
@@ -4391,6 +4499,13 @@ NOTE: 업그레이드 이후에는
         <translation>기본값</translation>
     </message>
 </context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <source>Available</source>
+        <translation>가능함</translation>
+    </message>
+    </context>
 <context>
     <name>blkc-core</name>
     <message>
@@ -4586,12 +4701,24 @@ NOTE: 업그레이드 이후에는
         <translation>이것은 실험용 소프트웨어입니다.</translation>
     </message>
     <message>
+        <source>This is not a masternode.</source>
+        <translation>마스터노드가 아닙니다.</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2015-%i The %s Developers</source>
+        <translation>Copyright (C) 2015-%i The %s 개발자</translation>
+    </message>
+    <message>
         <source>Transaction amount too small</source>
         <translation>트랜잭션 금액이 너무 적습니다</translation>
     </message>
     <message>
         <source>Transaction amounts must be positive</source>
         <translation>트랜잭션 금액에 반드시 양수값이 들어가야 합니다</translation>
+    </message>
+    <message>
+        <source>Transaction canceled.</source>
+        <translation>트랜잭션 취소됨</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>
@@ -4644,10 +4771,6 @@ NOTE: 업그레이드 이후에는
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>보내기</translation>

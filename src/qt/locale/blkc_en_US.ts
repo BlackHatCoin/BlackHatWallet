@@ -2,20 +2,12 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>New Address</source>
         <translation>New Address</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Address</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>PushButton</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -28,10 +20,6 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>CANCEL</translation>
@@ -159,21 +147,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Bob Allen</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +171,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Contact name</translation>
@@ -296,14 +265,6 @@ Are you sure?</translation>
     <message>
         <source>Passphrase Dialog</source>
         <translation>Passphrase Dialog</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>PushButton</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -431,16 +392,8 @@ for staking</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
-    </message>
-    <message>
-        <source>0.00 blkc</source>
-        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -461,16 +414,8 @@ for staking</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Savings</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -541,10 +486,6 @@ for staking</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -690,10 +631,6 @@ for staking</translation>
 <context>
     <name>ColdStakingWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Owner address (optional, if empty a new address will be created)</translation>
     </message>
@@ -716,6 +653,10 @@ for staking</translation>
     <message>
         <source>Delegate</source>
         <translation>Delegate</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -925,18 +866,106 @@ address</translation>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Receiver</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>Summary</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>Create New Proposal</translation>
+    </message>
+    <message>
+        <source>Make sure you have 50 BLKC for the proposal fee</source>
+        <translation>Make sure you have 50 BLKC for the proposal fee</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Proposal Name</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>Proposal URL</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>Proposal Payee</translation>
+    </message>
+    <message>
+        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
+        <translation>Add the requested number of payments, the amount per payment, and the payee address.</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Address</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Amount</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Months</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>Proposal Summary</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCEL</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>NEXT</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>BACK</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>Proposal name cannot be empty</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation>Proposal name cannot contain non UTF-8 characters</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Invalid amount</translation>
+    </message>
+    <message>
+        <source>Invalid payment address</source>
+        <translation>Invalid payment address</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Send</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Next</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>No contacts available, you can go to the contacts screen and add some there!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Transactions</source>
         <translation>Transactions</translation>
@@ -1023,10 +1052,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1091,13 +1116,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1118,6 +1136,135 @@ It will start automatically as soon as the wallet has enough confirmations on an
     <message>
         <source>Cannot create data directory here.</source>
         <translation>Cannot create data directory here.</translation>
+    </message>
+</context>
+<context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Governance</source>
+        <translation>Governance</translation>
+    </message>
+    <message>
+        <source>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</source>
+        <translation>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Amount</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sort by</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>All</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Passing</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Not Passing</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Waiting</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filter</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced to see the correct information</source>
+        <translation>Please wait until the node is fully synced to see the correct information</translation>
+    </message>
+    <message>
+        <source>Prepare and submit a new proposal.</source>
+        <translation>Prepare and submit a new proposal.</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Please wait until the node is fully synced</translation>
+    </message>
+    <message>
+        <source>Cannot vote for the proposal yet, wait until it's confirmed by the network</source>
+        <translation>Cannot vote for the proposal yet, wait until it's confirmed by the network</translation>
+    </message>
+    <message>
+        <source>Vote emitted successfully!</source>
+        <translation>Vote emitted successfully!</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation>Cannot create proposal, wallet locked</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
+        <translation>Cannot create proposal, need to have at least %1 to pay for the proposal fee</translation>
+    </message>
+    <message>
+        <source>Proposal transaction fee broadcasted!</source>
+        <translation>Proposal transaction fee broadcasted!</translation>
+    </message>
+    <message>
+        <source>Copy Url</source>
+        <translation>Copy Url</translation>
+    </message>
+    <message>
+        <source>Open Url</source>
+        <translation>Open Url</translation>
+    </message>
+    <message>
+        <source>More Info</source>
+        <translation>More Info</translation>
+    </message>
+    <message>
+        <source>Proposal URL copied to clipboard</source>
+        <translation>Proposal URL copied to clipboard</translation>
+    </message>
+    <message>
+        <source>Open Proposal URL</source>
+        <translation>Open Proposal URL</translation>
+    </message>
+    <message>
+        <source>The following URL will be opened in the default browser</source>
+        <translation>The following URL will be opened in the default browser</translation>
+    </message>
+    <message>
+        <source>Are you sure?
+(Always verify the URL validity before opening it)
+</source>
+        <translation>Are you sure?
+(Always verify the URL validity before opening it)
+</translation>
+    </message>
+    <message>
+        <source>Failed to open proposal URL</source>
+        <translation>Failed to open proposal URL</translation>
+    </message>
+    <message>
+        <source>Next superblock today!
+%2 blocks to go.</source>
+        <translation>Next superblock today!
+%2 blocks to go.</translation>
+    </message>
+    <message>
+        <source>Next superblock in %1 days.
+%2 blocks to go.</source>
+        <translation>Next superblock in %1 days.
+%2 blocks to go.</translation>
     </message>
 </context>
 <context>
@@ -1197,28 +1344,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Loading</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Unlock Wallet</translation>
@@ -1235,10 +1366,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Collateral tx not found</translation>
     </message>
@@ -1249,10 +1376,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1394,10 +1517,6 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Start All</translation>
@@ -1572,10 +1691,6 @@ Are you sure?</translation>
 <context>
     <name>MnInfoDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Masternode Information</source>
         <translation>Masternode Information</translation>
     </message>
@@ -1617,18 +1732,70 @@ Are you sure?</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+        <source>Select Masternodes</source>
+        <translation>Select Masternodes</translation>
+    </message>
+    <message>
+        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
+        <translation>Each Masternode refers to a single vote, you can select which one will vote for the proposal</translation>
+    </message>
+    <message>
+        <source>Amount of votes:</source>
+        <translation>Amount of votes:</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Select All</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation>Vote</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCEL</translation>
+    </message>
+    <message>
+        <source>SELECT VOTES</source>
+        <translation>SELECT VOTES</translation>
+    </message>
+    <message>
+        <source>Unselect All</source>
+        <translation>Unselect All</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>The direction of the already broadcasted vote</source>
+        <translation>The direction of the already broadcasted vote</translation>
+    </message>
+    <message>
+        <source>No vote has been emitted from this Masternode</source>
+        <translation>No vote has been emitted from this Masternode</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
+        <translation>Time between votes is too soon, have to wait %1 minutes to change your vote</translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1654,6 +1821,10 @@ Are you sure?</translation>
 </translation>
     </message>
     <message>
+        <source>DAO</source>
+        <translation>DAO</translation>
+    </message>
+    <message>
         <source>MASTER
 NODES</source>
         <translation>MASTER
@@ -1670,10 +1841,6 @@ STAKING</translation>
 </source>
         <translation>SETTINGS
 </translation>
-    </message>
-    <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -1697,13 +1864,6 @@ STAKING</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
     </message>
 </context>
 <context>
@@ -1817,6 +1977,100 @@ Address: %4
     <message>
         <source>NodeID</source>
         <translation>NodeID</translation>
+    </message>
+</context>
+<context>
+    <name>ProposalCard</name>
+    <message>
+        <source>Vote</source>
+        <translation>Vote</translation>
+    </message>
+    <message>
+        <source>Inactive proposal</source>
+        <translation>Inactive proposal</translation>
+    </message>
+    <message>
+        <source>Last month in course</source>
+        <translation>Last month in course</translation>
+    </message>
+    <message>
+        <source>%1 of %2 months left</source>
+        <translation>%1 of %2 months left</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Waiting</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Finished</translation>
+    </message>
+    <message>
+        <source>No Votes</source>
+        <translation>No Votes</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Not Passing</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Passing</translation>
+    </message>
+</context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>Proposal Information</source>
+        <translation>Proposal Information</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Proposal Name</translation>
+    </message>
+    <message>
+        <source>Recipient</source>
+        <translation>Recipient</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Amount</translation>
+    </message>
+    <message>
+        <source>End Block</source>
+        <translation>End Block</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Start Block</source>
+        <translation>Start Block</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Positive Votes</source>
+        <translation>Positive Votes</translation>
+    </message>
+    <message>
+        <source>Negative Votes</source>
+        <translation>Negative Votes</translation>
     </message>
 </context>
 <context>
@@ -2101,10 +2355,6 @@ Address: %4
         <translation>Client name</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>Number of connections</translation>
     </message>
@@ -2325,10 +2575,6 @@ Address: %4
         <translation>Rebuild block chain index from current blk000??.dat files.</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>-resync:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Deletes all local blockchain folders so the wallet synchronizes from scratch.</translation>
     </message>
@@ -2476,10 +2722,6 @@ Address: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>My Address</translation>
     </message>
@@ -2494,10 +2736,6 @@ Address: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Scan the QR code or copy the address to receive BLKC</translation>
@@ -2639,24 +2877,12 @@ try unlocking the wallet</translation>
 <context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Amount</translation>
     </message>
     <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
-    </message>
-    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2730,10 +2956,6 @@ try unlocking the wallet</translation>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>CANCEL</translation>
     </message>
@@ -2765,20 +2987,8 @@ try unlocking the wallet</translation>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Recommended</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -2809,6 +3019,10 @@ try unlocking the wallet</translation>
         <translation>Fast</translation>
     </message>
     <message>
+        <source>Invalid custom fee amount</source>
+        <translation>Invalid custom fee amount</translation>
+    </message>
+    <message>
         <source>SAVE</source>
         <translation>SAVE</translation>
     </message>
@@ -2824,24 +3038,8 @@ try unlocking the wallet</translation>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <source>Private message only visible for the recipient(s)</source>
         <translation>Private message only visible for the recipient(s)</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -2858,10 +3056,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>SendMultiRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Enter address</source>
         <translation>Enter address</translation>
@@ -3121,10 +3315,6 @@ Do you want to continue?
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Change Wallet Passphrase</translation>
     </message>
@@ -3175,10 +3365,6 @@ Remember to write it down and store it safely, otherwise you might lose access t
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Import Address</translation>
@@ -3333,10 +3519,6 @@ Using this mechanism you can share your keys without middle-man risk, only need 
 <context>
     <name>SettingsConsoleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Console</source>
         <translation>Console</translation>
     </message>
@@ -3385,10 +3567,6 @@ Verify that you have installed a predetermined text editor.</translation>
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Hide stake charts in the dashboard</translation>
@@ -3445,10 +3623,6 @@ Verify that you have installed a predetermined text editor.</translation>
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Export Accounting</translation>
     </message>
@@ -3457,8 +3631,8 @@ Verify that you have installed a predetermined text editor.</translation>
         <translation>Export your wallet's accounting data to a csv file.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Where</translation>
+        <source>Export Transaction History</source>
+        <translation>Export Transaction History</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3469,20 +3643,8 @@ Verify that you have installed a predetermined text editor.</translation>
         <translation>Export Address Book</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>Export CSV</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Export Address List</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_tx_csv_export(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_addresses_csv_export(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Comma separated file (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3548,20 +3710,12 @@ There was an error trying to save the address list to %1. Please try again.</tra
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) What is BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) Why are my BLKC unspendable?</translation>
-    </message>
-    <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3755,10 +3909,6 @@ There was an error trying to save the address list to %1. Please try again.</tra
 <context>
     <name>SettingsInformationWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Network Monitor</source>
         <translation>Network Monitor</translation>
     </message>
@@ -3870,10 +4020,6 @@ There was an error trying to save the address list to %1. Please try again.</tra
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Window</source>
         <translation>Window</translation>
     </message>
@@ -3942,10 +4088,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Sign/Verify Message</translation>
@@ -4039,10 +4181,6 @@ Are you sure?
         <translation>Please check the signature and try again.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>The signature did not match the message digest.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Message verification failed.</translation>
     </message>
@@ -4057,10 +4195,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Reset to default</translation>
@@ -4144,10 +4278,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Wallet Repair</translation>
@@ -4235,10 +4365,6 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Wallet Data</source>
         <translation>Wallet Data</translation>
@@ -4376,22 +4502,7 @@ Are you sure?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Contact Stored</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Loading…</translation>
@@ -4406,10 +4517,6 @@ Are you sure?
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Copy</translation>
@@ -4429,10 +4536,6 @@ Are you sure?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>transparent</source>
         <translation>transparent</translation>
@@ -4843,10 +4946,6 @@ backup will be created.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Transaction Details</translation>
     </message>
@@ -4861,14 +4960,6 @@ backup will be created.
     <message>
         <source>Output Index</source>
         <translation>Output Index</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>May 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -4913,10 +5004,6 @@ backup will be created.
     <message>
         <source>Memo</source>
         <translation>Memo</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -4964,18 +5051,64 @@ backup will be created.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+        <source>Vote For Proposal</source>
+        <translation>Vote For Proposal</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation>Select vote direction and the masternodes that will vote for it</translation>
     </message>
     <message>
-        <source>-0.000585 BLKC</source>
-        <translation>-0.000585 BLKC</translation>
+        <source>Select Voting Masternodes</source>
+        <translation>Select Voting Masternodes</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCEL</translation>
+    </message>
+    <message>
+        <source>VOTE</source>
+        <translation>VOTE</translation>
+    </message>
+    <message>
+        <source>You can change your vote later</source>
+        <translation>You can change your vote later</translation>
+    </message>
+    <message>
+        <source>%1 months remaining</source>
+        <translation>%1 months remaining</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>Select a vote direction</source>
+        <translation>Select a vote direction</translation>
+    </message>
+    <message>
+        <source>Missing voting masternodes selection</source>
+        <translation>Missing voting masternodes selection</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes</source>
+        <translation>Time between votes is too soon, have to wait %1 minutes</translation>
+    </message>
+    <message>
+        <source>You have voted with %1 Masternodes for this proposal
+Change votes</source>
+        <translation>You have voted with %1 Masternodes for this proposal
+Change votes</translation>
+    </message>
+    <message>
+        <source>%1 Masternodes selected to vote</source>
+        <translation>%1 Masternodes selected to vote</translation>
     </message>
 </context>
 <context>
@@ -5064,6 +5197,29 @@ Select fewer inputs with coin control.</translation>
     <message>
         <source>default</source>
         <translation>default</translation>
+    </message>
+</context>
+<context>
+    <name>governancewidget</name>
+    <message>
+        <source>No active proposals yet</source>
+        <translation>No active proposals yet</translation>
+    </message>
+    <message>
+        <source>Budget Distribution</source>
+        <translation>Budget Distribution</translation>
+    </message>
+    <message>
+        <source>Funds accessible for the proposals' implementation</source>
+        <translation>Funds accessible for the proposals' implementation</translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation>Available</translation>
+    </message>
+    <message>
+        <source>Allocated</source>
+        <translation>Allocated</translation>
     </message>
 </context>
 <context>
@@ -5743,10 +5899,6 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Send</translation>

@@ -41,12 +41,18 @@ class DIP3Test(BlackHatTestFramework):
                                          self.controllerPos,
                                          strType,
                                          outpoint=from_out,
-                                         op_addr_and_key=op_keys))
+                                         op_blskeys=op_keys))
 
     def check_mn_list(self, mns):
         for i in range(self.num_nodes):
             self.check_mn_list_on_node(i, mns)
         self.log.info("Deterministic list contains %d masternodes for all peers." % len(mns))
+
+    def check_mn_enabled_count(self, enabled, total):
+        for node in self.nodes:
+            node_count = node.getmasternodecount()
+            assert_equal(node_count['enabled'], enabled)
+            assert_equal(node_count['total'], total)
 
     def get_addr_balance(self, node, addr):
         rcv = node.listreceivedbyaddress(0, False, False, addr)
@@ -131,27 +137,31 @@ class DIP3Test(BlackHatTestFramework):
         # -- DIP3 enforced and SPORK_21 active here --
         self.wait_until_mnsync_completed()
 
+        # enabled/total masternodes: 0/0
+        self.check_mn_enabled_count(0, 0)
+
         # Create 3 DMNs and init the remote nodes
         self.log.info("Initializing masternodes...")
         self.add_new_dmn(mns, "internal")
         self.add_new_dmn(mns, "external")
         self.add_new_dmn(mns, "fund")
         for mn in mns:
-            self.nodes[mn.idx].initmasternode(mn.operator_key, "", True)
+            self.nodes[mn.idx].initmasternode(mn.operator_sk, "", True)
             time.sleep(1)
         miner.generate(1)
         self.sync_blocks()
+
+        # enabled/total masternodes: 3/3
+        self.check_mn_enabled_count(3, 3)
 
         # Init the other 3 remote nodes before creating the ProReg tx
         self.log.info("Initializing more masternodes...")
         op_keys = []
         for i in range(3):
             idx = 2 + len(mns) + i
-            add_and_key = []
-            add_and_key.append(controller.getnewaddress("oper-%d-key" % idx))
-            add_and_key.append(controller.dumpprivkey(add_and_key[0]))
-            self.nodes[idx].initmasternode(add_and_key[1], "", True)
-            op_keys.append(add_and_key)
+            bls_keypair = controller.generateblskeypair()
+            self.nodes[idx].initmasternode(bls_keypair["secret"], "", True)
+            op_keys.append([bls_keypair["public"], bls_keypair["secret"]])
             time.sleep(1)
 
         # Now send the ProReg txes and check list
@@ -162,6 +172,9 @@ class DIP3Test(BlackHatTestFramework):
         self.sync_blocks()
         time.sleep(1)
         self.log.info("Masternodes started.")
+
+        # enabled/total masternodes: 6/6
+        self.check_mn_enabled_count(6, 6)
         self.check_mn_list(mns)
 
         # Check status from remote nodes
@@ -188,18 +201,24 @@ class DIP3Test(BlackHatTestFramework):
         miner.generate(1)
         self.sync_blocks()
         assert_greater_than(miner.getrawtransaction(spend_txid, True)["confirmations"], 0)
+
+        # enabled/total masternodes: 5/5
+        self.check_mn_enabled_count(5, 5)
         self.check_mn_list(mns)
 
         # Register dmn again, with the collateral of dmn2
         # dmn must be added again to the list, and dmn2 must be removed
         dmn2 = mns.pop(randrange(len(mns)))  # pop one at random
-        dmn_keys = [dmn.operator, dmn.operator_key]
-        dmn2_keys = [dmn2.operator, dmn2.operator_key]
+        dmn_keys = [dmn.operator_pk, dmn.operator_sk]
+        dmn2_keys = [dmn2.operator_pk, dmn2.operator_sk]
         self.log.info("Reactivating node %d reusing the collateral of node %d..." % (dmn.idx, dmn2.idx))
         mns.append(self.register_new_dmn(dmn.idx, self.minerPos, self.controllerPos, "external",
-                                         outpoint=dmn2.collateral, op_addr_and_key=dmn_keys))
+                                         outpoint=dmn2.collateral, op_blskeys=dmn_keys))
         miner.generate(1)
         self.sync_blocks()
+
+        # enabled/total masternodes: 5/5
+        self.check_mn_enabled_count(5, 5)
         self.check_mn_list(mns)
 
         # Now try to register dmn2 again with an already-used IP
@@ -207,7 +226,7 @@ class DIP3Test(BlackHatTestFramework):
         rand_idx = mns[randrange(len(mns))].idx
         assert_raises_rpc_error(-1, "bad-protx-dup-IP-address",
                                 self.register_new_dmn, rand_idx, self.minerPos, self.controllerPos, "fund",
-                                op_addr_and_key=dmn2_keys)
+                                op_blskeys=dmn2_keys)
 
         # Now try with duplicate operator key
         self.log.info("Trying duplicate operator key...")
@@ -235,6 +254,9 @@ class DIP3Test(BlackHatTestFramework):
         json_tx = self.nodes[dmn2c.idx].getrawtransaction(dmn2c.proTx, True)
         assert_greater_than(json_tx['confirmations'], 0)
         self.check_proreg_payload(dmn2c, json_tx)
+
+        # enabled/total masternodes: 6/6
+        self.check_mn_enabled_count(6, 6)
         self.check_mn_list(mns)     # 6 masternodes again
 
         # Test payments.
@@ -274,25 +296,32 @@ class DIP3Test(BlackHatTestFramework):
                                 "%064x" % getrandbits(256), "127.0.0.1:1000")
         self.log.info("Trying to update an IP address to an already used one...")
         assert_raises_rpc_error(-1, "bad-protx-dup-addr", miner.protx_update_service,
-                                mns[0].proTx, mns[1].ipport, "", mns[0].operator_key)
+                                mns[0].proTx, mns[1].ipport, "", mns[0].operator_sk)
         self.log.info("Trying to update the payout address when the reward is 0...")
         assert_raises_rpc_error(-8, "Operator reward is 0. Cannot set operator payout address",
                                 miner.protx_update_service, mns[0].proTx, "",
-                                miner.getnewaddress(), mns[0].operator_key)
+                                miner.getnewaddress(), mns[0].operator_sk)
         self.log.info("Trying to update the operator payee to an invalid address...")
         assert_raises_rpc_error(-5, "invalid BlackHat address InvalidPayee",
                                 miner.protx_update_service, dmn2c.proTx, "", "InvalidPayee", "")
         self.log.info("Update IP address...")
         mns[0].ipport = "127.0.0.1:1000"
-        # Controller should already have the key (as it was generated there), no need to pass it
-        controller.protx_update_service(mns[0].proTx, mns[0].ipport)
-        self.sync_mempools([miner, controller])
+        # Do it from the remote node (so no need to pass the operator BLS secret key)
+        remote_node = self.nodes[mns[0].idx]
+        # Send first some funds
+        miner.sendtoaddress(remote_node.getnewaddress(), 1.0)
+        miner.generate(1)
+        self.sync_blocks()
+        # Then send the ProUpServ tx from the masternode
+        remote_node.protx_update_service(mns[0].proTx, mns[0].ipport)
+        self.sync_mempools([miner, remote_node])
         miner.generate(1)
         self.sync_blocks()
         self.check_mn_list(mns)
         self.log.info("Update operator payout address...")
+        # This time send the ProUpServ tx directly from the miner, giving the operator BLS secret key
         new_address = self.nodes[dmn2c.idx].getnewaddress()
-        miner.protx_update_service(dmn2c.proTx, dmn2c.ipport, new_address, dmn2c.operator_key)
+        miner.protx_update_service(dmn2c.proTx, dmn2c.ipport, new_address, dmn2c.operator_sk)
         miner.generate(len(mns) + 1)
         self.sync_blocks()
         # Check payment to new address
@@ -305,29 +334,36 @@ class DIP3Test(BlackHatTestFramework):
                                 "%064x" % getrandbits(256), "", "", "")
         self.log.info("Trying to update an operator address to an already used one...")
         assert_raises_rpc_error(-1, "bad-protx-dup-key", controller.protx_update_registrar,
-                                mns[0].proTx, mns[1].operator, "", "")
+                                mns[0].proTx, mns[1].operator_pk, "", "")
         self.log.info("Trying to update the payee to an invalid address...")
         assert_raises_rpc_error(-5, "invalid BlackHat address InvalidPayee", controller.protx_update_registrar,
                                 mns[0].proTx, "", "", "InvalidPayee")
-        self.log.info("Update operator address...")
-        mns[0].operator = self.nodes[mns[0].idx].getnewaddress()
-        mns[0].operator_key = self.nodes[mns[0].idx].dumpprivkey(mns[0].operator)
+        self.log.info("Update operator keys...")
+        bls_keypair = self.nodes[mns[0].idx].generateblskeypair()
+        mns[0].operator_pk = bls_keypair["public"]
+        mns[0].operator_sk = bls_keypair["secret"]
         # Controller should already have the key (as it was generated there), no need to pass it
-        controller.protx_update_registrar(mns[0].proTx, mns[0].operator, "", "")
+        controller.protx_update_registrar(mns[0].proTx, mns[0].operator_pk, "", "")
         self.sync_mempools([miner, controller])
         miner.generate(1)
         self.sync_blocks()
-        # Updating the operator address, clears the IP (and puts the mn in PoSe banned state)
+
+        # enabled/total masternodes: 5/6
+        # Updating the operator key, clears the IP (and puts the mn in PoSe banned state)
+        self.check_mn_enabled_count(5, 6)
         mns[0].ipport = "[::]:0"
         self.check_mn_list(mns)
+
         old_mn0_balance = self.get_addr_balance(controller, mns[0].payee)
         self.log.info("Update operator address (with external key)...")
-        mns[0].operator = self.nodes[mns[0].idx].getnewaddress()
-        mns[0].operator_key = self.nodes[mns[0].idx].dumpprivkey(mns[0].operator)
+        bls_keypair = self.nodes[mns[0].idx].generateblskeypair()
+        mns[0].operator_pk = bls_keypair["public"]
+        mns[0].operator_sk = bls_keypair["secret"]
         ownerKey = controller.dumpprivkey(mns[0].owner)
-        miner.protx_update_registrar(mns[0].proTx, mns[0].operator, "", "", ownerKey)
+        miner.protx_update_registrar(mns[0].proTx, mns[0].operator_pk, "", "", ownerKey)
         miner.generate(1)
         self.sync_blocks()
+        self.check_mn_enabled_count(5, 6) # stil not valid until new operator sends proUpServ
         self.check_mn_list(mns)
         self.log.info("Update voting address...")
         mns[1].voting = controller.getnewaddress()
@@ -335,6 +371,7 @@ class DIP3Test(BlackHatTestFramework):
         self.sync_mempools([miner, controller])
         miner.generate(1)
         self.sync_blocks()
+        self.check_mn_enabled_count(5, 6)
         self.check_mn_list(mns)
         self.log.info("Update payout address...")
         old_payee = mns[2].payee
@@ -346,6 +383,7 @@ class DIP3Test(BlackHatTestFramework):
         old_mn2_bal = self.get_addr_balance(controller, old_payee)
         miner.generate(len(mns)-1)
         self.sync_blocks()
+        self.check_mn_enabled_count(5, 6)
         self.check_mn_list(mns)
         # Check payment to new address
         self.log.info("Checking payments...")
@@ -359,18 +397,26 @@ class DIP3Test(BlackHatTestFramework):
         assert_raises_rpc_error(-8, "not found", miner.protx_revoke,
                                 "%064x" % getrandbits(256))
         self.log.info("Trying to revoke with invalid reason...")
-        assert_raises_rpc_error(-8, "invalid reason", controller.protx_revoke, mns[3].proTx, "", 100)
+        assert_raises_rpc_error(-8, "invalid reason", controller.protx_revoke, mns[3].proTx, mns[3].operator_sk, 100)
         self.log.info("Revoke masternode...")
-        # Controller should already have the key (as it was generated there), no need to pass it
-        controller.protx_revoke(mns[3].proTx, "", 1)
-        mns[3].revoked()
-        self.sync_mempools([miner, controller])
+        # Do it from the remote node (so no need to pass the operator BLS secret key)
+        remote_node = self.nodes[mns[3].idx]
+        # Send first some funds
+        miner.sendtoaddress(remote_node.getnewaddress(), 1.0)
         miner.generate(1)
         self.sync_blocks()
+        # Then send the ProUpRev tx from the masternode
+        remote_node.protx_revoke(mns[3].proTx, "", 1)
+        mns[3].revoked()
+        self.sync_mempools([miner, remote_node])
+        miner.generate(1)
+        self.sync_blocks()
+        self.check_mn_enabled_count(4, 6)   # mn3 has been revoked
         self.check_mn_list(mns)
         old_mn3_bal = self.get_addr_balance(controller, mns[3].payee)
+        # This time send the ProUpRev tx directly from the miner, giving the operator BLS secret key
         self.log.info("Revoke masternode (with external key)...")
-        miner.protx_revoke(mns[4].proTx, mns[4].operator_key, 2)
+        miner.protx_revoke(mns[4].proTx, mns[4].operator_sk, 2)
         mns[4].revoked()
         miner.generate(1)
         self.sync_blocks()
@@ -378,7 +424,11 @@ class DIP3Test(BlackHatTestFramework):
         old_mn4_bal = self.get_addr_balance(controller, mns[4].payee)
         miner.generate(len(mns) + 1)
         self.sync_blocks()
+
+        # enabled/total masternodes: 3/6 (mn0 banned, mn3 and mn4 revoked)
+        self.check_mn_enabled_count(3, 6)
         self.check_mn_list(mns)
+
         # Check (no) payments
         self.log.info("Checking payments...")
         assert_equal(self.get_addr_balance(controller, mns[3].payee), old_mn3_bal)
@@ -386,15 +436,20 @@ class DIP3Test(BlackHatTestFramework):
 
         # Test reviving a masternode
         self.log.info("Reviving a masternode...")
-        mns[3].operator = controller.getnewaddress()
-        mns[3].operator_key = controller.dumpprivkey(mns[3].operator)
-        miner.protx_update_registrar(mns[3].proTx, mns[3].operator, "", "", controller.dumpprivkey(mns[3].owner))
+        bls_keypair = controller.generateblskeypair()
+        mns[3].operator_pk = bls_keypair["public"]
+        mns[3].operator_sk = bls_keypair["secret"]
+        miner.protx_update_registrar(mns[3].proTx, mns[3].operator_pk, "", "", controller.dumpprivkey(mns[3].owner))
         miner.generate(1)
         mns[3].ipport = "127.0.0.1:3000"
-        miner.protx_update_service(mns[3].proTx, mns[3].ipport, "", mns[3].operator_key)
+        miner.protx_update_service(mns[3].proTx, mns[3].ipport, "", mns[3].operator_sk)
         miner.generate(len(mns))
         self.sync_blocks()
+
+        # enabled/total masternodes: 4/6 (mn3 is back)
+        self.check_mn_enabled_count(4, 6)
         self.check_mn_list(mns)
+
         self.log.info("Checking payments...")
         assert_equal(self.get_addr_balance(controller, mns[3].payee), old_mn3_bal + Decimal('3'))
 

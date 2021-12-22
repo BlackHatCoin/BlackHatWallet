@@ -37,9 +37,14 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     message(STATUS "Compiling on macOS")
     set(ENV{target} "Mac")
     add_definitions("-DMAC_OSX")
-    list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/qt5)
-    list(APPEND CMAKE_PREFIX_PATH /usr/local/Cellar/berkeley-db@4)
-    set(BerkeleyDB_ROOT_DIR "/usr/local/Cellar/berkeley-db@4/${BDB_VER}/")
+    list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/qt5 /opt/homebrew/opt/qt5)
+    list(APPEND CMAKE_PREFIX_PATH /usr/local/Cellar/berkeley-db@4 /opt/homebrew/Cellar/berkeley-db@4)
+    # Homebrew default path for apple silicon CPUs is different than for intel CPUs
+    if(${CMAKE_HOST_SYSTEM_PROCESSOR} MATCHES "arm")
+        set(BerkeleyDB_ROOT_DIR "/opt/homebrew/Cellar/berkeley-db@4/${BDB_VER}/")
+    else()
+        set(BerkeleyDB_ROOT_DIR "/usr/local/Cellar/berkeley-db@4/${BDB_VER}/" )
+    endif()
     set(Boost_USE_MULTITHREADED ON)
     set(Boost_NO_BOOST_CMAKE ON)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -180,6 +185,7 @@ source_group("BitcoinHeaders" FILES
         ${IMMER_HEADERS}
         ${EVO_HEADERS}
         ./src/support/cleanse.h
+        ./src/support/events.h
         )
 
 set(SERVER_SOURCES
@@ -187,6 +193,9 @@ set(SERVER_SOURCES
         ./src/addrman.cpp
         ./src/bloom.cpp
         ./src/blocksignature.cpp
+        ./src/bls/bls_ies.cpp
+        ./src/bls/bls_worker.cpp
+        ./src/bls/bls_wrapper.cpp
         ./src/chain.cpp
         ./src/checkpoints.cpp
         ./src/consensus/tx_verify.cpp
@@ -221,6 +230,7 @@ set(SERVER_SOURCES
         ./src/rpc/server.cpp
         ./src/script/sigcache.cpp
         ./src/script/ismine.cpp
+        ./src/shutdown.cpp
         ./src/sporkdb.cpp
         ./src/timedata.cpp
         ./src/torcontrol.cpp
@@ -283,6 +293,9 @@ target_include_directories(WALLET_A PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}/src/secp256k1/include
         ${CMAKE_CURRENT_SOURCE_DIR}/src/univalue/include
         ${CMAKE_CURRENT_SOURCE_DIR}/src/leveldb/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/chiabls/src
+        ${relic_SOURCE_DIR}/include
+        ${relic_BINARY_DIR}/include
         ${BerkeleyDB_INCLUDE_DIRS}
         )
 
@@ -308,6 +321,8 @@ set(BITCOIN_CRYPTO_SOURCES
         ./src/crypto/common.h
         ./src/crypto/sha256.h
         ./src/crypto/sha512.h
+        ./src/crypto/siphash.cpp
+        ./src/crypto/siphash.h
         ./src/crypto/chacha20.h
         ./src/crypto/hmac_sha256.h
         ./src/crypto/rfc6979_hmac_sha256.h
@@ -358,6 +373,7 @@ set(COMMON_SOURCES
         ./src/budget/budgetvote.cpp
         ./src/budget/finalizedbudget.cpp
         ./src/budget/finalizedbudgetvote.cpp
+        ./src/budget/budgetutil.cpp
         ./src/consensus/params.cpp
         ./src/consensus/upgrades.cpp
         ./src/chainparams.cpp
@@ -432,6 +448,7 @@ set(UTIL_SOURCES
         ./src/util/threadnames.cpp
         ./src/util/blockstatecatcher.h
         ./src/util/system.cpp
+        ./src/util/validation.cpp
         ./src/utilstrencodings.cpp
         ./src/utilmoneystr.cpp
         ./src/utiltime.cpp
@@ -587,3 +604,4 @@ target_link_libraries(blkcd ${sodium_LIBRARY_RELEASE} -ldl -lpthread)
 
 add_subdirectory(src/qt)
 add_subdirectory(src/test)
+add_subdirectory(src/bench)

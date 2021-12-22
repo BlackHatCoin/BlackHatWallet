@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
+// Copyright (c) 2015-2021 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 /**
  * Server/client environment: argument handling, config file parsing,
@@ -20,6 +20,7 @@
 #include "fs.h"
 #include "logging.h"
 #include "compat.h"
+#include "optional.h"
 #include "sync.h"
 #include "tinyformat.h"
 #include "utiltime.h"
@@ -56,8 +57,6 @@ extern const char * const DEFAULT_DEBUGLOGFILE;
 
 extern std::atomic<bool> fMasterNode;
 extern bool fLiteMode;
-extern std::string strMasterNodeAddr;
-extern std::string strBudgetMode;
 
 extern CTranslationInterface translationInterface;
 
@@ -67,8 +66,8 @@ extern CTranslationInterface translationInterface;
  */
 inline std::string _(const char* psz)
 {
-    // todo: this boost::optional is needed for now. Will get removed moving forward
-    boost::optional<std::string> rv = translationInterface.Translate(psz);
+    // todo: this Optional is needed for now. Will get removed moving forward
+    Optional<std::string> rv = translationInterface.Translate(psz);
     return rv ? (*rv) : psz;
 }
 

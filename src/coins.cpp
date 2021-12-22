@@ -11,6 +11,7 @@
 #include "invalid.h"
 #include "logging.h"
 #include "random.h"
+#include "version.h"
 
 #include <assert.h>
 

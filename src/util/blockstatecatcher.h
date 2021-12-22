@@ -6,7 +6,7 @@
 #ifndef BLKC_BLOCKSTATECATCHER_H
 #define BLKC_BLOCKSTATECATCHER_H
 
-#include "validation.h"
+#include "consensus/validation.h"
 #include "validationinterface.h"
 
 /**

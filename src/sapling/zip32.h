@@ -1,18 +1,18 @@
-// Copyright (c) 2018 The Zcash developers
+// Copyright (c) 2018-2020 The ZCash developers
+// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BLKC_ZIP32_H
 #define BLKC_ZIP32_H
 
-#include "uint256.h"
 #include "key.h"
+#include "optional.h"
 #include "sapling/address.h"
 #include "serialize.h"
 #include "support/allocators/zeroafterfree.h"
 #include "uint256.h"
-
-#include <boost/optional.hpp>
 
 const uint32_t ZIP32_HARDENED_KEY_LIMIT = 0x80000000;
 const size_t ZIP32_XFVK_SIZE = 169;
@@ -59,12 +59,12 @@ struct SaplingExtendedFullViewingKey {
 
     SERIALIZE_METHODS(SaplingExtendedFullViewingKey, obj) { READWRITE(obj.depth, obj.parentFVKTag, obj.childIndex, obj.chaincode, obj.fvk, obj.dk); }
 
-    boost::optional<SaplingExtendedFullViewingKey> Derive(uint32_t i) const;
+    Optional<SaplingExtendedFullViewingKey> Derive(uint32_t i) const;
 
     // Returns the first index starting from j that generates a valid
     // payment address, along with the corresponding address. Returns
     // an error if the diversifier space is exhausted.
-    boost::optional<std::pair<diversifier_index_t, libzcash::SaplingPaymentAddress>>
+    Optional<std::pair<diversifier_index_t, libzcash::SaplingPaymentAddress>>
         Address(diversifier_index_t j) const;
 
     libzcash::SaplingPaymentAddress DefaultAddress() const;

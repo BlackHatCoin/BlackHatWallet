@@ -112,7 +112,7 @@ BASE_SCRIPTS= [
     'wallet_dump.py',                           # ~ 83 sec
     'rpc_net.py',                               # ~ 83 sec
     'rpc_bip38.py',                             # ~ 82 sec
-    #'rpc_deprecated.py',                        # ~ 80 sec (disabled for now, no deprecated RPC commands to test)
+    'rpc_deprecated.py',                        # ~ 80 sec
     'interface_bitcoin_cli.py',                 # ~ 80 sec
     'mempool_packages.py',                      # ~ 63 sec
 
@@ -126,6 +126,7 @@ BASE_SCRIPTS= [
     'rpc_signrawtransaction.py',                # ~ 50 sec
     'rpc_decodescript.py',                      # ~ 50 sec
     'rpc_blockchain.py',                        # ~ 50 sec
+    'wallet_resendwallettransactions.py',
     'feature_asmap.py',
     'wallet_disable.py',                        # ~ 50 sec
     'wallet_autocombine.py',                    # ~ 49 sec

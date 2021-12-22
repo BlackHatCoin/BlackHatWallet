@@ -15,6 +15,7 @@
 #include <cstring>
 #include <errno.h>
 #include <limits>
+#include <regex>
 
 
 
@@ -38,27 +39,24 @@ std::string SanitizeString(const std::string& str, int rule)
     return strResult;
 }
 
-bool validateURL(std::string strURL, std::string& strErr, unsigned int maxSize) {
+bool validateURL(std::string strURL)
+{
+    std::string strErr;
+    return validateURL(strURL, strErr);
+}
 
+bool validateURL(std::string strURL, std::string& strErr, unsigned int maxSize)
+{
     // Check URL size
     if (strURL.size() > maxSize) {
         strErr = strprintf("Invalid URL: %d exceeds limit of %d characters.", strURL.size(), maxSize);
         return false;
     }
 
-    std::vector<std::string> reqPre;
-
-    // Required initial strings; URL must contain one
-    reqPre.push_back("http://");
-    reqPre.push_back("https://");
-
-    // check fronts
-    bool found = false;
-    for (int i=0; i < (int) reqPre.size() && !found; i++) {
-        if (strURL.find(reqPre[i]) == 0) found = true;
-    }
-    if ((!found) && (reqPre.size() > 0)) {
-        strErr = "Invalid URL, check scheme (e.g. https://)";
+    // Validate URL
+    std::regex url_regex("^(https?)://[^\\s/$.?#][^\\s]*[^\\s/.]\\.[^\\s/.][^\\s]*[^\\s.]$");
+    if (!std::regex_match(strURL, url_regex)) {
+        strErr = "Invalid URL";
         return false;
     }
 

@@ -12,7 +12,7 @@
 #include "wallet/wallet.h"
 
 WalletTestingSetup::WalletTestingSetup(const std::string& chainName):
-        SaplingTestingSetup(chainName), m_wallet("mock", CWalletDBWrapper::CreateMock())
+        SaplingTestingSetup(chainName), m_wallet("mock", WalletDatabase::CreateMock())
 {
     bool fFirstRun;
     m_wallet.LoadWallet(fFirstRun);

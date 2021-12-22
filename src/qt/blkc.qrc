@@ -223,5 +223,19 @@
         <file alias="ic-check-cold-staking-enabled">blkc/res/img/ic-check-cold-staking-enabled.svg</file>
         <file alias="ic-information">blkc/res/img/ic-information.svg</file>
         <file alias="ic-information-hover">blkc/res/img/ic-information-hover.svg</file>
+        <file alias="ic-check-vote">blkc/res/img/ic-check-vote.svg</file>
+        <file alias="ic-check-vote-active">blkc/res/img/ic-check-vote-active.svg</file>
+        <file alias="ic-check-vote-dark">blkc/res/img/ic-check-vote-dark.svg</file>
+        <file alias="ic-check-vote-active-dark">blkc/res/img/ic-check-vote-active-dark.svg</file>
+        <file alias="ic-filter">blkc/res/img/ic-filter.svg</file>
+        <file alias="ic-link">blkc/res/img/ic-link.svg</file>
+        <file alias="ic-link-hover">blkc/res/img/ic-link-hover.svg</file>
+        <file alias="ic-nav-governance">blkc/res/img/ic-nav-governance.svg</file>
+        <file alias="ic-nav-governance-active">blkc/res/img/ic-nav-governance-active.svg</file>
+        <file alias="ic-nav-governance-hover">blkc/res/img/ic-nav-governance-hover.svg</file>
+        <file alias="ic-time">blkc/res/img/ic-time.svg</file>
+        <file alias="img-empty-governance">blkc/res/img/img-empty-governance.svg</file>
+        <file alias="img-empty-dark-governance">blkc/res/img/img-empty-dark-governance.svg</file>
+        <file alias="ic-check-block">blkc/res/img/ic-check-block.svg</file>
     </qresource>
 </RCC>

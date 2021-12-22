@@ -289,13 +289,9 @@ class CInv:
         11: "MSG_BUDGET_FINALIZED",
         12: "MSG_BUDGET_FINALIZED_VOTE",
         13: "MSG_MASTERNODE_QUORUM",
-        14: "MSG_MASTERNODE_QUORUM",
         15: "MSG_MASTERNODE_ANNOUNCE",
         16: "MSG_MASTERNODE_PING",
-        17: "MSG_DSTX",
-        18: "MSG_PUBCOINS",
-        19: "MSG_GENWIT",
-        20: "MSG_ACC_VALUE"
+        17: "MSG_DSTX"
     }
 
     def __init__(self, t=0, h=0):
@@ -1149,6 +1145,41 @@ class msg_getblocks:
         return "msg_getblocks(locator=%s hashstop=%064x)" \
             % (repr(self.locator), self.hashstop)
 
+class msg_mnping:
+    command = b"mnp"
+
+    def __init__(self, _vin, _blockhash, _sigtime):
+        self.vin = _vin
+        self.blockhash = _blockhash
+        self.sigtime = _sigtime
+        self.vch_sig = b""
+        self.mess_version = 1
+        self.cached_hash = b""
+
+    def deserialize(self, f):
+        self.vin.deserialize(f)
+        self.blockhash = deser_uint256(f)
+        self.sigtime = struct.unpack("<q", f.read(8))[0]
+        self.vch_sig = deser_string(f)
+        self.mess_version = struct.unpack("<i", f.read(4))[0]
+
+    def serialize(self):
+        r = b""
+        r += self.vin.serialize()
+        r += ser_uint256(self.blockhash)
+        r += struct.pack("<q", self.sigtime)
+        r += ser_string(self.vch_sig)
+        r += struct.pack("<I", self.mess_version)
+        return r
+
+    def get_hash(self):
+        if self.cached_hash == b"":
+            self.cached_hash = uint256_from_str(hash256(self.serialize()))
+        return self.cached_hash
+
+    def __repr__(self):
+        return "msg_mnping(vin=%s blockhash=%064x)" \
+               % (repr(self.vin), self.blockhash)
 
 class msg_tx:
     command = b"tx"
@@ -1438,26 +1469,26 @@ class msg_witness_blocktxn(msg_blocktxn):
 
 # BlackHat Classes
 class Masternode(object):
-    def __init__(self, idx, owner_addr, operator_addr, voting_addr, ipport, payout_addr, operator_key):
+    def __init__(self, idx, owner_addr, operator_pk, voting_addr, ipport, payout_addr, operator_sk):
         self.idx = idx
         self.owner = owner_addr
-        self.operator = operator_addr
+        self.operator_pk = operator_pk
         self.voting = voting_addr
         self.ipport = ipport
         self.payee = payout_addr
-        self.operator_key = operator_key
+        self.operator_sk = operator_sk
         self.proTx = None
         self.collateral = None
 
     def revoked(self):
         self.ipport = "[::]:0"
-        self.operator = ""
-        self.operator_key = None
+        self.operator_pk = "0" * 96
+        self.operator_sk = None
 
     def __repr__(self):
         return "Masternode(idx=%d, owner=%s, operator=%s, voting=%s, ip=%s, payee=%s, opkey=%s, protx=%s, collateral=%s)" % (
-            self.idx, str(self.owner), str(self.operator), str(self.voting), str(self.ipport),
-            str(self.payee), str(self.operator_key), str(self.proTx), str(self.collateral)
+            self.idx, str(self.owner), str(self.operator_pk), str(self.voting), str(self.ipport),
+            str(self.payee), str(self.operator_sk), str(self.proTx), str(self.collateral)
         )
 
     def __str__(self):

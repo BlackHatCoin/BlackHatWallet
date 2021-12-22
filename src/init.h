@@ -18,12 +18,9 @@ namespace boost
 class thread_group;
 } // namespace boost
 
-void StartShutdown();
-bool ShutdownRequested();
 /** Interrupt threads */
 void Interrupt();
 void Shutdown();
-void PrepareShutdown();
 //!Initialize the logging infrastructure
 void InitLogging();
 //!Parameter interaction: change current parameters depending on various rules

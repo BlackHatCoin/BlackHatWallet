@@ -970,6 +970,38 @@ BOOST_AUTO_TEST_CASE(test_Capitalize)
     BOOST_CHECK_EQUAL(Capitalize("\x00\xfe\xff"), "\x00\xfe\xff");
 }
 
+BOOST_AUTO_TEST_CASE(test_validateURL)
+{
+    // Must pass
+    BOOST_CHECK(validateURL("http://foo.bar"));
+    BOOST_CHECK(validateURL("https://foo.bar"));
+    BOOST_CHECK(validateURL("https://foo.bar/"));
+    BOOST_CHECK(validateURL("http://blackhat.foo.bar"));
+    BOOST_CHECK(validateURL("https://foo.bar/blackhat"));
+    BOOST_CHECK(validateURL("https://foo.bar/blackhat/more/"));
+    BOOST_CHECK(validateURL("https://142.2.3.1"));
+    BOOST_CHECK(validateURL("https://foo_bar.blackhat.com"));
+    BOOST_CHECK(validateURL("http://foo.bar/?baz=some"));
+    BOOST_CHECK(validateURL("http://foo.bar/?baz=some&p=364"));
+
+    // Must fail
+    BOOST_CHECK(!validateURL("BlahBlah"));
+    BOOST_CHECK(!validateURL("foo.bar"));
+    BOOST_CHECK(!validateURL("://foo.bar"));
+    BOOST_CHECK(!validateURL("www.foo.bar"));
+    BOOST_CHECK(!validateURL("http://foo..bar"));
+    BOOST_CHECK(!validateURL("http:///foo.bar"));
+    BOOST_CHECK(!validateURL("http:// foo.bar"));
+    BOOST_CHECK(!validateURL("http://foo .bar"));
+    BOOST_CHECK(!validateURL("http://foo"));
+    BOOST_CHECK(!validateURL("http://foo.bar."));
+    BOOST_CHECK(!validateURL("http://foo.bar.."));
+    BOOST_CHECK(!validateURL("http://"));
+    BOOST_CHECK(!validateURL("http://.something.com"));
+    BOOST_CHECK(!validateURL("http://?something.com"));
+    BOOST_CHECK(!validateURL("https://foo.bar/?q=Spaces are not encoded"));
+}
+
 static void TestOtherThread(fs::path dirname, std::string lockname, bool *result)
 {
     *result = LockDirectory(dirname, lockname);

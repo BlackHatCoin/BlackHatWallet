@@ -26,7 +26,6 @@
 #include "evo/specialtx.h"
 #include "flatfile.h"
 #include "guiinterface.h"
-#include "init.h"
 #include "invalid.h"
 #include "interfaces/handler.h"
 #include "legacy/validation_zerocoin_legacy.h"
@@ -38,12 +37,14 @@
 #include "pow.h"
 #include "reverse_iterate.h"
 #include "script/sigcache.h"
+#include "shutdown.h"
 #include "spork.h"
 #include "sporkdb.h"
 #include "evo/evodb.h"
 #include "txdb.h"
 #include "undo.h"
 #include "util/system.h"
+#include "util/validation.h"
 #include "utilmoneystr.h"
 #include "validationinterface.h"
 #include "warnings.h"
@@ -311,15 +312,6 @@ CAmount GetShieldedTxMinFee(const CTransaction& tx)
     if (!Params().GetConsensus().MoneyRange(nMinFee))
         nMinFee = Params().GetConsensus().nMaxMoneyOut;
     return nMinFee;
-}
-
-/** Convert CValidationState to a human-readable message for logging */
-std::string FormatStateMessage(const CValidationState &state)
-{
-    return strprintf("%s%s (code %i)",
-        state.GetRejectReason(),
-        (state.GetDebugMessage().empty() ? "" : ", " + state.GetDebugMessage()),
-        state.GetRejectCode());
 }
 
 /* Make mempool consistent after a reorg, by re-adding or recursively erasing
@@ -1628,7 +1620,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
     int64_t nTime1 = GetTimeMicros();
     nTimeConnect += nTime1 - nTimeStart;
-    LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->nHeight);
@@ -1662,14 +1654,14 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         return state.DoS(100, error("%s: CheckQueue failed", __func__), REJECT_INVALID, "block-validation-failed");
     int64_t nTime2 = GetTimeMicros();
     nTimeVerify += nTime2 - nTimeStart;
-    LogPrint(BCLog::BENCH, "    - Verify %u txins: %.2fms (%.3fms/txin) [%.2fs]\n", nInputs - 1, 0.001 * (nTime2 - nTimeStart), nInputs <= 1 ? 0 : 0.001 * (nTime2 - nTimeStart) / (nInputs - 1), nTimeVerify * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "    - Verify %u txins: %.2fms (%.3fms/txin) [%.2fs]\n", nInputs - 1, 0.001 * (nTime2 - nTimeStart), nInputs <= 1 ? 0 : 0.001 * (nTime2 - nTimeStart) / (nInputs - 1), nTimeVerify * 0.000001);
 
     if (!ProcessSpecialTxsInBlock(block, pindex, state, fJustCheck)) {
         return error("%s: Special tx processing failed with %s", __func__, FormatStateMessage(state));
     }
     int64_t nTime3 = GetTimeMicros();
     nTimeProcessSpecial += nTime3 - nTime2;
-    LogPrint(BCLog::BENCH, "    - Process special tx: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeProcessSpecial * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "    - Process special tx: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeProcessSpecial * 0.000001);
 
     //IMPORTANT NOTE: Nothing before this point should actually store to disk (or even memory)
     if (fJustCheck)
@@ -1707,7 +1699,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
     int64_t nTime4 = GetTimeMicros();
     nTimeIndex += nTime4 - nTime3;
-    LogPrint(BCLog::BENCH, "    - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeIndex * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "    - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeIndex * 0.000001);
 
     if (consensus.NetworkUpgradeActive(pindex->nHeight, Consensus::UPGRADE_ZC_V2) &&
             pindex->nHeight < consensus.height_last_ZC_AccumCheckpoint) {
@@ -1924,7 +1916,7 @@ bool static DisconnectTip(CValidationState& state, const CChainParams& chainpara
         assert(flushed);
         dbTx->Commit();
     }
-    LogPrint(BCLog::BENCH, "- Disconnect block: %.2fms\n", (GetTimeMicros() - nStart) * 0.001);
+    LogPrint(BCLog::BENCHMARK, "- Disconnect block: %.2fms\n", (GetTimeMicros() - nStart) * 0.001);
     const uint256& saplingAnchorAfterDisconnect = pcoinsTip->GetBestAnchor();
     // Write the chain state to disk, if necessary.
     if (!FlushStateToDisk(state, FLUSH_STATE_IF_NEEDED))
@@ -2039,7 +2031,7 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, const st
     int64_t nTime2 = GetTimeMicros();
     nTimeReadFromDisk += nTime2 - nTime1;
     int64_t nTime3;
-    LogPrint(BCLog::BENCH, "  - Load block from disk: %.2fms [%.2fs]\n", (nTime2 - nTime1) * 0.001, nTimeReadFromDisk * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "  - Load block from disk: %.2fms [%.2fs]\n", (nTime2 - nTime1) * 0.001, nTimeReadFromDisk * 0.000001);
     {
         auto dbTx = evoDb->BeginTransaction();
 
@@ -2053,14 +2045,14 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, const st
         }
         nTime3 = GetTimeMicros();
         nTimeConnectTotal += nTime3 - nTime2;
-        LogPrint(BCLog::BENCH, "  - Connect total: %.2fms [%.2fs]\n", (nTime3 - nTime2) * 0.001, nTimeConnectTotal * 0.000001);
+        LogPrint(BCLog::BENCHMARK, "  - Connect total: %.2fms [%.2fs]\n", (nTime3 - nTime2) * 0.001, nTimeConnectTotal * 0.000001);
         bool flushed = view.Flush();
         assert(flushed);
         dbTx->Commit();
     }
     int64_t nTime4 = GetTimeMicros();
     nTimeFlush += nTime4 - nTime3;
-    LogPrint(BCLog::BENCH, "  - Flush: %.2fms [%.2fs]\n", (nTime4 - nTime3) * 0.001, nTimeFlush * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "  - Flush: %.2fms [%.2fs]\n", (nTime4 - nTime3) * 0.001, nTimeFlush * 0.000001);
 
     // Write the chain state to disk, if necessary. Always write to disk if this is the first of a new file.
     FlushStateMode flushMode = FLUSH_STATE_IF_NEEDED;
@@ -2070,7 +2062,7 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, const st
         return false;
     int64_t nTime5 = GetTimeMicros();
     nTimeChainState += nTime5 - nTime4;
-    LogPrint(BCLog::BENCH, "  - Writing chainstate: %.2fms [%.2fs]\n", (nTime5 - nTime4) * 0.001, nTimeChainState * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "  - Writing chainstate: %.2fms [%.2fs]\n", (nTime5 - nTime4) * 0.001, nTimeChainState * 0.000001);
 
     // Remove conflicting transactions from the mempool.
     mempool.removeForBlock(blockConnecting.vtx, pindexNew->nHeight);
@@ -2078,9 +2070,7 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, const st
     // Update chainActive & related variables.
     UpdateTip(pindexNew);
     // Update TierTwo managers
-    // !TODO: remove isV5_3 guard after v5.3 enforcement
-    bool isV5_3 = Params().GetConsensus().NetworkUpgradeActive(pindexNew->nHeight, Consensus::UPGRADE_V5_3);
-    if (!fLiteMode && isV5_3) {
+    if (!fLiteMode) {
         mnodeman.SetBestHeight(pindexNew->nHeight);
         g_budgetman.SetBestHeight(pindexNew->nHeight);
     }
@@ -2091,8 +2081,8 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, const st
     int64_t nTime6 = GetTimeMicros();
     nTimePostConnect += nTime6 - nTime5;
     nTimeTotal += nTime6 - nTime1;
-    LogPrint(BCLog::BENCH, "  - Connect postprocess: %.2fms [%.2fs]\n", (nTime6 - nTime5) * 0.001, nTimePostConnect * 0.000001);
-    LogPrint(BCLog::BENCH, "- Connect block: %.2fms [%.2fs]\n", (nTime6 - nTime1) * 0.001, nTimeTotal * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "  - Connect postprocess: %.2fms [%.2fs]\n", (nTime6 - nTime5) * 0.001, nTimePostConnect * 0.000001);
+    LogPrint(BCLog::BENCHMARK, "- Connect block: %.2fms [%.2fs]\n", (nTime6 - nTime1) * 0.001, nTimeTotal * 0.000001);
 
     connectTrace.BlockConnected(pindexNew, std::move(pthisBlock));
     return true;
@@ -2862,6 +2852,23 @@ bool CheckBlockTime(const CBlockHeader& block, CValidationState& state, CBlockIn
     return true;
 }
 
+//! Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
+static const CBlockIndex* GetLastCheckpoint()
+{
+    if (!Checkpoints::fEnabled)
+        return nullptr;
+
+    const MapCheckpoints& checkpoints = *Params().Checkpoints().mapCheckpoints;
+
+    for (const auto& i : reverse_iterate(checkpoints)) {
+        const uint256& hash = i.second;
+        BlockMap::const_iterator t = mapBlockIndex.find(hash);
+        if (t != mapBlockIndex.end())
+            return t->second;
+    }
+    return nullptr;
+}
+
 bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex* const pindexPrev)
 {
     const Consensus::Params& consensus = Params().GetConsensus();
@@ -2890,7 +2897,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
             REJECT_CHECKPOINT, "checkpoint mismatch");
 
     // Don't accept any forks from the main chain prior to last checkpoint
-    CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint();
+    const CBlockIndex* pcheckpoint = GetLastCheckpoint();
     if (pcheckpoint && nHeight < pcheckpoint->nHeight)
         return state.DoS(0, error("%s : forked chain older than last checkpoint (height %d)", __func__, nHeight));
 
@@ -2936,8 +2943,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
         }
     }
 
-    bool fActiveV5_3 = chainparams.GetConsensus().NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V5_3);
-    if (fActiveV5_3 && block.IsProofOfStake()) {
+    if (block.IsProofOfStake()) {
         CTransactionRef csTx = block.vtx[1];
         if (csTx->vin.size() > 1) {
             return state.DoS(100, false, REJECT_INVALID, "bad-cs-multi-inputs", false,
@@ -3152,7 +3158,7 @@ static bool IsUnspentOnFork(std::unordered_set<COutPoint, SaltedOutpointHasher>&
                 if (!in.IsZerocoinSpend()) {
                     // regular utxo
                     if (outpoints.find(in.prevout) != outpoints.end()) {
-                        return state.DoS(100, error("bad-txns-inputs-spent-fork-post-split"));
+                        return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-spent-fork-post-split");
                     }
                 } else {
                     // zerocoin serial
@@ -3299,7 +3305,7 @@ static bool AcceptBlock(const CBlock& block, CValidationState& state, CBlockInde
             if (!coin.IsSpent()) {
                 // if this is on a fork, then the coin must be created before the split
                 if (isBlockFromFork && (int) coin.nHeight > pindexFork->nHeight) {
-                    return state.DoS(100, error("bad-txns-inputs-created-post-split"));
+                    return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-created-post-split");
                 }
                 // unspent on active chain
                 it = spent_outpoints.erase(it);
@@ -3322,7 +3328,7 @@ static bool AcceptBlock(const CBlock& block, CValidationState& state, CBlockInde
             // Otherwise reject it, as it means that this blocks includes a transaction with an input that is
             // either already spent before the chain split, or non-existent.
             if (!IsSpentOnActiveChain(spent_outpoints, pindexFork)) {
-                return state.DoS(100, error("bad-txns-inputs-spent-fork-pre-split"));
+                return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-spent-fork-pre-split");
             }
         }
 
@@ -3390,15 +3396,6 @@ bool ProcessNewBlock(const std::shared_ptr<const CBlock>& pblock, const FlatFile
     CValidationState state; // Only used to report errors, not invalidity - ignore it
     if (!ActivateBestChain(state, pblock))
         return error("%s : ActivateBestChain failed", __func__);
-
-    // !TODO: remove after v5.3 enforcement
-    bool isV5_3 = Params().GetConsensus().NetworkUpgradeActive(
-                                    WITH_LOCK(cs_main, return chainActive.Height(); ),
-                                    Consensus::UPGRADE_V5_3);
-    if (!fLiteMode && !isV5_3) {
-        mnodeman.SetBestHeight(newHeight);
-        g_budgetman.SetBestHeight(newHeight);
-    }
 
     LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, newHeight, GetTimeMillis() - nStartTime,
               GetSerializeSize(*pblock, CLIENT_VERSION));

@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">N/A</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="spacing">
@@ -159,7 +159,7 @@
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>+0.000585 BLKC</string>
+               <string notr="true">N/A</string>
               </property>
              </widget>
             </item>
@@ -169,7 +169,7 @@
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>-0.000585 BLKC</string>
+               <string notr="true">N/A</string>
               </property>
              </widget>
             </item>

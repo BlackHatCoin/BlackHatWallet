@@ -12,10 +12,13 @@ from test_framework.mininode import (
     P2PDataStore,
     P2PInterface,
 )
+from test_framework.messages import CTxIn, COutPoint, msg_mnping
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
+    assert_equal,
     hex_str_to_bytes,
 )
+from random import getrandbits
 
 MSG_LIMIT = 2 * 1024 * 1024  # 2MB, per MAX_PROTOCOL_MESSAGE_LENGTH
 VALID_DATA_LIMIT = MSG_LIMIT - 5  # Account for the 5-byte length prefix
@@ -39,6 +42,19 @@ class SenderOfAddrV2(P2PInterface):
     def wait_for_sendaddrv2(self):
         self.wait_until(lambda: 'sendaddrv2' in self.last_message)
 
+class InvReceiver(P2PInterface):
+
+    def __init__(self):
+        super().__init__()
+        self.vec_mnp = {}
+        self.getdata_count = 0
+
+    def on_getdata(self, message):
+        for inv in message.inv:
+            if inv.type == 15: # MNPING
+                self.send_message(self.vec_mnp[inv.hash])
+                self.getdata_count+=1
+
 class InvalidMessagesTest(BlackHatTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
@@ -55,6 +71,7 @@ class InvalidMessagesTest(BlackHatTestFramework):
         self.test_addrv2_unrecognized_network()
         self.test_large_inv()
         self.test_resource_exhaustion()
+        self.test_fill_askfor()
 
     def test_magic_bytes(self):
         conn = self.nodes[0].add_p2p_connection(P2PDataStore())
@@ -179,12 +196,39 @@ class InvalidMessagesTest(BlackHatTestFramework):
 
     def test_large_inv(self):
         conn = self.nodes[0].add_p2p_connection(P2PInterface())
-        with self.nodes[0].assert_debug_log(['Misbehaving', 'peer=9 (0 -> 20): message inv size() = 50001']):
+        with self.nodes[0].assert_debug_log(['Misbehaving', 'peer=8 (0 -> 20): message inv size() = 50001']):
             msg = messages.msg_inv([messages.CInv(1, 1)] * 50001)
             conn.send_and_ping(msg)
-        with self.nodes[0].assert_debug_log(['Misbehaving', 'peer=9 (20 -> 40): message getdata size() = 50001']):
+        with self.nodes[0].assert_debug_log(['Misbehaving', 'peer=8 (20 -> 40): message getdata size() = 50001']):
             msg = messages.msg_getdata([messages.CInv(1, 1)] * 50001)
             conn.send_and_ping(msg)
+        self.nodes[0].disconnect_p2ps()
+
+    def test_fill_askfor(self):
+        self.nodes[0].generate(1) # IBD
+        conn = self.nodes[0].add_p2p_connection(InvReceiver())
+        invs = []
+        blockhash = int(self.nodes[0].getbestblockhash(), 16)
+        for _ in range(50000):
+            mnp = msg_mnping(CTxIn(COutPoint(getrandbits(256))), blockhash, int(time.time()))
+            conn.vec_mnp[mnp.get_hash()] = mnp
+            invs.append(messages.CInv(15, mnp.get_hash()))
+        assert_equal(len(conn.vec_mnp), 50000)
+        assert_equal(len(invs), 50000)
+        msg = messages.msg_inv(invs)
+        conn.send_message(msg)
+
+        time.sleep(20) # wait a bit
+        assert_equal(conn.getdata_count, 50000)
+
+        # Prior #2611 the node was blocking any follow-up request.
+        mnp = msg_mnping(CTxIn(COutPoint(getrandbits(256))), getrandbits(256), int(time.time()))
+        conn.vec_mnp[mnp.get_hash()] = mnp
+        msg = messages.msg_inv([messages.CInv(15, mnp.get_hash())])
+        conn.send_and_ping(msg)
+        time.sleep(3)
+
+        assert_equal(conn.getdata_count, 50001)
         self.nodes[0].disconnect_p2ps()
 
     def test_resource_exhaustion(self):

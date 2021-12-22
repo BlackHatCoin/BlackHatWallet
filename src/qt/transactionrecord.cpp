@@ -8,6 +8,7 @@
 #include "transactionrecord.h"
 
 #include "key_io.h"
+#include "budget/budgetproposal.h"
 #include "sapling/key_io_sapling.h"
 #include "wallet/wallet.h"
 
@@ -55,9 +56,18 @@ bool TransactionRecord::decomposeCoinStake(const CWallet* wallet, const CWalletT
         int nIndexMN = (int) wtx.tx->vout.size() - 1;
         if (ExtractDestination(wtx.tx->vout[nIndexMN].scriptPubKey, destMN) && (mine = IsMine(*wallet, destMN)) ) {
             sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
-            sub.type = TransactionRecord::MNReward;
             sub.address = EncodeDestination(destMN);
             sub.credit = wtx.tx->vout[nIndexMN].nValue;
+            // Simple way to differentiate budget payments from MN rewards.
+            // ALEX
+            int currBlockHeight = wallet->GetLastBlockHeight() + 1;
+            int confirms = wtx.GetDepthInMainChain();
+            if (confirms > 0) {
+                currBlockHeight = wtx.m_confirm.nIndex;
+            }
+            // END
+            CAmount mn_reward = GetMasternodePayment(currBlockHeight);
+            sub.type = sub.credit > mn_reward ? TransactionRecord::BudgetPayment : TransactionRecord::MNReward;
         }
     }
 
@@ -331,10 +341,21 @@ bool TransactionRecord::decomposeDebitTransaction(const CWallet* wallet, const C
             sub.address = getValueOrReturnEmpty(wtx.mapValue, "to");
             if (sub.address.empty() && txout.scriptPubKey.StartsWithOpcode(OP_RETURN)) {
                 sub.type = TransactionRecord::SendToNobody;
-                // Burned BLKCs, op_return could be for a proposal/budget fee or another sort of data stored there.
+                // Burned BLKCs, op_return could be for a kind of data stored there. For now, support UTF8 comments.
                 std::string comment = wtx.GetComment();
-                if (IsValidUTF8(comment)) {
+                if (!comment.empty() && IsValidUTF8(comment)) {
                     sub.address = comment;
+                }
+                // Check if this is a budget proposal fee (future: encapsulate functionality inside wallet/governanceModel)
+                std::string prop = getValueOrReturnEmpty(wtx.mapValue, "proposal");
+                if (!prop.empty()) {
+                    const std::vector<unsigned char> vec = ParseHex(prop);
+                    if (!vec.empty()) {
+                        CDataStream ss(vec, SER_DISK, CLIENT_VERSION);
+                        CBudgetProposal proposal;
+                        ss >> proposal;
+                        sub.address = "Proposal: " + proposal.GetName();
+                    }
                 }
                 // future: could expand this to support base64 or hex encoded messages
             }
@@ -601,6 +622,7 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx, int chainHeight)
             type == TransactionRecord::StakeMint ||
             type == TransactionRecord::StakeZBLKC ||
             type == TransactionRecord::MNReward ||
+            type == TransactionRecord::BudgetPayment ||
             type == TransactionRecord::StakeDelegated ||
             type == TransactionRecord::StakeHot) {
 
@@ -641,7 +663,12 @@ int TransactionRecord::getOutputIndex() const
 
 bool TransactionRecord::isCoinStake() const
 {
-    return (type == TransactionRecord::StakeMint || type == TransactionRecord::Generated || type == TransactionRecord::StakeZBLKC);
+    return type == TransactionRecord::StakeMint || type == TransactionRecord::Generated || type == TransactionRecord::StakeZBLKC;
+}
+
+bool TransactionRecord::isMNReward() const
+{
+    return type == TransactionRecord::MNReward;
 }
 
 bool TransactionRecord::isAnyColdStakingType() const

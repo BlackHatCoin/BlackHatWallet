@@ -136,16 +136,13 @@ bool IsStandardTx(const CTransactionRef& tx, int nBlockHeight, std::string& reas
     // computing signature hashes is O(ninputs*txsize). Limiting transactions
     // to MAX_STANDARD_TX_SIZE mitigates CPU exhaustion attacks.
     unsigned int sz = tx->GetTotalSize();
-    unsigned int nMaxSize = tx->IsShieldedTx() ? MAX_TX_SIZE_AFTER_SAPLING :
-            tx->ContainsZerocoins() ? MAX_ZEROCOIN_TX_SIZE : MAX_STANDARD_TX_SIZE;
+    unsigned int nMaxSize = tx->IsShieldedTx() ? MAX_TX_SIZE_AFTER_SAPLING : MAX_STANDARD_TX_SIZE;
     if (sz >= nMaxSize) {
         reason = "tx-size";
         return false;
     }
 
     for (const CTxIn& txin : tx->vin) {
-        if (txin.IsZerocoinSpend() || txin.IsZerocoinPublicSpend())
-            continue;
         // Biggest 'standard' txin is a 15-of-15 P2SH multisig with compressed
         // keys. (remember the 520 byte limit on redeemScript size) That works
         // out to a (15*(33+1))+3=513 byte redeemScript, 513+1+15*(73+1)+3=1627
@@ -193,9 +190,9 @@ bool IsStandardTx(const CTransactionRef& tx, int nBlockHeight, std::string& reas
 
 bool AreInputsStandard(const CTransaction& tx, const CCoinsViewCache& mapInputs)
 {
-    if (tx.IsCoinBase() || tx.HasZerocoinSpendInputs())
-        return true; // coinbase has no inputs and zerocoinspend has a special input
-    //todo should there be a check for a 'standard' zerocoinspend here?
+    if (tx.IsCoinBase()) {
+        return true; // coinbases don't use vin normally
+    }
 
     for (unsigned int i = 0; i < tx.vin.size(); i++) {
         const CTxOut& prev = mapInputs.AccessCoin(tx.vin[i].prevout).out;
@@ -206,41 +203,20 @@ bool AreInputsStandard(const CTransaction& tx, const CCoinsViewCache& mapInputs)
         const CScript& prevScript = prev.scriptPubKey;
         if (!Solver(prevScript, whichType, vSolutions))
             return false;
-        int nArgsExpected = ScriptSigArgsExpected(whichType, vSolutions);
-        if (nArgsExpected < 0)
-            return false;
 
-        // Transactions with extra stuff in their scriptSigs are
-        // non-standard. Note that this EvalScript() call will
-        // be quick, because if there are any operations
-        // beside "push data" in the scriptSig
-        // IsStandard() will have already returned false
-        // and this method isn't called.
-        std::vector<std::vector<unsigned char> > stack;
-        if (!EvalScript(stack, tx.vin[i].scriptSig, false, BaseSignatureChecker(), tx.GetRequiredSigVersion()))
-            return false;
-
-        if (whichType == TX_SCRIPTHASH) {
+        if (whichType == TX_SCRIPTHASH)
+        {
+            std::vector<std::vector<unsigned char> > stack;
+            // convert the scriptSig into a stack, so we can inspect the redeemScript
+            if (!EvalScript(stack, tx.vin[i].scriptSig, SCRIPT_VERIFY_NONE, BaseSignatureChecker(), tx.GetRequiredSigVersion()))
+                return false;
             if (stack.empty())
                 return false;
             CScript subscript(stack.back().begin(), stack.back().end());
-            std::vector<std::vector<unsigned char> > vSolutions2;
-            txnouttype whichType2;
-            if (Solver(subscript, whichType2, vSolutions2)) {
-                int tmpExpected = ScriptSigArgsExpected(whichType2, vSolutions2);
-                if (tmpExpected < 0)
-                    return false;
-                nArgsExpected += tmpExpected;
-            } else {
-                // Any other Script with less than 15 sigops OK:
-                unsigned int sigops = subscript.GetSigOpCount(true);
-                // ... extra data left on the stack after execution is OK, too:
-                return (sigops <= MAX_P2SH_SIGOPS);
+            if (subscript.GetSigOpCount(true) > MAX_P2SH_SIGOPS) {
+                return false;
             }
         }
-
-        if (stack.size() != (unsigned int)nArgsExpected)
-            return false;
     }
 
     return true;

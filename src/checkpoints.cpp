@@ -10,7 +10,6 @@
 #include "chain.h"
 #include "chainparams.h"
 #include "reverse_iterate.h"
-#include "validation.h"
 
 #include <stdint.h>
 
@@ -82,22 +81,6 @@ int GetTotalBlocksEstimate()
     const MapCheckpoints& checkpoints = *Params().Checkpoints().mapCheckpoints;
 
     return checkpoints.rbegin()->first;
-}
-
-CBlockIndex* GetLastCheckpoint()
-{
-    if (!fEnabled)
-        return NULL;
-
-    const MapCheckpoints& checkpoints = *Params().Checkpoints().mapCheckpoints;
-
-    for (const MapCheckpoints::value_type& i : reverse_iterate(checkpoints)) {
-        const uint256& hash = i.second;
-        BlockMap::const_iterator t = mapBlockIndex.find(hash);
-        if (t != mapBlockIndex.end())
-            return t->second;
-    }
-    return NULL;
 }
 
 } // namespace Checkpoints

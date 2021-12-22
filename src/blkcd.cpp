@@ -16,6 +16,7 @@
 #include "init.h"
 #include "masternodeconfig.h"
 #include "noui.h"
+#include "shutdown.h"
 #include "util/system.h"
 
 #include <stdio.h>
@@ -35,8 +36,6 @@
  * \section Navigation
  * Use the buttons <code>Namespaces</code>, <code>Classes</code> or <code>Files</code> at the top of the page to start navigating the code.
  */
-
-static bool fDaemon;
 
 void WaitForShutdown()
 {
@@ -128,8 +127,7 @@ bool AppInit(int argc, char* argv[])
         }
 
 #ifndef WIN32
-        fDaemon = gArgs.GetBoolArg("-daemon", false);
-        if (fDaemon) {
+        if (gArgs.GetBoolArg("-daemon", false)) {
             fprintf(stdout, "BlackHat server starting\n");
 
             // Daemonize

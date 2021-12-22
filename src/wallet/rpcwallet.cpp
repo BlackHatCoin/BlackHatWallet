@@ -16,11 +16,13 @@
 #include "httpserver.h"
 #include "key_io.h"
 #include "masternode-sync.h"
+#include "messagesigner.h"
 #include "net.h"
 #include "policy/feerate.h"
 #include "rpc/server.h"
 #include "sapling/sapling_operation.h"
 #include "sapling/key_io_sapling.h"
+#include "shutdown.h"
 #include "spork.h"
 #include "timedata.h"
 #include "utilmoneystr.h"
@@ -28,8 +30,6 @@
 #include "wallet/walletdb.h"
 #include "wallet/walletutil.h"
 #include "zblkcchain.h"
-
-#include  <init.h>    // for StartShutdown
 
 #include <stdint.h>
 #include <univalue.h>
@@ -305,8 +305,12 @@ UniValue getaddressesbylabel(const JSONRPCRequest& request)
     UniValue ret(UniValue::VOBJ);
     for (auto it = pwallet->NewAddressBookIterator(); it.IsValid(); it.Next()) {
         auto addrBook = it.GetValue();
-        if (!addrBook.isShielded() && addrBook.name == label) {
-            ret.pushKV(EncodeDestination(*it.GetCTxDestKey(), AddressBook::IsColdStakingPurpose(addrBook.purpose)), AddressBookDataToJSON(addrBook, false));
+        if (addrBook.name == label) {
+            if (!addrBook.isShielded()) {
+                ret.pushKV(EncodeDestination(*it.GetCTxDestKey(), AddressBook::IsColdStakingPurpose(addrBook.purpose)), AddressBookDataToJSON(addrBook, false));
+            } else {
+                ret.pushKV(Standard::EncodeDestination(*it.GetShieldedDestKey()), AddressBookDataToJSON(addrBook, false));
+            }
         }
     }
 
@@ -555,11 +559,16 @@ UniValue getnewshieldaddress(const JSONRPCRequest& request)
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
 
-    if (request.fHelp || !request.params.empty())
+    if (request.fHelp || request.params.size() > 1)
         throw std::runtime_error(
-                "getnewshieldaddress\n"
+                "getnewshieldaddress ( \"label\" )\n"
                 "\nReturns a new shield address for receiving payments.\n"
+                "If 'label' is specified, it is added to the address book \n"
+                "so payments received with the shield address will be associated with 'label'.\n"
                 + HelpRequiringPassphrase(pwallet) + "\n"
+
+                "\nArguments:\n"
+                "1. \"label\"        (string, optional) The label name for the address to be linked to. if not provided, the default label \"\" is used. It can also be set to the empty string \"\" to represent the default label. The label does not need to exist, it will be created if there is no label by the given name.\n"
 
                 "\nResult:\n"
                 "\"address\"    (string) The new shield address.\n"
@@ -569,11 +578,16 @@ UniValue getnewshieldaddress(const JSONRPCRequest& request)
                 + HelpExampleRpc("getnewshieldaddress", "")
         );
 
+    std::string label;
+    if (!request.params.empty()) {
+        label = LabelFromValue(request.params[0]);
+    }
+
     LOCK2(cs_main, pwallet->cs_wallet);
 
     EnsureWalletIsUnlocked(pwallet);
 
-    return KeyIO::EncodePaymentAddress(pwallet->GenerateNewSaplingZKey());
+    return KeyIO::EncodePaymentAddress(pwallet->GenerateNewSaplingZKey(label));
 }
 
 static inline std::string HexStrTrimmed(std::array<unsigned char, ZC_MEMO_SIZE> vch)
@@ -989,9 +1003,11 @@ UniValue setlabel(const JSONRPCRequest& request)
 
     LOCK2(cs_main, pwallet->cs_wallet);
 
-    CTxDestination dest = DecodeDestination(request.params[0].get_str());
-    if (!IsValidDestination(dest))
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid BLKC address");
+    const CWDestination& dest = Standard::DecodeDestination(request.params[0].get_str());
+    // Make sure the destination is valid
+    if (!Standard::IsValidDestination(dest)) {
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid address");
+    }
 
     std::string old_label = pwallet->GetNameForAddressBookEntry(dest);
     std::string label = LabelFromValue(request.params[1]);
@@ -1261,12 +1277,11 @@ static UniValue CreateColdStakeDelegation(CWallet* const pwallet, const UniValue
         // Delegate shield coins
         const Consensus::Params& consensus = Params().GetConsensus();
         // Check network status
-        int nextBlockHeight = chainActive.Height() + 1;
         if (sporkManager.IsSporkActive(SPORK_20_SAPLING_MAINTENANCE)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "SHIELD in maintenance (SPORK 20)");
         }
         std::vector<SendManyRecipient> recipients = {SendManyRecipient(ownerKey, *stakeKey, nValue, fV6Enforced)};
-        SaplingOperation operation(consensus, nextBlockHeight, pwallet);
+        SaplingOperation operation(consensus, pwallet);
         OperationResult res = operation.setSelectShieldedCoins(true)
                                        ->setRecipients(recipients)
                                        ->build();
@@ -1637,8 +1652,7 @@ UniValue viewshieldtransaction(const JSONRPCRequest& request)
 static SaplingOperation CreateShieldedTransaction(CWallet* const pwallet, const JSONRPCRequest& request)
 {
     LOCK2(cs_main, pwallet->cs_wallet);
-    int nextBlockHeight = chainActive.Height() + 1;
-    SaplingOperation operation(Params().GetConsensus(), nextBlockHeight, pwallet);
+    SaplingOperation operation(Params().GetConsensus(), pwallet);
 
     // Param 0: source of funds. Can either be a valid address, sapling address,
     // or the string "from_transparent"|"from_trans_cold"|"from_shield"
@@ -2019,13 +2033,10 @@ UniValue signmessage(const JSONRPCRequest& request)
     if (!pwallet->GetKey(*keyID, key))
         throw JSONRPCError(RPC_WALLET_ERROR, "Private key not available");
 
-    CHashWriter ss(SER_GETHASH, 0);
-    ss << strMessageMagic;
-    ss << strMessage;
-
     std::vector<unsigned char> vchSig;
-    if (!key.SignCompact(ss.GetHash(), vchSig))
+    if (!CMessageSigner::SignMessage(strMessage, vchSig, key)) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Sign failed");
+    }
 
     return EncodeBase64(vchSig);
 }
@@ -4458,6 +4469,13 @@ UniValue getstakesplitthreshold(const JSONRPCRequest& request)
 
 UniValue autocombinerewards(const JSONRPCRequest& request)
 {
+    if (!IsDeprecatedRPCEnabled("autocombinerewards")) {
+        if (request.fHelp) {
+            throw std::runtime_error("autocombinerewards (Deprecated, will be removed in v6.0. To use this command, start blkcd with -deprecatedrpc=autocombinerewards)");
+        }
+        throw JSONRPCError(RPC_METHOD_DEPRECATED, "autocombinerewards is deprecated and will be removed in v6.0. To use this command, start blkcd with -deprecatedrpc=autocombinerewards");
+    }
+
     CWallet * const pwallet = GetWalletForJSONRPCRequest(request);
 
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
@@ -4479,7 +4497,7 @@ UniValue autocombinerewards(const JSONRPCRequest& request)
             "\nExamples:\n" +
             HelpExampleCli("autocombinerewards", "true 500") + HelpExampleRpc("autocombinerewards", "true 500"));
 
-    CWalletDB walletdb(pwallet->GetDBHandle());
+    WalletBatch batch(pwallet->GetDBHandle());
     CAmount nThreshold = 0;
 
     if (fEnable && request.params.size() > 1) {
@@ -4491,7 +4509,7 @@ UniValue autocombinerewards(const JSONRPCRequest& request)
     pwallet->fCombineDust = fEnable;
     pwallet->nAutoCombineThreshold = nThreshold;
 
-    if (!walletdb.WriteAutoCombineSettings(fEnable, nThreshold))
+    if (!batch.WriteAutoCombineSettings(fEnable, nThreshold))
         throw std::runtime_error("Changed settings in wallet but failed to save to database\n");
 
     return NullUniValue;
@@ -4539,7 +4557,7 @@ UniValue setautocombinethreshold(const JSONRPCRequest& request)
             throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("The threshold value cannot be less than %s", FormatMoney(COIN)));
     }
 
-    CWalletDB walletdb(pwallet->GetDBHandle());
+    WalletBatch batch(pwallet->GetDBHandle());
 
     {
         LOCK(pwallet->cs_wallet);
@@ -4549,7 +4567,7 @@ UniValue setautocombinethreshold(const JSONRPCRequest& request)
         UniValue result(UniValue::VOBJ);
         result.pushKV("enabled", fEnable);
         result.pushKV("threshold", ValueFromAmount(pwallet->nAutoCombineThreshold));
-        if (walletdb.WriteAutoCombineSettings(fEnable, nThreshold)) {
+        if (batch.WriteAutoCombineSettings(fEnable, nThreshold)) {
             result.pushKV("saved", "true");
         } else {
             result.pushKV("saved", "false");
@@ -4783,7 +4801,7 @@ static const CRPCCommand commands[] =
     { "wallet",             "bip38decrypt",             &bip38decrypt,             true,  {"encrypted_key","passphrase"} },
 
     /** Sapling functions */
-    { "wallet",             "getnewshieldaddress",           &getnewshieldaddress,            true,  {} },
+    { "wallet",             "getnewshieldaddress",           &getnewshieldaddress,            true,  {"label"} },
     { "wallet",             "listshieldaddresses",           &listshieldaddresses,            false, {"include_watchonly"} },
     { "wallet",             "exportsaplingkey",              &exportsaplingkey,               true,  {"shield_addr"} },
     { "wallet",             "importsaplingkey",              &importsaplingkey,               true,  {"key","rescan","height"} },

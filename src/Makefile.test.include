@@ -43,13 +43,12 @@ TEST_SRCDIR = test
 TEST_BINARY=test/test_blkc$(EXEEXT)
 
 JSON_TEST_FILES = \
-  test/data/script_valid.json \
+  test/data/script_tests.json \
   test/data/base58_keys_valid.json \
   test/data/sig_canonical.json \
   test/data/sig_noncanonical.json \
   test/data/base58_encode_decode.json \
   test/data/base58_keys_invalid.json \
-  test/data/script_invalid.json \
   test/data/tx_invalid.json \
   test/data/tx_valid.json \
   test/data/sighash.json \
@@ -99,6 +98,7 @@ BITCOIN_TESTS =\
   test/base64_tests.cpp \
   test/bech32_tests.cpp \
   test/bip32_tests.cpp \
+  test/bls_tests.cpp \
   test/budget_tests.cpp \
   test/checkblock_tests.cpp \
   test/Checkpoints_tests.cpp \
@@ -118,6 +118,7 @@ BITCOIN_TESTS =\
   test/dbwrapper_tests.cpp \
   test/validation_tests.cpp \
   test/main_tests.cpp \
+  test/mnpayments_tests.cpp \
   test/mempool_tests.cpp \
   test/merkle_tests.cpp \
   test/multisig_tests.cpp \
@@ -127,6 +128,7 @@ BITCOIN_TESTS =\
   test/pmt_tests.cpp \
   test/policyestimator_tests.cpp \
   test/prevector_tests.cpp \
+  test/raii_event_tests.cpp \
   test/random_tests.cpp \
   test/reverselock_tests.cpp \
   test/rpc_tests.cpp \
