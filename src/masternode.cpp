@@ -7,30 +7,24 @@
 #include "masternode.h"
 
 #include "addrman.h"
-#include "masternode-sync.h"
 #include "masternodeman.h"
 #include "netbase.h"
 #include "sync.h"
+#include "tiertwo/tiertwo_sync_state.h"
 #include "wallet/wallet.h"
 
-#define MASTERNODE_MIN_CONFIRMATIONS_REGTEST 1
 #define MASTERNODE_MIN_MNP_SECONDS_REGTEST 90
 #define MASTERNODE_MIN_MNB_SECONDS_REGTEST 25
 #define MASTERNODE_PING_SECONDS_REGTEST 25
 #define MASTERNODE_EXPIRATION_SECONDS_REGTEST 12 * 60
 #define MASTERNODE_REMOVAL_SECONDS_REGTEST 13 * 60
 
-#define MASTERNODE_MIN_CONFIRMATIONS 15
 #define MASTERNODE_MIN_MNP_SECONDS (10 * 60)
 #define MASTERNODE_MIN_MNB_SECONDS (5 * 60)
 #define MASTERNODE_PING_SECONDS (5 * 60)
 #define MASTERNODE_EXPIRATION_SECONDS (120 * 60)
 #define MASTERNODE_REMOVAL_SECONDS (130 * 60)
 #define MASTERNODE_CHECK_SECONDS 5
-
-// keep track of the scanning errors I've seen
-std::map<uint256, int> mapSeenMasternodeScanningErrors;
-
 
 int MasternodeMinPingSeconds()
 {
@@ -40,11 +34,6 @@ int MasternodeMinPingSeconds()
 int MasternodeBroadcastSeconds()
 {
     return Params().IsRegTestNet() ? MASTERNODE_MIN_MNB_SECONDS_REGTEST : MASTERNODE_MIN_MNB_SECONDS;
-}
-
-int MasternodeCollateralMinConf()
-{
-    return Params().IsRegTestNet() ? MASTERNODE_MIN_CONFIRMATIONS_REGTEST : MASTERNODE_MIN_CONFIRMATIONS;
 }
 
 int MasternodePingSeconds()
@@ -239,17 +228,31 @@ bool CMasternodeBroadcast::Create(const std::string& strService,
                                   bool fOffline,
                                   int chainHeight)
 {
-    CTxIn txin;
     CPubKey pubKeyCollateralAddressNew;
     CKey keyCollateralAddressNew;
     CPubKey pubKeyMasternodeNew;
     CKey keyMasternodeNew;
 
     //need correct blocks to send ping
-    if (!fOffline && !masternodeSync.IsBlockchainSynced()) {
+    if (!fOffline && !g_tiertwo_sync_state.IsBlockchainSynced()) {
         strErrorRet = "Sync in progress. Must wait until sync is complete to start Masternode";
         LogPrint(BCLog::MASTERNODE,"CMasternodeBroadcast::Create -- %s\n", strErrorRet);
         return false;
+    }
+
+    std::string strError;
+    if (strTxHash.empty() || strOutputIndex.empty()) {
+        strError = "Invalid masternode collateral hash or output index";
+        return error("%s: %s", __func__, strError);
+    }
+
+    const uint256 collateralHash = uint256S(strTxHash);
+    int collateralOutputIndex;
+    try {
+        collateralOutputIndex = std::stoi(strOutputIndex.c_str());
+    } catch (const std::exception& e) {
+        strError = "Invalid masternode output index";
+        return error("%s: %s on strOutputIndex", __func__, e.what());
     }
 
     if (!CMessageSigner::GetKeysFromSecret(strKeyMasternode, keyMasternodeNew, pubKeyMasternodeNew)) {
@@ -258,9 +261,13 @@ bool CMasternodeBroadcast::Create(const std::string& strService,
         return false;
     }
 
-    std::string strError;
     // Use wallet-0 here. Legacy mnb creation can be removed after transition to DMN
-    if (vpwallets.empty() || !vpwallets[0]->GetMasternodeVinAndKeys(txin, pubKeyCollateralAddressNew, keyCollateralAddressNew, strTxHash, strOutputIndex, strError)) {
+    COutPoint collateralOut(collateralHash, collateralOutputIndex);
+    if (vpwallets.empty() || !vpwallets[0]->GetMasternodeVinAndKeys(pubKeyCollateralAddressNew,
+                                                                    keyCollateralAddressNew,
+                                                                    collateralOut,
+                                                                    true, // fValidateCollateral
+                                                                    strError)) {
         strErrorRet = strError; // GetMasternodeVinAndKeys logs this error. Only returned for GUI error notification.
         LogPrint(BCLog::MASTERNODE,"CMasternodeBroadcast::Create -- %s\n", strprintf("Could not allocate txin %s:%s for masternode %s", strTxHash, strOutputIndex, strService));
         return false;
@@ -277,6 +284,7 @@ bool CMasternodeBroadcast::Create(const std::string& strService,
     if (!CheckDefaultPort(_service, strErrorRet, "CMasternodeBroadcast::Create"))
         return false;
 
+    CTxIn txin(collateralOut.hash, collateralOut.n);
     return Create(txin, _service, keyCollateralAddressNew, pubKeyCollateralAddressNew, keyMasternodeNew, pubKeyMasternodeNew, strErrorRet, mnbRet);
 }
 
@@ -420,7 +428,7 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
     if (!CheckSignature()) {
         // For now (till v6.0), let's be "naive" and not fully ban nodes when the node is syncing
         // This could be a bad parsed BIP155 address that got stored on db on an old software version.
-        nDos = masternodeSync.IsSynced() ? 100 : 5;
+        nDos = g_tiertwo_sync_state.IsSynced() ? 100 : 5;
         return error("%s : Got bad Masternode address signature", __func__);
     }
 
@@ -459,7 +467,7 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
         if (pmn->UpdateFromNewBroadcast((*this))) {
             if (pmn->IsEnabled()) Relay();
         }
-        masternodeSync.AddedMasternodeList(GetHash());
+        g_tiertwo_sync_state.AddedMasternodeList(GetHash());
     }
 
     return true;

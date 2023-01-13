@@ -7,6 +7,7 @@
 
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
+import time
 
 
 class BudgetProposalTest(BlackHatTestFramework):
@@ -84,6 +85,7 @@ class BudgetProposalTest(BlackHatTestFramework):
 
         self.log.info("Generate 7 blocks to confirm fee transaction")
         self.nodes[0].generate(7)
+        time.sleep(20) # so the tier two sync can update its status
 
         self.log.info("Submit the budget proposal")
         submitret = self.nodes[0].submitbudget(name, scheme + url, numcycles, nextsuperblock, address, cycleamount, feehashret)

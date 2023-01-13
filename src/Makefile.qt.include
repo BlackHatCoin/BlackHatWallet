@@ -42,7 +42,6 @@ QT_FORMS_UI = \
   qt/blkc/forms/sendcustomfeedialog.ui \
   qt/blkc/forms/sendmultirow.ui \
   qt/blkc/forms/send.ui \
-  qt/blkc/forms/addnewaddressdialog.ui \
   qt/blkc/forms/addnewcontactdialog.ui \
   qt/blkc/forms/requestdialog.ui \
   qt/blkc/forms/receivewidget.ui \
@@ -95,7 +94,6 @@ QT_MOC_CPP = \
   qt/moc_paymentserver.cpp \
   qt/moc_qvalidatedlineedit.cpp \
   qt/moc_qvaluecombobox.cpp \
-  qt/moc_recentrequeststablemodel.cpp \
   qt/moc_rpcconsole.cpp \
   qt/moc_rpcexecutor.cpp \
   qt/moc_trafficgraphwidget.cpp \
@@ -134,7 +132,6 @@ QT_MOC_CPP = \
   qt/blkc/moc_sendmemodialog.cpp \
   qt/blkc/moc_sendmultirow.cpp \
   qt/blkc/moc_send.cpp \
-  qt/blkc/moc_addnewaddressdialog.cpp \
   qt/blkc/moc_addnewcontactdialog.cpp \
   qt/blkc/moc_requestdialog.cpp \
   qt/blkc/moc_receivewidget.cpp \
@@ -200,10 +197,8 @@ BITCOIN_QT_H = \
   qt/optionsmodel.h \
   qt/paymentserver.h \
   qt/peertablemodel.h \
-  qt/platformstyle.h \
   qt/qvalidatedlineedit.h \
   qt/qvaluecombobox.h \
-  qt/recentrequeststablemodel.h \
   qt/rpcconsole.h \
   qt/rpcexecutor.h \
   qt/trafficgraphwidget.h \
@@ -253,7 +248,6 @@ BITCOIN_QT_H = \
   qt/blkc/sendmemodialog.h \
   qt/blkc/sendmultirow.h \
   qt/blkc/send.h \
-  qt/blkc/addnewaddressdialog.h \
   qt/blkc/addnewcontactdialog.h \
   qt/blkc/requestdialog.h \
   qt/blkc/receivewidget.h \
@@ -533,7 +527,6 @@ BITCOIN_QT_BASE_CPP = \
   qt/notificator.cpp \
   qt/optionsmodel.cpp \
   qt/peertablemodel.cpp \
-  qt/platformstyle.cpp \
   qt/qvalidatedlineedit.cpp \
   qt/qvaluecombobox.cpp \
   qt/rpcconsole.cpp \
@@ -552,7 +545,6 @@ BITCOIN_QT_WALLET_CPP = \
   qt/editaddressdialog.cpp \
   qt/openuridialog.cpp \
   qt/paymentserver.cpp \
-  qt/recentrequeststablemodel.cpp \
   qt/transactionfilterproxy.cpp \
   qt/transactionrecord.cpp \
   qt/transactiontablemodel.cpp \
@@ -594,7 +586,6 @@ BITCOIN_QT_WALLET_CPP = \
   qt/blkc/sendmemodialog.cpp \
   qt/blkc/sendmultirow.cpp \
   qt/blkc/send.cpp \
-  qt/blkc/addnewaddressdialog.cpp \
   qt/blkc/addnewcontactdialog.cpp \
   qt/blkc/requestdialog.cpp \
   qt/blkc/receivewidget.cpp \

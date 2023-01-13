@@ -7,7 +7,7 @@
 
 #include "chain.h"
 #include "txdb.h"
-#include "wallet/wallet.h"
+#include "validation.h"
 
 static bool HasStakeMinAgeOrDepth(int nHeight, uint32_t nTime, const CBlockIndex* pindex)
 {
@@ -78,44 +78,6 @@ CTxIn CBlkcStake::GetTxIn() const
 CAmount CBlkcStake::GetValue() const
 {
     return outputFrom.nValue;
-}
-
-bool CBlkcStake::CreateTxOuts(const CWallet* pwallet, std::vector<CTxOut>& vout, CAmount nTotal) const
-{
-    std::vector<valtype> vSolutions;
-    txnouttype whichType;
-    CScript scriptPubKeyKernel = outputFrom.scriptPubKey;
-    if (!Solver(scriptPubKeyKernel, whichType, vSolutions))
-        return error("%s: failed to parse kernel", __func__);
-
-    if (whichType != TX_PUBKEY && whichType != TX_PUBKEYHASH && whichType != TX_COLDSTAKE)
-        return error("%s: type=%d (%s) not supported for scriptPubKeyKernel", __func__, whichType, GetTxnOutputType(whichType));
-
-    CKey key;
-    if (whichType == TX_PUBKEYHASH || whichType == TX_COLDSTAKE) {
-        // if P2PKH or P2CS check that we have the input private key
-        if (!pwallet->GetKey(CKeyID(uint160(vSolutions[0])), key))
-            return error("%s: Unable to get staking private key", __func__);
-    }
-
-    vout.emplace_back(0, scriptPubKeyKernel);
-
-    // Calculate if we need to split the output
-    if (pwallet->nStakeSplitThreshold > 0) {
-        int nSplit = static_cast<int>(nTotal / pwallet->nStakeSplitThreshold);
-        if (nSplit > 1) {
-            // if nTotal is twice or more of the threshold; create more outputs
-            int txSizeMax = MAX_STANDARD_TX_SIZE >> 11; // limit splits to <10% of the max TX size (/2048)
-            if (nSplit > txSizeMax)
-                nSplit = txSizeMax;
-            for (int i = nSplit; i > 1; i--) {
-                LogPrintf("%s: StakeSplit: nTotal = %d; adding output %d of %d\n", __func__, nTotal, (nSplit-i)+2, nSplit);
-                vout.emplace_back(0, scriptPubKeyKernel);
-            }
-        }
-    }
-
-    return true;
 }
 
 CDataStream CBlkcStake::GetUniqueness() const

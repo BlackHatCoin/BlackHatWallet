@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2016-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2016-2022 The PIVX developers
+// Copyright (c) 2022 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,12 +10,50 @@
 
 #include "script/interpreter.h"
 
+class CKey;
 class CKeyID;
 class CKeyStore;
 class CScript;
+class CScriptID;
 class CTransaction;
 
 struct CMutableTransaction;
+
+/** An interface to be implemented by keystores that support signing. */
+class SigningProvider
+{
+public:
+    virtual ~SigningProvider() {}
+    virtual bool GetCScript(const CScriptID &scriptid, CScript& script) const { return false; }
+    virtual bool GetPubKey(const CKeyID &address, CPubKey& pubkey) const { return false; }
+    virtual bool GetKey(const CKeyID &address, CKey& key) const { return false; }
+};
+
+extern const SigningProvider& DUMMY_SIGNING_PROVIDER;
+
+class PublicOnlySigningProvider : public SigningProvider
+{
+private:
+    const SigningProvider* m_provider;
+
+public:
+    PublicOnlySigningProvider(const SigningProvider* provider) : m_provider(provider) {}
+    bool GetCScript(const CScriptID &scriptid, CScript& script) const;
+    bool GetPubKey(const CKeyID &address, CPubKey& pubkey) const;
+};
+
+struct FlatSigningProvider final : public SigningProvider
+{
+    std::map<CScriptID, CScript> scripts;
+    std::map<CKeyID, CPubKey> pubkeys;
+    std::map<CKeyID, CKey> keys;
+
+    bool GetCScript(const CScriptID& scriptid, CScript& script) const override;
+    bool GetPubKey(const CKeyID& keyid, CPubKey& pubkey) const override;
+    bool GetKey(const CKeyID& keyid, CKey& key) const override;
+};
+
+FlatSigningProvider Merge(const FlatSigningProvider& a, const FlatSigningProvider& b);
 
 /** Virtual base class for signature creators. */
 class BaseSignatureCreator {

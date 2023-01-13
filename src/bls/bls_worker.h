@@ -8,12 +8,10 @@
 #define BLKC_CRYPTO_BLS_WORKER_H
 
 #include "bls/bls_wrapper.h"
-#include "ctpl.h"
+#include "ctpl_stl.h"
 
 #include <future>
 #include <mutex>
-
-#include <boost/lockfree/queue.hpp>
 
 // Low level BLS/DKG stuff. All very compute intensive and optimized for parallelization
 // The worker tries to parallelize as much as possible and utilizes a few properties of BLS aggregation to speed up things

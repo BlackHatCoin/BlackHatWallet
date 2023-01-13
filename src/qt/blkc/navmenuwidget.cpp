@@ -5,7 +5,6 @@
 
 #include "qt/blkc/navmenuwidget.h"
 #include "qt/blkc/forms/ui_navmenuwidget.h"
-#include "qt/blkc/blkcgui.h"
 #include "qt/blkc/qtutils.h"
 #include "clientversion.h"
 #include "optionsmodel.h"

@@ -170,7 +170,8 @@ public:
                                    bool fNoMempoolTx = false,
                                    bool fTestValidity = true,
                                    CBlockIndex* prevBlock = nullptr,
-                                   bool stopPoSOnNewBlock = true);
+                                   bool stopPoSOnNewBlock = true,
+                                   bool fIncludeQfc = true);
 
 private:
     // utility functions

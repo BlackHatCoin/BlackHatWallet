@@ -612,7 +612,7 @@ int BLKCGUI::getNavWidth()
 void BLKCGUI::openFAQ(SettingsFaqWidget::Section section)
 {
     showHide(true);
-    SettingsFaqWidget* dialog = new SettingsFaqWidget(this, clientModel);
+    SettingsFaqWidget* dialog = new SettingsFaqWidget(this, mnModel);
     dialog->setSection(section);
     openDialogWithOpaqueBackgroundFullScreen(dialog, this);
     dialog->deleteLater();
@@ -626,9 +626,10 @@ void BLKCGUI::setGovModel(GovernanceModel* govModel)
     governancewidget->setGovModel(govModel);
 }
 
-void BLKCGUI::setMNModel(MNModel* mnModel)
+void BLKCGUI::setMNModel(MNModel* _mnModel)
 {
     if (!stackedContainer || !clientModel) return;
+    mnModel = _mnModel;
     governancewidget->setMNModel(mnModel);
     masterNodesWidget->setMNModel(mnModel);
 }

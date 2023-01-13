@@ -47,7 +47,6 @@ public:
     CAmount GetValue() const override;
     CDataStream GetUniqueness() const override;
     CTxIn GetTxIn() const;
-    bool CreateTxOuts(const CWallet* pwallet, std::vector<CTxOut>& vout, CAmount nTotal) const;
     bool IsZBLKC() const override { return false; }
 };
 

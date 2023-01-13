@@ -1817,7 +1817,7 @@ Be part of the DAO.</source>
     </message>
     <message>
         <location line="-210"/>
-        <source>To create a BlackHat Masternode you must dedicate %1 to the network (however, these coins are still yours and will never leave your possession).</source>
+        <source>To create a BlackHat Masternode you must dedicate %1 (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

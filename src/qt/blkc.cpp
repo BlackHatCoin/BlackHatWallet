@@ -15,7 +15,6 @@
 #include "fs.h"
 #include "guiinterface.h"
 #include "init.h"
-#include "masternodeconfig.h"
 #include "net.h"
 #include "qt/clientmodel.h"
 #include "qt/guiconstants.h"
@@ -614,9 +613,9 @@ int main(int argc, char* argv[])
     if (!Intro::pickDataDirectory())
         return 0;
 
-    /// 6. Determine availability of data and blocks directory and parse blkc.conf
+    /// 6. Determine availability of data directory and parse blkc.conf
     /// - Do not call GetDataDir(true) before this step finishes
-    if (!fs::is_directory(GetDataDir(false))) {
+    if (!CheckDataDirOption()) {
         QMessageBox::critical(nullptr, PACKAGE_NAME,
             QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(gArgs.GetArg("-datadir", ""))));
         return 1;
@@ -655,14 +654,6 @@ int main(int argc, char* argv[])
     app.updateTranslation();
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse masternode.conf
-    std::string strErr;
-    if (!masternodeConfig.read(strErr)) {
-        QMessageBox::critical(nullptr, PACKAGE_NAME,
-            QObject::tr("Error reading masternode configuration file: %1").arg(strErr.c_str()));
-        return 0;
-    }
-
     /// 8. URI IPC sending
     // - Do this early as we don't want to bother initializing if we are just calling IPC
     // - Do this *after* setting up the data directory, as the data directory hash is used in the name

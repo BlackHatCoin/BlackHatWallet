@@ -5,11 +5,12 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "activemasternode.h"
+#include "bls/key_io.h"
 #include "bls/bls_wrapper.h"
 #include "core_io.h"
 #include "destination_io.h"
 #include "evo/deterministicmns.h"
-#include "evo/specialtx.h"
+#include "evo/specialtx_validation.h"
 #include "evo/providertx.h"
 #include "key_io.h"
 #include "masternode.h"
@@ -20,6 +21,7 @@
 #include "pubkey.h" // COMPACT_SIGNATURE_SIZE
 #include "rpc/server.h"
 #include "script/sign.h"
+#include "tiertwo/masternode_meta_manager.h"
 #include "util/validation.h"
 #include "utilmoneystr.h"
 
@@ -212,28 +214,28 @@ static CKeyID ParsePubKeyIDFromAddress(const std::string& strAddress)
     return *keyID;
 }
 
-static CBLSPublicKey ParseBLSPubKey(const std::string& hexKey)
+static CBLSPublicKey ParseBLSPubKey(const CChainParams& params, const std::string& strKey)
 {
-    CBLSPublicKey pubKey;
-    if (!pubKey.SetHexStr(hexKey)) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid BLS public key: %s", hexKey));
+    auto opKey = bls::DecodePublic(params, strKey);
+    if (!opKey) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid BLS public key: %s", strKey));
     }
-    return pubKey;
+    return *opKey;
 }
 
-static CBLSSecretKey ParseBLSSecretKey(const std::string& hexKey)
+static CBLSSecretKey ParseBLSSecretKey(const CChainParams& params, const std::string& strKey)
 {
-    CBLSSecretKey secKey;
-    if (!secKey.SetHexStr(hexKey)) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid BLS secret key: %s", hexKey));
+    auto opKey = bls::DecodeSecret(params, strKey);
+    if (!opKey) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid BLS secret key: %s", strKey));
     }
-    return secKey;
+    return *opKey;
 }
 
-static CBLSSecretKey GetBLSSecretKey(const std::string& hexKey)
+static CBLSSecretKey GetBLSSecretKey(const CChainParams& params, const std::string& hexKey)
 {
     if (!hexKey.empty()) {
-        return ParseBLSSecretKey(hexKey);
+        return ParseBLSSecretKey(params, hexKey);
     }
     // If empty, get the active masternode key
     CBLSSecretKey sk; CTxIn vin;
@@ -241,6 +243,22 @@ static CBLSSecretKey GetBLSSecretKey(const std::string& hexKey)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Active masternode key not found. Insert DMN operator private key.");
     }
     return sk;
+}
+
+static UniValue DmnToJson(const CDeterministicMNCPtr dmn)
+{
+    UniValue ret(UniValue::VOBJ);
+    dmn->ToJson(ret);
+    Coin coin;
+    if (!WITH_LOCK(cs_main, return pcoinsTip->GetUTXOCoin(dmn->collateralOutpoint, coin); )) {
+        return ret;
+    }
+    CTxDestination dest;
+    if (!ExtractDestination(coin.out.scriptPubKey, dest)) {
+        return ret;
+    }
+    ret.pushKV("collateralAddress", EncodeDestination(dest));
+    return ret;
 }
 
 #ifdef ENABLE_WALLET
@@ -353,7 +371,8 @@ static std::string SignAndSendSpecialTx(CWallet* const pwallet, CMutableTransact
     SetTxPayload(tx, pl);
 
     CValidationState state;
-    if (!CheckSpecialTx(tx, GetChainTip(), state)) {
+    CCoinsViewCache view(pcoinsTip.get());
+    if (!WITH_LOCK(cs_main, return CheckSpecialTx(tx, GetChainTip(), &view, state); )) {
         throw JSONRPCError(RPC_MISC_ERROR, FormatStateMessage(state));
     }
 
@@ -373,12 +392,13 @@ static ProRegPL ParseProRegPLParams(const UniValue& params, unsigned int paramId
 {
     assert(params.size() > paramIdx + 4);
     assert(params.size() < paramIdx + 8);
+    const auto& chainparams = Params();
     ProRegPL pl;
 
     // ip and port
     const std::string& strIpPort = params[paramIdx].get_str();
     if (!strIpPort.empty()) {
-        if (!Lookup(strIpPort, pl.addr, Params().GetDefaultPort(), false)) {
+        if (!Lookup(strIpPort, pl.addr, chainparams.GetDefaultPort(), false)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid network address %s", strIpPort));
         }
     }
@@ -388,7 +408,7 @@ static ProRegPL ParseProRegPLParams(const UniValue& params, unsigned int paramId
     const std::string& strPubKeyOperator = params[paramIdx + 2].get_str();
     const std::string& strAddVoting = params[paramIdx + 3].get_str();
     pl.keyIDOwner = ParsePubKeyIDFromAddress(strAddOwner);
-    pl.pubKeyOperator = ParseBLSPubKey(strPubKeyOperator);
+    pl.pubKeyOperator = ParseBLSPubKey(chainparams, strPubKeyOperator);
     pl.keyIDVoting = pl.keyIDOwner;
     if (!strAddVoting.empty()) {
         pl.keyIDVoting = ParsePubKeyIDFromAddress(strAddVoting);
@@ -493,11 +513,8 @@ static UniValue ProTxRegister(const JSONRPCRequest& request, bool fSignAndSend)
 
     // referencing unspent collateral outpoint
     Coin coin;
-    {
-        LOCK(cs_main);
-        if (!GetUTXOCoin(pl.collateralOutpoint, coin)) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("collateral not found: %s-%d", collateralHash.ToString(), collateralIndex));
-        }
+    if (!WITH_LOCK(cs_main, return pcoinsTip->GetUTXOCoin(pl.collateralOutpoint, coin); )) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("collateral not found: %s-%d", collateralHash.ToString(), collateralIndex));
     }
     if (coin.out.nValue != Params().GetConsensus().nMNCollateralAmt) {
         throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("collateral %s-%d with invalid value %d", collateralHash.ToString(), collateralIndex, coin.out.nValue));
@@ -678,16 +695,17 @@ static bool CheckWalletOwnsScript(CWallet* pwallet, const CScript& script)
 #endif
 }
 
-static Optional<int> GetUTXOConfirmations(const COutPoint& outpoint)
+static UniValue ToJson(const CMasternodeMetaInfoPtr& info)
 {
-    // nullopt means UTXO is yet unknown or already spent
-    Optional<int> coinHeight = GetUTXOHeight(outpoint);
-    if (coinHeight == nullopt || *coinHeight < 0)
-        return nullopt;
-    int nChainHeight(WITH_LOCK(cs_main, return chainActive.Height(); ));
-    if (nChainHeight < 0 || *coinHeight > nChainHeight)
-        return nullopt;
-    return Optional<int>(nChainHeight - *coinHeight + 1);
+    UniValue ret(UniValue::VOBJ);
+    auto now = GetAdjustedTime();
+    auto lastAttempt = info->GetLastOutboundAttempt();
+    auto lastSuccess = info->GetLastOutboundSuccess();
+    ret.pushKV("last_outbound_attempt", lastAttempt);
+    ret.pushKV("last_outbound_attempt_elapsed", now - lastAttempt);
+    ret.pushKV("last_outbound_success", lastSuccess);
+    ret.pushKV("last_outbound_success_elapsed", now - lastSuccess);
+    return ret;
 }
 
 static void AddDMNEntryToList(UniValue& ret, CWallet* pwallet, const CDeterministicMNCPtr& dmn, bool fVerbose, bool fFromWallet)
@@ -721,14 +739,16 @@ static void AddDMNEntryToList(UniValue& ret, CWallet* pwallet, const CDeterminis
     }
 
     if (fVerbose) {
-        UniValue o(UniValue::VOBJ);
-        dmn->ToJson(o);
-        Optional<int> confirmations = GetUTXOConfirmations(dmn->collateralOutpoint);
-        o.pushKV("confirmations", confirmations ? *confirmations : -1);
-        o.pushKV("hasOwnerKey", hasOwnerKey);
-        o.pushKV("hasVotingKey", hasVotingKey);
-        o.pushKV("ownsCollateral", ownsCollateral);
-        o.pushKV("ownsPayeeScript", ownsPayeeScript);
+        UniValue o = DmnToJson(dmn);
+        int confs = WITH_LOCK(cs_main, return pcoinsTip->GetCoinDepthAtHeight(dmn->collateralOutpoint, chainActive.Height()); );
+        o.pushKV("confirmations", confs);
+        o.pushKV("has_owner_key", hasOwnerKey);
+        o.pushKV("has_voting_key", hasVotingKey);
+        o.pushKV("owns_collateral", ownsCollateral);
+        o.pushKV("owns_payee_script", ownsPayeeScript);
+        // net info
+        auto metaInfo = g_mmetaman.GetMetaInfo(dmn->proTxHash);
+        if (metaInfo) o.pushKV("metaInfo", ToJson(metaInfo));
         ret.push_back(o);
     } else {
         ret.push_back(dmn->proTxHash.ToString());
@@ -840,9 +860,10 @@ UniValue protx_update_service(const JSONRPCRequest& request)
     if (!dmn) {
         throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("masternode with hash %s not found", pl.proTxHash.ToString()));
     }
+    const auto& chainparams = Params();
     const std::string& addrStr = request.params[1].get_str();
     if (!addrStr.empty()) {
-        if (!Lookup(addrStr.c_str(), pl.addr, Params().GetDefaultPort(), false)) {
+        if (!Lookup(addrStr.c_str(), pl.addr, chainparams.GetDefaultPort(), false)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("invalid network address %s", addrStr));
         }
     } else {
@@ -861,7 +882,7 @@ UniValue protx_update_service(const JSONRPCRequest& request)
     }
 
     const std::string& strOpKey = request.params.size() > 3 ? request.params[3].get_str() : "";
-    const CBLSSecretKey& operatorKey = GetBLSSecretKey(strOpKey);
+    const CBLSSecretKey& operatorKey = GetBLSSecretKey(chainparams, strOpKey);
 
     CMutableTransaction tx;
     tx.nVersion = CTransaction::TxVersion::SAPLING;
@@ -909,6 +930,7 @@ UniValue protx_update_registrar(const JSONRPCRequest& request)
     // Make sure the results are valid at least up to the most recent block
     // the user could have gotten from another RPC command prior to now
     pwallet->BlockUntilSyncedToCurrentChain();
+    const auto& chainparams = Params();
 
     ProUpRegPL pl;
     pl.nVersion = ProUpServPL::CURRENT_VERSION;
@@ -920,7 +942,7 @@ UniValue protx_update_registrar(const JSONRPCRequest& request)
     }
     const std::string& strPubKeyOperator = request.params[1].get_str();
     pl.pubKeyOperator = strPubKeyOperator.empty() ? dmn->pdmnState->pubKeyOperator.Get()
-                                                  : ParseBLSPubKey(strPubKeyOperator);
+                                                  : ParseBLSPubKey(chainparams, strPubKeyOperator);
 
     const std::string& strVotingAddress = request.params[2].get_str();
     pl.keyIDVoting = strVotingAddress.empty() ? dmn->pdmnState->keyIDVoting
@@ -978,6 +1000,7 @@ UniValue protx_revoke(const JSONRPCRequest& request)
     // Make sure the results are valid at least up to the most recent block
     // the user could have gotten from another RPC command prior to now
     pwallet->BlockUntilSyncedToCurrentChain();
+    const auto& chainparams = Params();
 
     ProUpRevPL pl;
     pl.nVersion = ProUpServPL::CURRENT_VERSION;
@@ -989,7 +1012,7 @@ UniValue protx_revoke(const JSONRPCRequest& request)
     }
 
     const std::string& strOpKey = request.params.size() > 1 ? request.params[1].get_str() : "";
-    const CBLSSecretKey& operatorKey = GetBLSSecretKey(strOpKey);
+    const CBLSSecretKey& operatorKey = GetBLSSecretKey(chainparams, strOpKey);
 
     pl.nReason = ProUpRevPL::RevocationReason::REASON_NOT_SPECIFIED;
     if (request.params.size() > 2) {
@@ -1029,11 +1052,12 @@ UniValue generateblskeypair(const JSONRPCRequest& request)
         );
     }
 
+    const auto& params = Params();
     CBLSSecretKey sk;
     sk.MakeNewKey();
     UniValue ret(UniValue::VOBJ);
-    ret.pushKV("secret", sk.ToString());
-    ret.pushKV("public", sk.GetPublicKey().ToString());
+    ret.pushKV("secret", bls::EncodeSecret(params, sk));
+    ret.pushKV("public", bls::EncodePublic(params, sk.GetPublicKey()));
     return ret;
 }
 
@@ -1054,14 +1078,9 @@ static const CRPCCommand commands[] =
 #endif  //ENABLE_WALLET
 };
 
-void RegisterEvoRPCCommands(CRPCTable &tableRPC)
+void RegisterEvoRPCCommands(CRPCTable& _tableRPC)
 {
-    if (!Params().IsRegTestNet()) {
-        // Disabled before BlackHat v6.0
-        return;
-    }
-
-    for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++) {
-        tableRPC.appendCommand(commands[vcidx].name, &commands[vcidx]);
+    for (const auto& command : commands) {
+        _tableRPC.appendCommand(command.name, &command);
     }
 }

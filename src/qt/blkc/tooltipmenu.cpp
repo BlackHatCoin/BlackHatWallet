@@ -6,7 +6,6 @@
 #include "qt/blkc/tooltipmenu.h"
 #include "qt/blkc/forms/ui_tooltipmenu.h"
 
-#include "qt/blkc/blkcgui.h"
 #include "qt/blkc/qtutils.h"
 #include <QTimer>
 

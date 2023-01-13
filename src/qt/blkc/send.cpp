@@ -486,7 +486,6 @@ OperationResult SendWidget::prepareTransparent(WalletModelTransaction* currentTr
     // process prepareStatus and on error generate message shown to user
     CClientUIInterface::MessageBoxFlags informType;
     QString informMsg = GuiTransactionsUtils::ProcessSendCoinsReturn(
-            this,
             prepareStatus,
             walletModel,
             informType,

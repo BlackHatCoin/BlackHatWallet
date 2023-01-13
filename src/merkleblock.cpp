@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2016 The Bitcoin developers
 // Copyright (c) 2015-2020 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
@@ -31,7 +31,7 @@ std::vector<bool> BytesToBits(const std::vector<unsigned char>& bytes)
     return ret;
 }
 
-CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
+CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter* filter, const std::set<uint256>* txids)
 {
     header = block.GetBlockHeader();
 
@@ -43,11 +43,14 @@ CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
 
     for (unsigned int i = 0; i < block.vtx.size(); i++) {
         const uint256& hash = block.vtx[i]->GetHash();
-        if (filter.IsRelevantAndUpdate(*block.vtx[i])) {
+        if (txids && txids->count(hash)) {
+            vMatch.push_back(true);
+        } else if (filter && filter->IsRelevantAndUpdate(*block.vtx[i])) {
             vMatch.push_back(true);
             vMatchedTxn.emplace_back(i, hash);
-        } else
+        } else {
             vMatch.push_back(false);
+        }
         vHashes.push_back(hash);
     }
 

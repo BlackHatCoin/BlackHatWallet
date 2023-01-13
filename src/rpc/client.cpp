@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX developers
+// Copyright (c) 2021-2022 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,6 +54,7 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "getbalance", 1, "include_watchonly" },
     { "getbalance", 2, "include_delegated" },
     { "getbalance", 3, "include_shield" },
+    { "getblock", 1, "verbosity" },
     { "getblock", 1, "verbose" },
     { "getblockhash", 0, "height" },
     { "getblockheader", 1, "verbose" },
@@ -63,9 +64,11 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "getfeeinfo", 0, "blocks" },
     { "getshieldbalance", 1, "minconf" },
     { "getshieldbalance", 2, "include_watchonly" },
+    { "getminedcommitment", 0, "llmq_type" },
     { "getnetworkhashps", 0, "nblocks" },
     { "getnetworkhashps", 1, "height" },
     { "getnodeaddresses", 0, "count" },
+    { "getquorummembers", 0, "llmq_type" },
     { "getrawmempool", 0, "verbose" },
     { "getrawtransaction", 1, "verbose" },
     { "getreceivedbyaddress", 1, "minconf" },
@@ -125,6 +128,8 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "preparebudget", 3, "start" },
     { "preparebudget", 5, "montly_payment" },
     { "prioritisetransaction", 1, "fee_delta" },
+    { "quorumdkgsimerror", 1, "rate" },
+    { "quorumdkgstatus", 0, "detail_level" },
     { "rawdelegatestake", 1, "amount" },
     { "rawdelegatestake", 3, "ext_owner" },
     { "rawdelegatestake", 4, "include_delegated" },
@@ -137,12 +142,15 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "rescanblockchain", 1, "stop_height"},
     { "sendmany", 1, "amounts" },
     { "sendmany", 2, "minconf" },
+    { "sendmany", 4, "include_delegated" },
     { "sendmany", 5, "subtract_fee_from" },
+    { "scantxoutset", 1, "scanobjects" },
     { "sendrawtransaction", 1, "allowhighfees" },
     { "sendtoaddress", 1, "amount" },
     { "sendtoaddress", 4, "subtract_fee" },
     { "setautocombinethreshold", 0, "enable" },
     { "setautocombinethreshold", 1, "threshold" },
+    { "setnetworkactive", 0, "active"},
     { "setban", 2, "bantime" },
     { "setban", 3, "absolute" },
     { "setgenerate", 0, "generate" },
@@ -169,6 +177,8 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "waitfornewblock", 0, "timeout" },
     { "walletpassphrase", 1, "timeout" },
     { "walletpassphrase", 2, "staking_only" },
+    { "mnconnect", 1, "mn_list" },
+    { "mnconnect", 2, "llmq_type" },
     // Echo with conversion (For testing only)
     { "echojson", 0, "arg0" },
     { "echojson", 1, "arg1" },

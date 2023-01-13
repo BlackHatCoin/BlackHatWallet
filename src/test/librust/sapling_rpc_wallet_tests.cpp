@@ -15,6 +15,7 @@
 #include "key_io.h"
 #include "consensus/merkle.h"
 #include "wallet/wallet.h"
+#include "wallet/walletutil.h"
 
 #include "sapling/key_io_sapling.h"
 #include "sapling/address.h"
@@ -495,68 +496,6 @@ BOOST_AUTO_TEST_CASE(rpc_shieldsendmany_taddr_to_sapling)
     // Tear down
     chainActive.SetTip(nullptr);
     mapBlockIndex.erase(blockHash);
-    vpwallets.erase(vpwallets.begin());
-}
-
-BOOST_AUTO_TEST_CASE(rpc_wallet_encrypted_wallet_sapzkeys)
-{
-    UniValue retValue;
-    int n = 100;
-
-    {
-        LOCK(m_wallet.cs_wallet);
-        m_wallet.SetMinVersion(FEATURE_SAPLING);
-        m_wallet.SetupSPKM(false);
-    }
-    vpwallets.insert(vpwallets.begin(), &m_wallet);
-
-    // wallet should currently be empty
-    std::set<libzcash::SaplingPaymentAddress> addrs;
-    m_wallet.GetSaplingPaymentAddresses(addrs);
-    BOOST_CHECK(addrs.empty());
-
-    // create keys
-    for (int i = 0; i < n; i++) {
-        CallRPC("getnewshieldaddress");
-    }
-
-    // Verify we can list the keys imported
-    BOOST_CHECK_NO_THROW(retValue = CallRPC("listshieldaddresses"));
-    UniValue arr = retValue.get_array();
-    BOOST_CHECK((int) arr.size() == n);
-
-    // Verify that the wallet encryption RPC is disabled
-    // TODO: We don't have the experimental mode to disable the encryptwallet disable.
-    //BOOST_CHECK_THROW(CallRPC("encryptwallet passphrase"), std::runtime_error);
-
-    // Encrypt the wallet (we can't call RPC encryptwallet as that shuts down node)
-    SecureString strWalletPass;
-    strWalletPass.reserve(100);
-    strWalletPass = "hello";
-
-    PushCurrentDirectory push_dir(gArgs.GetArg("-datadir","/tmp/thisshouldnothappen"));
-    BOOST_CHECK(m_wallet.EncryptWallet(strWalletPass));
-
-    // Verify we can still list the keys imported
-    BOOST_CHECK_NO_THROW(retValue = CallRPC("listshieldaddresses"));
-    arr = retValue.get_array();
-    BOOST_CHECK((int) arr.size() == n);
-
-    // Try to add a new key, but we can't as the wallet is locked
-    BOOST_CHECK_THROW(CallRPC("getnewshieldaddress"), std::runtime_error);
-
-    // We can't call RPC walletpassphrase as that invokes RPCRunLater which breaks tests.
-    // So we manually unlock.
-    BOOST_CHECK(m_wallet.Unlock(strWalletPass));
-
-    // Now add a key
-    BOOST_CHECK_NO_THROW(CallRPC("getnewshieldaddress"));
-
-    // Verify the key has been added
-    BOOST_CHECK_NO_THROW(retValue = CallRPC("listshieldaddresses"));
-    arr = retValue.get_array();
-    BOOST_CHECK((int) arr.size() == n+1);
-
     vpwallets.erase(vpwallets.begin());
 }
 

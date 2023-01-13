@@ -7,12 +7,9 @@
 
 #include "chainparams.h"
 #include "consensus/consensus.h"
-#include "guiinterface.h"        // for ui_interface
 #include "invalid.h"
 #include "script/interpreter.h"
-#include "spork.h"               // for sporkManager
-#include "txdb.h"
-#include "upgrades.h"            // for IsActivationHeight
+#include "txdb.h" // for zerocoinDb
 #include "utilmoneystr.h"        // for FormatMoney
 #include "../validation.h"
 #include "zblkc/zblkcmodule.h"
@@ -64,7 +61,7 @@ static bool CheckZerocoinSpend(const CTransactionRef _tx, CValidationState& stat
             }
             newSpend = publicSpend;
         } else {
-            newSpend = TxInToZerocoinSpend(txin);
+            newSpend = ZBLKCModule::TxInToZerocoinSpend(txin);
         }
 
         //check that the denomination is valid
@@ -187,6 +184,32 @@ bool ContextualCheckZerocoinTx(const CTransactionRef& tx, CValidationState& stat
     return true;
 }
 
+bool IsSerialInBlockchain(const CBigNum& bnSerial, int& nHeightTx)
+{
+    uint256 txHash;
+    // if not in zerocoinDB then its not in the blockchain
+    if (!zerocoinDB->ReadCoinSpend(bnSerial, txHash))
+        return false;
+
+    // Now get the chain tx
+    CTransactionRef tx;
+    uint256 hashBlock;
+    if (!GetTransaction(txHash, tx, hashBlock, true))
+        return false;
+
+    if (hashBlock.IsNull() || !mapBlockIndex.count(hashBlock)) {
+        return false;
+    }
+
+    CBlockIndex* pindex = mapBlockIndex[hashBlock];
+    if (!chainActive.Contains(pindex)) {
+        return false;
+    }
+
+    nHeightTx = pindex->nHeight;
+    return true;
+}
+
 bool ContextualCheckZerocoinSpend(const CTransaction& tx, const libzerocoin::CoinSpend* spend, int nHeight)
 {
     if(!ContextualCheckZerocoinSpendNoSerialCheck(tx, spend, nHeight)){
@@ -273,7 +296,7 @@ bool ParseAndValidateZerocoinSpends(const Consensus::Params& consensus,
             }
             vSpendsRet.emplace_back(publicSpend.getCoinSerialNumber(), tx.GetHash());
         } else {
-            libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txIn);
+            libzerocoin::CoinSpend spend = ZBLKCModule::TxInToZerocoinSpend(txIn);
             //queue for db write after the 'justcheck' section has concluded
             if (!ContextualCheckZerocoinSpend(tx, &spend, chainHeight)) {
                 return state.DoS(100, error("%s: failed to add block %s with invalid zerocoinspend", __func__,

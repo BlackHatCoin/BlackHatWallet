@@ -228,7 +228,7 @@ class FakeStakeTest(BlackHatTestFramework):
             # Make spam txes sending the inputs to DUMMY_KEY in order to test double spends
             if fDoubleSpend:
                 spending_prevouts = self.get_prevouts(1, staking_utxo_list)
-                block_txes = self.make_txes(1, spending_prevouts, self.DUMMY_KEY.get_pubkey())
+                block_txes = self.make_txes(1, spending_prevouts, self.DUMMY_KEY.get_pubkey().get_bytes())
 
             # Stake the spam block
             block = self.stake_block(1, 7, nHeight, prevBlockHash, prevModifier, "0", stakeInputs,

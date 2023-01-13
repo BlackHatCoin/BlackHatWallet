@@ -12,12 +12,18 @@
 
 /** Testing setup and teardown for wallet.
  */
-struct WalletTestingSetup : public SaplingTestingSetup
+struct WalletTestingSetupBase : public SaplingTestingSetup
+{
+    WalletTestingSetupBase(const std::string& chainName,
+                           const std::string& wallet_name,
+                           std::unique_ptr<WalletDatabase> db);
+    ~WalletTestingSetupBase();
+    CWallet m_wallet;
+};
+
+struct WalletTestingSetup : public WalletTestingSetupBase
 {
     WalletTestingSetup(const std::string& chainName = CBaseChainParams::MAIN);
-    ~WalletTestingSetup();
-
-    CWallet m_wallet;
 };
 
 struct WalletRegTestingSetup : public WalletTestingSetup

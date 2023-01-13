@@ -8,10 +8,10 @@
 
 #include "consensus/validation.h"
 #include "evo/deterministicmns.h"
-#include "masternode-sync.h"
 #include "masternodeman.h"
-#include "net_processing.h"
 #include "netmessagemaker.h"
+#include "tiertwo/tiertwo_sync_state.h"
+#include "tiertwo/netfulfilledman.h"
 #include "util/validation.h"
 #include "validation.h"   // GetTransaction, cs_main
 
@@ -19,12 +19,12 @@
 #include "wallet/wallet.h" // future: use interface instead.
 #endif
 
-// Peers can only request complete budget sync once per hour.
-#define BUDGET_SYNC_REQUEST_ACCEPTANCE_SECONDS (60 * 60) // One hour.
+
+#define BUDGET_ORPHAN_VOTES_CLEANUP_SECONDS (60 * 60) // One hour.
+// Request type used in the net requests manager to block peers asking budget sync too often
+static const std::string BUDGET_SYNC_REQUEST_RECV = "budget-sync-recv";
 
 CBudgetManager g_budgetman;
-
-std::map<uint256, int64_t> askedForSourceProposalOrBudget;
 
 // Used to check both proposals and finalized-budgets collateral txes
 bool CheckCollateral(const uint256& nTxCollateralHash, const uint256& nExpectedHash, std::string& strError, int64_t& nTime, int nCurrentHeight, bool fBudgetFinalization);
@@ -167,7 +167,7 @@ uint256 CBudgetManager::SubmitFinalBudget()
             return UINT256_ZERO;
         }
         CReserveKey keyChange(vpwallets[0]);
-        if (!vpwallets[0]->CreateBudgetFeeTX(wtx, budgetHash, keyChange, true)) {
+        if (!vpwallets[0]->CreateBudgetFeeTX(wtx, budgetHash, keyChange, BUDGET_FEE_TX)) {
             LogPrint(BCLog::MNBUDGET,"%s: Can't make collateral transaction\n", __func__);
             return UINT256_ZERO;
         }
@@ -347,7 +347,8 @@ bool CBudgetManager::AddProposal(CBudgetProposal& budgetProposal)
     }
 
     // update expiration / heavily-downvoted
-    if (!budgetProposal.UpdateValid(nCurrentHeight)) {
+    int mnCount = mnodeman.CountEnabled();
+    if (!budgetProposal.UpdateValid(nCurrentHeight, mnCount)) {
         LogPrint(BCLog::MNBUDGET,"%s: Invalid budget proposal %s %s\n", __func__, nHash.ToString(), budgetProposal.IsInvalidLogStr());
         return false;
     }
@@ -369,13 +370,16 @@ void CBudgetManager::CheckAndRemove()
     std::map<uint256, CFinalizedBudget> tmpMapFinalizedBudgets;
     std::map<uint256, CBudgetProposal> tmpMapProposals;
 
+    // Get MN count, used for the heavily down-voted check
+    int mnCount = mnodeman.CountEnabled();
+
     // Check Proposals first
     {
         LOCK(cs_proposals);
         LogPrint(BCLog::MNBUDGET, "%s: mapProposals cleanup - size before: %d\n", __func__, mapProposals.size());
         for (auto& it: mapProposals) {
             CBudgetProposal* pbudgetProposal = &(it.second);
-            if (!pbudgetProposal->UpdateValid(nCurrentHeight)) {
+            if (!pbudgetProposal->UpdateValid(nCurrentHeight, mnCount)) {
                 LogPrint(BCLog::MNBUDGET,"%s: Invalid budget proposal %s %s\n", __func__, (it.first).ToString(), pbudgetProposal->IsInvalidLogStr());
                 mapFeeTxToProposal.erase(pbudgetProposal->GetFeeTXHash());
             } else {
@@ -466,7 +470,7 @@ void CBudgetManager::RemoveByFeeTxId(const uint256& feeTxId)
     }
 }
 
-const CFinalizedBudget* CBudgetManager::GetBudgetWithHighestVoteCount(int chainHeight) const
+CBudgetManager::HighestFinBudget CBudgetManager::GetBudgetWithHighestVoteCount(int chainHeight) const
 {
     LOCK(cs_budgets);
     int highestVoteCount = 0;
@@ -481,13 +485,13 @@ const CFinalizedBudget* CBudgetManager::GetBudgetWithHighestVoteCount(int chainH
             highestVoteCount = voteCount;
         }
     }
-    return pHighestBudget;
+    return {pHighestBudget, highestVoteCount};
 }
 
 int CBudgetManager::GetHighestVoteCount(int chainHeight) const
 {
-    const CFinalizedBudget* pbudget = GetBudgetWithHighestVoteCount(chainHeight);
-    return (pbudget ? pbudget->GetVoteCount() : -1);
+    const auto& highestBudFin = GetBudgetWithHighestVoteCount(chainHeight);
+    return (highestBudFin.m_budget_fin ? highestBudFin.m_vote_count : -1);
 }
 
 bool CBudgetManager::GetPayeeAndAmount(int chainHeight, CScript& payeeRet, CAmount& nAmountRet) const
@@ -496,8 +500,9 @@ bool CBudgetManager::GetPayeeAndAmount(int chainHeight, CScript& payeeRet, CAmou
     if (!IsBudgetPaymentBlock(chainHeight, nCountThreshold))
         return false;
 
-    const CFinalizedBudget* pfb = GetBudgetWithHighestVoteCount(chainHeight);
-    return pfb && pfb->GetPayeeAndAmount(chainHeight, payeeRet, nAmountRet) && pfb->GetVoteCount() > nCountThreshold;
+    const auto& highestBudFin = GetBudgetWithHighestVoteCount(chainHeight);
+    const CFinalizedBudget* pfb = highestBudFin.m_budget_fin;
+    return pfb && pfb->GetPayeeAndAmount(chainHeight, payeeRet, nAmountRet) && highestBudFin.m_vote_count > nCountThreshold;
 }
 
 bool CBudgetManager::GetExpectedPayeeAmount(int chainHeight, CAmount& nAmountRet) const
@@ -717,10 +722,11 @@ TrxValidationStatus CBudgetManager::IsTransactionValid(const CTransaction& txNew
     {
         LOCK(cs_budgets);
         // Get the finalized budget with the highest amount of votes..
-        const CFinalizedBudget* highestVotesBudget = GetBudgetWithHighestVoteCount(nBlockHeight);
+        const auto& highestBudFin = GetBudgetWithHighestVoteCount(nBlockHeight);
+        const CFinalizedBudget* highestVotesBudget = highestBudFin.m_budget_fin;
         if (highestVotesBudget) {
             // Need to surpass the threshold
-            if (highestVotesBudget->GetVoteCount() > nCountThreshold) {
+            if (highestBudFin.m_vote_count > nCountThreshold) {
                 fThreshold = true;
                 if (highestVotesBudget->IsTransactionValid(txNew, nBlockHash, nBlockHeight) ==
                     TrxValidationStatus::Valid) {
@@ -979,12 +985,7 @@ bool CBudgetManager::AddAndRelayProposalVote(const CBudgetVote& vote, std::strin
 
 void CBudgetManager::UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload)
 {
-    NewBlock();
-}
-
-void CBudgetManager::NewBlock()
-{
-    if (masternodeSync.RequestedMasternodeAssets <= MASTERNODE_SYNC_BUDGET) return;
+    if (g_tiertwo_sync_state.GetSyncPhase() <= MASTERNODE_SYNC_BUDGET) return;
 
     if (strBudgetMode == "suggest") { //suggest the budget we see
         SubmitFinalBudget();
@@ -995,7 +996,7 @@ void CBudgetManager::NewBlock()
     if (nCurrentHeight % 14 != 0) return;
 
     // incremental sync with our peers
-    if (masternodeSync.IsSynced()) {
+    if (g_tiertwo_sync_state.IsSynced()) {
         LogPrint(BCLog::MNBUDGET,"%s:  incremental sync started\n", __func__);
         // Once every 7 days, try to relay the complete budget data
         if (GetRandInt(Params().IsRegTestNet() ? 2 : 720) == 0) {
@@ -1013,15 +1014,6 @@ void CBudgetManager::NewBlock()
     // remove expired/heavily downvoted budgets
     CheckAndRemove();
 
-    //remove invalid (from non-active masternode) votes once in a while
-    LogPrint(BCLog::MNBUDGET,"%s:  askedForSourceProposalOrBudget cleanup - size: %d\n", __func__, askedForSourceProposalOrBudget.size());
-    for (auto it = askedForSourceProposalOrBudget.begin(); it !=  askedForSourceProposalOrBudget.end(); ) {
-        if (it->second <= GetTime() - (60 * 60 * 24)) {
-            it = askedForSourceProposalOrBudget.erase(it);
-        } else {
-            it++;
-        }
-    }
     {
         LOCK(cs_proposals);
         LogPrint(BCLog::MNBUDGET,"%s:  mapProposals cleanup - size: %d\n", __func__, mapProposals.size());
@@ -1037,26 +1029,12 @@ void CBudgetManager::NewBlock()
         }
     }
 
-    {
-        // Clean peers who asked for budget votes sync after an hour (BUDGET_SYNC_REQUEST_ACCEPTANCE_SECONDS)
-        LOCK2(cs_budgets, cs_proposals);
-        int64_t currentTime = GetTime();
-        auto itAskedBudSync = mAskedUsForBudgetSync.begin();
-        while (itAskedBudSync != mAskedUsForBudgetSync.end()) {
-            if ((*itAskedBudSync).second < currentTime) {
-                itAskedBudSync = mAskedUsForBudgetSync.erase(itAskedBudSync);
-            } else {
-                ++itAskedBudSync;
-            }
-        }
-    }
-
     int64_t now = GetTime();
     const auto cleanOrphans = [now](auto& mutex, auto& mapOrphans, auto& mapSeen) {
         LOCK(mutex);
         for (auto it = mapOrphans.begin() ; it != mapOrphans.end();) {
             int64_t lastReceivedVoteTime = it->second.second;
-            if (lastReceivedVoteTime + BUDGET_SYNC_REQUEST_ACCEPTANCE_SECONDS < now) {
+            if (lastReceivedVoteTime + BUDGET_ORPHAN_VOTES_CLEANUP_SECONDS < now) {
                 // Clean seen votes
                 for (const auto& voteIt : it->second.first) {
                     mapSeen.erase(voteIt.GetHash());
@@ -1075,7 +1053,7 @@ void CBudgetManager::NewBlock()
     cleanOrphans(cs_finalizedvotes, mapOrphanFinalizedBudgetVotes, mapSeenFinalizedBudgetVotes);
 
     // Once every 2 weeks (1/14 * 1/1440), clean the seen maps
-    if (masternodeSync.IsSynced() && GetRandInt(1440) == 0) {
+    if (g_tiertwo_sync_state.IsSynced() && GetRandInt(1440) == 0) {
         ReloadMapSeen();
     }
 
@@ -1087,12 +1065,9 @@ int CBudgetManager::ProcessBudgetVoteSync(const uint256& nProp, CNode* pfrom)
     if (nProp.IsNull()) {
         LOCK2(cs_budgets, cs_proposals);
         if (!(pfrom->addr.IsRFC1918() || pfrom->addr.IsLocal())) {
-            auto itLastRequest = mAskedUsForBudgetSync.find(pfrom->addr);
-            if (itLastRequest != mAskedUsForBudgetSync.end() && GetTime() < (*itLastRequest).second) {
+            if (g_netfulfilledman.HasFulfilledRequest(pfrom->addr, BUDGET_SYNC_REQUEST_RECV)) {
                 LogPrint(BCLog::MASTERNODE, "budgetsync - peer %i already asked for budget sync\n", pfrom->GetId());
-                // The peers sync requests information is not stored on disk (for now), so
-                // the budget sync could be re-requested in less than the allowed time (due a node restart for example).
-                // So, for now, let's not be so hard with the node.
+                // let's not be so hard with the node for now.
                 return 10;
             }
         }
@@ -1108,7 +1083,7 @@ int CBudgetManager::ProcessProposal(CBudgetProposal& proposal)
 {
     const uint256& nHash = proposal.GetHash();
     if (HaveProposal(nHash)) {
-        masternodeSync.AddedBudgetItem(nHash);
+        g_tiertwo_sync_state.AddedBudgetItem(nHash);
         return 0;
     }
     if (!AddProposal(proposal)) {
@@ -1117,8 +1092,8 @@ int CBudgetManager::ProcessProposal(CBudgetProposal& proposal)
 
     // Relay only if we are synchronized
     // Makes no sense to relay proposals to the peers from where we are syncing them.
-    if (masternodeSync.IsSynced()) proposal.Relay();
-    masternodeSync.AddedBudgetItem(nHash);
+    if (g_tiertwo_sync_state.IsSynced()) proposal.Relay();
+    g_tiertwo_sync_state.AddedBudgetItem(nHash);
 
     LogPrint(BCLog::MNBUDGET, "mprop (new) %s\n", nHash.ToString());
     //We might have active votes for this proposal that are valid now
@@ -1131,7 +1106,7 @@ bool CBudgetManager::ProcessProposalVote(CBudgetVote& vote, CNode* pfrom, CValid
     const uint256& voteID = vote.GetHash();
 
     if (HaveSeenProposalVote(voteID)) {
-        masternodeSync.AddedBudgetItem(voteID);
+        g_tiertwo_sync_state.AddedBudgetItem(voteID);
         return false;
     }
 
@@ -1168,8 +1143,8 @@ bool CBudgetManager::ProcessProposalVote(CBudgetVote& vote, CNode* pfrom, CValid
 
         // Relay only if we are synchronized
         // Makes no sense to relay votes to the peers from where we are syncing them.
-        if (masternodeSync.IsSynced()) vote.Relay();
-        masternodeSync.AddedBudgetItem(voteID);
+        if (g_tiertwo_sync_state.IsSynced()) vote.Relay();
+        g_tiertwo_sync_state.AddedBudgetItem(voteID);
         LogPrint(BCLog::MNBUDGET, "mvote - new vote (%s) for proposal %s from dmn %s\n",
                 voteID.ToString(), vote.GetProposalHash().ToString(), mn_protx_id);
         return true;
@@ -1181,7 +1156,7 @@ bool CBudgetManager::ProcessProposalVote(CBudgetVote& vote, CNode* pfrom, CValid
     if (!pmn) {
         err = strprintf("unknown masternode - vin: %s", voteVin.prevout.ToString());
         // Ask for MN only if we finished syncing the MN list.
-        if (pfrom && masternodeSync.IsMasternodeListSynced()) mnodeman.AskForMN(pfrom, voteVin);
+        if (pfrom && g_tiertwo_sync_state.IsMasternodeListSynced()) mnodeman.AskForMN(pfrom, voteVin);
         return state.DoS(0, false, REJECT_INVALID, "bad-mvote", false, err);
     }
 
@@ -1192,7 +1167,7 @@ bool CBudgetManager::ProcessProposalVote(CBudgetVote& vote, CNode* pfrom, CValid
     AddSeenProposalVote(vote);
 
     if (!vote.CheckSignature(pmn->pubKeyMasternode.GetID())) {
-        if (masternodeSync.IsSynced()) {
+        if (g_tiertwo_sync_state.IsSynced()) {
             err = strprintf("signature from masternode %s invalid", voteVin.prevout.ToString());
             return state.DoS(20, false, REJECT_INVALID, "bad-mvote-sig", false, err);
         }
@@ -1205,8 +1180,8 @@ bool CBudgetManager::ProcessProposalVote(CBudgetVote& vote, CNode* pfrom, CValid
 
     // Relay only if we are synchronized
     // Makes no sense to relay votes to the peers from where we are syncing them.
-    if (masternodeSync.IsSynced()) vote.Relay();
-    masternodeSync.AddedBudgetItem(voteID);
+    if (g_tiertwo_sync_state.IsSynced()) vote.Relay();
+    g_tiertwo_sync_state.AddedBudgetItem(voteID);
     LogPrint(BCLog::MNBUDGET, "mvote - new vote (%s) for proposal %s from dmn %s\n",
             voteID.ToString(), vote.GetProposalHash().ToString(), voteVin.prevout.ToString());
     return true;
@@ -1217,7 +1192,7 @@ int CBudgetManager::ProcessFinalizedBudget(CFinalizedBudget& finalbudget, CNode*
 
     const uint256& nHash = finalbudget.GetHash();
     if (HaveFinalizedBudget(nHash)) {
-        masternodeSync.AddedBudgetItem(nHash);
+        g_tiertwo_sync_state.AddedBudgetItem(nHash);
         return 0;
     }
     if (!AddFinalizedBudget(finalbudget, pfrom)) {
@@ -1226,8 +1201,8 @@ int CBudgetManager::ProcessFinalizedBudget(CFinalizedBudget& finalbudget, CNode*
 
     // Relay only if we are synchronized
     // Makes no sense to relay finalizations to the peers from where we are syncing them.
-    if (masternodeSync.IsSynced()) finalbudget.Relay();
-    masternodeSync.AddedBudgetItem(nHash);
+    if (g_tiertwo_sync_state.IsSynced()) finalbudget.Relay();
+    g_tiertwo_sync_state.AddedBudgetItem(nHash);
 
     LogPrint(BCLog::MNBUDGET, "fbs (new) %s\n", nHash.ToString());
     //we might have active votes for this budget that are now valid
@@ -1240,7 +1215,7 @@ bool CBudgetManager::ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNod
     const uint256& voteID = vote.GetHash();
 
     if (HaveSeenFinalizedBudgetVote(voteID)) {
-        masternodeSync.AddedBudgetItem(voteID);
+        g_tiertwo_sync_state.AddedBudgetItem(voteID);
         return false;
     }
 
@@ -1277,8 +1252,8 @@ bool CBudgetManager::ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNod
 
         // Relay only if we are synchronized
         // Makes no sense to relay votes to the peers from where we are syncing them.
-        if (masternodeSync.IsSynced()) vote.Relay();
-        masternodeSync.AddedBudgetItem(voteID);
+        if (g_tiertwo_sync_state.IsSynced()) vote.Relay();
+        g_tiertwo_sync_state.AddedBudgetItem(voteID);
         LogPrint(BCLog::MNBUDGET, "fbvote - new vote (%s) for budget %s from dmn %s\n",
                 voteID.ToString(), vote.GetBudgetHash().ToString(), mn_protx_id);
         return true;
@@ -1289,7 +1264,7 @@ bool CBudgetManager::ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNod
     if (!pmn) {
         err = strprintf("unknown masternode - vin: %s", voteVin.prevout.ToString());
         // Ask for MN only if we finished syncing the MN list.
-        if (pfrom && masternodeSync.IsMasternodeListSynced()) mnodeman.AskForMN(pfrom, voteVin);
+        if (pfrom && g_tiertwo_sync_state.IsMasternodeListSynced()) mnodeman.AskForMN(pfrom, voteVin);
         return state.DoS(0, false, REJECT_INVALID, "bad-fbvote", false, err);
     }
 
@@ -1300,7 +1275,7 @@ bool CBudgetManager::ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNod
     AddSeenFinalizedBudgetVote(vote);
 
     if (!vote.CheckSignature(pmn->pubKeyMasternode.GetID())) {
-        if (masternodeSync.IsSynced()) {
+        if (g_tiertwo_sync_state.IsSynced()) {
             err = strprintf("signature from masternode %s invalid", voteVin.prevout.ToString());
             return state.DoS(20, false, REJECT_INVALID, "bad-fbvote-sig", false, err);
         }
@@ -1313,27 +1288,22 @@ bool CBudgetManager::ProcessFinalizedBudgetVote(CFinalizedBudgetVote& vote, CNod
 
     // Relay only if we are synchronized
     // Makes no sense to relay votes to the peers from where we are syncing them.
-    if (masternodeSync.IsSynced()) vote.Relay();
-    masternodeSync.AddedBudgetItem(voteID);
+    if (g_tiertwo_sync_state.IsSynced()) vote.Relay();
+    g_tiertwo_sync_state.AddedBudgetItem(voteID);
     LogPrint(BCLog::MNBUDGET, "fbvote - new vote (%s) for budget %s from mn %s\n",
             voteID.ToString(), vote.GetBudgetHash().ToString(), voteVin.prevout.ToString());
     return true;
 }
 
-void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
+bool CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, int& banScore)
 {
-    int banScore = ProcessMessageInner(pfrom, strCommand, vRecv);
-    if (banScore > 0) {
-        LOCK(cs_main);
-        Misbehaving(pfrom->GetId(), banScore);
-    }
+    banScore = ProcessMessageInner(pfrom, strCommand, vRecv);
+    return banScore == 0;
 }
 
 int CBudgetManager::ProcessMessageInner(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    // lite mode is not supported
-    if (fLiteMode) return 0;
-    if (!masternodeSync.IsBlockchainSynced()) return 0;
+    if (!g_tiertwo_sync_state.IsBlockchainSynced()) return 0;
 
     if (strCommand == NetMsgType::BUDGETVOTESYNC) {
         // Masternode vote sync
@@ -1500,11 +1470,9 @@ void CBudgetManager::Sync(CNode* pfrom, bool fPartial)
     relayInventoryItems<CFinalizedBudget>(pfrom, cs_budgets, mapFinalizedBudgets, fPartial, MSG_BUDGET_FINALIZED, MASTERNODE_SYNC_BUDGET_FIN);
 
     if (!fPartial) {
-        // Now that budget full sync request was handled, mark it as completed.
-        // We are not going to answer full budget sync requests for an hour (BUDGET_SYNC_REQUEST_ACCEPTANCE_SECONDS).
+        // We are not going to answer full budget sync requests for an hour (chainparams.FulfilledRequestExpireTime()).
         // The remote peer can still do single prop and mnv sync requests if needed.
-        LOCK2(cs_budgets, cs_proposals);
-        mAskedUsForBudgetSync[pfrom->addr] = GetTime() + BUDGET_SYNC_REQUEST_ACCEPTANCE_SECONDS;
+        g_netfulfilledman.AddFulfilledRequest(pfrom->addr, BUDGET_SYNC_REQUEST_RECV);
     }
 }
 
@@ -1540,11 +1508,12 @@ bool CBudgetManager::UpdateProposal(const CBudgetVote& vote, CNode* pfrom, std::
     LOCK(cs_proposals);
 
     const uint256& nProposalHash = vote.GetProposalHash();
-    if (!mapProposals.count(nProposalHash)) {
+    const auto& itProposal = mapProposals.find(nProposalHash);
+    if (itProposal == mapProposals.end()) {
         if (pfrom) {
             // only ask for missing items after our syncing process is complete --
             //   otherwise we'll think a full sync succeeded when they return a result
-            if (!masternodeSync.IsSynced()) return false;
+            if (!g_tiertwo_sync_state.IsSynced()) return false;
 
             LogPrint(BCLog::MNBUDGET,"%s: Unknown proposal %d, asking for source proposal\n", __func__, nProposalHash.ToString());
             {
@@ -1552,9 +1521,9 @@ bool CBudgetManager::UpdateProposal(const CBudgetVote& vote, CNode* pfrom, std::
                 TryAppendOrphanVoteMap<CBudgetVote>(vote, nProposalHash, mapOrphanProposalVotes, mapSeenProposalVotes);
             }
 
-            if (!askedForSourceProposalOrBudget.count(nProposalHash)) {
+            if (!g_netfulfilledman.HasItemRequest(pfrom->addr, nProposalHash)) {
                 g_connman->PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::BUDGETVOTESYNC, nProposalHash));
-                askedForSourceProposalOrBudget[nProposalHash] = GetTime();
+                g_netfulfilledman.AddItemRequest(pfrom->addr, nProposalHash);
             }
         }
 
@@ -1562,8 +1531,8 @@ bool CBudgetManager::UpdateProposal(const CBudgetVote& vote, CNode* pfrom, std::
         return false;
     }
 
-
-    return mapProposals[nProposalHash].AddOrUpdateVote(vote, strError);
+    // Add or update vote
+    return itProposal->second.AddOrUpdateVote(vote, strError);
 }
 
 bool CBudgetManager::UpdateFinalizedBudget(const CFinalizedBudgetVote& vote, CNode* pfrom, std::string& strError)
@@ -1575,7 +1544,7 @@ bool CBudgetManager::UpdateFinalizedBudget(const CFinalizedBudgetVote& vote, CNo
         if (pfrom) {
             // only ask for missing items after our syncing process is complete --
             //   otherwise we'll think a full sync succeeded when they return a result
-            if (!masternodeSync.IsSynced()) return false;
+            if (!g_tiertwo_sync_state.IsSynced()) return false;
 
             LogPrint(BCLog::MNBUDGET,"%s: Unknown Finalized Proposal %s, asking for source budget\n", __func__, nBudgetHash.ToString());
             {
@@ -1583,9 +1552,9 @@ bool CBudgetManager::UpdateFinalizedBudget(const CFinalizedBudgetVote& vote, CNo
                 TryAppendOrphanVoteMap<CFinalizedBudgetVote>(vote, nBudgetHash, mapOrphanFinalizedBudgetVotes, mapSeenFinalizedBudgetVotes);
             }
 
-            if (!askedForSourceProposalOrBudget.count(nBudgetHash)) {
+            if (!g_netfulfilledman.HasItemRequest(pfrom->addr, nBudgetHash)) {
                 g_connman->PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::BUDGETVOTESYNC, nBudgetHash));
-                askedForSourceProposalOrBudget[nBudgetHash] = GetTime();
+                g_netfulfilledman.AddItemRequest(pfrom->addr, nBudgetHash);
             }
         }
 
@@ -1701,13 +1670,10 @@ bool CheckCollateral(const uint256& nTxCollateralHash, const uint256& nExpectedH
     int nProposalHeight = 0;
     {
         LOCK(cs_main);
-        BlockMap::iterator mi = mapBlockIndex.find(nBlockHash);
-        if (mi != mapBlockIndex.end() && (*mi).second) {
-            CBlockIndex* pindex = (*mi).second;
-            if (chainActive.Contains(pindex)) {
-                nProposalHeight = pindex->nHeight;
-                nTime = pindex->nTime;
-            }
+        CBlockIndex* pindex = LookupBlockIndex(nBlockHash);
+        if (pindex && chainActive.Contains(pindex)) {
+            nProposalHeight = pindex->nHeight;
+            nTime = pindex->nTime;
         }
     }
 

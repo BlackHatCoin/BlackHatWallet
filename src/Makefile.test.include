@@ -98,6 +98,7 @@ BITCOIN_TESTS =\
   test/base64_tests.cpp \
   test/bech32_tests.cpp \
   test/bip32_tests.cpp \
+  test/bloom_tests.cpp \
   test/bls_tests.cpp \
   test/budget_tests.cpp \
   test/checkblock_tests.cpp \
@@ -121,10 +122,13 @@ BITCOIN_TESTS =\
   test/mnpayments_tests.cpp \
   test/mempool_tests.cpp \
   test/merkle_tests.cpp \
+  test/merkleblock_tests.cpp \
   test/multisig_tests.cpp \
   test/miner_tests.cpp \
   test/net_tests.cpp \
   test/netbase_tests.cpp \
+  test/netfulfilledman_tests.cpp \
+  test/net_quorums_tests.cpp \
   test/pmt_tests.cpp \
   test/policyestimator_tests.cpp \
   test/prevector_tests.cpp \
@@ -391,7 +395,7 @@ nodist_test_test_blkc_SOURCES = $(GENERATED_TEST_FILES)
 
 $(BITCOIN_TESTS): $(GENERATED_TEST_FILES)
 
-CLEAN_BITCOIN_TEST = test/*.gcda test/*.gcno $(GENERATED_TEST_FILES)
+CLEAN_BITCOIN_TEST = test/*.gcda test/*.gcno test/fuzz/*.gcda test/fuzz/*.gcno test/librust/*.gcda test/librust/*.gcno test/util/*.gcda test/util/*.gcno $(GENERATED_TEST_FILES) $(BITCOIN_TESTS:=.log) $(SAPLING_TESTS:=.log)
 
 CLEANFILES += $(CLEAN_BITCOIN_TEST)
 

@@ -277,14 +277,6 @@ class TestNode():
                 if re.search(re.escape(expected_msg), log, flags=re.MULTILINE) is None:
                     raise AssertionError('Expected message "{}" does not partially match log:\n\n{}\n\n'.format(expected_msg, print_log))
 
-    def node_encrypt_wallet(self, passphrase):
-        """"Encrypts the wallet.
-
-        This causes blkcd to shutdown, so this method takes
-        care of cleaning up resources."""
-        self.encryptwallet(passphrase)
-        self.wait_until_stopped()
-
     def add_p2p_connection(self, p2p_conn, *args, wait_for_verack=True, **kwargs):
         """Add a p2p connection to the node.
 

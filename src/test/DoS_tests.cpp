@@ -168,7 +168,7 @@ CTransactionRef RandomOrphan()
 static void MakeNewKeyWithFastRandomContext(CKey& key)
 {
     std::vector<unsigned char> keydata;
-    keydata = insecure_rand_ctx.randbytes(32);
+    keydata = g_insecure_rand_ctx.randbytes(32);
     key.Set(keydata.data(), keydata.data() + keydata.size(), /*fCompressedIn*/ true);
     assert(key.IsValid());
 }
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(DoS_mapOrphans)
     // ecdsa_signature_parse_der_lax are executed during this test.
     // Specifically branches that run only when an ECDSA
     // signature's R and S values have leading zeros.
-    insecure_rand_ctx = FastRandomContext(ArithToUint256(arith_uint256(33)));
+    g_insecure_rand_ctx = FastRandomContext(ArithToUint256(arith_uint256(33)));
 
     CKey key;
     MakeNewKeyWithFastRandomContext(key);

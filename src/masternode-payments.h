@@ -35,7 +35,7 @@ void FillBlockPayee(CMutableTransaction& txCoinbase, CMutableTransaction& txCoin
  * Check coinbase output value for blocks after v6.0 enforcement.
  * It must pay the masternode for regular blocks and a proposal during superblocks.
  */
-bool IsCoinbaseValueValid(const CTransactionRef& tx, CAmount nBudgetAmt, CValidationState& _state, int nBlockHeight);
+bool IsCoinbaseValueValid(const CTransactionRef& tx, CAmount nBudgetAmt, CValidationState& _state);
 
 void DumpMasternodePayments();
 
@@ -244,7 +244,7 @@ public:
     bool IsScheduled(const CMasternode& mn, int nNotBlockHeight);
 
     bool ProcessMNWinner(CMasternodePaymentWinner& winner, CNode* pfrom, CValidationState& state);
-    void ProcessMessageMasternodePayments(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
+    bool ProcessMessageMasternodePayments(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CValidationState& state);
     std::string GetRequiredPaymentsString(int nBlockHeight);
     void FillBlockPayee(CMutableTransaction& txCoinbase, CMutableTransaction& txCoinstake, const CBlockIndex* pindexPrev, bool fProofOfStake) const;
     std::string ToString() const;

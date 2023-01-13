@@ -203,17 +203,18 @@ BOOST_FIXTURE_TEST_CASE(created_on_fork_tests, TestPoSChainSetup)
         BOOST_CHECK(ProcessNewBlock(pblock, nullptr));
     }
 
-    // Chains diagram:
-    // A -- B -- C -- D -- E -- F -- G -- H -- I
-    //           \
-    //             -- D1 -- E1 -- F1
-    //                  \
-    //                   -- E2 -- F2
-    //           \
-    //             -- D3 -- E3 -- F3
-    //                        \
-    //                         -- F3_1 -- G3 -- H3 -- I3
-
+    /*
+    Chains diagram:
+    A -- B -- C -- D -- E -- F -- G -- H -- I
+              \
+                -- D1 -- E1 -- F1
+                     \
+                      -- E2 -- F2
+              \
+                -- D3 -- E3 -- F3
+                           \
+                            -- F3_1 -- G3 -- H3 -- I3
+    */
 
     // Tests:
     // 1) coins created in D1 and spent in E1. --> should pass

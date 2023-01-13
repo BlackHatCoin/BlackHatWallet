@@ -10,7 +10,6 @@ from test_framework.util import (
     assert_raises_rpc_error,
     assert_greater_than,
     assert_greater_than_or_equal,
-    connect_nodes,
     count_bytes,
     find_vout_for_address,
     Decimal,
@@ -371,11 +370,7 @@ class RawTransactionsTest(BlackHatTestFramework):
     def test_locked_wallet(self):
         self.log.info("test locked wallet")
 
-        self.nodes[1].node_encrypt_wallet("test")
-        self.start_node(1)
-        connect_nodes(self.nodes[0], 1)
-        connect_nodes(self.nodes[1], 2)
-        self.sync_all()
+        self.nodes[1].encryptwallet("test")
 
         # Drain the keypool.
         self.nodes[1].getnewaddress()

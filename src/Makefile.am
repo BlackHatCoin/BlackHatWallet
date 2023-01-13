@@ -153,6 +153,7 @@ BITCOIN_CORE_H = \
   bls/bls_ies.h \
   bls/bls_worker.h \
   bls/bls_wrapper.h \
+  bls/key_io.h \
   chain.h \
   chainparams.h \
   chainparamsbase.h \
@@ -162,6 +163,7 @@ BITCOIN_CORE_H = \
   clientversion.h \
   coincontrol.h \
   coins.h \
+  cxxtimer.h \
   compat.h \
   compat/byteswap.h \
   compat/cpuid.h \
@@ -180,13 +182,26 @@ BITCOIN_CORE_H = \
   core_io.h \
   cuckoocache.h \
   crypter.h \
-  ctpl.h \
+  ctpl_stl.h \
   cyclingvector.h \
   evo/deterministicmns.h \
   evo/evodb.h \
+  evo/mnauth.h \
   evo/evonotificationinterface.h \
   evo/providertx.h \
-  evo/specialtx.h \
+  evo/specialtx_validation.h \
+  flatdb.h \
+  llmq/quorums_blockprocessor.h \
+  llmq/quorums_commitment.h \
+  llmq/quorums_connections.h \
+  llmq/quorums_debug.h \
+  llmq/quorums_dkgsessionhandler.h \
+  llmq/quorums_dkgsessionmgr.h \
+  llmq/quorums_dkgsession.h \
+  llmq/quorums_init.h \
+  llmq/quorums_utils.h \
+  tiertwo/masternode_meta_manager.h \
+  tiertwo/net_masternodes.h \
   addressbook.h \
   wallet/db.h \
   flatfile.h \
@@ -196,6 +211,7 @@ BITCOIN_CORE_H = \
   httpserver.h \
   indirectmap.h \
   init.h \
+  tiertwo/init.h \
   interfaces/handler.h \
   interfaces/wallet.h \
   invalid.h \
@@ -253,6 +269,7 @@ BITCOIN_CORE_H = \
   rpc/server.h \
   saltedhasher.h \
   scheduler.h \
+  script/descriptor.h \
   script/interpreter.h \
   script/keyorigin.h \
   script/script.h \
@@ -281,6 +298,8 @@ BITCOIN_CORE_H = \
   threadinterrupt.h \
   timedata.h \
   tinyformat.h \
+  tiertwo/netfulfilledman.h \
+  tiertwo/tiertwo_sync_state.h \
   torcontrol.h \
   txdb.h \
   txmempool.h \
@@ -312,7 +331,6 @@ BITCOIN_CORE_H = \
   wallet/walletdb.h \
   wallet/walletutil.h \
   warnings.h \
-  zblkcchain.h \
   zblkc/zpos.h \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h \
@@ -336,6 +354,7 @@ libbitcoin_server_a_SOURCES = \
   bls/bls_ies.cpp \
   bls/bls_worker.cpp \
   bls/bls_wrapper.cpp \
+  bls/key_io.cpp \
   chain.cpp \
   checkpoints.cpp \
   consensus/params.cpp \
@@ -345,11 +364,24 @@ libbitcoin_server_a_SOURCES = \
   evo/deterministicmns.cpp \
   evo/evodb.cpp \
   evo/evonotificationinterface.cpp \
+  evo/mnauth.cpp \
   evo/providertx.cpp \
-  evo/specialtx.cpp \
+  evo/specialtx_validation.cpp \
+  llmq/quorums_blockprocessor.cpp \
+  llmq/quorums_commitment.cpp \
+  llmq/quorums_connections.cpp \
+  llmq/quorums_debug.cpp \
+  llmq/quorums_dkgsessionhandler.cpp \
+  llmq/quorums_dkgsessionmgr.cpp \
+  llmq/quorums_dkgsession.cpp \
+  llmq/quorums_init.cpp \
+  llmq/quorums_utils.cpp \
+  tiertwo/masternode_meta_manager.cpp \
+  tiertwo/net_masternodes.cpp \
   httprpc.cpp \
   httpserver.cpp \
   init.cpp \
+  tiertwo/init.cpp \
   dbwrapper.cpp \
   legacy/validation_zerocoin_legacy.cpp \
   sapling/sapling_validation.cpp \
@@ -372,6 +404,7 @@ libbitcoin_server_a_SOURCES = \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
   rpc/rpcevo.cpp \
+  rpc/rpcquorums.cpp \
   rpc/server.cpp \
   script/sigcache.cpp \
   script/ismine.cpp \
@@ -384,7 +417,6 @@ libbitcoin_server_a_SOURCES = \
   txmempool.cpp \
   validation.cpp \
   validationinterface.cpp \
-  zblkcchain.cpp \
   $(BITCOIN_CORE_H) \
   $(LIBSAPLING_H)
 
@@ -533,11 +565,14 @@ libbitcoin_common_a_SOURCES = \
   pubkey.cpp \
   saltedhasher.cpp \
   scheduler.cpp \
+  script/descriptor.cpp \
   script/interpreter.cpp \
   script/script.cpp \
   script/sign.cpp \
   script/standard.cpp \
   tiertwo_networksync.cpp \
+  tiertwo/netfulfilledman.cpp \
+  tiertwo/tiertwo_sync_state.cpp \
   warnings.cpp \
   script/script_error.cpp \
   spork.cpp \
@@ -729,6 +764,7 @@ CLEANFILES = $(EXTRA_LIBRARIES)
 
 CLEANFILES += *.gcda *.gcno
 CLEANFILES += budget/*.gcda budget/*.gcno
+CLEANFILES += bls/*.gcda bls/*.gcno
 CLEANFILES += compat/*.gcda compat/*.gcno
 CLEANFILES += consensus/*.gcda consensus/*.gcno
 CLEANFILES += crc32c/src/*.gcda crc32c/src/*.gcno
@@ -737,13 +773,14 @@ CLEANFILES += evo/*.gcda evo/*.gcno
 CLEANFILES += interfaces/*.gcda interfaces/*.gcno
 CLEANFILES += legacy/*.gcda legacy/*.gcno
 CLEANFILES += libzerocoin/*.gcda libzerocoin/*.gcno
+CLEANFILES += llmq/*.gcda llmq/*.gcno
 CLEANFILES += policy/*.gcda policy/*.gcno
 CLEANFILES += primitives/*.gcda primitives/*.gcno
 CLEANFILES += rpc/*.gcda rpc/*.gcno
 CLEANFILES += sapling/*.gcda sapling/*.gcno
 CLEANFILES += script/*.gcda script/*.gcno
 CLEANFILES += support/*.gcda support/*.gcno
-CLEANFILES += test/librust/*.gcda test/librust/*.gcno
+CLEANFILES += tiertwo/*.gcda tiertwo/*.gcno
 CLEANFILES += univalue/*.gcda univalue/*.gcno
 CLEANFILES += util/*.gcda util/*.gcno
 CLEANFILES += wallet/*.gcda wallet/*.gcno

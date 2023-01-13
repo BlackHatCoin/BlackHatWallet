@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2016 The Bitcoin developers
 // Copyright (c) 2017-2019 The PIVX developers
 // Copyright (c) 2021 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
@@ -122,8 +122,12 @@ public:
     CBlockHeader header;
     CPartialMerkleTree txn;
 
-public:
-    /** Public only for unit testing and relay testing (not relayed) */
+    /**
+     * Public only for unit testing and relay testing (not relayed).
+     *
+     * Used only when a bloom filter is specified to allow
+     * testing the transactions which matched the bloom filter.
+     */
     std::vector<std::pair<unsigned int, uint256> > vMatchedTxn;
 
     /**
@@ -131,11 +135,18 @@ public:
      * Note that this will call IsRelevantAndUpdate on the filter for each transaction,
      * thus the filter will likely be modified.
      */
-    CMerkleBlock(const CBlock& block, CBloomFilter& filter);
+    CMerkleBlock(const CBlock& block, CBloomFilter& filter) : CMerkleBlock(block, &filter, nullptr) { }
+
+    // Create from a CBlock, matching the txids in the set
+    CMerkleBlock(const CBlock& block, const std::set<uint256>& txids) : CMerkleBlock(block, nullptr, &txids) { }
 
     CMerkleBlock() {}
 
     SERIALIZE_METHODS(CMerkleBlock, obj) { READWRITE(obj.header, obj.txn); }
+
+private:
+    // Combined constructor to consolidate code
+    CMerkleBlock(const CBlock& block, CBloomFilter* filter, const std::set<uint256>* txids);
 
 };
 

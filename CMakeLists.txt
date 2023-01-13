@@ -111,9 +111,35 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/config/blkc-config.h")
 else()
     execute_process(COMMAND cat config.log WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
     message(FATAL_ERROR "configure script didn't finish properly see config.log output above")
-
 endif()
 add_definitions(-DHAVE_CONFIG_H)
+
+# Option to enable debug flags. append `-DDEBUG=ON` to your cmake command
+# Ex: `cmake -DDEBUG=ON ..`
+option(DEBUG "Use debug compiler flags and macros" OFF)
+if(DEBUG)
+    add_definitions(-DDEBUG -DDEBUG_LOCKORDER)
+endif()
+
+# Check for thread_local support in the compiler.
+# This is required for DEBUG_LOCKCONTENTION
+include(CheckCXXSourceCompiles)
+CHECK_CXX_SOURCE_COMPILES("
+#if defined(_MSC_VER) && !defined(__thread)
+#define __thread __declspec(thread)
+#endif
+int main() {
+  static __thread int tls;
+  (void)tls;
+}
+" HAVE_THREAD_LOCAL)
+if(HAVE_THREAD_LOCAL)
+    add_definitions(-DHAVE_THREAD_LOCAL)
+    if(DEBUG)
+        add_definitions(-DDEBUG_LOCKCONTENTION)
+    endif()
+endif()
+unset(DEBUG CACHE)
 
 ExternalProject_Add (
         libunivalue
@@ -169,6 +195,8 @@ file(GLOB ZRUST_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/rust/include/*.h)
 file(GLOB SAPLING_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/sapling/*.h)
 file(GLOB IMMER_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/immer/*.h)
 file(GLOB EVO_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/evo/*.h)
+file(GLOB BLS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/bls/*.h)
+file(GLOB LLMQ_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/src/llmq/*.h)
 
 source_group("BitcoinHeaders" FILES
         ${HEADERS}
@@ -184,6 +212,8 @@ source_group("BitcoinHeaders" FILES
         ${SAPLING_HEADERS}
         ${IMMER_HEADERS}
         ${EVO_HEADERS}
+        ${BLS_HEADERS}
+        ${LLMQ_HEADERS}
         ./src/support/cleanse.h
         ./src/support/events.h
         )
@@ -193,9 +223,6 @@ set(SERVER_SOURCES
         ./src/addrman.cpp
         ./src/bloom.cpp
         ./src/blocksignature.cpp
-        ./src/bls/bls_ies.cpp
-        ./src/bls/bls_worker.cpp
-        ./src/bls/bls_wrapper.cpp
         ./src/chain.cpp
         ./src/checkpoints.cpp
         ./src/consensus/tx_verify.cpp
@@ -204,6 +231,7 @@ set(SERVER_SOURCES
         ./src/httpserver.cpp
         ./src/indirectmap.h
         ./src/init.cpp
+        ./src/tiertwo/init.cpp
         ./src/interfaces/handler.cpp
         ./src/interfaces/wallet.cpp
         ./src/dbwrapper.cpp
@@ -227,6 +255,7 @@ set(SERVER_SOURCES
         ./src/rpc/net.cpp
         ./src/rpc/rawtransaction.cpp
         ./src/rpc/rpcevo.cpp
+        ./src/rpc/rpcquorums.cpp
         ./src/rpc/server.cpp
         ./src/script/sigcache.cpp
         ./src/script/ismine.cpp
@@ -240,7 +269,6 @@ set(SERVER_SOURCES
         ./src/txmempool.cpp
         ./src/validation.cpp
         ./src/validationinterface.cpp
-        ./src/zblkcchain.cpp
         )
 add_library(SERVER_A STATIC ${BitcoinHeaders} ${SERVER_SOURCES})
 if(MINIUPNP_FOUND)
@@ -367,6 +395,10 @@ set(COMMON_SOURCES
         ./src/activemasternode.cpp
         ./src/base58.cpp
         ./src/bip38.cpp
+        ./src/bls/bls_ies.cpp
+        ./src/bls/bls_worker.cpp
+        ./src/bls/bls_wrapper.cpp
+        ./src/bls/key_io.cpp
         ./src/budget/budgetdb.cpp
         ./src/budget/budgetmanager.cpp
         ./src/budget/budgetproposal.cpp
@@ -384,7 +416,16 @@ set(COMMON_SOURCES
         ./src/evo/evonotificationinterface.cpp
         ./src/evo/evodb.cpp
         ./src/evo/providertx.cpp
-        ./src/evo/specialtx.cpp
+        ./src/evo/specialtx_validation.cpp
+        ./src/llmq/quorums_blockprocessor.cpp
+        ./src/llmq/quorums_commitment.cpp
+        ./src/llmq/quorums_connections.cpp
+        ./src/llmq/quorums_debug.cpp
+        ./src/llmq/quorums_dkgsessionhandler.cpp
+        ./src/llmq/quorums_dkgsessionmgr.cpp
+        ./src/llmq/quorums_dkgsession.cpp
+        ./src/llmq/quorums_init.cpp
+        ./src/llmq/quorums_utils.cpp
         ./src/consensus/merkle.cpp
         ./src/consensus/zerocoin_verify.cpp
         ./src/primitives/block.cpp
@@ -408,6 +449,7 @@ set(COMMON_SOURCES
         ./src/pubkey.cpp
         ./src/saltedhasher.cpp
         ./src/scheduler.cpp
+        ./src/script/descriptor.cpp
         ./src/script/interpreter.cpp
         ./src/script/script.cpp
         ./src/script/sign.cpp
@@ -416,6 +458,11 @@ set(COMMON_SOURCES
         ./src/spork.cpp
         ./src/sporkdb.cpp
         ./src/tiertwo_networksync.cpp
+        ./src/tiertwo/masternode_meta_manager.cpp
+        ./src/evo/mnauth.cpp
+        ./src/tiertwo/net_masternodes.cpp
+        ./src/tiertwo/netfulfilledman.cpp
+        ./src/tiertwo/tiertwo_sync_state.cpp
         ./src/warnings.cpp
         )
 add_library(COMMON_A STATIC ${BitcoinHeaders} ${COMMON_SOURCES})

@@ -11,7 +11,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <chrono>
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/stringize.hpp>

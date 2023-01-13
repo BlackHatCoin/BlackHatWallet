@@ -31,7 +31,6 @@ typedef std::shared_ptr<const CDeterministicMN> CDeterministicMNCPtr;
 
 int MasternodeMinPingSeconds();
 int MasternodeBroadcastSeconds();
-int MasternodeCollateralMinConf();
 int MasternodePingSeconds();
 int MasternodeExpirationSeconds();
 int MasternodeRemovalSeconds();

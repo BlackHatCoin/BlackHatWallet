@@ -60,6 +60,92 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
+// this one is for testing only
+static Consensus::LLMQParams llmq_test = {
+        .type = Consensus::LLMQ_TEST,
+        .name = "llmq_test",
+        .size = 3,
+        .minSize = 2,
+        .threshold = 2,
+
+        .dkgInterval = 20, // one every 20 minutes
+        .dkgPhaseBlocks = 2,
+        .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 15,
+        .dkgBadVotesThreshold = 2,
+
+        .signingActiveQuorumCount = 2, // just a few ones to allow easier testing
+
+        .keepOldConnections = 3,
+        .recoveryMembers = 3,
+
+        .cacheDkgInterval = 60,
+};
+
+static Consensus::LLMQParams llmq50_60 = {
+        .type = Consensus::LLMQ_50_60,
+        .name = "llmq_50_60",
+        .size = 50,
+        .minSize = 40,
+        .threshold = 30,
+
+        .dkgInterval = 60, // one DKG per hour
+        .dkgPhaseBlocks = 6,
+        .dkgMiningWindowStart = 30, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 40,
+        .dkgBadVotesThreshold = 40,
+
+        .signingActiveQuorumCount = 24, // a full day worth of LLMQs
+
+        .keepOldConnections = 25,
+        .recoveryMembers = 25,
+
+        .cacheDkgInterval = 600,
+};
+
+static Consensus::LLMQParams llmq400_60 = {
+        .type = Consensus::LLMQ_400_60,
+        .name = "llmq_400_60",
+        .size = 400,
+        .minSize = 300,
+        .threshold = 240,
+
+        .dkgInterval = 60 * 12, // one DKG every 12 hours
+        .dkgPhaseBlocks = 10,
+        .dkgMiningWindowStart = 50, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 70,
+        .dkgBadVotesThreshold = 300,
+
+        .signingActiveQuorumCount = 4, // two days worth of LLMQs
+
+        .keepOldConnections = 5,
+        .recoveryMembers = 100,
+
+        .cacheDkgInterval = 60 * 12 * 10, // dkgInterval * 10
+};
+
+// Used for deployment and min-proto-version signaling, so it needs a higher threshold
+static Consensus::LLMQParams llmq400_85 = {
+        .type = Consensus::LLMQ_400_85,
+        .name = "llmq_400_85",
+        .size = 400,
+        .minSize = 350,
+        .threshold = 340,
+
+        .dkgInterval = 60 * 24, // one DKG every 24 hours
+        .dkgPhaseBlocks = 10,
+        .dkgMiningWindowStart = 50, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 70, // give it a larger mining window to make sure it is mined
+        .dkgBadVotesThreshold = 300,
+
+        .signingActiveQuorumCount = 4, // four days worth of LLMQs
+
+        .keepOldConnections = 5,
+        .recoveryMembers = 100,
+
+        .cacheDkgInterval = 60 * 24 * 10, // dkgInterval * 10
+};
+
 /**
  * Main network
  */
@@ -73,12 +159,13 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 static MapCheckpoints mapCheckpoints = {
     {202000, uint256S("2f642ef67d0e053c068bf812dca5ed315302137dbdea571c7d7efc223d394fd7")}, //!< BlackHat v5.3.0 enforced
     {263600, uint256S("a9a78f8593c140e5821f87c00ad5266fb2c2144d749276fa0744519858f1722b")}, //!< New Checkpoint
+    {861990, uint256S("e2beaf60a264567e9b034bec4103af9070d9755e966ebd5d892d654961f89d55")}, //!< New Checkpoint
 };
 
 static const CCheckpointData data = {
     &mapCheckpoints,
-    1636109565, // * UNIX timestamp of last checkpoint block
-    601789,    // * total number of transactions between genesis and last checkpoint
+    1672910340, // * UNIX timestamp of last checkpoint block
+    1845418,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
     3000        // * estimated number of transactions per day after checkpoint
 };
@@ -128,6 +215,7 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 21000000 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
+        consensus.nMNCollateralMinConf = 15;
         consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMinDepth = 600;
@@ -176,6 +264,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 800;
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 114000;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 202000;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 900000;
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -191,6 +280,7 @@ public:
                 uint256S("0x2a0f527f802e19120f01b46ef311af4dec460ab82adc077ba7864deabe21ee50");
         consensus.vUpgrades[Consensus::UPGRADE_V4_0].hashActivationBlock =
                 uint256S("0x2a0f527f802e19120f01b46ef311af4dec460ab82adc077ba7864deabe21ee50");
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -226,6 +316,19 @@ public:
         bech32HRPs[SAPLING_INCOMING_VIEWING_KEY] = "pivks";
         bech32HRPs[SAPLING_EXTENDED_SPEND_KEY]   = "p-secret-spending-key-main";
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviews";
+
+        bech32HRPs[BLS_SECRET_KEY]               = "bls-sk";
+        bech32HRPs[BLS_PUBLIC_KEY]               = "bls-pk";
+
+        // long living quorum params
+        consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
+        consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
+        consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
+
+        nLLMQConnectionRetryTimeout = 60;
+
+        // Tier two
+        nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour
     }
 
     const CCheckpointData& Checkpoints() const
@@ -262,6 +365,7 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 21000000 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
+        consensus.nMNCollateralMinConf = 15;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMinDepth = 100;
@@ -310,6 +414,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 201;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -349,6 +454,19 @@ public:
         bech32HRPs[SAPLING_INCOMING_VIEWING_KEY] = "pivktestsapling";
         bech32HRPs[SAPLING_EXTENDED_SPEND_KEY]   = "p-secret-spending-key-test";
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviewtestsapling";
+
+        bech32HRPs[BLS_SECRET_KEY]               = "bls-sk-test";
+        bech32HRPs[BLS_PUBLIC_KEY]               = "bls-pk-test";
+
+        // long living quorum params
+        consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
+        consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
+        consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
+
+        nLLMQConnectionRetryTimeout = 60;
+
+        // Tier two
+        nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour
     }
 
     const CCheckpointData& Checkpoints() const
@@ -384,6 +502,7 @@ public:
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 43199500 * COIN;
         consensus.nMNCollateralAmt = 5000 * COIN;
+        consensus.nMNCollateralMinConf = 1;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 0;
         consensus.nStakeMinDepth = 20;
@@ -438,6 +557,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_0].nActivationHeight          = 300;
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 350;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 400;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 550;
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -472,6 +592,16 @@ public:
         bech32HRPs[SAPLING_INCOMING_VIEWING_KEY] = "pivktestsapling";
         bech32HRPs[SAPLING_EXTENDED_SPEND_KEY]   = "p-secret-spending-key-test";
         bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviewtestsapling";
+
+        bech32HRPs[BLS_SECRET_KEY]               = "bls-sk-test";
+        bech32HRPs[BLS_PUBLIC_KEY]               = "bls-pk-test";
+
+        // long living quorum params
+        consensus.llmqs[Consensus::LLMQ_TEST] = llmq_test;
+        nLLMQConnectionRetryTimeout = 10;
+
+        // Tier two
+        nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour
     }
 
     const CCheckpointData& Checkpoints() const

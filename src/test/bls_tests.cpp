@@ -4,6 +4,7 @@
 
 #include "test/test_blkc.h"
 #include "bls/bls_ies.h"
+#include "bls/key_io.h"
 #include "bls/bls_worker.h"
 #include "bls/bls_wrapper.h"
 #include "random.h"
@@ -11,24 +12,6 @@
 #include <boost/test/unit_test.hpp>
 
 BOOST_FIXTURE_TEST_SUITE(bls_tests, BasicTestingSetup)
-
-BOOST_AUTO_TEST_CASE(bls_sethexstr_tests)
-{
-    CBLSSecretKey sk;
-    std::string strValidSecret = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
-    // Note: invalid string passed to SetHexStr() should cause it to fail and reset key internal data
-    BOOST_CHECK(sk.SetHexStr(strValidSecret));
-    BOOST_CHECK(!sk.SetHexStr("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1g")); // non-hex
-    BOOST_CHECK(!sk.IsValid());
-    BOOST_CHECK(sk == CBLSSecretKey());
-    // Try few more invalid strings
-    BOOST_CHECK(sk.SetHexStr(strValidSecret));
-    BOOST_CHECK(!sk.SetHexStr("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e")); // hex but too short
-    BOOST_CHECK(!sk.IsValid());
-    BOOST_CHECK(sk.SetHexStr(strValidSecret));
-    BOOST_CHECK(!sk.SetHexStr("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20")); // hex but too long
-    BOOST_CHECK(!sk.IsValid());
-}
 
 BOOST_AUTO_TEST_CASE(bls_sig_tests)
 {
@@ -248,6 +231,66 @@ BOOST_AUTO_TEST_CASE(bls_ies_tests)
     GetRandBytes(iesEnc.iv, sizeof(iesEnc.iv));
     iesEnc.Decrypt(bobSk, decrypted_message2, PROTOCOL_VERSION);
     BOOST_CHECK(decrypted_message2 != message);
+}
+
+template<typename BLSKey>
+BLSKey FromHex(const std::string& str)
+{
+    BLSKey k;
+    k.SetByteVector(ParseHex(str));
+    return k;
+}
+
+BOOST_AUTO_TEST_CASE(bls_sk_io_tests)
+{
+    const auto& params = Params();
+
+    CBLSSecretKey sk = FromHex<CBLSSecretKey>("2eb071f4c520b3102e8cb9f520783da252d33993dba0313b501d69d113af9d39");
+    BOOST_ASSERT(sk.IsValid());
+
+    // Basic encoding-decoding roundtrip
+    std::string encodedSk = bls::EncodeSecret(params, sk);
+    auto opSk2 = bls::DecodeSecret(params, encodedSk);
+    BOOST_CHECK(opSk2 != nullopt);
+    CBLSSecretKey sk2 = *opSk2;
+    BOOST_CHECK(sk == sk2);
+
+    // Invalid sk, one extra char
+    encodedSk.push_back('f');
+    auto opSk3 = bls::DecodeSecret(params, encodedSk);
+    BOOST_CHECK(opSk3 == nullopt);
+
+    // Invalid sk, one less char
+    encodedSk.pop_back();
+    encodedSk.pop_back();
+    auto opSk4 = bls::DecodeSecret(params, encodedSk);
+    BOOST_CHECK(opSk4 == nullopt);
+}
+
+BOOST_AUTO_TEST_CASE(bls_pk_io_tests)
+{
+    const auto& params = Params();
+
+    CBLSPublicKey pk = FromHex<CBLSPublicKey>("901138a12a352c7e30408c071b1ec097f32ab735a12c8dbb43c637612a3f805668a6bb73894982366d287cf0b02aaf5b");
+    BOOST_ASSERT(pk.IsValid());
+
+    // Basic encoding-decoding roundtrip
+    std::string encodedPk = bls::EncodePublic(params, pk);
+    auto opPk2 = bls::DecodePublic(params, encodedPk);
+    BOOST_CHECK(opPk2 != nullopt);
+    CBLSPublicKey pk2 = *opPk2;
+    BOOST_CHECK(pk == pk2);
+
+    // Invalid pk, one extra char
+    encodedPk.push_back('f');
+    auto oppk3 = bls::DecodePublic(params, encodedPk);
+    BOOST_CHECK(oppk3 == nullopt);
+
+    // Invalid pk, one less char
+    encodedPk.pop_back();
+    encodedPk.pop_back();
+    auto oppk4 = bls::DecodePublic(params, encodedPk);
+    BOOST_CHECK(oppk4 == nullopt);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -107,8 +107,7 @@ class WalletDumpTest(BlackHatTestFramework):
         assert_equal(found_addr_rsv, 90 * 3)  # 90 keys external plus 100% internal keys plus 100% staking keys
 
         #encrypt wallet, restart, unlock and dump
-        self.nodes[0].node_encrypt_wallet('test')
-        self.start_node(0)
+        self.nodes[0].encryptwallet('test')
         self.nodes[0].walletpassphrase('test', 10)
         # Should be a no-op:
         self.nodes[0].keypoolrefill()

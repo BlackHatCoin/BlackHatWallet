@@ -63,6 +63,9 @@ public:
         SAPLING_EXTENDED_SPEND_KEY,
         SAPLING_EXTENDED_FVK,
 
+        BLS_SECRET_KEY,
+        BLS_PUBLIC_KEY,
+
         MAX_BECH32_TYPES
     };
 
@@ -73,6 +76,8 @@ public:
     const CBlock& GenesisBlock() const { return genesis; }
     /** Policy: Filter transactions that do not match well-defined patterns */
     bool RequireStandard() const { return fRequireStandard; }
+    /** How long to wait until we allow retrying of a LLMQ connection  */
+    int LLMQConnectionRetryTimeout() const { return nLLMQConnectionRetryTimeout; }
     /** If this chain is exclusively used for testing */
     bool IsTestChain() const { return IsTestnet() || IsRegTestNet(); }
     /** Make miner wait to have peers to avoid wasting work */
@@ -93,6 +98,9 @@ public:
     bool IsRegTestNet() const { return NetworkIDString() == CBaseChainParams::REGTEST; }
     bool IsTestnet() const { return NetworkIDString() == CBaseChainParams::TESTNET; }
 
+    /** Tier two requests blockage mark expiration time */
+    int FulfilledRequestExpireTime() const { return nFulfilledRequestExpireTime; }
+
     void UpdateNetworkUpgradeParameters(Consensus::UpgradeIndex idx, int nActivationHeight);
 protected:
     CChainParams() {}
@@ -107,6 +115,10 @@ protected:
     std::string bech32HRPs[MAX_BECH32_TYPES];
     std::vector<uint8_t> vFixedSeeds;
     bool fRequireStandard;
+
+    // Tier two
+    int nLLMQConnectionRetryTimeout;
+    int nFulfilledRequestExpireTime;
 };
 
 /**

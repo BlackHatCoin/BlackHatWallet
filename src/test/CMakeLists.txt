@@ -117,6 +117,7 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/bech32_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/budget_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/bip32_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bloom_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/bls_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/checkblock_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Checkpoints_tests.cpp
@@ -138,10 +139,13 @@ set(BITCOIN_TESTS
         ${CMAKE_CURRENT_SOURCE_DIR}/mnpayments_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/mempool_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/merkle_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/merkleblock_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/miner_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/multisig_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/net_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/netbase_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/netfulfilledman_tests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/net_quorums_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/pmt_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/policyestimator_tests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/prevector_tests.cpp

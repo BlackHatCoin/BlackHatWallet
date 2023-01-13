@@ -146,7 +146,7 @@ class DIP3Test(BlackHatTestFramework):
         self.add_new_dmn(mns, "external")
         self.add_new_dmn(mns, "fund")
         for mn in mns:
-            self.nodes[mn.idx].initmasternode(mn.operator_sk, "", True)
+            self.nodes[mn.idx].initmasternode(mn.operator_sk)
             time.sleep(1)
         miner.generate(1)
         self.sync_blocks()
@@ -160,7 +160,7 @@ class DIP3Test(BlackHatTestFramework):
         for i in range(3):
             idx = 2 + len(mns) + i
             bls_keypair = controller.generateblskeypair()
-            self.nodes[idx].initmasternode(bls_keypair["secret"], "", True)
+            self.nodes[idx].initmasternode(bls_keypair["secret"])
             op_keys.append([bls_keypair["public"], bls_keypair["secret"]])
             time.sleep(1)
 

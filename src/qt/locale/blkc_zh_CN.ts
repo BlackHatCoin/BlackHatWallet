@@ -115,7 +115,7 @@
     </message>
     <message>
         <source>These are your BlackHat addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这是用于发送BLKC的地址。在发送BlackHat之前，请认真核查发送金额和接收地址。</translation>
+        <translation>这是用于发送BlackHat的地址。在发送BlackHat之前，请认真核查发送金额和接收地址。</translation>
     </message>
     <message>
         <source>These are your BlackHat addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
@@ -993,7 +993,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>The entered address "%1" is not a valid BlackHat address.</source>
-        <translation>所输入的地址“%1”不是有效的BLKC地址。</translation>
+        <translation>所输入的地址“%1”不是有效的BlackHat地址。</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1236,8 +1236,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>创建新的主节点控制器</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;要去创建一个BlackHat主节点，你必须奉献5,000 BLKC 到网络（但是这些币还是属于你的，一直为你所有）。&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;你可以在任何时候关闭该节点并解锁币。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;要去创建一个BlackHat主节点，你必须奉献5,000 BLKC（BlackHat的单位）到网络（但是这些币还是属于你的，一直为你所有）。&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;你可以在任何时候关闭该节点并解锁币。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Set Masternode Name</source>
@@ -1588,7 +1588,7 @@ Are you sure?</source>
     </message>
     <message>
         <source>Invalid URI, not starting with "blkc" prefix</source>
-        <translation>无效的URI，不是以"blkc"前缀开头</translation>
+        <translation>无效的URI，不是以“ blkc”前缀开头</translation>
     </message>
 </context>
 <context>
@@ -1689,8 +1689,10 @@ Are you sure?</source>
         <translation>可以在这里设置用户界面语言。此设置将在重新启动BlackHat后生效。</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations.</source>
-        <translation>语言缺失或翻译不完整?帮助贡献翻译在这里</translation>
+        <source>Language missing or translation incomplete? Help contributing translations here:
+https://forum.blackhatco.in</source>
+        <translation>语言缺失或翻译不完整?帮助贡献翻译在这里:
+https://forum.blackhatco.in</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -3480,7 +3482,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
-        <translation>2) 我的BLKC为什么不能用？</translation>
+        <translation>2) 我的BLKc为什么不能用？</translation>
     </message>
     <message>
         <source>1</source>
@@ -4004,7 +4006,7 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <source>BlackHat address or contact label</source>
-        <translation>BLKC 地址或者联系人标签</translation>
+        <translation>BlackHat 地址或者联系人标签</translation>
     </message>
     <message>
         <source>Enter address</source>
@@ -4281,7 +4283,7 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <source>About BlackHat</source>
-        <translation>关于BlackHat</translation>
+        <translation>关于BlackHat </translation>
     </message>
     <message>
         <source>Settings</source>

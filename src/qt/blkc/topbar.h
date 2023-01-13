@@ -50,6 +50,7 @@ public Q_SLOTS:
 
     void setNumConnections(int count);
     void setNumBlocks(int count);
+    void setNetworkActive(bool active);
     void setStakingStatusActive(bool fActive);
     void updateStakingStatus();
     void updateHDState(const bool upgraded, const QString& upgradeError);

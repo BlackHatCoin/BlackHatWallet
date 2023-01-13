@@ -9,6 +9,7 @@
 
 #include "sync.h"
 #include "random.h"
+#include "tinyformat.h"
 #include "util/string.h"
 #include "util/system.h"
 #include "utilstrencodings.h"
@@ -21,6 +22,10 @@
 #include <fcntl.h>
 #else
 #include <codecvt>
+#endif
+
+#ifdef USE_POLL
+#include <poll.h>
 #endif
 
 #if !defined(HAVE_MSG_NOSIGNAL) && !defined(MSG_NOSIGNAL)
@@ -304,11 +309,19 @@ static IntrRecvError InterruptibleRecv(uint8_t* data, size_t len, int timeout, c
                 if (!IsSelectableSocket(hSocket)) {
                     return IntrRecvError::NetworkError;
                 }
-                struct timeval tval = MillisToTimeval(std::min(endTime - curTime, maxWait));
+                int timeout_ms = std::min(endTime - curTime, maxWait);
+#ifdef USE_POLL
+                struct pollfd pollfd = {};
+                pollfd.fd = hSocket;
+                pollfd.events = POLLIN | POLLOUT;
+                int nRet = poll(&pollfd, 1, timeout_ms);
+#else
+                struct timeval tval = MillisToTimeval(timeout_ms);
                 fd_set fdset;
                 FD_ZERO(&fdset);
                 FD_SET(hSocket, &fdset);
-                int nRet = select(hSocket + 1, &fdset, NULL, NULL, &tval);
+                int nRet = select(hSocket + 1, &fdset, nullptr, nullptr, &tval);
+#endif
                 if (nRet == SOCKET_ERROR) {
                     return IntrRecvError::NetworkError;
                 }
@@ -508,7 +521,17 @@ SOCKET CreateSocket(const CService& addrConnect)
     return hSocket;
 }
 
-bool ConnectSocketDirectly(const CService& addrConnect, const SOCKET& hSocket, int nTimeout)
+template<typename... Args>
+static void LogConnectFailure(bool manual_connection, const char* fmt, const Args&... args) {
+    std::string error_message = tfm::format(fmt, args...);
+    if (manual_connection) {
+        LogPrintf("%s\n", error_message);
+    } else {
+        LogPrint(BCLog::NET, "%s\n", error_message);
+    }
+}
+
+bool ConnectSocketDirectly(const CService& addrConnect, const SOCKET& hSocket, int nTimeout, bool manual_connection)
 {
     struct sockaddr_storage sockaddr;
     socklen_t len = sizeof(sockaddr);
@@ -524,11 +547,18 @@ bool ConnectSocketDirectly(const CService& addrConnect, const SOCKET& hSocket, i
         int nErr = WSAGetLastError();
         // WSAEINVAL is here because some legacy version of winsock uses it
         if (nErr == WSAEINPROGRESS || nErr == WSAEWOULDBLOCK || nErr == WSAEINVAL) {
+#ifdef USE_POLL
+            struct pollfd pollfd = {};
+            pollfd.fd = hSocket;
+            pollfd.events = POLLIN | POLLOUT;
+            int nRet = poll(&pollfd, 1, nTimeout);
+#else
             struct timeval timeout = MillisToTimeval(nTimeout);
             fd_set fdset;
             FD_ZERO(&fdset);
             FD_SET(hSocket, &fdset);
-            int nRet = select(hSocket + 1, NULL, &fdset, NULL, &timeout);
+            int nRet = select(hSocket + 1, nullptr, &fdset, nullptr, &timeout);
+#endif
             if (nRet == 0) {
                 LogPrint(BCLog::NET, "connection to %s timeout\n", addrConnect.ToString());
                 return false;
@@ -544,7 +574,7 @@ bool ConnectSocketDirectly(const CService& addrConnect, const SOCKET& hSocket, i
                 return false;
             }
             if (nRet != 0) {
-                LogPrintf("connect() to %s failed after select(): %s\n", addrConnect.ToString(), NetworkErrorString(nRet));
+                LogConnectFailure(manual_connection, "connect() to %s failed after select(): %s", addrConnect.ToString(), NetworkErrorString(nRet));
                 return false;
             }
         }
@@ -554,7 +584,7 @@ bool ConnectSocketDirectly(const CService& addrConnect, const SOCKET& hSocket, i
         else
 #endif
         {
-            LogPrintf("connect() to %s failed: %s\n", addrConnect.ToString(), NetworkErrorString(WSAGetLastError()));
+            LogConnectFailure(manual_connection, "connect() to %s failed: %s", addrConnect.ToString(), NetworkErrorString(WSAGetLastError()));
             return false;
         }
     }
@@ -618,7 +648,7 @@ bool IsProxy(const CNetAddr& addr)
 bool ConnectThroughProxy(const proxyType &proxy, const std::string& strDest, int port, const SOCKET& hSocket, int nTimeout, bool *outProxyConnectionFailed)
 {
     // first connect to proxy server
-    if (!ConnectSocketDirectly(proxy.proxy, hSocket, nTimeout)) {
+    if (!ConnectSocketDirectly(proxy.proxy, hSocket, nTimeout, true)) {
         if (outProxyConnectionFailed)
             *outProxyConnectionFailed = true;
         return false;

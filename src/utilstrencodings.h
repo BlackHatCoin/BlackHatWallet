@@ -50,8 +50,8 @@ std::string SanitizeString(const std::string& str, int rule = SAFE_CHARS_DEFAULT
 * @param[in] maxSize  An unsigned int, defaulted to 64, to restrict the length
 * @return             A bool, true if valid, false if not (reason in strErr)
 */
-bool validateURL(std::string strURL, std::string& strErr, unsigned int maxSize = 64);
-bool validateURL(std::string strURL);
+bool validateURL(const std::string& strURL, std::string& strErr, unsigned int maxSize = 64);
+bool validateURL(const std::string& strURL);
 
 std::vector<unsigned char> ParseHex(const char* psz);
 std::vector<unsigned char> ParseHex(const std::string& str);

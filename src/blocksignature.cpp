@@ -6,7 +6,7 @@
 #include "blocksignature.h"
 
 #include "script/standard.h"
-#include "zblkcchain.h"
+#include "zblkc/zblkcmodule.h"
 
 static bool GetKeyIDFromUTXO(const CTxOut& utxo, CKeyID& keyIDRet)
 {
@@ -73,7 +73,7 @@ bool CheckBlockSignature(const CBlock& block)
     CPubKey pubkey;
     bool fzBLKCStake = block.vtx[1]->vin[0].IsZerocoinSpend();
     if (fzBLKCStake) {
-        libzerocoin::CoinSpend spend = TxInToZerocoinSpend(block.vtx[1]->vin[0]);
+        libzerocoin::CoinSpend spend = ZBLKCModule::TxInToZerocoinSpend(block.vtx[1]->vin[0]);
         pubkey = spend.getPubKey();
     } else {
         txnouttype whichType;

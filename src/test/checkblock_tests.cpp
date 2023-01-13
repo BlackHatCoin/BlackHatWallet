@@ -54,6 +54,7 @@ BOOST_AUTO_TEST_CASE(May15)
     CBlock forkingBlock;
     if (read_block("Mar12Fork.dat", forkingBlock))
     {
+        LOCK(cs_main);
         CValidationState state;
 
         // After May 15'th, big blocks are OK:

@@ -80,10 +80,10 @@ jobs:
             cxx: g++
 
           - name: macOS
-            os: macos-10.15
-            packages: python3 autoconf automake berkeley-db4 libtool boost miniupnpc libnatpmp pkg-config qt5 zmq libevent qrencode gmp libsodium rust
-            cc: $(brew --prefix llvm)/bin/clang
-            cxx: $(brew --prefix llvm)/bin/clang++
+            os: macos-11
+            packages: llvm@13 python3 autoconf automake berkeley-db@4 libtool boost miniupnpc libnatpmp pkg-config qt5 zmq libevent qrencode gmp libsodium rust
+            cc: $(brew --prefix llvm@13)/bin/clang
+            cxx: $(brew --prefix llvm@13)/bin/clang++
 
     steps:
       - name: Get Source
@@ -273,11 +273,11 @@ jobs:
             goal: install
             BITCOIN_CONFIG: "--with-gui=qt5 --enable-glibc-back-compat --enable-reduce-exports --disable-online-rust"
 
-          - name: Win64  [GOAL:deploy] [no functional tests]
+          - name: Win64  [GOAL:deploy] [no unit or functional tests]
             os: ubuntu-18.04
             host: x86_64-w64-mingw32
             apt_get: python3 nsis g++-mingw-w64-x86-64 wine-binfmt wine64
-            unit_tests: true
+            unit_tests: false
             functional_tests: false
             goal: deploy
             BITCOIN_CONFIG: "--with-gui=auto --enable-reduce-exports --disable-online-rust"
@@ -322,12 +322,12 @@ jobs:
             goal: deploy
             BITCOIN_CONFIG: "--enable-gui --enable-reduce-exports --enable-werror --disable-online-rust"
 
-          - name: macOS 10.15 [GOAL:deploy] [native macOS using syslibs no unit or functional tests]
-            os: macos-10.15
-            host: x86_64-apple-darwin19.6.0
-            brew_install: autoconf automake ccache berkeley-db4 libtool boost miniupnpc pkg-config python3 qt5 zmq libevent qrencode gmp libsodium rust librsvg
-            unit_tests: false
-            functional_tests: false
+          - name: macOS 11 [GOAL:deploy] [native macOS using syslibs]
+            os: macos-11
+            host: x86_64-apple-darwin20.6.0
+            brew_install: autoconf automake ccache berkeley-db4 libtool boost miniupnpc pkg-config python@3.8 qt5 zmq libevent qrencode gmp libsodium rust librsvg
+            unit_tests: true
+            functional_tests: true
             no_depends: 1
             goal: deploy
             cc: clang
@@ -347,7 +347,7 @@ jobs:
           fi
           if [[ ${{ matrix.config.os }} = macos* ]]; then
             brew install ${{ matrix.config.brew_install }}
-            pip3 install ds_store mac_alias
+            pip3.8 install ds_store mac_alias
           fi
 
       - name: depends cache files

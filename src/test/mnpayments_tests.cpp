@@ -8,9 +8,9 @@
 #include "blockassembler.h"
 #include "consensus/merkle.h"
 #include "masternode-payments.h"
-#include "masternode-sync.h"
 #include "masternodeman.h"
 #include "spork.h"
+#include "tiertwo/tiertwo_sync_state.h"
 #include "primitives/transaction.h"
 #include "utilmoneystr.h"
 #include "util/blockstatecatcher.h"
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_SUITE(mnpayments_tests)
 void enableMnSyncAndMNPayments()
 {
     // force mnsync complete
-    masternodeSync.RequestedMasternodeAssets = MASTERNODE_SYNC_FINISHED;
+    g_tiertwo_sync_state.SetCurrentSyncPhase(MASTERNODE_SYNC_FINISHED);
 
     // enable SPORK_13
     int64_t nTime = GetTime() - 10;

@@ -14,25 +14,37 @@
 
 #include <boost/thread.hpp>
 
-extern FastRandomContext insecure_rand_ctx;
+extern FastRandomContext g_insecure_rand_ctx;
 
 /**
  * Flag to make GetRand in random.h return the same number
  */
 extern bool g_mock_deterministic_tests;
 
-static inline void SeedInsecureRand(bool deterministic = false)
+enum class SeedRand {
+    ZEROS, //!< Seed with a compile time constant of zeros
+    SEED,  //!< Call the Seed() helper
+};
+
+/** Seed the given random ctx or use the seed passed in via an environment var */
+void Seed(FastRandomContext& ctx);
+
+static inline void SeedInsecureRand(SeedRand seed = SeedRand::SEED)
 {
-    insecure_rand_ctx = FastRandomContext(deterministic);
+    if (seed == SeedRand::ZEROS) {
+        g_insecure_rand_ctx = FastRandomContext(/* deterministic */ true);
+    } else {
+        Seed(g_insecure_rand_ctx);
+    }
 }
 
-static inline uint16_t InsecureRand16() { return insecure_rand_ctx.rand16(); }
-static inline uint32_t InsecureRand32() { return insecure_rand_ctx.rand32(); }
-static inline uint256 InsecureRand256() { return insecure_rand_ctx.rand256(); }
-static inline uint64_t InsecureRandBits(int bits) { return insecure_rand_ctx.randbits(bits); }
-static inline uint64_t InsecureRandRange(uint64_t range) { return insecure_rand_ctx.randrange(range); }
-static inline bool InsecureRandBool() { return insecure_rand_ctx.randbool(); }
-static inline std::vector<unsigned char> InsecureRandBytes(size_t len) { return insecure_rand_ctx.randbytes(len); }
+static inline uint16_t InsecureRand16() { return g_insecure_rand_ctx.rand16(); }
+static inline uint32_t InsecureRand32() { return g_insecure_rand_ctx.rand32(); }
+static inline uint256 InsecureRand256() { return g_insecure_rand_ctx.rand256(); }
+static inline uint64_t InsecureRandBits(int bits) { return g_insecure_rand_ctx.randbits(bits); }
+static inline uint64_t InsecureRandRange(uint64_t range) { return g_insecure_rand_ctx.randrange(range); }
+static inline bool InsecureRandBool() { return g_insecure_rand_ctx.randbool(); }
+static inline std::vector<unsigned char> InsecureRandBytes(size_t len) { return g_insecure_rand_ctx.randbytes(len); }
 
 /** Basic testing setup.
  * This just configures logging and chain parameters.
@@ -98,7 +110,9 @@ struct TestChainSetup : public TestingSetup
     CBlock CreateBlock(const std::vector<CMutableTransaction>& txns,
                        const CScript& scriptPubKey,
                        bool fNoMempoolTx = true,
-                       bool fTestBlockValidity = true);
+                       bool fTestBlockValidity = true,
+                       bool fIncludeQfc = true,
+                       CBlockIndex* customPrevBlock = nullptr);
     CBlock CreateBlock(const std::vector<CMutableTransaction>& txns, const CKey& scriptKey, bool fTestBlockValidity = true);
 
     std::vector<CTransaction> coinbaseTxns; // For convenience, coinbase transactions

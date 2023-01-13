@@ -6,18 +6,12 @@
 #include "qt/blkc/masternodewizarddialog.h"
 #include "qt/blkc/forms/ui_masternodewizarddialog.h"
 
-#include "activemasternode.h"
-#include "clientmodel.h"
 #include "key_io.h"
-#include "optionsmodel.h"
 #include "qt/blkc/mnmodel.h"
-#include "qt/blkc/guitransactionsutils.h"
 #include "qt/blkc/qtutils.h"
-#include "qt/walletmodeltransaction.h"
+#include "qt/walletmodel.h"
 
-#include <QFile>
 #include <QIntValidator>
-#include <QHostAddress>
 #include <QRegularExpression>
 
 static inline QString formatParagraph(const QString& str) {
@@ -28,14 +22,27 @@ static inline QString formatHtmlContent(const QString& str) {
     return "<html><body>" + str + "</body></html>";
 }
 
-MasterNodeWizardDialog::MasterNodeWizardDialog(WalletModel* model, ClientModel* _clientModel, QWidget *parent) :
+static void initBtn(std::initializer_list<QPushButton*> args)
+{
+    QSize BUTTON_SIZE = QSize(22, 22);
+    for (QPushButton* btn : args) {
+        btn->setMinimumSize(BUTTON_SIZE);
+        btn->setMaximumSize(BUTTON_SIZE);
+        btn->move(0, 0);
+        btn->show();
+        btn->raise();
+        btn->setVisible(false);
+    }
+}
+
+MasterNodeWizardDialog::MasterNodeWizardDialog(WalletModel* model, MNModel* _mnModel, QWidget *parent) :
     FocusedDialog(parent),
     ui(new Ui::MasterNodeWizardDialog),
     icConfirm1(new QPushButton(this)),
     icConfirm3(new QPushButton(this)),
     icConfirm4(new QPushButton(this)),
     walletModel(model),
-    clientModel(_clientModel)
+    mnModel(_mnModel)
 {
     ui->setupUi(this);
 
@@ -60,7 +67,7 @@ MasterNodeWizardDialog::MasterNodeWizardDialog(WalletModel* model, ClientModel* 
     setCssProperty(ui->labelMessage1a, "text-main-grey");
     setCssProperty(ui->labelMessage1b, "text-main-purple");
 
-    QString collateralAmountStr = GUIUtil::formatBalance(clientModel->getMNCollateralRequiredAmount());
+    QString collateralAmountStr = GUIUtil::formatBalance(mnModel->getMNCollateralRequiredAmount());
     ui->labelMessage1a->setText(formatHtmlContent(
                 formatParagraph(tr("To create a BlackHat Masternode you must dedicate %1 (the unit of BLKC) "
                         "to the network (however, these coins are still yours and will never leave your possession).").arg(collateralAmountStr)) +
@@ -135,7 +142,6 @@ void MasterNodeWizardDialog::accept()
             break;
         }
         case 1: {
-
             // No empty names accepted.
             if (ui->lineEditName->text().isEmpty()) {
                 setCssEditLine(ui->lineEditName, false, true);
@@ -149,20 +155,15 @@ void MasterNodeWizardDialog::accept()
             ui->pushName1->setChecked(true);
             icConfirm3->setVisible(true);
             ui->pushNumber4->setChecked(true);
-            ui->btnBack->setVisible(true);
             ui->lineEditIpAddress->setFocus();
             break;
         }
         case 2: {
-
             // No empty address accepted
             if (ui->lineEditIpAddress->text().isEmpty()) {
                 return;
             }
-
             icConfirm4->setVisible(true);
-            ui->btnBack->setVisible(true);
-            ui->btnBack->setVisible(true);
             isOk = createMN();
             QDialog::accept();
         }
@@ -177,23 +178,12 @@ bool MasterNodeWizardDialog::createMN()
         return false;
     }
 
-    /**
-     *
-    1) generate the mn key.
-    2) create the mn address.
-    3) if there is a valid (unlocked) collateral utxo, use it
-    4) otherwise create a receiving address and send a tx with 10k to it.
-    5) get the collateral output.
-    6) use those values on the masternode.conf
-     */
-
     // validate IP address
     QString addressLabel = ui->lineEditName->text();
     if (addressLabel.isEmpty()) {
         returnStr = tr("address label cannot be empty");
         return false;
     }
-    std::string alias = addressLabel.toStdString();
 
     QString addressStr = ui->lineEditIpAddress->text();
     QString portStr = ui->lineEditPort->text();
@@ -206,7 +196,7 @@ bool MasterNodeWizardDialog::createMN()
         return false;
     }
 
-    // ip + port
+    std::string alias = addressLabel.toStdString();
     std::string ipAddress = addressStr.toStdString();
     std::string port = portStr.toStdString();
 
@@ -224,166 +214,26 @@ bool MasterNodeWizardDialog::createMN()
         auto r = walletModel->getNewAddress(alias);
         if (!r) {
             // generate address fail
-            inform(tr(r.getError().c_str()));
+            returnStr = tr(r.getError().c_str());
             return false;
         }
 
-        // const QString& addr, const QString& label, const CAmount& amount, const QString& message
-        SendCoinsRecipient sendCoinsRecipient(
-                QString::fromStdString(r.getObjResult()->ToString()),
-                QString::fromStdString(alias),
-                clientModel->getMNCollateralRequiredAmount(),
-                "");
-
-        // Send the 10 tx to one of your address
-        QList<SendCoinsRecipient> recipients;
-        recipients.append(sendCoinsRecipient);
-        WalletModelTransaction currentTransaction(recipients);
-        WalletModel::SendCoinsReturn prepareStatus;
-
-        // no coincontrol, no P2CS delegations
-        prepareStatus = walletModel->prepareTransaction(&currentTransaction, nullptr, false);
-
-        QString returnMsg = tr("Unknown error");
-        // process prepareStatus and on error generate message shown to user
-        CClientUIInterface::MessageBoxFlags informType;
-        returnMsg = GuiTransactionsUtils::ProcessSendCoinsReturn(
-                this,
-                prepareStatus,
-                walletModel,
-                informType, // this flag is not needed
-                BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(),
-                                             currentTransaction.getTransactionFee()),
-                true
-        );
-
-        if (prepareStatus.status != WalletModel::OK) {
-            returnStr = tr("Prepare master node failed.\n\n%1\n").arg(returnMsg);
+        if (!mnModel->createMNCollateral(addressLabel,
+                                         QString::fromStdString(r.getObjResult()->ToString()),
+                                         collateralOut,
+                                         returnStr)) {
+            // error str set internally
             return false;
         }
-
-        WalletModel::SendCoinsReturn sendStatus = walletModel->sendCoins(currentTransaction);
-        // process sendStatus and on error generate message shown to user
-        returnMsg = GuiTransactionsUtils::ProcessSendCoinsReturn(
-                this,
-                sendStatus,
-                walletModel,
-                informType
-        );
-
-        if (sendStatus.status != WalletModel::OK) {
-            returnStr = tr("Cannot send collateral transaction.\n\n%1").arg(returnMsg);
-            return false;
-        }
-
-        // look for the tx index of the collateral
-        CTransactionRef walletTx = currentTransaction.getTransaction();
-        std::string txID = walletTx->GetHash().GetHex();
-        int indexOut = -1;
-        for (int i=0; i < (int)walletTx->vout.size(); i++) {
-            const CTxOut& out = walletTx->vout[i];
-            if (out.nValue == clientModel->getMNCollateralRequiredAmount()) {
-                indexOut = i;
-                break;
-            }
-        }
-        if (indexOut == -1) {
-            returnStr = tr("Invalid collateral output index");
-            return false;
-        }
-        // save the collateral outpoint
-        collateralOut = COutPoint(walletTx->GetHash(), indexOut);
     }
 
-    // Update the conf file
-    std::string strConfFile = "masternode.conf";
-    std::string strDataDir = GetDataDir().string();
-    fs::path conf_file_path(strConfFile);
-    if (strConfFile != conf_file_path.filename().string()) {
-        throw std::runtime_error(strprintf(_("masternode.conf %s resides outside data directory %s"), strConfFile, strDataDir));
-    }
-
-    fs::path pathBootstrap = GetDataDir() / strConfFile;
-    if (!fs::exists(pathBootstrap)) {
-        returnStr = tr("masternode.conf file doesn't exists");
+    mnEntry = mnModel->createLegacyMN(collateralOut, alias, ipAddress, port, mnKeyString, returnStr);
+    if (!mnEntry) {
+        // error str set inside createLegacyMN
         return false;
     }
 
-    fs::path pathMasternodeConfigFile = GetMasternodeConfigFile();
-    fsbridge::ifstream streamConfig(pathMasternodeConfigFile);
-
-    if (!streamConfig.good()) {
-        returnStr = tr("Invalid masternode.conf file");
-        return false;
-    }
-
-    int linenumber = 1;
-    std::string lineCopy = "";
-    for (std::string line; std::getline(streamConfig, line); linenumber++) {
-        if (line.empty()) continue;
-
-        std::istringstream iss(line);
-        std::string comment, alias, ip, privKey, txHash, outputIndex;
-
-        if (iss >> comment) {
-            if (comment.at(0) == '#') continue;
-            iss.str(line);
-            iss.clear();
-        }
-
-        if (!(iss >> alias >> ip >> privKey >> txHash >> outputIndex)) {
-            iss.str(line);
-            iss.clear();
-            if (!(iss >> alias >> ip >> privKey >> txHash >> outputIndex)) {
-                streamConfig.close();
-                returnStr = tr("Error parsing masternode.conf file");
-                return false;
-            }
-        }
-        lineCopy += line + "\n";
-    }
-
-    if (lineCopy.size() == 0) {
-        lineCopy = "# Masternode config file\n"
-                   "# Format: alias IP:port masternodeprivkey collateral_output_txid collateral_output_index\n"
-                   "# Example: mn1 127.0.0.2:7147 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0"
-                   "#";
-    }
-    lineCopy += "\n";
-
-    streamConfig.close();
-
-    std::string txID = collateralOut.hash.ToString();
-    std::string indexOutStr = std::to_string(collateralOut.n);
-
-    // Check IP address type
-    QHostAddress hostAddress(addressStr);
-    QAbstractSocket::NetworkLayerProtocol layerProtocol = hostAddress.protocol();
-    if (layerProtocol == QAbstractSocket::IPv6Protocol) {
-        ipAddress = "["+ipAddress+"]";
-    }
-
-    fs::path pathConfigFile = AbsPathForConfigVal(fs::path("masternode_temp.conf"));
-    FILE* configFile = fopen(pathConfigFile.string().c_str(), "w");
-    lineCopy += alias+" "+ipAddress+":"+port+" "+mnKeyString+" "+txID+" "+indexOutStr+"\n";
-    fwrite(lineCopy.c_str(), std::strlen(lineCopy.c_str()), 1, configFile);
-    fclose(configFile);
-
-    fs::path pathOldConfFile = AbsPathForConfigVal(fs::path("old_masternode.conf"));
-    if (fs::exists(pathOldConfFile)) {
-        fs::remove(pathOldConfFile);
-    }
-    rename(pathMasternodeConfigFile, pathOldConfFile);
-
-    fs::path pathNewConfFile = AbsPathForConfigVal(fs::path("masternode.conf"));
-    rename(pathConfigFile, pathNewConfFile);
-
-    mnEntry = masternodeConfig.add(alias, ipAddress+":"+port, mnKeyString, txID, indexOutStr);
-
-    // Lock collateral output
-    walletModel->lockCoin(collateralOut);
-
-    returnStr = tr("Master node created! Wait %1 confirmations before starting it.").arg(MasternodeCollateralMinConf());
+    returnStr = tr("Masternode created! Wait %1 confirmations before starting it.").arg(mnModel->getMasternodeCollateralMinConf());
     return true;
 }
 
@@ -419,7 +269,7 @@ void MasterNodeWizardDialog::onBackClicked()
     }
 }
 
-void MasterNodeWizardDialog::inform(QString text)
+void MasterNodeWizardDialog::inform(const QString& text)
 {
     if (!snackBar)
         snackBar = new SnackBar(nullptr, this);
@@ -428,21 +278,8 @@ void MasterNodeWizardDialog::inform(QString text)
     openDialog(snackBar, this);
 }
 
-QSize BUTTON_SIZE = QSize(22, 22);
-void MasterNodeWizardDialog::initBtn(std::initializer_list<QPushButton*> args)
-{
-    for (QPushButton* btn : args) {
-        btn->setMinimumSize(BUTTON_SIZE);
-        btn->setMaximumSize(BUTTON_SIZE);
-        btn->move(0, 0);
-        btn->show();
-        btn->raise();
-        btn->setVisible(false);
-    }
-}
-
 MasterNodeWizardDialog::~MasterNodeWizardDialog()
 {
-    if (snackBar) delete snackBar;
+    delete snackBar;
     delete ui;
 }

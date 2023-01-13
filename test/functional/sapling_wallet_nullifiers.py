@@ -8,11 +8,7 @@
 from decimal import Decimal
 
 from test_framework.test_framework import BlackHatTestFramework
-from test_framework.util import assert_equal, assert_true, connect_nodes, get_coinstake_address
-
-def connect_nodes_bi(nodes, a, b):
-    connect_nodes(nodes[a], b)
-    connect_nodes(nodes[b], a)
+from test_framework.util import assert_equal, assert_true, get_coinstake_address
 
 class WalletNullifiersTest(BlackHatTestFramework):
 
@@ -46,14 +42,7 @@ class WalletNullifiersTest(BlackHatTestFramework):
         self.nodes[1].importsaplingkey(myzkey)
 
         # encrypt node 1 wallet and wait to terminate
-        self.nodes[1].node_encrypt_wallet("test")
-
-        # restart node 1
-        self.start_node(1, self.extra_args[1])
-        connect_nodes_bi(self.nodes, 0, 1)
-        connect_nodes_bi(self.nodes, 2, 1)
-        connect_nodes_bi(self.nodes, 3, 1)
-        self.sync_all()
+        self.nodes[1].encryptwallet("test")
 
         # send node 0  shield addr to note 2 zaddr
         recipients = []

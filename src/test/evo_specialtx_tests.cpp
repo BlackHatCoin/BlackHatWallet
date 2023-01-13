@@ -4,11 +4,14 @@
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #include "test/test_blkc.h"
-#include "primitives/transaction.h"
+
+#include "consensus/validation.h"
 #include "evo/providertx.h"
-#include "evo/specialtx.h"
+#include "evo/specialtx_validation.h"
+#include "llmq/quorums_commitment.h"
 #include "messagesigner.h"
 #include "netbase.h"
+#include "primitives/transaction.h"
 
 #include <boost/test/unit_test.hpp>
 
@@ -88,8 +91,48 @@ static ProUpRevPL GetRandomProUpRevPayload()
     return pl;
 }
 
+llmq::CFinalCommitment GetRandomLLMQCommitment()
+{
+    llmq::CFinalCommitment fc;
+    fc.nVersion = InsecureRand16();
+    fc.llmqType = InsecureRandBits(8);
+    fc.quorumHash = GetRandHash();
+    int vecsize = InsecureRandRange(500);
+    for (int i = 0; i < vecsize; i++) {
+        fc.signers.emplace_back((bool)InsecureRandBits(1));
+        fc.validMembers.emplace_back((bool)InsecureRandBits(1));
+    }
+    fc.quorumPublicKey.SetByteVector(InsecureRandBytes(BLS_CURVE_PUBKEY_SIZE));
+    fc.quorumVvecHash = GetRandHash();
+    fc.quorumSig.SetByteVector(InsecureRandBytes(BLS_CURVE_SIG_SIZE));
+    fc.membersSig.SetByteVector(InsecureRandBytes(BLS_CURVE_SIG_SIZE));
+    return fc;
+}
+
+static llmq::LLMQCommPL GetRandomLLMQCommPayload()
+{
+    llmq::LLMQCommPL pl;
+    pl.nHeight = InsecureRand32();
+    pl.commitment = GetRandomLLMQCommitment();
+    return pl;
+}
+
+static bool EqualCommitments(const llmq::CFinalCommitment& a, const llmq::CFinalCommitment& b)
+{
+    return a.nVersion == b.nVersion &&
+           a.llmqType == b.llmqType &&
+           a.quorumHash == b.quorumHash &&
+           a.signers == b.signers &&
+           a.quorumPublicKey == b.quorumPublicKey &&
+           a.quorumVvecHash == b.quorumVvecHash &&
+           a.quorumSig == b.quorumSig &&
+           a.membersSig == b.membersSig;
+}
+
 BOOST_AUTO_TEST_CASE(protx_validation_test)
 {
+    LOCK(cs_main);
+
     CMutableTransaction mtx;
     CValidationState state;
 
@@ -221,6 +264,18 @@ BOOST_AUTO_TEST_CASE(proreg_checkstringsig_test)
     BOOST_CHECK(!CMessageSigner::VerifyMessage(keyID, pl.vchSig, pl.MakeSignString(), strError));
     pl.scriptPayout = GetRandomScript();
     BOOST_CHECK(!CMessageSigner::VerifyMessage(keyID, pl.vchSig, pl.MakeSignString(), strError));
+}
+
+BOOST_AUTO_TEST_CASE(llmqcomm_setpayload_test)
+{
+    const llmq::LLMQCommPL& pl = GetRandomLLMQCommPayload();
+
+    CMutableTransaction mtx;
+    SetTxPayload(mtx, pl);
+    llmq::LLMQCommPL pl2;
+    BOOST_CHECK(GetTxPayload(mtx, pl2));
+    BOOST_CHECK(pl.nHeight == pl2.nHeight);
+    BOOST_CHECK(EqualCommitments(pl.commitment, pl2.commitment));
 }
 
 

@@ -35,7 +35,7 @@ public:
     //! Check whether a key corresponding to a given address is present in the store.
     virtual bool HaveKey(const CKeyID& address) const = 0;
     virtual bool GetKey(const CKeyID& address, CKey& keyOut) const = 0;
-    virtual void GetKeys(std::set<CKeyID>& setAddress) const = 0;
+    virtual std::set<CKeyID> GetKeys() const = 0;
     virtual bool GetPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const = 0;
 
     //! Support for BIP 0013 : see https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki
@@ -114,7 +114,7 @@ public:
     bool AddKeyPubKey(const CKey& key, const CPubKey& pubkey);
     bool GetPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
     bool HaveKey(const CKeyID& address) const;
-    void GetKeys(std::set<CKeyID>& setAddress) const;
+    std::set<CKeyID> GetKeys() const;
     bool GetKey(const CKeyID& address, CKey& keyOut) const;
 
     virtual bool AddCScript(const CScript& redeemScript);

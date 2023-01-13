@@ -9,7 +9,6 @@
 #include "qt/blkc/pwidget.h"
 #include "qt/blkc/furabstractlistitemdelegate.h"
 #include "qt/blkc/tooltipmenu.h"
-#include "walletmodel.h"
 
 #include <atomic>
 

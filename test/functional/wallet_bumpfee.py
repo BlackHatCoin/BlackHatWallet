@@ -26,7 +26,6 @@ from test_framework.util import (
     assert_greater_than,
     assert_raises_rpc_error,
     bytes_to_hex_str,
-    connect_nodes,
     hex_str_to_bytes
 )
 
@@ -47,11 +46,9 @@ class BumpFeeTest(BlackHatTestFramework):
 
     def run_test(self):
         # Encrypt wallet for test_locked_wallet_fails test
-        self.nodes[1].node_encrypt_wallet(WALLET_PASSPHRASE)
-        self.start_node(1)
+        self.nodes[1].encryptwallet(WALLET_PASSPHRASE)
         self.nodes[1].walletpassphrase(WALLET_PASSPHRASE, WALLET_PASSPHRASE_TIMEOUT)
 
-        connect_nodes(self.nodes[0], 1)
         self.sync_all()
 
         peer_node, rbf_node = self.nodes

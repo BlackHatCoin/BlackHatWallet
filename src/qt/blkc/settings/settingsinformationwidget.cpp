@@ -120,6 +120,7 @@ void SettingsInformationWidget::loadClientModel()
 
         setNumConnections(clientModel->getNumConnections());
         connect(clientModel, &ClientModel::numConnectionsChanged, this, &SettingsInformationWidget::setNumConnections);
+        connect(clientModel, &ClientModel::networkActiveChanged, this, &SettingsInformationWidget::networkActiveChanged);
 
         setNumBlocks(clientModel->getNumBlocks());
         connect(clientModel, &ClientModel::numBlocksChanged, this, &SettingsInformationWidget::setNumBlocks);
@@ -128,16 +129,34 @@ void SettingsInformationWidget::loadClientModel()
     }
 }
 
+void SettingsInformationWidget::updateNetworkState(int numConnections)
+{
+    bool netActivityState = clientModel->getNetworkActive();
+
+    QString connections;
+    if (!netActivityState && numConnections == 0) {
+        connections = tr("Network activity disabled");
+    } else {
+        connections = QString::number(numConnections) + " (";
+        connections += tr("In:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_IN)) + " / ";
+        connections += tr("Out:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_OUT)) + ")";
+        if(!netActivityState) {
+            connections += " " + tr("Network activity disabled");
+        }
+    }
+    ui->labelInfoConnections->setText(connections);
+}
+
 void SettingsInformationWidget::setNumConnections(int count)
 {
     if (!clientModel)
         return;
+    updateNetworkState(count);
+}
 
-    QString connections = QString::number(count) + " (";
-    connections += tr("In:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_IN)) + " / ";
-    connections += tr("Out:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_OUT)) + ")";
-
-    ui->labelInfoConnections->setText(connections);
+void SettingsInformationWidget::networkActiveChanged(bool active)
+{
+    updateNetworkState(clientModel->getNumConnections());
 }
 
 void SettingsInformationWidget::setNumBlocks(int count)
@@ -186,7 +205,7 @@ void SettingsInformationWidget::run(int type)
 {
     if (type == REQUEST_UPDATE_COUNTS) {
         QMetaObject::invokeMethod(this, "setMasternodeCount",
-                                  Qt::QueuedConnection, Q_ARG(QString, clientModel->getMasternodesCount()));
+                                  Qt::QueuedConnection, Q_ARG(QString, clientModel->getMasternodesCountString()));
         QMetaObject::invokeMethod(this, "setNumBlocks",
                                   Qt::QueuedConnection, Q_ARG(int, clientModel->getLastBlockProcessedHeight()));
     }

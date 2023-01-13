@@ -1,7 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2018-2021 The Dash Core developers
+// Copyright (c) 2015-2022 The PIVX developers
+// Copyright (c) 2021-2022 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,8 +10,8 @@
  * Server/client environment: argument handling, config file parsing,
  * logging, thread wrappers
  */
-#ifndef BITCOIN_LOGGING_H
-#define BITCOIN_LOGGING_H
+#ifndef BLKC_LOGGING_H
+#define BLKC_LOGGING_H
 
 #include "fs.h"
 #include "tinyformat.h"
@@ -48,25 +49,24 @@ namespace BCLog {
         RPC         = (1 <<  7),
         ESTIMATEFEE = (1 <<  8),
         ADDRMAN     = (1 <<  9),
-        SELECTCOINS = (1 << 10),
-        REINDEX     = (1 << 11),
-        CMPCTBLOCK  = (1 << 12),
-        RANDOM      = (1 << 13),
-        PRUNE       = (1 << 14),
-        PROXY       = (1 << 15),
-        MEMPOOLREJ  = (1 << 16),
-        LIBEVENT    = (1 << 17),
-        COINDB      = (1 << 18),
-        QT          = (1 << 19),
-        LEVELDB     = (1 << 20),
-        STAKING     = (1 << 21),
-        MASTERNODE  = (1 << 22),
-        MNBUDGET    = (1 << 23),
-        MNPING      = (1 << 24),
-        LEGACYZC    = (1 << 25),
-        SAPLING     = (1 << 26),
-        SPORKS      = (1 << 27),
-        VALIDATION  = (1 << 28),
+        REINDEX     = (1 << 10),
+        PROXY       = (1 << 11),
+        MEMPOOLREJ  = (1 << 12),
+        LIBEVENT    = (1 << 13),
+        COINDB      = (1 << 14),
+        QT          = (1 << 15),
+        LEVELDB     = (1 << 16),
+        STAKING     = (1 << 17),
+        MASTERNODE  = (1 << 18),
+        MNBUDGET    = (1 << 19),
+        MNPING      = (1 << 20),
+        LEGACYZC    = (1 << 21),
+        SAPLING     = (1 << 22),
+        SPORKS      = (1 << 23),
+        VALIDATION  = (1 << 24),
+        LLMQ        = (1 << 25),
+        NET_MN      = (1 << 26),
+        DKG         = (1 << 27),
         ALL         = ~(uint32_t)0,
     };
 
@@ -166,4 +166,28 @@ static inline void LogPrintf(const char* fmt, const Args&... args)
     }                                                                               \
 } while(0)
 
-#endif // BITCOIN_LOGGING_H
+/// BlackHat
+
+class CBatchedLogger
+{
+private:
+    BCLog::Logger* logger;
+    bool accept;
+    std::string header;
+    std::string msg;
+public:
+    CBatchedLogger(BCLog::Logger* _logger, BCLog::LogFlags _category, const std::string& _header);
+    virtual ~CBatchedLogger();
+    void Flush();
+
+    template<typename... Args>
+    void Batch(const std::string& fmt, const Args&... args)
+    {
+        if (!accept) {
+            return;
+        }
+        msg += "    " + strprintf(fmt, args...) + "\n";
+    }
+};
+
+#endif // BLKC_LOGGING_H

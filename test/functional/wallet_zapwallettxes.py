@@ -25,6 +25,8 @@ class ZapWalletTXesTest (BlackHatTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
+        # whitelist all peers to speed up tx relay / mempool sync
+        self.extra_args = [["-whitelist=127.0.0.1"]] * self.num_nodes
 
     def run_test(self):
         self.log.info("Mining blocks...")
@@ -54,9 +56,9 @@ class ZapWalletTXesTest (BlackHatTestFramework):
         assert_equal(self.nodes[1].getwalletinfo()["unconfirmed_balance"], 20)
         assert_equal(self.nodes[1].getunconfirmedbalance(), 20)
 
-        # Stop-start node0. Both confirmed and unconfirmed transactions remain in the wallet.
-        self.stop_node(0)
-        self.start_node(0)
+        # Restart node0. Both confirmed and unconfirmed transactions remain in the wallet.
+        self.restart_node(0)
+
         assert_equal(self.nodes[0].gettransaction(txid1)['txid'], txid1)
         assert_equal(self.nodes[0].gettransaction(txid2)['txid'], txid2)
 

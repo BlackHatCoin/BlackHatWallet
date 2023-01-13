@@ -326,7 +326,7 @@ bool CBlockTreeDB::LoadBlockIndexGuts(std::function<CBlockIndex*(const uint256&)
 
                 if (!Params().GetConsensus().NetworkUpgradeActive(pindexNew->nHeight, Consensus::UPGRADE_POS)) {
                     if (!CheckProofOfWork(pindexNew->GetBlockHash(), pindexNew->nBits))
-                        return error("LoadBlockIndex() : CheckProofOfWork failed: %s", pindexNew->ToString());
+                        return error("%s : CheckProofOfWork failed: %s", __func__, pindexNew->ToString());
                 }
 
                 pcursor->Next();
@@ -448,7 +448,7 @@ void CZerocoinDB::WipeAccChecksums()
         }
     }
 
-    LogPrintf("%s: % entries to delete. % entries deleted\n", __func__, setDelete.size(), deleted);
+    LogPrintf("%s: %d entries to delete. %d entries deleted\n", __func__, setDelete.size(), deleted);
 }
 
 namespace {

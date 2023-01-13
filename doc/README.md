@@ -30,7 +30,7 @@ Drag BLKC-Qt to your applications folder, and then run BLKC-Qt.
 
 * See the documentation at the [BlackHat Wiki](https://github.com/BlackHatCoin/BlackHatWallet/wiki)
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=5327111) or on the [BlackHat Forum](http://forum.blackhatco.in/).
+* Ask for help on the [BlackHat Forum](http://forum.blackhatco.in/).
 * Join our Discord server [Discord Server](https://blackhatco.in/discord/)
 
 Building
@@ -56,11 +56,10 @@ The BlackHat repo's [root README](/README.md) contains relevant information on t
 - [Dnsseed Policy](dnsseed-policy.md)
 
 ### Resources
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=5327111) or the [BlackHat Forum](http://forum.blackhatco.in/) forum.
+* Discuss on the [BlackHat Forum](http://forum.blackhatco.in/) forum.
 * Join the [BlackHat Discord](https://blackhatco.in/discord/).
 
 ### Miscellaneous
-- [Assets Attribution](assets-attribution.md)
 - [Files](files.md)
 - [Fuzz-testing](fuzzing.md)
 - [Reduce Memory](reduce-memory.md)

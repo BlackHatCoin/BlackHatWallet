@@ -39,10 +39,14 @@ private:
     Ui::SettingsWalletOptionsWidget *ui;
 
     void loadWalletModel() override;
+    void loadClientModel() override;
     void reloadWalletOptions();
 
     void setSpinBoxStakeSplitThreshold(double val);
     double getSpinBoxStakeSplitThreshold() const;
+
+    // Enable or disable the network activity
+    void setNetworkActivity(bool active);
 };
 
 #endif // SETTINGSWALLETOPTIONSWIDGET_H

@@ -63,6 +63,10 @@ const struct NUInfo NetworkUpgradeInfo[Consensus::MAX_NETWORK_UPGRADES] = {
                 /*.strInfo =*/ "New staking rules",
         },
         {
+                /*.strName =*/ "BlackHat_v5.5",
+                /*.strInfo =*/ "Various optimizations",
+        },
+        {
                 /*.strName =*/ "v6_evo",
                 /*.strInfo =*/ "Deterministic Masternodes",
         },

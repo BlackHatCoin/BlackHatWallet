@@ -18,12 +18,18 @@
 #include <atomic>
 #include <map>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include <db_cxx.h>
 
 static const unsigned int DEFAULT_WALLET_DBLOGSIZE = 100;
 static const bool DEFAULT_WALLET_PRIVDB = true;
+
+struct WalletDatabaseFileId {
+    u_int8_t value[DB_FILE_ID_LEN];
+    bool operator==(const WalletDatabaseFileId& rhs) const;
+};
 
 class BerkeleyEnvironment
 {
@@ -38,6 +44,8 @@ public:
     std::unique_ptr<DbEnv> dbenv;
     std::map<std::string, int> mapFileUseCount;
     std::map<std::string, Db*> mapDb;
+    std::unordered_map<std::string, WalletDatabaseFileId> m_fileids;
+    std::condition_variable_any m_db_in_use;
 
     BerkeleyEnvironment(const fs::path& env_directory);
     ~BerkeleyEnvironment();
@@ -76,6 +84,7 @@ public:
     void CheckpointLSN(const std::string& strFile);
 
     void CloseDb(const std::string& strFile);
+    void ReloadDbEnv();
 
     DbTxn* TxnBegin(int flags = DB_TXN_WRITE_NOSYNC)
     {
@@ -144,11 +153,10 @@ public:
      */
     void Flush(bool shutdown);
 
-    /** Close and reset.
-     */
-    void CloseAndReset();
-
     void IncrementUpdateCounter();
+
+    void ReloadDbEnv();
+
     std::atomic<unsigned int> nUpdateCounter;
     unsigned int nLastSeen;
     unsigned int nLastFlushed;

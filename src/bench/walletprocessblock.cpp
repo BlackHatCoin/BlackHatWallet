@@ -142,7 +142,7 @@ static void WalletProcessBlockBench(benchmark::State& state)
         if (i > 101) { // Generate extra transaction
             vtx.emplace_back(*createNoisyTx(pwallet.get(), 15));
             if (i > 106) {
-                for (int j=0; j<CREATE_TRANSACTIONS_PER_BLOCK; j++) {
+                for (int j=0; j < (int)CREATE_TRANSACTIONS_PER_BLOCK; j++) {
                     vtx.emplace_back(*createNoisyTx(pwallet.get(), 1));
                 }
             }

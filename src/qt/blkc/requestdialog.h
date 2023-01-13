@@ -28,7 +28,7 @@ public:
     ~RequestDialog();
 
     void setWalletModel(WalletModel *model);
-    void setPaymentRequest(bool isPaymentRequest);
+    void setPaymentRequest(bool _isPaymentRequest);
     void showEvent(QShowEvent *event) override;
     int res = -1;
 

@@ -331,6 +331,9 @@ public:
     uint256 GetBestBlock() const override;
     void SetBestBlock(const uint256& hashBlock);
 
+    //! Get the coin and check if it's spent
+    bool GetUTXOCoin(const COutPoint& outpoint, Coin& coin) const;
+
     bool BatchWrite(CCoinsMap& mapCoins,
                     const uint256& hashBlock,
                     const uint256& hashSaplingAnchor,

@@ -6,7 +6,7 @@
 #include "zblkc/zpos.h"
 
 #include "validation.h"
-#include "zblkcchain.h"
+#include "zblkc/zblkcmodule.h"
 
 
 /*
@@ -73,7 +73,7 @@ CLegacyZBlkcStake* CLegacyZBlkcStake::NewZBlkcStake(const CTxIn& txin, int nHeig
     }
 
     // Check spend type
-    libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txin);
+    libzerocoin::CoinSpend spend = ZBLKCModule::TxInToZerocoinSpend(txin);
     if (spend.getSpendType() != libzerocoin::SpendType::STAKE) {
         LogPrintf("%s : spend is using the wrong SpendType (%d)", __func__, (int)spend.getSpendType());
         return nullptr;

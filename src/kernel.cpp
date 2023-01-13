@@ -16,7 +16,6 @@
 #include "util/system.h"
 #include "utilmoneystr.h"
 #include "validation.h"
-#include "zblkcchain.h"
 #include "zblkc/zpos.h"
 
 /**

@@ -69,9 +69,9 @@ void RequestDialog::setWalletModel(WalletModel *model)
     ui->comboBoxCoin->setText(BitcoinUnits::name(this->walletModel->getOptionsModel()->getDisplayUnit()));
 }
 
-void RequestDialog::setPaymentRequest(bool isPaymentRequest)
+void RequestDialog::setPaymentRequest(bool _isPaymentRequest)
 {
-    this->isPaymentRequest = isPaymentRequest;
+    this->isPaymentRequest = _isPaymentRequest;
     if (!this->isPaymentRequest) {
         ui->labelMessage->setText(tr("Creates an address to receive coin delegations and be able to stake them."));
         ui->labelTitle->setText(tr("New Cold Staking Address"));
@@ -93,10 +93,10 @@ void RequestDialog::accept()
         }
 
         int displayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-        auto value = ui->lineEditAmount->text().isEmpty() ? -1 :
+        auto value = ui->lineEditAmount->text().isEmpty() ? 0 :
                 GUIUtil::parseValue(ui->lineEditAmount->text(), displayUnit);
 
-        if (value <= 0) {
+        if (value <= 0 && this->isPaymentRequest) {
             inform(tr("Invalid amount"));
             return;
         }

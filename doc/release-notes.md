@@ -17,29 +17,47 @@ Notable Changes
 
 (Developers: add your notes here as part of your pull requests whenever possible)
 
+Network Activity Toggle
+-----------------------
 
-### Deprecated autocombinerewards RPC Command
+The GUI wallet now allows for the user to enable/disable all network activity from the Settings page. This can be handy if, for example, you need to restart your router or modem.
 
-The `autocombinerewards` RPC command was soft-deprecated in v5.3.0 and replaced with explicit setter/getter commands `setautocombinethreshold`/`getautocombinethreshold`. BlackHat Core, by default, will no longer accept the `autocombinerewards` command, returning a deprecation error, unless the `blkcd`/`blkc-qt` is started with the `-deprecatedrpc=autocombinerewards` option.
+RPC Changes
+-----------
 
-This command will be fully removed in v6.0.0.
+### getblock additional verbosity
 
-### Shield address support for RPC label commands
+The `getblock` command now has an additional verbosity level. The command's second parameter has been changed from a boolean to and integer to support this.
 
-The `setlabel` RPC command now supports a shield address input argument to allow users to set labels for shield addresses. Additionally, the `getaddressesbylabel` RPC command will also now return shield addresses with a matching label.
+- If verbosity is 0, returns a string that is serialized, hex-encoded data for block 'hash'.
+- If verbosity is 1, returns an Object with information about block `hash`.
+- If verbosity is 2, returns an Object with information about block `hash` and information about each transaction.
 
-### Specify optional label for getnewshieldaddress
+### getnewshieldaddress label support
 
-The `getnewshieldaddress` RPC command now takes an optional argument `label (string)` to denote the desired label for the generated address.
+The `getnewshieldaddress` command now supports an optional `label` parameter. If specified, the text label will be added to the wallet's address book.
 
-P2P connection management
---------------------------
+### New setnetworkactive command
 
-- Peers manually added through the addnode option or addnode RPC now have their own
-  limit of sixteen connections which does not compete with other inbound or outbound
-  connection usage and is not subject to the maxconnections limitation.
+A new `setnetworkactive` command has been added to enable/disable all network activity. The command specs are as follows:
 
-- New connections to manually added peers are much faster.
+```
+setnetworkactive true|false
+Enable/Disable all p2p network activity.
+
+Result:
+status: (boolean) The final network activity status
+
+Examples:
+setnetworkactive true
+setnetworkactive false
+```
+
+### New scantxoutset command
+
+A new `scantxoutset` command has been added that allows for advanced searching of the unspent transaction outputs (UTXOs). As this is a highly advanced and complex command that won't apply to most end users, the full command spec won't be detailed here.
+
+Please refer to the detailed spec by running `help scantxoutset`.
 
 *version* Change log
 ==============

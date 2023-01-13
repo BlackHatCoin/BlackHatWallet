@@ -13,4 +13,6 @@ void ProcessBlockAndCheckRejectionReason(std::shared_ptr<CBlock>& pblock,
                                          const std::string& blockRejectionReason,
                                          int expectedChainHeight);
 
+CBlock getBlock13b8a();
+
 #endif //BLKC_BLOCKSUTIL_H

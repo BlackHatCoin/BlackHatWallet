@@ -186,9 +186,9 @@ bool LoadExternalBlockFile(FILE* fileIn, FlatFilePos* dbp = NULL);
 bool LoadGenesisBlock();
 /** Load the block tree and coins database from disk,
  * initializing state if we're running with -reindex. */
-bool LoadBlockIndex(std::string& strError);
+bool LoadBlockIndex(std::string& strError) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 /** Update the chain tip based on database information. */
-bool LoadChainTip(const CChainParams& chainparams);
+bool LoadChainTip(const CChainParams& chainparams) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 /** Unload database information */
 void UnloadBlockIndex();
 /** See whether the protocol update is enforced for connected nodes */
@@ -211,18 +211,20 @@ bool ActivateBestChain(CValidationState& state, std::shared_ptr<const CBlock> pb
 CAmount GetBlockValue(int nHeight);
 
 /** Create a new block index entry for a given block hash */
-CBlockIndex* InsertBlockIndex(uint256 hash);
+CBlockIndex* InsertBlockIndex(const uint256& hash) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 /** Flush all state, indexes and buffers to disk. */
 void FlushStateToDisk();
 
 
 /** (try to) add transaction to memory pool **/
-bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransactionRef& tx, bool fLimitFree, bool* pfMissingInputs, bool fOverrideMempoolLimit = false, bool fRejectInsaneFee = false, bool ignoreFees = false);
+bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransactionRef& tx, bool fLimitFree,
+                        bool* pfMissingInputs, bool fOverrideMempoolLimit = false,
+                        bool fRejectInsaneFee = false, bool ignoreFees = false) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 /** (try to) add transaction to memory pool with a specified acceptance time **/
 bool AcceptToMemoryPoolWithTime(CTxMemPool& pool, CValidationState &state, const CTransactionRef &tx, bool fLimitFree,
                                 bool* pfMissingInputs, int64_t nAcceptTime, bool fOverrideMempoolLimit = false,
-                                bool fRejectInsaneFee = false, bool ignoreFees = false);
+                                bool fRejectInsaneFee = false, bool ignoreFees = false) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 CAmount GetMinRelayFee(const CTransaction& tx, const CTxMemPool& pool, unsigned int nBytes);
 CAmount GetMinRelayFee(unsigned int nBytes);
@@ -262,11 +264,6 @@ void UpdateCoins(const CTransaction& tx, CCoinsViewCache& inputs, int nHeight, b
  */
 bool CheckFinalTx(const CTransactionRef& tx, int flags = -1);
 
-/*
- * Retrieve an unspent coin in pcoinsTip. Lock cs_main.
- */
-bool GetUTXOCoin(const COutPoint& outpoint, Coin& coin);
-Optional<int> GetUTXOHeight(const COutPoint& outpoint);
 
 /**
  * Closure representing one script verification
@@ -320,17 +317,17 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex);
 /** Functions for validating blocks and updating the block tree */
 
 /** Context-independent validity checks */
-bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true, bool fCheckSig = true);
+bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true, bool fCheckSig = true) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 bool CheckWork(const CBlock& block, const CBlockIndex* const pindexPrev);
 
 /** Context-dependent validity checks */
-bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex* pindexPrev);
+bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex* pindexPrev) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindexPrev);
 
 /** Check a block is completely valid from start to finish (only works on top of our current best block, with cs_main held) */
-bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex* pindexPrev, bool fCheckPOW = true, bool fCheckMerkleRoot = true, bool fCheckBlockSig = true);
+bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex* pindexPrev, bool fCheckPOW = true, bool fCheckMerkleRoot = true, bool fCheckBlockSig = true) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
-bool AcceptBlockHeader(const CBlock& block, CValidationState& state, CBlockIndex** ppindex = nullptr, CBlockIndex* pindexPrev = nullptr);
+bool AcceptBlockHeader(const CBlock& block, CValidationState& state, CBlockIndex** ppindex = nullptr, CBlockIndex* pindexPrev = nullptr) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 
 /** RAII wrapper for VerifyDB: Verify consistency of the block and coin databases */
@@ -345,11 +342,18 @@ public:
 /** Replay blocks that aren't fully applied to the database. */
 bool ReplayBlocks(const CChainParams& params, CCoinsView* view);
 
+inline CBlockIndex* LookupBlockIndex(const uint256& hash) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
+{
+    AssertLockHeld(cs_main);
+    BlockMap::const_iterator it = mapBlockIndex.find(hash);
+    return it == mapBlockIndex.end() ? nullptr : it->second;
+}
+
 /** Find the last common block between the parameter chain and a locator. */
-CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& locator);
+CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& locator) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 /** Mark a block as invalid. */
-bool InvalidateBlock(CValidationState& state, const CChainParams& chainparams, CBlockIndex* pindex);
+bool InvalidateBlock(CValidationState& state, const CChainParams& chainparams, CBlockIndex* pindex) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 /** Remove invalidity status from a block and its descendants. */
 bool ReconsiderBlock(CValidationState& state, CBlockIndex* pindex);

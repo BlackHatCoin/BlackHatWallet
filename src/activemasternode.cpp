@@ -7,15 +7,16 @@
 #include "activemasternode.h"
 
 #include "addrman.h"
+#include "bls/key_io.h"
 #include "bls/bls_wrapper.h"
-#include "evo/providertx.h"
-#include "masternode-sync.h"
 #include "masternode.h"
 #include "masternodeconfig.h"
 #include "masternodeman.h"
 #include "messagesigner.h"
 #include "netbase.h"
 #include "protocol.h"
+#include "tiertwo/net_masternodes.h"
+#include "tiertwo/tiertwo_sync_state.h"
 #include "validation.h"
 
 // Keep track of the active Masternode
@@ -23,14 +24,21 @@ CActiveDeterministicMasternodeManager* activeMasternodeManager{nullptr};
 
 static bool GetLocalAddress(CService& addrRet)
 {
-    // First try to find whatever local address is specified by externalip option
-    bool fFound = GetLocal(addrRet) && CActiveDeterministicMasternodeManager::IsValidNetAddr(addrRet);
+    // First try to find whatever our own local address is known internally.
+    // Addresses could be specified via 'externalip' or 'bind' option, discovered via UPnP
+    // or added by TorController. Use some random dummy IPv4 peer to prefer the one
+    // reachable via IPv4.
+    CNetAddr addrDummyPeer;
+    bool fFound{false};
+    if (LookupHost("8.8.8.8", addrDummyPeer, false)) {
+        fFound = GetLocal(addrRet, &addrDummyPeer) && CActiveDeterministicMasternodeManager::IsValidNetAddr(addrRet);
+    }
     if (!fFound && Params().IsRegTestNet()) {
         if (Lookup("127.0.0.1", addrRet, GetListenPort(), false)) {
             fFound = true;
         }
     }
-    if(!fFound) {
+    if (!fFound) {
         // If we have some peers, let's try to find our local address from one of them
         g_connman->ForEachNodeContinueIf([&fFound, &addrRet](CNode* pnode) {
             if (pnode->addr.IsIPv4())
@@ -62,11 +70,14 @@ OperationResult CActiveDeterministicMasternodeManager::SetOperatorKey(const std:
     if (strMNOperatorPrivKey.empty()) {
         return errorOut("ERROR: Masternode operator priv key cannot be empty.");
     }
-    if (!info.keyOperator.SetHexStr(strMNOperatorPrivKey)) {
+
+    auto opSk = bls::DecodeSecret(Params(), strMNOperatorPrivKey);
+    if (!opSk) {
         return errorOut(_("Invalid mnoperatorprivatekey. Please see the documentation."));
     }
+    info.keyOperator = *opSk;
     info.pubKeyOperator = info.keyOperator.GetPublicKey();
-    return OperationResult(true);
+    return {true};
 }
 
 OperationResult CActiveDeterministicMasternodeManager::GetOperatorKey(CBLSSecretKey& key, CDeterministicMNCPtr& dmn) const
@@ -83,10 +94,10 @@ OperationResult CActiveDeterministicMasternodeManager::GetOperatorKey(CBLSSecret
     }
     // return key
     key = info.keyOperator;
-    return OperationResult(true);
+    return {true};
 }
 
-void CActiveDeterministicMasternodeManager::Init()
+void CActiveDeterministicMasternodeManager::Init(const CBlockIndex* pindexTip)
 {
     // set masternode arg if called from RPC
     if (!fMasterNode) {
@@ -94,7 +105,7 @@ void CActiveDeterministicMasternodeManager::Init()
         fMasterNode = true;
     }
 
-    if (!deterministicMNManager->IsDIP3Enforced()) {
+    if (!deterministicMNManager->IsDIP3Enforced(pindexTip->nHeight)) {
         state = MASTERNODE_ERROR;
         strError = "Evo upgrade is not active yet.";
         LogPrintf("%s -- ERROR: %s\n", __func__, strError);
@@ -119,7 +130,7 @@ void CActiveDeterministicMasternodeManager::Init()
         return;
     }
 
-    CDeterministicMNList mnList = deterministicMNManager->GetListAtChainTip();
+    CDeterministicMNList mnList = deterministicMNManager->GetListForBlock(pindexTip);
 
     CDeterministicMNCPtr dmn = mnList.GetMNByOperatorKey(info.pubKeyOperator);
     if (!dmn) {
@@ -134,8 +145,6 @@ void CActiveDeterministicMasternodeManager::Init()
 
     LogPrintf("%s: proTxHash=%s, proTx=%s\n", __func__, dmn->proTxHash.ToString(), dmn->ToString());
 
-    info.proTxHash = dmn->proTxHash;
-
     if (info.service != dmn->pdmnState->addr) {
         state = MASTERNODE_ERROR;
         strError = strprintf("Local address %s does not match the address from ProTx (%s)",
@@ -144,30 +153,38 @@ void CActiveDeterministicMasternodeManager::Init()
         return;
     }
 
-    if (!Params().IsRegTestNet()) {
-        // Check socket connectivity
-        const std::string& strService = info.service.ToString();
-        LogPrintf("%s: Checking inbound connection to '%s'\n", __func__, strService);
-        SOCKET hSocket;
-        bool fConnected = ConnectSocketDirectly(info.service, hSocket, nConnectTimeout) && IsSelectableSocket(hSocket);
-        CloseSocket(hSocket);
+    // Check socket connectivity
+    const std::string& strService = info.service.ToString();
+    LogPrintf("%s: Checking inbound connection to '%s'\n", __func__, strService);
+    SOCKET hSocket = CreateSocket(info.service);
+    if (hSocket == INVALID_SOCKET) {
+        state = MASTERNODE_ERROR;
+        strError = "DMN connectivity check failed, could not create socket to DMN running at " + strService;
+        LogPrintf("%s -- ERROR: %s\n", __func__, strError);
+        return;
+    }
+    bool fConnected = ConnectSocketDirectly(info.service, hSocket, nConnectTimeout, true) && IsSelectableSocket(hSocket);
+    CloseSocket(hSocket);
 
-        if (!fConnected) {
-            state = MASTERNODE_ERROR;
-            LogPrintf("%s ERROR: Could not connect to %s\n", __func__, strService);
-            return;
-        }
+    if (!fConnected) {
+        state = MASTERNODE_ERROR;
+        strError = "DMN connectivity check failed, could not connect to DMN running at " + strService;
+        LogPrintf("%s ERROR: %s\n", __func__, strError);
+        return;
     }
 
+    info.proTxHash = dmn->proTxHash;
+    g_connman->GetTierTwoConnMan()->setLocalDMN(info.proTxHash);
     state = MASTERNODE_READY;
+    LogPrintf("Deterministic Masternode initialized\n");
 }
 
-void CActiveDeterministicMasternodeManager::Reset(masternode_state_t _state)
+void CActiveDeterministicMasternodeManager::Reset(masternode_state_t _state, const CBlockIndex* pindexTip)
 {
     state = _state;
     SetNullProTx();
     // MN might have reappeared in same block with a new ProTx
-    Init();
+    Init(pindexTip);
 }
 
 void CActiveDeterministicMasternodeManager::UpdatedBlockTip(const CBlockIndex* pindexNew, const CBlockIndex* pindexFork, bool fInitialDownload)
@@ -175,14 +192,14 @@ void CActiveDeterministicMasternodeManager::UpdatedBlockTip(const CBlockIndex* p
     if (fInitialDownload)
         return;
 
-    if (!fMasterNode || !deterministicMNManager->IsDIP3Enforced())
+    if (!fMasterNode || !deterministicMNManager->IsDIP3Enforced(pindexNew->nHeight))
         return;
 
     if (state == MASTERNODE_READY) {
         auto newDmn = deterministicMNManager->GetListForBlock(pindexNew).GetValidMN(info.proTxHash);
         if (newDmn == nullptr) {
             // MN disappeared from MN list
-            Reset(MASTERNODE_REMOVED);
+            Reset(MASTERNODE_REMOVED, pindexNew);
             return;
         }
 
@@ -196,19 +213,19 @@ void CActiveDeterministicMasternodeManager::UpdatedBlockTip(const CBlockIndex* p
 
         if (newDmn->pdmnState->pubKeyOperator != oldDmn->pdmnState->pubKeyOperator) {
             // MN operator key changed or revoked
-            Reset(MASTERNODE_OPERATOR_KEY_CHANGED);
+            Reset(MASTERNODE_OPERATOR_KEY_CHANGED, pindexNew);
             return;
         }
 
         if (newDmn->pdmnState->addr != oldDmn->pdmnState->addr) {
             // MN IP changed
-            Reset(MASTERNODE_PROTX_IP_CHANGED);
+            Reset(MASTERNODE_PROTX_IP_CHANGED, pindexNew);
             return;
         }
     } else {
         // MN might have (re)appeared with a new ProTx or we've found some peers
         // and figured out our local address
-        Init();
+        Init(pindexNew);
     }
 }
 
@@ -252,7 +269,7 @@ OperationResult initMasternode(const std::string& _strMasterNodePrivKey, const s
         return errorOut(strprintf(_("Invalid -masternodeaddr port %d, only %d is supported on %s-net."),
                                            nPort, nDefaultPort, Params().NetworkIDString()));
     }
-    CService addrTest(LookupNumeric(strHost.c_str(), nPort));
+    CService addrTest(LookupNumeric(strHost, nPort));
     if (!addrTest.IsValid()) {
         return errorOut(strprintf(_("Invalid -masternodeaddr address: %s"), _strMasterNodeAddr));
     }
@@ -275,13 +292,13 @@ OperationResult initMasternode(const std::string& _strMasterNodePrivKey, const s
     activeMasternode.service = addrTest;
     fMasterNode = true;
 
-    if (masternodeSync.IsBlockchainSynced()) {
+    if (g_tiertwo_sync_state.IsBlockchainSynced()) {
         // Check if the masternode already exists in the list
         CMasternode* pmn = mnodeman.Find(pubkey);
         if (pmn) activeMasternode.EnableHotColdMasterNode(pmn->vin, pmn->addr);
     }
 
-    return OperationResult(true);
+    return {true};
 }
 
 //
@@ -309,7 +326,7 @@ void CActiveMasternode::ManageStatus()
     }
 
     //need correct blocks to send ping
-    if (!Params().IsRegTestNet() && !masternodeSync.IsBlockchainSynced()) {
+    if (!Params().IsRegTestNet() && !g_tiertwo_sync_state.IsBlockchainSynced()) {
         status = ACTIVE_MASTERNODE_SYNC_IN_PROCESS;
         LogPrintf("CActiveMasternode::ManageStatus() - %s\n", GetStatusMessage());
         return;
@@ -412,7 +429,7 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
 
     // Update lastPing for our masternode in Masternode list
     CMasternode* pmn = mnodeman.Find(vin->prevout);
-    if (pmn != NULL) {
+    if (pmn != nullptr) {
         if (pmn->IsPingedWithin(MasternodePingSeconds(), mnp.sigTime)) {
             errorMessage = "Too early to send Masternode Ping";
             return false;
@@ -459,7 +476,7 @@ bool CActiveMasternode::EnableHotColdMasterNode(CTxIn& newVin, CService& newServ
     return true;
 }
 
-void CActiveMasternode::GetKeys(CKey& _privKeyMasternode, CPubKey& _pubKeyMasternode)
+void CActiveMasternode::GetKeys(CKey& _privKeyMasternode, CPubKey& _pubKeyMasternode) const
 {
     if (!privKeyMasternode.IsValid() || !pubKeyMasternode.IsValid()) {
         throw std::runtime_error("Error trying to get masternode keys");

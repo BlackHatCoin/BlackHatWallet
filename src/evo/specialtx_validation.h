@@ -7,13 +7,15 @@
 #ifndef BLKC_SPECIALTX_H
 #define BLKC_SPECIALTX_H
 
-#include "streams.h"
+#include "llmq/quorums_commitment.h"
+#include "validation.h" // cs_main needed by CheckLLMQCommitment (!TODO: remove)
 #include "version.h"
-#include "primitives/transaction.h"
 
 class CBlock;
 class CBlockIndex;
+class CCoinsViewCache;
 class CValidationState;
+class CTransaction;
 class uint256;
 
 /** The maximum allowed size of the extraPayload (for any TxType) */
@@ -22,45 +24,18 @@ static const unsigned int MAX_SPECIALTX_EXTRAPAYLOAD = 10000;
 /** Payload validity checks (including duplicate unique properties against list at pindexPrev)*/
 // Note: for +v2, if the tx is not a special tx, this method returns true.
 // Note2: This function only performs extra payload related checks, it does NOT checks regular inputs and outputs.
-bool CheckSpecialTx(const CTransaction& tx, const CBlockIndex* pindexPrev, CValidationState& state);
+bool CheckSpecialTx(const CTransaction& tx, const CBlockIndex* pindexPrev, const CCoinsViewCache* view, CValidationState& state) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 // Basic non-contextual checks for special txes
 // Note: for +v2, if the tx is not a special tx, this method returns true.
-bool CheckSpecialTxNoContext(const CTransaction& tx, CValidationState& state);
+bool CheckSpecialTxNoContext(const CTransaction& tx, CValidationState& state) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 // Update internal tiertwo data when blocks containing special txes get connected/disconnected
-bool ProcessSpecialTxsInBlock(const CBlock& block, const CBlockIndex* pindex, CValidationState& state, bool fJustCheck);
+bool ProcessSpecialTxsInBlock(const CBlock& block, const CBlockIndex* pindex, const CCoinsViewCache* view, CValidationState& state, bool fJustCheck) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 bool UndoSpecialTxsInBlock(const CBlock& block, const CBlockIndex* pindex);
 
-template <typename T>
-inline bool GetTxPayload(const std::vector<unsigned char>& payload, T& obj)
-{
-    CDataStream ds(payload, SER_NETWORK, PROTOCOL_VERSION);
-    try {
-        ds >> obj;
-    } catch (std::exception& e) {
-        return false;
-    }
-    return ds.empty();
-}
-template <typename T>
-inline bool GetTxPayload(const CMutableTransaction& tx, T& obj)
-{
-    return tx.hasExtraPayload() && GetTxPayload(*tx.extraPayload, obj);
-}
-template <typename T>
-inline bool GetTxPayload(const CTransaction& tx, T& obj)
-{
-    return tx.hasExtraPayload() && GetTxPayload(*tx.extraPayload, obj);
-}
-
-template <typename T>
-void SetTxPayload(CMutableTransaction& tx, const T& payload)
-{
-    CDataStream ds(SER_NETWORK, PROTOCOL_VERSION);
-    ds << payload;
-    tx.extraPayload.emplace(ds.begin(), ds.end());
-}
+// Validate given LLMQ final commitment with the list at pindexQuorum
+bool VerifyLLMQCommitment(const llmq::CFinalCommitment& qfc, const CBlockIndex* pindexPrev, CValidationState& state) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 uint256 CalcTxInputsHash(const CTransaction& tx);
 

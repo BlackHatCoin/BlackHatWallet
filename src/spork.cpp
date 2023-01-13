@@ -7,7 +7,6 @@
 #include "spork.h"
 
 #include "netmessagemaker.h"
-#include "net_processing.h"
 #include "sporkdb.h"
 #include "validation.h"
 
@@ -24,6 +23,7 @@ std::vector<CSporkDef> sporkDefs = {
     MAKE_SPORK_DEF(SPORK_19_COLDSTAKING_MAINTENANCE,        4070908800ULL), // OFF
     MAKE_SPORK_DEF(SPORK_20_SAPLING_MAINTENANCE,            4070908800ULL), // OFF
     MAKE_SPORK_DEF(SPORK_21_LEGACY_MNS_MAX_HEIGHT,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF(SPORK_22_LLMQ_DKG_MAINTENANCE,           4070908800ULL), // OFF
 };
 
 CSporkManager sporkManager;
@@ -86,20 +86,16 @@ void CSporkManager::LoadSporksFromDB()
     }
 }
 
-void CSporkManager::ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
+bool CSporkManager::ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, int& dosScore)
 {
-    if (fLiteMode) return; // disable all masternode related functionality
-
     if (strCommand == NetMsgType::SPORK) {
-        int banScore = ProcessSporkMsg(vRecv);
-        if (banScore > 0) {
-            LOCK(cs_main);
-            Misbehaving(pfrom->GetId(), banScore);
-        }
+        dosScore = ProcessSporkMsg(vRecv);
+        return dosScore == 0;
     }
     if (strCommand == NetMsgType::GETSPORKS) {
         ProcessGetSporks(pfrom, strCommand, vRecv);
     }
+    return true;
 }
 
 int CSporkManager::ProcessSporkMsg(CDataStream& vRecv)

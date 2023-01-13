@@ -31,22 +31,22 @@ public:
     uint256 id;
     std::string name;
     std::string url;
-    int votesYes;
-    int votesNo;
+    int votesYes{0};
+    int votesNo{0};
     /** Payment script destination */
     std::string recipientAdd;
     /** Amount of BLKC paid per month */
-    CAmount amount;
+    CAmount amount{0};
     /** Amount of times that the proposal will be paid */
-    int totalPayments;
+    int totalPayments{0};
     /** Amount of times that the proposal was paid already */
-    int remainingPayments;
+    int remainingPayments{0};
     /** Proposal state */
-    Status status;
+    Status status{WAITING_FOR_APPROVAL};
     /** Start superblock height */
-    int startBlock;
+    int startBlock{0};
     /** End superblock height */
-    int endBlock;
+    int endBlock{0};
 
     ProposalInfo() {}
     explicit ProposalInfo(const uint256& _id, std::string  _name, std::string  _url,
@@ -59,19 +59,19 @@ public:
             endBlock(_endBlock) {}
 
     bool operator==(const ProposalInfo& prop2) const { return id == prop2.id; }
-    bool isFinished() { return status == Status::FINISHED; }
+    bool isFinished() const { return status == Status::FINISHED; }
     std::string statusToStr() const;
 };
 
 struct VoteInfo {
     enum VoteDirection {
-        ABSTAIN=0,
-        YES=1,
-        NO=2
+        ABSTAIN = 0,
+        YES     = 1,
+        NO      = 2
     };
 
     explicit VoteInfo(const COutPoint _mnId, VoteDirection _vote, std::string _mnAlias, int64_t _time) :
-        mnVoter(_mnId), vote(_vote), mnAlias(_mnAlias), time(_time) {}
+        mnVoter(_mnId), vote(_vote), mnAlias(std::move(_mnAlias)), time(_time) {}
     COutPoint mnVoter;
     VoteDirection vote;
     std::string mnAlias;

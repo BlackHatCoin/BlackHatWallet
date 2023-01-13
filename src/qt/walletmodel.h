@@ -29,7 +29,6 @@ class AddressTableModel;
 class CBudgetProposal;
 class ClientModel;
 class OptionsModel;
-class RecentRequestsTableModel;
 class TransactionTableModel;
 class WalletModelTransaction;
 
@@ -142,7 +141,6 @@ public:
     OptionsModel* getOptionsModel();
     AddressTableModel* getAddressTableModel();
     TransactionTableModel* getTransactionTableModel();
-    RecentRequestsTableModel* getRecentRequestsTableModel();
 
     void resetWalletOptions(QSettings& settings);
     bool isTestNetwork() const;
@@ -392,7 +390,6 @@ private:
 
     AddressTableModel* addressTableModel;
     TransactionTableModel* transactionTableModel;
-    RecentRequestsTableModel* recentRequestsTableModel;
 
     // Cache balance to be able to detect changes
     interfaces::WalletBalances m_cached_balances;

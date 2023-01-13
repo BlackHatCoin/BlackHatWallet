@@ -14,6 +14,7 @@
 #include <QObject>
 #include <QDateTime>
 
+#include <atomic>
 #include <memory>
 
 class AddressTableModel;
@@ -79,6 +80,10 @@ public:
     bool inInitialBlockDownload() const;
     //! Return true if core is importing blocks
     enum BlockSource getBlockSource() const;
+    //! Return true if network activity in core is enabled
+    bool getNetworkActive() const;
+    //! Toggle network activity state in core
+    void setNetworkActive(bool active);
     //! Return warnings to be displayed in status bar
     QString getStatusBarWarnings() const;
 
@@ -103,20 +108,19 @@ public:
     void stopMasternodesTimer();
     // Force a MN count update calling mnmanager directly locking its internal mutex.
     // Future todo: implement an event based update and remove the lock requirement.
-    QString getMasternodesCount();
-
-    // Return the specific chain amount value for the MN collateral output.
-    CAmount getMNCollateralRequiredAmount();
+    QString getMasternodesCountString();
+    int getMasternodesCount() const { return m_cached_masternodes_count; }
 
 private:
     // Listeners
     std::unique_ptr<interfaces::Handler> m_handler_show_progress;
     std::unique_ptr<interfaces::Handler> m_handler_notify_num_connections_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_net_activity_changed;
     std::unique_ptr<interfaces::Handler> m_handler_notify_alert_changed;
     std::unique_ptr<interfaces::Handler> m_handler_banned_list_changed;
     std::unique_ptr<interfaces::Handler> m_handler_notify_block_tip;
 
-    QString getMasternodeCountString() const;
+    QString getMasternodeCountString();
     OptionsModel* optionsModel;
     PeerTableModel* peerTableModel;
     BanTableModel *banTableModel;
@@ -132,12 +136,15 @@ private:
     QTimer* pollTimer;
     QTimer* pollMnTimer;
 
+    std::atomic_int m_cached_masternodes_count{0};
+
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
 
 Q_SIGNALS:
     void numConnectionsChanged(int count);
     void numBlocksChanged(int count);
+    void networkActiveChanged(bool networkActive);
     void strMasternodesChanged(const QString& strMasternodes);
     void alertsChanged(const QString& warnings);
     void bytesChanged(quint64 totalBytesIn, quint64 totalBytesOut);
@@ -152,6 +159,7 @@ public Q_SLOTS:
     void updateTimer();
     void updateMnTimer();
     void updateNumConnections(int numConnections);
+    void updateNetworkActive(bool networkActive);
     void updateAlert();
     void updateBanlist();
 };

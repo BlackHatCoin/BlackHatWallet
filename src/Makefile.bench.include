@@ -32,6 +32,7 @@ bench_bench_blkc_SOURCES = \
   bench/perf.cpp \
   bench/perf.h \
   bench/prevector.cpp \
+  bench/rollingbloom.cpp \
   bench/util_time.cpp \
   bench/walletprocessblock.cpp
 

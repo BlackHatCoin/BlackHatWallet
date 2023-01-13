@@ -892,6 +892,7 @@ void DashboardWidget::onHideChartsChanged(bool fHide)
         }
         stakesFilter->setSourceModel(txModel);
         hasStakes = stakesFilter->rowCount() > 0;
+        filterUpdateNeeded = true;
     } else {
         if (stakesFilter) {
             stakesFilter->setSourceModel(nullptr);

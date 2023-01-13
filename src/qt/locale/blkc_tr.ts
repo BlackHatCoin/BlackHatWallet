@@ -1540,8 +1540,10 @@ Emin misiniz?</translation>
         <translation>Kullanıcı arabirimi dili burada ayarlanabilir. Bu ayar, BlackHat yeniden başlatıldıktan sonra geçerli olur.</translation>
     </message>
     <message>
-        <source>Language missing or translation incomplete? Help contributing translations.</source>
-        <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun.</translation>
+        <source>Language missing or translation incomplete? Help contributing translations here:
+https://forum.blackhatco.in</source>
+        <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun:
+https://forum.blackhatco.in</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1827,7 +1829,7 @@ Adres: %4
     </message>
     <message>
         <source>Cannot start blkc: click-to-pay handler</source>
-        <translation>Blkc başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
+        <translation>blkc başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
@@ -3139,7 +3141,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
-        <translation>2) BLKC'lerim neden harcanabilir değil?</translation>
+        <translation>2) BLKC'larım neden harcanabilir değil?</translation>
     </message>
     <message>
         <source>1</source>
@@ -3155,7 +3157,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>Why are my BLKC unspendable?</source>
-        <translation>BLKC'lerim neden harcanabilir değil?</translation>
+        <translation>BLKC'larım neden harcanabilir değil?</translation>
     </message>
     <message>
         <source>
@@ -3169,7 +3171,7 @@ Verify that you have installed a predetermined text editor.</source>
                          </source>
         <translation>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Yeni alınmış BLKC'lerin harcanabilr hale gelmesi için ağdan 6 onay
+                           Yeni alınmış BLKC'ların harcanabilr hale gelmesi için ağdan 6 onay
                            alması gerekmektedir, bu işlem yaklaşık olarak 6 dakika sürer.
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            BlackHat cüzdanınızın ağdaki bakiyesini görebilmesi ve harcayabilmesi

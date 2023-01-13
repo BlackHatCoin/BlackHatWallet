@@ -5,7 +5,6 @@
 #include "addrdb.h"
 #include "addrman.h"
 #include "primitives/block.h"
-#include "addrman.h"
 #include "chain.h"
 #include "coins.h"
 #include "compressor.h"

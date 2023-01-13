@@ -364,6 +364,10 @@ per lo staking</translation>
         <translation>CANCELLA</translation>
     </message>
     <message>
+        <source>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
+        <translation>BlackHat verrà ora chiuso per completare il processo di cifratura. Ricorda che crittografare il tuo portafoglio non protegge completamente i tuoi BLKC dal furto da parte di software malevoli che potrebbero infettare il tuo computer.</translation>
+    </message>
+    <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Confermi di voler crittografare il portafoglio?</translation>
     </message>
@@ -649,6 +653,18 @@ per lo staking</translation>
     <message>
         <source>no</source>
         <translation>no</translation>
+    </message>
+    <message>
+        <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
+        <translation>Questa etichetta diventerà rossa se la transazione supera i 1000 bytes</translation>
+    </message>
+    <message>
+        <source>This means a fee of at least %1 per kB is required.</source>
+        <translation>Vuol dire che è richiesta una commissione minima di %1 per kB.</translation>
+    </message>
+    <message>
+        <source>Can vary +/- 1 byte per input.</source>
+        <translation>Può variare di +/- 1 byte per input.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -950,6 +966,10 @@ proprietario</translation>
         <translation>Filtra per</translation>
     </message>
     <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Quantità di BLKC e zBLKC dallo stake.</translation>
+    </message>
+    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>Attendi fino a quando il portafoglio non è completamente sincronizzato per vedere il tuo saldo corretto</translation>
     </message>
@@ -1095,12 +1115,56 @@ Si avvierà automaticamente non appena il portafoglio avrà sufficienti conferme
         <translation>versione</translation>
     </message>
     <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
+    </message>
+    <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
+        <source>About BlackHat Core</source>
+        <translation>Informazioni su BlackHat Core</translation>
+    </message>
+    <message>
         <source>Command-line options</source>
         <translation>Opzioni linea di comando</translation>
+    </message>
+    <message>
+        <source>Usage:</source>
+        <translation>Utilizzo:</translation>
+    </message>
+    <message>
+        <source>command-line options</source>
+        <translation>opzioni linea di comando</translation>
+    </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>Opzioni interfaccia:</translation>
+    </message>
+    <message>
+        <source>Choose data directory on startup (default: %u)</source>
+        <translation>Seleziona cartella dati all'avvio (predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Show splash screen on startup (default: %u)</source>
+        <translation>Mostra schermata di benvenuto all'avvio (predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Hide QT staking charts on startup (default: %u)</source>
+        <translation>Nascondi grafici QT staking all'avvio (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set language, for example "de_DE" (default: system locale)</source>
+        <translation>Imposta lingua, per esempio "it_IT" (predefinito: lingua di sistema)</translation>
+    </message>
+    <message>
+        <source>Start minimized</source>
+        <translation>Avvio ridotto a icona</translation>
+    </message>
+    <message>
+        <source>Set SSL root certificates for payment request (default: -system-)</source>
+        <translation>Imposta certificati SSL root per richiesta di pagamento (predefinito: -system-)</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1112,6 +1176,18 @@ Si avvierà automaticamente non appena il portafoglio avrà sufficienti conferme
     <message>
         <source>Welcome</source>
         <translation>Benvenuto</translation>
+    </message>
+    <message>
+        <source>Welcome to BlackHat Core.</source>
+        <translation>Benvenuto in BlackHat Core.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</source>
+        <translation>Essendo il primo avvio dell'applicazione, puoi scegliere dove BlackHat Core salverà i propri dati.</translation>
+    </message>
+    <message>
+        <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BlackHat Core scaricherà e salverà una copia della blockchain BlackHat. Verranno salvati almeno %1GB di dati in questa cartella, che cresceranno nel tempo. In questa cartella verrà salvato anche il portafoglio.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1128,6 +1204,10 @@ Si avvierà automaticamente non appena il portafoglio avrà sufficienti conferme
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1234,6 +1314,10 @@ Si avvierà automaticamente non appena il portafoglio avrà sufficienti conferme
         <translation>Crea nuovo controller Masternode</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Per creare un Masternode BlackHat devi dedicare 5.000 BLKC (l'unità di BlackHat) alla rete (tuttavia, queste coin sono ancora tue e saranno sempre in tuo possesso). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Puoi disattivare il nodo e sbloccare le valute in qualsiasi momento.</translation>
+    </message>
+    <message>
         <source>Set Masternode Name</source>
         <translation>Imposta Nome Masternode</translation>
     </message>
@@ -1248,6 +1332,10 @@ Si avvierà automaticamente non appena il portafoglio avrà sufficienti conferme
     <message>
         <source>Make sure you have this amount of coins.</source>
         <translation>Assicurati di avere questa quantità di valuta.</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verrà effettuata una transazione di 5.000 BLKC&lt;/p&gt;&lt;p&gt;a un nuovo indirizzo vuoto nel tuo portafoglio.&lt;p&gt;L'indirizzo è etichettato con il nome del Masternode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1423,6 +1511,10 @@ Per favore, attendi qualche minuto (il collaterale del masternode richiede %1 co
     <message>
         <source>Masternode data copied to the clipboard.</source>
         <translation>Dati Masternode copiati negli appunti.</translation>
+    </message>
+    <message>
+        <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
+        <translation>Saldo insufficiente per creare un masternode, sono necessari 5.000 %1.</translation>
     </message>
     <message>
         <source>Remote Masternode Data</source>
@@ -1615,12 +1707,40 @@ STAKING</translation>
         <translation>Apri URI</translation>
     </message>
     <message>
+        <source>Open payment request from URI or file</source>
+        <translation>Seleziona il file o URI di richiesta di pagamento</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>Etichetta</translation>
+    </message>
+    <message>
         <source>CANCEL</source>
         <translation>CANCELLA</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Select payment request file</source>
+        <translation>Seleziona il file di richiesta di pagamento</translation>
+    </message>
+    <message>
+        <source>Select payment request file to open</source>
+        <translation>Seleziona il file di richiesta di pagamento da aprire</translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <translation>File non trovato</translation>
+    </message>
+    <message>
+        <source>Parsed data too large</source>
+        <translation>Dati analizzati troppo grandi</translation>
+    </message>
+    <message>
+        <source>Invalid URI, not starting with "blkc" prefix</source>
+        <translation>URI non valido, che non inizia con il prefisso "blkc"</translation>
     </message>
 </context>
 <context>
@@ -1631,7 +1751,292 @@ STAKING</translation>
     </message>
 </context>
 <context>
+    <name>OptionsDialog</name>
+    <message>
+        <source>Options</source>
+        <translation>Opzioni</translation>
+    </message>
+    <message>
+        <source>&amp;Main</source>
+        <translation>&amp;Main</translation>
+    </message>
+    <message>
+        <source>Size of &amp;database cache</source>
+        <translation>Dimensione della cache del &amp;database</translation>
+    </message>
+    <message>
+        <source>MB</source>
+        <translation>MB</translation>
+    </message>
+    <message>
+        <source>Number of script &amp;verification threads</source>
+        <translation>Numero di script e processi di &amp;verifica</translation>
+    </message>
+    <message>
+        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
+        <translation>(0 = auto, &lt;0 = lascia molti core liberi)</translation>
+    </message>
+    <message>
+        <source>W&amp;allet</source>
+        <translation>W&amp;allet</translation>
+    </message>
+    <message>
+        <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
+        <translation>Se si disabilita la spesa per la modifica non confermata, la modifica da una transazione&lt;br/&gt;non può essere utilizzata fino a quando tale transazione non ha almeno una conferma.&lt;br/&gt;Ciò influisce anche sul modo in cui viene calcolato il saldo.</translation>
+    </message>
+    <message>
+        <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Apri automaticamente la porta client BlackHat sul router. Funziona solo quando il router supporta UPnP ed è abilitato.</translation>
+    </message>
+    <message>
+        <source>Accept connections from outside</source>
+        <translation>Accetta connessioni dall'esterno</translation>
+    </message>
+    <message>
+        <source>Allow incoming connections</source>
+        <translation>Consenti connessioni in entrata</translation>
+    </message>
+    <message>
+        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
+        <translation>&amp;Connetti tramite proxy SOCKS5 (proxy predefinito):</translation>
+    </message>
+    <message>
+        <source>Expert</source>
+        <translation>Esperto</translation>
+    </message>
+    <message>
+        <source>Automatically start BlackHat after logging in to the system.</source>
+        <translation>Avvia automaticamente BlackHat dopo aver effettuato l'accesso al sistema.</translation>
+    </message>
+    <message>
+        <source>&amp;Start BlackHat on system login</source>
+        <translation>&amp;Start BlackHat all'accesso al sistema</translation>
+    </message>
+    <message>
+        <source>Whether to show coin control features or not.</source>
+        <translation>Se mostrare o meno le funzionalità di controllo della valuta.</translation>
+    </message>
+    <message>
+        <source>Enable coin &amp;control features</source>
+        <translation>Attiva la funzionalità di &amp;controllo della moneta</translation>
+    </message>
+    <message>
+        <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
+        <translation>Mostra la scheda aggiuntiva che elenca tutti i tuoi Masternode nella prima sottoscheda&lt;br/&gt;e tutti i Masternode della rete nella seconda sottoscheda.</translation>
+    </message>
+    <message>
+        <source>Show Masternodes Tab</source>
+        <translation>Mostra la scheda dei Masternode</translation>
+    </message>
+    <message>
+        <source>&amp;Spend unconfirmed change</source>
+        <translation>&amp;Spendi modifica non confermata</translation>
+    </message>
+    <message>
+        <source>&amp;Network</source>
+        <translation>&amp;Network</translation>
+    </message>
+    <message>
+        <source>The user interface language can be set here. This setting will take effect after restarting BlackHat.</source>
+        <translation>La lingua dell'interfaccia utente può essere impostata qui. Questa impostazione avrà effetto dopo il riavvio di BlackHat.</translation>
+    </message>
+    <message>
+        <source>Language missing or translation incomplete? Help contributing translations here:
+https://forum.blackhatco.in</source>
+        <translation>Lingua mancante o traduzione incompleta? Aiutaci a contribuire alle traduzioni qui:
+https://forum.blackhatco.in</translation>
+    </message>
+    <message>
+        <source>Map port using &amp;UPnP</source>
+        <translation>Mappa la porta utilizzando &amp;UPnP</translation>
+    </message>
+    <message>
+        <source>Enable automatic minting of BLKC units to zBLKC</source>
+        <translation>Attiva la forgiatura automatica di unità BLKC in zBLKC</translation>
+    </message>
+    <message>
+        <source>Enable zBLKC Automint</source>
+        <translation>Attiva forgiatura automatica zBLKC</translation>
+    </message>
+    <message>
+        <source>Enable automatic zBLKC minting from specific addresses</source>
+        <translation>Attiva la forgiatura automatica di zBLKC da indirizzi specifici</translation>
+    </message>
+    <message>
+        <source>Enable Automint Addresses</source>
+        <translation>Abilita indirizzi forgiatura automatica</translation>
+    </message>
+    <message>
+        <source>Percentage of incoming BLKC which get automatically converted to zBLKC via Zerocoin Protocol (min: 10%)</source>
+        <translation>Percentuale di BLKC in entrata che viene automaticamente convertita in zBLKC attraverso il protocollo Zerocoin (min: 10%)</translation>
+    </message>
+    <message>
+        <source>Percentage of autominted zBLKC</source>
+        <translation>Percentuale di zBLKC Percentuale di zBLKC da forgiare automaticamente</translation>
+    </message>
+    <message>
+        <source>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</source>
+        <translation>Attendere la conversione automatica in Zerocoin fino a quando non saranno disponibili abbastanza BLKC per questa denominazione</translation>
+    </message>
+    <message>
+        <source>Preferred Automint zBLKC Denomination</source>
+        <translation>Denominazione preferita forgiatura automatica zBLKC</translation>
+    </message>
+    <message>
+        <source>Stake split threshold:</source>
+        <translation>Soglia di divisione dello stake</translation>
+    </message>
+    <message>
+        <source>Connect to the BlackHat network through a SOCKS5 proxy.</source>
+        <translation>Connettiti alla rete BlackHat tramite un proxy SOCKS5.</translation>
+    </message>
+    <message>
+        <source>Proxy &amp;IP:</source>
+        <translation>Proxy &amp;IP:</translation>
+    </message>
+    <message>
+        <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
+        <translation>Indirizzo IP del proxy (ad es. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
+    </message>
+    <message>
+        <source>&amp;Port:</source>
+        <translation>&amp;Porta:</translation>
+    </message>
+    <message>
+        <source>Port of the proxy (e.g. 9050)</source>
+        <translation>Porta del proxy (ad es. 9050)</translation>
+    </message>
+    <message>
+        <source>&amp;Window</source>
+        <translation>&amp;Finestra</translation>
+    </message>
+    <message>
+        <source>Show only a tray icon after minimizing the window.</source>
+        <translation>Mostra solo l'icona della barra delle applicazioni dopo aver ridotto a icona la finestra.</translation>
+    </message>
+    <message>
+        <source>&amp;Minimize to the tray instead of the taskbar</source>
+        <translation>&amp;Minimizza a icona nel vassoio anziché nella barra delle applicazioni</translation>
+    </message>
+    <message>
+        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
+        <translation>Riduci a icona invece di uscire dall'applicazione quando la finestra è chiusa. Quando questa opzione è abilitata, l'applicazione verrà chiusa solo dopo aver selezionato "Esci" nel menu.</translation>
+    </message>
+    <message>
+        <source>M&amp;inimize on close</source>
+        <translation>M&amp;inimizza in chiusura</translation>
+    </message>
+    <message>
+        <source>&amp;Display</source>
+        <translation>&amp;Display</translation>
+    </message>
+    <message>
+        <source>User Interface &amp;language:</source>
+        <translation>$lingua dell'interfaccia utente:</translation>
+    </message>
+    <message>
+        <source>User Interface Theme:</source>
+        <translation>Tema dell'interfaccia utente:</translation>
+    </message>
+    <message>
+        <source>Unit to show amounts in:</source>
+        <translation>Unità di misura in cui mostrare gli importi:</translation>
+    </message>
+    <message>
+        <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
+        <translation>Scegli l'unità di suddivisione predefinita da mostrare nell'interfaccia e quando si inviano valute.</translation>
+    </message>
+    <message>
+        <source>Decimal digits</source>
+        <translation>Cifre decimali</translation>
+    </message>
+    <message>
+        <source>Hide empty balances</source>
+        <translation>Nascondi bilanci vuoti</translation>
+    </message>
+    <message>
+        <source>Hide orphan stakes in transaction lists</source>
+        <translation>Nascondi le stakes orfane nella lista delle transazioni</translation>
+    </message>
+    <message>
+        <source>Hide orphan stakes</source>
+        <translation>Nascondi le stakes orfane</translation>
+    </message>
+    <message>
+        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
+        <translation>URL di terze parti (ad esempio un esploratore di blocchi) che vengono visualizzati nella scheda Transazioni come voci di menu contestuale. %s nell'URL è sostituito dall'hash della transazione. Più URL sono separati da una barra verticale |.</translation>
+    </message>
+    <message>
+        <source>Third party transaction URLs</source>
+        <translation>URL di transazione di terze parti</translation>
+    </message>
+    <message>
+        <source>Active command-line options that override above options:</source>
+        <translation>Opzioni della riga di comando attive che sovrascrivono le opzioni sopra:</translation>
+    </message>
+    <message>
+        <source>Reset all client options to default.</source>
+        <translation>Ripristina tutte le opzioni client ai valori predefiniti.</translation>
+    </message>
+    <message>
+        <source>&amp;Reset Options</source>
+        <translation>Opzioni &amp;Reset</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancella</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>Qualsiasi</translation>
+    </message>
+    <message>
+        <source>default</source>
+        <translation>predefinito</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>nessuno</translation>
+    </message>
+    <message>
+        <source>Confirm options reset</source>
+        <translation>Conferma il ripristino delle opzioni</translation>
+    </message>
+    <message>
+        <source>Client restart required to activate changes.</source>
+        <translation>Riavvio del client richiesto per attivare le modifiche.</translation>
+    </message>
+    <message>
+        <source>Client will be shutdown, do you want to proceed?</source>
+        <translation>Il client verrà arrestato, vuoi procedere?</translation>
+    </message>
+    <message>
+        <source>This change would require a client restart.</source>
+        <translation>Questa modifica richiederebbe un riavvio del client.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy address is invalid.</source>
+        <translation>L'indirizzo proxy inserito non è valido.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy port is invalid.</source>
+        <translation>La porta proxy inserita non è valida.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy settings are invalid.</source>
+        <translation>Le impostazioni proxy inserite non sono valide.</translation>
+    </message>
+</context>
+<context>
     <name>BLKCGUI</name>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
+    </message>
     <message>
         <source>Wallet</source>
         <translation>Portafoglio</translation>
@@ -1657,6 +2062,10 @@ STAKING</translation>
         <translation>Chiude l'applicazione</translation>
     </message>
     <message>
+        <source>BlackHat Core client</source>
+        <translation>BlackHat Core</translation>
+    </message>
+    <message>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
@@ -1671,6 +2080,10 @@ STAKING</translation>
     <message>
         <source>System Message</source>
         <translation>Messaggio di sistema</translation>
+    </message>
+    <message>
+        <source>Sent MultiSend transaction</source>
+        <translation>Transazioni MultiSend inviate</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -1704,6 +2117,14 @@ Indirizzo: %4
         <translation>Gestione degli URI</translation>
     </message>
     <message>
+        <source>Payment request fetch URL is invalid: %1</source>
+        <translation>L'URL di recupero della richiesta di pagamento non è valido: %1</translation>
+    </message>
+    <message>
+        <source>Payment request file handling</source>
+        <translation>Gestione dei file delle richieste di pagamento</translation>
+    </message>
+    <message>
         <source>Invalid payment address %1</source>
         <translation>Indirizzo di pagamento %1 invalido</translation>
     </message>
@@ -1714,6 +2135,66 @@ Indirizzo: %4
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
         <translation>Impossibile leggere il file della richiesta di pagamento! Ciò può essere causato da un indirizzo BlackHat non valido o parametri URI non validi.</translation>
+    </message>
+    <message>
+        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
+        <translation>Impossibile leggere il file della richiesta di pagamento! Ciò può essere causato da un file di richiesta di pagamento non valido.</translation>
+    </message>
+    <message>
+        <source>Payment request rejected</source>
+        <translation>Richiesta di pagamento rifiutata</translation>
+    </message>
+    <message>
+        <source>Payment request network doesn't match client network.</source>
+        <translation>La rete di richiesta di pagamento non corrisponde alla rete client.</translation>
+    </message>
+    <message>
+        <source>Payment request has expired.</source>
+        <translation>La richiesta di pagamento è scaduta.</translation>
+    </message>
+    <message>
+        <source>Payment request is not initialized.</source>
+        <translation>La richiesta di pagamento non è inizializzata.</translation>
+    </message>
+    <message>
+        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
+        <translation>Le richieste di pagamento non verificate per gli script di pagamento personalizzati non sono supportate.</translation>
+    </message>
+    <message>
+        <source>Requested payment amount of %1 is too small (considered dust).</source>
+        <translation>L'ammontare della richiesta di pagamento di %1 è troppo basso (considerato polvere).</translation>
+    </message>
+    <message>
+        <source>Refund from %1</source>
+        <translation>Risarcimento da %1</translation>
+    </message>
+    <message>
+        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
+        <translation>La richiesta di pagamento %1 è troppo grande (%2 byte, consentiti %3 byte).</translation>
+    </message>
+    <message>
+        <source>Payment request DoS protection</source>
+        <translation>La richiesta di pagamento richiede protezione DoS</translation>
+    </message>
+    <message>
+        <source>Error communicating with %1: %2</source>
+        <translation>Errore durante la comunicazione con %1: %2</translation>
+    </message>
+    <message>
+        <source>Payment request cannot be parsed!</source>
+        <translation>La richiesta di pagamento non può essere analizzata!</translation>
+    </message>
+    <message>
+        <source>Bad response from server %1</source>
+        <translation>Risposta errata dal server %1</translation>
+    </message>
+    <message>
+        <source>Network request error</source>
+        <translation>Errore di richiesta di rete</translation>
+    </message>
+    <message>
+        <source>Payment acknowledged</source>
+        <translation>Pagamento confermato</translation>
     </message>
 </context>
 <context>
@@ -1786,6 +2267,10 @@ Indirizzo: %4
         <translation>Si è verificato un errore irreversibile. BlackHat non può più continuare in modo sicuro e verrà chiuso.</translation>
     </message>
     <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
+    </message>
+    <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
         <translation>Errore: la cartella dati specificata "%1" non esiste.</translation>
     </message>
@@ -1794,8 +2279,16 @@ Indirizzo: %4
         <translation>Errore: impossibile analizzare il file di configurazione: %1. Utilizzare solo la sintassi key=value.</translation>
     </message>
     <message>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Errore: combinazione non valida di -regtest e -testnet.</translation>
+    </message>
+    <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Errore durante la lettura del file di configurazione del Masternode: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core non è ancora uscito in modo sicuro...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2013,6 +2506,10 @@ Indirizzo: %4
         <translation>Debug del file di registro</translation>
     </message>
     <message>
+        <source>Build date</source>
+        <translation>Data di costruzione</translation>
+    </message>
+    <message>
         <source>Current number of blocks</source>
         <translation>Numero attuale dei blocchi</translation>
     </message>
@@ -2169,6 +2666,18 @@ Indirizzo: %4
         <translation>Differenza di fuso orario</translation>
     </message>
     <message>
+        <source>Custom Backup Path:</source>
+        <translation>Percorso di backup personalizzato:</translation>
+    </message>
+    <message>
+        <source>Custom zBLKC Backup Path:</source>
+        <translation>Percorso di backup zBLKC personalizzato:</translation>
+    </message>
+    <message>
+        <source>Custom Backups Threshold:</source>
+        <translation>Soglia backup personalizzati:</translation>
+    </message>
+    <message>
         <source>Salvage wallet</source>
         <translation>Portafoglio di salvataggio</translation>
     </message>
@@ -2295,6 +2804,10 @@ Indirizzo: %4
     <message>
         <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
         <translation>Usa le frecce su e giù per navigare nella cronologia e %1 per cancellare lo schermo.</translation>
+    </message>
+    <message>
+        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
+        <translation>Scrivi &lt;b&gt;help&lt;/b&gt; per una panoramica dei comandi disponibili.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -2808,6 +3321,10 @@ Questa valuta non sarà più in cold-stake.</translation>
         <translation>Apri URI</translation>
     </message>
     <message>
+        <source>Parse a payment request</source>
+        <translation>Esamina una richiesta di pagamento</translation>
+    </message>
+    <message>
         <source>Unlocked remaining</source>
         <translation>Sbloccato rimanente</translation>
     </message>
@@ -3101,6 +3618,10 @@ Verifica di aver installato un editor di testo predeterminato.</translation>
         <translation>Usa le frecce su e giù per navigare nella cronologia e %1 per cancellare lo schermo.</translation>
     </message>
     <message>
+        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
+        <translation>Scrivi &lt;b&gt;help&lt;/b&gt; per una panoramica dei comandi disponibili.</translation>
+    </message>
+    <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
         <translation>ATTENZIONE: i truffatori sono stati attivi, dicendo agli utenti di digitare i comandi qui, rubando il contenuto del loro portafoglio. Non utilizzare questa console senza comprendere appieno le conseguenze di un comando.</translation>
     </message>
@@ -3302,12 +3823,36 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>Perché i miei BLKC non sono spendibili?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           BLKC appeni ricevuti richiedono 6 conferme sulla rete
+ per poter essere spendibili, cioè può richiedere ~6 minuti.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Anche il tuo portafoglio BlackHat deve essere completamente sincronizzato
+per vedere e spendere i saldi sulla rete.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
         <source>How do I stake BLKC?</source>
         <translation>Come posso fare lo stake di BLKC?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Assicurati che il tuo wallet sia completamente sincronizzato e che tu stia usando l'ultima versione. 56Il bilancio dei tuoi BLKC deve avere almeno 600 conferme. Per lo stacking il tuo wallet deve rimanere online e deve essere sbloccato. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Una volta portati a termine questi step, siete pronti per avviare lo stacking. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Potete vedere lo stato dello staking nel wallet, passando il mouse sull'icona del pacchetto nella riga in alto a sinistra dell'interfaccia del portafoglio. Il pacchetto sarà illuminato e indicherà &amp;quot;Staking Enabled&amp;quot; per indicare che lo staking è attivo. Usando nella riga di comando dell'interfaccia (blkc-cli); il comando &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; avrai conferma che lo staking è attivo. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>4</source>
@@ -3326,12 +3871,124 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>Dove dovrei andare se ho bisogno di supporto?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
+                           #support in our Discord&lt;/a&gt;.
+                           If you prefer to submit a ticket, You can do so at
+                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
+                           our Forum support site&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Abbiamo canali di supporto nella maggior parte dei nostri gruppi di chat ufficiali, ad esempio
+                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
+                           #support nel nostro Discord&lt;/a&gt;.
+                           Se preferisci aprire un ticket, puoi farlo su
+                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
+                           il nostro sito di supporto Forum&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>Cos'è un Masternode?</translation>
     </message>
     <message>
         <source>What is a Masternode Controller?</source>
         <translation>Cos'è un Masternode controller?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;Un Masternode Controller wallet è dove i 5.000 BLKC collaterali possono risiedere durante l'impostazione del Masternode Controller remoto. È un portafoglio che può attivare uno o più portafogli masternode remoti e ti consente di mantenere offline le tue valute collaterali mentre il masternode remoto rimane online.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Un masternode è un computer che esegue un portafoglio core BlackHat a nodo completo
+con un requisito di 5.000 BLKC a garanzia per fornire servizi extra
+alla rete e, in cambio, riceve una parte del premio del blocco
+regolarmente. Questi servizi includono:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Transazioni istantanee (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;Una governance decentrata (votazione della proposta)&lt;/li&gt;
+                           &lt;li&gt;Un sistema di bilancio decentralizzato (Tesoreria)&lt;/li&gt;
+                           &lt;li&gt;Convalida delle transazioni all'interno di ciascun blocco&lt;/li&gt;
+                           &lt;li&gt;Funziona come un nodo completo aggiuntivo nella rete&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Per fornire tali servizi, i masternode vengono pagati anche una determinata porzione
+ di ricompensa per ogni blocco. Questo può servire come reddito passivo per il
+ proprietari di masternode detratti i loro costi di gestione.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Vantaggi del Masternode:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Partecipare alla Governance di BlackHat &lt;/li&gt;
+                           &lt;li&gt;Guadagnare i premi del Masternode&lt;/li&gt;
+                           &lt;li&gt;Opzione di una commodity per vendita futura&lt;/li&gt;
+                           &lt;li&gt;Aiuta a proteggere la rete BlackHat&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requisiti:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per singolo Masternode
+                           &lt;li&gt;Devono essere conservati in un portafoglio core&lt;/li&gt;
+                           &lt;li&gt;Necessita un indirizzo IP dedicato&lt;/li&gt;
+                           &lt;li&gt;Il portafoglio del Masternode deve rimanere online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -3357,7 +4014,7 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <source>You can read more here</source>
         <translation>Puoi leggere di più qui</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>SettingsInformationWidget</name>
     <message>
@@ -3512,6 +4169,10 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>Numero di script e processi di verifica</translation>
     </message>
     <message>
+        <source>Start BlackHat on system login</source>
+        <translation>Avvia BlackHat all'accesso al sistema</translation>
+    </message>
+    <message>
         <source>Minimize to the tray instead of the taskbar</source>
         <translation>Minimizza a icona nel vassoio anziché nella barra delle applicazioni</translation>
     </message>
@@ -3536,6 +4197,160 @@ Sei sicuro?
     <message>
         <source>Options reset succeed</source>
         <translation>Ripristino delle opzioni riuscito</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsMultisendDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Modulo</translation>
+    </message>
+    <message>
+        <source>Transaction Details</source>
+        <translation>Dettagli della transazione</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>Etichetta</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCELLA</translation>
+    </message>
+    <message>
+        <source>SAVE</source>
+        <translation>SALVA</translation>
+    </message>
+    <message>
+        <source>New recipient for multisend</source>
+        <translation>Nuovo destinatario per multisend</translation>
+    </message>
+    <message>
+        <source>Address Label (optional)</source>
+        <translation>Etichetta Indirizzo (opzionale)</translation>
+    </message>
+    <message>
+        <source>Enter label to be saved with this address</source>
+        <translation>Inserisci un'etichetta da salvare con l'indirizzo</translation>
+    </message>
+    <message>
+        <source>Percentage</source>
+        <translation>Percentuale</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsMultisendWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Modulo</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>Etichetta</translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation>N/D</translation>
+    </message>
+    <message>
+        <source>CheckBox</source>
+        <translation>CheckBox</translation>
+    </message>
+    <message>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend ti consente di inviare automaticamente fino al 100% dei tuoi stake o ricompense masternode a un elenco di altri indirizzi BlackHat dopo la loro maturazione.</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Attivo </translation>
+    </message>
+    <message>
+        <source>Disable</source>
+        <translation>Disabilita</translation>
+    </message>
+    <message>
+        <source>No active recipient yet</source>
+        <translation>Ancora nessun destinatario attivo</translation>
+    </message>
+    <message>
+        <source>Send stakes</source>
+        <translation>Invia stake</translation>
+    </message>
+    <message>
+        <source>Send masternode rewards</source>
+        <translation>Invia le ricompense del Masternode</translation>
+    </message>
+    <message>
+        <source>ADD RECIPIENT</source>
+        <translation>AGGIUNGERE DESTINATARIO</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>CANCELLA TUTTO</translation>
+    </message>
+    <message>
+        <source>Cannot perform operation, wallet locked</source>
+        <translation>Impossibile completare l'operazione, portafoglio bloccato</translation>
+    </message>
+    <message>
+        <source>Clear succeed</source>
+        <translation>Cancellazione riuscita</translation>
+    </message>
+    <message>
+        <source>Clear all failed, could not locate address in wallet file</source>
+        <translation>Cancella tutto non riuscito, impossibile trovare l'indirizzo nel file wallet</translation>
+    </message>
+    <message>
+        <source>Cannot add multisend recipient, wallet locked</source>
+        <translation>Impossibile aggiungere destinatario multisend, portafoglio bloccato</translation>
+    </message>
+    <message>
+        <source>The entered address: %1 is invalid.
+Please check the address and try again.</source>
+        <translation>L'indirizzo inserito %1 non è valido.
+Per favore controlla l'indirizzo e riprova nuovamente.</translation>
+    </message>
+    <message>
+        <source>Invalid percentage, please enter values from 1 to 100.</source>
+        <translation>Percentuale non valida, inserire valori da 1 a 100.</translation>
+    </message>
+    <message>
+        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
+        <translation>L'importo totale del tuo vettore MultiSend è superiore al 100% della ricompensa di stake</translation>
+    </message>
+    <message>
+        <source>Error saving  MultiSend, failed saving properties to the database.</source>
+        <translation>Errore durante il salvataggio di MultiSend, errore nel salvataggio delle proprietà nel database.</translation>
+    </message>
+    <message>
+        <source>Unable to activate MultiSend, no available recipients</source>
+        <translation>Impossibile attivare MultiSend, nessun destinatario disponibile</translation>
+    </message>
+    <message>
+        <source>Unable to activate MultiSend
+Check one or both of the check boxes to send on stake and/or masternode rewards</source>
+        <translation>Impossibile attivare MultiSend
+Seleziona una o entrambe le caselle di controllo per inviare gli stake e/o i premi del masternode</translation>
+    </message>
+    <message>
+        <source>MultiSend activated but writing settings to DB failed</source>
+        <translation>MultiSend attivato ma la scrittura delle impostazioni nel DB non è riuscita</translation>
+    </message>
+    <message>
+        <source>MultiSend activated</source>
+        <translation>MultiSend attivato</translation>
+    </message>
+    <message>
+        <source>First multiSend address invalid</source>
+        <translation>Primo indirizzo MultiSend non valido</translation>
+    </message>
+    <message>
+        <source>MultiSend deactivated but writing settings to DB failed</source>
+        <translation>MultiSend disattivato ma la scrittura delle impostazioni nel DB non è riuscita</translation>
+    </message>
+    <message>
+        <source>MultiSend deactivated</source>
+        <translation>MultiSend disattivato</translation>
     </message>
 </context>
 <context>
@@ -3727,10 +4542,6 @@ Sei sicuro?
         <source>Options reset succeed</source>
         <translation>Ripristino delle opzioni riuscito</translation>
     </message>
-    <message>
-        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
-        <translation>Stake Split troppo basso, deve essere &gt;= %1 o uguale a 0 (per disabilitare lo stake splitting)</translation>
-    </message>
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
@@ -3838,6 +4649,10 @@ Sei sicuro?
         <translation>Portafoglio</translation>
     </message>
     <message>
+        <source>Multisend</source>
+        <translation>MultiSend</translation>
+    </message>
+    <message>
         <source>Export Accounting</source>
         <translation>Esportazione Contabilità</translation>
     </message>
@@ -3910,6 +4725,10 @@ Sei sicuro?
         <translation>Il client verrà arrestato, vuoi procedere?</translation>
     </message>
     <message>
+        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
+        <translation>Stake Split troppo basso, deve essere &gt;= %1 o uguale a 0 (per disabilitare lo stake splitting)</translation>
+    </message>
+    <message>
         <source>Restart required</source>
         <translation>Riavvio necessario</translation>
     </message>
@@ -3957,6 +4776,10 @@ Sei sicuro?
 <context>
     <name>ShutdownWindow</name>
     <message>
+        <source>BlackHat Core is shutting down...</source>
+        <translation>BlackHat Core si sta spegnendo...</translation>
+    </message>
+    <message>
         <source>Do not shut down the computer until this window disappears.</source>
         <translation>Non spegnere il computer fino a quando questa finestra non scompare.</translation>
     </message>
@@ -3981,6 +4804,10 @@ Sei sicuro?
     <message>
         <source>Loading…</source>
         <translation>Caricamento...</translation>
+    </message>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
     </message>
 </context>
 <context>
@@ -4086,6 +4913,10 @@ sarà creato un nuovo un backup.
     <message>
         <source>Wallet unlock cancelled</source>
         <translation>Sblocco portafoglio è stato annullato.</translation>
+    </message>
+    <message>
+        <source>Tor Active: %1</source>
+        <translation>Tor Attivo: %1</translation>
     </message>
     <message>
         <source>Tor Disabled</source>
@@ -4514,6 +5345,12 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Seleziona la tua lingua</translation>
     </message>
     <message>
+        <source>Welcome to
+BlackHat Core Wallet</source>
+        <translation>Benvenuto in
+Portafoglio BlackHat Core.</translation>
+    </message>
+    <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
         <translation>BlackHat è la tecnologia basata su blockchain Proof of Stake più innovativa al mondo. Sviluppato da un team di sviluppatori e crittografi di grande esperienza.</translation>
     </message>
@@ -4541,16 +5378,188 @@ Selezionare meno ingressi con controllo coin.</translation>
 <context>
     <name>blkc-core</name>
     <message>
+        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
+        <translation>Consenti connessioni JSON-RPC dall'origine specificata. Valido per &lt;ip&gt; sono un singolo IP (ad es. 1.2.3.4), una rete / maschera di rete (ad es. 1.2.3.4/255.255.255.0) o una rete / CIDR (ad es. 1.2.3.4/24). Questa opzione può essere specificata più volte</translation>
+    </message>
+    <message>
+        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
+        <translation>Associa l'indirizzo specificato e ascoltalo sempre. Usa la notazione [host]:porta per IPv6</translation>
+    </message>
+    <message>
+        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
+        <translation>Associa a un indirizzo specificato e ai peer della whitelist che si connettono ad esso. Usa la notazione [host]:porta per IPv6</translation>
+    </message>
+    <message>
+        <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
+        <translation>Associa l'indirizzo indicato per ascoltare le connessioni JSON-RPC. Usa la notazione [host]:porta per IPv6. Questa opzione può essere specificata più volte (impostazione predefinita: associa a tutte le interfacce)</translation>
+    </message>
+    <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Impossibile allocare la directory di dati %s. Probabilmente BlackHat Core è già in esecuzione.</translation>
+    </message>
+    <message>
+        <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
+        <translation>Modifica il comportamento di votazione automatica del budget finalizzato. mode=auto: vota solo per la corrispondenza esatta del budget finalizzato al mio budget generato. (stringa, impostazione predefinita: auto)</translation>
+    </message>
+    <message>
+        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
+        <translation>Limita continuamente le transazioni gratuite a &lt;n&gt;* 1000 byte al minuto (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
+        <translation>Crea nuovi file con le autorizzazioni predefinite del sistema, invece di umask 077 (valido solo con funzionalità wallet disabilitata)</translation>
+    </message>
+    <message>
+        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
+        <translation>Elimina tutte le transazioni del portafoglio e recupera solo quelle parti della blockchain tramite -rescan all'avvio</translation>
+    </message>
+    <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
         <translation>Distribuito sotto la licenza del software MIT, consultare il file di accompagnamento COPYING o &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
+    </message>
+    <message>
+        <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
+        <translation>Abilita la funzionalità di cold staking (0-1, default: %u). Disabilitato se staking=0</translation>
+    </message>
+    <message>
+        <source>Enable spork administration functionality with the appropriate private key.</source>
+        <translation>Abilitare la funzionalità di amministrazione di spork con la chiave privata appropriata.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Entra nella modalità test di regressione, che utilizza una catena speciale in cui i blocchi possono essere risolti istantaneamente.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Errore: ascolto delle connessioni in entrata non riuscito (ascolto ha restituito errore %s)</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Errore: trovati argomenti non supportati. L'impostazione della versione di SOCKS non è più possibile, sono supportati solo i proxy SOCKS5.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>Escludere le informazioni di debug per una categoria. Può essere usato insieme con -debug=1 per produrre i log di debug per tutte le categorie tranne una o più categorie specificate.</translation>
+    </message>
+    <message>
+        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
+        <translation>Esegui comando quando viene ricevuto un avviso rilevante o viene visualizzato un fork molto lungo (%s in cmd viene sostituito dal messaggio)</translation>
+    </message>
+    <message>
+        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
+        <translation>Esegui comando quando cambia una transazione del portafoglio (%s in cmd è sostituito da TxID)</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
+        <translation>Esegui comando quando cambia il blocco migliore (%s in cmd è sostituito dall'hash del blocco)</translation>
+    </message>
+    <message>
+        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Svuota ogni volta l'attività del database dal pool di memoria al registro del disco &lt;n&gt; megabytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
+        <translation>Se paytxfee non è impostato, includere una commissione sufficiente in modo che le transazioni inizino la conferma in media entro n blocchi (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>In questa modalità -genproclimit controlla quanti blocchi vengono generati immediatamente.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
+        <translation>Importo non valido per -maxtxfee=&lt;amount&gt;: '%s' (deve essere almeno la commissione minima di %s per evitare transazioni bloccate)</translation>
+    </message>
+    <message>
+        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
+        <translation>Registra priorità transazione e tariffa per kB durante i blocchi di mining (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
+        <translation>Mantenere un indice di transazione completo, utilizzato dalla chiamata rpc getrawtransaction (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum average size of an index occurrence in the block spam filter (default: %u)</source>
+        <translation>Dimensione media massima di un'occorrenza di indice nel filtro antispam di blocco (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
+        <translation>Dimensione massima dei dati nelle transazioni del supporto dati che trasmettiamo e estraiamo (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum size of the list of indexes in the block spam filter (default: %u)</source>
+        <translation>Dimensione massima dell'elenco di indici nel filtro antispam di blocco (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
+        <translation>Le commissioni totali massime da utilizzare in una singola transazione, impostando un valore troppo basso, possono interrompere le transazioni di grandi dimensioni (valore predefinito: %s)</translation>
+    </message>
+    <message>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
+        <translation>Numero di secondi per impedire la riconnessione dei peer che si comportano male (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
+        <translation>Informazioni sul debug dell'output (impostazione predefinita: %u, fornitura &lt;category&gt; è opzionale)</translation>
+    </message>
+    <message>
+        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
+        <translation>Randomizza le credenziali per ogni connessione proxy. Ciò consente l'isolamento del flusso Tor (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
+        <translation>Richiedi alta priorità per l'inoltro di transazioni gratuite o a basso costo (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Send trace/debug info to console instead of debug.log file (default: %u)</source>
+        <translation>Invia informazioni di traccia / debug alla console anziché al file debug.log (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
+        <translation>Imposta la dimensione massima delle transazioni ad alta priorità / a basso costo in byte (impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
+        <translation>Imposta il numero di thread di verifica dello script (da %u a %d, 0 = auto, &lt;0 = lascia liberi molti core, impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
+        <translation>Imposta il numero di processi per la generazione di coin se abilitato (-1 = tutti i core, impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
+        <translation>Supporta il filtraggio di blocchi e transazioni con filtri bloom (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
         <translation>Il database dei blocchi contiene un blocco che sembra appartenere al futuro. Ciò potrebbe essere dovuto alla data e all'ora del computer impostate in modo errato. Ricostruire il database dei blocchi solo se si è certi che la data e l'ora del computer siano corrette</translation>
+    </message>
+    <message>
+        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
+        <translation>Questo prodotto include software sviluppato da OpenSSL Project per l'uso in OpenSSL Toolkit &lt;https://www.openssl.org/&gt; e software crittografico scritto da Eric Young e software UPnP scritto da Thomas Bernard.</translation>
+    </message>
+    <message>
+        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
+        <translation>La lunghezza totale della stringa della versione di rete (%i) supera la lunghezza massima (%i). Ridurre il numero o la dimensione degli uacomments.</translation>
+    </message>
+    <message>
+        <source>Unable to bind to %s on this computer. BlackHat Core is probably already running.</source>
+        <translation>Impossibile associare %s su questo computer. Probabilmente BlackHat Core è già in esecuzione.</translation>
+    </message>
+    <message>
+        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
+        <translation>Utilizza un proxy SOCKS5 separato per raggiungere i peer tramite i servizi nascosti Tor (impostazione predefinita: %s)</translation>
+    </message>
+    <message>
+        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
+        <translation>Attenzione: -maxtxfee è impostato molto alto! Commissioni così grandi potrebbero essere pagate su un'unica transazione.</translation>
+    </message>
+    <message>
+        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
+        <translation>Attenzione: -paytxfee è impostato molto alto! Questa è la commissione di transazione che dovrai pagare se invii una transazione.</translation>
+    </message>
+    <message>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
+        <translation>Avvertenza: verificare che la data e l'ora del computer siano corrette! Se l'orologio è sbagliato, BlackHat Core non funzionerà correttamente.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -4561,12 +5570,68 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Avvertenza: non sembra essere pienamente d'accordo con i nostri peers! Potrebbe essere necessario eseguire l'aggiornamento o potrebbe essere necessario aggiornare altri nodi.</translation>
     </message>
     <message>
+        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
+        <translation>Lista bianca dei peer che si connettono dalla maschera di rete o dall'indirizzo IP indicati. Può essere specificato più volte.</translation>
+    </message>
+    <message>
+        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
+        <translation>I peer autorizzati non possono essere esenti da DoS e le loro transazioni vengono sempre inoltrate, anche se sono già nel mempool, utile ad es. per un gateway</translation>
+    </message>
+    <message>
+        <source>(default: %s)</source>
+        <translation>(default: %s)</translation>
+    </message>
+    <message>
+        <source>Accept command line and JSON-RPC commands</source>
+        <translation>Accetta i comandi della riga di comando e JSON-RPC</translation>
+    </message>
+    <message>
+        <source>Accept public REST requests (default: %u)</source>
+        <translation>Accetta richieste REST pubbliche (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Add a node to connect to and attempt to keep the connection open</source>
+        <translation>Aggiungere un nodo a cui connettersi e tentare di mantenere aperta la connessione</translation>
+    </message>
+    <message>
+        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
+        <translation>Cerca sempre gli indirizzi peer tramite la ricerca DNS (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Append comment to the user agent string</source>
+        <translation>Aggiungi commento alla stringa del user agent</translation>
+    </message>
+    <message>
+        <source>Automatically create Tor hidden service (default: %d)</source>
+        <translation>Crea automaticamente servizio nascosto Tor (impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>Block creation options:</source>
+        <translation>Opzioni di creazione del blocco:</translation>
+    </message>
+    <message>
+        <source>Connect through SOCKS5 proxy</source>
+        <translation>Connetti tramite proxy SOCKS5</translation>
+    </message>
+    <message>
+        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
+        <translation>Connettersi a un nodo per recuperare gli indirizzi peer e disconnettersi</translation>
+    </message>
+    <message>
+        <source>Connection options:</source>
+        <translation>Opzioni di connessione:</translation>
+    </message>
+    <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
         <translation>Copyright (C) 2009-%i Gli sviluppatori di Bitcoin Core</translation>
     </message>
     <message>
         <source>Copyright (C) 2014-%i The Dash Core Developers</source>
         <translation>Copyright (C) 2014-%i Gli sviluppatori di Dash Core</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2015-%i The BlackHat Core Developers</source>
+        <translation>Copyright (C) 2015-%i Gli sviluppatori di BlackHat Core</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -4577,6 +5642,26 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Impossibile effettuare l'analisi del file masternode.conf</translation>
     </message>
     <message>
+        <source>Debugging/Testing options:</source>
+        <translation>Opzioni di debug / test:</translation>
+    </message>
+    <message>
+        <source>Delete blockchain folders and resync from scratch</source>
+        <translation>Elimina tutte le cartelle blockchain locali in modo che il portafoglio si sincronizzi da zero.</translation>
+    </message>
+    <message>
+        <source>Disable OS notifications for incoming transactions (default: %u)</source>
+        <translation>Disabilita le notifiche del sistema operativo per le transazioni in entrata (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
+        <translation>Scopri il tuo indirizzo IP (impostazione predefinita: 1 durante l'ascolto e no -externalip)</translation>
+    </message>
+    <message>
+        <source>Do not load the wallet and disable wallet RPC calls</source>
+        <translation>Non caricare il portafoglio e disabilitare le chiamate RPC del portafoglio</translation>
+    </message>
+    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Vuoi ricostruire il database dei blocchi ora?</translation>
     </message>
@@ -4585,12 +5670,12 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Caricamento completato</translation>
     </message>
     <message>
-        <source>Error initializing block database</source>
-        <translation>Errore durante l'inizializzazione del database dei blocchi</translation>
+        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
+        <translation>Abilita il client a fungere da Masternode (0-1, impostazione predefinita: %u)</translation>
     </message>
     <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation>Errore durante l'inizializzazione dell'ambiente del database del portafoglio %s!</translation>
+        <source>Error initializing block database</source>
+        <translation>Errore durante l'inizializzazione del database dei blocchi</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -4617,12 +5702,44 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Errore: lo spazio su disco è insufficiente!</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -tor found, use -onion.</source>
+        <translation>Errore: argomento non supportato -tor trovato, utilizzare -onion.</translation>
+    </message>
+    <message>
+        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
+        <translation>Impossibile ascoltare su qualsiasi porta. Usa -listen=0 se vuoi questo.</translation>
+    </message>
+    <message>
         <source>Failed to parse host:port string</source>
         <translation>Analisi dell'host non riuscita: stringa della porta</translation>
     </message>
     <message>
+        <source>Force safe mode (default: %u)</source>
+        <translation>Forza modalità provvisoria (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Generate coins (default: %u)</source>
+        <translation>Genera coin (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
+        <translation>Quanti blocchi verificare all'avvio (impostazione predefinita: %u, 0 = all)</translation>
+    </message>
+    <message>
+        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
+        <translation>Se &lt;category&gt; non viene fornito, restituisce tutte le informazioni di debug.</translation>
+    </message>
+    <message>
         <source>Importing...</source>
         <translation>Importazione...</translation>
+    </message>
+    <message>
+        <source>Imports blocks from external blk000??.dat file</source>
+        <translation>Importa i blocchi dal file esterno blk000???.dat</translation>
+    </message>
+    <message>
+        <source>Include IP addresses in debug output (default: %u)</source>
+        <translation>Includi indirizzi IP nell'output di debug (impostazione predefinita: %u)</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -4633,12 +5750,76 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Informazioni</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Verifica dell'integrità dell'inizializzazione non riuscita. BlackHat Core si sta spegnendo.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Fondi insufficienti.</translation>
     </message>
     <message>
+        <source>Invalid -onion address or hostname: '%s'</source>
+        <translation>Invalid -proxy address or hostname: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
+        <translation>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (deve essere almeno %s)</translation>
+    </message>
+    <message>
+        <source>Invalid netmask specified in -whitelist: '%s'</source>
+        <translation>Invalid netmask specificata in -whitelist: '%s'</translation>
+    </message>
+    <message>
         <source>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</source>
         <translation>Questa è una build di test pre-release - utilizzare a proprio rischio - non utilizzare per staking o applicazioni commerciali!</translation>
+    </message>
+    <message>
+        <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
+        <translation>Errore: argomento non supportato -checklevel trovato. Il livello di controllo deve essere di livello 4.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Esegui comando quando il blocco migliore cambia e la sua dimensione è finita (%s in cmd è sostituito dall'hash del blocco, %d con la dimensione del blocco)</translation>
+    </message>
+    <message>
+        <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
+        <translation>Specifica il percorso di backup personalizzato per aggiungere una copia di qualsiasi backup del portafoglio. Se impostato come dir, ogni backup genera un file con data e ora. Se impostato come file, riscriverà su quel file ogni backup.</translation>
+    </message>
+    <message>
+        <source>&lt;category&gt; can be:</source>
+        <translation>&lt;category&gt; può essere:</translation>
+    </message>
+    <message>
+        <source>Attempt to force blockchain corruption recovery</source>
+        <translation>Tentativo di forzare il ripristino della blockchain corrotta</translation>
+    </message>
+    <message>
+        <source>Display the stake modifier calculations in the debug.log file.</source>
+        <translation>Visualizza i calcoli del modificatore di stake nel file debug.log.</translation>
+    </message>
+    <message>
+        <source>Display verbose coin stake messages in the debug.log file.</source>
+        <translation>Visualizza dettagliatamente i messaggi di staking della coin nel file debug.log.</translation>
+    </message>
+    <message>
+        <source>Enable publish hash block in &lt;address&gt;</source>
+        <translation>Abilita pubblicazione hash block in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish hash transaction in &lt;address&gt;</source>
+        <translation>Abilita pubblicazione hash transazione in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw block in &lt;address&gt;</source>
+        <translation>Abilita pubblicazione raw block in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw transaction in &lt;address&gt;</source>
+        <translation>Abilita pubblicazione transazione raw in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable staking functionality (0-1, default: %u)</source>
+        <translation>Abilita la funzionalità di staking (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
@@ -4649,8 +5830,20 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Importo non valido per -%s=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
+        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
+        <translation>Conserva al massimo &lt;n&gt; transazioni non collegabili in memoria (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
         <source>Line: %d</source>
         <translation>Linea: %d</translation>
+    </message>
+    <message>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Ascolta le connessioni JSON-RPC su &lt;port&gt; (default: %u o testnet: %u)</translation>
+    </message>
+    <message>
+        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Ascolta le connessioni su &lt;port&gt; (default: %u or testnet: %u)</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -4685,24 +5878,136 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Caricamento portafoglio...</translation>
     </message>
     <message>
+        <source>Location of the auth cookie (default: data dir)</source>
+        <translation>Posizione del cookie di autenticazione (impostazione predefinita: directory dati)</translation>
+    </message>
+    <message>
+        <source>Lock masternodes from masternode configuration file (default: %u)</source>
+        <translation>Blocca i masternodes dal file di configurazione del masternode (default: %u)</translation>
+    </message>
+    <message>
+        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
+        <translation>Lookup(): Invalid -proxy address or hostname: '%s'</translation>
+    </message>
+    <message>
         <source>MNs synchronization pending...</source>
         <translation>Sincronizzazione MN in attesa...</translation>
+    </message>
+    <message>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
+        <translation>Conserva al massimo &lt;n&gt; connessioni ai peers (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Masternode options:</source>
+        <translation>Opzioni del Masternode:</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Buffer di ricezione massimo per connessione, &lt;n&gt;*1000 bytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Buffer di spedizione massimo per connessione, &lt;n&gt;*1000 bytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>Need to specify a port with -whitebind: '%s'</source>
+        <translation>È necessario specificare una porta con -whitebind: '%s'</translation>
+    </message>
+    <message>
+        <source>Node relay options:</source>
+        <translation>Opzioni di inoltro del nodo:</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
         <translation>Descrittori di file disponibili insufficienti.</translation>
     </message>
     <message>
+        <source>Number of custom location backups to retain (default: %d)</source>
+        <translation>Numero di backup di posizione personalizzati da conservare (impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>On first run, create a legacy wallet instead of a HD wallet</source>
+        <translation>Alla prima esecuzione, creare un portafoglio legacy invece di un portafoglio HD</translation>
+    </message>
+    <message>
+        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
+        <translation>Accetta solo checkpoint integrati corrispondenti alla catena di blocchi (impostazione predefinita: %u)</translation>
+    </message>
+    <message>
+        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
+        <translation>Connetti solo a nodi in rete &lt;net&gt; (ipv4, ipv6 o onion)</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Opzioni:</translation>
+    </message>
+    <message>
+        <source>Password for JSON-RPC connections</source>
+        <translation>Password per connessioni JSON-RPC</translation>
+    </message>
+    <message>
         <source>Peers are being disconnected due time differences.</source>
         <translation>I peers vengono scollegati a causa delle differenze di orario.</translation>
     </message>
     <message>
-        <source>Wallet %s resides outside data directory %s</source>
-        <translation>Il portafoglio %s risiede al di fuori della directory di dati %s</translation>
+        <source>Use block spam filter (default: %u)</source>
+        <translation>Usa il filtro antispam di blocco (default: %u)</translation>
+    </message>
+    <message>
+        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
+        <translation>isValid(): Invalid -proxy address or hostname: '%s'</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
         <translation>Preparazione per la risincronizzazione...</translation>
+    </message>
+    <message>
+        <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
+        <translation>Connetti solo al nodo/i specificato/i; -noconnect o -connect=0 da solo per disabilitare le connessioni automatiche</translation>
+    </message>
+    <message>
+        <source>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</source>
+        <translation>Non accettare transazioni se un antenato avrebbe &lt;n&gt; o più discendenti in-mempool (default: %u)</translation>
+    </message>
+    <message>
+        <source>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</source>
+        <translation>Non accettare transazioni se un antenato avrebbe più di &lt;n&gt; kilobyte di discendenti in-mempool (default: %u).</translation>
+    </message>
+    <message>
+        <source>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</source>
+        <translation>Non accettare transazioni se il numero di antenati in-mempool è &lt;n&gt; o superiore (default: %u)</translation>
+    </message>
+    <message>
+        <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
+        <translation>Non accettare transazioni la cui dimensione con tutti gli antenati in-mempool superi &lt;n&gt; kilobyte (default: %u)</translation>
+    </message>
+    <message>
+        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
+        <translation>Non tenere le transazioni nel mempool per più di &lt;n&gt; ore (default: %u)</translation>
+    </message>
+    <message>
+        <source>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
+        <translation>Fee (in %s/Kb) inferiori a questa sono considerate pari a zero per la ritrasmissione, il mining e la creazione di transazioni  (default: %s)</translation>
+    </message>
+    <message>
+        <source>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Le commissioni (in %s/Kb) inferiori a questa sono considerate zero per la creazione della transazione (default: %s)</translation>
+    </message>
+    <message>
+        <source>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</source>
+        <translation>Importo positivo minimo (in BLKC) consentito da GUI e RPC per la soglia di ripartizione della partecipazione (default: %s)</translation>
+    </message>
+    <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
+        <translation>Verificare che la data e l'ora del computer siano corrette! Se l'orologio sincronizzato, BlackHat Core non funzionerà correttamente.</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
+        <translation>Richiesta di indirizzi peer tramite la ricerca DNS, se gli indirizzi sono pochi (default: 1 unless -connect/-noconnect)</translation>
+    </message>
+    <message>
+        <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
+        <translation>Specificare la posizione del log file di debug: può essere un percorso assoluto o un percorso relativo alla directory dei dati (default: %s)</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -4717,6 +6022,10 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Masternode Attivo non inizializzato.</translation>
     </message>
     <message>
+        <source>Allows deprecated RPC method(s) to be used</source>
+        <translation>Consenti l'utilizzo di metodi RPC deprecati</translation>
+    </message>
+    <message>
         <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
         <translation>Non è possibile generare una chiave di cambio indirizzo. Si prega di chiamare prima keypoolrefill.</translation>
     </message>
@@ -4729,10 +6038,22 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Indice di variazione fuori range</translation>
     </message>
     <message>
+        <source>Error: -listen must be true if -masternode is set.</source>
+        <translation>Errore: -listen deve essere vero se -masternode è impostato.</translation>
+    </message>
+    <message>
+        <source>Error: -maxmempool must be at least %d MB</source>
+        <translation>Errore: -maxmempool deve essere almeno %d MB</translation>
+    </message>
+    <message>
         <source>Failed to accept tx in the memory pool (reason: %s)
 </source>
         <translation>Impossibile accettare tx nel memory pool (reason: %s)
 </translation>
+    </message>
+    <message>
+        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
+        <translation>Fee (in %s/kB) per aggiungere alle transazioni che invii (default: %s)</translation>
     </message>
     <message>
         <source>Invalid -masternodeaddr address: %s</source>
@@ -4751,20 +6072,152 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Errore di stato non valido.</translation>
     </message>
     <message>
+        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Mantenere il memory pool delle transazioni al di sotto &lt;n&gt; megabyte (default: %u)</translation>
+    </message>
+    <message>
         <source>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</source>
         <translation>Keypool si è esaurito, si prega di chiamare keypoolrefill prima, o sbloccare il portafoglio.</translation>
+    </message>
+    <message>
+        <source>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</source>
+        <translation>Limita la dimensione della cache delle firma a &lt;n&gt; MiB (default: %u)</translation>
     </message>
     <message>
         <source>No error</source>
         <translation>Nessun errore</translation>
     </message>
     <message>
+        <source>Prepend debug output with timestamp (default: %u)</source>
+        <translation>Prepara l'output di debug con data / ora (default: %u)</translation>
+    </message>
+    <message>
+        <source>Print version and exit</source>
+        <translation>Stampa versione e esci</translation>
+    </message>
+    <message>
+        <source>RPC server options:</source>
+        <translation>Opzioni del server RPC:</translation>
+    </message>
+    <message>
+        <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
+        <translation>Rilascia a caso 1 di ogni &lt;n&gt; messaggi di rete</translation>
+    </message>
+    <message>
+        <source>Randomly fuzz 1 of every &lt;n&gt; network messages</source>
+        <translation>Rilascia a caso 1 di ogni &lt;n&gt; messaggi di rete</translation>
+    </message>
+    <message>
+        <source>Rebuild block chain index from current blk000??.dat files</source>
+        <translation>Ricostruisce l'indice della blockchain dai file blk000??.dat corrente.</translation>
+    </message>
+    <message>
+        <source>Relay and mine data carrier transactions (default: %u)</source>
+        <translation>Transazioni e operazioni di estrazione dati da mining (default: %u)</translation>
+    </message>
+    <message>
+        <source>Relay non-P2SH multisig (default: %u)</source>
+        <translation>Inoltra non-P2SH multisig (default: %u)</translation>
+    </message>
+    <message>
+        <source>Rescan the block chain for missing wallet transactions</source>
+        <translation>Riesegui la scansione della blockchain per cercare le transazioni mancanti.</translation>
+    </message>
+    <message>
         <source>Rescanning...</source>
         <translation>Scansiona nuovamente...</translation>
     </message>
     <message>
+        <source>Run a thread to flush wallet periodically (default: %u)</source>
+        <translation>Esegui un thread per scaricare periodicamente il portafoglio (default: %u)</translation>
+    </message>
+    <message>
+        <source>Run in the background as a daemon and accept commands</source>
+        <translation>Esegui in background come demone e accetta comandi</translation>
+    </message>
+    <message>
+        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
+        <translation>Imposta la dimensione della cache del database in megabyte (%d a %d, default: %d)</translation>
+    </message>
+    <message>
+        <source>Set external address:port to get to this masternode (example: %s)</source>
+        <translation>Imposta indirizzo esterno:porta per arrivare a questo nodo principale (esempio: %s)</translation>
+    </message>
+    <message>
+        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
+        <translation>Impostare la dimensione del pool di chiavi su&lt;n&gt; (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set maximum block size in bytes (default: %d)</source>
+        <translation>Imposta la dimensione massima del blocco in byte (default: %d)</translation>
+    </message>
+    <message>
+        <source>Set minimum block size in bytes (default: %u)</source>
+        <translation>Imposta la dimensione minima del blocco in byte (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set the Maximum reorg depth (default: %u)</source>
+        <translation>Imposta la profondità massima del reorg (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set the masternode private key</source>
+        <translation>Impostare la chiave privata del Masternode</translation>
+    </message>
+    <message>
+        <source>Set the number of threads to service RPC calls (default: %d)</source>
+        <translation>Imposta il numero di thread per servire le chiamate RPC (default: %d)</translation>
+    </message>
+    <message>
+        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
+        <translation>Imposta il flag DB_PRIVATE nell'ambiente db del portafoglio (default: %u)</translation>
+    </message>
+    <message>
+        <source>Show all debugging options (usage: --help -help-debug)</source>
+        <translation>Mostra tutte le opzioni di debug (uso: --help -help-debug)</translation>
+    </message>
+    <message>
+        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
+        <translation>Riduci il file debug.log all'avvio del client (impostazione predefinita: 1 se non -debug)</translation>
+    </message>
+    <message>
         <source>Signing transaction failed</source>
         <translation>Firma della transazione non riuscita</translation>
+    </message>
+    <message>
+        <source>Specify configuration file (default: %s)</source>
+        <translation>Specificare il file di configurazione (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
+        <translation>Specifica il timeout della connessione in millisecondi (minimo: 1, impostazione predefinita: %d)</translation>
+    </message>
+    <message>
+        <source>Specify data directory</source>
+        <translation>Specifica la directory dei dati</translation>
+    </message>
+    <message>
+        <source>Specify masternode configuration file (default: %s)</source>
+        <translation>Specificare il file di configurazione del Masternode (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: %s)</source>
+        <translation>Specifica il file pid (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify wallet file (within data directory)</source>
+        <translation>Specifica il file del portafoglio (all'interno della directory dei dati)</translation>
+    </message>
+    <message>
+        <source>Specify your own public address</source>
+        <translation>Specifica il tuo indirizzo pubblico</translation>
+    </message>
+    <message>
+        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
+        <translation>Spendi modifiche non confermate quando invii transazioni (default: %u)</translation>
+    </message>
+    <message>
+        <source>Stop running after importing blocks from disk (default: %u)</source>
+        <translation>Interrompere l'esecuzione dopo l'importazione di blocchi dal disco (default: %u)</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
@@ -4795,8 +6248,16 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Il valore di soglia non può essere inferiore a %s</translation>
     </message>
     <message>
+        <source>This help message</source>
+        <translation>Questo messaggio di aiuto</translation>
+    </message>
+    <message>
         <source>This is experimental software.</source>
         <translation>Questo è un software sperimentale.</translation>
+    </message>
+    <message>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>Questo è destinato agli strumenti di test di regressione e allo sviluppo di app.</translation>
     </message>
     <message>
         <source>This is not a masternode. 'local' option disabled.</source>
@@ -4805,6 +6266,18 @@ Selezionare meno ingressi con controllo coin.</translation>
     <message>
         <source>This is not a masternode.</source>
         <translation>Questo non è un masternode.</translation>
+    </message>
+    <message>
+        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
+        <translation>Soglia per disconnettere peer che si comportano in modo inappropriato (default: %u)</translation>
+    </message>
+    <message>
+        <source>Tor control port password (default: empty)</source>
+        <translation>Password della porta di controllo Tor (impostazione predefinita: vuota)</translation>
+    </message>
+    <message>
+        <source>Tor control port to use if onion listening enabled (default: %s)</source>
+        <translation>Porta di controllo Tor da utilizzare se l'ascolto onion è abilitato (default: %s)</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -4843,16 +6316,52 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Impossibile avviare il server HTTP. Vedi il registro di debug per i dettagli.</translation>
     </message>
     <message>
+        <source>Unknown network specified in -onlynet: '%s'</source>
+        <translation>Rete sconosciuta specificata in -onlynet: '%s'</translation>
+    </message>
+    <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation>Categoria di accesso non supportata %s=%s.</translation>
+    </message>
+    <message>
+        <source>Upgrade wallet to latest format</source>
+        <translation>Aggiorna all'ultimo formato del portafoglio </translation>
+    </message>
+    <message>
+        <source>Use UPnP to map the listening port (default: %u)</source>
+        <translation>Utilizzare UPnP per mappare la porta di ascolto (default: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Usa la rete di test</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation>Il commento del User Agent (%s) contiene caratteri non sicuri.</translation>
     </message>
     <message>
+        <source>Username for JSON-RPC connections</source>
+        <translation>Nome utente per connessioni JSON-RPC</translation>
+    </message>
+    <message>
         <source>Verifying blocks...</source>
         <translation>Verifica dei blocchi...</translation>
+    </message>
+    <message>
+        <source>Verifying wallet...</source>
+        <translation>Verifica del portafoglio...</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart BlackHat Core to complete</source>
+        <translation>Il portafoglio doveva essere riscritto: riavviare BlackHat Core per completare</translation>
+    </message>
+    <message>
+        <source>Wallet options:</source>
+        <translation>Opzioni del portafoglio:</translation>
+    </message>
+    <message>
+        <source>Wallet window title</source>
+        <translation>Titolo della finestra del portafoglio</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -4863,8 +6372,28 @@ Selezionare meno ingressi con controllo coin.</translation>
         <translation>Attenzione: questa versione è obsoleta, è necessario l'aggiornamento!</translation>
     </message>
     <message>
+        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
+        <translation>Avvertenza: argomento non supportato -benchmark ignorato, utilizzare -debug=bench.</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
+        <translation>Avvertenza: argomento non supportato -debugnet ignorato, utilizzare -debug=net.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>È necessario ricostruire il database utilizzando -reindex per modificare -txindex</translation>
+    </message>
+    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Zapping di tutte le transazioni dal portafoglio...</translation>
+    </message>
+    <message>
+        <source>ZeroMQ notification options:</source>
+        <translation>Opzioni di notifica ZeroMQ:</translation>
+    </message>
+    <message>
+        <source>on startup</source>
+        <translation>all'avvio</translation>
     </message>
 </context>
 <context>
@@ -4876,6 +6405,10 @@ Selezionare meno ingressi con controllo coin.</translation>
     <message>
         <source>Send</source>
         <translation>Invia</translation>
+    </message>
+    <message>
+        <source>BlackHat address or contact label</source>
+        <translation>Indirizzo BlackHat o etichetta contatto</translation>
     </message>
     <message>
         <source>Amount</source>

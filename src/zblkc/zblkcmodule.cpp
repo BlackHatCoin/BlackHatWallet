@@ -9,7 +9,6 @@
 #include "libzerocoin/Commitment.h"
 #include "libzerocoin/Coin.h"
 #include "validation.h"
-#include "zblkcchain.h"
 
 template <typename Stream>
 PublicCoinSpend::PublicCoinSpend(libzerocoin::ZerocoinParams* params, Stream& strm): pubCoin(params) {
@@ -94,6 +93,56 @@ const uint256 PublicCoinSpend::signatureHash() const
     return h.GetHash();
 }
 
+// 6 comes from OPCODE (1) + vch.size() (1) + BIGNUM size (4)
+#define SCRIPT_OFFSET 6
+
+static bool TxOutToPublicCoin(const CTxOut& txout, libzerocoin::PublicCoin& pubCoin, CValidationState& state)
+{
+    CBigNum publicZerocoin;
+    std::vector<unsigned char> vchZeroMint;
+    vchZeroMint.insert(vchZeroMint.end(), txout.scriptPubKey.begin() + SCRIPT_OFFSET,
+                       txout.scriptPubKey.begin() + txout.scriptPubKey.size());
+    publicZerocoin.setvch(vchZeroMint);
+
+    libzerocoin::CoinDenomination denomination = libzerocoin::AmountToZerocoinDenomination(txout.nValue);
+    LogPrint(BCLog::LEGACYZC, "%s : denomination %d for pubcoin %s\n", __func__, denomination, publicZerocoin.GetHex());
+    if (denomination == libzerocoin::ZQ_ERROR)
+        return state.DoS(100, error("%s: txout.nValue is not correct", __func__));
+
+    libzerocoin::PublicCoin checkPubCoin(Params().GetConsensus().Zerocoin_Params(false), publicZerocoin, denomination);
+    pubCoin = checkPubCoin;
+
+    return true;
+}
+
+// TODO: do not create g_coinspends_cache if the node passed the last zc checkpoint.
+class CoinSpendCache {
+private:
+    mutable Mutex cs;
+    std::map<CScript, libzerocoin::CoinSpend> cache_coinspend;
+    std::map<CScript, PublicCoinSpend> cache_public_coinspend;
+
+    template<typename T>
+    Optional<T> Get(const CScript& in, const std::map<CScript, T>& map) const {
+        LOCK(cs);
+        auto it = map.find(in);
+        return it != map.end() ? Optional<T>{it->second} : nullopt;
+    }
+
+public:
+    void Add(const CScript& in, libzerocoin::CoinSpend& spend) { WITH_LOCK(cs, cache_coinspend.emplace(in, spend)); }
+    void AddPub(const CScript& in, PublicCoinSpend& spend) { WITH_LOCK(cs, cache_public_coinspend.emplace(in, spend)); }
+
+    Optional<libzerocoin::CoinSpend> Get(const CScript& in) const { return Get<libzerocoin::CoinSpend>(in, cache_coinspend); }
+    Optional<PublicCoinSpend> GetPub(const CScript& in) const { return Get<PublicCoinSpend>(in, cache_public_coinspend); }
+    void Clear() {
+        LOCK(cs);
+        cache_coinspend.clear();
+        cache_public_coinspend.clear();
+    }
+};
+std::unique_ptr<CoinSpendCache> g_coinspends_cache = std::make_unique<CoinSpendCache>();
+
 namespace ZBLKCModule {
 
     // Return stream of CoinSpend from tx input scriptsig
@@ -114,6 +163,11 @@ namespace ZBLKCModule {
     }
 
     bool parseCoinSpend(const CTxIn &in, const CTransaction &tx, const CTxOut &prevOut, PublicCoinSpend &publicCoinSpend) {
+        if (auto op = g_coinspends_cache->GetPub(in.scriptSig)) {
+            publicCoinSpend = *op;
+            return true;
+        }
+
         if (!in.IsZerocoinPublicSpend() || !prevOut.IsZerocoinMint())
             return error("%s: invalid argument/s", __func__);
 
@@ -131,7 +185,17 @@ namespace ZBLKCModule {
 
         spend.setDenom(spend.pubCoin.getDenomination());
         publicCoinSpend = spend;
+        g_coinspends_cache->AddPub(in.scriptSig, publicCoinSpend);
         return true;
+    }
+
+    libzerocoin::CoinSpend TxInToZerocoinSpend(const CTxIn& txin)
+    {
+        if (auto op = g_coinspends_cache->Get(txin.scriptSig)) return *op;
+        CDataStream serializedCoinSpend = ScriptSigToSerializedSpend(txin.scriptSig);
+        libzerocoin::CoinSpend spend(serializedCoinSpend);
+        g_coinspends_cache->Add(txin.scriptSig, spend);
+        return spend;
     }
 
     bool validateInput(const CTxIn &in, const CTxOut &prevOut, const CTransaction &tx, PublicCoinSpend &publicSpend) {
@@ -158,5 +222,10 @@ namespace ZBLKCModule {
                                        tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zblkc");
         }
         return true;
+    }
+
+    void CleanCoinSpendsCache()
+    {
+        g_coinspends_cache->Clear();
     }
 }

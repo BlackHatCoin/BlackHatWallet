@@ -23,6 +23,8 @@
 
 #include <boost/signals2/signal.hpp>
 #include <boost/thread.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 #include <memory> // for unique_ptr
 #include <unordered_map>
@@ -136,16 +138,12 @@ UniValue ValueFromAmount(const CAmount& amount)
 
 uint256 ParseHashV(const UniValue& v, std::string strName)
 {
-    std::string strHex;
-    if (v.isStr())
-        strHex = v.get_str();
+    std::string strHex(v.get_str());
+    if (64 != strHex.length())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("%s must be of length %d (not %d, for '%s')", strName, 64, strHex.length(), strHex));
     if (!IsHex(strHex)) // Note: IsHex("") is false
         throw JSONRPCError(RPC_INVALID_PARAMETER, strName + " must be hexadecimal string (not '" + strHex + "')");
-    if (64 != strHex.length())
-        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("%s must be of length %d (not %d)", strName, 64, strHex.length()));
-    uint256 result;
-    result.SetHex(strHex);
-    return result;
+    return uint256S(strHex);
 }
 uint256 ParseHashO(const UniValue& o, std::string strKey)
 {
@@ -172,6 +170,15 @@ int ParseInt(const UniValue& o, std::string strKey)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, " + strKey + "is not an int");
 
     return v.get_int();
+}
+
+double ParseDoubleV(const UniValue& v, const std::string &strName)
+{
+    std::string strNum = v.getValStr();
+    double num;
+    if (!ParseDouble(strNum, &num))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be a be number (not '"+strNum+"')");
+    return num;
 }
 
 bool ParseBool(const UniValue& o, std::string strKey)
@@ -446,8 +453,16 @@ static inline JSONRPCRequest transformNamedArguments(const JSONRPCRequest& in, c
     }
     // Process expected parameters.
     int hole = 0;
-    for (const std::string &argName: argNames) {
-        auto fr = argsIn.find(argName);
+    for (const std::string &argNamePattern: argNames) {
+        std::vector<std::string> vargNames;
+        boost::algorithm::split(vargNames, argNamePattern, boost::algorithm::is_any_of("|"));
+        auto fr = argsIn.end();
+        for (const std::string & argName : vargNames) {
+            fr = argsIn.find(argName);
+            if (fr != argsIn.end()) {
+                break;
+            }
+        }
         if (fr != argsIn.end()) {
             for (int i = 0; i < hole; ++i) {
                 // Fill hole between specified parameters with JSON nulls,

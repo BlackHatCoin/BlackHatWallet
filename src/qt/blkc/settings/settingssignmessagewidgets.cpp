@@ -14,8 +14,6 @@
 #include "qt/walletmodel.h"
 #include "util/validation.h"
 
-#include "messagesigner.h"
-
 #include <string>
 #include <vector>
 

@@ -21,9 +21,7 @@ class KeyPoolTest(BlackHatTestFramework):
         nodes[0].validateaddress(addr_before_encrypting)
 
         # Encrypt wallet and wait to terminate
-        nodes[0].node_encrypt_wallet('test')
-        # Restart node 0
-        self.start_node(0, self.extra_args[0])
+        nodes[0].encryptwallet('test')
         # Keep creating keys
         addr = nodes[0].getnewaddress()
         nodes[0].validateaddress(addr)

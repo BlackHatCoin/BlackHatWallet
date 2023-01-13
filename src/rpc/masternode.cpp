@@ -9,10 +9,10 @@
 #include "evo/deterministicmns.h"
 #include "key_io.h"
 #include "masternode-payments.h"
-#include "masternode-sync.h"
 #include "masternodeconfig.h"
 #include "masternodeman.h"
 #include "netbase.h"
+#include "tiertwo/tiertwo_sync_state.h"
 #include "rpc/server.h"
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
@@ -22,6 +22,23 @@
 #include <univalue.h>
 
 #include <boost/tokenizer.hpp>
+
+// Duplicated from rpcevo.cpp for the compatibility phase. Remove after v6
+static UniValue DmnToJson(const CDeterministicMNCPtr dmn)
+{
+    UniValue ret(UniValue::VOBJ);
+    dmn->ToJson(ret);
+    Coin coin;
+    if (!WITH_LOCK(cs_main, return pcoinsTip->GetUTXOCoin(dmn->collateralOutpoint, coin); )) {
+        return ret;
+    }
+    CTxDestination dest;
+    if (!ExtractDestination(coin.out.scriptPubKey, dest)) {
+        return ret;
+    }
+    ret.pushKV("collateralAddress", EncodeDestination(dest));
+    return ret;
+}
 
 UniValue mnping(const JSONRPCRequest& request)
 {
@@ -56,40 +73,44 @@ UniValue mnping(const JSONRPCRequest& request)
 
 UniValue initmasternode(const JSONRPCRequest& request)
 {
-    if (request.fHelp || (request.params.size() < 2|| request.params.size() > 3)) {
+    if (request.fHelp || (request.params.size() < 1 || request.params.size() > 2)) {
         throw std::runtime_error(
-                "initmasternode ( \"privkey\" \"address\" deterministic )\n"
+                "initmasternode \"privkey\" ( \"address\" )\n"
                 "\nInitialize masternode on demand if it's not already initialized.\n"
                 "\nArguments:\n"
                 "1. privkey          (string, required) The masternode private key.\n"
-                "2. address          (string, required) The IP:Port of this masternode.\n"
-                "3. deterministic    (boolean, optional, default=false) Init as DMN.\n"
+                "2. address          (string, optional) The IP:Port of the masternode. (Only needed for legacy masternodes)\n"
 
                 "\nResult:\n"
-                " success                      (string) if the masternode initialization succeeded.\n"
+                " success            (string) if the masternode initialization succeeded.\n"
 
                 "\nExamples:\n" +
                 HelpExampleCli("initmasternode", "\"9247iC59poZmqBYt9iDh9wDam6v9S1rW5XekjLGyPnDhrDkP4AK\" \"187.24.32.124:7147\"") +
-                HelpExampleRpc("initmasternode", "\"9247iC59poZmqBYt9iDh9wDam6v9S1rW5XekjLGyPnDhrDkP4AK\" \"187.24.32.124:7147\""));
+                HelpExampleRpc("initmasternode", "\"bls-sk1xye8es37kk7y2mz7mad6yz7fdygttexqwhypa0u86hzw2crqgxfqy29ajm\""));
     }
 
     std::string _strMasterNodePrivKey = request.params[0].get_str();
-    std::string _strMasterNodeAddr = request.params[1].get_str();
-    bool fDeterministic = request.params.size() > 2 && request.params[2].get_bool();
-    if (fDeterministic) {
+    if (_strMasterNodePrivKey.empty()) throw JSONRPCError(RPC_INVALID_PARAMETER, "Masternode key cannot be empty.");
+
+    const auto& params = Params();
+    bool isDeterministic = _strMasterNodePrivKey.find(params.Bech32HRP(CChainParams::BLS_SECRET_KEY)) != std::string::npos;
+    if (isDeterministic) {
         if (!activeMasternodeManager) {
             activeMasternodeManager = new CActiveDeterministicMasternodeManager();
             RegisterValidationInterface(activeMasternodeManager);
         }
         auto res = activeMasternodeManager->SetOperatorKey(_strMasterNodePrivKey);
         if (!res) throw std::runtime_error(res.getError());
-        activeMasternodeManager->Init();
+        const CBlockIndex* pindexTip = WITH_LOCK(cs_main, return chainActive.Tip(); );
+        activeMasternodeManager->Init(pindexTip);
         if (activeMasternodeManager->GetState() == CActiveDeterministicMasternodeManager::MASTERNODE_ERROR) {
             throw std::runtime_error(activeMasternodeManager->GetStatus());
         }
         return "success";
     }
     // legacy
+    if (request.params.size() < 2) throw JSONRPCError(RPC_INVALID_PARAMETER, "Must specify the IP address for legacy mn");
+    std::string _strMasterNodeAddr = request.params[1].get_str();
     auto res = initMasternode(_strMasterNodePrivKey, _strMasterNodeAddr, false);
     if (!res) throw std::runtime_error(res.getError());
     return "success";
@@ -176,8 +197,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
     if (deterministicMNManager->LegacyMNObsolete()) {
         auto mnList = deterministicMNManager->GetListAtChainTip();
         mnList.ForEachMN(false, [&](const CDeterministicMNCPtr& dmn) {
-            UniValue obj(UniValue::VOBJ);
-            dmn->ToJson(obj);
+            UniValue obj = DmnToJson(dmn);
             if (filterMasternode(obj, strFilter, !dmn->IsPoSeBanned())) {
                 ret.push_back(obj);
             }
@@ -202,8 +222,7 @@ UniValue listmasternodes(const JSONRPCRequest& request)
             // Deterministic masternode
             auto dmn = mnList.GetMNByCollateral(mn.vin.prevout);
             if (dmn) {
-                UniValue obj(UniValue::VOBJ);
-                dmn->ToJson(obj);
+                UniValue obj = DmnToJson(dmn);
                 bool fEnabled = !dmn->IsPoSeBanned();
                 if (filterMasternode(obj, strFilter, fEnabled)) {
                     // Added for backward compatibility with legacy masternodes
@@ -463,8 +482,8 @@ UniValue startmasternode(const JSONRPCRequest& request)
 
     if (strCommand == "all" || strCommand == "many" || strCommand == "missing" || strCommand == "disabled") {
         if ((strCommand == "missing" || strCommand == "disabled") &&
-            (masternodeSync.RequestedMasternodeAssets <= MASTERNODE_SYNC_LIST ||
-                masternodeSync.RequestedMasternodeAssets == MASTERNODE_SYNC_FAILED)) {
+            (g_tiertwo_sync_state.GetSyncPhase() <= MASTERNODE_SYNC_LIST ||
+                    g_tiertwo_sync_state.GetSyncPhase() == MASTERNODE_SYNC_FAILED)) {
             throw std::runtime_error("You can't use this command until masternode list is synced\n");
         }
 

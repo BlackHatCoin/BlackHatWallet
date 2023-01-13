@@ -11,8 +11,10 @@
 #include "wallet/rpcwallet.h"
 #include "wallet/wallet.h"
 
-WalletTestingSetup::WalletTestingSetup(const std::string& chainName):
-        SaplingTestingSetup(chainName), m_wallet("mock", WalletDatabase::CreateMock())
+WalletTestingSetupBase::WalletTestingSetupBase(const std::string& chainName,
+                                               const std::string& wallet_name,
+                                               std::unique_ptr<WalletDatabase> db) :
+        SaplingTestingSetup(chainName), m_wallet(wallet_name, std::move(db))
 {
     bool fFirstRun;
     m_wallet.LoadWallet(fFirstRun);
@@ -21,7 +23,10 @@ WalletTestingSetup::WalletTestingSetup(const std::string& chainName):
     RegisterWalletRPCCommands(tableRPC);
 }
 
-WalletTestingSetup::~WalletTestingSetup()
+WalletTestingSetupBase::~WalletTestingSetupBase()
 {
     UnregisterValidationInterface(&m_wallet);
 }
+
+WalletTestingSetup::WalletTestingSetup(const std::string& chainName) :
+        WalletTestingSetupBase(chainName, "mock", WalletDatabase::CreateMock()) {}

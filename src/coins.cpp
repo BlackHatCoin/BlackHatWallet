@@ -7,7 +7,6 @@
 #include "coins.h"
 
 #include "consensus/consensus.h"
-#include "policy/fees.h"
 #include "invalid.h"
 #include "logging.h"
 #include "random.h"
@@ -581,4 +580,9 @@ bool CCoinsViewCache::HaveShieldedRequirements(const CTransaction& tx) const
     }
 
     return true;
+}
+
+bool CCoinsViewCache::GetUTXOCoin(const COutPoint& outpoint, Coin& coin) const
+{
+    return GetCoin(outpoint, coin) && !coin.IsSpent();
 }

@@ -177,13 +177,17 @@ void RPCConsole::setClientModel(ClientModel* model)
     ui->trafficGraph->setClientModel(model);
     if (model && clientModel->getPeerTableModel() && clientModel->getBanTableModel()) {
         // Keep up to date with client
-        setNumConnections(model->getNumConnections());
+        int num_connections = model->getNumConnections();
+        setNumConnections(num_connections);
         connect(model, &ClientModel::numConnectionsChanged, this, &RPCConsole::setNumConnections);
 
         setNumBlocks(model->getNumBlocks());
         connect(model, &ClientModel::numBlocksChanged, this, &RPCConsole::setNumBlocks);
 
         connect(model, &ClientModel::strMasternodesChanged, this, &RPCConsole::setMasternodeCount);
+
+        updateNetworkState(num_connections);
+        connect(model, &ClientModel::networkActiveChanged, this, &RPCConsole::setNetworkActive);
 
         updateTrafficStats(model->getTotalBytesRecv(), model->getTotalBytesSent());
         connect(model, &ClientModel::bytesChanged, this, &RPCConsole::updateTrafficStats);
@@ -437,16 +441,35 @@ void RPCConsole::message(int category, const QString& message, bool html)
     ui->messagesWidget->append(out);
 }
 
+void RPCConsole::updateNetworkState(int numConnections)
+{
+    bool netActivityState = clientModel->getNetworkActive();
+    QString connections;
+    if (!netActivityState && numConnections == 0) {
+        connections = tr("Network activity disabled");
+    } else {
+        connections = QString::number(numConnections) + " (";
+        connections += tr("In:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_IN)) + " / ";
+        connections += tr("Out:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_OUT)) + ")";
+        if(!netActivityState) {
+            connections += " " + tr("Network activity disabled");
+        }
+    }
+    ui->numberOfConnections->setText(connections);
+}
+
 void RPCConsole::setNumConnections(int count)
 {
     if (!clientModel)
         return;
 
-    QString connections = QString::number(count) + " (";
-    connections += tr("In:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_IN)) + " / ";
-    connections += tr("Out:") + " " + QString::number(clientModel->getNumConnections(CONNECTIONS_OUT)) + ")";
+    updateNetworkState(count);
+}
 
-    ui->numberOfConnections->setText(connections);
+void RPCConsole::setNetworkActive(bool networkActive)
+{
+    if (!clientModel) return;
+    updateNetworkState(clientModel->getNumConnections());
 }
 
 void RPCConsole::setNumBlocks(int count)
@@ -836,4 +859,3 @@ void RPCConsole::showOrHideBanTableIfRequired()
     ui->banlistWidget->setVisible(visible);
     ui->banHeading->setVisible(visible);
 }
-

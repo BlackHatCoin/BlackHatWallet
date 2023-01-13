@@ -16,12 +16,11 @@
 #include "clientmodel.h"
 #include "qt/guiutil.h"
 #include "optionsmodel.h"
-#include "qt/platformstyle.h"
 #include "walletmodel.h"
 #include "addresstablemodel.h"
 
-#include "masternode-sync.h"
-#include "wallet/wallet.h"
+#include "masternode-sync.h" // for MASTERNODE_SYNC_THRESHOLD
+#include "tiertwo/tiertwo_sync_state.h"
 
 #include <QPixmap>
 
@@ -422,6 +421,7 @@ void TopBar::loadClientModel()
 
         setNumBlocks(clientModel->getNumBlocks());
         connect(clientModel, &ClientModel::numBlocksChanged, this, &TopBar::setNumBlocks);
+        connect(clientModel, &ClientModel::networkActiveChanged, this, &TopBar::setNetworkActive);
 
         timerStakingIcon = new QTimer(ui->pushButtonStack);
         connect(timerStakingIcon, &QTimer::timeout, this, &TopBar::updateStakingStatus);
@@ -468,6 +468,18 @@ void TopBar::setNumConnections(int count)
     ui->pushButtonConnection->setButtonText(tr("%n active connection(s)", "", count));
 }
 
+void TopBar::setNetworkActive(bool active)
+{
+    if (!active) {
+        ui->pushButtonSync->setButtonText(tr("Network activity disabled"));
+        ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync-inactive", true);
+    } else {
+        if (!clientModel) return;
+        setNumBlocks(clientModel->getLastBlockProcessedHeight());
+        ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync", true);
+    }
+}
+
 void TopBar::setNumBlocks(int count)
 {
     if (!clientModel)
@@ -475,10 +487,10 @@ void TopBar::setNumBlocks(int count)
 
     std::string text;
     bool needState = true;
-    if (masternodeSync.IsBlockchainSyncedReadOnly()) {
+    if (g_tiertwo_sync_state.IsBlockchainSynced()) {
         // chain synced
         Q_EMIT walletSynced(true);
-        if (masternodeSync.IsSynced()) {
+        if (g_tiertwo_sync_state.IsSynced()) {
             // Node synced
             ui->pushButtonSync->setButtonText(tr("Synchronized - Block: %1").arg(QString::number(count)));
             progressBar->setRange(0, 100);
@@ -488,10 +500,11 @@ void TopBar::setNumBlocks(int count)
         } else {
 
             // TODO: Show out of sync warning
+            int RequestedMasternodeAssets = g_tiertwo_sync_state.GetSyncPhase();
             int nAttempt = masternodeSync.RequestedMasternodeAttempt < MASTERNODE_SYNC_THRESHOLD ?
-                       masternodeSync.RequestedMasternodeAttempt + 1 :
-                       MASTERNODE_SYNC_THRESHOLD;
-            int progress = nAttempt + (masternodeSync.RequestedMasternodeAssets - 1) * MASTERNODE_SYNC_THRESHOLD;
+                           masternodeSync.RequestedMasternodeAttempt + 1 :
+                           MASTERNODE_SYNC_THRESHOLD;
+            int progress = nAttempt + (RequestedMasternodeAssets - 1) * MASTERNODE_SYNC_THRESHOLD;
             if (progress >= 0) {
                 // todo: MN progress..
                 text = strprintf("%s - Block: %d", masternodeSync.GetSyncStatus(), count);

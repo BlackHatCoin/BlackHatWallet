@@ -154,7 +154,7 @@ public:
     std::vector<std::pair<int64_t, MasternodeRef>> GetMasternodeRanks(int nBlockHeight) const;
     int GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight) const;
 
-    void ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
+    bool ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, int& dosScore);
 
     // Process GETMNLIST message, returning the banning score (if 0, no ban score increase is needed)
     int ProcessGetMNList(CNode* pfrom, CTxIn& vin);

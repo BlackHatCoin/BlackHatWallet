@@ -9,9 +9,9 @@
 
 namespace GuiTransactionsUtils {
 
-    QString ProcessSendCoinsReturn(PWidget::Translator *parent, const WalletModel::SendCoinsReturn &sendCoinsReturn,
-                                WalletModel *walletModel, CClientUIInterface::MessageBoxFlags& informType, const QString &msgArg,
-                                bool fPrepare)
+    QString ProcessSendCoinsReturn(const WalletModel::SendCoinsReturn &sendCoinsReturn, WalletModel *walletModel,
+                                   CClientUIInterface::MessageBoxFlags& informType, const QString &msgArg,
+                                   bool fPrepare)
     {
         QString retStr;
         informType = CClientUIInterface::MSG_WARNING;
@@ -20,27 +20,27 @@ namespace GuiTransactionsUtils {
         // are used only in WalletModel::sendCoins(). All others are used only in WalletModel::prepareTransaction()
         switch (sendCoinsReturn.status) {
             case WalletModel::InvalidAddress:
-                retStr = parent->translate("The recipient address is not valid, please recheck.");
+                retStr = QObject::tr("The recipient address is not valid, please recheck.");
                 break;
             case WalletModel::InvalidAmount:
-                retStr = parent->translate("The amount to pay must be larger than 0.");
+                retStr = QObject::tr("The amount to pay must be larger than 0.");
                 break;
             case WalletModel::AmountExceedsBalance:
-                retStr = parent->translate("The amount to pay exceeds the available balance.");
+                retStr = QObject::tr("The amount to pay exceeds the available balance.");
                 break;
             case WalletModel::AmountWithFeeExceedsBalance:
-                retStr = parent->translate(
+                retStr = QObject::tr(
                         "The total amount to pay exceeds the available balance when the %1 transaction fee is included.").arg(msgArg);
                 break;
             case WalletModel::DuplicateAddress:
-                retStr = parent->translate(
+                retStr = QObject::tr(
                         "Duplicate address found, can only send to each address once per send operation.");
                 break;
             case WalletModel::TransactionCreationFailed:
                 informType = CClientUIInterface::MSG_ERROR;
                 break;
             case WalletModel::TransactionCheckFailed:
-                retStr = parent->translate("The transaction is not valid!");
+                retStr = QObject::tr("The transaction is not valid!");
                 informType = CClientUIInterface::MSG_ERROR;
                 break;
             case WalletModel::TransactionCommitFailed:
@@ -53,14 +53,14 @@ namespace GuiTransactionsUtils {
                     // Unlock wallet if it wasn't fully unlocked already
                     WalletModel::UnlockContext ctx(walletModel->requestUnlock());
                     if (!ctx.isValid()) {
-                        retStr = parent->translate(
+                        retStr = QObject::tr(
                                 "Error: The wallet was unlocked for staking only. Unlock canceled.");
                     }
                 } else
-                    retStr = parent->translate("Error: The wallet is unlocked for staking only. Fully unlock the wallet to send the transaction.");
+                    retStr = QObject::tr("Error: The wallet is unlocked for staking only. Fully unlock the wallet to send the transaction.");
                 break;
             case WalletModel::InsaneFee:
-                retStr = parent->translate(
+                retStr = QObject::tr(
                         "A fee %1 times higher than %2 per kB is considered an insanely high fee.").arg(10000).arg(
                         BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(),
                                                      ::minRelayTxFee.GetFeePerK()));
@@ -77,8 +77,8 @@ namespace GuiTransactionsUtils {
     void ProcessSendCoinsReturnAndInform(PWidget* parent, const WalletModel::SendCoinsReturn& sendCoinsReturn, WalletModel* walletModel, const QString& msgArg, bool fPrepare)
     {
         CClientUIInterface::MessageBoxFlags informType;
-        QString informMsg = ProcessSendCoinsReturn(parent, sendCoinsReturn, walletModel, informType, msgArg, fPrepare);
-        if (!informMsg.isEmpty()) parent->emitMessage(parent->translate("Send Coins"), informMsg, informType, 0);
+        QString informMsg = ProcessSendCoinsReturn(sendCoinsReturn, walletModel, informType, msgArg, fPrepare);
+        if (!informMsg.isEmpty()) parent->emitMessage(QObject::tr("Send Coins"), informMsg, informType, nullptr);
     }
 
 }

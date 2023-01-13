@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2016-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2016-2022 The PIVX developers
+// Copyright (c) 2022 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -379,6 +379,17 @@ bool DummySignatureCreator::CreateSig(std::vector<unsigned char>& vchSig, const 
     return true;
 }
 
+template<typename M, typename K, typename V>
+bool LookupHelper(const M& map, const K& key, V& value)
+{
+    auto it = map.find(key);
+    if (it != map.end()) {
+        value = it->second;
+        return true;
+    }
+    return false;
+}
+
 bool IsSolvable(const CKeyStore& store, const CScript& script, bool fColdStaking)
 {
     // This check is to make sure that the script we created can actually be solved for and signed by us
@@ -392,4 +403,30 @@ bool IsSolvable(const CKeyStore& store, const CScript& script, bool fColdStaking
         return true;
     }
     return false;
+}
+
+bool PublicOnlySigningProvider::GetCScript(const CScriptID &scriptid, CScript& script) const
+{
+    return m_provider->GetCScript(scriptid, script);
+}
+
+bool PublicOnlySigningProvider::GetPubKey(const CKeyID &address, CPubKey& pubkey) const
+{
+    return m_provider->GetPubKey(address, pubkey);
+}
+
+bool FlatSigningProvider::GetCScript(const CScriptID& scriptid, CScript& script) const { return LookupHelper(scripts, scriptid, script); }
+bool FlatSigningProvider::GetPubKey(const CKeyID& keyid, CPubKey& pubkey) const { return LookupHelper(pubkeys, keyid, pubkey); }
+bool FlatSigningProvider::GetKey(const CKeyID& keyid, CKey& key) const { return LookupHelper(keys, keyid, key); }
+
+FlatSigningProvider Merge(const FlatSigningProvider& a, const FlatSigningProvider& b)
+{
+    FlatSigningProvider ret;
+    ret.scripts = a.scripts;
+    ret.scripts.insert(b.scripts.begin(), b.scripts.end());
+    ret.pubkeys = a.pubkeys;
+    ret.pubkeys.insert(b.pubkeys.begin(), b.pubkeys.end());
+    ret.keys = a.keys;
+    ret.keys.insert(b.keys.begin(), b.keys.end());
+    return ret;
 }

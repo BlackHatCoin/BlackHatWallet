@@ -127,6 +127,7 @@ private:
 
     bool enableWallet;
     ClientModel* clientModel = nullptr;
+    MNModel* mnModel = nullptr;
 
     // Actions
     QAction* quitAction = nullptr;

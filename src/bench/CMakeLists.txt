@@ -53,6 +53,7 @@ set(BITCOIN_BENCH_SUITE
         ${CMAKE_CURRENT_SOURCE_DIR}/perf.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/perf.h
         ${CMAKE_CURRENT_SOURCE_DIR}/prevector.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/rollingbloom.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/util_time.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/walletprocessblock.cpp
         )

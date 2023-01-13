@@ -5,8 +5,9 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "budget/budgetproposal.h"
-
-#include "masternodeman.h"
+#include "chainparams.h"
+#include "script/standard.h"
+#include "utilstrencodings.h"
 
 CBudgetProposal::CBudgetProposal():
         nAllotted(0),
@@ -40,12 +41,8 @@ CBudgetProposal::CBudgetProposal(const std::string& name,
         nFeeTXHash(nfeetxhash),
         nTime(0)
 {
-    const int nBlocksPerCycle = Params().GetConsensus().nBudgetCycleBlocks;
-    // !todo: remove this when v5 rules are enforced (nBlockStart is always = to nCycleStart)
-    int nCycleStart = nBlockStart - nBlockStart % nBlocksPerCycle;
-
     // calculate the expiration block
-    nBlockEnd = nCycleStart + (nBlocksPerCycle + 1)  * paycount;
+    nBlockEnd = nBlockStart + (Params().GetConsensus().nBudgetCycleBlocks + 1)  * paycount;
 }
 
 // initialize from network broadcast message
@@ -78,9 +75,9 @@ void CBudgetProposal::SyncVotes(CNode* pfrom, bool fPartial, int& nInvCount) con
     }
 }
 
-bool CBudgetProposal::IsHeavilyDownvoted(bool fNewRules)
+bool CBudgetProposal::IsHeavilyDownvoted(int mnCount)
 {
-    if (GetNays() - GetYeas() > (fNewRules ? 3 : 1) * mnodeman.CountEnabled() / 10) {
+    if (GetNays() - GetYeas() > 3 * mnCount / 10) {
         strInvalid = "Heavily Downvoted";
         return true;
     }
@@ -89,12 +86,9 @@ bool CBudgetProposal::IsHeavilyDownvoted(bool fNewRules)
 
 bool CBudgetProposal::CheckStartEnd()
 {
-    // !TODO: remove (and always use new rules) when all proposals submitted before v5 enforcement are expired.
-    bool fNewRules = Params().GetConsensus().NetworkUpgradeActive(nBlockStart, Consensus::UPGRADE_V5_0);
-
+    // block start must be a superblock
     if (nBlockStart < 0 ||
-            // block start must be a superblock
-            (fNewRules && (nBlockStart % Params().GetConsensus().nBudgetCycleBlocks) != 0)) {
+            nBlockStart % Params().GetConsensus().nBudgetCycleBlocks != 0) {
         strInvalid = "Invalid nBlockStart";
         return false;
     }
@@ -104,7 +98,7 @@ bool CBudgetProposal::CheckStartEnd()
         return false;
     }
 
-    if (fNewRules && GetTotalPaymentCount() > Params().GetConsensus().nMaxProposalPayments) {
+    if (GetTotalPaymentCount() > Params().GetConsensus().nMaxProposalPayments) {
         strInvalid = "Invalid payment count";
         return false;
     }
@@ -153,6 +147,20 @@ bool CBudgetProposal::CheckAddress()
     return true;
 }
 
+/* TODO: Add this to IsWellFormed() for the next hard-fork
+ * This will networkly reject malformed proposal names and URLs
+ */
+bool CBudgetProposal::CheckStrings()
+{
+    if (strProposalName != SanitizeString(strProposalName)) {
+        strInvalid = "Proposal name contains illegal characters.";
+        return false;
+    }
+    if (strURL != SanitizeString(strURL)) {
+        strInvalid = "Proposal URL contains illegal characters.";
+    }
+}
+
 bool CBudgetProposal::IsWellFormed(const CAmount& nTotalBudget)
 {
     return CheckStartEnd() && CheckAmount(nTotalBudget) && CheckAddress();
@@ -167,16 +175,13 @@ bool CBudgetProposal::updateExpired(int nCurrentHeight)
     return false;
 }
 
-bool CBudgetProposal::UpdateValid(int nCurrentHeight)
+bool CBudgetProposal::UpdateValid(int nCurrentHeight, int mnCount)
 {
     fValid = false;
 
-    // !TODO: remove after v5 enforcement and use fixed multiplier (3)
-    bool fNewRules = Params().GetConsensus().NetworkUpgradeActive(nCurrentHeight, Consensus::UPGRADE_V5_0);
-
     // Never kill a proposal before the first superblock
-    if (!fNewRules || nCurrentHeight > nBlockStart) {
-        if (IsHeavilyDownvoted(fNewRules)) return false;
+    if (nCurrentHeight > nBlockStart && IsHeavilyDownvoted(mnCount)) {
+        return false;
     }
 
     if (updateExpired(nCurrentHeight)) {

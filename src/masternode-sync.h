@@ -14,18 +14,7 @@
 #include <string>
 #include <map>
 
-#define MASTERNODE_SYNC_INITIAL 0
-#define MASTERNODE_SYNC_SPORKS 1
-#define MASTERNODE_SYNC_LIST 2
-#define MASTERNODE_SYNC_MNW 3
-#define MASTERNODE_SYNC_BUDGET 4
-#define MASTERNODE_SYNC_BUDGET_PROP 10
-#define MASTERNODE_SYNC_BUDGET_FIN 11
-#define MASTERNODE_SYNC_FAILED 998
-#define MASTERNODE_SYNC_FINISHED 999
-
 #define MASTERNODE_SYNC_TIMEOUT 5
-#define MASTERNODE_SYNC_THRESHOLD 2
 
 class CMasternodeSync;
 extern CMasternodeSync masternodeSync;
@@ -42,18 +31,10 @@ struct TierTwoPeerData {
 class CMasternodeSync
 {
 public:
-    std::map<uint256, int> mapSeenSyncMNB;
-    std::map<uint256, int> mapSeenSyncMNW;
-    std::map<uint256, int> mapSeenSyncBudget;
-
-    int64_t lastMasternodeList;
-    int64_t lastMasternodeWinner;
-    int64_t lastBudgetItem;
     int64_t lastFailure;
     int nCountFailures;
 
     std::atomic<int64_t> lastProcess;
-    std::atomic<bool> fBlockchainSynced;
 
     // sum of all counts
     int sumMasternodeList;
@@ -67,7 +48,6 @@ public:
     int countBudgetItemFin;
 
     // Count peers we've requested the list from
-    int RequestedMasternodeAssets;
     int RequestedMasternodeAttempt;
 
     // Time when current masternode asset sync started
@@ -75,9 +55,6 @@ public:
 
     CMasternodeSync();
 
-    void AddedMasternodeList(const uint256& hash);
-    void AddedMasternodeWinner(const uint256& hash);
-    void AddedBudgetItem(const uint256& hash);
     void SwitchToNextAsset();
     std::string GetSyncStatus();
     void ProcessSyncStatusMsg(int nItemID, int itemCount);
@@ -92,14 +69,9 @@ public:
      * Otherwise Process() calls it again for a different node.
      */
     bool SyncWithNode(CNode* pnode, bool fLegacyMnObsolete);
-    bool IsSynced();
     bool NotCompleted();
-    bool IsSporkListSynced();
-    bool IsMasternodeListSynced();
-    bool IsBlockchainSynced();
+    void UpdateBlockchainSynced(bool isRegTestNet);
     void ClearFulfilledRequest();
-
-    bool IsBlockchainSyncedReadOnly() const;
 
     // Sync message dispatcher
     bool MessageDispatcher(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);

@@ -729,6 +729,9 @@ Current subtrees include:
 - src/univalue
   - Upstream at https://github.com/bitcoin-core/univalue ; actively maintained by Core contributors, deviates from upstream https://github.com/jgarzik/univalue
 
+- src/chiabls
+  - Upstream at https://github.com/PIVX-Project/bls-signatures/ ; actively maintained by Core contributors, deviates from upstream https://github.com/Chia-Network/bls-signatures/
+
 Upgrading LevelDB
 ---------------------
 

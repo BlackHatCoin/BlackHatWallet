@@ -23,4 +23,13 @@ bool Params::NetworkUpgradeActive(int nHeight, Consensus::UpgradeIndex idx) cons
     return NetworkUpgradeState(nHeight, *this, idx) == UPGRADE_ACTIVE;
 }
 
+Optional<LLMQParams> Params::GetLLMQParams(uint8_t llmqtype) const
+{
+    const auto it = llmqs.find((LLMQType)llmqtype);
+    if (it == llmqs.end()) {
+        return nullopt;
+    }
+    return Optional<LLMQParams>(it->second);
+}
+
 } // End consensus namespace

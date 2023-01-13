@@ -1,5 +1,5 @@
 ---
-name: "blackhat-win-5.4"
+name: "blackhat-win-5.5"
 enable_cache: true
 distro: "ubuntu"
 suites:

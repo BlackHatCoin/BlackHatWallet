@@ -2,12 +2,20 @@
 <context>
     <name>AddNewAddressDialog</name>
     <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
+    <message>
         <source>New Address</source>
         <translation>New Address</translation>
     </message>
     <message>
         <source>Address</source>
         <translation>Address</translation>
+    </message>
+    <message>
+        <source>PushButton</source>
+        <translation>PushButton</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -20,6 +28,10 @@
 </context>
 <context>
     <name>AddNewContactDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
     <message>
         <source>CANCEL</source>
         <translation>CANCEL</translation>
@@ -147,6 +159,21 @@
     </message>
 </context>
 <context>
+    <name>AddressLabelRow</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>Bob Allen</source>
+        <translation>Bob Allen</translation>
+    </message>
+    <message>
+        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
+        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
+    </message>
+</context>
+<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -171,6 +198,10 @@
 </context>
 <context>
     <name>AddressesWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Contact name</source>
         <translation>Contact name</translation>
@@ -267,6 +298,14 @@ Are you sure?</translation>
         <translation>Passphrase Dialog</translation>
     </message>
     <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
+    </message>
+    <message>
+        <source>PushButton</source>
+        <translation>PushButton</translation>
+    </message>
+    <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</translation>
     </message>
@@ -325,6 +364,10 @@ for staking</translation>
         <translation>CANCEL</translation>
     </message>
     <message>
+        <source>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
+        <translation>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</translation>
+    </message>
+    <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Are you sure you wish to encrypt your wallet?</translation>
     </message>
@@ -343,10 +386,6 @@ for staking</translation>
     <message>
         <source>Passphrases do not match!</source>
         <translation>Passphrases do not match!</translation>
-    </message>
-    <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
-        <translation>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -392,8 +431,16 @@ for staking</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Transparent</source>
         <translation>Transparent</translation>
+    </message>
+    <message>
+        <source>0.00 blkc</source>
+        <translation>0.00 blkc</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -414,8 +461,16 @@ for staking</translation>
 <context>
     <name>CSRow</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Savings</source>
         <translation>Savings</translation>
+    </message>
+    <message>
+        <source>0,00 BLKC</source>
+        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -486,6 +541,10 @@ for staking</translation>
     <message>
         <source>0.00 BLKC</source>
         <translation>0.00 BLKC</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -608,16 +667,24 @@ for staking</translation>
         <translation>delegated to %1 for cold staking</translation>
     </message>
     <message>
-        <source>Delegated to %1</source>
-        <translation>Delegated to %1</translation>
-    </message>
-    <message>
         <source>Select All</source>
         <translation>Select All</translation>
     </message>
     <message>
         <source>no</source>
         <translation>no</translation>
+    </message>
+    <message>
+        <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
+        <translation>This label turns red, if the transaction size is greater than 1000 bytes.</translation>
+    </message>
+    <message>
+        <source>This means a fee of at least %1 per kB is required.</source>
+        <translation>This means a fee of at least %1 per kB is required.</translation>
+    </message>
+    <message>
+        <source>Can vary +/- 1 byte per input.</source>
+        <translation>Can vary +/- 1 byte per input.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -630,6 +697,10 @@ for staking</translation>
 </context>
 <context>
     <name>ColdStakingWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Owner address (optional, if empty a new address will be created)</translation>
@@ -653,10 +724,6 @@ for staking</translation>
     <message>
         <source>Delegate</source>
         <translation>Delegate</translation>
-    </message>
-    <message>
-        <source>Filter</source>
-        <translation>Filter</translation>
     </message>
     <message>
         <source>Clear All</source>
@@ -866,106 +933,18 @@ address</translation>
     </message>
 </context>
 <context>
-    <name>CreateProposalDialog</name>
+    <name>ContactDropdownRow</name>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <source>Receiver</source>
-        <translation>Receiver</translation>
-    </message>
-    <message>
-        <source>Summary</source>
-        <translation>Summary</translation>
-    </message>
-    <message>
-        <source>Create New Proposal</source>
-        <translation>Create New Proposal</translation>
-    </message>
-    <message>
-        <source>Make sure you have 50 BLKC for the proposal fee</source>
-        <translation>Make sure you have 50 BLKC for the proposal fee</translation>
-    </message>
-    <message>
-        <source>Proposal Name</source>
-        <translation>Proposal Name</translation>
-    </message>
-    <message>
-        <source>Proposal URL</source>
-        <translation>Proposal URL</translation>
-    </message>
-    <message>
-        <source>Proposal Payee</source>
-        <translation>Proposal Payee</translation>
-    </message>
-    <message>
-        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
-        <translation>Add the requested number of payments, the amount per payment, and the payee address.</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Address</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Amount</translation>
-    </message>
-    <message>
-        <source>Months</source>
-        <translation>Months</translation>
-    </message>
-    <message>
-        <source>Proposal Summary</source>
-        <translation>Proposal Summary</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>CANCEL</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>NEXT</source>
-        <translation>NEXT</translation>
-    </message>
-    <message>
-        <source>BACK</source>
-        <translation>BACK</translation>
-    </message>
-    <message>
-        <source>Proposal name cannot be empty</source>
-        <translation>Proposal name cannot be empty</translation>
-    </message>
-    <message>
-        <source>Proposal name cannot contain non UTF-8 characters</source>
-        <translation>Proposal name cannot contain non UTF-8 characters</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation>Invalid amount</translation>
-    </message>
-    <message>
-        <source>Invalid payment address</source>
-        <translation>Invalid payment address</translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <translation>Send</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Next</translation>
-    </message>
-    <message>
-        <source>No contacts available, you can go to the contacts screen and add some there!</source>
-        <translation>No contacts available, you can go to the contacts screen and add some there!</translation>
+        <source>Form</source>
+        <translation>Form</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Transactions</source>
         <translation>Transactions</translation>
@@ -987,10 +966,6 @@ address</translation>
         <translation>How to get BLKC</translation>
     </message>
     <message>
-        <source>Amount of staking rewards received.</source>
-        <translation>Amount of staking rewards received.</translation>
-    </message>
-    <message>
         <source>Sort by</source>
         <translation>Sort by</translation>
     </message>
@@ -1009,6 +984,10 @@ address</translation>
     <message>
         <source>Filter by</source>
         <translation>Filter by</translation>
+    </message>
+    <message>
+        <source>Amount of BLKC and zBLKC staked.</source>
+        <translation>Amount of BLKC and zBLKC staked.</translation>
     </message>
     <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
@@ -1051,6 +1030,10 @@ It will start automatically as soon as the wallet has enough confirmations on an
 </context>
 <context>
     <name>DefaultDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
@@ -1116,6 +1099,13 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
+    <name>ExpandableButton</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+</context>
+<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1139,151 +1129,62 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
 </context>
 <context>
-    <name>GovernanceWidget</name>
-    <message>
-        <source>Governance</source>
-        <translation>Governance</translation>
-    </message>
-    <message>
-        <source>View, follow, vote and submit network budget proposals.
-Be part of the DAO.</source>
-        <translation>View, follow, vote and submit network budget proposals.
-Be part of the DAO.</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Date</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Amount</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <source>Sort by</source>
-        <translation>Sort by</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>All</translation>
-    </message>
-    <message>
-        <source>Passing</source>
-        <translation>Passing</translation>
-    </message>
-    <message>
-        <source>Not Passing</source>
-        <translation>Not Passing</translation>
-    </message>
-    <message>
-        <source>Waiting</source>
-        <translation>Waiting</translation>
-    </message>
-    <message>
-        <source>Filter</source>
-        <translation>Filter</translation>
-    </message>
-    <message>
-        <source>Please wait until the node is fully synced to see the correct information</source>
-        <translation>Please wait until the node is fully synced to see the correct information</translation>
-    </message>
-    <message>
-        <source>Prepare and submit a new proposal.</source>
-        <translation>Prepare and submit a new proposal.</translation>
-    </message>
-    <message>
-        <source>Please wait until the node is fully synced</source>
-        <translation>Please wait until the node is fully synced</translation>
-    </message>
-    <message>
-        <source>Cannot vote for the proposal yet, wait until it's confirmed by the network</source>
-        <translation>Cannot vote for the proposal yet, wait until it's confirmed by the network</translation>
-    </message>
-    <message>
-        <source>Vote emitted successfully!</source>
-        <translation>Vote emitted successfully!</translation>
-    </message>
-    <message>
-        <source>Cannot create proposal, wallet locked</source>
-        <translation>Cannot create proposal, wallet locked</translation>
-    </message>
-    <message>
-        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
-        <translation>Cannot create proposal, need to have at least %1 to pay for the proposal fee</translation>
-    </message>
-    <message>
-        <source>Proposal transaction fee broadcasted!</source>
-        <translation>Proposal transaction fee broadcasted!</translation>
-    </message>
-    <message>
-        <source>Copy Url</source>
-        <translation>Copy Url</translation>
-    </message>
-    <message>
-        <source>Open Url</source>
-        <translation>Open Url</translation>
-    </message>
-    <message>
-        <source>More Info</source>
-        <translation>More Info</translation>
-    </message>
-    <message>
-        <source>Proposal URL copied to clipboard</source>
-        <translation>Proposal URL copied to clipboard</translation>
-    </message>
-    <message>
-        <source>Open Proposal URL</source>
-        <translation>Open Proposal URL</translation>
-    </message>
-    <message>
-        <source>The following URL will be opened in the default browser</source>
-        <translation>The following URL will be opened in the default browser</translation>
-    </message>
-    <message>
-        <source>Are you sure?
-(Always verify the URL validity before opening it)
-</source>
-        <translation>Are you sure?
-(Always verify the URL validity before opening it)
-</translation>
-    </message>
-    <message>
-        <source>Failed to open proposal URL</source>
-        <translation>Failed to open proposal URL</translation>
-    </message>
-    <message>
-        <source>Next superblock today!
-%2 blocks to go.</source>
-        <translation>Next superblock today!
-%2 blocks to go.</translation>
-    </message>
-    <message>
-        <source>Next superblock in %1 days.
-%2 blocks to go.</source>
-        <translation>Next superblock in %1 days.
-%2 blocks to go.</translation>
-    </message>
-</context>
-<context>
     <name>HelpMessageDialog</name>
     <message>
         <source>version</source>
         <translation>version</translation>
     </message>
     <message>
-        <source>About %1</source>
-        <translation>About %1</translation>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
+        <source>About BlackHat Core</source>
+        <translation>About BlackHat Core</translation>
+    </message>
+    <message>
         <source>Command-line options</source>
         <translation>Command-line options</translation>
+    </message>
+    <message>
+        <source>Usage:</source>
+        <translation>Usage:</translation>
+    </message>
+    <message>
+        <source>command-line options</source>
+        <translation>command-line options</translation>
+    </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>UI Options:</translation>
+    </message>
+    <message>
+        <source>Choose data directory on startup (default: %u)</source>
+        <translation>Choose data directory on startup (default: %u)</translation>
+    </message>
+    <message>
+        <source>Show splash screen on startup (default: %u)</source>
+        <translation>Show splash screen on startup (default: %u)</translation>
+    </message>
+    <message>
+        <source>Hide QT staking charts on startup (default: %u)</source>
+        <translation>Hide QT staking charts on startup (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set language, for example "de_DE" (default: system locale)</source>
+        <translation>Set language, for example "de_DE" (default: system locale)</translation>
+    </message>
+    <message>
+        <source>Start minimized</source>
+        <translation>Start minimized</translation>
+    </message>
+    <message>
+        <source>Set SSL root certificates for payment request (default: -system-)</source>
+        <translation>Set SSL root certificates for payment request (default: -system-)</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1297,16 +1198,16 @@ Be part of the DAO.</translation>
         <translation>Welcome</translation>
     </message>
     <message>
-        <source>Welcome to %1.</source>
-        <translation>Welcome to %1.</translation>
+        <source>Welcome to BlackHat Core.</source>
+        <translation>Welcome to BlackHat Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation>As this is the first time the program is launched, you can choose where %1 will store its data.</translation>
+        <source>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</source>
+        <translation>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BlackHat block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 will download and store a copy of the BlackHat block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
+        <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1323,6 +1224,10 @@ Be part of the DAO.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1344,12 +1249,28 @@ Be part of the DAO.</translation>
 <context>
     <name>LoadingDialog</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
+    </message>
+    <message>
         <source>Loading</source>
         <translation>Loading</translation>
+    </message>
+    <message>
+        <source>.</source>
+        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Unlock Wallet</translation>
@@ -1366,6 +1287,10 @@ Be part of the DAO.</translation>
 <context>
     <name>MNRow</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Collateral tx not found</source>
         <translation>Collateral tx not found</translation>
     </message>
@@ -1376,6 +1301,10 @@ Be part of the DAO.</translation>
 </context>
 <context>
     <name>MasterNodeWizardDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
     <message>
         <source>1</source>
         <translation>1</translation>
@@ -1405,6 +1334,10 @@ Be part of the DAO.</translation>
         <translation>Create New Masternode Controller</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>Set Masternode Name</source>
         <translation>Set Masternode Name</translation>
     </message>
@@ -1419,6 +1352,10 @@ Be part of the DAO.</translation>
     <message>
         <source>Make sure you have this amount of coins.</source>
         <translation>Make sure you have this amount of coins.</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1479,26 +1416,6 @@ Be part of the DAO.</translation>
 %1</translation>
     </message>
     <message>
-        <source>To create a BlackHat Masternode you must dedicate %1 to the network (however, these coins are still yours and will never leave your possession).</source>
-        <translation>To create a BlackHat Masternode you must dedicate %1 to the network (however, these coins are still yours and will never leave your possession).</translation>
-    </message>
-    <message>
-        <source>You can deactivate the node and unlock the coins at any time.</source>
-        <translation>You can deactivate the node and unlock the coins at any time.</translation>
-    </message>
-    <message>
-        <source>A transaction of %1 will be made</source>
-        <translation>A transaction of %1 will be made</translation>
-    </message>
-    <message>
-        <source>to a new empty address in your wallet.</source>
-        <translation>to a new empty address in your wallet.</translation>
-    </message>
-    <message>
-        <source>The Address is labeled under the master node's name.</source>
-        <translation>The Address is labeled under the master node's name.</translation>
-    </message>
-    <message>
         <source>walletModel not set</source>
         <translation>walletModel not set</translation>
     </message>
@@ -1517,6 +1434,10 @@ Be part of the DAO.</translation>
 </context>
 <context>
     <name>MasterNodesWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Start All</source>
         <translation>Start All</translation>
@@ -1612,6 +1533,10 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
         <translation>Masternode data copied to the clipboard.</translation>
     </message>
     <message>
+        <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
+        <translation>Not enough balance to create a masternode, 5,000 %1 required.</translation>
+    </message>
+    <message>
         <source>Remote Masternode Data</source>
         <translation>Remote Masternode Data</translation>
     </message>
@@ -1680,16 +1605,16 @@ Are you sure?</translation>
         <translation>Cannot create Masternode controller, wallet locked</translation>
     </message>
     <message>
-        <source>Not enough balance to create a masternode, %1 required.</source>
-        <translation>Not enough balance to create a masternode, %1 required.</translation>
-    </message>
-    <message>
         <source>Error creating masternode</source>
         <translation>Error creating masternode</translation>
     </message>
 </context>
 <context>
     <name>MnInfoDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Masternode Information</source>
         <translation>Masternode Information</translation>
@@ -1732,70 +1657,18 @@ Are you sure?</translation>
     </message>
 </context>
 <context>
-    <name>MnSelectionDialog</name>
+    <name>MyAddressRow</name>
     <message>
-        <source>Select Masternodes</source>
-        <translation>Select Masternodes</translation>
-    </message>
-    <message>
-        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
-        <translation>Each Masternode refers to a single vote, you can select which one will vote for the proposal</translation>
-    </message>
-    <message>
-        <source>Amount of votes:</source>
-        <translation>Amount of votes:</translation>
-    </message>
-    <message>
-        <source>Select All</source>
-        <translation>Select All</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <source>Vote</source>
-        <translation>Vote</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>CANCEL</translation>
-    </message>
-    <message>
-        <source>SELECT VOTES</source>
-        <translation>SELECT VOTES</translation>
-    </message>
-    <message>
-        <source>Unselect All</source>
-        <translation>Unselect All</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>The direction of the already broadcasted vote</source>
-        <translation>The direction of the already broadcasted vote</translation>
-    </message>
-    <message>
-        <source>No vote has been emitted from this Masternode</source>
-        <translation>No vote has been emitted from this Masternode</translation>
-    </message>
-    <message>
-        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
-        <translation>Time between votes is too soon, have to wait %1 minutes to change your vote</translation>
+        <source>Form</source>
+        <translation>Form</translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>HOME
 </source>
@@ -1821,10 +1694,6 @@ Are you sure?</translation>
 </translation>
     </message>
     <message>
-        <source>DAO</source>
-        <translation>DAO</translation>
-    </message>
-    <message>
         <source>MASTER
 NODES</source>
         <translation>MASTER
@@ -1843,6 +1712,10 @@ STAKING</translation>
 </translation>
     </message>
     <message>
+        <source>V 1.0.0</source>
+        <translation>V 1.0.0</translation>
+    </message>
+    <message>
         <source>v%1</source>
         <translation>v%1</translation>
     </message>
@@ -1854,8 +1727,12 @@ STAKING</translation>
         <translation>Open URI</translation>
     </message>
     <message>
-        <source>Open BlackHat URI</source>
-        <translation>Open BlackHat URI</translation>
+        <source>Open payment request from URI or file</source>
+        <translation>Open payment request from URI or file</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -1865,9 +1742,321 @@ STAKING</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>Select payment request file</source>
+        <translation>Select payment request file</translation>
+    </message>
+    <message>
+        <source>Select payment request file to open</source>
+        <translation>Select payment request file to open</translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <translation>File not found</translation>
+    </message>
+    <message>
+        <source>Parsed data too large</source>
+        <translation>Parsed data too large</translation>
+    </message>
+    <message>
+        <source>Invalid URI, not starting with "blkc" prefix</source>
+        <translation>Invalid URI, not starting with "blkc" prefix</translation>
+    </message>
+</context>
+<context>
+    <name>OptionButton</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+</context>
+<context>
+    <name>OptionsDialog</name>
+    <message>
+        <source>Options</source>
+        <translation>Options</translation>
+    </message>
+    <message>
+        <source>&amp;Main</source>
+        <translation>&amp;Main</translation>
+    </message>
+    <message>
+        <source>Size of &amp;database cache</source>
+        <translation>Size of &amp;database cache</translation>
+    </message>
+    <message>
+        <source>MB</source>
+        <translation>MB</translation>
+    </message>
+    <message>
+        <source>Number of script &amp;verification threads</source>
+        <translation>Number of script &amp;verification threads</translation>
+    </message>
+    <message>
+        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
+        <translation>(0 = auto, &lt;0 = leave that many cores free)</translation>
+    </message>
+    <message>
+        <source>W&amp;allet</source>
+        <translation>W&amp;allet</translation>
+    </message>
+    <message>
+        <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
+        <translation>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</translation>
+    </message>
+    <message>
+        <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+    </message>
+    <message>
+        <source>Accept connections from outside</source>
+        <translation>Accept connections from outside</translation>
+    </message>
+    <message>
+        <source>Allow incoming connections</source>
+        <translation>Allow incoming connections</translation>
+    </message>
+    <message>
+        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
+        <translation>&amp;Connect through SOCKS5 proxy (default proxy):</translation>
+    </message>
+    <message>
+        <source>Expert</source>
+        <translation>Expert</translation>
+    </message>
+    <message>
+        <source>Automatically start BlackHat after logging in to the system.</source>
+        <translation>Automatically start BlackHat after logging in to the system.</translation>
+    </message>
+    <message>
+        <source>&amp;Start BlackHat on system login</source>
+        <translation>&amp;Start BlackHat on system login</translation>
+    </message>
+    <message>
+        <source>Whether to show coin control features or not.</source>
+        <translation>Whether to show coin control features or not.</translation>
+    </message>
+    <message>
+        <source>Enable coin &amp;control features</source>
+        <translation>Enable coin &amp;control features</translation>
+    </message>
+    <message>
+        <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
+        <translation>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</translation>
+    </message>
+    <message>
+        <source>Show Masternodes Tab</source>
+        <translation>Show Masternodes Tab</translation>
+    </message>
+    <message>
+        <source>&amp;Spend unconfirmed change</source>
+        <translation>&amp;Spend unconfirmed change</translation>
+    </message>
+    <message>
+        <source>&amp;Network</source>
+        <translation>&amp;Network</translation>
+    </message>
+    <message>
+        <source>The user interface language can be set here. This setting will take effect after restarting BlackHat.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting BlackHat.</translation>
+    </message>
+    <message>
+        <source>Language missing or translation incomplete? Help contributing translations here:
+https://forum.blackhatco.in</source>
+        <translation>Language missing or translation incomplete? Help contributing translations here:
+https://forum.blackhatco.in</translation>
+    </message>
+    <message>
+        <source>Map port using &amp;UPnP</source>
+        <translation>Map port using &amp;UPnP</translation>
+    </message>
+    <message>
+        <source>Enable automatic minting of BLKC units to zBLKC</source>
+        <translation>Enable automatic minting of BLKC units to zBLKC</translation>
+    </message>
+    <message>
+        <source>Enable zBLKC Automint</source>
+        <translation>Enable zBLKC Automint</translation>
+    </message>
+    <message>
+        <source>Enable automatic zBLKC minting from specific addresses</source>
+        <translation>Enable automatic zBLKC minting from specific addresses</translation>
+    </message>
+    <message>
+        <source>Enable Automint Addresses</source>
+        <translation>Enable Automint Addresses</translation>
+    </message>
+    <message>
+        <source>Percentage of incoming BLKC which get automatically converted to zBLKC via Zerocoin Protocol (min: 10%)</source>
+        <translation>Percentage of incoming BLKC which get automatically converted to zBLC via Zerocoin Protocol (min: 10%)</translation>
+    </message>
+    <message>
+        <source>Percentage of autominted zBLKC</source>
+        <translation>Percentage of autominted zBLKC</translation>
+    </message>
+    <message>
+        <source>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</source>
+        <translation>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</translation>
+    </message>
+    <message>
+        <source>Preferred Automint zBLKC Denomination</source>
+        <translation>Preferred Automint zBLKC Denomination</translation>
+    </message>
+    <message>
+        <source>Stake split threshold:</source>
+        <translation>Stake split threshold:</translation>
+    </message>
+    <message>
+        <source>Connect to the BlackHat network through a SOCKS5 proxy.</source>
+        <translation>Connect to the BlackHat network through a SOCKS5 proxy.</translation>
+    </message>
+    <message>
+        <source>Proxy &amp;IP:</source>
+        <translation>Proxy &amp;IP:</translation>
+    </message>
+    <message>
+        <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
+        <translation>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
+    </message>
+    <message>
+        <source>&amp;Port:</source>
+        <translation>&amp;Port:</translation>
+    </message>
+    <message>
+        <source>Port of the proxy (e.g. 9050)</source>
+        <translation>Port of the proxy (e.g. 9050)</translation>
+    </message>
+    <message>
+        <source>&amp;Window</source>
+        <translation>&amp;Window</translation>
+    </message>
+    <message>
+        <source>Show only a tray icon after minimizing the window.</source>
+        <translation>Show only a tray icon after minimizing the window.</translation>
+    </message>
+    <message>
+        <source>&amp;Minimize to the tray instead of the taskbar</source>
+        <translation>&amp;Minimize to the tray instead of the taskbar</translation>
+    </message>
+    <message>
+        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
+        <translation>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</translation>
+    </message>
+    <message>
+        <source>M&amp;inimize on close</source>
+        <translation>M&amp;inimize on close</translation>
+    </message>
+    <message>
+        <source>&amp;Display</source>
+        <translation>&amp;Display</translation>
+    </message>
+    <message>
+        <source>User Interface &amp;language:</source>
+        <translation>User Interface &amp;language:</translation>
+    </message>
+    <message>
+        <source>User Interface Theme:</source>
+        <translation>User Interface Theme:</translation>
+    </message>
+    <message>
+        <source>Unit to show amounts in:</source>
+        <translation>Unit to show amounts in:</translation>
+    </message>
+    <message>
+        <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
+        <translation>Choose the default subdivision unit to show in the interface and when sending coins.</translation>
+    </message>
+    <message>
+        <source>Decimal digits</source>
+        <translation>Decimal digits</translation>
+    </message>
+    <message>
+        <source>Hide empty balances</source>
+        <translation>Hide empty balances</translation>
+    </message>
+    <message>
+        <source>Hide orphan stakes in transaction lists</source>
+        <translation>Hide orphan stakes in transaction lists</translation>
+    </message>
+    <message>
+        <source>Hide orphan stakes</source>
+        <translation>Hide orphan stakes</translation>
+    </message>
+    <message>
+        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
+        <translation>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</translation>
+    </message>
+    <message>
+        <source>Third party transaction URLs</source>
+        <translation>Third party transaction URLs</translation>
+    </message>
+    <message>
+        <source>Active command-line options that override above options:</source>
+        <translation>Active command-line options that override above options:</translation>
+    </message>
+    <message>
+        <source>Reset all client options to default.</source>
+        <translation>Reset all client options to default.</translation>
+    </message>
+    <message>
+        <source>&amp;Reset Options</source>
+        <translation>&amp;Reset Options</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>Any</translation>
+    </message>
+    <message>
+        <source>default</source>
+        <translation>default</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>none</translation>
+    </message>
+    <message>
+        <source>Confirm options reset</source>
+        <translation>Confirm options reset</translation>
+    </message>
+    <message>
+        <source>Client restart required to activate changes.</source>
+        <translation>Client restart required to activate changes.</translation>
+    </message>
+    <message>
+        <source>Client will be shutdown, do you want to proceed?</source>
+        <translation>Client will be shutdown, do you want to proceed?</translation>
+    </message>
+    <message>
+        <source>This change would require a client restart.</source>
+        <translation>This change would require a client restart.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy address is invalid.</source>
+        <translation>The supplied proxy address is invalid.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy port is invalid.</source>
+        <translation>The supplied proxy port is invalid.</translation>
+    </message>
+    <message>
+        <source>The supplied proxy settings are invalid.</source>
+        <translation>The supplied proxy settings are invalid.</translation>
+    </message>
 </context>
 <context>
     <name>BLKCGUI</name>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
+    </message>
     <message>
         <source>Wallet</source>
         <translation>Wallet</translation>
@@ -1893,8 +2082,8 @@ STAKING</translation>
         <translation>Quit application</translation>
     </message>
     <message>
-        <source>%1 client</source>
-        <translation>%1 client</translation>
+        <source>BlackHat Core client</source>
+        <translation>BlackHat Core client</translation>
     </message>
     <message>
         <source>Alert!</source>
@@ -1915,6 +2104,10 @@ STAKING</translation>
     <message>
         <source>System Message</source>
         <translation>System Message</translation>
+    </message>
+    <message>
+        <source>Sent MultiSend transaction</source>
+        <translation>Sent MultiSend transaction</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -1948,6 +2141,14 @@ Address: %4
         <translation>URI handling</translation>
     </message>
     <message>
+        <source>Payment request fetch URL is invalid: %1</source>
+        <translation>Payment request fetch URL is invalid: %1</translation>
+    </message>
+    <message>
+        <source>Payment request file handling</source>
+        <translation>Payment request file handling</translation>
+    </message>
+    <message>
         <source>Invalid payment address %1</source>
         <translation>Invalid payment address %1</translation>
     </message>
@@ -1958,6 +2159,66 @@ Address: %4
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
         <translation>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</translation>
+    </message>
+    <message>
+        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
+        <translation>Payment request file cannot be read! This can be caused by an invalid payment request file.</translation>
+    </message>
+    <message>
+        <source>Payment request rejected</source>
+        <translation>Payment request rejected</translation>
+    </message>
+    <message>
+        <source>Payment request network doesn't match client network.</source>
+        <translation>Payment request network doesn't match client network.</translation>
+    </message>
+    <message>
+        <source>Payment request has expired.</source>
+        <translation>Payment request has expired.</translation>
+    </message>
+    <message>
+        <source>Payment request is not initialized.</source>
+        <translation>Payment request is not initialized.</translation>
+    </message>
+    <message>
+        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
+        <translation>Unverified payment requests to custom payment scripts are unsupported.</translation>
+    </message>
+    <message>
+        <source>Requested payment amount of %1 is too small (considered dust).</source>
+        <translation>Requested payment amount of %1 is too small (considered dust).</translation>
+    </message>
+    <message>
+        <source>Refund from %1</source>
+        <translation>Refund from %1</translation>
+    </message>
+    <message>
+        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
+        <translation>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</translation>
+    </message>
+    <message>
+        <source>Payment request DoS protection</source>
+        <translation>Payment request DoS protection</translation>
+    </message>
+    <message>
+        <source>Error communicating with %1: %2</source>
+        <translation>Error communicating with %1: %2</translation>
+    </message>
+    <message>
+        <source>Payment request cannot be parsed!</source>
+        <translation>Payment request cannot be parsed!</translation>
+    </message>
+    <message>
+        <source>Bad response from server %1</source>
+        <translation>Bad response from server %1</translation>
+    </message>
+    <message>
+        <source>Network request error</source>
+        <translation>Network request error</translation>
+    </message>
+    <message>
+        <source>Payment acknowledged</source>
+        <translation>Payment acknowledged</translation>
     </message>
 </context>
 <context>
@@ -1977,100 +2238,6 @@ Address: %4
     <message>
         <source>NodeID</source>
         <translation>NodeID</translation>
-    </message>
-</context>
-<context>
-    <name>ProposalCard</name>
-    <message>
-        <source>Vote</source>
-        <translation>Vote</translation>
-    </message>
-    <message>
-        <source>Inactive proposal</source>
-        <translation>Inactive proposal</translation>
-    </message>
-    <message>
-        <source>Last month in course</source>
-        <translation>Last month in course</translation>
-    </message>
-    <message>
-        <source>%1 of %2 months left</source>
-        <translation>%1 of %2 months left</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>Waiting</source>
-        <translation>Waiting</translation>
-    </message>
-    <message>
-        <source>Finished</source>
-        <translation>Finished</translation>
-    </message>
-    <message>
-        <source>No Votes</source>
-        <translation>No Votes</translation>
-    </message>
-    <message>
-        <source>Not Passing</source>
-        <translation>Not Passing</translation>
-    </message>
-    <message>
-        <source>Passing</source>
-        <translation>Passing</translation>
-    </message>
-</context>
-<context>
-    <name>ProposalInfoDialog</name>
-    <message>
-        <source>Proposal Information</source>
-        <translation>Proposal Information</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
-    </message>
-    <message>
-        <source>Proposal Name</source>
-        <translation>Proposal Name</translation>
-    </message>
-    <message>
-        <source>Recipient</source>
-        <translation>Recipient</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Amount</translation>
-    </message>
-    <message>
-        <source>End Block</source>
-        <translation>End Block</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
-        <source>Start Block</source>
-        <translation>Start Block</translation>
-    </message>
-    <message>
-        <source>URL</source>
-        <translation>URL</translation>
-    </message>
-    <message>
-        <source>Positive Votes</source>
-        <translation>Positive Votes</translation>
-    </message>
-    <message>
-        <source>Negative Votes</source>
-        <translation>Negative Votes</translation>
     </message>
 </context>
 <context>
@@ -2128,6 +2295,10 @@ Address: %4
         <translation>A fatal error occurred. BlackHat can no longer continue safely and will quit.</translation>
     </message>
     <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
+    </message>
+    <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
         <translation>Error: Specified data directory "%1" does not exist.</translation>
     </message>
@@ -2136,16 +2307,16 @@ Address: %4
         <translation>Error: Cannot parse configuration file: %1. Only use key=value syntax.</translation>
     </message>
     <message>
-        <source>Error: %1</source>
-        <translation>Error: %1</translation>
-    </message>
-    <message>
-        <source>%1 didn't yet exit safely...</source>
-        <translation>%1 didn't yet exit safely...</translation>
+        <source>Error: Invalid combination of -regtest and -testnet.</source>
+        <translation>Error: Invalid combination of -regtest and -testnet.</translation>
     </message>
     <message>
         <source>Error reading masternode configuration file: %1</source>
         <translation>Error reading masternode configuration file: %1</translation>
+    </message>
+    <message>
+        <source>BlackHat Core didn't yet exit safely...</source>
+        <translation>BlackHat Core didn't yet exit safely...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2355,6 +2526,10 @@ Address: %4
         <translation>Client name</translation>
     </message>
     <message>
+        <source>N/A</source>
+        <translation>N/A</translation>
+    </message>
+    <message>
         <source>Number of connections</source>
         <translation>Number of connections</translation>
     </message>
@@ -2377,6 +2552,10 @@ Address: %4
     <message>
         <source>Debug log file</source>
         <translation>Debug log file</translation>
+    </message>
+    <message>
+        <source>Build date</source>
+        <translation>Build date</translation>
     </message>
     <message>
         <source>Current number of blocks</source>
@@ -2535,6 +2714,18 @@ Address: %4
         <translation>Time Offset</translation>
     </message>
     <message>
+        <source>Custom Backup Path:</source>
+        <translation>Custom Backup Path:</translation>
+    </message>
+    <message>
+        <source>Custom zBLKC Backup Path:</source>
+        <translation>Custom zBLKC Backup Path:</translation>
+    </message>
+    <message>
+        <source>Custom Backups Threshold:</source>
+        <translation>Custom Backups Threshold:</translation>
+    </message>
+    <message>
         <source>Salvage wallet</source>
         <translation>Salvage wallet</translation>
     </message>
@@ -2573,6 +2764,10 @@ Address: %4
     <message>
         <source>Rebuild block chain index from current blk000??.dat files.</source>
         <translation>Rebuild block chain index from current blk000??.dat files.</translation>
+    </message>
+    <message>
+        <source>-resync:</source>
+        <translation>-resync:</translation>
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
@@ -2659,12 +2854,8 @@ Address: %4
         <translation>Use up and down arrows to navigate history, and %1 to clear screen.</translation>
     </message>
     <message>
-        <source>Type %1 for an overview of available commands.</source>
-        <translation>Type %1 for an overview of available commands.</translation>
-    </message>
-    <message>
-        <source>For more information on using this console type %1.</source>
-        <translation>For more information on using this console type %1.</translation>
+        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
+        <translation>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -2722,6 +2913,10 @@ Address: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
+    <message>
         <source>My Address</source>
         <translation>My Address</translation>
     </message>
@@ -2736,6 +2931,10 @@ Address: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Scan the QR code or copy the address to receive BLKC</translation>
@@ -2763,10 +2962,6 @@ Address: %4
     <message>
         <source>Copy</source>
         <translation>Copy</translation>
-    </message>
-    <message>
-        <source>Filter</source>
-        <translation>Filter</translation>
     </message>
     <message>
         <source>Receive</source>
@@ -2877,12 +3072,24 @@ try unlocking the wallet</translation>
 <context>
     <name>RequestDialog</name>
     <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
+    <message>
         <source>Amount</source>
         <translation>Amount</translation>
     </message>
     <message>
+        <source>BLKC</source>
+        <translation>BLKC</translation>
+    </message>
+    <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</translation>
+    </message>
+    <message>
+        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
+        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -2956,6 +3163,10 @@ try unlocking the wallet</translation>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
+    <message>
         <source>CANCEL</source>
         <translation>CANCEL</translation>
     </message>
@@ -2987,8 +3198,20 @@ try unlocking the wallet</translation>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Recommended</source>
         <translation>Recommended</translation>
+    </message>
+    <message>
+        <source>BLKC/kilobyte</source>
+        <translation>BLKC/kilobyte</translation>
+    </message>
+    <message>
+        <source>0.00 KB</source>
+        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -3019,10 +3242,6 @@ try unlocking the wallet</translation>
         <translation>Fast</translation>
     </message>
     <message>
-        <source>Invalid custom fee amount</source>
-        <translation>Invalid custom fee amount</translation>
-    </message>
-    <message>
         <source>SAVE</source>
         <translation>SAVE</translation>
     </message>
@@ -3038,8 +3257,24 @@ try unlocking the wallet</translation>
 <context>
     <name>SendMemoDialog</name>
     <message>
+        <source>Dialog</source>
+        <translation>Dialog</translation>
+    </message>
+    <message>
         <source>Private message only visible for the recipient(s)</source>
         <translation>Private message only visible for the recipient(s)</translation>
+    </message>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3057,6 +3292,10 @@ try unlocking the wallet</translation>
 <context>
     <name>SendMultiRow</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Enter address</source>
         <translation>Enter address</translation>
     </message>
@@ -3067,14 +3306,6 @@ try unlocking the wallet</translation>
     <message>
         <source>Enter label</source>
         <translation>Enter label</translation>
-    </message>
-    <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less BLKC than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>The fee will be deducted from the amount being sent. The recipient will receive less BLKC than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</translation>
-    </message>
-    <message>
-        <source>Subtract fee from amount</source>
-        <translation>Subtract fee from amount</translation>
     </message>
     <message>
         <source>Update memo</source>
@@ -3114,10 +3345,6 @@ Do you want to continue?</translation>
     <message>
         <source>Maximum amount of outputs reached</source>
         <translation>Maximum amount of outputs reached</translation>
-    </message>
-    <message>
-        <source>Parse a BlackHat URI</source>
-        <translation>Parse a BlackHat URI</translation>
     </message>
     <message>
         <source>Invalid entry, previous entries must be valid before add a new one</source>
@@ -3192,6 +3419,10 @@ These coins will no longer be cold-staked.</translation>
         <translation>Open URI</translation>
     </message>
     <message>
+        <source>Parse a payment request</source>
+        <translation>Parse a payment request</translation>
+    </message>
+    <message>
         <source>Shield Coins</source>
         <translation>Shield Coins</translation>
     </message>
@@ -3220,6 +3451,10 @@ Do you wish to proceed without memo?
 </translation>
     </message>
     <message>
+        <source>Cannot perform shielded operations, v5 upgrade isn't being enforced yet!</source>
+        <translation>Cannot perform shielded operations, v5 upgrade isn't being enforced yet!</translation>
+    </message>
+    <message>
         <source>Sapling Protocol temporarily in maintenance. Shielded transactions disabled (SPORK 20)</source>
         <translation>Sapling Protocol temporarily in maintenance. Shielded transactions disabled (SPORK 20)</translation>
     </message>
@@ -3230,10 +3465,6 @@ Do you wish to proceed without memo?
     <message>
         <source>Preparing transaction</source>
         <translation>Preparing transaction</translation>
-    </message>
-    <message>
-        <source>Processing full, refreshing amounts later</source>
-        <translation>Processing full, refreshing amounts later</translation>
     </message>
     <message>
         <source>You don't have any %1 to select.</source>
@@ -3280,10 +3511,6 @@ Do you want to continue?
         <translation>Save contact</translation>
     </message>
     <message>
-        <source>Subtract fee</source>
-        <translation>Subtract fee</translation>
-    </message>
-    <message>
         <source>Address field is empty</source>
         <translation>Address field is empty</translation>
     </message>
@@ -3314,6 +3541,10 @@ Do you want to continue?
 </context>
 <context>
     <name>SettingsBackupWallet</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Change Wallet Passphrase</source>
         <translation>Change Wallet Passphrase</translation>
@@ -3365,6 +3596,10 @@ Remember to write it down and store it safely, otherwise you might lose access t
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Import Address</source>
         <translation>Import Address</translation>
@@ -3488,10 +3723,6 @@ Using this mechanism you can share your keys without middle-man risk, only need 
         <translation>Please check the key and passphrase and try again.</translation>
     </message>
     <message>
-        <source>Wallet is currently rescanning. Abort existing rescan or wait.</source>
-        <translation>Wallet is currently rescanning. Abort existing rescan or wait.</translation>
-    </message>
-    <message>
         <source>Data Not Valid.</source>
         <translation>Data Not Valid.</translation>
     </message>
@@ -3518,6 +3749,10 @@ Using this mechanism you can share your keys without middle-man risk, only need 
 </context>
 <context>
     <name>SettingsConsoleWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Console</source>
         <translation>Console</translation>
@@ -3553,12 +3788,8 @@ Verify that you have installed a predetermined text editor.</translation>
         <translation>Use up and down arrows to navigate history, and %1 to clear screen.</translation>
     </message>
     <message>
-        <source>Type %1 for an overview of available commands.</source>
-        <translation>Type %1 for an overview of available commands.</translation>
-    </message>
-    <message>
-        <source>For more information on using this console type %1.</source>
-        <translation>For more information on using this console type %1.</translation>
+        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
+        <translation>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -3567,6 +3798,10 @@ Verify that you have installed a predetermined text editor.</translation>
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Hide stake charts in the dashboard</translation>
@@ -3623,6 +3858,10 @@ Verify that you have installed a predetermined text editor.</translation>
 <context>
     <name>SettingsExportCSV</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Export Accounting</source>
         <translation>Export Accounting</translation>
     </message>
@@ -3631,8 +3870,8 @@ Verify that you have installed a predetermined text editor.</translation>
         <translation>Export your wallet's accounting data to a csv file.</translation>
     </message>
     <message>
-        <source>Export Transaction History</source>
-        <translation>Export Transaction History</translation>
+        <source>Where</source>
+        <translation>Where</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3643,8 +3882,20 @@ Verify that you have installed a predetermined text editor.</translation>
         <translation>Export Address Book</translation>
     </message>
     <message>
-        <source>Comma separated file (*.csv)</source>
-        <translation>Comma separated file (*.csv)</translation>
+        <source>Export CSV</source>
+        <translation>Export CSV</translation>
+    </message>
+    <message>
+        <source>Export Address List</source>
+        <translation>Export Address List</translation>
+    </message>
+    <message>
+        <source>BLKC_tx_csv_export(*.csv)</source>
+        <translation>BLKC_tx_csv_export(*.csv)</translation>
+    </message>
+    <message>
+        <source>BLKC_addresses_csv_export(*.csv)</source>
+        <translation>BLKC_addresses_csv_export(*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3710,12 +3961,20 @@ There was an error trying to save the address list to %1. Please try again.</tra
 <context>
     <name>SettingsFaqWidget</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) What is BlackHat?</translation>
     </message>
     <message>
         <source>2) Why are my BLKC unspendable?</source>
         <translation>2) Why are my BLKC unspendable?</translation>
+    </message>
+    <message>
+        <source>https://blackhatco.in/</source>
+        <translation>https://blackhatco.in/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3734,12 +3993,36 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <translation>Why are my BLKC unspendable?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           Newly received BLKC requires 6 confirmations on the network
+                           to become eligible for spending which can take ~6 minutes.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           Your BlackHat wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
         <source>How do I stake BLKC?</source>
         <translation>How do I stake BLKC?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>4</source>
@@ -3758,12 +4041,154 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <translation>Where should I go if I need support?</translation>
     </message>
     <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           BlackHat is a form of digital online money using blockchain technology
+                           that can be easily transferred globally, instantly, and with near
+                           zero fees.  BlackHat incorporates market leading security &amp;
+                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
+                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
+                           allowing all owners of BlackHat to participate in earning block rewards
+                           while securing the network with full node wallets, as well as to
+                           run Masternodes to create and vote on proposals.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           BlackHat is a form of digital online money using blockchain technology
+                           that can be easily transferred globally, instantly, and with near
+                           zero fees.  BlackHat incorporates market leading security &amp;
+                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
+                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
+                           allowing all owners of BlackHat to participate in earning block rewards
+                           while securing the network with full node wallets, as well as to
+                           run Masternodes to create and vote on proposals.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
+                           #support in our Discord&lt;/a&gt;.
+                           If you prefer to submit a ticket, You can do so at
+                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
+                           our Forum support site&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
+                           #support in our Discord&lt;/a&gt;.
+                           If you prefer to submit a ticket, You can do so at
+                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
+                           our Forum support site&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>What is a Masternode?</translation>
     </message>
     <message>
         <source>What is a Masternode Controller?</source>
         <translation>What is a Masternode Controller?</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat Core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
+                           A masternode is a computer running a full node BlackHat Core wallet with a
+                           requirement of 5,000 BLKC secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align="justify"&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </translation>
     </message>
     <message>
         <source>Frequently Asked Questions</source>
@@ -3793,121 +4218,13 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <source>You can read more here</source>
         <translation>You can read more here</translation>
     </message>
-    <message>
-        <source>BlackHat is a form of digital online money using blockchain technology that can be easily transferred globally, instantly, and with near zero fees. BlackHat incorporates market leading security &amp; privacy and is also the first PoS (Proof of Stake) Cryptocurrency to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.</source>
-        <translation>BlackHat is a form of digital online money using blockchain technology that can be easily transferred globally, instantly, and with near zero fees. BlackHat incorporates market leading security &amp; privacy and is also the first PoS (Proof of Stake) Cryptocurrency to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.</translation>
-    </message>
-    <message>
-        <source>BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, allowing all owners of BLKC to participate in earning block rewards while securing the network with full node wallets, as well as to run Masternodes to create and vote on proposals.</source>
-        <translation>BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, allowing all owners of BLKC to participate in earning block rewards while securing the network with full node wallets, as well as to run Masternodes to create and vote on proposals.</translation>
-    </message>
-    <message>
-        <source>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</source>
-        <translation>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</translation>
-    </message>
-    <message>
-        <source>Your BlackHat wallet also needs to be completely synchronized to see and spend balances on the network.</source>
-        <translation>Your BlackHat wallet also needs to be completely synchronized to see and spend balances on the network.</translation>
-    </message>
-    <message>
-        <source>Make sure your wallet is completely synchronized and you are using the latest release.</source>
-        <translation>Make sure your wallet is completely synchronized and you are using the latest release.</translation>
-    </message>
-    <message>
-        <source>You must have a balance of BLKC with a minimum of 600 confirmations.</source>
-        <translation>You must have a balance of BLKC with a minimum of 600 confirmations.</translation>
-    </message>
-    <message>
-        <source>Your wallet must stay online and be unlocked for staking purposes.</source>
-        <translation>Your wallet must stay online and be unlocked for staking purposes.</translation>
-    </message>
-    <message>
-        <source>Once all those steps are followed staking should be enabled.</source>
-        <translation>Once all those steps are followed staking should be enabled.</translation>
-    </message>
-    <message>
-        <source>You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. The package will be lit up and will state "Staking Enabled" to indicate it is staking. Using the command line interface (%1); the command %2 will confirm that staking is active.</source>
-        <translation>You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. The package will be lit up and will state "Staking Enabled" to indicate it is staking. Using the command line interface (%1); the command %2 will confirm that staking is active.</translation>
-    </message>
-    <message>
-        <source>We have support channels in most of our official chat groups, for example %1</source>
-        <translation>We have support channels in most of our official chat groups, for example %1</translation>
-    </message>
-    <message>
-        <source>#support in our Discord</source>
-        <translation>#support in our Discord</translation>
-    </message>
-    <message>
-        <source>%1 per single Masternode instance</source>
-        <translation>%1 per single Masternode instance</translation>
-    </message>
-    <message>
-        <source>A Masternode Controller wallet is where the %1 collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online.</source>
-        <translation>A Masternode Controller wallet is where the %1 collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online.</translation>
-    </message>
-    <message>
-        <source>A decentralized governance (Proposal Voting)</source>
-        <translation>A decentralized governance (Proposal Voting)</translation>
-    </message>
-    <message>
-        <source>A masternode is a computer running a full node %1 wallet with a requirement of %2 secured collateral to provide extra services to the network and in return, receive a portion of the block reward regularly. These services include:</source>
-        <translation>A masternode is a computer running a full node %1 wallet with a requirement of %2 secured collateral to provide extra services to the network and in return, receive a portion of the block reward regularly. These services include:</translation>
-    </message>
-    <message>
-        <source>A decentralized budgeting system (Treasury)</source>
-        <translation>A decentralized budgeting system (Treasury)</translation>
-    </message>
-    <message>
-        <source>Validation of transactions within each block</source>
-        <translation>Validation of transactions within each block</translation>
-    </message>
-    <message>
-        <source>Act as an additional full node in the network</source>
-        <translation>Act as an additional full node in the network</translation>
-    </message>
-    <message>
-        <source>For providing such services, masternodes are also paid a certain portion of reward for each block. This can serve as a passive income to the masternode owners minus their running cost.</source>
-        <translation>For providing such services, masternodes are also paid a certain portion of reward for each block. This can serve as a passive income to the masternode owners minus their running cost.</translation>
-    </message>
-    <message>
-        <source>Masternode Perks:</source>
-        <translation>Masternode Perks:</translation>
-    </message>
-    <message>
-        <source>Participate in BlackHat Governance</source>
-        <translation>Participate in BlackHat Governance</translation>
-    </message>
-    <message>
-        <source>Earn Masternode Rewards</source>
-        <translation>Earn Masternode Rewards</translation>
-    </message>
-    <message>
-        <source>Commodity option for future sale</source>
-        <translation>Commodity option for future sale</translation>
-    </message>
-    <message>
-        <source>Help secure the BlackHat network</source>
-        <translation>Help secure the BlackHat network</translation>
-    </message>
-    <message>
-        <source>Requirements:</source>
-        <translation>Requirements:</translation>
-    </message>
-    <message>
-        <source>Must be stored in a core wallet</source>
-        <translation>Must be stored in a core wallet</translation>
-    </message>
-    <message>
-        <source>Need dedicated IP address</source>
-        <translation>Need dedicated IP address</translation>
-    </message>
-    <message>
-        <source>Masternode wallet to remain online</source>
-        <translation>Masternode wallet to remain online</translation>
-    </message>
 </context>
 <context>
     <name>SettingsInformationWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Network Monitor</translation>
@@ -4020,6 +4337,10 @@ There was an error trying to save the address list to %1. Please try again.</tra
 <context>
     <name>SettingsMainOptionsWidget</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Window</source>
         <translation>Window</translation>
     </message>
@@ -4056,16 +4377,16 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <translation>Number of script verification threads</translation>
     </message>
     <message>
+        <source>Start BlackHat on system login</source>
+        <translation>Start BlackHat on system login</translation>
+    </message>
+    <message>
         <source>Minimize to the tray instead of the taskbar</source>
         <translation>Minimize to the tray instead of the taskbar</translation>
     </message>
     <message>
         <source>Minimize on close</source>
         <translation>Minimize on close</translation>
-    </message>
-    <message>
-        <source>Start %1 on system login</source>
-        <translation>Start %1 on system login</translation>
     </message>
     <message>
         <source>Reset Options</source>
@@ -4087,7 +4408,165 @@ Are you sure?
     </message>
 </context>
 <context>
+    <name>SettingsMultisendDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>Transaction Details</source>
+        <translation>Transaction Details</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>CANCEL</translation>
+    </message>
+    <message>
+        <source>SAVE</source>
+        <translation>SAVE</translation>
+    </message>
+    <message>
+        <source>New recipient for multisend</source>
+        <translation>New recipient for multisend</translation>
+    </message>
+    <message>
+        <source>Address Label (optional)</source>
+        <translation>Address Label (optional)</translation>
+    </message>
+    <message>
+        <source>Enter label to be saved with this address</source>
+        <translation>Enter label to be saved with this address</translation>
+    </message>
+    <message>
+        <source>Percentage</source>
+        <translation>Percentage</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsMultisendWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation>N/A</translation>
+    </message>
+    <message>
+        <source>CheckBox</source>
+        <translation>CheckBox</translation>
+    </message>
+    <message>
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
+        <translation>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Active</translation>
+    </message>
+    <message>
+        <source>Disable</source>
+        <translation>Disable</translation>
+    </message>
+    <message>
+        <source>No active recipient yet</source>
+        <translation>No active recipient yet</translation>
+    </message>
+    <message>
+        <source>Send stakes</source>
+        <translation>Send stakes</translation>
+    </message>
+    <message>
+        <source>Send masternode rewards</source>
+        <translation>Send masternode rewards</translation>
+    </message>
+    <message>
+        <source>ADD RECIPIENT</source>
+        <translation>ADD RECIPIENT</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>CLEAR ALL</translation>
+    </message>
+    <message>
+        <source>Cannot perform operation, wallet locked</source>
+        <translation>Cannot perform operation, wallet locked</translation>
+    </message>
+    <message>
+        <source>Clear succeed</source>
+        <translation>Clear succeed</translation>
+    </message>
+    <message>
+        <source>Clear all failed, could not locate address in wallet file</source>
+        <translation>Clear all failed, could not locate address in wallet file</translation>
+    </message>
+    <message>
+        <source>Cannot add multisend recipient, wallet locked</source>
+        <translation>Cannot add multisend recipient, wallet locked</translation>
+    </message>
+    <message>
+        <source>The entered address: %1 is invalid.
+Please check the address and try again.</source>
+        <translation>The entered address: %1 is invalid.
+Please check the address and try again.</translation>
+    </message>
+    <message>
+        <source>Invalid percentage, please enter values from 1 to 100.</source>
+        <translation>Invalid percentage, please enter values from 1 to 100.</translation>
+    </message>
+    <message>
+        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
+        <translation>The total amount of your MultiSend vector is over 100% of your stake reward</translation>
+    </message>
+    <message>
+        <source>Error saving  MultiSend, failed saving properties to the database.</source>
+        <translation>Error saving  MultiSend, failed saving properties to the database.</translation>
+    </message>
+    <message>
+        <source>Unable to activate MultiSend, no available recipients</source>
+        <translation>Unable to activate MultiSend, no available recipients</translation>
+    </message>
+    <message>
+        <source>Unable to activate MultiSend
+Check one or both of the check boxes to send on stake and/or masternode rewards</source>
+        <translation>Unable to activate MultiSend
+Check one or both of the check boxes to send on stake and/or masternode rewards</translation>
+    </message>
+    <message>
+        <source>MultiSend activated but writing settings to DB failed</source>
+        <translation>MultiSend activated but writing settings to DB failed</translation>
+    </message>
+    <message>
+        <source>MultiSend activated</source>
+        <translation>MultiSend activated</translation>
+    </message>
+    <message>
+        <source>First multiSend address invalid</source>
+        <translation>First multiSend address invalid</translation>
+    </message>
+    <message>
+        <source>MultiSend deactivated but writing settings to DB failed</source>
+        <translation>MultiSend deactivated but writing settings to DB failed</translation>
+    </message>
+    <message>
+        <source>MultiSend deactivated</source>
+        <translation>MultiSend deactivated</translation>
+    </message>
+</context>
+<context>
     <name>SettingsSignMessageWidgets</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Sign/Verify Message</translation>
@@ -4181,6 +4660,10 @@ Are you sure?
         <translation>Please check the signature and try again.</translation>
     </message>
     <message>
+        <source>The signature did not match the message digest.</source>
+        <translation>The signature did not match the message digest.</translation>
+    </message>
+    <message>
         <source>Message verification failed.</source>
         <translation>Message verification failed.</translation>
     </message>
@@ -4195,6 +4678,10 @@ Are you sure?
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Reset to default</source>
         <translation>Reset to default</translation>
@@ -4226,14 +4713,6 @@ Are you sure?
     <message>
         <source>Customize the node network options</source>
         <translation>Customize the node network options</translation>
-    </message>
-    <message>
-        <source>Automatically open the BlackHat client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation>Automatically open the BlackHat client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</translation>
-    </message>
-    <message>
-        <source>Map port using NAT-PMP</source>
-        <translation>Map port using NAT-PMP</translation>
     </message>
     <message>
         <source>Connect through SOCKS5 proxy (default proxy)</source>
@@ -4271,13 +4750,13 @@ Are you sure?
         <source>Options reset succeed</source>
         <translation>Options reset succeed</translation>
     </message>
-    <message>
-        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
-        <translation>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</translation>
-    </message>
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Wallet Repair</translation>
@@ -4366,12 +4845,20 @@ Are you sure?
 <context>
     <name>SettingsWidget</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Wallet Data</source>
         <translation>Wallet Data</translation>
     </message>
     <message>
         <source>Wallet</source>
         <translation>Wallet</translation>
+    </message>
+    <message>
+        <source>Multisend</source>
+        <translation>Multisend</translation>
     </message>
     <message>
         <source>Export Accounting</source>
@@ -4446,6 +4933,10 @@ Are you sure?
         <translation>Client will be shutdown, do you want to proceed?</translation>
     </message>
     <message>
+        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
+        <translation>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</translation>
+    </message>
+    <message>
         <source>Restart required</source>
         <translation>Restart required</translation>
     </message>
@@ -4493,8 +4984,8 @@ Are you sure?
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>%1 is shutting down...</source>
-        <translation>%1 is shutting down...</translation>
+        <source>BlackHat Core is shutting down...</source>
+        <translation>BlackHat Core is shutting down...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4502,10 +4993,29 @@ Are you sure?
     </message>
 </context>
 <context>
+    <name>SnackBar</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>Contact Stored</source>
+        <translation>Contact Stored</translation>
+    </message>
+</context>
+<context>
     <name>Splash</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Loading…</source>
         <translation>Loading…</translation>
+    </message>
+    <message>
+        <source>BlackHat Core</source>
+        <translation>BlackHat Core</translation>
     </message>
 </context>
 <context>
@@ -4517,6 +5027,10 @@ Are you sure?
 </context>
 <context>
     <name>TooltipMenu</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Copy</source>
         <translation>Copy</translation>
@@ -4536,6 +5050,10 @@ Are you sure?
 </context>
 <context>
     <name>TopBar</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>transparent</source>
         <translation>transparent</translation>
@@ -4633,6 +5151,10 @@ backup will be created.
         <translation>Wallet unlock cancelled</translation>
     </message>
     <message>
+        <source>Tor Active: %1</source>
+        <translation>Tor Active: %1</translation>
+    </message>
+    <message>
         <source>Tor Disabled</source>
         <translation>Tor Disabled</translation>
     </message>
@@ -4699,10 +5221,6 @@ all of the privacy features!
 NOTE: after the upgrade, a new
 backup will be created.
 </translation>
-    </message>
-    <message>
-        <source>Tor Active</source>
-        <translation>Tor Active</translation>
     </message>
     <message>
         <source>Wallet Unencrypted</source>
@@ -4946,6 +5464,10 @@ backup will be created.
 <context>
     <name>TxDetailDialog</name>
     <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
         <source>Transaction Details</source>
         <translation>Transaction Details</translation>
     </message>
@@ -4960,6 +5482,14 @@ backup will be created.
     <message>
         <source>Output Index</source>
         <translation>Output Index</translation>
+    </message>
+    <message>
+        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
+        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
+    </message>
+    <message>
+        <source>May 25, 2017</source>
+        <translation>May 25, 2017</translation>
     </message>
     <message>
         <source>ID</source>
@@ -5004,6 +5534,10 @@ backup will be created.
     <message>
         <source>Memo</source>
         <translation>Memo</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -5051,64 +5585,18 @@ backup will be created.
     </message>
 </context>
 <context>
-    <name>VoteDialog</name>
+    <name>TxRow</name>
     <message>
-        <source>Vote For Proposal</source>
-        <translation>Vote For Proposal</translation>
+        <source>Form</source>
+        <translation>Form</translation>
     </message>
     <message>
-        <source>Select vote direction and the masternodes that will vote for it</source>
-        <translation>Select vote direction and the masternodes that will vote for it</translation>
+        <source>+0.000585 BLKC</source>
+        <translation>+0.000585 BLKC</translation>
     </message>
     <message>
-        <source>Select Voting Masternodes</source>
-        <translation>Select Voting Masternodes</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>CANCEL</translation>
-    </message>
-    <message>
-        <source>VOTE</source>
-        <translation>VOTE</translation>
-    </message>
-    <message>
-        <source>You can change your vote later</source>
-        <translation>You can change your vote later</translation>
-    </message>
-    <message>
-        <source>%1 months remaining</source>
-        <translation>%1 months remaining</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>Select a vote direction</source>
-        <translation>Select a vote direction</translation>
-    </message>
-    <message>
-        <source>Missing voting masternodes selection</source>
-        <translation>Missing voting masternodes selection</translation>
-    </message>
-    <message>
-        <source>Time between votes is too soon, have to wait %1 minutes</source>
-        <translation>Time between votes is too soon, have to wait %1 minutes</translation>
-    </message>
-    <message>
-        <source>You have voted with %1 Masternodes for this proposal
-Change votes</source>
-        <translation>You have voted with %1 Masternodes for this proposal
-Change votes</translation>
-    </message>
-    <message>
-        <source>%1 Masternodes selected to vote</source>
-        <translation>%1 Masternodes selected to vote</translation>
+        <source>-0.000585 BLKC</source>
+        <translation>-0.000585 BLKC</translation>
     </message>
 </context>
 <context>
@@ -5169,6 +5657,12 @@ Select fewer inputs with coin control.</translation>
         <translation>Select your language</translation>
     </message>
     <message>
+        <source>Welcome to
+BlackHat Core Wallet</source>
+        <translation>Welcome to
+BlackHat Core Wallet</translation>
+    </message>
+    <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
         <translation>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</translation>
     </message>
@@ -5185,12 +5679,6 @@ Select fewer inputs with coin control.</translation>
         <translation>How BlackHat respects your privacy?</translation>
     </message>
     <message>
-        <source>Welcome to
-%1 Wallet</source>
-        <translation>Welcome to
-%1 Wallet</translation>
-    </message>
-    <message>
         <source>What is a Masternode?</source>
         <translation>What is a Masternode?</translation>
     </message>
@@ -5200,85 +5688,250 @@ Select fewer inputs with coin control.</translation>
     </message>
 </context>
 <context>
-    <name>governancewidget</name>
-    <message>
-        <source>No active proposals yet</source>
-        <translation>No active proposals yet</translation>
-    </message>
-    <message>
-        <source>Budget Distribution</source>
-        <translation>Budget Distribution</translation>
-    </message>
-    <message>
-        <source>Funds accessible for the proposals' implementation</source>
-        <translation>Funds accessible for the proposals' implementation</translation>
-    </message>
-    <message>
-        <source>Available</source>
-        <translation>Available</translation>
-    </message>
-    <message>
-        <source>Allocated</source>
-        <translation>Allocated</translation>
-    </message>
-</context>
-<context>
     <name>blkc-core</name>
+    <message>
+        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
+        <translation>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</translation>
+    </message>
+    <message>
+        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
+        <translation>Bind to given address and always listen on it. Use [host]:port notation for IPv6</translation>
+    </message>
+    <message>
+        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
+        <translation>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</translation>
+    </message>
+    <message>
+        <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
+        <translation>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</translation>
+    </message>
+    <message>
+        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</translation>
+    </message>
+    <message>
+        <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
+        <translation>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</translation>
+    </message>
+    <message>
+        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
+        <translation>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</translation>
+    </message>
+    <message>
+        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
+        <translation>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</translation>
+    </message>
+    <message>
+        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
+        <translation>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</translation>
+    </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
         <translation>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
+    </message>
+    <message>
+        <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
+        <translation>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</translation>
+    </message>
+    <message>
+        <source>Enable spork administration functionality with the appropriate private key.</source>
+        <translation>Enable spork administration functionality with the appropriate private key.</translation>
+    </message>
+    <message>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
+        <translation>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Error: Listening for incoming connections failed (listen returned error %s)</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</translation>
+    </message>
+    <message>
+        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
+        <translation>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</translation>
+    </message>
+    <message>
+        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
+        <translation>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
+        <translation>Execute command when the best block changes (%s in cmd is replaced by block hash)</translation>
+    </message>
+    <message>
+        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
+        <translation>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</translation>
+    </message>
+    <message>
+        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
+        <translation>In this mode -genproclimit controls how many blocks are generated immediately.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
+        <translation>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</translation>
+    </message>
+    <message>
+        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
+        <translation>Log transaction priority and fee per kB when mining blocks (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
+        <translation>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum average size of an index occurrence in the block spam filter (default: %u)</source>
+        <translation>Maximum average size of an index occurrence in the block spam filter (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
+        <translation>Maximum size of data in data carrier transactions we relay and mine (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum size of the list of indexes in the block spam filter (default: %u)</source>
+        <translation>Maximum size of the list of indexes in the block spam filter (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
+        <translation>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</translation>
+    </message>
+    <message>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
+        <translation>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</translation>
+    </message>
+    <message>
+        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
+        <translation>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</translation>
+    </message>
+    <message>
+        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
+        <translation>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</translation>
+    </message>
+    <message>
+        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
+        <translation>Require high priority for relaying free or low-fee transactions (default:%u)</translation>
+    </message>
+    <message>
+        <source>Send trace/debug info to console instead of debug.log file (default: %u)</source>
+        <translation>Send trace/debug info to console instead of debug.log file (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
+        <translation>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</translation>
+    </message>
+    <message>
+        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
+        <translation>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</translation>
+    </message>
+    <message>
+        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
+        <translation>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</translation>
+    </message>
+    <message>
+        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
+        <translation>Support filtering of blocks and transaction with bloom filters (default: %u)</translation>
+    </message>
+    <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
         <translation>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</translation>
+    </message>
+    <message>
+        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
+        <translation>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</translation>
+    </message>
+    <message>
+        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
+        <translation>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</translation>
+    </message>
+    <message>
+        <source>Unable to bind to %s on this computer. BlackHat Core is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. BlackHat Core is probably already running.</translation>
+    </message>
+    <message>
+        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
+        <translation>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</translation>
+    </message>
+    <message>
+        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
+        <translation>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</translation>
+    </message>
+    <message>
+        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
+        <translation>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</translation>
+    </message>
+    <message>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
+        <translation>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</translation>
     </message>
     <message>
-        <source>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</translation>
-    </message>
-    <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
         <translation>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</translation>
     </message>
     <message>
-        <source>"local" vote is no longer available with DMNs. Use "alias" from the wallet with the voting key.</source>
-        <translation>"local" vote is no longer available with DMNs. Use "alias" from the wallet with the voting key.</translation>
+        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
+        <translation>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</translation>
     </message>
     <message>
-        <source>%s Invalid %s address or hostname: '%s'</source>
-        <translation>%s Invalid %s address or hostname: '%s'</translation>
+        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
+        <translation>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</translation>
     </message>
     <message>
-        <source>%s corrupt, salvage failed</source>
-        <translation>%s corrupt, salvage failed</translation>
+        <source>(default: %s)</source>
+        <translation>(default: %s)</translation>
     </message>
     <message>
-        <source>%s is not allowed in combination with enabled wallet functionality</source>
-        <translation>%s is not allowed in combination with enabled wallet functionality</translation>
+        <source>Accept command line and JSON-RPC commands</source>
+        <translation>Accept command line and JSON-RPC commands</translation>
     </message>
     <message>
-        <source>%s is only allowed with a single wallet file</source>
-        <translation>%s is only allowed with a single wallet file</translation>
+        <source>Accept public REST requests (default: %u)</source>
+        <translation>Accept public REST requests (default: %u)</translation>
     </message>
     <message>
-        <source>Cannot downgrade wallet.</source>
-        <translation>Cannot downgrade wallet.</translation>
+        <source>Add a node to connect to and attempt to keep the connection open</source>
+        <translation>Add a node to connect to and attempt to keep the connection open</translation>
     </message>
     <message>
-        <source>Cannot set %s or %s together with %s</source>
-        <translation>Cannot set %s or %s together with %s</translation>
+        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
+        <translation>Always query for peer addresses via DNS lookup (default: %u)</translation>
     </message>
     <message>
-        <source>Cannot upgrade a locked wallet.</source>
-        <translation>Cannot upgrade a locked wallet.</translation>
+        <source>Append comment to the user agent string</source>
+        <translation>Append comment to the user agent string</translation>
+    </message>
+    <message>
+        <source>Automatically create Tor hidden service (default: %d)</source>
+        <translation>Automatically create Tor hidden service (default: %d)</translation>
+    </message>
+    <message>
+        <source>Block creation options:</source>
+        <translation>Block creation options:</translation>
+    </message>
+    <message>
+        <source>Connect through SOCKS5 proxy</source>
+        <translation>Connect through SOCKS5 proxy</translation>
+    </message>
+    <message>
+        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
+        <translation>Connect to a node to retrieve peer addresses, and disconnect</translation>
+    </message>
+    <message>
+        <source>Connection options:</source>
+        <translation>Connection options:</translation>
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
@@ -5289,20 +5942,36 @@ Select fewer inputs with coin control.</translation>
         <translation>Copyright (C) 2014-%i The Dash Core Developers</translation>
     </message>
     <message>
-        <source>Corrupted block database detected</source>
-        <translation>Corrupted block database detected</translation>
+        <source>Copyright (C) 2015-%i The BlackHat Core Developers</source>
+        <translation>Copyright (C) 2015-%i The BlackHat Core Developers</translation>
     </message>
     <message>
-        <source>Could not open debug log file %s</source>
-        <translation>Could not open debug log file %s</translation>
+        <source>Corrupted block database detected</source>
+        <translation>Corrupted block database detected</translation>
     </message>
     <message>
         <source>Could not parse masternode.conf</source>
         <translation>Could not parse masternode.conf</translation>
     </message>
     <message>
-        <source>Deterministic masternodes are not enforced yet</source>
-        <translation>Deterministic masternodes are not enforced yet</translation>
+        <source>Debugging/Testing options:</source>
+        <translation>Debugging/Testing options:</translation>
+    </message>
+    <message>
+        <source>Delete blockchain folders and resync from scratch</source>
+        <translation>Delete blockchain folders and resync from scratch</translation>
+    </message>
+    <message>
+        <source>Disable OS notifications for incoming transactions (default: %u)</source>
+        <translation>Disable OS notifications for incoming transactions (default: %u)</translation>
+    </message>
+    <message>
+        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
+        <translation>Discover own IP address (default: 1 when listening and no -externalip)</translation>
+    </message>
+    <message>
+        <source>Do not load the wallet and disable wallet RPC calls</source>
+        <translation>Do not load the wallet and disable wallet RPC calls</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
@@ -5313,16 +5982,12 @@ Select fewer inputs with coin control.</translation>
         <translation>Done loading</translation>
     </message>
     <message>
-        <source>Elliptic curve cryptography sanity check failure. Aborting.</source>
-        <translation>Elliptic curve cryptography sanity check failure. Aborting.</translation>
+        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
+        <translation>Enable the client to act as a masternode (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
         <translation>Error initializing block database</translation>
-    </message>
-    <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation>Error initializing wallet database environment %s!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -5349,12 +6014,44 @@ Select fewer inputs with coin control.</translation>
         <translation>Error: Disk space is low!</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -tor found, use -onion.</source>
+        <translation>Error: Unsupported argument -tor found, use -onion.</translation>
+    </message>
+    <message>
+        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
+        <translation>Failed to listen on any port. Use -listen=0 if you want this.</translation>
+    </message>
+    <message>
         <source>Failed to parse host:port string</source>
         <translation>Failed to parse host:port string</translation>
     </message>
     <message>
+        <source>Force safe mode (default: %u)</source>
+        <translation>Force safe mode (default: %u)</translation>
+    </message>
+    <message>
+        <source>Generate coins (default: %u)</source>
+        <translation>Generate coins (default: %u)</translation>
+    </message>
+    <message>
+        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
+        <translation>How many blocks to check at startup (default: %u, 0 = all)</translation>
+    </message>
+    <message>
+        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
+        <translation>If &lt;category&gt; is not supplied, output all debugging information.</translation>
+    </message>
+    <message>
         <source>Importing...</source>
         <translation>Importing...</translation>
+    </message>
+    <message>
+        <source>Imports blocks from external blk000??.dat file</source>
+        <translation>Imports blocks from external blk000??.dat file</translation>
+    </message>
+    <message>
+        <source>Include IP addresses in debug output (default: %u)</source>
+        <translation>Include IP addresses in debug output (default: %u)</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -5365,6 +6062,10 @@ Select fewer inputs with coin control.</translation>
         <translation>Information</translation>
     </message>
     <message>
+        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
+        <translation>Initialization sanity check failed. BlackHat Core is shutting down.</translation>
+    </message>
+    <message>
         <source>Insufficient funds.</source>
         <translation>Insufficient funds.</translation>
     </message>
@@ -5373,12 +6074,80 @@ Select fewer inputs with coin control.</translation>
         <translation>Invalid -masternodeaddr port %d, isn't the same as the peer port %d</translation>
     </message>
     <message>
+        <source>Invalid -onion address or hostname: '%s'</source>
+        <translation>Invalid -onion address or hostname: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
+        <translation>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</translation>
+    </message>
+    <message>
+        <source>Invalid netmask specified in -whitelist: '%s'</source>
+        <translation>Invalid netmask specified in -whitelist: '%s'</translation>
+    </message>
+    <message>
         <source>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</source>
         <translation>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
+        <translation>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</translation>
+    </message>
+    <message>
+        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
+        <translation>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</translation>
+    </message>
+    <message>
+        <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
+        <translation>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</translation>
+    </message>
+    <message>
+        <source>&lt;category&gt; can be:</source>
+        <translation>&lt;category&gt; can be:</translation>
+    </message>
+    <message>
+        <source>Attempt to force blockchain corruption recovery</source>
+        <translation>Attempt to force blockchain corruption recovery</translation>
+    </message>
+    <message>
+        <source>Display the stake modifier calculations in the debug.log file.</source>
+        <translation>Display the stake modifier calculations in the debug.log file.</translation>
+    </message>
+    <message>
+        <source>Display verbose coin stake messages in the debug.log file.</source>
+        <translation>Display verbose coin stake messages in the debug.log file.</translation>
+    </message>
+    <message>
+        <source>Enable publish hash block in &lt;address&gt;</source>
+        <translation>Enable publish hash block in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish hash transaction in &lt;address&gt;</source>
+        <translation>Enable publish hash transaction in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw block in &lt;address&gt;</source>
+        <translation>Enable publish raw block in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw transaction in &lt;address&gt;</source>
+        <translation>Enable publish raw transaction in &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable staking functionality (0-1, default: %u)</source>
+        <translation>Enable staking functionality (0-1, default: %u)</translation>
+    </message>
+    <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>Error: A fatal internal error occurred, see debug.log for details</translation>
+    </message>
+    <message>
+        <source>(1 = keep tx meta data e.g. payment request information, 2 = drop tx meta data)</source>
+        <translation>(1 = keep tx meta data e.g. payment request information, 2 = drop tx meta data)</translation>
+    </message>
+    <message>
+        <source>Accept connections from outside (default: %u if no -proxy or -connect/-noconnect)</source>
+        <translation>Accept connections from outside (default: %u if no -proxy or -connect/-noconnect)</translation>
     </message>
     <message>
         <source>Cannot find the Sapling parameters in the following directory:
@@ -5393,24 +6162,12 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Cannot upgrade to Sapling wallet (already running Sapling support). Version: %d</translation>
     </message>
     <message>
+        <source>Disable all BlackHat specific functionality (Masternodes, Budgeting) (0-1, default: %u)</source>
+        <translation>Disable all BlackHat specific functionality (Masternodes, Budgeting) (0-1, default: %u)</translation>
+    </message>
+    <message>
         <source>This file contains all of your private keys in plain text. DO NOT send this file to anyone!</source>
         <translation>This file contains all of your private keys in plain text. DO NOT send this file to anyone!</translation>
-    </message>
-    <message>
-        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of %s.</source>
-        <translation>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of %s.</translation>
-    </message>
-    <message>
-        <source>Unable to replay blocks. You will need to rebuild the database using %s.</source>
-        <translation>Unable to replay blocks. You will need to rebuild the database using %s.</translation>
-    </message>
-    <message>
-        <source>Warning: %s is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Warning: %s is set very high! Fees this large could be paid on a single transaction.</translation>
-    </message>
-    <message>
-        <source>Warning: %s is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Warning: %s is set very high! This is the transaction fee you will pay if you send a transaction.</translation>
     </message>
     <message>
         <source>Warning: error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
@@ -5421,12 +6178,28 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>A fatal internal error occurred, see debug.log for details</translation>
     </message>
     <message>
+        <source>Allow DNS lookups for -addnode, -seednode and -connect (default: %u)</source>
+        <translation>Allow DNS lookups for -addnode, -seednode and -connect (default: %u)</translation>
+    </message>
+    <message>
+        <source>Attempt to recover private keys from a corrupt wallet file</source>
+        <translation>Attempt to recover private keys from a corrupt wallet file</translation>
+    </message>
+    <message>
         <source>Calculating money supply...</source>
         <translation>Calculating money supply...</translation>
     </message>
     <message>
+        <source>Cannot set -bind or -whitebind together with -listen=0</source>
+        <translation>Cannot set -bind or -whitebind together with -listen=0</translation>
+    </message>
+    <message>
         <source>Error loading %s: Wallet corrupted</source>
         <translation>Error loading %s: Wallet corrupted</translation>
+    </message>
+    <message>
+        <source>Error loading %s: Wallet requires newer version of BlackHat Core</source>
+        <translation>Error loading %s: Wallet requires newer version of BlackHat Core</translation>
     </message>
     <message>
         <source>Error loading %s
@@ -5435,36 +6208,8 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
 </translation>
     </message>
     <message>
-        <source>Error loading wallet %s. Duplicate %s filename specified.</source>
-        <translation>Error loading wallet %s. Duplicate %s filename specified.</translation>
-    </message>
-    <message>
         <source>Error upgrading chainstate database</source>
         <translation>Error upgrading chainstate database</translation>
-    </message>
-    <message>
-        <source>Error: %s must be at least %d MB</source>
-        <translation>Error: %s must be at least %d MB</translation>
-    </message>
-    <message>
-        <source>Error: %s must be true if %s is set.</source>
-        <translation>Error: %s must be true if %s is set.</translation>
-    </message>
-    <message>
-        <source>Error: Disk space is low for %s</source>
-        <translation>Error: Disk space is low for %s</translation>
-    </message>
-    <message>
-        <source>Error: Initializing networking failed</source>
-        <translation>Error: Initializing networking failed</translation>
-    </message>
-    <message>
-        <source>Error: Unsupported argument %s found, use %s.</source>
-        <translation>Error: Unsupported argument %s found, use %s.</translation>
-    </message>
-    <message>
-        <source>Error: Unsupported argument %s found. Checklevel must be level 4.</source>
-        <translation>Error: Unsupported argument %s found. Checklevel must be level 4.</translation>
     </message>
     <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
@@ -5475,8 +6220,20 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Invalid masternodeprivkey. Please see the documentation.</translation>
     </message>
     <message>
+        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
+        <translation>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</translation>
+    </message>
+    <message>
         <source>Line: %d</source>
         <translation>Line: %d</translation>
+    </message>
+    <message>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</translation>
+    </message>
+    <message>
+        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
+        <translation>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -5511,72 +6268,148 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Loading wallet...</translation>
     </message>
     <message>
+        <source>Location of the auth cookie (default: data dir)</source>
+        <translation>Location of the auth cookie (default: data dir)</translation>
+    </message>
+    <message>
+        <source>Lock masternodes from masternode configuration file (default: %u)</source>
+        <translation>Lock masternodes from masternode configuration file (default: %u)</translation>
+    </message>
+    <message>
+        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
+        <translation>Lookup(): Invalid -proxy address or hostname: '%s'</translation>
+    </message>
+    <message>
         <source>MNs synchronization pending...</source>
         <translation>MNs synchronization pending...</translation>
+    </message>
+    <message>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
+        <translation>Maintain at most &lt;n&gt; connections to peers (default: %u)</translation>
+    </message>
+    <message>
+        <source>Masternode options:</source>
+        <translation>Masternode options:</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
+        <translation>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>Mining/Staking options:</source>
+        <translation>Mining/Staking options:</translation>
+    </message>
+    <message>
+        <source>Specify zk params directory (default: %s)</source>
+        <translation>Specify zk params directory (default: %s)</translation>
+    </message>
+    <message>
+        <source>Need to specify a port with -whitebind: '%s'</source>
+        <translation>Need to specify a port with -whitebind: '%s'</translation>
+    </message>
+    <message>
+        <source>Node relay options:</source>
+        <translation>Node relay options:</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
         <translation>Not enough file descriptors available.</translation>
     </message>
     <message>
+        <source>Number of custom location backups to retain (default: %d)</source>
+        <translation>Number of custom location backups to retain (default: %d)</translation>
+    </message>
+    <message>
+        <source>On first run, create a legacy wallet instead of a HD wallet</source>
+        <translation>On first run, create a legacy wallet instead of a HD wallet</translation>
+    </message>
+    <message>
+        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
+        <translation>Only accept block chain matching built-in checkpoints (default: %u)</translation>
+    </message>
+    <message>
+        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
+        <translation>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Options:</translation>
+    </message>
+    <message>
+        <source>Password for JSON-RPC connections</source>
+        <translation>Password for JSON-RPC connections</translation>
+    </message>
+    <message>
         <source>Peers are being disconnected due time differences.</source>
         <translation>Peers are being disconnected due time differences.</translation>
     </message>
     <message>
-        <source>Specified blocks directory "%s" does not exist.</source>
-        <translation>Specified blocks directory "%s" does not exist.</translation>
+        <source>Use block spam filter (default: %u)</source>
+        <translation>Use block spam filter (default: %u)</translation>
     </message>
     <message>
-        <source>Unknown network specified in %s: '%s'</source>
-        <translation>Unknown network specified in %s: '%s'</translation>
+        <source>Wallet debugging/testing options:</source>
+        <translation>Wallet debugging/testing options:</translation>
     </message>
     <message>
-        <source>Upgrading coins database if needed...</source>
-        <translation>Upgrading coins database if needed...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet(s)...</source>
-        <translation>Verifying wallet(s)...</translation>
-    </message>
-    <message>
-        <source>Wallet %s resides outside data directory %s</source>
-        <translation>Wallet %s resides outside data directory %s</translation>
+        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
+        <translation>isValid(): Invalid -proxy address or hostname: '%s'</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
         <translation>Preparing for resync...</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. %s is probably already running.</translation>
+        <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
+        <translation>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</translation>
     </message>
     <message>
-        <source>Cannot start deterministic masternode before enforcement. Remove %s to start as legacy masternode</source>
-        <translation>Cannot start deterministic masternode before enforcement. Remove %s to start as legacy masternode</translation>
+        <source>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</source>
+        <translation>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</translation>
     </message>
     <message>
-        <source>Enabling Masternode support requires turning on transaction indexing.Please add %s to your configuration and start with %s</source>
-        <translation>Enabling Masternode support requires turning on transaction indexing.Please add %s to your configuration and start with %s</translation>
+        <source>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</source>
+        <translation>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument %s found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Error: Unsupported argument %s found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</translation>
+        <source>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</source>
+        <translation>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</translation>
     </message>
     <message>
-        <source>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</source>
-        <translation>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</translation>
+        <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
+        <translation>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</translation>
     </message>
     <message>
-        <source>Invalid amount for %s: '%s' (must be at least the minimum relay fee of %s to prevent stuck transactions)</source>
-        <translation>Invalid amount for %s: '%s' (must be at least the minimum relay fee of %s to prevent stuck transactions)</translation>
+        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
+        <translation>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</translation>
     </message>
     <message>
-        <source>Legacy masternode system disabled. Use %s to start as deterministic masternode</source>
-        <translation>Legacy masternode system disabled. Use %s to start as deterministic masternode</translation>
+        <source>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
+        <translation>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</translation>
     </message>
     <message>
-        <source>System error while flushing the chainstate after pruning invalid entries. Possible corrupt database.</source>
-        <translation>System error while flushing the chainstate after pruning invalid entries. Possible corrupt database.</translation>
+        <source>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</translation>
+    </message>
+    <message>
+        <source>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</source>
+        <translation>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</translation>
+    </message>
+    <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
+        <translation>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
+        <translation>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</translation>
+    </message>
+    <message>
+        <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
+        <translation>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -5591,6 +6424,10 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Active Masternode not initialized.</translation>
     </message>
     <message>
+        <source>Allows deprecated RPC method(s) to be used</source>
+        <translation>Allows deprecated RPC method(s) to be used</translation>
+    </message>
+    <message>
         <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
         <translation>Can't generate a change-address key. Please call keypoolrefill first.</translation>
     </message>
@@ -5599,12 +6436,16 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Cannot resolve -%s address: '%s'</translation>
     </message>
     <message>
-        <source>Cannot write to data directory '%s'; check permissions.</source>
-        <translation>Cannot write to data directory '%s'; check permissions.</translation>
-    </message>
-    <message>
         <source>Change index out of range</source>
         <translation>Change index out of range</translation>
+    </message>
+    <message>
+        <source>Error: -listen must be true if -masternode is set.</source>
+        <translation>Error: -listen must be true if -masternode is set.</translation>
+    </message>
+    <message>
+        <source>Error: -maxmempool must be at least %d MB</source>
+        <translation>Error: -maxmempool must be at least %d MB</translation>
     </message>
     <message>
         <source>Failed to accept tx in the memory pool (reason: %s)
@@ -5613,20 +6454,8 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
 </translation>
     </message>
     <message>
-        <source>Failed to delete backup, error: %s</source>
-        <translation>Failed to delete backup, error: %s</translation>
-    </message>
-    <message>
-        <source>Failed to listen on any port. Use %s if you want this.</source>
-        <translation>Failed to listen on any port. Use %s if you want this.</translation>
-    </message>
-    <message>
-        <source>Failed to rescan the wallet during initialization</source>
-        <translation>Failed to rescan the wallet during initialization</translation>
-    </message>
-    <message>
-        <source>Initialization sanity check failed. %s is shutting down.</source>
-        <translation>Initialization sanity check failed. %s is shutting down.</translation>
+        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
+        <translation>Fee (in %s/kB) to add to transactions you send (default: %s)</translation>
     </message>
     <message>
         <source>Invalid -masternodeaddr address: %s</source>
@@ -5637,26 +6466,6 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Invalid -masternodeaddr port %d, only %d is supported on %s-net.</translation>
     </message>
     <message>
-        <source>Invalid activation height (%s)</source>
-        <translation>Invalid activation height (%s)</translation>
-    </message>
-    <message>
-        <source>Invalid amount for %s: '%s' (must be at least %s)</source>
-        <translation>Invalid amount for %s: '%s' (must be at least %s)</translation>
-    </message>
-    <message>
-        <source>Invalid mnoperatorprivatekey. Please see the documentation.</source>
-        <translation>Invalid mnoperatorprivatekey. Please see the documentation.</translation>
-    </message>
-    <message>
-        <source>Invalid netmask specified in %s: '%s'</source>
-        <translation>Invalid netmask specified in %s: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid network upgrade (%s)</source>
-        <translation>Invalid network upgrade (%s)</translation>
-    </message>
-    <message>
         <source>Invalid port %d detected in masternode.conf</source>
         <translation>Invalid port %d detected in masternode.conf</translation>
     </message>
@@ -5665,48 +6474,116 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Invalid status error.</translation>
     </message>
     <message>
+        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</translation>
+    </message>
+    <message>
         <source>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</source>
         <translation>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</translation>
     </message>
     <message>
-        <source>Legacy Masternode is obsolete.</source>
-        <translation>Legacy Masternode is obsolete.</translation>
-    </message>
-    <message>
-        <source>Loading/Pruning invalid outputs...</source>
-        <translation>Loading/Pruning invalid outputs...</translation>
-    </message>
-    <message>
-        <source>Need to specify a port with %s: '%s'</source>
-        <translation>Need to specify a port with %s: '%s'</translation>
-    </message>
-    <message>
-        <source>Network upgrade parameters malformed, expecting %s</source>
-        <translation>Network upgrade parameters malformed, expecting %s</translation>
-    </message>
-    <message>
-        <source>Network upgrade parameters may only be overridden on regtest.</source>
-        <translation>Network upgrade parameters may only be overridden on regtest.</translation>
+        <source>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</source>
+        <translation>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</translation>
     </message>
     <message>
         <source>No error</source>
         <translation>No error</translation>
     </message>
     <message>
-        <source>OS cryptographic RNG sanity check failure. Aborting.</source>
-        <translation>OS cryptographic RNG sanity check failure. Aborting.</translation>
+        <source>Number of automatic wallet backups (default: %d)</source>
+        <translation>Number of automatic wallet backups (default: %d)</translation>
     </message>
     <message>
-        <source>Reaccepting wallet transactions...</source>
-        <translation>Reaccepting wallet transactions...</translation>
+        <source>Prepend debug output with timestamp (default: %u)</source>
+        <translation>Prepend debug output with timestamp (default: %u)</translation>
     </message>
     <message>
-        <source>Replaying blocks...</source>
-        <translation>Replaying blocks...</translation>
+        <source>Print version and exit</source>
+        <translation>Print version and exit</translation>
+    </message>
+    <message>
+        <source>RPC server options:</source>
+        <translation>RPC server options:</translation>
+    </message>
+    <message>
+        <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
+        <translation>Randomly drop 1 of every &lt;n&gt; network messages</translation>
+    </message>
+    <message>
+        <source>Randomly fuzz 1 of every &lt;n&gt; network messages</source>
+        <translation>Randomly fuzz 1 of every &lt;n&gt; network messages</translation>
+    </message>
+    <message>
+        <source>Rebuild block chain index from current blk000??.dat files</source>
+        <translation>Rebuild block chain index from current blk000??.dat files</translation>
+    </message>
+    <message>
+        <source>Relay and mine data carrier transactions (default: %u)</source>
+        <translation>Relay and mine data carrier transactions (default: %u)</translation>
+    </message>
+    <message>
+        <source>Relay non-P2SH multisig (default: %u)</source>
+        <translation>Relay non-P2SH multisig (default: %u)</translation>
+    </message>
+    <message>
+        <source>Rescan the block chain for missing wallet transactions</source>
+        <translation>Rescan the block chain for missing wallet transactions</translation>
     </message>
     <message>
         <source>Rescanning...</source>
         <translation>Rescanning...</translation>
+    </message>
+    <message>
+        <source>Run a thread to flush wallet periodically (default: %u)</source>
+        <translation>Run a thread to flush wallet periodically (default: %u)</translation>
+    </message>
+    <message>
+        <source>Run in the background as a daemon and accept commands</source>
+        <translation>Run in the background as a daemon and accept commands</translation>
+    </message>
+    <message>
+        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
+        <translation>Set database cache size in megabytes (%d to %d, default: %d)</translation>
+    </message>
+    <message>
+        <source>Set external address:port to get to this masternode (example: %s)</source>
+        <translation>Set external address:port to get to this masternode (example: %s)</translation>
+    </message>
+    <message>
+        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
+        <translation>Set key pool size to &lt;n&gt; (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set maximum block size in bytes (default: %d)</source>
+        <translation>Set maximum block size in bytes (default: %d)</translation>
+    </message>
+    <message>
+        <source>Set minimum block size in bytes (default: %u)</source>
+        <translation>Set minimum block size in bytes (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set the Maximum reorg depth (default: %u)</source>
+        <translation>Set the Maximum reorg depth (default: %u)</translation>
+    </message>
+    <message>
+        <source>Set the masternode private key</source>
+        <translation>Set the masternode private key</translation>
+    </message>
+    <message>
+        <source>Set the number of threads to service RPC calls (default: %d)</source>
+        <translation>Set the number of threads to service RPC calls (default: %d)</translation>
+    </message>
+    <message>
+        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
+        <translation>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</translation>
+    </message>
+    <message>
+        <source>Show all debugging options (usage: --help -help-debug)</source>
+        <translation>Show all debugging options (usage: --help -help-debug)</translation>
+    </message>
+    <message>
+        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
+        <translation>Shrink debug.log file on client startup (default: 1 when no -debug)</translation>
     </message>
     <message>
         <source>Shutdown requested over the txs scan. Exiting.</source>
@@ -5715,6 +6592,42 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
     <message>
         <source>Signing transaction failed</source>
         <translation>Signing transaction failed</translation>
+    </message>
+    <message>
+        <source>Specify configuration file (default: %s)</source>
+        <translation>Specify configuration file (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
+        <translation>Specify connection timeout in milliseconds (minimum: 1, default: %d)</translation>
+    </message>
+    <message>
+        <source>Specify data directory</source>
+        <translation>Specify data directory</translation>
+    </message>
+    <message>
+        <source>Specify masternode configuration file (default: %s)</source>
+        <translation>Specify masternode configuration file (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: %s)</source>
+        <translation>Specify pid file (default: %s)</translation>
+    </message>
+    <message>
+        <source>Specify wallet file (within data directory)</source>
+        <translation>Specify wallet file (within data directory)</translation>
+    </message>
+    <message>
+        <source>Specify your own public address</source>
+        <translation>Specify your own public address</translation>
+    </message>
+    <message>
+        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
+        <translation>Spend unconfirmed change when sending transactions (default: %u)</translation>
+    </message>
+    <message>
+        <source>Stop running after importing blocks from disk (default: %u)</source>
+        <translation>Stop running after importing blocks from disk (default: %u)</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
@@ -5745,12 +6658,16 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>The threshold value cannot be less than %s</translation>
     </message>
     <message>
+        <source>This help message</source>
+        <translation>This help message</translation>
+    </message>
+    <message>
         <source>This is experimental software.</source>
         <translation>This is experimental software.</translation>
     </message>
     <message>
-        <source>This is not a deterministic masternode. 'local' option disabled.</source>
-        <translation>This is not a deterministic masternode. 'local' option disabled.</translation>
+        <source>This is intended for regression testing tools and app development.</source>
+        <translation>This is intended for regression testing tools and app development.</translation>
     </message>
     <message>
         <source>This is not a masternode. 'local' option disabled.</source>
@@ -5761,48 +6678,16 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>This is not a masternode.</translation>
     </message>
     <message>
-        <source>This product includes UPnP software written by Thomas Bernard.</source>
-        <translation>This product includes UPnP software written by Thomas Bernard.</translation>
+        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
+        <translation>Threshold for disconnecting misbehaving peers (default: %u)</translation>
     </message>
     <message>
-        <source>Invalid -wallet path '%s'. -wallet path should point to a directory where wallet.dat and database/log.?????????? files can be stored, a location where such a directory could be created or (for backwards compatibility) the name of an existing data file in -walletdir (%s)</source>
-        <translation>Invalid -wallet path '%s'. -wallet path should point to a directory where wallet.dat and database/log.?????????? files can be stored, a location where such a directory could be created or (for backwards compatibility) the name of an existing data file in -walletdir (%s)</translation>
+        <source>Tor control port password (default: empty)</source>
+        <translation>Tor control port password (default: empty)</translation>
     </message>
     <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
-        <translation>Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
-        <translation>Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</translation>
-    </message>
-    <message>
-        <source>Copyright (C) 2015-%i The %s Developers</source>
-        <translation>Copyright (C) 2015-%i The %s Developers</translation>
-    </message>
-    <message>
-        <source>Could not find asmap file %s</source>
-        <translation>Could not find asmap file %s</translation>
-    </message>
-    <message>
-        <source>Could not parse asmap file %s</source>
-        <translation>Could not parse asmap file %s</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Wallet requires newer version of %s</source>
-        <translation>Error loading %s: Wallet requires newer version of %s</translation>
-    </message>
-    <message>
-        <source>Specified -walletdir "%s" does not exist</source>
-        <translation>Specified -walletdir "%s" does not exist</translation>
-    </message>
-    <message>
-        <source>Specified -walletdir "%s" is a relative path</source>
-        <translation>Specified -walletdir "%s" is a relative path</translation>
-    </message>
-    <message>
-        <source>Specified -walletdir "%s" is not a directory</source>
-        <translation>Specified -walletdir "%s" is not a directory</translation>
+        <source>Tor control port to use if onion listening enabled (default: %s)</source>
+        <translation>Tor control port to use if onion listening enabled (default: %s)</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -5817,10 +6702,6 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Transaction canceled.</translation>
     </message>
     <message>
-        <source>Transaction must have at least one recipient</source>
-        <translation>Transaction must have at least one recipient</translation>
-    </message>
-    <message>
         <source>Transaction too large for fee policy</source>
         <translation>Transaction too large for fee policy</translation>
     </message>
@@ -5831,14 +6712,6 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Unable to bind to %s on this computer (bind returned error %s)</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer. %s is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. %s is probably already running.</translation>
-    </message>
-    <message>
-        <source>Unable to generate initial key!</source>
-        <translation>Unable to generate initial key!</translation>
     </message>
     <message>
         <source>Unable to generate keys</source>
@@ -5853,36 +6726,56 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Unable to start HTTP server. See debug log for details.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart %s to complete</source>
-        <translation>Wallet needed to be rewritten: restart %s to complete</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument %s ignored, use %s</source>
-        <translation>Warning: Unsupported argument %s ignored, use %s</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument %s ignored, use %s.</source>
-        <translation>Warning: Unsupported argument %s ignored, use %s.</translation>
-    </message>
-    <message>
-        <source>You can not start a masternode in litemode</source>
-        <translation>You can not start a masternode in litemode</translation>
-    </message>
-    <message>
-        <source>You need to rebuild the database using %s to change %s</source>
-        <translation>You need to rebuild the database using %s to change %s</translation>
+        <source>Unknown network specified in -onlynet: '%s'</source>
+        <translation>Unknown network specified in -onlynet: '%s'</translation>
     </message>
     <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation>Unsupported logging category %s=%s.</translation>
     </message>
     <message>
+        <source>Upgrade wallet to latest format</source>
+        <translation>Upgrade wallet to latest format</translation>
+    </message>
+    <message>
+        <source>Upgrading coins database...</source>
+        <translation>Upgrading coins database...</translation>
+    </message>
+    <message>
+        <source>Use UPnP to map the listening port (default: %u)</source>
+        <translation>Use UPnP to map the listening port (default: %u)</translation>
+    </message>
+    <message>
+        <source>Use the test network</source>
+        <translation>Use the test network</translation>
+    </message>
+    <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation>User Agent comment (%s) contains unsafe characters.</translation>
     </message>
     <message>
+        <source>Username for JSON-RPC connections</source>
+        <translation>Username for JSON-RPC connections</translation>
+    </message>
+    <message>
         <source>Verifying blocks...</source>
         <translation>Verifying blocks...</translation>
+    </message>
+    <message>
+        <source>Verifying wallet...</source>
+        <translation>Verifying wallet...</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart BlackHat Core to complete</source>
+        <translation>Wallet needed to be rewritten: restart BlackHat Core to complete</translation>
+    </message>
+    <message>
+        <source>Wallet options:</source>
+        <translation>Wallet options:</translation>
+    </message>
+    <message>
+        <source>Wallet window title</source>
+        <translation>Wallet window title</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -5893,12 +6786,36 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Warning: This version is obsolete, upgrade required!</translation>
     </message>
     <message>
+        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
+        <translation>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
+        <translation>Warning: Unsupported argument -debugnet ignored, use -debug=net.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>You need to rebuild the database using -reindex to change -txindex</translation>
+    </message>
+    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Zapping all transactions from wallet...</translation>
+    </message>
+    <message>
+        <source>ZeroMQ notification options:</source>
+        <translation>ZeroMQ notification options:</translation>
+    </message>
+    <message>
+        <source>on startup</source>
+        <translation>on startup</translation>
     </message>
 </context>
 <context>
     <name>send</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
     <message>
         <source>Send</source>
         <translation>Send</translation>
@@ -5920,8 +6837,8 @@ Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.<
         <translation>Select which coins to spend</translation>
     </message>
     <message>
-        <source>Recipient address</source>
-        <translation>Recipient address</translation>
+        <source>BlackHat address or contact label</source>
+        <translation>BlackHat address or contact label</translation>
     </message>
     <message>
         <source>Amount</source>

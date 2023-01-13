@@ -9,11 +9,10 @@
 #include "budget/budgetutil.h"
 #include "destination_io.h"
 #include "guiconstants.h"
-#include "masternode-sync.h"
-#include "script/standard.h"
 #include "qt/transactiontablemodel.h"
 #include "qt/transactionrecord.h"
 #include "qt/blkc/mnmodel.h"
+#include "tiertwo/tiertwo_sync_state.h"
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
 #include "walletmodel.h"
@@ -55,6 +54,7 @@ ProposalInfo GovernanceModel::buildProposalInfo(const CBudgetProposal* prop, boo
     // Calculate status
     int votesYes = prop->GetYeas();
     int votesNo = prop->GetNays();
+    int mnCount = clientModel->getMasternodesCount();
     int remainingPayments = prop->GetRemainingPaymentCount(clientModel->getLastBlockProcessedHeight());
     ProposalInfo::Status status;
 
@@ -66,7 +66,7 @@ ProposalInfo GovernanceModel::buildProposalInfo(const CBudgetProposal* prop, boo
             status = ProposalInfo::FINISHED;
         } else if (isPassing) {
             status = ProposalInfo::PASSING;
-        } else if (votesYes > votesNo) {
+        } else if (allocatedAmount + prop->GetAmount() > getMaxAvailableBudgetAmount() && votesYes - votesNo > mnCount / 10) {
             status = ProposalInfo::PASSING_NOT_FUNDED;
         } else {
             status = ProposalInfo::NOT_PASSING;
@@ -183,16 +183,24 @@ std::vector<VoteInfo> GovernanceModel::getLocalMNsVotesForProposal(const Proposa
 
 OperationResult GovernanceModel::validatePropName(const QString& name) const
 {
-    if (name.toUtf8().size() > PROP_NAME_MAX_SIZE) { // limit
-        return {false, _("Invalid name, maximum size exceeded")};
+    std::string strName = SanitizeString(name.toStdString());
+    if (strName != name.toStdString()) { // invalid characters
+        return {false, _("Invalid name, invalid characters")};
+    }
+    if (strName.size() > (int)PROP_NAME_MAX_SIZE) { // limit
+        return {false, strprintf(_("Invalid name, maximum size of %d exceeded"), PROP_NAME_MAX_SIZE)};
     }
     return {true};
 }
 
 OperationResult GovernanceModel::validatePropURL(const QString& url) const
 {
+    std::string strURL = SanitizeString(url.toStdString());
+    if (strURL != url.toStdString()) {
+        return {false, _("Invalid URL, invalid characters")};
+    }
     std::string strError;
-    return {validateURL(url.toStdString(), strError, PROP_URL_MAX_SIZE), strError};
+    return {validateURL(strURL, strError, PROP_URL_MAX_SIZE), strError};
 }
 
 OperationResult GovernanceModel::validatePropAmount(CAmount amount) const
@@ -219,7 +227,7 @@ OperationResult GovernanceModel::validatePropPaymentCount(int paymentCount) cons
 
 bool GovernanceModel::isTierTwoSync()
 {
-    return masternodeSync.IsBlockchainSynced();
+    return g_tiertwo_sync_state.IsBlockchainSynced();
 }
 
 OperationResult GovernanceModel::createProposal(const std::string& strProposalName,

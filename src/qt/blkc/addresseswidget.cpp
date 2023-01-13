@@ -10,7 +10,6 @@
 #include "qt/blkc/tooltipmenu.h"
 
 #include "qt/blkc/addnewcontactdialog.h"
-#include "qt/blkc/blkcgui.h"
 #include "guiutil.h"
 #include "qt/blkc/qtutils.h"
 #include "walletmodel.h"

@@ -30,7 +30,7 @@ public:
     void MakeDeterministic()
     {
         nKey.SetNull();
-        SeedInsecureRand(true);
+        SeedInsecureRand(SeedRand::ZEROS);
     }
 };
 

@@ -648,7 +648,7 @@ BOOST_AUTO_TEST_CASE(util_seed_insecure_rand)
     int i;
     int count=0;
 
-    SeedInsecureRand(true);
+    SeedInsecureRand(SeedRand::ZEROS);
 
     for (int mod=2;mod<11;mod++)
     {

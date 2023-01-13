@@ -20,7 +20,6 @@
 #include "qt/clientmodel.h"
 #include "qt/guiconstants.h"
 #include "qt/optionsmodel.h"
-#include "qt/recentrequeststablemodel.h"
 #include "qt/transactiontablemodel.h"
 #include "qt/walletmodeltransaction.h"
 
@@ -51,7 +50,6 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
 
     addressTableModel = new AddressTableModel(wallet, this);
     transactionTableModel = new TransactionTableModel(wallet, this);
-    recentRequestsTableModel = new RecentRequestsTableModel(wallet, this);
 }
 
 void WalletModel::init()
@@ -663,7 +661,7 @@ OperationResult WalletModel::createAndSendProposalFeeTx(CBudgetProposal& proposa
     CTransactionRef wtx;
     const uint256& nHash = proposal.GetHash();
     CReserveKey keyChange(wallet);
-    if (!wallet->CreateBudgetFeeTX(wtx, nHash, keyChange, false)) { // 50 BLKC collateral for proposal
+    if (!wallet->CreateBudgetFeeTX(wtx, nHash, keyChange, BUDGET_FEE_TX_OLD)) { // 50 BLKC collateral for proposal
         return {false , "Error making fee transaction for proposal. Please check your wallet balance."};
     }
 
@@ -697,11 +695,6 @@ AddressTableModel* WalletModel::getAddressTableModel()
 TransactionTableModel* WalletModel::getTransactionTableModel()
 {
     return transactionTableModel;
-}
-
-RecentRequestsTableModel* WalletModel::getRecentRequestsTableModel()
-{
-    return recentRequestsTableModel;
 }
 
 WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const

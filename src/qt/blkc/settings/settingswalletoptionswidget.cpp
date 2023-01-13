@@ -33,6 +33,11 @@ SettingsWalletOptionsWidget::SettingsWalletOptionsWidget(BLKCGUI* _window, QWidg
     ui->spinBoxStakeSplitThreshold->setAttribute(Qt::WA_MacShowFocusRect, 0);
     setShadow(ui->spinBoxStakeSplitThreshold);
 
+    setCssProperty(ui->pushNetEnable, "btn-check-left");
+    ui->pushNetEnable->setChecked(true);
+    setCssProperty(ui->pushNetDisable, "btn-check-right");
+    setCssProperty(ui->labelNetActivity, "text-subtitle");
+
 #ifndef USE_UPNP
     ui->mapPortUpnp->setVisible(false);
 #endif
@@ -58,6 +63,8 @@ SettingsWalletOptionsWidget::SettingsWalletOptionsWidget(BLKCGUI* _window, QWidg
     setCssBtnSecondary(ui->pushButtonReset);
     setCssBtnSecondary(ui->pushButtonClean);
 
+    connect(ui->pushNetEnable, &QPushButton::clicked, [this](){setNetworkActivity(true);});
+    connect(ui->pushNetDisable,  &QPushButton::clicked, [this](){setNetworkActivity(false);});
     connect(ui->pushButtonSave, &QPushButton::clicked, [this] { Q_EMIT saveSettings(); });
     connect(ui->pushButtonReset, &QPushButton::clicked, this, &SettingsWalletOptionsWidget::onResetClicked);
     connect(ui->pushButtonClean, &QPushButton::clicked, [this] { Q_EMIT discardSettings(); });
@@ -89,6 +96,14 @@ void SettingsWalletOptionsWidget::loadWalletModel()
 {
     reloadWalletOptions();
     connect(walletModel, &WalletModel::notifySSTChanged, this, &SettingsWalletOptionsWidget::setSpinBoxStakeSplitThreshold);
+}
+
+void SettingsWalletOptionsWidget::loadClientModel()
+{
+    connect(clientModel, &ClientModel::networkActiveChanged, [this](bool isActive) {
+        ui->pushNetEnable->setChecked(isActive);
+        ui->pushNetDisable->setChecked(!isActive);
+    });
 }
 
 void SettingsWalletOptionsWidget::reloadWalletOptions()
@@ -131,6 +146,13 @@ void SettingsWalletOptionsWidget::discardWalletOnlyOptions()
 void SettingsWalletOptionsWidget::saveMapPortOptions()
 {
     clientModel->mapPort(ui->mapPortUpnp->isChecked(), ui->mapPortNatpmp->isChecked());
+}
+
+void SettingsWalletOptionsWidget::setNetworkActivity(bool active)
+{
+    if (clientModel->getNetworkActive() == active) return;
+    clientModel->setNetworkActive(active);
+    inform(active ? tr("Network activity enabled") : tr("Network activity disabled"));
 }
 
 SettingsWalletOptionsWidget::~SettingsWalletOptionsWidget(){

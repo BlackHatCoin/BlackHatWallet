@@ -84,7 +84,7 @@ public:
     void Clear();
     void LoadSporksFromDB();
 
-    void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
+    bool ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, int& dosScore);
     int64_t GetSporkValue(SporkId nSporkID);
     // Create/Sign/Relay the spork message, and update the maps
     bool UpdateSpork(SporkId nSporkID, int64_t nValue);
