@@ -1,5 +1,5 @@
-// Copyright (c) 2017-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,6 +22,10 @@ static bool GetKeyIDFromUTXO(const CTxOut& utxo, CKeyID& keyIDRet)
         keyIDRet = CKeyID(uint160(vSolutions[0]));
         return true;
     }
+    if (whichType == TX_EXCHANGEADDR) {
+        keyIDRet = CExchangeKeyID(uint160(vSolutions[0]));
+        return true;
+    }
     return false;
 }
 
@@ -36,19 +40,8 @@ bool SignBlockWithKey(CBlock& block, const CKey& key)
 bool SignBlock(CBlock& block, const CKeyStore& keystore)
 {
     CKeyID keyID;
-    if (block.IsProofOfWork()) {
-        bool fFoundID = false;
-        for (const CTxOut& txout : block.vtx[0]->vout) {
-            if (!GetKeyIDFromUTXO(txout, keyID))
-                continue;
-            fFoundID = true;
-            break;
-        }
-        if (!fFoundID)
-            return error("%s: failed to find key for PoW", __func__);
-    } else {
-        if (!GetKeyIDFromUTXO(block.vtx[1]->vout[1], keyID))
-            return error("%s: failed to find key for PoS", __func__);
+    if (!GetKeyIDFromUTXO(block.vtx[1]->vout[1], keyID)) {
+        return error("%s: failed to find key for PoS", __func__);
     }
 
     CKey key;

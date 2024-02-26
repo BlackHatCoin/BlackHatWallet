@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -160,12 +160,13 @@ static MapCheckpoints mapCheckpoints = {
     {202000, uint256S("2f642ef67d0e053c068bf812dca5ed315302137dbdea571c7d7efc223d394fd7")}, //!< BlackHat v5.3.0 enforced
     {263600, uint256S("a9a78f8593c140e5821f87c00ad5266fb2c2144d749276fa0744519858f1722b")}, //!< New Checkpoint
     {861990, uint256S("e2beaf60a264567e9b034bec4103af9070d9755e966ebd5d892d654961f89d55")}, //!< New Checkpoint
+    {861990, uint256S("aa34c35ae5910ef2d2e0f4adf67f582c9e8f2803c06f7b83fb697992aae162fe")}, //!< New Checkpoint 2024
 };
 
 static const CCheckpointData data = {
     &mapCheckpoints,
-    1672910340, // * UNIX timestamp of last checkpoint block
-    1845418,    // * total number of transactions between genesis and last checkpoint
+    1708928880, // * UNIX timestamp of last checkpoint block
+    3027284,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
     3000        // * estimated number of transactions per day after checkpoint
 };
@@ -265,6 +266,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 114000;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 202000;
         consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 900000;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_6].nActivationHeight          = 1468000;  // Est. Mar 11th 11:00 UTC
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -299,6 +301,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25);     // starting with 'B'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
         base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 63);     // starting with 'S'
+        base58Prefixes[EXCHANGE_ADDRESS] = {0x01, 0xb9, 0xa2};   // starts with EXM
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x02, 0x2D, 0x25, 0x33};
         base58Prefixes[EXT_SECRET_KEY] = {0x02, 0x21, 0x31, 0x2B};
@@ -326,6 +329,8 @@ public:
         consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
 
         nLLMQConnectionRetryTimeout = 60;
+
+        consensus.llmqChainLocks = Consensus::LLMQ_400_60;
 
         // Tier two
         nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour
@@ -415,6 +420,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 201;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_6].nActivationHeight          = 201;
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -436,6 +442,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet blkc addresses start with 'x' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet blkc script addresses start with '8' or '9'
         base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 73);     // starting with 'W'
+        base58Prefixes[EXCHANGE_ADDRESS] = {0x01, 0xb9, 0xb1};   // EXT prefix for the address
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         // Testnet blkc BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = {0x3a, 0x80, 0x61, 0xa0};
@@ -464,6 +471,8 @@ public:
         consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
 
         nLLMQConnectionRetryTimeout = 60;
+
+        consensus.llmqChainLocks = Consensus::LLMQ_400_60;
 
         // Tier two
         nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour
@@ -558,6 +567,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_2].nActivationHeight          = 350;
         consensus.vUpgrades[Consensus::UPGRADE_V5_3].nActivationHeight          = 400;
         consensus.vUpgrades[Consensus::UPGRADE_V5_5].nActivationHeight          = 550;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_6].nActivationHeight          = 600;
         consensus.vUpgrades[Consensus::UPGRADE_V6_0].nActivationHeight =
                 Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
@@ -575,6 +585,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet blkc addresses start with 'x' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet blkc script addresses start with '8' or '9'
         base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 73);     // starting with 'W'
+        base58Prefixes[EXCHANGE_ADDRESS] = {0x01, 0xb9, 0xb1};   // EXT prefix for the address
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         // Testnet blkc BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = {0x3a, 0x80, 0x61, 0xa0};
@@ -599,6 +610,8 @@ public:
         // long living quorum params
         consensus.llmqs[Consensus::LLMQ_TEST] = llmq_test;
         nLLMQConnectionRetryTimeout = 10;
+
+        consensus.llmqChainLocks = Consensus::LLMQ_TEST;
 
         // Tier two
         nFulfilledRequestExpireTime = 60 * 60; // fulfilled requests expire in 1 hour

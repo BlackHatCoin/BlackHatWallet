@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS system filesystem thread unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS system filesystem chrono thread unit_test_framework REQUIRED)
 
 set(JSON_TEST_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/data/script_tests.json
@@ -194,7 +194,9 @@ target_include_directories(test_blkc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_SOURCE_DIR}/src/leveldb/include
         ${CMAKE_SOURCE_DIR}/src/leveldb/helpers/memenv
         ${LIBEVENT_INCLUDE_DIR}
-        ${GMP_INCLUDE_DIR})
+        ${GMP_INCLUDE_DIR}
+        ${Boost_INCLUDE_DIRS}
+        ${sodium_INCLUDE_DIR})
 target_link_libraries(test_blkc PRIVATE
         SERVER_A
         CLI_A

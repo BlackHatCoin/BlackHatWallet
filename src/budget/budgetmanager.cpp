@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -428,7 +428,7 @@ void CBudgetManager::RemoveByFeeTxId(const uint256& feeTxId)
             if (p) {
                 LogPrintf("%s: Removing proposal %s (collateral disconnected, id=%s)\n", __func__, p->GetName(), feeTxId.ToString());
                 {
-                    // Erase seen/orhpan votes
+                    // Erase seen/orphan votes
                     LOCK(cs_votes);
                     for (const auto& vote: p->GetVotes()) {
                         const uint256& hash{vote.second.GetHash()};
@@ -454,7 +454,7 @@ void CBudgetManager::RemoveByFeeTxId(const uint256& feeTxId)
             if (b) {
                 LogPrintf("%s: Removing finalized budget %s (collateral disconnected, id=%s)\n", __func__, b->GetName(), feeTxId.ToString());
                 {
-                    // Erase seen/orhpan votes
+                    // Erase seen/orphan votes
                     LOCK(cs_finalizedvotes);
                     for (const uint256& hash: b->GetVotesHashes()) {
                         mapSeenFinalizedBudgetVotes.erase(hash);
@@ -625,7 +625,7 @@ void CBudgetManager::VoteOnFinalizedBudgets()
             }
         }
         std::string strError = "";
-        if (!UpdateFinalizedBudget(vote, NULL, strError)) {
+        if (!UpdateFinalizedBudget(vote, nullptr, strError)) {
             LogPrintf("%s: Error submitting vote - %s\n", __func__, strError);
             continue;
         }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php .
 """ Test getblockindexstats RPC results"""
@@ -107,7 +107,7 @@ class BlockIndexStatsTest(BlackHatTestFramework):
         for _ in range(NUM_BLOCKS):
             # 1...4=(t->t) 5=(t->z) 6=(z->t) 7=(z->z)
             tx_kind = random.randint(1, 7)
-            fee = round(0.0001 * random.randint(3, 50), 8)
+            fee = round(0.0001 * random.randint(5, 50), 8)
             if tx_kind < 5:
                 # transparent tx
                 self.log.info("Sending t->t with fee %.8f" % fee)

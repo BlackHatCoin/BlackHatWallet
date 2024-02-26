@@ -144,7 +144,7 @@ Then do:
 Create and verify timestamps of merge commits
 ---------------------------------------------
 To create or verify timestamps on the merge commits, install the OpenTimestamps
-client via `pip3 install opentimestamps-client`. Then, dowload the gpg wrapper
+client via `pip3 install opentimestamps-client`. Then, download the gpg wrapper
 `ots-git-gpg-wrapper.sh` and set it as git's `gpg.program`. See
 [the ots git integration documentation](https://github.com/opentimestamps/opentimestamps-client/blob/master/doc/git-integration.md#usage)
 for further details.
@@ -158,22 +158,26 @@ repository (requires pngcrush).
 security-check.py and test-security-check.py
 ============================================
 
-Perform basic ELF security checks on a series of executables.
+Perform basic security checks on a series of executables.
 
 symbol-check.py
 ===============
 
-A script to check that the (Linux) executables produced by gitian only contain
-allowed gcc, glibc and libstdc++ version symbols. This makes sure they are
-still compatible with the minimum supported Linux distribution versions.
+A script to check that the executables produced by gitian only contain
+certain symbols and are only linked against allowed libraries.
+
+For Linux this means checking for allowed gcc, glibc and libstdc++ version symbols.
+This makes sure they are still compatible with the minimum supported distribution versions.
+
+For macOS and Windows we check that the executables are only linked against libraries we allow.
 
 Example usage after a gitian build:
 
     find ../gitian-builder/build -type f -executable | xargs python3 contrib/devtools/symbol-check.py
 
-If only supported symbols are used the return value will be 0 and the output will be empty.
+If no errors occur the return value will be 0 and the output will be empty.
 
-If there are 'unsupported' symbols, the return value will be 1 a list like this will be printed:
+If there are any errors the return value will be 1 and output like this will be printed:
 
     .../64/test_blkc: symbol memcpy from unsupported version GLIBC_2.14
     .../64/test_blkc: symbol __fdelt_chk from unsupported version GLIBC_2.15

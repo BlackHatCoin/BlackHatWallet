@@ -7,10 +7,12 @@
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import assert_equal, connect_nodes, wait_until
 
+
 class InvalidateTest(BlackHatTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 3
+        self.extra_args = [["-nuparams=v5_shield:1"]] * self.num_nodes
 
     def setup_network(self):
         self.setup_nodes()
@@ -76,6 +78,18 @@ class InvalidateTest(BlackHatTestFramework):
         assert_equal(self.nodes[1].getbestblockhash(), blocks[-5])
         # Reconsider only the previous tip
         self.nodes[1].reconsiderblock(blocks[-4])
+        # Should be back at the tip by now
+        assert_equal(self.nodes[1].getbestblockhash(), blocks[-1])
+
+        self.log.info("Verify that it works for more than 100 blocks (sapling cache reconstruction)")
+        blocks = self.nodes[1].generate(200)
+        assert_equal(self.nodes[0].getblockchaininfo()['upgrades']['v5 shield']['status'], 'active')
+        assert_equal(self.nodes[1].getbestblockhash(), blocks[-1])
+        # Invalidate a block deeper than the maximum cache size (i.e deeper than 100 blocks)
+        self.nodes[1].invalidateblock(blocks[-140])
+        assert_equal(self.nodes[1].getbestblockhash(), blocks[-141])
+        # Reconsider only the previous tip
+        self.nodes[1].reconsiderblock(blocks[-140])
         # Should be back at the tip by now
         assert_equal(self.nodes[1].getbestblockhash(), blocks[-1])
 

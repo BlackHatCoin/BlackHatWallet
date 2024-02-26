@@ -22,7 +22,7 @@ These are the dependencies currently used by BlackHat Core. You can find instruc
 | MiniUPnPc | [2.2.2](https://miniupnp.tuxfamily.org/files) |  | No |  |  |
 | GMP | [6.1.2](https://gmplib.org/) | | No | | |
 | PCRE |  |  |  |  | [Yes](https://github.com/BlackHatCoin/BlackHatWallet/blob/master/depends/packages/qt.mk#L66) |
-| Python (tests) |  | [3.5](https://www.python.org/downloads) |  |  |  |
+| Python (scripts, tests) |  | [3.8](https://www.python.org/downloads) |  |  |  |
 | qrencode | [3.4.4](https://fukuchi.org/works/qrencode) |  | No |  |  |
 | Qt | [5.9.7](https://download.qt.io/official_releases/qt/) | [5.5.1](https://github.com/bitcoin/bitcoin/issues/13478) | No |  |  |
 | XCB |  |  |  |  | [Yes](https://github.com/BlackHatCoin/BlackHatWallet/blob/master/depends/packages/qt.mk#L87) (Linux only) |

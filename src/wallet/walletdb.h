@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin developers
-// Copyright (c) 2016-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2016-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -166,7 +166,7 @@ public:
     bool WriteStakeSplitThreshold(const CAmount& nStakeSplitThreshold);
     bool WriteUseCustomFee(bool fUse);
     bool WriteCustomFeeValue(const CAmount& nCustomFee);
-    bool WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold);
+    bool WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold, int frequency);
 
     bool ReadPool(int64_t nPool, CKeyPool& keypool);
     bool WritePool(int64_t nPool, const CKeyPool& keypool);
@@ -210,7 +210,7 @@ public:
     static bool Recover(const fs::path& wallet_path, std::string& out_backup_filename);
     /* Recover filter (used as callback), will only let keys (cryptographical keys) as KV/key-type pass through */
     static bool RecoverKeysOnlyFilter(void *callbackData, CDataStream ssKey, CDataStream ssValue);
-    /* Function to determin if a certain KV/key-type is a key (cryptographical key) type */
+    /* Function to determine if a certain KV/key-type is a key (cryptographical key) type */
     static bool IsKeyType(const std::string& strType);
     /* verifies the database environment */
     static bool VerifyEnvironment(const fs::path& wallet_path, std::string& errorStr);

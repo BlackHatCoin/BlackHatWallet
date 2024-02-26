@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin developers
 // Copyright (c) 2014-2021 The Dash Core developers
-// Copyright (c) 2016-2022 The PIVX developers
-// Copyright (c) 2022 The BlackHat developers
+// Copyright (c) 2016-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -294,6 +294,11 @@ extern const char* QCONTRIB;
 extern const char* QCOMPLAINT;
 extern const char* QJUSTIFICATION;
 extern const char* QPCOMMITMENT;
+extern const char* QSIGSHARESINV;
+extern const char* QGETSIGSHARES;
+extern const char* QBSIGSHARES;
+extern const char* QSIGREC;
+extern const char* CLSIG;
 }; // namespace NetMsgType
 
 /* Get a vector of all valid message types (see above) */
@@ -425,16 +430,15 @@ public:
 };
 
 /** getdata message types */
-enum GetDataMsg
-{
+enum GetDataMsg {
     UNDEFINED = 0,
     MSG_TX,
     MSG_BLOCK,
     // Nodes may always request a MSG_FILTERED_BLOCK in a getdata, however,
     // MSG_FILTERED_BLOCK should not appear in any invs except as a part of getdata.
     MSG_FILTERED_BLOCK,
-    MSG_TXLOCK_REQUEST,     // Deprecated
-    MSG_TXLOCK_VOTE,        // Deprecated
+    MSG_TXLOCK_REQUEST, // Deprecated
+    MSG_TXLOCK_VOTE,    // Deprecated
     MSG_SPORK,
     MSG_MASTERNODE_WINNER,
     MSG_MASTERNODE_SCANNING_ERROR,
@@ -445,13 +449,15 @@ enum GetDataMsg
     MSG_MASTERNODE_QUORUM,
     MSG_MASTERNODE_ANNOUNCE,
     MSG_MASTERNODE_PING,
-    MSG_DSTX,               // Deprecated
+    MSG_DSTX, // Deprecated
     MSG_QUORUM_FINAL_COMMITMENT,
     MSG_QUORUM_CONTRIB,
     MSG_QUORUM_COMPLAINT,
     MSG_QUORUM_JUSTIFICATION,
     MSG_QUORUM_PREMATURE_COMMITMENT,
-    MSG_TYPE_MAX = MSG_QUORUM_PREMATURE_COMMITMENT
+    MSG_QUORUM_RECOVERED_SIG,
+    MSG_CLSIG,
+    MSG_TYPE_MAX = MSG_CLSIG,
 };
 
 /** inv message data */

@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -181,6 +181,9 @@ bool TransactionRecord::decomposeCreditTransaction(const CWallet* wallet, const 
                 sub.type = TransactionRecord::RecvWithShieldedAddress;
                 sub.credit = sspkm->GetOutPointValue(wtx, out);
                 sub.memo = sspkm->GetOutPointMemo(wtx, out);
+                if (sub.memo && !sub.memo->empty()) {
+                    sub.type = TransactionRecord::RecvWithShieldedAddressMemo;
+                }
                 sub.idx = i;
                 parts.append(sub);
             }
@@ -209,12 +212,12 @@ bool TransactionRecord::decomposeSendToSelfTransaction(const CWalletTx& wtx, con
         // we know that all of the inputs and outputs are mine and that have shielded data.
         // Let's see if only have transparent inputs, so we know that this is a
         // transparent -> shield transaction
+        const auto& sspkm = wallet->GetSaplingScriptPubKeyMan();
         if (wtx.tx->sapData->vShieldedSpend.empty()) {
             sub.type = TransactionRecord::SendToSelfShieldedAddress;
             sub.shieldedCredit = wtx.GetCredit(ISMINE_SPENDABLE_SHIELDED);
             nChange += wtx.GetShieldedChange();
 
-            const auto& sspkm = wallet->GetSaplingScriptPubKeyMan();
             SaplingOutPoint out(sub.hash, 0);
             auto opAddr = sspkm->GetOutPointAddress(wtx, out);
             if (opAddr) {
@@ -236,8 +239,10 @@ bool TransactionRecord::decomposeSendToSelfTransaction(const CWalletTx& wtx, con
                 sub.shieldedCredit = wtx.GetCredit(ISMINE_SPENDABLE_TRANSPARENT);
             } else {
                 // we know that the outputs are only shield, this is purely a change address tx.
-                // show only the fee.
+                // show only the fee and eventually the memo (that for self s->s txs is put at 0 position).
                 sub.type = TransactionRecord::SendToSelfShieldToShieldChangeAddress;
+                SaplingOutPoint out(sub.hash, 0);
+                sub.memo = sspkm->GetOutPointMemo(wtx, out);
             }
         }
     }
@@ -555,7 +560,7 @@ void TransactionRecord::loadHotOrColdStakeOrContract(
             // Wallet delegating balance
             record.type = TransactionRecord::P2CSDelegationSentOwner;
         } else if (isFromMe){
-            // Wallet delegating balance and transfering ownership
+            // Wallet delegating balance and transferring ownership
             record.type = TransactionRecord::P2CSDelegationSent;
         } else {
             // Wallet receiving a delegation

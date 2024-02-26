@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2016 The Bitcoin Core developers
 // Copyright (c) 2014-2021 The Dash Core developers
-// Copyright (c) 2015-2022 The PIVX developers
-// Copyright (c) 2022 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,10 +13,12 @@
 #include "evo/deterministicmns.h"
 #include "evo/mnauth.h"
 #include "llmq/quorums_blockprocessor.h"
+#include "llmq/quorums_chainlocks.h"
 #include "llmq/quorums_dkgsessionmgr.h"
-#include "masternodeman.h"
+#include "llmq/quorums_signing.h"
 #include "masternode-payments.h"
 #include "masternode-sync.h"
+#include "masternodeman.h"
 #include "merkleblock.h"
 #include "netbase.h"
 #include "netmessagemaker.h"
@@ -26,8 +28,12 @@
 #include "sporkdb.h"
 #include "streams.h"
 #include "tiertwo/tiertwo_sync_state.h"
-#include "validation.h"
 #include "util/validation.h"
+#include "validation.h"
+
+#include <chrono>
+
+using namespace std::chrono_literals;
 
 int64_t nTimeBestReceived = 0;  // Used only to inform the wallet of when we last received a block
 
@@ -220,6 +226,10 @@ struct CNodeState {
     int nBlocksInFlight;
     //! Whether we consider this a preferred download peer.
     bool fPreferredDownload;
+    //! Addresses processed
+    uint64_t amt_addr_processed = 0;
+    //! Addresses rate limited
+    uint64_t amt_addr_rate_limited = 0;
 
     CNodeBlocks nodeBlocks;
 
@@ -494,6 +504,9 @@ bool GetNodeStateStats(NodeId nodeid, CNodeStateStats& stats)
         if (queue.pindex)
             stats.vHeightInFlight.push_back(queue.pindex->nHeight);
     }
+
+    stats.m_addr_processed = state->amt_addr_processed;
+    stats.m_addr_rate_limited = state->amt_addr_rate_limited;
     return true;
 }
 
@@ -631,6 +644,18 @@ void Misbehaving(NodeId pnode, int howmuch, const std::string& message) EXCLUSIV
     } else {
         LogPrint(BCLog::NET, "%s: %s peer=%d (%d -> %d)%s\n", __func__, state->name, pnode, state->nMisbehavior-howmuch, state->nMisbehavior, message_prefixed);
     }
+}
+
+// Requires cs_main.
+bool IsBanned(NodeId pnode)
+{
+    CNodeState* state = State(pnode);
+    if (state == nullptr)
+        return false;
+    if (state->fShouldBan) {
+        return true;
+    }
+    return false;
 }
 
 static void CheckBlockSpam(NodeId nodeId, const uint256& hashBlock)
@@ -846,7 +871,12 @@ bool static AlreadyHave(const CInv& inv) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
     case MSG_QUORUM_JUSTIFICATION:
     case MSG_QUORUM_PREMATURE_COMMITMENT:
         return llmq::quorumDKGSessionManager->AlreadyHave(inv);
+    case MSG_QUORUM_RECOVERED_SIG:
+        return llmq::quorumSigningManager->AlreadyHave(inv);
+    case MSG_CLSIG:
+        return llmq::chainLocksHandler->AlreadyHave(inv);
     }
+
     // Don't know what it is, just say we already got one
     return true;
 }
@@ -863,24 +893,32 @@ static void RelayTransaction(const CTransaction& tx, CConnman* connman)
 static void RelayAddress(const CAddress& addr, bool fReachable, CConnman* connman)
 {
     if (!fReachable && !addr.IsRelayable()) return;
-    int nRelayNodes = fReachable ? 2 : 1; // limited relaying of addresses outside our network(s)
+    unsigned int nRelayNodes = fReachable ? 2 : 1; // limited relaying of addresses outside our network(s)
 
     // Relay to a limited number of other nodes
     // Use deterministic randomness to send to the same nodes for 24 hours
     // at a time so the addrKnowns of the chosen nodes prevent repeats
     uint64_t hashAddr = addr.GetHash();
-    std::multimap<uint64_t, CNode*> mapMix;
     const CSipHasher hasher = connman->GetDeterministicRandomizer(RANDOMIZER_ID_ADDRESS_RELAY).Write(hashAddr << 32).Write((GetTime() + hashAddr) / (24*60*60));
+    FastRandomContext insecure_rand;
 
-    auto sortfunc = [&mapMix, &hasher](CNode* pnode) {
+    std::array<std::pair<uint64_t, CNode*>,2> best{{{0, nullptr}, {0, nullptr}}};
+
+    auto sortfunc = [&best, &hasher, nRelayNodes](CNode* pnode) {
         uint64_t hashKey = CSipHasher(hasher).Write(pnode->GetId()).Finalize();
-        mapMix.emplace(hashKey, pnode);
+        for (unsigned int i = 0; i < nRelayNodes; i++) {
+            if (hashKey > best[i].first) {
+                std::copy(best.begin() + i, best.begin() + nRelayNodes - 1, best.begin() + i + 1);
+                best[i] = std::make_pair(hashKey, pnode);
+                break;
+            }
+        }
     };
 
-    auto pushfunc = [&addr, &mapMix, &nRelayNodes] {
-        FastRandomContext insecure_rand;
-        for (auto mi = mapMix.begin(); mi != mapMix.end() && nRelayNodes-- > 0; ++mi)
-            mi->second->PushAddress(addr, insecure_rand);
+    auto pushfunc = [&addr, &best, nRelayNodes, &insecure_rand] {
+        for (unsigned int i = 0; i < nRelayNodes && best[i].first != 0; i++) {
+            best[i].second->PushAddress(addr, insecure_rand);
+        }
     };
 
     connman->ForEachNodeThen(std::move(sortfunc), std::move(pushfunc));
@@ -1017,7 +1055,20 @@ bool static PushTierTwoGetDataRequest(const CInv& inv,
             return true;
         }
     }
-
+    if (inv.type == MSG_QUORUM_RECOVERED_SIG) {
+        if (!deterministicMNManager->IsDIP3Enforced()) return false;
+        llmq::CRecoveredSig o;
+        if (llmq::quorumSigningManager->GetRecoveredSigForGetData(inv.hash, o)) {
+            connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::QSIGREC, o));
+            return true;
+        }
+    }
+    if (inv.type == MSG_CLSIG) {
+        llmq::CChainLockSig o;
+        if (llmq::chainLocksHandler->GetChainLockByHash(inv.hash, o)) {
+            connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::CLSIG, o));
+        }
+    }
     // nothing was pushed.
     return false;
 }
@@ -1066,7 +1117,7 @@ void static ProcessGetBlockData(CNode* pfrom, const CInv& inv, CConnman* connman
                 connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::MERKLEBLOCK, merkleBlock));
                 // CMerkleBlock just contains hashes, so also push any transactions in the block the client did not see
                 // This avoids hurting performance by pointlessly requiring a round-trip
-                // Note that there is currently no way for a node to request any single transactions we didnt send here -
+                // Note that there is currently no way for a node to request any single transactions we didn't send here -
                 // they must either disconnect and retry or request the full block.
                 // Thus, the protocol spec specified allows for us to provide duplicate txn here,
                 // however we MUST always provide at least what the remote peer needs
@@ -1105,7 +1156,9 @@ bool static IsTierTwoInventoryTypeKnown(int type)
            type == MSG_QUORUM_CONTRIB ||
            type == MSG_QUORUM_COMPLAINT ||
            type == MSG_QUORUM_JUSTIFICATION ||
-           type == MSG_QUORUM_PREMATURE_COMMITMENT;
+           type == MSG_QUORUM_PREMATURE_COMMITMENT ||
+           type == MSG_QUORUM_RECOVERED_SIG ||
+           type == MSG_CLSIG;
 }
 
 void static ProcessGetData(CNode* pfrom, CConnman* connman, const std::atomic<bool>& interruptMsgProc)
@@ -1323,6 +1376,9 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
             // Get recent addresses
             connman->PushMessage(pfrom, CNetMsgMaker(nSendVersion).Make(NetMsgType::GETADDR));
             pfrom->fGetAddr = true;
+            // When requesting a getaddr, accept an additional MAX_ADDR_TO_SEND addresses in response
+            // (bypassing the MAX_ADDR_PROCESSING_TOKEN_BUCKET limit).
+            pfrom->m_addr_token_bucket += MAX_ADDR_TO_SEND;
             connman->MarkAddressGood(pfrom->addr);
         }
 
@@ -1471,9 +1527,33 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         std::vector<CAddress> vAddrOk;
         int64_t nNow = GetAdjustedTime();
         int64_t nSince = nNow - 10 * 60;
+
+        // Update/increment addr rate limiting bucket.
+        // TODO: Slight time improvement calculation, continue backporting
+        const auto current_time = GetTime<std::chrono::microseconds>();
+        if (pfrom->m_addr_token_bucket < MAX_ADDR_PROCESSING_TOKEN_BUCKET) {
+            // Don't increment bucket if it's already full
+            const auto time_diff = std::max(current_time - pfrom->m_addr_token_timestamp, 0us);
+            const double increment = CountSecondsDouble(time_diff) * MAX_ADDR_RATE_PER_SECOND;
+            pfrom->m_addr_token_bucket = std::min<double>(pfrom->m_addr_token_bucket + increment, MAX_ADDR_PROCESSING_TOKEN_BUCKET);
+            }
+        pfrom->m_addr_token_timestamp = current_time;
+
+        uint64_t num_proc = 0;
+        uint64_t num_rate_limit = 0;
+        Shuffle(vAddr.begin(), vAddr.end(), FastRandomContext());
+
         for (CAddress& addr : vAddr) {
             if (interruptMsgProc)
                 return true;
+
+            // Apply rate limiting.
+            if (pfrom->m_addr_token_bucket < 1.0) {
+                    ++num_rate_limit;
+                    continue;
+            } else {
+                pfrom->m_addr_token_bucket -= 1.0;
+            }
 
             if ((addr.nServices & REQUIRED_SERVICES) != REQUIRED_SERVICES)
                 continue;
@@ -1481,6 +1561,8 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
             if (addr.nTime <= 100000000 || addr.nTime > nNow + 10 * 60)
                 addr.nTime = nNow - 5 * 24 * 60 * 60;
             pfrom->AddAddressKnown(addr);
+            if (connman->IsBanned(addr)) continue; // Do not process banned addresses beyond remembering we received them
+            ++num_proc;
             bool fReachable = IsReachable(addr);
             if (addr.nTime > nSince && !pfrom->fGetAddr && vAddr.size() <= 10 && addr.IsRoutable()) {
                 // Relay to a limited number of other nodes
@@ -1490,6 +1572,11 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
             if (fReachable)
                 vAddrOk.push_back(addr);
         }
+        CNodeState* state = State(pfrom->GetId());
+        state->amt_addr_processed += num_proc;
+        state->amt_addr_rate_limited += num_rate_limit;
+        LogPrint(BCLog::NET, "Received addr: %u addresses (%u processed, %u rate-limited) from peer=%d\n",
+                 vAddr.size(), num_proc, num_rate_limit, pfrom->GetId());
         connman->AddNewAddresses(vAddrOk, pfrom->addr, 2 * 60 * 60);
         if (vAddr.size() < 1000)
             pfrom->fGetAddr = false;
@@ -1555,7 +1642,17 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
                 if (!fAlreadyHave) {
                     bool allowWhileInIBD = allowWhileInIBDObjs.count(inv.type);
                     if (allowWhileInIBD || !IsInitialBlockDownload()) {
-                        pfrom->AskFor(inv);
+                        int64_t doubleRequestDelay = 2 * 60 * 1000000;
+                        // some messages need to be re-requested faster when the first announcing peer did not answer to GETDATA
+                        switch (inv.type) {
+                        case MSG_QUORUM_RECOVERED_SIG:
+                            doubleRequestDelay = 5 * 1000000;
+                            break;
+                        case MSG_CLSIG:
+                            doubleRequestDelay = 5 * 1000000;
+                            break;
+                        }
+                        pfrom->AskFor(inv, doubleRequestDelay);
                     }
                 }
             }
@@ -1932,8 +2029,11 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         pfrom->vAddrToSend.clear();
         std::vector<CAddress> vAddr = connman->GetAddresses(MAX_ADDR_TO_SEND, MAX_PCT_ADDR_TO_SEND, /* network */ nullopt);
         FastRandomContext insecure_rand;
-        for (const CAddress& addr : vAddr)
-            pfrom->PushAddress(addr, insecure_rand);
+        for (const CAddress& addr : vAddr) {
+            if (!connman->IsBanned(addr)) {
+                pfrom->PushAddress(addr, insecure_rand);
+            }
+        }
     }
 
 

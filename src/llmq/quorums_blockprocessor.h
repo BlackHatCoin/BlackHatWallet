@@ -1,5 +1,6 @@
 // Copyright (c) 2018-2021 The Dash Core developers
-// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,8 +10,10 @@
 #include "consensus/params.h"
 #include "llmq/quorums_commitment.h"
 #include "primitives/transaction.h"
+#include "saltedhasher.h"
 #include "sync.h"
 #include "uint256.h"
+#include "unordered_lru_cache.h"
 
 #include <map>
 
@@ -36,6 +39,8 @@ private:
     std::map<std::pair<uint8_t, uint256>, uint256> minableCommitmentsByQuorum;
     // commitment hash --> final commitment
     std::map<uint256, CFinalCommitment> minableCommitments;
+    // for each llmqtype map quorum_hash --> (bool final_commitment_mined)
+    mutable std::map<Consensus::LLMQType, unordered_lru_cache<uint256, bool, StaticSaltedHasher>> mapHasMinedCommitmentCache GUARDED_BY(minableCommitmentsCs);
 
 public:
     explicit CQuorumBlockProcessor(CEvoDB& _evoDb);

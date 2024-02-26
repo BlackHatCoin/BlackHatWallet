@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -743,6 +743,7 @@ public:
     //Auto Combine Inputs
     bool fCombineDust;
     CAmount nAutoCombineThreshold;
+    int frequency;
 
     /** Get database handle used by this wallet. Ideally this function would
      * not be necessary.
@@ -770,6 +771,7 @@ public:
     int64_t nOrderPosNext;
 
     std::set<COutPoint> setLockedCoins;
+    std::set<SaplingOutPoint> setLockedNotes;
 
     int64_t nTimeFirstKey;
 
@@ -847,7 +849,7 @@ public:
      */
     std::map<std::pair<CTxDestination, Optional<CTxDestination>>, std::vector<COutput>> ListCoins() const;
     /**
-     * Return list of available shield notes grouped by sapling address.
+     * Return list of available shield notes and locked shield notes grouped by sapling address.
      */
     std::map<libzcash::SaplingPaymentAddress, std::vector<SaplingNoteEntry>> ListNotes() const;
 
@@ -858,14 +860,24 @@ public:
                                  bool fValidateCollateral,
                                  std::string& strError);
 
+    bool IsSaplingSpent(const SaplingOutPoint& op) const;
     bool IsSpent(const COutPoint& outpoint) const;
     bool IsSpent(const uint256& hash, unsigned int n) const;
 
     bool IsLockedCoin(const uint256& hash, unsigned int n) const;
+    bool IsLockedNote(const SaplingOutPoint& op) const;
+
     void LockCoin(const COutPoint& output);
+    void LockNote(const SaplingOutPoint& op);
+
     void UnlockCoin(const COutPoint& output);
+    void UnlockNote(const SaplingOutPoint& op);
+
     void UnlockAllCoins();
+    void UnlockAllNotes();
+
     std::set<COutPoint> ListLockedCoins();
+    std::set<SaplingOutPoint> ListLockedNotes();
 
     /*
      * Rescan abort properties
@@ -1009,7 +1021,7 @@ public:
      * Increment the next transaction order id
      * @return next transaction order id
      */
-    int64_t IncOrderPosNext(WalletBatch* batch = NULL);
+    int64_t IncOrderPosNext(WalletBatch* batch = nullptr);
 
     void MarkDirty();
     bool AddToWallet(const CWalletTx& wtxIn, bool fFlushOnClose = true);
@@ -1051,6 +1063,7 @@ public:
     CAmount GetDelegatedBalance() const;    // delegated coins for which we have the spending key
     CAmount GetImmatureDelegatedBalance() const;
     CAmount GetLockedCoins() const;
+    CAmount GetLockedShieldCoins() const;
     CAmount GetUnconfirmedBalance(isminetype filter = ISMINE_SPENDABLE_ALL) const;
     CAmount GetImmatureBalance() const;
     CAmount GetWatchOnlyBalance() const;
@@ -1172,7 +1185,7 @@ public:
     unsigned int GetStakingKeyPoolSize();
 
     //! signify that a particular wallet feature is now used. this may change nWalletVersion and nWalletMaxVersion if those are lower
-    bool SetMinVersion(enum WalletFeature, WalletBatch* batch_in = NULL, bool fExplicit = false);
+    bool SetMinVersion(enum WalletFeature, WalletBatch* batch_in = nullptr, bool fExplicit = false);
 
     //! change which version we're allowed to upgrade to (note that this does not immediately imply upgrading to that format)
     bool SetMaxVersion(int nVersion);

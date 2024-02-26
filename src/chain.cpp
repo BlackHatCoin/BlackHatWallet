@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2016-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2016-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +14,7 @@
  */
 void CChain::SetTip(CBlockIndex* pindex)
 {
-    if (pindex == NULL) {
+    if (pindex == nullptr) {
         vChain.clear();
         return;
     }
@@ -334,7 +334,7 @@ bool CBlockIndex::RaiseValidity(enum BlockStatus nUpTo)
 }
 
 /** Find the last common ancestor two blocks have.
- *  Both pa and pb must be non-NULL. */
+ *  Both pa and pb must be non-nullptr. */
 const CBlockIndex* LastCommonAncestor(const CBlockIndex* pa, const CBlockIndex* pb)
 {
     if (pa->nHeight > pb->nHeight) {

@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -678,7 +678,7 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     // Locked balance. //TODO move this to the signal properly in the future..
     CAmount nLockedBalance = 0;
     if (walletModel) {
-        nLockedBalance = walletModel->getLockedBalance();
+        nLockedBalance = walletModel->getLockedBalance(true) + walletModel->getLockedBalance(false);
     }
     ui->labelTitle1->setText(nLockedBalance > 0 ? tr("Available (Locked included)") : tr("Available"));
 
@@ -726,7 +726,7 @@ void TopBar::updateHDState(const bool upgraded, const QString& upgradeError)
             // backup wallet
             QString filename = GUIUtil::getSaveFileName(this,
                                                 tr("Backup Wallet"), QString(),
-                                                tr("Wallet Data (*.dat)"), NULL);
+                                                tr("Wallet Data (*.dat)"), nullptr);
             if (!filename.isEmpty()) {
                 inform(walletModel->backupWallet(filename) ? tr("Backup created") : tr("Backup creation failed"));
             } else {

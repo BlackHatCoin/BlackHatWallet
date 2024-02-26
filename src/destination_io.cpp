@@ -1,5 +1,5 @@
-// Copyright (c) 2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2020-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -20,20 +20,21 @@ namespace Standard {
     CWDestination DecodeDestination(const std::string& strAddress)
     {
         bool isStaking = false;
-        return DecodeDestination(strAddress, isStaking);
+        bool isExchange = false;
+        return DecodeDestination(strAddress, isStaking, isExchange);
     }
 
-    CWDestination DecodeDestination(const std::string& strAddress, bool& isStaking)
+    CWDestination DecodeDestination(const std::string& strAddress, bool& isStaking, bool& isExchange)
     {
         bool isShielded = false;
-        return DecodeDestination(strAddress, isStaking, isShielded);
+        return DecodeDestination(strAddress, isStaking, isExchange, isShielded);
     }
 
     // agregar isShielded
-    CWDestination DecodeDestination(const std::string& strAddress, bool& isStaking, bool& isShielded)
+    CWDestination DecodeDestination(const std::string& strAddress, bool& isStaking, bool& isExchange, bool& isShielded)
     {
         CWDestination dest;
-        CTxDestination regDest = ::DecodeDestination(strAddress, isStaking);
+        CTxDestination regDest = ::DecodeDestination(strAddress, isStaking, isExchange);
         if (!IsValidDestination(regDest)) {
             const auto sapDest = KeyIO::DecodeSaplingPaymentAddress(strAddress);
             if (sapDest) {
@@ -71,6 +72,7 @@ Destination& Destination::operator=(const Destination& from)
 {
     this->dest = from.dest;
     this->isP2CS = from.isP2CS;
+    this->isExchange = from.isExchange;
     return *this;
 }
 
@@ -87,6 +89,9 @@ std::string Destination::ToString() const
         // Invalid address
         return "";
     }
-    return Standard::EncodeDestination(dest, isP2CS ? CChainParams::STAKING_ADDRESS : CChainParams::PUBKEY_ADDRESS);
+    CChainParams::Base58Type addrType = isP2CS ? CChainParams::STAKING_ADDRESS
+                                 : (isExchange ? CChainParams::EXCHANGE_ADDRESS
+                                 : CChainParams::PUBKEY_ADDRESS);
+    return Standard::EncodeDestination(dest, addrType);
 }
 

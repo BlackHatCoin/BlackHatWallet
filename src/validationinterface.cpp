@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
-// Copyright (c) 2017-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,6 +21,7 @@
 #include <boost/signals2/signal.hpp>
 
 struct ValidationInterfaceConnections {
+    boost::signals2::scoped_connection AcceptedBlockHeader;
     boost::signals2::scoped_connection UpdatedBlockTip;
     boost::signals2::scoped_connection TransactionAddedToMempool;
     boost::signals2::scoped_connection BlockConnected;
@@ -33,7 +34,8 @@ struct ValidationInterfaceConnections {
 };
 
 struct MainSignalsInstance {
-
+    /** Notifies listeners of accepted block header */
+    boost::signals2::signal<void(const CBlockIndex*)> AcceptedBlockHeader;
     /** Notifies listeners of updated block chain tip */
     boost::signals2::signal<void (const CBlockIndex *, const CBlockIndex *, bool fInitialDownload)> UpdatedBlockTip;
     /** Notifies listeners of a transaction having been added to mempool. */
@@ -96,6 +98,7 @@ CMainSignals& GetMainSignals()
 void RegisterValidationInterface(CValidationInterface* pwalletIn)
 {
     ValidationInterfaceConnections& conns = g_signals.m_internals->m_connMainSignals[pwalletIn];
+    conns.AcceptedBlockHeader = g_signals.m_internals->AcceptedBlockHeader.connect(std::bind(&CValidationInterface::AcceptedBlockHeader, pwalletIn, std::placeholders::_1));
     conns.UpdatedBlockTip = g_signals.m_internals->UpdatedBlockTip.connect(std::bind(&CValidationInterface::UpdatedBlockTip, pwalletIn, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     conns.TransactionAddedToMempool = g_signals.m_internals->TransactionAddedToMempool.connect(std::bind(&CValidationInterface::TransactionAddedToMempool, pwalletIn, std::placeholders::_1));
     conns.BlockConnected = g_signals.m_internals->BlockConnected.connect(std::bind(&CValidationInterface::BlockConnected, pwalletIn, std::placeholders::_1, std::placeholders::_2));
@@ -155,6 +158,14 @@ void SyncWithValidationInterfaceQueue() {
 
 #define LOG_EVENT(fmt, ...) \
     LogPrint(BCLog::VALIDATION, fmt "\n", __VA_ARGS__)
+
+void CMainSignals::AcceptedBlockHeader(const CBlockIndex* pindexNew)
+{
+    auto event = [pindexNew, this] {
+        m_internals->AcceptedBlockHeader(pindexNew);
+    };
+    ENQUEUE_AND_LOG_EVENT(event, "%s: new block header=%s", __func__, pindexNew->GetBlockHash().ToString());
+}
 
 void CMainSignals::UpdatedBlockTip(const CBlockIndex* pindexNew, const CBlockIndex* pindexFork, bool fInitialDownload) {
     // Dependencies exist that require UpdatedBlockTip events to be delivered in the order in which

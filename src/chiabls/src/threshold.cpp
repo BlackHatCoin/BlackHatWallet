@@ -6,6 +6,8 @@
 
 #include "schemes.hpp"
 
+#include <memory>
+
 static std::unique_ptr<bls::CoreMPL> pThresholdScheme(new bls::BasicSchemeMPL);
 
 /**

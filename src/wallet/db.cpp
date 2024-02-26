@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin developers
-// Copyright (c) 2019-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -77,7 +77,7 @@ BerkeleyEnvironment* GetWalletEnv(const fs::path& wallet_path, std::string& data
         database_filename = "wallet.dat";
     }
     LOCK(cs_db);
-    // Note: An ununsed temporary BerkeleyEnvironment object may be created inside the
+    // Note: An unused temporary BerkeleyEnvironment object may be created inside the
     // emplace function if the key already exists. This is a little inefficient,
     // but not a big concern since the map will be changed in the future to hold
     // pointers instead of objects, anyway.
@@ -219,7 +219,7 @@ void BerkeleyEnvironment::MakeMock()
     dbenv->set_lk_max_objects(10000);
     dbenv->set_flags(DB_AUTO_COMMIT, 1);
     dbenv->log_set_config(DB_LOG_IN_MEMORY, 1);
-    int ret = dbenv->open(NULL,
+    int ret = dbenv->open(nullptr,
         DB_CREATE |
             DB_INIT_LOCK |
             DB_INIT_LOG |
@@ -547,8 +547,8 @@ void BerkeleyBatch::Close()
         return;
     if (activeTxn)
         activeTxn->abort();
-    activeTxn = NULL;
-    pdb = NULL;
+    activeTxn = nullptr;
+    pdb = nullptr;
 
     if (fFlushOnClose)
         Flush();
@@ -564,12 +564,12 @@ void BerkeleyEnvironment::CloseDb(const std::string& strFile)
 {
     {
         LOCK(cs_db);
-        if (mapDb[strFile] != NULL) {
+        if (mapDb[strFile] != nullptr) {
             // Close the database handle
             Db* pdb = mapDb[strFile];
             pdb->close(0);
             delete pdb;
-            mapDb[strFile] = NULL;
+            mapDb[strFile] = nullptr;
         }
     }
 }
@@ -623,7 +623,7 @@ bool BerkeleyBatch::Rewrite(BerkeleyDatabase& database, const char* pszSkip)
                     BerkeleyBatch db(database, "r");
                     std::unique_ptr<Db> pdbCopy = std::make_unique<Db>(env->dbenv.get(), 0);
 
-                    int ret = pdbCopy->open(NULL, // Txn pointer
+                    int ret = pdbCopy->open(nullptr, // Txn pointer
                         strFileRes.c_str(),       // Filename
                         "main",                   // Logical db name
                         DB_BTREE,                 // Database type
@@ -658,7 +658,7 @@ bool BerkeleyBatch::Rewrite(BerkeleyDatabase& database, const char* pszSkip)
                             }
                             Dbt datKey(ssKey.data(), ssKey.size());
                             Dbt datValue(ssValue.data(), ssValue.size());
-                            int ret2 = pdbCopy->put(NULL, &datKey, &datValue, DB_NOOVERWRITE);
+                            int ret2 = pdbCopy->put(nullptr, &datKey, &datValue, DB_NOOVERWRITE);
                             if (ret2 > 0)
                                 fSuccess = false;
                         }

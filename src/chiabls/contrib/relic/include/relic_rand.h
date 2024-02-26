@@ -47,7 +47,7 @@
  */
 #if RAND == HASHD
 
-#if MD_MAP == SH224 || MD_MAP == SH256 || MD_MAP == BLAKE2S_160 || MD_MAP == BLAKE2S_256
+#if MD_MAP == SH224 || MD_MAP == SH256 || MD_MAP == B2S160 || MD_MAP == B2S256
 #define RLC_RAND_SIZE		(1 + 2*440/8)
 #elif MD_MAP == SH384 || MD_MAP == SH512
 #define RLC_RAND_SIZE		(1 + 2*888/8)
@@ -103,6 +103,16 @@ void rand_seed(uint8_t *buf, int size);
 void rand_seed(void (*callback)(uint8_t *, int, void *), void *arg);
 
 #endif
+
+/**
+ * Performs a basic self-test in the pseudo-random number generator output, and
+ * raises an exception in case a string of identifical bytes is found.
+ *
+ * @param[out] buf			- the buffer to check.
+ * @param[in] size			- the number of bytes to check.
+ * @throw ERR_NO_RAND       - if the pseudo-random number generator is stuck.
+ */
+int rand_check(uint8_t *buf, int size);
 
 /**
  * Gathers pseudo-random bytes from the pseudo-random number generator.

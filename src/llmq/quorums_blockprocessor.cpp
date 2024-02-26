@@ -1,5 +1,6 @@
 // Copyright (c) 2018-2021 The Dash Core developers
-// Copyright (c) 2021 The PIVX developers
+// Copyright (c) 2021-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,11 +10,12 @@
 #include "chain.h"
 #include "chainparams.h"
 #include "consensus/validation.h"
-#include "llmq/quorums_utils.h"
 #include "evo/evodb.h"
 #include "evo/specialtx_validation.h"
+#include "llmq/quorums_utils.h"
 #include "net.h"
 #include "primitives/block.h"
+#include "quorums_debug.h"
 #include "spork.h"
 #include "validation.h"
 
@@ -27,8 +29,7 @@ static const std::string DB_MINED_COMMITMENT_BY_INVERSED_HEIGHT = "q_mcih";
 CQuorumBlockProcessor::CQuorumBlockProcessor(CEvoDB &_evoDb) :
     evoDb(_evoDb)
 {
-    // TODO: add unordered lru cache
-    //utils::InitQuorumsCache(mapHasMinedCommitmentCache);
+    utils::InitQuorumsCache(mapHasMinedCommitmentCache);
 }
 
 template<typename... Args>
@@ -177,7 +178,7 @@ bool CQuorumBlockProcessor::ProcessCommitment(int nHeight, const uint256& blockH
 
     {
         LOCK(minableCommitmentsCs);
-        //mapHasMinedCommitmentCache[qc.llmqType].erase(qc.quorumHash);
+        mapHasMinedCommitmentCache.at((Consensus::LLMQType)qc.llmqType).erase(qc.quorumHash);
         minableCommitmentsByQuorum.erase(cacheKey);
         minableCommitments.erase(::SerializeHash(qc));
     }
@@ -206,7 +207,7 @@ bool CQuorumBlockProcessor::UndoBlock(const CBlock& block, const CBlockIndex* pi
         evoDb.Erase(BuildInversedHeightKey((Consensus::LLMQType)qc.llmqType, pindex->nHeight));
         {
             LOCK(minableCommitmentsCs);
-            //mapHasMinedCommitmentCache[qc.llmqType].erase(qc.quorumHash);
+            mapHasMinedCommitmentCache.at((Consensus::LLMQType)qc.llmqType).erase(qc.quorumHash);
         }
 
         // if a reorg happened, we should allow to mine this commitment later
@@ -280,21 +281,17 @@ uint256 CQuorumBlockProcessor::GetQuorumBlockHash(Consensus::LLMQType llmqType, 
 bool CQuorumBlockProcessor::HasMinedCommitment(Consensus::LLMQType llmqType, const uint256& quorumHash)
 {
     bool fExists;
-    /*
     {
         LOCK(minableCommitmentsCs);
-        if (mapHasMinedCommitmentCache[llmqType].get(quorumHash, fExists)) {
+        if (mapHasMinedCommitmentCache.at((Consensus::LLMQType)llmqType).get(quorumHash, fExists)) {
             return fExists;
         }
     }
-    */
 
     fExists = evoDb.Exists(std::make_pair(DB_MINED_COMMITMENT, std::make_pair(static_cast<uint8_t>(llmqType), quorumHash)));
 
-    /*
     LOCK(minableCommitmentsCs);
-    mapHasMinedCommitmentCache[llmqType].insert(quorumHash, fExists);
-    */
+    mapHasMinedCommitmentCache.at((Consensus::LLMQType)llmqType).insert(quorumHash, fExists);
 
     return fExists;
 }
@@ -404,6 +401,13 @@ void CQuorumBlockProcessor::AddAndRelayMinableCommitment(const CFinalCommitment&
         }
         // add new commitment
         minableCommitments.emplace(commitmentHash, fqc);
+        quorumDKGDebugManager->UpdateLocalSessionStatus((Consensus::LLMQType)fqc.llmqType, [&](CDKGDebugSessionStatus& status) {
+            if (status.quorumHash != fqc.quorumHash || status.receivedFinalCommitment) {
+                return false;
+            }
+            status.receivedFinalCommitment = true;
+            return true;
+        });
     }
     // relay commitment inv (if DKG is not in maintenance)
     if (!sporkManager.IsSporkActive(SPORK_22_LLMQ_DKG_MAINTENANCE)) {

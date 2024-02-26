@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -169,9 +169,9 @@ CAmount WalletModel::getMinColdStakingAmount() const
     return MIN_COLDSTAKING_AMOUNT;
 }
 
-CAmount WalletModel::getLockedBalance() const
+CAmount WalletModel::getLockedBalance(bool isTransparent) const
 {
-    return wallet->GetLockedCoins();
+    return isTransparent ? wallet->GetLockedCoins() : wallet->GetLockedShieldCoins();
 }
 
 bool WalletModel::haveWatchOnly() const
@@ -369,7 +369,7 @@ CAmount WalletModel::getWalletStakeSplitThreshold() const
     return wallet->GetStakeSplitThreshold();
 }
 
-/* returns default minimum value for stake split threshold as doulbe */
+/* returns default minimum value for stake split threshold as double */
 double WalletModel::getSSTMinimum() const
 {
     return static_cast<double>(CWallet::minStakeSplitThreshold) / COIN;
@@ -400,8 +400,8 @@ void WalletModel::updateWatchOnlyFlag(bool fHaveWatchonly)
 bool WalletModel::validateAddress(const QString& address)
 {
     // Only regular base58 addresses and shielded addresses accepted here
-    bool isStaking = false;
-    CWDestination dest = Standard::DecodeDestination(address.toStdString(), isStaking);
+    bool isStaking = false, isExchange = false;
+    CWDestination dest = Standard::DecodeDestination(address.toStdString(), isStaking, isExchange);
     const auto regDest = boost::get<CTxDestination>(&dest);
     if (regDest && IsValidDestination(*regDest) && isStaking) return false;
     return Standard::IsValidDestination(dest);
@@ -414,8 +414,8 @@ bool WalletModel::validateAddress(const QString& address, bool fStaking)
 
 bool WalletModel::validateAddress(const QString& address, bool fStaking, bool& isShielded)
 {
-    bool isStaking = false;
-    CWDestination dest = Standard::DecodeDestination(address.toStdString(), isStaking);
+    bool isStaking = false, isExchange = false;
+    CWDestination dest = Standard::DecodeDestination(address.toStdString(), isStaking, isExchange);
     if (IsShieldedDestination(dest)) {
         isShielded = true;
         return true;
@@ -493,7 +493,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
                     if (!res) return CannotCreateInternalAddress;
                     ownerAdd = *res.getObjResult();
                 } else {
-                    ownerAdd = Destination(DecodeDestination(rcp.ownerAddress.toStdString()), false);
+                    ownerAdd = Destination(DecodeDestination(rcp.ownerAddress.toStdString()), false, false);
                 }
 
                 const CKeyID* stakerId = boost::get<CKeyID>(&out);
@@ -597,9 +597,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
     for (const SendCoinsRecipient& rcp : transaction.getRecipients()) {
         // Don't touch the address book when we have a payment request
         {
-            bool isStaking = false;
-            bool isShielded = false;
-            auto address = Standard::DecodeDestination(rcp.address.toStdString(), isStaking, isShielded);
+            bool isStaking = false, isExchange = false, isShielded = false;
+            auto address = Standard::DecodeDestination(rcp.address.toStdString(), isStaking, isExchange, isShielded);
             std::string purpose = isShielded ? AddressBook::AddressBookPurpose::SHIELDED_SEND :
                                   isStaking ? AddressBook::AddressBookPurpose::COLD_STAKING_SEND : AddressBook::AddressBookPurpose::SEND;
             std::string strLabel = rcp.label.toStdString();
@@ -944,7 +943,8 @@ int64_t WalletModel::getKeyCreationTime(const CTxDestination& address)
 
 int64_t WalletModel::getKeyCreationTime(const std::string& address)
 {
-    return wallet->GetKeyCreationTime(Standard::DecodeDestination(address));
+    bool isStaking = false, isExchange = false, isShielded = false;
+    return wallet->GetKeyCreationTime(Standard::DecodeDestination(address, isStaking, isExchange, isShielded));
 }
 
 int64_t WalletModel::getKeyCreationTime(const libzcash::SaplingPaymentAddress& address)
@@ -958,14 +958,14 @@ int64_t WalletModel::getKeyCreationTime(const libzcash::SaplingPaymentAddress& a
 CallResult<Destination> WalletModel::getNewAddress(const std::string& label) const
 {
     auto res = wallet->getNewAddress(label);
-    return res ? CallResult<Destination>(Destination(*res.getObjResult(), false)) :
+    return res ? CallResult<Destination>(Destination(*res.getObjResult(), false, false)) :
            CallResult<Destination>(res.getError());
 }
 
 CallResult<Destination> WalletModel::getNewStakingAddress(const std::string& label) const
 {
     auto res = wallet->getNewStakingAddress(label);
-    return res ? CallResult<Destination>(Destination(*res.getObjResult(), true)) :
+    return res ? CallResult<Destination>(Destination(*res.getObjResult(), true, false)) :
            CallResult<Destination>(res.getError());
 }
 
@@ -986,8 +986,8 @@ bool WalletModel::blacklistAddressFromColdStaking(const QString &addressStr)
 
 bool WalletModel::updateAddressBookPurpose(const QString &addressStr, const std::string& purpose)
 {
-    bool isStaking = false;
-    CTxDestination address = DecodeDestination(addressStr.toStdString(), isStaking);
+    bool isStaking = false, isExchange = false;
+    CTxDestination address = DecodeDestination(addressStr.toStdString(), isStaking, isExchange);
     if (isStaking)
         return error("Invalid BlackHat address, cold staking address");
     CKeyID keyID;
@@ -1113,28 +1113,37 @@ void WalletModel::listCoins(std::map<ListCoinsKey, std::vector<ListCoinsValue>>&
     }
 }
 
-bool WalletModel::isLockedCoin(uint256 hash, unsigned int n) const
+bool WalletModel::isLockedCoin(uint256 hash, unsigned int n, bool isTransparent) const
 {
     LOCK(wallet->cs_wallet);
-    return wallet->IsLockedCoin(hash, n);
+    if (isTransparent)
+        return wallet->IsLockedCoin(hash, n);
+    else
+        return wallet->IsLockedNote(SaplingOutPoint(hash, n));
 }
 
-void WalletModel::lockCoin(COutPoint& output)
+void WalletModel::lockCoin(uint256 hash, unsigned int n, bool isTransparent)
 {
     LOCK(wallet->cs_wallet);
-    wallet->LockCoin(output);
+    isTransparent ? wallet->LockCoin(COutPoint(hash, n)) : wallet->LockNote(SaplingOutPoint(hash, n));
 }
 
-void WalletModel::unlockCoin(COutPoint& output)
+void WalletModel::unlockCoin(uint256 hash, unsigned int n, bool isTransparent)
 {
     LOCK(wallet->cs_wallet);
-    wallet->UnlockCoin(output);
+    isTransparent ? wallet->UnlockCoin(COutPoint(hash, n)) : wallet->UnlockNote(SaplingOutPoint(hash, n));
 }
 
 std::set<COutPoint> WalletModel::listLockedCoins()
 {
     LOCK(wallet->cs_wallet);
     return wallet->ListLockedCoins();
+}
+
+std::set<SaplingOutPoint> WalletModel::listLockedNotes()
+{
+    LOCK(wallet->cs_wallet);
+    return wallet->ListLockedNotes();
 }
 
 void WalletModel::loadReceiveRequests(std::vector<std::string>& vReceiveRequests)

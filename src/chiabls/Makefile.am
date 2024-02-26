@@ -176,7 +176,20 @@ EPX_SRCS = \
   contrib/relic/src/epx/relic_ep2_neg.c \
   contrib/relic/src/epx/relic_ep2_norm.c \
   contrib/relic/src/epx/relic_ep2_pck.c \
-  contrib/relic/src/epx/relic_ep2_util.c
+  contrib/relic/src/epx/relic_ep2_util.c \
+  contrib/relic/src/epx/relic_ep4_add.c \
+  contrib/relic/src/epx/relic_ep4_cmp.c \
+  contrib/relic/src/epx/relic_ep4_curve.c \
+  contrib/relic/src/epx/relic_ep4_dbl.c \
+  contrib/relic/src/epx/relic_ep4_frb.c \
+  contrib/relic/src/epx/relic_ep4_map.c \
+  contrib/relic/src/epx/relic_ep4_mul.c \
+  contrib/relic/src/epx/relic_ep4_mul_cof.c \
+  contrib/relic/src/epx/relic_ep4_mul_fix.c \
+  contrib/relic/src/epx/relic_ep4_mul_sim.c \
+  contrib/relic/src/epx/relic_ep4_neg.c \
+  contrib/relic/src/epx/relic_ep4_norm.c \
+  contrib/relic/src/epx/relic_ep4_util.c
 
 EB_SRCS = \
   contrib/relic/src/eb/relic_eb_add.c \
@@ -232,7 +245,11 @@ PP_SRCS = \
   contrib/relic/src/pp/relic_pp_map_k12.c \
   contrib/relic/src/pp/relic_pp_map_k48.c \
   contrib/relic/src/pp/relic_pp_map_k54.c \
-  contrib/relic/src/pp/relic_pp_norm.c
+  contrib/relic/src/pp/relic_pp_norm.c \
+  contrib/relic/src/pp/relic_pp_add_k24.c \
+  contrib/relic/src/pp/relic_pp_dbl_k24.c \
+  contrib/relic/src/pp/relic_pp_exp_k24.c \
+  contrib/relic/src/pp/relic_pp_map_k24.c
 
 PC_SRCS = \
   contrib/relic/src/pc/relic_pc_core.c \
@@ -368,6 +385,11 @@ RELIC_SRCS += contrib/relic/src/cp/relic_cp_bbs.c
 RELIC_SRCS += contrib/relic/src/cp/relic_cp_zss.c
 RELIC_SRCS += contrib/relic/src/cp/relic_cp_cmlhs.c
 RELIC_SRCS += contrib/relic/src/cp/relic_cp_mklhs.c
+RELIC_SRCS += contrib/relic/src/cp/relic_cp_ers.c
+RELIC_SRCS += contrib/relic/src/cp/relic_cp_etrs.c
+RELIC_SRCS += contrib/relic/src/cp/relic_cp_pcdel.c
+RELIC_SRCS += contrib/relic/src/cp/relic_cp_pok.c
+RELIC_SRCS += contrib/relic/src/cp/relic_cp_sok.c
 endif
 
 if WITH_BC

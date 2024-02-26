@@ -1,37 +1,6 @@
-<TS language="hr_HR" version="2.1">
-<context>
-    <name>AddNewAddressDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
-        <source>New Address</source>
-        <translation>Nova adresa</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adresa</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>TipkaZaPritisak</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>PONIŠTI</translation>
-    </message>
-    <message>
-        <source>SAVE</source>
-        <translation>SPREMI</translation>
-    </message>
-</context>
+<TS version="2.1" language="hr_HR">
 <context>
     <name>AddNewContactDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
@@ -159,21 +128,6 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Ivan Horvat</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
@@ -198,10 +152,6 @@
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Ime kontakta</translation>
@@ -298,14 +248,6 @@ Jeste li sigurni?</translation>
         <translation>Dijaloški okvir za lozinku</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>TipkaZaPritisak</translation>
-    </message>
-    <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Unesite novu zaporku za novčanik. &lt;br/&gt;Molimo koristite lozinku od &lt;b&gt;deset ili više nasumičnih znakova&lt;/b&gt;, ili &lt;b&gt;osam ili više riječi&lt;/b&gt;.</translation>
     </message>
@@ -364,10 +306,6 @@ za staking</translation>
         <translation>PONIŠTI</translation>
     </message>
     <message>
-        <source>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
-        <translation>BlackHat će se sada zatvoriti kako bi se dovršio proces šifriranja. Ne zaboravite da šifriranje Vašeg novčanika ne može u potpunosti zaštititi vaše BLKC od krađje zlonamjernog softvera koji zarazi vaše računalo.</translation>
-    </message>
-    <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Jeste li sigurni da želite šifrirati svoj novčanik?</translation>
     </message>
@@ -394,10 +332,6 @@ za staking</translation>
     <message>
         <source>Wallet encryption failed</source>
         <translation>Kriptiranje novčanika neuspjelo</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
@@ -431,16 +365,8 @@ za staking</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Transparent</source>
         <translation>Transparentno</translation>
-    </message>
-    <message>
-        <source>0.00 BLKC</source>
-        <translation>0.00 BLKC</translation>
     </message>
     <message>
         <source>Shielded</source>
@@ -450,10 +376,6 @@ za staking</translation>
 <context>
     <name>BanTableModel</name>
     <message>
-        <source>IP/Netmask</source>
-        <translation>IP/Netmask</translation>
-    </message>
-    <message>
         <source>Banned Until</source>
         <translation>Blokiran do</translation>
     </message>
@@ -461,16 +383,8 @@ za staking</translation>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Ušteđjevina</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -539,14 +453,6 @@ za staking</translation>
         <translation>Iznos</translation>
     </message>
     <message>
-        <source>0.00 BLKC</source>
-        <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
-    </message>
-    <message>
         <source>Select all</source>
         <translation>Označi sve</translation>
     </message>
@@ -565,10 +471,6 @@ za staking</translation>
     <message>
         <source>After Fee: </source>
         <translation>Nakon troška transakcije:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source>Date</source>
@@ -611,10 +513,6 @@ za staking</translation>
         <translation>Odznači sve</translation>
     </message>
     <message>
-        <source>Please switch to "List mode" to use this function.</source>
-        <translation>Prebacite se na "popis" kako biste koristili ovu funkciju.</translation>
-    </message>
-    <message>
         <source>Quantity Copied</source>
         <translation>Količina kopirana</translation>
     </message>
@@ -651,6 +549,10 @@ za staking</translation>
         <translation>da</translation>
     </message>
     <message>
+        <source>This label turns red, if recipient receives an amount smaller than %1 (transparent) / %2 (shield).</source>
+        <translation>Ova oznaka postaje crvena ako primatelj primi iznos manji od %1 (transparentan) / %2 (zaštićeni).</translation>
+    </message>
+    <message>
         <source>Can vary +/- %1 u%2 per input.</source>
         <translation>Može varirati +/- %1 u%2 po unosu.</translation>
     </message>
@@ -663,24 +565,16 @@ za staking</translation>
         <translation>delegirano %1 za cold staking</translation>
     </message>
     <message>
+        <source>Delegated to %1</source>
+        <translation>Delegirano prema %1</translation>
+    </message>
+    <message>
         <source>Select All</source>
         <translation>Označi sve</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>ne</translation>
-    </message>
-    <message>
-        <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
-        <translation>Ova oznaka postaje crvena, ako je veličina transakcije veća od 1000 bajtova.</translation>
-    </message>
-    <message>
-        <source>This means a fee of at least %1 per kB is required.</source>
-        <translation>To znači da je potrebna naknada od najmanje %1 po kB.</translation>
-    </message>
-    <message>
-        <source>Can vary +/- 1 byte per input.</source>
-        <translation>Može varirati +/- 1 bajt po unosu.</translation>
+        <translation>nema</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -694,24 +588,12 @@ za staking</translation>
 <context>
     <name>ColdStakingWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Adresa vlasnika (neobavezno, ako ostavite prazno automatski će se stvoriti nova adresa)</translation>
     </message>
     <message>
         <source>Total Staking:</source>
         <translation>Ukupan staking:</translation>
-    </message>
-    <message>
-        <source>Cold Staking</source>
-        <translation>Cold Staking</translation>
-    </message>
-    <message>
-        <source>Staker</source>
-        <translation>Staker</translation>
     </message>
     <message>
         <source>Delegation</source>
@@ -744,7 +626,8 @@ za staking</translation>
     <message>
         <source>You can delegate your BLKCs, letting a hot node (24/7 online node)
 stake on your behalf, while you keep the keys securely offline.</source>
-        <translation>Možete delegirati vaše novčiće, dozvoljavajući drugom novčaniku (koji radi 24/7) staking u vaše ime, dok su vaši novčići spremljeni na sigurnom.</translation>
+        <translation>Možete delegirati vaše novčiće, dozvoljavajući drugom novčaniku (koji radi 24/7)
+staking u vaše ime, dok su vaši novčići spremljeni na sigurnom.</translation>
     </message>
     <message>
         <source>Enter owner address</source>
@@ -780,7 +663,7 @@ stake on your behalf, while you keep the keys securely offline.</source>
     </message>
     <message>
         <source>Select %1 outputs to delegate.</source>
-        <translation>Označi %1 izlaze za delegirati.</translation>
+        <translation>Označi %1 novčiće za delegirati.</translation>
     </message>
     <message>
         <source>Create Cold Staking Address</source>
@@ -927,33 +810,109 @@ vlasnika</translation>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Primatelj</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>Sažetak</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>Napravi novi prijedlog</translation>
+    </message>
+    <message>
+        <source>Make sure you have 50 BLKC for the proposal fee</source>
+        <translation>Provjerite imate li 50 BLKC za naknadu za prijedlog</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Naziv prijedloga</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>URL prijedloga</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>Primatelj prijedloga</translation>
+    </message>
+    <message>
+        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
+        <translation>Dodajte traženi broj uplata, iznos po uplati i adresu primatelja.</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresa</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Mjeseci</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>Sažetak prijedloga</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>DALJE</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>NAZAD</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>Naziv prijedloga ne može biti prazan</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation>Naziv prijedloga ne smije sadržavati znakove koji nisu UTF-8</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Neispravan iznos</translation>
+    </message>
+    <message>
+        <source>Invalid payment address</source>
+        <translation>Nevažeća adresa za isplatu</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Pošalji</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Dalje</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Nema dostupnih kontakata, možete otići na zaslon s kontaktima i tamo ih dodati!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Transactions</source>
         <translation>Tranksacije</translation>
     </message>
     <message>
-        <source>Staking Rewards</source>
-        <translation>Staking nagrade</translation>
-    </message>
-    <message>
-        <source>Staking statistics</source>
-        <translation>Statistika stakinga</translation>
-    </message>
-    <message>
         <source>View your account's history</source>
-        <translation>Pogledajte vašu povijest računa</translation>
+        <translation>Pogledajte povijest vašeg novčanika</translation>
     </message>
     <message>
         <source>How to get BLKC</source>
@@ -978,10 +937,6 @@ vlasnika</translation>
     <message>
         <source>Filter by</source>
         <translation>Filtriraj prema</translation>
-    </message>
-    <message>
-        <source>Amount of BLKC and zBLKC staked.</source>
-        <translation>Iznos BLKC i zBLKC koji se stake-a.</translation>
     </message>
     <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
@@ -1024,14 +979,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 </context>
 <context>
     <name>DefaultDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
@@ -1093,13 +1040,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1123,68 +1063,145 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     </message>
 </context>
 <context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Governance</source>
+        <translation>Upravljanje</translation>
+    </message>
+    <message>
+        <source>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</source>
+        <translation>Pregledajte, pratite, glasajte i podnesite prijedloge za isplatu iz proračuna.
+Budite dio DAO-a. </translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sortiraj prema</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Sve</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Prolazi</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Ne prolazi</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Na čekanju</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced to see the correct information</source>
+        <translation>Pričekajte da se čvor u potpunosti sinkronizira da biste vidjeli točne informacije</translation>
+    </message>
+    <message>
+        <source>Prepare and submit a new proposal.</source>
+        <translation>Pripremite i podnesite novi prijedlog.</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Pričekajte dok se čvor u potpunosti ne sinkronizira</translation>
+    </message>
+    <message>
+        <source>Cannot vote for the proposal yet, wait until it's confirmed by the network</source>
+        <translation>Još se ne može glasati za prijedlog, pričekajte da ga mreža potvrdi</translation>
+    </message>
+    <message>
+        <source>Vote emitted successfully!</source>
+        <translation>Glasanje je uspješno poslano!</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation>Nije moguće izraditi prijedlog, novčanik je zaključan</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
+        <translation>Nije moguće izraditi prijedlog, morate imati najmanje %1 za plaćanje naknade za prijedlog</translation>
+    </message>
+    <message>
+        <source>Proposal transaction fee broadcasted!</source>
+        <translation>Emitirana naknada za transakciju prijedloga!</translation>
+    </message>
+    <message>
+        <source>Copy Url</source>
+        <translation>Kopiraj URL</translation>
+    </message>
+    <message>
+        <source>Open Url</source>
+        <translation>Otvori URL</translation>
+    </message>
+    <message>
+        <source>More Info</source>
+        <translation>Više informacija</translation>
+    </message>
+    <message>
+        <source>Proposal URL copied to clipboard</source>
+        <translation>URL prijedloga kopiran je u međjuspremnik</translation>
+    </message>
+    <message>
+        <source>Open Proposal URL</source>
+        <translation>Otvorite URL prijedloga</translation>
+    </message>
+    <message>
+        <source>The following URL will be opened in the default browser</source>
+        <translation>Sljedeći URL će se otvoriti u zadanom pregledniku</translation>
+    </message>
+    <message>
+        <source>Are you sure?
+(Always verify the URL validity before opening it)
+</source>
+        <translation>Jeste li sigurni?
+(Uvijek provjerite valjanost URL-a prije nego što ga otvorite)
+</translation>
+    </message>
+    <message>
+        <source>Failed to open proposal URL</source>
+        <translation>Otvaranje URL-a prijedloga nije uspjelo</translation>
+    </message>
+    <message>
+        <source>Next superblock today!
+%2 blocks to go.</source>
+        <translation>Sljedeći superblok danas!
+%2 bloka do kraja.</translation>
+    </message>
+    <message>
+        <source>Next superblock in %1 days.
+%2 blocks to go.</source>
+        <translation>Sljedeći superblok za %1 dana.
+%2 bloka do kraja.</translation>
+    </message>
+</context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
         <source>version</source>
         <translation>verzija</translation>
     </message>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
-        <source>(%1-bit)</source>
-        <translation>(%1-bit)</translation>
-    </message>
-    <message>
-        <source>About BlackHat Core</source>
-        <translation>O BlackHat Core-u</translation>
+        <source>About %1</source>
+        <translation>Oko %1</translation>
     </message>
     <message>
         <source>Command-line options</source>
         <translation>Opcije naredbene linije</translation>
     </message>
-    <message>
-        <source>Usage:</source>
-        <translation>Upotreba:</translation>
-    </message>
-    <message>
-        <source>command-line options</source>
-        <translation>opcije naredbene linije</translation>
-    </message>
-    <message>
-        <source>UI Options:</source>
-        <translation>UI mogućnosti:</translation>
-    </message>
-    <message>
-        <source>Choose data directory on startup (default: %u)</source>
-        <translation>Odaberite direktorij za podatke pri pokretanju (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: %u)</source>
-        <translation>Prikažite zaslon prilikom pokretanja (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Hide QT staking charts on startup (default: %u)</source>
-        <translation>Sakrij QT oznake grafikona pri pokretanju (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Postavite jezik, na primjer "de_DE" (zadano: regionalni sustav)</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Početak minimiziran</translation>
-    </message>
-    <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Postavite SSL potvrde korijena za zahtjev za plaćanje (zadano: -system-)</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -1192,16 +1209,16 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
         <translation>Dobrodošli</translation>
     </message>
     <message>
-        <source>Welcome to BlackHat Core.</source>
-        <translation>Dobrodošli u BlackHat Core.</translation>
+        <source>Welcome to %1.</source>
+        <translation>Dobrodošli u %1.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</source>
-        <translation>Budući da je prvi put pokrenut program, možete odabrati gdje će BlackHat Core pohraniti svoje podatke.</translation>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation>Budući da je ovo prvi put da se program pokreće, možete odabrati gdje će %1 pohraniti svoje podatke.</translation>
     </message>
     <message>
-        <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>BlackHat Core preuzima i pohranjuje kopiju BlackHat blok-lanca. Barem će %1GB podataka biti pohranjeno u ovom direktoriju i to će s vremenom rasti. Novčanik će također biti pohranjena u ovom direktoriju.</translation>
+        <source>%1 will download and store a copy of the BlackHat block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 će preuzeti i pohraniti kopiju lanca blokova BlackHat-a. Najmanje %2 GB podataka bit će pohranjeno u ovaj direktorij i s vremenom će rasti. Novčanik će također biti pohranjen u ovom direktoriju.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1214,14 +1231,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1243,28 +1252,12 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Učitavanje</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Otključaj novčanik</translation>
@@ -1281,36 +1274,12 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
 <context>
     <name>MNRow</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Collateral tx not found</source>
         <translation>Transakcija zaloga nije pronađjena</translation>
     </message>
-    <message>
-        <source>Status: %1</source>
-        <translation>Status: %1</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
     <message>
         <source>Intro</source>
         <translation>Uvod</translation>
@@ -1328,10 +1297,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
         <translation>Stvori novi Masternode Controller</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Da biste stvoriti BlackHat Masternode, morate odvojiti 5,000 BLKC (jedinica BlackHat-a) prema mreži (međjutim, ti novčići su i dalje vaši i nikad neće napustiti vaše vlasništvo). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt; Možete isključiti node i otključati novčiće u bilo kojem trenutku.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Set Masternode Name</source>
         <translation>Postavi ime za Masternode</translation>
     </message>
@@ -1346,10 +1311,6 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
     <message>
         <source>Make sure you have this amount of coins.</source>
         <translation>Obavezno imajte tu količinu novčića.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transakcija od 5,000 BLKC će biti napravljena&lt;/p&gt;&lt;p&gt;u novu praznu adresu u Vašem novčaniku.&lt;/p&gt;&lt;p&gt;Adresa je označena pod imenom Masternode-a.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1380,58 +1341,32 @@ Staking će se automatski pokrenuti čim novčanik dobije dovoljno potvrda o nep
         <translation>Neispravna IP adresa</translation>
     </message>
     <message>
-        <source>Unknown error</source>
-        <translation>Nepoznata greška</translation>
+        <source>To create a BlackHat Masternode you must dedicate %1 (the unit of BLKC) to the network (however, these coins are still yours and will never leave your possession).</source>
+        <translation>Da biste stvorili BlackHat Masternode, morate posvetiti %1 (jedinicu BLKC-a) mreži (međutim, ti su novčići i dalje Vaši i nikada neće napustiti vaš posjed).</translation>
     </message>
     <message>
-        <source>Prepare master node failed.
-
-%1
-</source>
-        <translation>Priprema masternode neuspjela.
-
-%1
-</translation>
+        <source>You can deactivate the node and unlock the coins at any time.</source>
+        <translation>Masternode možete deaktivirati i otključati novčiće u bilo kojem trenutku.</translation>
     </message>
     <message>
-        <source>Invalid collateral output index</source>
-        <translation>Nevažeći izlazni indeks zaloga</translation>
+        <source>A transaction of %1 will be made</source>
+        <translation>Bit će izvršena transakcija od %1</translation>
     </message>
     <message>
-        <source>Master node created! Wait %1 confirmations before starting it.</source>
-        <translation>Masternode stvoren! Pričekajte %1 potvrda prije pokretanja.</translation>
+        <source>to a new empty address in your wallet.</source>
+        <translation>na novu praznu adresu u novčaniku.</translation>
     </message>
     <message>
-        <source>Cannot send collateral transaction.
-
-%1</source>
-        <translation>Nije moguće poslati transakciju sa zalogom.
-
-%1</translation>
+        <source>The Address is labeled under the master node's name.</source>
+        <translation>Adresa je označena pod imenom masternodeova.</translation>
     </message>
     <message>
         <source>walletModel not set</source>
         <translation>novčanikModel nije postavljen</translation>
     </message>
-    <message>
-        <source>Invalid masternode.conf file</source>
-        <translation>Nevažeća masternode.conf datoteka </translation>
-    </message>
-    <message>
-        <source>Error parsing masternode.conf file</source>
-        <translation>Greška pri parsiranju masternode.conf datoteke</translation>
-    </message>
-    <message>
-        <source>masternode.conf file doesn't exists</source>
-        <translation>masternode.conf datoteka ne postoji</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Pokreni sve</translation>
@@ -1527,10 +1462,6 @@ Molimo pričekajte nekoliko minuta (zalog za Masternode zahtjeva %1 potvrda).</t
         <translation>Podaci za Masternode kopirani u međjuspremnik.</translation>
     </message>
     <message>
-        <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
-        <translation>Nemate dovoljno sredstava za stvoriti masternode, potrebno je 5,000 %1.</translation>
-    </message>
-    <message>
         <source>Remote Masternode Data</source>
         <translation>Podaci za udaljeni Masternode</translation>
     </message>
@@ -1583,20 +1514,12 @@ Are you sure?</source>
 Jeste li sigurni?</translation>
     </message>
     <message>
-        <source>Invalid masternode.conf file</source>
-        <translation>Nevažeća masternode.conf datoteka </translation>
-    </message>
-    <message>
-        <source>Error parsing masternode.conf file</source>
-        <translation>Greška pri parsiranju masternode.conf datoteke</translation>
-    </message>
-    <message>
-        <source>masternode.conf file doesn't exists</source>
-        <translation>masternode.conf datoteka ne postoji</translation>
-    </message>
-    <message>
         <source>Cannot create Masternode controller, wallet locked</source>
         <translation>Ne može se kreirati Masternode controller, novčanik je zaključan</translation>
+    </message>
+    <message>
+        <source>Not enough balance to create a masternode, %1 required.</source>
+        <translation>Nema dovoljno sredstava za stvaranje Masternodea, potrebno je %1.</translation>
     </message>
     <message>
         <source>Error creating masternode</source>
@@ -1605,10 +1528,6 @@ Jeste li sigurni?</translation>
 </context>
 <context>
     <name>MnInfoDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Masternode Information</source>
         <translation>Informacije o Masternode-u</translation>
@@ -1634,10 +1553,6 @@ Jeste li sigurni?</translation>
         <translation>1 Unosi</translation>
     </message>
     <message>
-        <source>Status:</source>
-        <translation>Status:</translation>
-    </message>
-    <message>
         <source>Export data to run the Masternode on a remote server</source>
         <translation>Izvoz podataka za pokretanje Masternode-a na udaljenom poslužitelju</translation>
     </message>
@@ -1651,18 +1566,66 @@ Jeste li sigurni?</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Select Masternodes</source>
+        <translation>Odaberite Masternodeove</translation>
+    </message>
+    <message>
+        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
+        <translation>Svaki Masternode odnosi se na jedan glas, možete odabrati koji će glasati za prijedlog</translation>
+    </message>
+    <message>
+        <source>Amount of votes:</source>
+        <translation>Količina glasova:</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Označi sve</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naziv</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation>Glasaj</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>SELECT VOTES</source>
+        <translation>ODABERITE GLASOVE</translation>
+    </message>
+    <message>
+        <source>Unselect All</source>
+        <translation>Odznači sve</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>The direction of the already broadcasted vote</source>
+        <translation>Smjer već emitiranog glasanja</translation>
+    </message>
+    <message>
+        <source>No vote has been emitted from this Masternode</source>
+        <translation>Nijedan glas nije emitiran s ovog Masternodea</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
+        <translation>Vrijeme između glasova je prerano, morate pričekati %1 minuta da promijenite svoj glas</translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1694,26 +1657,12 @@ NODES</source>
 NODEOVI</translation>
     </message>
     <message>
-        <source>COLD
-STAKING</source>
-        <translation>COLD
-STAKING</translation>
-    </message>
-    <message>
         <source>SETTINGS
 </source>
         <translation>POSTAVKE
 </translation>
     </message>
-    <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
-    </message>
-    <message>
-        <source>v%1</source>
-        <translation>v%1</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>OpenURIDialog</name>
     <message>
@@ -1721,343 +1670,19 @@ STAKING</translation>
         <translation>Otvori URI</translation>
     </message>
     <message>
-        <source>Open payment request from URI or file</source>
-        <translation>Otvorite zahtjev za plaćanje iz URI ili datoteke</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
+        <source>Open BlackHat URI</source>
+        <translation>Otvorite BlackHat URI </translation>
     </message>
     <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
     </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Select payment request file</source>
-        <translation>Odaberite datoteku zahtjeva za plaćanje</translation>
-    </message>
-    <message>
-        <source>Select payment request file to open</source>
-        <translation>Odaberite datoteku sa zahtjevom za plaćanje</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>Datoteka nije pronadjena</translation>
-    </message>
-    <message>
-        <source>Parsed data too large</source>
-        <translation>Parsirani podaci preveliki</translation>
-    </message>
-    <message>
-        <source>Invalid URI, not starting with "blkc" prefix</source>
-        <translation>Nevažeći URI, ne počinje "blkc" prefiksom</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-</context>
-<context>
-    <name>OptionsDialog</name>
-    <message>
-        <source>Options</source>
-        <translation>Mogućnosti</translation>
-    </message>
-    <message>
-        <source>&amp;Main</source>
-        <translation>&amp;Glavno</translation>
-    </message>
-    <message>
-        <source>Size of &amp;database cache</source>
-        <translation>Veličina predmemorije &amp;baze podataka</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
-        <source>Number of script &amp;verification threads</source>
-        <translation>Number of script &amp;verification threads</translation>
-    </message>
-    <message>
-        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
-        <translation>(0 = auto, &lt;0 = ostavi toliko slobodnih jezgri)</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>N&amp;ovčanik</translation>
-    </message>
-    <message>
-        <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>Ako onemogućite potrošnju nepotvrđjenog ostatka, ostatak od transakcije &lt;br/&gt;ne može se koristiti dok ta transakcija nema barem jednu potvrdu. &lt;br/&gt;Ovo takođjer utječe na izračun vašeg salda.</translation>
-    </message>
-    <message>
-        <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatski otvorite BlackHat klijentski ulaz na ruteru. To funkcionira samo kada vaš ruter podržava UPnP i omogućen je.</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside</source>
-        <translation>Prihvatite veze izvana</translation>
-    </message>
-    <message>
-        <source>Allow incoming connections</source>
-        <translation>Dopusti dolazne veze</translation>
-    </message>
-    <message>
-        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>&amp;Povežite se putem SOCKS5 proxyja (zadani proxy):</translation>
-    </message>
-    <message>
-        <source>Expert</source>
-        <translation>Stručnjak</translation>
-    </message>
-    <message>
-        <source>Automatically start BlackHat after logging in to the system.</source>
-        <translation>Automatski pokrenite BlackHat nakon prijave u sustav.</translation>
-    </message>
-    <message>
-        <source>&amp;Start BlackHat on system login</source>
-        <translation>&amp;Pokrenite BlackHat pri pokretanju sustava</translation>
-    </message>
-    <message>
-        <source>Whether to show coin control features or not.</source>
-        <translation>Bilo da pokazuju značajke upravljanja novčićima ili ne.</translation>
-    </message>
-    <message>
-        <source>Enable coin &amp;control features</source>
-        <translation>Omogući značajke &amp;upravljanja novčićima</translation>
-    </message>
-    <message>
-        <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
-        <translation>Prikaži dodatnu karticu s popisom svih svojih masternode-ova u prvoj pod-kartici&lt;br/&gt;i sve masternode-ove na mreži u drugoj pod-kartici.</translation>
-    </message>
-    <message>
-        <source>Show Masternodes Tab</source>
-        <translation>Prikaži Masternodes karticu</translation>
-    </message>
-    <message>
-        <source>&amp;Spend unconfirmed change</source>
-        <translation>&amp;Potroši nepotvrđjeni ostatak</translation>
-    </message>
-    <message>
-        <source>&amp;Network</source>
-        <translation>&amp;Mreža</translation>
-    </message>
-    <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting BlackHat.</source>
-        <translation>Jezik korisničkog sučelja možete postaviti ovdje. Postavke će stupiti na snagu nakon ponovnog pokretanja BlackHat novčanika.</translation>
-    </message>
-    <message>
-        <source>Language missing or translation incomplete? Help contributing translations here:
-https://forum.blackhatco.in</source>
-        <translation>Jezik nedostaje ili prijevod nije potpun? Pomozite s prijevodom ovdje:
-https://forum.blackhatco.in</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Mapiranje porta koristeći &amp;UPnP</translation>
-    </message>
-    <message>
-        <source>Enable automatic minting of BLKC units to zBLKC</source>
-        <translation>Omogući automatsko stvaranje BLKC jedinica na zBLKC</translation>
-    </message>
-    <message>
-        <source>Enable zBLKC Automint</source>
-        <translation>Omogući automatsko stvaranje zBLKC-a</translation>
-    </message>
-    <message>
-        <source>Enable automatic zBLKC minting from specific addresses</source>
-        <translation>Omogući automatsko stvaranje zBLKC-a s određjenih adresa</translation>
-    </message>
-    <message>
-        <source>Enable Automint Addresses</source>
-        <translation>Omogući Automint adrese</translation>
-    </message>
-    <message>
-        <source>Percentage of incoming BLKC which get automatically converted to zBLKC via Zerocoin Protocol (min: 10%)</source>
-        <translation>Postotak dolaznih BLKC koji se automatski pretvara u zBLKC putem Zerocoin Protokola (min: 10%)</translation>
-    </message>
-    <message>
-        <source>Percentage of autominted zBLKC</source>
-        <translation>Postotak automatski stvorenog zBLKC-a</translation>
-    </message>
-    <message>
-        <source>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</source>
-        <translation>Pričekajte s automatskom pretvorbom u Zerocoin dok ne bude dostupno dovoljno BLKC-a za ovu denominaciju</translation>
-    </message>
-    <message>
-        <source>Preferred Automint zBLKC Denomination</source>
-        <translation>Preferirana denominacija za automatsko stvaranje zBLKC-a</translation>
-    </message>
-    <message>
-        <source>Stake split threshold:</source>
-        <translation>Prag dijeljenja Stake-a:</translation>
-    </message>
-    <message>
-        <source>Connect to the BlackHat network through a SOCKS5 proxy.</source>
-        <translation>Povežite se s BlackHat mrežom putem SOCKS5 proxy poslužitelja.</translation>
-    </message>
-    <message>
-        <source>Proxy &amp;IP:</source>
-        <translation>Proxy &amp;IP:</translation>
-    </message>
-    <message>
-        <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
-        <translation>IP adresa proxya (npr. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
-    </message>
-    <message>
-        <source>&amp;Port:</source>
-        <translation>&amp;Ulaz:</translation>
-    </message>
-    <message>
-        <source>Port of the proxy (e.g. 9050)</source>
-        <translation>Ulaz proxya (npr. 9050)</translation>
-    </message>
-    <message>
-        <source>&amp;Window</source>
-        <translation>&amp;Prozor</translation>
-    </message>
-    <message>
-        <source>Show only a tray icon after minimizing the window.</source>
-        <translation>Prikaži samo ikonu trake nakon minimaliziranja prozora.</translation>
-    </message>
-    <message>
-        <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>&amp;Minimaliziraj na traku umjesto Taskbar</translation>
-    </message>
-    <message>
-        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Minimiziraj umjesto izlaska iz aplikacije kada je prozor zatvoren. Kada je ova opcija omogućena, program će biti zatvoren samo nakon odabira opcije Quit u izborniku.</translation>
-    </message>
-    <message>
-        <source>M&amp;inimize on close</source>
-        <translation>M&amp;inimiziraj pri zatvaranju</translation>
-    </message>
-    <message>
-        <source>&amp;Display</source>
-        <translation>&amp;Prikaz</translation>
-    </message>
-    <message>
-        <source>User Interface &amp;language:</source>
-        <translation>Jezik korisničkog &amp;sučelja:</translation>
-    </message>
-    <message>
-        <source>User Interface Theme:</source>
-        <translation>Tema korisničkog sučelja:</translation>
-    </message>
-    <message>
-        <source>Unit to show amounts in:</source>
-        <translation>Jedinica za prikaz iznosa:</translation>
-    </message>
-    <message>
-        <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Odaberite zadanu pododjelnu jedinicu za prikaz u sučelju i kod slanja novčića.</translation>
-    </message>
-    <message>
-        <source>Decimal digits</source>
-        <translation>Decimalne znamenke</translation>
-    </message>
-    <message>
-        <source>Hide empty balances</source>
-        <translation>Sakrij prazna salda</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes in transaction lists</source>
-        <translation>Sakrij odbijene stake-ove u listi transakcija</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes</source>
-        <translation>Sakrij odbijene stake-ove</translation>
-    </message>
-    <message>
-        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>URL-ovi treće strane (npr. Blok-istraživač) koji se pojavljuju na kartici transakcija kao stavke kontekstualnog izbornika. %s u URL-u zamjenjuje se transakcijom. Višestruki URL-ovi razdvojeni su okomitim trakom |.</translation>
-    </message>
-    <message>
-        <source>Third party transaction URLs</source>
-        <translation>URL transakcije treće stranke</translation>
-    </message>
-    <message>
-        <source>Active command-line options that override above options:</source>
-        <translation>Aktivne opcije naredbenog retka koje nadjačavaju gore navedene opcije:</translation>
-    </message>
-    <message>
-        <source>Reset all client options to default.</source>
-        <translation>Ponovno postavite sve opcije klijenta na zadano.</translation>
-    </message>
-    <message>
-        <source>&amp;Reset Options</source>
-        <translation>&amp;Mogućnosti ponovnog postavljanja</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Poništi</translation>
-    </message>
-    <message>
-        <source>Any</source>
-        <translation>Bilo koji</translation>
-    </message>
-    <message>
-        <source>default</source>
-        <translation>zadano</translation>
-    </message>
-    <message>
-        <source>none</source>
-        <translation>bez</translation>
-    </message>
-    <message>
-        <source>Confirm options reset</source>
-        <translation>Potvrdi ponovno postavljanje mogućnosti</translation>
-    </message>
-    <message>
-        <source>Client restart required to activate changes.</source>
-        <translation>Ponovno pokretanje klijenta je potrebno za aktiviranje promjena.</translation>
-    </message>
-    <message>
-        <source>Client will be shutdown, do you want to proceed?</source>
-        <translation>Klijent će biti isključen, želite li nastaviti?</translation>
-    </message>
-    <message>
-        <source>This change would require a client restart.</source>
-        <translation>Ova će promjena zahtijevati ponovno pokretanje klijenta.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy address is invalid.</source>
-        <translation>Isporučena proxy adresa nije važeća.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy port is invalid.</source>
-        <translation>Isporučeni proxy priključak nije valjan.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy settings are invalid.</source>
-        <translation>Isporučene proxy postavke nisu važeće.</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>BLKCGUI</name>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
         <source>Wallet</source>
         <translation>Novčanik</translation>
-    </message>
-    <message>
-        <source>Node</source>
-        <translation>Node</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -2076,8 +1701,8 @@ https://forum.blackhatco.in</translation>
         <translation>Napusti aplikaciju</translation>
     </message>
     <message>
-        <source>BlackHat Core client</source>
-        <translation>BlackHat Core Klijent</translation>
+        <source>Alert!</source>
+        <translation>Oprez!</translation>
     </message>
     <message>
         <source>Error</source>
@@ -2094,10 +1719,6 @@ https://forum.blackhatco.in</translation>
     <message>
         <source>System Message</source>
         <translation>Sistemska poruka</translation>
-    </message>
-    <message>
-        <source>Sent MultiSend transaction</source>
-        <translation>Pošalji Višestruku transakciju</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -2131,14 +1752,6 @@ Adresa: %4
         <translation>Rukovanje s URI</translation>
     </message>
     <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation>URL za dohvaćanje zahtjeva za plaćanje nije valjan: %1</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Upravljanje datotekama zahtjeva za plaćanjem</translation>
-    </message>
-    <message>
         <source>Invalid payment address %1</source>
         <translation>Nevažeća adresa za plaćanje %1</translation>
     </message>
@@ -2149,66 +1762,6 @@ Adresa: %4
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
         <translation>URI se ne može analizirati! To može biti uzrokovana nevažećom BlackHat adresom ili nepravilnim URI parametrima.</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Datoteku zahtjeva za plaćanje ne može se pročitati! To može biti uzrokovana nevažećom datotekom zahtjeva za plaćanjem.</translation>
-    </message>
-    <message>
-        <source>Payment request rejected</source>
-        <translation>Zahtjev za plaćanje odbijen</translation>
-    </message>
-    <message>
-        <source>Payment request network doesn't match client network.</source>
-        <translation>Mreža zahtjeva za plaćanje ne odgovara mreži klijenta.</translation>
-    </message>
-    <message>
-        <source>Payment request has expired.</source>
-        <translation>Zahtjev za plaćanje je istekao.</translation>
-    </message>
-    <message>
-        <source>Payment request is not initialized.</source>
-        <translation>Zahtjev za plaćanje nije pokrenut.</translation>
-    </message>
-    <message>
-        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
-        <translation>Nepodržane su nepotvrđeni zahtjevi za plaćanje prilagođenim skriptama za plaćanje.</translation>
-    </message>
-    <message>
-        <source>Requested payment amount of %1 is too small (considered dust).</source>
-        <translation>Zatraženi iznos plaćanja u iznosu od %1 je premali (smatra se sitnišem).</translation>
-    </message>
-    <message>
-        <source>Refund from %1</source>
-        <translation>Povrat od %1</translation>
-    </message>
-    <message>
-        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
-        <translation>Zahtjev za isplatu %1 prevelik je (%2 bajta, dopušteno je %3bajta).</translation>
-    </message>
-    <message>
-        <source>Payment request DoS protection</source>
-        <translation>Zahtjev za plaćanje DoS zaštita</translation>
-    </message>
-    <message>
-        <source>Error communicating with %1: %2</source>
-        <translation>Pogreška pri komunikaciji s %1: %2</translation>
-    </message>
-    <message>
-        <source>Payment request cannot be parsed!</source>
-        <translation>Zahtjev za plaćanje ne može se rastaviti!</translation>
-    </message>
-    <message>
-        <source>Bad response from server %1</source>
-        <translation>Loš odgovor od poslužitelja %1</translation>
-    </message>
-    <message>
-        <source>Network request error</source>
-        <translation>Greška kod mrežnog zahtjeva</translation>
-    </message>
-    <message>
-        <source>Payment acknowledged</source>
-        <translation>Plaćanje je priznato</translation>
     </message>
 </context>
 <context>
@@ -2221,15 +1774,85 @@ Adresa: %4
         <source>Version</source>
         <translation>Verzija</translation>
     </message>
+    </context>
+<context>
+    <name>ProposalCard</name>
     <message>
-        <source>Ping Time</source>
-        <translation>Ping Time</translation>
+        <source>Vote</source>
+        <translation>Glasaj</translation>
     </message>
     <message>
-        <source>NodeID</source>
-        <translation>NodeID</translation>
+        <source>Inactive proposal</source>
+        <translation>Neaktivan prijedlog</translation>
+    </message>
+    <message>
+        <source>%1 of %2 months left</source>
+        <translation>Ostalo je %1 od %2 mjeseca</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Na čekanju</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Završeno</translation>
+    </message>
+    <message>
+        <source>No Votes</source>
+        <translation>Nema glasova</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Ne prolazi</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Prolazi</translation>
     </message>
 </context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>Proposal Information</source>
+        <translation>Informacije o prijedlogu</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Naziv prijedloga</translation>
+    </message>
+    <message>
+        <source>Recipient</source>
+        <translation>Primatelj</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Iznos</translation>
+    </message>
+    <message>
+        <source>End Block</source>
+        <translation>Završni blok</translation>
+    </message>
+    <message>
+        <source>Start Block</source>
+        <translation>Početni blok</translation>
+    </message>
+    <message>
+        <source>Positive Votes</source>
+        <translation>Glasovi za</translation>
+    </message>
+    <message>
+        <source>Negative Votes</source>
+        <translation>Glasovi protiv</translation>
+    </message>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -2239,22 +1862,6 @@ Adresa: %4
     <message>
         <source>Enter BlackHat address (e.g. %1)</source>
         <translation>Upišite BlackHat adresu (npr. %1)</translation>
-    </message>
-    <message>
-        <source>%1 d</source>
-        <translation>%1 d</translation>
-    </message>
-    <message>
-        <source>%1 h</source>
-        <translation>%1 h</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
-    </message>
-    <message>
-        <source>%1 s</source>
-        <translation>%1 s</translation>
     </message>
     <message>
         <source>NETWORK</source>
@@ -2273,20 +1880,8 @@ Adresa: %4
         <translation>Ništa</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
-        <source>%1 ms</source>
-        <translation>%1 ms</translation>
-    </message>
-    <message>
         <source>A fatal error occurred. BlackHat can no longer continue safely and will quit.</source>
         <translation>Dogodila se fatalna pogreška. BlackHat ne može sigurno nastaviti i izaći će.</translation>
-    </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
@@ -2297,16 +1892,12 @@ Adresa: %4
         <translation>Greška: Ne mogu parsirati konfiguracijsku datoteku: %1. Koristite samo sintaksu key=value.</translation>
     </message>
     <message>
-        <source>Error: Invalid combination of -regtest and -testnet.</source>
-        <translation>Greška: Neispravna kombinacija -regtest i -testnet.</translation>
+        <source>Error: %1</source>
+        <translation>Greška: %1</translation>
     </message>
     <message>
-        <source>Error reading masternode configuration file: %1</source>
-        <translation>Greška pri čitanju masternode konfiguracijske datoteke: %1</translation>
-    </message>
-    <message>
-        <source>BlackHat Core didn't yet exit safely...</source>
-        <translation>BlackHat Core nije ugašen sigurno...</translation>
+        <source>%1 didn't yet exit safely...</source>
+        <translation>%1 još nije sigurno isključen...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2317,16 +1908,8 @@ Adresa: %4
         <translation>Primanje</translation>
     </message>
     <message>
-        <source>Delegator</source>
-        <translation>Delegator</translation>
-    </message>
-    <message>
         <source>Delegable</source>
         <translation>Moguće ovlastiti</translation>
-    </message>
-    <message>
-        <source>Cold Staking</source>
-        <translation>Cold Staking</translation>
     </message>
     <message>
         <source>Cold Staking Contact</source>
@@ -2399,10 +1982,6 @@ Adresa: %4
     <message>
         <source>Mined</source>
         <translation>Stvoreno</translation>
-    </message>
-    <message>
-        <source>Minted</source>
-        <translation>Minted</translation>
     </message>
     <message>
         <source>MN reward</source>
@@ -2492,7 +2071,7 @@ Adresa: %4
         <source>Address with no label</source>
         <translation>Adresa bez oznake</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>RPCConsole</name>
     <message>
@@ -2514,10 +2093,6 @@ Adresa: %4
     <message>
         <source>Client name</source>
         <translation>Ime klijenta</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
     </message>
     <message>
         <source>Number of connections</source>
@@ -2544,10 +2119,6 @@ Adresa: %4
         <translation>Otkloni neispravnost log datoteke</translation>
     </message>
     <message>
-        <source>Build date</source>
-        <translation>Datum gradnje</translation>
-    </message>
-    <message>
         <source>Current number of blocks</source>
         <translation>Trenutni broj blokova</translation>
     </message>
@@ -2558,10 +2129,6 @@ Adresa: %4
     <message>
         <source>Using BerkeleyDB version</source>
         <translation>Upotreba verzije BerkeleyDB</translation>
-    </message>
-    <message>
-        <source>Block chain</source>
-        <translation>Block chain</translation>
     </message>
     <message>
         <source>Open the BlackHat debug log file from the current data directory. This can take a few seconds for large log files.</source>
@@ -2664,10 +2231,6 @@ Adresa: %4
         <translation>Bajtova primljeno</translation>
     </message>
     <message>
-        <source>Ping Time</source>
-        <translation>Ping Time</translation>
-    </message>
-    <message>
         <source>&amp;Wallet Repair</source>
         <translation>&amp;Popravak novčanika</translation>
     </message>
@@ -2702,18 +2265,6 @@ Adresa: %4
     <message>
         <source>Time Offset</source>
         <translation>Pomak vremena</translation>
-    </message>
-    <message>
-        <source>Custom Backup Path:</source>
-        <translation>Put prilagođenog sigurnosnog kopiranja:</translation>
-    </message>
-    <message>
-        <source>Custom zBLKC Backup Path:</source>
-        <translation>Prilagođeni put zBLKC sigurnosne kopije:</translation>
-    </message>
-    <message>
-        <source>Custom Backups Threshold:</source>
-        <translation>Prag za prilagođjene sigurnosne kopije:</translation>
     </message>
     <message>
         <source>Salvage wallet</source>
@@ -2754,10 +2305,6 @@ Adresa: %4
     <message>
         <source>Rebuild block chain index from current blk000??.dat files.</source>
         <translation>Obnovi blockchain indeks iz trenutnih blk000??.dat datoteka.</translation>
-    </message>
-    <message>
-        <source>-resync:</source>
-        <translation>-resinkronizacija:</translation>
     </message>
     <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
@@ -2844,36 +2391,8 @@ Adresa: %4
         <translation>Koristi strelice prema gore i dolje za kretanje kroz povijest, i %1 da očistite ekran.</translation>
     </message>
     <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Upišite &lt;b&gt;pomoć&lt;/b&gt; za pregled dostupnih naredbi.</translation>
-    </message>
-    <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
         <translation>UPOZORENJE: Prevaranti su aktivni, govore korisnicima da ovdje unesu naredbe te im tako ukradu novčiće iz novčanika. Nemojte koristiti ovu konzonu bez potpunog razumijevanja posljedica komandi koje unosite.</translation>
-    </message>
-    <message>
-        <source>%1 B</source>
-        <translation>%1 B</translation>
-    </message>
-    <message>
-        <source>%1 KB</source>
-        <translation>%1 KB</translation>
-    </message>
-    <message>
-        <source>%1 MB</source>
-        <translation>%1 MB</translation>
-    </message>
-    <message>
-        <source>%1 GB</source>
-        <translation>%1 GB</translation>
-    </message>
-    <message>
-        <source>(node id: %1)</source>
-        <translation>(node id: %1)</translation>
-    </message>
-    <message>
-        <source>via %1</source>
-        <translation>via %1</translation>
     </message>
     <message>
         <source>never</source>
@@ -2903,10 +2422,6 @@ Adresa: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Moja adresa</translation>
     </message>
@@ -2921,10 +2436,6 @@ Adresa: %4
 </context>
 <context>
     <name>ReceiveWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Skeniraj QR kod ili kopiraj adresu da bi primio BLKC</translation>
@@ -2993,7 +2504,7 @@ pokušajte otključati novčanik</translation>
     </message>
     <message>
         <source>Address label saved</source>
-        <translation>Naziv adrese spremljen</translation>
+        <translation>Oznaka adrese spremljena</translation>
     </message>
     <message>
         <source>Error storing address label</source>
@@ -3025,61 +2536,14 @@ pokušajte otključati novčanik</translation>
     </message>
 </context>
 <context>
-    <name>RecentRequestsTableModel</name>
-    <message>
-        <source>Date</source>
-        <translation>Datum</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Oznaka</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Poruka</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adresa</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Iznos</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(bez oznake)</translation>
-    </message>
-    <message>
-        <source>(no message)</source>
-        <translation>( bez poruke )</translation>
-    </message>
-    <message>
-        <source>(no amount)</source>
-        <translation>(bez iznosa)</translation>
-    </message>
-</context>
-<context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Iznos</translation>
-    </message>
-    <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
     </message>
     <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>Umjesto da dijelite samo BlackHat adresu, možete stvoriti zahtjev za plaćanjem, skupljajući više informacija</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z</translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -3153,10 +2617,6 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendChangeAddressDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
     </message>
@@ -3188,20 +2648,8 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Preporučeno</translation>
-    </message>
-    <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobajt</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
     </message>
     <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
@@ -3232,6 +2680,10 @@ pokušajte otključati novčanik</translation>
         <translation>Brzo</translation>
     </message>
     <message>
+        <source>Invalid custom fee amount</source>
+        <translation>Nevažeći iznos prilagođene naknade</translation>
+    </message>
+    <message>
         <source>SAVE</source>
         <translation>SPREMI</translation>
     </message>
@@ -3247,24 +2699,8 @@ pokušajte otključati novčanik</translation>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dijaloški okvir</translation>
-    </message>
-    <message>
         <source>Private message only visible for the recipient(s)</source>
         <translation>Privatna poruka vidljiva samo primatelju(ima)</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;"&gt;
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3282,10 +2718,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SendMultiRow</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Enter address</source>
         <translation>Unesite adresu</translation>
     </message>
@@ -3296,6 +2728,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Enter label</source>
         <translation>Unesite oznaku</translation>
+    </message>
+    <message>
+        <source>Subtract fee from amount</source>
+        <translation>Umanji iznos naknade za transakciju od ukupnog iznosa</translation>
     </message>
     <message>
         <source>Update memo</source>
@@ -3335,6 +2771,10 @@ Do you want to continue?</source>
     <message>
         <source>Maximum amount of outputs reached</source>
         <translation>Maksimalni iznos rezultata dosegnut</translation>
+    </message>
+    <message>
+        <source>Parse a BlackHat URI</source>
+        <translation>Raščlani BlackHat URI</translation>
     </message>
     <message>
         <source>Invalid entry, previous entries must be valid before add a new one</source>
@@ -3409,10 +2849,6 @@ Ovi novčići više neće biti cold-stakeani.</translation>
         <translation>Otvori URI</translation>
     </message>
     <message>
-        <source>Parse a payment request</source>
-        <translation>Analiziraj zahtjev za plaćanje</translation>
-    </message>
-    <message>
         <source>Shield Coins</source>
         <translation>Zaštiti novčiće</translation>
     </message>
@@ -3441,10 +2877,6 @@ Zaštićene poruke dostupne su samo za zaštićene adrese primatelja.
 </translation>
     </message>
     <message>
-        <source>Cannot perform shielded operations, v5 upgrade isn't being enforced yet!</source>
-        <translation>Ne mogu se vršiti zaštićene transakcije, v5 nadogradnja još nije aktivirana!</translation>
-    </message>
-    <message>
         <source>Sapling Protocol temporarily in maintenance. Shielded transactions disabled (SPORK 20)</source>
         <translation>Sapling Protokol se privremeno održava. Zaštićene transakcije su onemogućene (SPORK 20)</translation>
     </message>
@@ -3455,6 +2887,10 @@ Zaštićene poruke dostupne su samo za zaštićene adrese primatelja.
     <message>
         <source>Preparing transaction</source>
         <translation>Pripremam transakciju</translation>
+    </message>
+    <message>
+        <source>Processing full, refreshing amounts later</source>
+        <translation>Obradjivane je puno, osvježavanje iznosa kasnije</translation>
     </message>
     <message>
         <source>You don't have any %1 to select.</source>
@@ -3500,6 +2936,10 @@ Uz naknadu %2
         <translation>Spremi kontakt</translation>
     </message>
     <message>
+        <source>Subtract fee</source>
+        <translation>Umanji za iznos naknade za transakciju</translation>
+    </message>
+    <message>
         <source>Address field is empty</source>
         <translation>Polje adrese je prazno</translation>
     </message>
@@ -3531,10 +2971,6 @@ Uz naknadu %2
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Promjeni lozinku novčanika</translation>
     </message>
@@ -3546,7 +2982,7 @@ Uz naknadu %2
         <source>Keep your wallet safe by doing regular backups and storing your backup file externally.
 This option creates a wallet.dat file that can be used to recover your whole balance (transactions and addresses) on another device</source>
         <translation>Čuvajte svoj novčanik redovitim sigurnosnim kopijama i vanjskom pohranom sigurnosne kopije.
-Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelog stanja (transakcija i adresa) na drugom uređaju</translation>
+Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelog stanja (transakcija i adresa) na drugom računalu</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3556,7 +2992,7 @@ Ova opcija stvara datoteku wallet.dat koja se može koristiti za oporavak cijelo
         <source>This will decrypt the whole wallet data and encrypt it back with the new passphrase.
 Remember to write it down and store it safely, otherwise you might lose access to your funds</source>
         <translation>Ovo će dekriptirati cijele podatke novčanika i kriptirati ih nazad s novom lozinkom.
-Ne zaboravite zapisati i sigurno pohraniti lozinku, jer u protivnom možete izgubiti pristup svojim sredstvima</translation>
+Ne zaboravite zapisati i sigurno pohraniti novu lozinku, jer u protivnom ćete izgubiti pristup svojim sredstvima</translation>
     </message>
     <message>
         <source>Change Passphrase</source>
@@ -3585,10 +3021,6 @@ Ne zaboravite zapisati i sigurno pohraniti lozinku, jer u protivnom možete izgu
 </context>
 <context>
     <name>SettingsBitToolWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Import Address</source>
         <translation>Uvezi adresu</translation>
@@ -3712,6 +3144,10 @@ Korištenjem ovog mehanizma možete dijeliti vaše ključeve bez rizika posredni
         <translation>Provjerite ključ i lozinku te pokušajte ponovo.</translation>
     </message>
     <message>
+        <source>Wallet is currently rescanning. Abort existing rescan or wait.</source>
+        <translation>Novčanik se trenutno ponovno skenira. Prekinite postojeće ponovno skeniranje ili pričekajte.</translation>
+    </message>
+    <message>
         <source>Data Not Valid.</source>
         <translation>Podaci nisu valjani.</translation>
     </message>
@@ -3738,10 +3174,6 @@ Korištenjem ovog mehanizma možete dijeliti vaše ključeve bez rizika posredni
 </context>
 <context>
     <name>SettingsConsoleWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Console</source>
         <translation>Konzola</translation>
@@ -3777,20 +3209,12 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
         <translation>Koristi strelice prema gore i dolje za kretanje kroz povijest, i %1 da očistite ekran.</translation>
     </message>
     <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Upišite &lt;b&gt;pomoć&lt;/b&gt; za pregled dostupnih naredbi.</translation>
-    </message>
-    <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
         <translation>UPOZORENJE: Prevaranti su aktivni, govore korisnicima da ovdje unesu naredbe te im tako ukradu novčiće iz novčanika. Nemojte koristiti ovu konzonu bez potpunog razumijevanja posljedica komandi koje unosite.</translation>
     </message>
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Sakrijte stake grafikone na nadzornoj ploči</translation>
@@ -3847,20 +3271,17 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
-        <translation>Izvezi računovodstvene podatke</translation>
+        <translation>Izvezi računovodstvene
+podatke</translation>
     </message>
     <message>
         <source>Export your wallet's accounting data to a csv file.</source>
         <translation>Izvezite računovodstvene podatke Vašeg novčanika u CSV datoteku.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Gdje</translation>
+        <source>Export Transaction History</source>
+        <translation>Izvezi povijest transakcija</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3871,20 +3292,8 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
         <translation>Izvezi imenik</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>Izvezi CSV</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Izvezi popis adresa</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_transakcije_csv_izvoz(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_adrese_csv_izvoz(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Datoteka odvojena zarezom (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3913,10 +3322,6 @@ Provjerite jeste li instalirali unaprijed određjeni uređjivač teksta.</transl
     <message>
         <source>Address</source>
         <translation>Adresa</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
     </message>
     <message>
         <source>Exporting Successful
@@ -3950,10 +3355,6 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) Što je BlackHat?</translation>
     </message>
@@ -3962,125 +3363,20 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>2) Zašto se moji BLKC ne mogu potrošiti?</translation>
     </message>
     <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
         <source>What is BlackHat?</source>
         <translation>Što je BlackHat?</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
     </message>
     <message>
         <source>Why are my BLKC unspendable?</source>
         <translation>Zašto se moji BLKC ne mogu potrošiti?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Novoprimljeni BLKC zahtjeva 6 potvrda na mreži
-da bi se mogao potrošiti što može potrajati ~6 minuta.
-&lt;/p&gt;&lt;p align="justify"&gt;
-Vaš BlackHat novčanik takođjer treba biti u potpunosti sinkroniziran
-da biste vidjeli i mogli potrošiti sredstva na mreži.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
         <source>How do I stake BLKC?</source>
         <translation>Kako stakeat BLKC?</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Provjerite da je vaš novčanik u potpunosti sinkroniziran i da koristite najnoviju verziju novčanika. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Morate imati iznos BLKC novčića s najmanje 600 potvrda na blockchainu. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Novčanik mora biti upaljen i otključan za staking. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Kada se prate svi ti koraci, staking bi trebao biti omogućen. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Status stakinga možete vidjeti prolaskom miša preko staking ikonice u gornjem desnom kutu. Staking ikona (kutija) će svijetliti i prikazivati &amp;quot;Staking omogućen&amp;quot; i naznačiti da se aktivno stake-a. Koristeći sučelje naredbene trake (blkc-cli); naredba &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; će potvrditi da je staking aktivan. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
-        <source>5</source>
-        <translation>5</translation>
-    </message>
-    <message>
-        <source>6</source>
-        <translation>6</translation>
-    </message>
-    <message>
         <source>Where should I go if I need support?</source>
         <translation>Gdje se trebam javiti ako mi treba pomoć?</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           BlackHat is a form of digital online money using blockchain technology
-                           that can be easily transferred globally, instantly, and with near
-                           zero fees.  BlackHat incorporates market leading security &amp;
-                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
-                           to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm,
-                           allowing all owners of BlackHat to participate in earning block rewards
-                           while securing the network with full node wallets, as well as to
-                           run Masternodes to create and vote on proposals.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-BlackHat je oblik digitalnog online novca koji koristi blockchain tehnologiju
-koji se lako može slati i primati globalno, trenutno, i gotovo bez naknade.
-BlackHat uključuje vodeću sigurnost  i privatnost na tržištu
-i takođjer je prva PoS (Proof of Stake) kriptovaluta
-koja je implementirala Sapling (SHIELD) i anoniman zk-SNARKs baziran protokol.
-&lt;/p&gt;&lt;p align="justify"&gt;
-BlackHat koristi algoritam konsenzusa Proof of Stake (PoS),
-omogućujući svim vlasnicima BlackHat-a sudjelovanje u zarađi blokovih nagrada
-dok osiguravaju mrežu full node novčanicima, kao i
-vodjenje Masternode-ova za stvaranje i glasanje o prijedlozima.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
-                           #support in our Discord&lt;/a&gt;.
-                           If you prefer to submit a ticket, You can do so at
-                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
-                           our Forum support site&lt;/a&gt;.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Imamo korisničku podršku u većini naših službenih chat grupa, na primjer
-&lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
-#support na Discordu&lt;/a&gt;.
-Možete i podnijeti zahtjev, a to možete
-&lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
-na našoj Forum stranici za podršku&lt;/a&gt;.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
     </message>
     <message>
         <source>What is a Masternode?</source>
@@ -4091,98 +3387,9 @@ na našoj Forum stranici za podršku&lt;/a&gt;.
         <translation>Što je Masternode Controller?</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;Masternode Controller novčanik je mjesto gdje zalog od 5,000 BLKC može stajati tijekom Controller-Remote podešavanja masternode-a. To je novčanik koji može aktivirati Remote masternode novčanik(e) i omogućiti Vam držanje zaloga novčića offline dok Remote masternode novčanik ostaje online.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           A masternode is a computer running a full node BlackHat core wallet with a
-                           requirement of 5,000 BLKC secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Masternode je računalo koje pokreće full node BlackHat Core novčanik sa
-zahtjevanih 5,000 BLKC-a osiguranog zaloga da pruži dodatne usluge
-mreži, i zauzvrat redovito primi dio nagrade blokova.
-Te usluge uključuju:
-&lt;/p&gt;&lt;p align="justify"&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Trenutne transakcije (SwiftX)&lt;/li&gt;
-&lt;li&gt;Decentralizirano upravljanje (glasanje o zahtjevima)&lt;/li&gt;
-&lt;li&gt;Decentralizirani sustav proračuna (riznica)&lt;/li&gt;
-&lt;li&gt;Validacija transakcija unutar svakog bloka&lt;/li&gt;
-&lt;li&gt;Djeluje kao dodatni full node u mreži&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/p&gt;&lt;p align="justify"&gt;
-Za pružanje takvih usluga, masternode-ovi bivaju plaćeni odredjenim
-dijelom nagrade za svaki blok. To može služiti kao pasivan dohodak
-vlasnicima masternode-ova umanjeno za troškove održavanja.
-&lt;/p&gt;&lt;p align="justify"&gt;
-
-Povlastice masternode-ova:
-&lt;/p&gt;&lt;p align="justify"&gt;
-&lt;ul&gt;
-&lt;li&gt;Sudjelovanje u upravljanju BlackHat-a&lt;/li&gt;
-&lt;li&gt;Zaradjivanje Masternode nagrada&lt;/li&gt;
-&lt;li&gt;Robna opcija za buduću prodaju&lt;/li&gt;
-&lt;li&gt;Pomaže u osiguravanju BlackHat mreže&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/p&gt;&lt;p align="justify"&gt;
-
-Zahtjevi:
-&lt;/p&gt;&lt;p align="justify"&gt;
-&lt;ul&gt;
-&lt;li&gt;5,000 BLKC po svakom Masternode-u&lt;/li&gt;
-&lt;li&gt;Mora biti pohranjem u Core novčaniku&lt;/li&gt;
-&lt;li&gt;Mora biti jedinstvena IP adresa&lt;/li&gt;
-&lt;li&gt;Masternode novčanik treba ostati online&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
-    </message>
-    <message>
         <source>Frequently Asked Questions</source>
-        <translation>Najčešće postavljena pitanja</translation>
+        <translation>Najčešće postavljena
+pitanja</translation>
     </message>
     <message>
         <source>Close FAQ</source>
@@ -4208,13 +3415,109 @@ Zahtjevi:
         <source>You can read more here</source>
         <translation>Možete pročitati o više ovdje</translation>
     </message>
+    <message>
+        <source>BlackHat is a form of digital online money using blockchain technology that can be easily transferred globally, instantly, and with near zero fees. BlackHat incorporates market leading security &amp; privacy and is also the first PoS (Proof of Stake) Cryptocurrency to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.</source>
+        <translation>BlackHat je oblik digitalnog internetskog novca koji koristi blockchain tehnologiju koji se može lako prenositi globalno, odmah i gotovo bez naknade. BlackHat uključuje vodeću sigurnost i privatnost na tržištu, a ujedno je i prva PoS (Proof of Stake) kriptovaluta koja je implementirala Sapling (SHIELD), protokol privatnosti zasnovan na zk-SNARKs tehnologiji.</translation>
+    </message>
+    <message>
+        <source>BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, allowing all owners of BLKC to participate in earning block rewards while securing the network with full node wallets, as well as to run Masternodes to create and vote on proposals.</source>
+        <translation>BlackHat koristi algoritam sustava konsenzusa Proof of Stake (PoS), koji svim vlasnicima BLKC-a omogućuje sudjelovanje u zarađjivanju nagrada za blokove dok osiguravaju mrežu sa vlastitim čvorovima, kao i da pokreću Masternode za kreiranje i glasanje o prijedlozima. </translation>
+    </message>
+    <message>
+        <source>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</source>
+        <translation>Za novoprimljeni BLKC potrebno je 6 potvrda na mreži da bi postao prihvatljiv za potrošnju što može potrajati ~6 minuta.</translation>
+    </message>
+    <message>
+        <source>Your BlackHat wallet also needs to be completely synchronized to see and spend balances on the network.</source>
+        <translation>Vaš BlackHat novčanik također mora biti potpuno sinkroniziran da biste mogli vidjeti i trošiti sredstva na mreži.</translation>
+    </message>
+    <message>
+        <source>Make sure your wallet is completely synchronized and you are using the latest release.</source>
+        <translation>Provjerite je li vaš novčanik potpuno sinkroniziran i koristite li najnovije izdanje. </translation>
+    </message>
+    <message>
+        <source>You must have a balance of BLKC with a minimum of 600 confirmations.</source>
+        <translation>Morate imati saldo BLKC-a s barem 600 potvrda na blockchainu.</translation>
+    </message>
+    <message>
+        <source>Your wallet must stay online and be unlocked for staking purposes.</source>
+        <translation>Vaš novčanik mora ostati na mreži i biti otključan radi stakinga.</translation>
+    </message>
+    <message>
+        <source>Once all those steps are followed staking should be enabled.</source>
+        <translation>Nakon što su ispunjeni svi uvjeti, staking bi trebao biti omogućen.</translation>
+    </message>
+    <message>
+        <source>You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. The package will be lit up and will state "Staking Enabled" to indicate it is staking. Using the command line interface (%1); the command %2 will confirm that staking is active.</source>
+        <translation>Status stakinga u novčaniku možete vidjeti tako da kursor miša postavite na ikonu paketa u gornjem lijevom kutu sučelja novčanika. Ikonica paketa će svijetliti i na njoj pisati "Staking Omogućen" kako bi se pokazalo da je staking u tijeku. Korištenje sučelja naredbenog retka (%1); naredba %2 će potvrditi da je staking aktivan. </translation>
+    </message>
+    <message>
+        <source>We have support channels in most of our official chat groups, for example %1</source>
+        <translation>Imamo kanale za podršku u većini naših službenih chat grupa, na primjer %1</translation>
+    </message>
+    <message>
+        <source>#support in our Discord</source>
+        <translation>#support na našem Discordu</translation>
+    </message>
+    <message>
+        <source>%1 per single Masternode instance</source>
+        <translation>%1 po jednoj instanci Masternodea</translation>
+    </message>
+    <message>
+        <source>A decentralized governance (Proposal Voting)</source>
+        <translation>Decentralizirano upravljanje (glasanje o prijedlogu)</translation>
+    </message>
+    <message>
+        <source>A decentralized budgeting system (Treasury)</source>
+        <translation>Sustav decentraliziranog proračuna (riznica)</translation>
+    </message>
+    <message>
+        <source>Act as an additional full node in the network</source>
+        <translation>Djeluj kao dodatni puni čvor u mreži</translation>
+    </message>
+    <message>
+        <source>For providing such services, masternodes are also paid a certain portion of reward for each block. This can serve as a passive income to the masternode owners minus their running cost.</source>
+        <translation>Za pružanje takvih usluga, Masternodeovima se također plaća određjeni dio nagrade za svaki blok. To može poslužiti kao pasivan prihod vlasnicima Masternodeova umanjeno za njihove tekuće troškove.</translation>
+    </message>
+    <message>
+        <source>Masternode Perks:</source>
+        <translation>Prednosti Masternodea:</translation>
+    </message>
+    <message>
+        <source>Participate in BlackHat Governance</source>
+        <translation>Sudjeluj u upravljanju BlackHat-om</translation>
+    </message>
+    <message>
+        <source>Earn Masternode Rewards</source>
+        <translation>Zaradite Masternode nagrade</translation>
+    </message>
+    <message>
+        <source>Commodity option for future sale</source>
+        <translation>Robna opcija za buduću prodaju</translation>
+    </message>
+    <message>
+        <source>Help secure the BlackHat network</source>
+        <translation>Pomozite osigurati BlackHat mrežu</translation>
+    </message>
+    <message>
+        <source>Requirements:</source>
+        <translation>Zahtjevi: </translation>
+    </message>
+    <message>
+        <source>Must be stored in a core wallet</source>
+        <translation>Mora biti pohranjen u novčaniku</translation>
+    </message>
+    <message>
+        <source>Need dedicated IP address</source>
+        <translation>Potrebna je jedinstvena IP adresa</translation>
+    </message>
+    <message>
+        <source>Masternode wallet to remain online</source>
+        <translation>Masternode novčanik mora biti upaljen</translation>
+    </message>
 </context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Mrežni nadzor</translation>
@@ -4268,20 +3571,12 @@ Zahtjevi:
         <translation>Trenutni broj transakcija:</translation>
     </message>
     <message>
-        <source>User Agent:</source>
-        <translation>User Agent:</translation>
-    </message>
-    <message>
         <source>Network</source>
         <translation>Mreža</translation>
     </message>
     <message>
         <source>Name:</source>
         <translation>Ime:</translation>
-    </message>
-    <message>
-        <source>Blockchain</source>
-        <translation>Blockchain</translation>
     </message>
     <message>
         <source>Memory Pool</source>
@@ -4319,13 +3614,13 @@ Zahtjevi:
         <source>Out:</source>
         <translation>Iz:</translation>
     </message>
-    </context>
+    <message>
+        <source>No available data</source>
+        <translation>Nema dostupnih podataka</translation>
+    </message>
+</context>
 <context>
     <name>SettingsMainOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Window</source>
         <translation>Prozor</translation>
@@ -4359,20 +3654,16 @@ Zahtjevi:
         <translation>Veličina predmemorije baze podataka</translation>
     </message>
     <message>
-        <source>Number of script verification threads</source>
-        <translation>Number of script verification threads</translation>
-    </message>
-    <message>
-        <source>Start BlackHat on system login</source>
-        <translation>Pokrenite BlackHat pri pokretanju računala</translation>
-    </message>
-    <message>
         <source>Minimize to the tray instead of the taskbar</source>
         <translation>Smanjite na ladicu umjesto na programsku traku</translation>
     </message>
     <message>
         <source>Minimize on close</source>
         <translation>Minimiziraj pri zatvaranju</translation>
+    </message>
+    <message>
+        <source>Start %1 on system login</source>
+        <translation>Pokrenite %1 pri prijavi u sustav</translation>
     </message>
     <message>
         <source>Reset Options</source>
@@ -4394,168 +3685,10 @@ Jeste li sigurni?
     </message>
 </context>
 <context>
-    <name>SettingsMultisendDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>Transaction Details</source>
-        <translation>Detalji tranksacije</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>PONIŠTI</translation>
-    </message>
-    <message>
-        <source>SAVE</source>
-        <translation>SPREMI</translation>
-    </message>
-    <message>
-        <source>New recipient for multisend</source>
-        <translation>Novi primatelj za multisend</translation>
-    </message>
-    <message>
-        <source>Address Label (optional)</source>
-        <translation>Oznaka adrese (neobavezno)</translation>
-    </message>
-    <message>
-        <source>Enter label to be saved with this address</source>
-        <translation>Unesite oznaku koju želite spremiti s ovom adresom</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation>Postotak</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsMultisendWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-    <message>
-        <source>CheckBox</source>
-        <translation>PotvrdniOkvir</translation>
-    </message>
-    <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
-        <translation>MultiSend vam omogućuje da automatski pošaljete do 100% svog uloga ili nagrade masternode na popis drugih BlackHat adresa nakon što sazriju.</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation>Aktivno </translation>
-    </message>
-    <message>
-        <source>Disable</source>
-        <translation>Onemogući</translation>
-    </message>
-    <message>
-        <source>No active recipient yet</source>
-        <translation>Još nema aktivnog primatelja</translation>
-    </message>
-    <message>
-        <source>Send stakes</source>
-        <translation>Pošalji stake-ove</translation>
-    </message>
-    <message>
-        <source>Send masternode rewards</source>
-        <translation>Pošalji masternode nagrade</translation>
-    </message>
-    <message>
-        <source>ADD RECIPIENT</source>
-        <translation>DODAJ PRIMATELJA</translation>
-    </message>
-    <message>
-        <source>CLEAR ALL</source>
-        <translation>OČISTI SVE</translation>
-    </message>
-    <message>
-        <source>Cannot perform operation, wallet locked</source>
-        <translation>Ne može se izvršiti operacija, novčanik je zaključan</translation>
-    </message>
-    <message>
-        <source>Clear succeed</source>
-        <translation>Čišćenje uspjelo</translation>
-    </message>
-    <message>
-        <source>Clear all failed, could not locate address in wallet file</source>
-        <translation>Brisanje svega nije uspjelo, nije bilo moguće locirati adresu u datoteci novčanika</translation>
-    </message>
-    <message>
-        <source>Cannot add multisend recipient, wallet locked</source>
-        <translation>Ne može se dodati multisend primatelj, novčanik je zaključan</translation>
-    </message>
-    <message>
-        <source>The entered address: %1 is invalid.
-Please check the address and try again.</source>
-        <translation>Unesena adresa: %1 nije važeća.
-Molimo provjerite adresu i pokušajte ponovo.</translation>
-    </message>
-    <message>
-        <source>Invalid percentage, please enter values from 1 to 100.</source>
-        <translation>Nevažeći postotak, unesite vrijednosti od 1 do 100.</translation>
-    </message>
-    <message>
-        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
-        <translation>Ukupan iznos MultiSend vektora je preko 100% nagrade</translation>
-    </message>
-    <message>
-        <source>Error saving  MultiSend, failed saving properties to the database.</source>
-        <translation>Pogreška prilikom spremanja MultiSenda, neuspješno spremanje svojstava u bazu podataka.</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend, no available recipients</source>
-        <translation>MultiSend nije moguće aktivirati, nema dostupnih primatelja</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend
-Check one or both of the check boxes to send on stake and/or masternode rewards</source>
-        <translation>Ne mogu aktivirati MultiSend
-Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masternode nagrade</translation>
-    </message>
-    <message>
-        <source>MultiSend activated but writing settings to DB failed</source>
-        <translation>MultiSend je aktiviran, ali postavke pisanja u bazu podataka nisu uspjele</translation>
-    </message>
-    <message>
-        <source>MultiSend activated</source>
-        <translation>MultiSend aktiviran</translation>
-    </message>
-    <message>
-        <source>First multiSend address invalid</source>
-        <translation>Prva MultiSend adresa nije važeća</translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated but writing settings to DB failed</source>
-        <translation>MultiSend je deaktiviran, ali postavke pisanja u bazu podataka nisu uspjele</translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated</source>
-        <translation>MultiSend deaktiviran</translation>
-    </message>
-</context>
-<context>
     <name>SettingsSignMessageWidgets</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Sign/Verify Message</source>
-        <translation>Potpiši/Ovjeri poruku</translation>
+        <translation>Potpiši/Ovjeri Poruku</translation>
     </message>
     <message>
         <source>Sign</source>
@@ -4646,10 +3779,6 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
         <translation>Provjerite potpis i pokušajte ponovo.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>Potpis se nije podudarao s digestom poruka.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Potvrda poruke nije uspjela.</translation>
     </message>
@@ -4664,10 +3793,6 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Resetiraj na početno stanje</translation>
@@ -4705,10 +3830,6 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
         <translation>Spajanje putem proxy SOCKS5 (zadani proxy)</translation>
     </message>
     <message>
-        <source>Proxy IP</source>
-        <translation>Proxy IP</translation>
-    </message>
-    <message>
         <source>Port</source>
         <translation>Ulaz</translation>
     </message>
@@ -4736,13 +3857,13 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
         <source>Options reset succeed</source>
         <translation>Poništavanje postavki uspjelo</translation>
     </message>
-</context>
+    <message>
+        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
+        <translation>Stake dijeljenje prenisko, treba biti ili &gt;= %1 ili jednak 0 (da onemogućite dijeljenje)</translation>
+    </message>
+    </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Popravak novčanika</translation>
@@ -4765,7 +3886,7 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
     </message>
     <message>
         <source>Rescan blockchain file</source>
-        <translation>Preskenirajte blockchain datoteku</translation>
+        <translation>Pretraži blockchain datoteku</translation>
     </message>
     <message>
         <source>Rescan the blockchain for missing wallet transactions</source>
@@ -4831,10 +3952,6 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
 <context>
     <name>SettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Wallet Data</source>
         <translation>Podaci o novčaniku</translation>
     </message>
@@ -4843,12 +3960,9 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
         <translation>Novčanik</translation>
     </message>
     <message>
-        <source>Multisend</source>
-        <translation>Multisend</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
-        <translation>Izvezi računovodstvene podatke</translation>
+        <translation>Izvezi računovodstvene
+podatke</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -4919,10 +4033,6 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
         <translation>Klijent će biti isključen, želite li nastaviti?</translation>
     </message>
     <message>
-        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
-        <translation>Stake dijeljenje prenisko, treba biti ili &gt;= %1 ili jednak 0 (da onemogućite dijeljenje)</translation>
-    </message>
-    <message>
         <source>Restart required</source>
         <translation>Potrebno ponovno pokretanje</translation>
     </message>
@@ -4938,7 +4048,7 @@ Označite jedan ili oba polja za potvrdu da biste poslali staking i/ili masterno
     </message>
     <message>
         <source>Restart Later</source>
-        <translation>Ponovno pokreni kasnije</translation>
+        <translation>Pokreni kasnije</translation>
     </message>
     <message>
         <source>Options will be applied on next wallet restart</source>
@@ -4970,8 +4080,8 @@ Jeste li sigurni?
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>BlackHat Core is shutting down...</source>
-        <translation>BlackHat Core se zatvara...</translation>
+        <source>%1 is shutting down...</source>
+        <translation>%1 se isključuje...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4979,44 +4089,14 @@ Jeste li sigurni?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Kontakt spremljen</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Učitavanje...</translation>
     </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-</context>
-<context>
-    <name>SplashScreen</name>
-    <message>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Kopiraj</translation>
@@ -5036,10 +4116,6 @@ Jeste li sigurni?
 </context>
 <context>
     <name>TopBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>transparent</source>
         <translation>transparentno</translation>
@@ -5137,10 +4213,6 @@ se nova sigurnosna kopija.
         <translation>Otključavanje novčanika je otkazano</translation>
     </message>
     <message>
-        <source>Tor Active: %1</source>
-        <translation>Tor aktivan: %1</translation>
-    </message>
-    <message>
         <source>Tor Disabled</source>
         <translation>Tor onemogućen</translation>
     </message>
@@ -5208,12 +4280,16 @@ stvorit će se nova sigurnosna kopija.
 </translation>
     </message>
     <message>
+        <source>Tor Active</source>
+        <translation>Tor Aktivan</translation>
+    </message>
+    <message>
         <source>Wallet Unencrypted</source>
         <translation>Novčanik nekriptiran</translation>
     </message>
     <message>
         <source>Available (Locked included)</source>
-        <translation>Raspoloživo (Zaključani uključeni)</translation>
+        <translation>Raspoloživo (Uključujući zaključane)</translation>
     </message>
     <message>
         <source>The wallet has been successfully upgraded to HD.</source>
@@ -5261,13 +4337,6 @@ stvorit će se nova sigurnosna kopija.
     </message>
 </context>
 <context>
-    <name>TrafficGraphWidget</name>
-    <message>
-        <source>KB/s</source>
-        <translation>KB/s</translation>
-    </message>
-</context>
-<context>
     <name>TransactionTableModel</name>
     <message>
         <source>Date</source>
@@ -5283,7 +4352,7 @@ stvorit će se nova sigurnosna kopija.
     </message>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Otvoreno još %n blok</numerusform><numerusform>Otvoreno još %n blokova</numerusform><numerusform>Otvoreno još %n blokova</numerusform></translation>
+        <translation><numerusform>Otvoreno za još %n blok</numerusform><numerusform>Otvoreno za još %n blokova</numerusform><numerusform>Otvoreno za još %n blokova</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -5320,18 +4389,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Received from</source>
         <translation>Zaprimljeno s</translation>
-    </message>
-    <message>
-        <source>%1 Stake</source>
-        <translation>%1 Stake</translation>
-    </message>
-    <message>
-        <source>z%1 Stake</source>
-        <translation>z%1 Stake</translation>
-    </message>
-    <message>
-        <source>%1 Cold Stake</source>
-        <translation>%1 Cold Stake</translation>
     </message>
     <message>
         <source>%1 Stake on behalf of</source>
@@ -5402,6 +4459,10 @@ stvorit će se nova sigurnosna kopija.
         <translation>Zaštićeno slanje na</translation>
     </message>
     <message>
+        <source>Burned BLKCs</source>
+        <translation>Uništeni BLKCovi</translation>
+    </message>
+    <message>
         <source>watch-only</source>
         <translation>samo za gledanje</translation>
     </message>
@@ -5412,10 +4473,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>No information</source>
         <translation>Nema informacija</translation>
-    </message>
-    <message>
-        <source>(n/a)</source>
-        <translation>(n/a)</translation>
     </message>
     <message>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
@@ -5445,10 +4502,6 @@ stvorit će se nova sigurnosna kopija.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Detalji tranksacije</translation>
     </message>
@@ -5463,18 +4516,6 @@ stvorit će se nova sigurnosna kopija.
     <message>
         <source>Output Index</source>
         <translation>Izlazni indeks</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>May 25, 2017</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
     </message>
     <message>
         <source>Sending to</source>
@@ -5505,10 +4546,6 @@ stvorit će se nova sigurnosna kopija.
         <translation>Potvrde</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -5517,16 +4554,8 @@ stvorit će se nova sigurnosna kopija.
         <translation>Pisana poruka</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>TekstOznake</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
         <translation>PONIŠTI</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source>Confirm Your Transaction</source>
@@ -5566,20 +4595,62 @@ stvorit će se nova sigurnosna kopija.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
+        <source>Vote For Proposal</source>
+        <translation>Glasajte za prijedlog</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation>Odaberite smjer glasanja i masternode koji će glasati za to</translation>
     </message>
     <message>
-        <source>-0.000585 BLKC</source>
-        <translation>-0.000585 BLKC</translation>
+        <source>Select Voting Masternodes</source>
+        <translation>Odaberite Masternodeove za glasanje</translation>
     </message>
-</context>
+    <message>
+        <source>CANCEL</source>
+        <translation>PONIŠTI</translation>
+    </message>
+    <message>
+        <source>VOTE</source>
+        <translation>GLASAJ</translation>
+    </message>
+    <message>
+        <source>You can change your vote later</source>
+        <translation>Svoj glas možete promijeniti kasnije</translation>
+    </message>
+    <message>
+        <source>%1 months remaining</source>
+        <translation>Preostalo %1 mjeseci</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Da</translation>
+    </message>
+    <message>
+        <source>Select a vote direction</source>
+        <translation>Odaberite smjer glasanja</translation>
+    </message>
+    <message>
+        <source>Missing voting masternodes selection</source>
+        <translation>Nedostaje odabir masternoda za glasanje</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes</source>
+        <translation>Vrijeme između glasova je prekratno, morate pričekati %1 minuta</translation>
+    </message>
+    <message>
+        <source>You have voted with %1 Masternodes for this proposal
+Change votes</source>
+        <translation>Glasali ste s %1 Masternodeova za ovaj prijedlog
+Promijeni glasove</translation>
+    </message>
+    </context>
 <context>
     <name>WalletModel</name>
     <message>
@@ -5602,22 +4673,6 @@ Odaberite manje ulaza pomoću Upravljanja novčićima.</translation>
 <context>
     <name>WelcomeContentWidget</name>
     <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation>Jezik</translation>
     </message>
@@ -5638,12 +4693,6 @@ Odaberite manje ulaza pomoću Upravljanja novčićima.</translation>
         <translation>Odaberite jezik</translation>
     </message>
     <message>
-        <source>Welcome to
-BlackHat Core Wallet</source>
-        <translation>Dobrodošli u
-BlackHat temeljni novčanik</translation>
-    </message>
-    <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
         <translation>BlackHat je najinovativnija blockchain tehnologija na svijetu bazirana na Proof of Stake tehnologiji. Razvijena je od strane vrlo iskusnih programera i kriptografa.</translation>
     </message>
@@ -5660,6 +4709,12 @@ BlackHat temeljni novčanik</translation>
         <translation>Kako BlackHat poštuje Vašu privatnost?</translation>
     </message>
     <message>
+        <source>Welcome to
+%1 Wallet</source>
+        <translation>Dobrodošli u
+%1 Novčanik</translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>Što je Masternode?</translation>
     </message>
@@ -5669,190 +4724,37 @@ BlackHat temeljni novčanik</translation>
     </message>
 </context>
 <context>
+    <name>governancewidget</name>
+    <message>
+        <source>No active proposals yet</source>
+        <translation>Još nema aktivnih prijedloga</translation>
+    </message>
+    <message>
+        <source>Budget Distribution</source>
+        <translation>Raspodjela proračuna</translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation>Raspoloživo</translation>
+    </message>
+    <message>
+        <source>Allocated</source>
+        <translation>Dodijeljeno</translation>
+    </message>
+</context>
+<context>
     <name>blkc-core</name>
-    <message>
-        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
-        <translation>Dopusti JSON-RPC veze od određenog izvora. Vrijedi za jednu IP (npr. 1.2.3.4), mrežu / mrežnu masku (npr. 1.2.3.4/255.255.255.0) ili mrežu / CIDR (npr. 1.2.3.4/24). Ova se opcija može odrediti više puta</translation>
-    </message>
-    <message>
-        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
-        <translation>Veži se na navedenu adresu i uvijek slušajte na njemu. Koristite [host]: port notation za IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
-        <translation>Veži se na navedenoj adresi i dopuštenim kolegama koji se povezuju s njom. Koristite [host]: port notation za IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
-        <translation>Pridržavajte se na navedenu adresu da biste slušali veze JSON-RPC. Koristite [host]: port notation za IPv6. Ova se opcija može odrediti više puta (zadano: vezati se na sva sučelja)</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
-        <translation>Nije moguće dobiti zaključavanje na direktoriju podataka %s. BlackHat Core vjerojatno već radi.</translation>
-    </message>
-    <message>
-        <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
-        <translation>Promjena ponašanja glasova na automatskom finaliziranom proračunu. mode = auto: Glasujte samo za točan završeni proračun s mojim generiranim proračunom. (niz, zadani: automatski)</translation>
-    </message>
-    <message>
-        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
-        <translation>Stalne besplatne transakcije bez ograničenja stope na &lt;n&gt;* 1000 bajta po minuti (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>Izradite nove datoteke s zadanim dozvolama za sustav, umjesto umask 077 (samo učinkovite s funkcijom onemogućene lisnice)</translation>
-    </message>
-    <message>
-        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
-        <translation>Izbrišite sve transakcije lisnice i obnavljajte one dijelove blok-lanca kroz -rescan pri pokretanju</translation>
-    </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
         <translation>Distribuirano pod MIT softverskom licencom, pogledajte priloženu datoteku COPYING ili &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
-    </message>
-    <message>
-        <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
-        <translation>Omogući cold staking funkcionalnost (0-1, zadano: %u). Onemogućeno ako je staking=0</translation>
-    </message>
-    <message>
-        <source>Enable spork administration functionality with the appropriate private key.</source>
-        <translation>Omogućite funkcionalnost administracije s odgovarajućim privatnim ključem.</translation>
-    </message>
-    <message>
-        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
-        <translation>Unesite način rada regresije, koji koristi poseban lanac u kojem blokovi mogu biti riješeni odmah.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Pogreška: Slušanje dolaznih veza nije uspjelo (slušajte pogrešku vraćenu pogrešku %s)</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Pogreška: nepodržani argument - pronađeni su kanali. Postavljanje SOCKS verzije više nije moguće, samo SOCKS5 proksiji su podržani.</translation>
-    </message>
-    <message>
-        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
-        <translation>Isključi podatke za uklanjanje pogrešaka za kategoriju. Može se koristiti zajedno s -debug=1 za ispis dnevnika za uklanjanje pogrešaka za sve kategorije, osim jedne ili više određjenih kategorija.</translation>
-    </message>
-    <message>
-        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
-        <translation>Izvršite naredbu kada se primi odgovarajuće upozorenje ili vidimo jako dugo račvanje (%s u cmd zamjenjuje se porukom)</translation>
-    </message>
-    <message>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation>Izvrši naredbu kada se dogodi promjena s transakcijom u novčaniku (%s u cmd je zamijenjen s TxID)</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation>Izvrši naredbu kada se promijeni najbolji blok (%s u cmd zamjenjuje se blokovskim raspršivanjem)</translation>
-    </message>
-    <message>
-        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Ispraznite aktivnost baze podataka iz baze memorije na dnevnik diska svakog megabajta (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
-        <translation>Ako paytxfee nije postavljen, uključite dovoljnu naknadu kako bi transakcije započele potvrdu u prosjeku unutar n blokova (zadana vrijednost: %u)</translation>
-    </message>
-    <message>
-        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
-        <translation>U ovom načinu rada -genproclimit kontrolira koliko blokova se generiraju odmah.</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation>Nevažeći iznos za -maxtxfee =&lt;amount&gt;: '%s' (mora biti barem minimalna naknada od %s kako bi se spriječili zastoji)</translation>
-    </message>
-    <message>
-        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
-        <translation>Prijavite prioritet transakcije i naknadu po kB kada se mining-ju blokovi (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
-        <translation>Održavajte cijeli indeks transakcija, koji se koristi pozivom getrawtransaction rpc (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum average size of an index occurrence in the block spam filter (default: %u)</source>
-        <translation>Maksimalna prosječna veličina indeksa pojave u bloku filtera neželjene pošte (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
-        <translation>Maksimalna veličina podataka u transakcijama nosača podataka koje šaljemo i minamo (zadana vrijednost: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of the list of indexes in the block spam filter (default: %u)</source>
-        <translation>Maksimalna veličina popisa indeksa u bloku filtera neželjene pošte (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
-        <translation>Maksimalne ukupne naknade za upotrebu u jednoj transakciji novčanika, postavljanje preniske mogu prekidati velike transakcije (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
-        <translation>Broj sekundi za neprimjereno ponašanje vršnjaka iz ponovnog povezivanja (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
-        <translation>Izlazne informacije o pogrešci (zadano: %u, &lt;category&gt; unos je neobavezan)</translation>
-    </message>
-    <message>
-        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
-        <translation>Randomizirati vjerodajnice za svaku proxy vezu. To omogućuje izolaciju Tor izvora (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
-        <translation>Zahtijevajte visoki prioritet za preusmjeravanje transakcija besplatnih ili niskih naknada (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to console instead of debug.log file (default: %u)</source>
-        <translation>Pošaljite informacije o praćenju i debugu na konzolu umjesto datoteke debug.log (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
-        <translation>Postavite maksimalnu veličinu transakcija s visokim prioritetom / niske naknade u bajtima (zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
-        <translation>Postavite broj niza provjere skripte (%u do %d, 0 = auto, &lt;0 = ostavite toliko jezgri slobodno, zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
-        <translation>Postavite broj niti za generiranje novčića ako je omogućeno (-1 = sve jezgre, zadana vrijednost: %d)</translation>
-    </message>
-    <message>
-        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
-        <translation>Podržite filtriranje blokova i transakciju s filtrima za cvjetanje (zadano: %u)</translation>
-    </message>
-    <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
         <translation>Baza podataka bloka sadrži blok koji izgleda kao da je iz budućnosti. To se može dogoditi zbog toga što su datum i vrijeme Vašeg računala pogrešno postavljeni. Obnovite bazu podataka blokova samo ako ste sigurni da su datum i vrijeme Vašeg računala ispravni</translation>
-    </message>
-    <message>
-        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation>Ovaj proizvod uključuje softver razvijen od strane OpenSSL projekta za uporabu u OpenSSL Toolkitu i kriptografskom softveru kojeg je napisao Eric Young i UPnP softver koji je napisao Thomas Bernard.</translation>
-    </message>
-    <message>
-        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
-        <translation>Ukupna duljina teksta mrežne verzije (%i) prelazi maksimalnu duljinu (%i). Smanjite broj ili veličinu uacommentsa.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer. BlackHat Core is probably already running.</source>
-        <translation>Nije moguće vezati se na %s na ovom računalu. BlackHat Core vjerojatno već radi.</translation>
-    </message>
-    <message>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation>Koristite zasebni SOCKS5 proxy za pristup kolegama putem Tor skrivenih usluga (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Upozorenje: -maxtxfee je vrlo visoka! Naknade ovoliko visoke mogu se platiti samo jednom transakcijom.</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Upozorenje: -paytxfee je vrlo visoka! To je transakcijska naknada koju ćete platiti ako šaljete transakciju.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Upozorenje: Provjerite jesu li datum i vrijeme vašeg računala točni! Ako je vaš sat pogrešan, BlackHat Core neće raditi ispravno.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5863,56 +4765,16 @@ BlackHat temeljni novčanik</translation>
         <translation>Upozorenje: Čini se da se ne slažemo s našim kolegama! Možda ćete morati nadograditi ili možda drugi node-ovi moraju nadograditi novčanik.</translation>
     </message>
     <message>
-        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
-        <translation>Dopuštene kolege koji se povezuju s određenom netmask ili IP adresa. Može se navesti više puta.</translation>
+        <source>%s corrupt, salvage failed</source>
+        <translation>%s pokvaren, spašavanje nije uspjelo</translation>
     </message>
     <message>
-        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
-        <translation>Popis dopuštenih suradnika ne može biti zabranjen DoS i njihova se transakcija uvijek prenosi, čak i ako su već u spremištu,  na primjer. za pristupnika</translation>
+        <source>Cannot downgrade wallet.</source>
+        <translation>Novčanik nije moguće vratiti na prethodnu verziju.</translation>
     </message>
     <message>
-        <source>(default: %s)</source>
-        <translation>(default: %s)</translation>
-    </message>
-    <message>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Prihvatite naredbeni redak i JSON-RPC naredbe</translation>
-    </message>
-    <message>
-        <source>Accept public REST requests (default: %u)</source>
-        <translation>Prihvatite javne zahtjeve za REST (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Dodajte čvor za povezivanje i pokušajte zadržati vezu otvorenu</translation>
-    </message>
-    <message>
-        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
-        <translation>Uvijek se upita za peer adrese putem DNS pretraživanja (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Append comment to the user agent string</source>
-        <translation>Dodajte komentar user agent stringu</translation>
-    </message>
-    <message>
-        <source>Automatically create Tor hidden service (default: %d)</source>
-        <translation>Automatski izradite Tor skrivenu uslugu (zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Block creation options:</source>
-        <translation>Opcije izrade blokova:</translation>
-    </message>
-    <message>
-        <source>Connect through SOCKS5 proxy</source>
-        <translation>Povežite se preko SOCKS5 proxyja</translation>
-    </message>
-    <message>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Spojite se na node za preuzimanje adresa korisnika, i odspajanje</translation>
-    </message>
-    <message>
-        <source>Connection options:</source>
-        <translation>Mogućnosti povezivanja:</translation>
+        <source>Cannot upgrade a locked wallet.</source>
+        <translation>Ne može se nadograditi zaključani novčanik.</translation>
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
@@ -5921,10 +4783,6 @@ BlackHat temeljni novčanik</translation>
     <message>
         <source>Copyright (C) 2014-%i The Dash Core Developers</source>
         <translation>Autorska prava (C) 2014-%i The Dash Core Developers</translation>
-    </message>
-    <message>
-        <source>Copyright (C) 2015-%i The BlackHat Core Developers</source>
-        <translation>Autorska prava (C) 2015-%i The BlackHat Core Developers</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5936,24 +4794,8 @@ BlackHat temeljni novčanik</translation>
 </translation>
     </message>
     <message>
-        <source>Debugging/Testing options:</source>
-        <translation>Opcije otklanjanja pogrešaka / testiranja:</translation>
-    </message>
-    <message>
-        <source>Delete blockchain folders and resync from scratch</source>
-        <translation>Izbriši blockchain direktorije i ponovno sinkroniziraj ispočetka</translation>
-    </message>
-    <message>
-        <source>Disable OS notifications for incoming transactions (default: %u)</source>
-        <translation>Onemogućite obavijesti OS-a za dolazne transakcije (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
-        <translation>Otkrijte vlastitu IP adresu (zadano: 1 prilikom slušanja i nije za vanjski ip)</translation>
-    </message>
-    <message>
-        <source>Do not load the wallet and disable wallet RPC calls</source>
-        <translation>Ne učitavaj novčanik i onesspobiti RPC pozive</translation>
+        <source>Deterministic masternodes are not enforced yet</source>
+        <translation>Deterministički masternodeovi se još ne provode</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
@@ -5964,12 +4806,16 @@ BlackHat temeljni novčanik</translation>
         <translation>Završeno učitavanje</translation>
     </message>
     <message>
-        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
-        <translation>Omogućite klijentu da djeluje kao masternode (0-1, zadano: %u)</translation>
+        <source>Elliptic curve cryptography sanity check failure. Aborting.</source>
+        <translation>Neuspjeh provjere ispravnosti kriptografije eliptičke krivulje. Prekidanje.</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
         <translation>Pogreška prilikom inicijalizacije baze podataka blokova</translation>
+    </message>
+    <message>
+        <source>Error initializing wallet database environment %s!</source>
+        <translation>Pogreška pri pokretanju okruženja baze podataka novčanika %s!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -5996,44 +4842,8 @@ BlackHat temeljni novčanik</translation>
         <translation>Pogreška: prostor na disku je premalen!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Pogreška: neodržani argument - tor pronađen, koristite -onion.</translation>
-    </message>
-    <message>
-        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation>Slušanje nije bilo na bilo kojem priključku. Koristite -listen = 0 ako to želite.</translation>
-    </message>
-    <message>
-        <source>Failed to parse host:port string</source>
-        <translation>Failed to parse host:port string</translation>
-    </message>
-    <message>
-        <source>Force safe mode (default: %u)</source>
-        <translation>Prisilno poktretanje sigurnosnog načina rada (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Generate coins (default: %u)</source>
-        <translation>Generirajte novčiće (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
-        <translation>Koliko blokova treba provjeriti pri pokretanju (zadano: %u, 0 = sve)</translation>
-    </message>
-    <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Ako &lt;category&gt;nije isporučen, ispiši sve informacije za uklanjanje pogrešaka.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Uvozim...</translation>
-    </message>
-    <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Uvoz blokova iz vanjske blk000 ?? dat datoteke</translation>
-    </message>
-    <message>
-        <source>Include IP addresses in debug output (default: %u)</source>
-        <translation>Uključi IP adrese u izlaz za ispravljanje pogrešaka (zadano: %u)</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -6044,104 +4854,24 @@ BlackHat temeljni novčanik</translation>
         <translation>Informacije</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
-        <translation>Provjera ispravnosti inicijalizacije nije uspjela. BlackHat Core se zatvara.</translation>
-    </message>
-    <message>
         <source>Insufficient funds.</source>
         <translation>Nedovoljna sredstva.</translation>
     </message>
     <message>
-        <source>Invalid -onion address or hostname: '%s'</source>
-        <translation>nevažeća -onion adresa ili naziv hosta: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation>Nevažeći iznos za -paytxfee =&lt;amount&gt;: '%s' (mora biti barem %s)</translation>
-    </message>
-    <message>
-        <source>Invalid netmask specified in -whitelist: '%s'</source>
-        <translation>Nevažeća mrežna maska specificirana u kategoriji -whitelist: '%s'</translation>
+        <source>Invalid -masternodeaddr port %d, isn't the same as the peer port %d</source>
+        <translation>Neispravan -masternodeaddr port %d, nije isti kao peer port %d</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</source>
         <translation>Ovo je priprema za testiranje prije puštanja - upotrebljavajte na vlastiti rizik - nemojte ga koristiti za staking ili trgovinske aplikacije!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
-        <translation>Pogreška: pronađen je nepotpuni argument. Checklevel mora biti razina 4.</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
-        <translation>Izvrši naredbu kada se najbolji blok promjeni i kada njegova veličina premaši (%s u cmd je zamijenjen s blok hashom, %d s veličinom bloka)</translation>
-    </message>
-    <message>
-        <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
-        <translation>Navedite put prilagođenog sigurnosnog kopiranja da biste dodali kopiju sigurnosne kopije lisnice. Ako je postavljeno kao dir, svaka sigurnosna kopija generira vremensku datoteku. Ako je postavljen kao datoteka, prepisat će na tu datoteku svaku kopiju.</translation>
-    </message>
-    <message>
-        <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt; može biti:</translation>
-    </message>
-    <message>
-        <source>Attempt to force blockchain corruption recovery</source>
-        <translation>Pokušaj prisiljavanja blokiranja korupcije na oporavak</translation>
-    </message>
-    <message>
-        <source>Display the stake modifier calculations in the debug.log file.</source>
-        <translation>Prikažite izračune modifikatora uloga u debug.log datoteci.</translation>
-    </message>
-    <message>
-        <source>Display verbose coin stake messages in the debug.log file.</source>
-        <translation>Prikažite opsežne poruke za ulaganje novčića u datoteku debug.log.</translation>
-    </message>
-    <message>
-        <source>Enable publish hash block in &lt;address&gt;</source>
-        <translation>Omogući objavljivanje block hasha u &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish hash transaction in &lt;address&gt;</source>
-        <translation>Omogući objavljivanje hasha transakcije u &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw block in &lt;address&gt;</source>
-        <translation>Omogući objavljivanje neobrađenog bloka u &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw transaction in &lt;address&gt;</source>
-        <translation>Omogući objavljivanje neobrađene transakcije u&lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable staking functionality (0-1, default: %u)</source>
-        <translation>Omogući funkcionalnost odstupanja (0-1, zadano: %u)</translation>
-    </message>
-    <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>Pogreška: Došlo je do kobne interne pogreške, pogledajte detalje o debug.logu</translation>
     </message>
     <message>
-        <source>(1 = keep tx meta data e.g. payment request information, 2 = drop tx meta data)</source>
-        <translation>(1 = zadrži meta podatke transakcije, npr. podatke o zahtjevu za plaćanje, 2 = odbaci meta podatke transakcija)</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside (default: %u if no -proxy or -connect/-noconnect)</source>
-        <translation>Prihvatite veze izvana (zadano: %u ako nema -proxy ili -connect/-noconnect)</translation>
-    </message>
-    <message>
-        <source>Cannot find the Sapling parameters in the following directory:
-%s
-Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.</source>
-        <translation>Ne mogu pronaći Sapling parametre u sljedećem direktoriju:
-%s
-Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenite novčanik.</translation>
-    </message>
-    <message>
         <source>Cannot upgrade to Sapling wallet (already running Sapling support). Version: %d</source>
         <translation>Nije moguće nadograditi na novčanik Sapling (već ima Sapling podršku). Verzija: %d</translation>
-    </message>
-    <message>
-        <source>Disable all BlackHat specific functionality (Masternodes, Budgeting) (0-1, default: %u)</source>
-        <translation>Onemogućite sve BlackHat specifične funkcionalnosti (Masternode, proračun) (0-1, zadano: %u)</translation>
     </message>
     <message>
         <source>This file contains all of your private keys in plain text. DO NOT send this file to anyone!</source>
@@ -6156,28 +4886,12 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Dogodila se fatalna interna pogreška, pogledajte debug.log datoteku za detalje</translation>
     </message>
     <message>
-        <source>Allow DNS lookups for -addnode, -seednode and -connect (default: %u)</source>
-        <translation>Dopusti DNS traženje za -addnode, -seednode i -connect (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet file</source>
-        <translation>Pokušaj oporavka privatnih ključeva iz oštećene datoteke novčanika</translation>
-    </message>
-    <message>
         <source>Calculating money supply...</source>
         <translation>Računam broj novčića u optjecaju...</translation>
     </message>
     <message>
-        <source>Cannot set -bind or -whitebind together with -listen=0</source>
-        <translation>Ne može se postaviti -bind ili -whitebind zajedno s -listen=0</translation>
-    </message>
-    <message>
         <source>Error loading %s: Wallet corrupted</source>
         <translation>Greška pri učitavanju %s: Novčanik oštećen</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Wallet requires newer version of BlackHat Core</source>
-        <translation>Pogreška pri učitavanju %s: Novčanik zahtijeva noviju verziju BlackHat Core</translation>
     </message>
     <message>
         <source>Error loading %s
@@ -6190,6 +4904,26 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Greška pri nadogradnji chainstate baze podataka</translation>
     </message>
     <message>
+        <source>Error: %s must be at least %d MB</source>
+        <translation>Pogreška: %s mora imati najmanje %d MB</translation>
+    </message>
+    <message>
+        <source>Error: Disk space is low for %s</source>
+        <translation>Pogreška: Na disku nema dovoljno prostora za %s</translation>
+    </message>
+    <message>
+        <source>Error: Initializing networking failed</source>
+        <translation>Pogreška: Inicijalizacija umrežavanja nije uspjela</translation>
+    </message>
+    <message>
+        <source>Error: Unsupported argument %s found, use %s.</source>
+        <translation>Pogreška: Pronađen je nepodržani argument %s, upotrijebite %s.</translation>
+    </message>
+    <message>
+        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
+        <translation>Slušanje nije bilo na bilo kojem priključku. Koristite -listen = 0 ako to želite.</translation>
+    </message>
+    <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
         <translation>Nevažeći iznos za -%s=&lt;amount&gt;: '%s'</translation>
     </message>
@@ -6198,20 +4932,8 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nevažeći masternodeprivkey. Molimo pogledajte dokumentaciju.</translation>
     </message>
     <message>
-        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation>Zadržite najviše &lt;n&gt; neprenosive transakcije u memoriji (zadano: %u)</translation>
-    </message>
-    <message>
         <source>Line: %d</source>
         <translation>Linija: %d</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Slušajte za povezivanje JSON-RPC veze &lt;port&gt; (zadano: %u ili testnet: %u)</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Slušajte za veze &lt;port&gt;uključeno (zadano: %u ili testnet: %u)</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -6246,148 +4968,40 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Učitavanje novčanika...</translation>
     </message>
     <message>
-        <source>Location of the auth cookie (default: data dir)</source>
-        <translation>Lokacija autentičnog kolačića (zadano: dir. Podataka)</translation>
-    </message>
-    <message>
-        <source>Lock masternodes from masternode configuration file (default: %u)</source>
-        <translation>Zaključaj masternode iz masternode konfiguracijske datoteke (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>Potražnja(): nevažeća adresa -proxy ili naziv hosta: '%s'</translation>
-    </message>
-    <message>
         <source>MNs synchronization pending...</source>
         <translation>Sinkronizacija MN-ova je na čekanju ...</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
-        <translation>Održavajte najviše &lt;n&gt; vezu s korisnicima (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Masternode options:</source>
-        <translation>Masternode mogućnosti:</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Maksimalni međuspremnik za primanje veze, &lt;n&gt;* 1000 bajta (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Maksimalni pošiljatelj za slanje po vezama, &lt;n&gt;* 1000 bajta (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Mining/Staking options:</source>
-        <translation>Mogućnosti stakinga:</translation>
-    </message>
-    <message>
-        <source>Specify zk params directory (default: %s)</source>
-        <translation>Specificiraj zk params direktorij (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Need to specify a port with -whitebind: '%s'</source>
-        <translation>Morate navesti vezu s -whitebind: '%s'</translation>
-    </message>
-    <message>
-        <source>Node relay options:</source>
-        <translation>Opcije releja čvorova:</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
         <translation>Nije dostupno dovoljno deskriptora datoteka.</translation>
     </message>
     <message>
-        <source>Number of custom location backups to retain (default: %d)</source>
-        <translation>Broj sigurnosnih kopija prilagođenih lokacija za zadržavanje (zadano: %d)</translation>
-    </message>
-    <message>
-        <source>On first run, create a legacy wallet instead of a HD wallet</source>
-        <translation>Pri prvom pokretanju napravite naslijeđjeni novčanik umjesto HD novčanika</translation>
-    </message>
-    <message>
-        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
-        <translation>Prihvatite blok lanac koji odgovara ugrađenim kontrolnim točkama (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
-        <translation>Samo se povežite s čvorovima u mreži &lt;net&gt;(ipv4, ipv6 ili luk)</translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation>Mogućnosti:</translation>
-    </message>
-    <message>
-        <source>Password for JSON-RPC connections</source>
-        <translation>Lozinka za JSON-RPC veze</translation>
-    </message>
-    <message>
         <source>Peers are being disconnected due time differences.</source>
         <translation>Druga računala se isključuju zbog vremenskih razlika.</translation>
     </message>
     <message>
-        <source>Use block spam filter (default: %u)</source>
-        <translation>Koristi filter za block spam (zadano: %u)</translation>
+        <source>Upgrading coins database if needed...</source>
+        <translation>Nadograđivanje baze novčića ako je potrebno...</translation>
     </message>
     <message>
-        <source>Wallet debugging/testing options:</source>
-        <translation>Mogućnosti otklanjanja pogrešaka/testiranja novčanika:</translation>
+        <source>Verifying wallet(s)...</source>
+        <translation>Provjera novčanika...</translation>
     </message>
     <message>
-        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>isValid (): Nevažeća -proxy adresa ili naziv hosta: '%s'</translation>
+        <source>Wallet %s resides outside data directory %s</source>
+        <translation>Novčanik %s nalazi se izvan direktorija podataka %s</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
         <translation>Priprema za resinkronizaciju...</translation>
     </message>
     <message>
-        <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
-        <translation>Povežite se samo s navedenim čvorovima; -noconnect ili -connect=0 za onemogućavanje automatskih veza</translation>
+        <source>Legacy masternode system disabled. Use %s to start as deterministic masternode</source>
+        <translation>Naslijeđeni sustav masternode je onemogućen. Koristite %s za početak kao deterministički masternode</translation>
     </message>
     <message>
-        <source>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</source>
-        <translation>Ne prihvaćajte transakcije ako bi bilo koji predak imao &lt;n&gt; ili više poticaja u mempoolu (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</source>
-        <translation>Ne prihvaćajte transakcije ako bi bilo koji predak imao više od &lt;n&gt; kilobajta od potomaka u mempoolu (zadano: %u).</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</source>
-        <translation>Ne prihvaćajte transakcije ako je broj predaka u mempoolu &lt;n&gt; ili više (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
-        <translation>Ne prihvaćajte transakcije čija veličina sa svim in-mempool precima premašuje &lt;n&gt; kilobajta (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
-        <translation>Ne drži transakcije u spremištu memorije dulje od &lt;n&gt; sati (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
-        <translation>Naknade (u %s/Kb) manje od ove smatraju se nultom naknadom za prenošenje, rudarenje i stvaranje transakcija (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Naknade (u %s/Kb) manje od ovoga će se smatrati kao da nema naknade za stvaranje transakcije (default: %s)</translation>
-    </message>
-    <message>
-        <source>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</source>
-        <translation>Najmanji dozvoljeni iznos (u BLKC) kroz GUI RPC za prag dijeljenja stake-a (default: %s)</translation>
-    </message>
-    <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Provjerite jesu li datum i vrijeme vašeg računala točni! Ako je vaš sat pogrešan, BlackHat Core neće raditi ispravno.</translation>
-    </message>
-    <message>
-        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
-        <translation>Upit za vršnjačke adrese putem DNS pretraživanja, ako nema dovoljno adresa (zadano: 1 osim ako -connect/-noconnect)</translation>
-    </message>
-    <message>
-        <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
-        <translation>Navedite lokaciju datoteke dnevnika za uklanjanje pogrešaka: to može biti apsolutna putanja ili putanja u odnosu na direktorij podataka (zadano: %s)</translation>
+        <source>System error while flushing the chainstate after pruning invalid entries. Possible corrupt database.</source>
+        <translation>Sistemska pogreška pri ispiranju stanja lanca nakon uklanjanja nevažećih unosa. Moguće da je oštećena baza podataka.</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -6402,10 +5016,6 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Aktivan Masternode nije inicijaliziran.</translation>
     </message>
     <message>
-        <source>Allows deprecated RPC method(s) to be used</source>
-        <translation>Omogućava upotrebu zastarjelih RPC metoda</translation>
-    </message>
-    <message>
         <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
         <translation>Nije moguće generirati ključ adrese za ostatak. Prvo pozovite keypoolrefill.</translation>
     </message>
@@ -6414,16 +5024,12 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Ne mogu riješiti -%s adresu: '%s'</translation>
     </message>
     <message>
+        <source>Cannot write to data directory '%s'; check permissions.</source>
+        <translation>Nije moguće pisati u imenik podataka '%s'; provjerite dopuštenja sustava.</translation>
+    </message>
+    <message>
         <source>Change index out of range</source>
         <translation>Promijenite indeks izvan raspona</translation>
-    </message>
-    <message>
-        <source>Error: -listen must be true if -masternode is set.</source>
-        <translation>Greška: -listen mora biti istinit ako je -masternode postavljen.</translation>
-    </message>
-    <message>
-        <source>Error: -maxmempool must be at least %d MB</source>
-        <translation>Greška: -maxmempool mora biti najmanje %d MB</translation>
     </message>
     <message>
         <source>Failed to accept tx in the memory pool (reason: %s)
@@ -6432,8 +5038,12 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
 </translation>
     </message>
     <message>
-        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
-        <translation>Naknada (u %s/kB) za dodavanje transakcijama koje šaljete (zadano: %s)</translation>
+        <source>Failed to delete backup, error: %s</source>
+        <translation>Brisanje sigurnosne kopije nije uspjelo, pogreška: %s</translation>
+    </message>
+    <message>
+        <source>Failed to rescan the wallet during initialization</source>
+        <translation>Ponovno skeniranje novčanika tijekom inicijalizacije nije uspjelo</translation>
     </message>
     <message>
         <source>Invalid -masternodeaddr address: %s</source>
@@ -6444,6 +5054,18 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nevažeći -masternodeaddr ulaz %d, samo %d je podržan na %s-net.</translation>
     </message>
     <message>
+        <source>Invalid activation height (%s)</source>
+        <translation>Nevažeći blok aktivacije (%s)</translation>
+    </message>
+    <message>
+        <source>Invalid mnoperatorprivatekey. Please see the documentation.</source>
+        <translation>Nevažeći mnooperatorprivatekey. Molimo pogledajte dokumentaciju.</translation>
+    </message>
+    <message>
+        <source>Invalid network upgrade (%s)</source>
+        <translation>Nevažeća nadogradnja mreže (%s)</translation>
+    </message>
+    <message>
         <source>Invalid port %d detected in masternode.conf</source>
         <translation>Otkriven je nevažeći port %d u masternode.conf</translation>
     </message>
@@ -6452,116 +5074,36 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Greška zbog nevažećeg statusa.</translation>
     </message>
     <message>
-        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Drži spremište memorije transakcija ispod &lt;n&gt; megabajta (zadano: %u)</translation>
-    </message>
-    <message>
         <source>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</source>
         <translation>Keypool je ponestao, prvo pozovite keypoolrefill, ili otključajte novčanik.</translation>
     </message>
     <message>
-        <source>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</source>
-        <translation>Ograniči veličinu predmemorije potpisa na &lt;n&gt; MiB (zadano: %u)</translation>
+        <source>Legacy Masternode is obsolete.</source>
+        <translation>Naslijedjeni Masternode je zastario.</translation>
+    </message>
+    <message>
+        <source>Loading/Pruning invalid outputs...</source>
+        <translation>Učitavanje/uklanjanje neispravnih izlaza...</translation>
     </message>
     <message>
         <source>No error</source>
         <translation>Nema grešaka</translation>
     </message>
     <message>
-        <source>Number of automatic wallet backups (default: %d)</source>
-        <translation>Broj automatskih sigurnosnih kopija novčanika (zadano: %d)</translation>
+        <source>OS cryptographic RNG sanity check failure. Aborting.</source>
+        <translation>Neuspjeh provjere ispravnosti kriptografskog RNG-a OS-a. Prekidanje.</translation>
     </message>
     <message>
-        <source>Prepend debug output with timestamp (default: %u)</source>
-        <translation>Dodaj na početak izlaz za uklanjanje pogrešaka s vremenskom oznakom (zadano: %u)</translation>
+        <source>Reaccepting wallet transactions...</source>
+        <translation>Ponovno prihvaćanje transakcija novčanika...</translation>
     </message>
     <message>
-        <source>Print version and exit</source>
-        <translation>Ispiši verziju i izađji</translation>
-    </message>
-    <message>
-        <source>RPC server options:</source>
-        <translation>Opcije RPC poslužitelja:</translation>
-    </message>
-    <message>
-        <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
-        <translation>Nasumično ispusti 1 svake &lt;n&gt; mrežne poruke</translation>
-    </message>
-    <message>
-        <source>Randomly fuzz 1 of every &lt;n&gt; network messages</source>
-        <translation>Označava slučajno svaka 1 &lt;n&gt; mrežne poruke</translation>
-    </message>
-    <message>
-        <source>Rebuild block chain index from current blk000??.dat files</source>
-        <translation>Obnovi indeks blok lanca iz trenutnih blk000??.dat datoteka</translation>
-    </message>
-    <message>
-        <source>Relay and mine data carrier transactions (default: %u)</source>
-        <translation>Transakcije prijenosnika i minanja podataka (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Relay non-P2SH multisig (default: %u)</source>
-        <translation>Relay ne-P2SH multisig (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Ponovno skeniranje blok-lanca za transakcije novčanika koji nedostaju</translation>
+        <source>Replaying blocks...</source>
+        <translation>Ponavljanje blokova... </translation>
     </message>
     <message>
         <source>Rescanning...</source>
         <translation>Ponovno skeniranje...</translation>
-    </message>
-    <message>
-        <source>Run a thread to flush wallet periodically (default: %u)</source>
-        <translation>Pokrenite niti kako biste redovito prigušili novčanik (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Run in the background as a daemon and accept commands</source>
-        <translation>Radi u pozadini kao daemon i prihvatite naredbe</translation>
-    </message>
-    <message>
-        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
-        <translation>Postavite veličinu predmemorije baze podataka u megabajtima (%d do %d, zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Set external address:port to get to this masternode (example: %s)</source>
-        <translation>Postavite vanjsku adresu:port da biste došli do tog masternoda (primjer: %s)</translation>
-    </message>
-    <message>
-        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
-        <translation>Postavite veličinu veličine baze na &lt;n&gt; (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum block size in bytes (default: %d)</source>
-        <translation>Postavite maksimalnu veličinu bloka u bajtima (zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Set minimum block size in bytes (default: %u)</source>
-        <translation>Postavite minimalnu veličinu bloka u bajtovima (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Set the Maximum reorg depth (default: %u)</source>
-        <translation>Postavite maksimalnu dubinu reorg (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Set the masternode private key</source>
-        <translation>Postavite masternode privatni ključ</translation>
-    </message>
-    <message>
-        <source>Set the number of threads to service RPC calls (default: %d)</source>
-        <translation>Postavite broj niti za RPC pozive usluge (zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
-        <translation>Postavlja DB_PRIVATE zastavicu u okruženju novčanika db (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Show all debugging options (usage: --help -help-debug)</source>
-        <translation>Prikaži sve opcije uklanjanja pogrešaka (upotreba: --help -help-debug)</translation>
-    </message>
-    <message>
-        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation>Smanji datoteku debug.log na pokretanju klijenta (zadano: 1 kada nema -debug)</translation>
     </message>
     <message>
         <source>Shutdown requested over the txs scan. Exiting.</source>
@@ -6570,42 +5112,6 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
     <message>
         <source>Signing transaction failed</source>
         <translation>Potpisivanje transakcije nije uspjelo</translation>
-    </message>
-    <message>
-        <source>Specify configuration file (default: %s)</source>
-        <translation>Navedite konfiguracijsku datoteku (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation>Navedite vrijeme veze u milisekundama (minimalno: 1, zadano: %d)</translation>
-    </message>
-    <message>
-        <source>Specify data directory</source>
-        <translation>Navedite direktorij podataka</translation>
-    </message>
-    <message>
-        <source>Specify masternode configuration file (default: %s)</source>
-        <translation>Navedite masternode konfiguracijsku datoteku (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: %s)</source>
-        <translation>Navedite datoteku pid (zadano: %s)</translation>
-    </message>
-    <message>
-        <source>Specify wallet file (within data directory)</source>
-        <translation>Odredite datoteku novčanika (u direktoriju podataka)</translation>
-    </message>
-    <message>
-        <source>Specify your own public address</source>
-        <translation>Navedite svoju javnu adresu</translation>
-    </message>
-    <message>
-        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
-        <translation>Provedite nepotvrđene promjene prilikom slanja transakcija (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Stop running after importing blocks from disk (default: %u)</source>
-        <translation>Prestani prikazivati nakon uvoza blokova s diska (zadano: %u)</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
@@ -6636,16 +5142,12 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Vrijednost praga ne može biti manja od %s</translation>
     </message>
     <message>
-        <source>This help message</source>
-        <translation>Ova poruka za pomoć</translation>
-    </message>
-    <message>
         <source>This is experimental software.</source>
         <translation>Ovo je eksperimentalni softver.</translation>
     </message>
     <message>
-        <source>This is intended for regression testing tools and app development.</source>
-        <translation>To je namijenjeno alatima za test regresije i razvoju aplikacija.</translation>
+        <source>This is not a deterministic masternode. 'local' option disabled.</source>
+        <translation>Ovo nije deterministički masternode. 'lokalna' opcija onemogućena.</translation>
     </message>
     <message>
         <source>This is not a masternode. 'local' option disabled.</source>
@@ -6656,16 +5158,20 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Ovo nije masternode.</translation>
     </message>
     <message>
-        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
-        <translation>Prag za odspajanje loših korisnika (zadano: %u)</translation>
+        <source>Invalid -wallet path '%s'. -wallet path should point to a directory where wallet.dat and database/log.?????????? files can be stored, a location where such a directory could be created or (for backwards compatibility) the name of an existing data file in -walletdir (%s)</source>
+        <translation>Nevažeći put do novčanika '%s'. -puta novčanika treba upućivati na direktorij u kojem se nalazi wallet.dat i baza podataka/log.?????????? datoteke se mogu pohraniti, mjesto gdje bi se takav direktorij mogao stvoriti ili (za kompatibilnost unatrag) naziv postojeće podatkovne datoteke u -walletdir (%s)</translation>
     </message>
     <message>
-        <source>Tor control port password (default: empty)</source>
-        <translation>Lozinka za kontrolni port Tor (zadano: prazno)</translation>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>Provjerite jesu li datum i vrijeme na vašem računalu točni! Ako je vaš sat pogrešan, %s neće raditi ispravno.</translation>
     </message>
     <message>
-        <source>Tor control port to use if onion listening enabled (default: %s)</source>
-        <translation>Tor kontrolni priključak koji će se koristiti ako je uključeno slušanje portova (zadano: %s)</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>Upozorenje: Provjerite jesu li datum i vrijeme na vašem računalu točni! Ako je vaš sat pogrešan, %s neće raditi ispravno. </translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2015-%i The %s Developers</source>
+        <translation>Autorska prava (C) 2015-%i Razvojni programeri %s</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -6680,6 +5186,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Transakcija otkazana.</translation>
     </message>
     <message>
+        <source>Transaction must have at least one recipient</source>
+        <translation>Transakcija mora imati barem jednog primatelja</translation>
+    </message>
+    <message>
         <source>Transaction too large for fee policy</source>
         <translation>Transakcija prevelika za politiku naknada za transakcije</translation>
     </message>
@@ -6690,6 +5200,10 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Nije moguće vezati se na %s na ovom računalu (vezanje vraćene pogreške %s)</translation>
+    </message>
+    <message>
+        <source>Unable to generate initial key!</source>
+        <translation>Nije moguće generirati početni ključ!</translation>
     </message>
     <message>
         <source>Unable to generate keys</source>
@@ -6704,56 +5218,28 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Nije moguće pokrenuti HTTP poslužitelj. Detalje potražite u debug logu.</translation>
     </message>
     <message>
-        <source>Unknown network specified in -onlynet: '%s'</source>
-        <translation>Nepoznata mreža specificirana u -onlynet: '%s'</translation>
+        <source>Warning: Unsupported argument %s ignored, use %s</source>
+        <translation>Upozorenje: Nepodržani argument %s zanemaren, koristite %s</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument %s ignored, use %s.</source>
+        <translation>Upozorenje: Nepodržani argument %s zanemaren, koristite %s. </translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using %s to change %s</source>
+        <translation>Morate obnoviti bazu podataka pomoću %s za promjenu %s</translation>
     </message>
     <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation>Nepodržana kategorija zapisivanja %s=%s.</translation>
     </message>
     <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Nadogradnja novčanika u najnoviji format</translation>
-    </message>
-    <message>
-        <source>Upgrading coins database...</source>
-        <translation>Nadograđjujem novčanu bazu podataka...</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation>Koristite UPnP za mapiranje priključka za slušanje (zadano: %u)</translation>
-    </message>
-    <message>
-        <source>Use the test network</source>
-        <translation>Koristi testnu mrežu</translation>
-    </message>
-    <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation>Komentar Korisničkog Agenta (%s) sadrži nesigurne znakove.</translation>
     </message>
     <message>
-        <source>Username for JSON-RPC connections</source>
-        <translation>Korisničko ime za JSON-RPC veze</translation>
-    </message>
-    <message>
         <source>Verifying blocks...</source>
         <translation>Provjera blokova...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet...</source>
-        <translation>Provjera novčanika...</translation>
-    </message>
-    <message>
-        <source>Wallet needed to be rewritten: restart BlackHat Core to complete</source>
-        <translation>Potrebno je prepisati novčanik: ponovo pokrenite BlackHat Core</translation>
-    </message>
-    <message>
-        <source>Wallet options:</source>
-        <translation>Opcije novčanika:</translation>
-    </message>
-    <message>
-        <source>Wallet window title</source>
-        <translation>Naziv prozora novčanika</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -6764,36 +5250,12 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Upozorenje: Ova verzija je zastarjela, potrebna nadogradnja!</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Upozorenje: nepodržani argument -baschmark zanemaren, upotrijebite -debug = klupu.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Upozorenje: nepodržani argument -debugnet ignoriran, upotrijebite -debug=net.</translation>
-    </message>
-    <message>
-        <source>You need to rebuild the database using -reindex to change -txindex</source>
-        <translation>orate obnoviti bazu podataka koristeći -index za promjenu -txindexa</translation>
-    </message>
-    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Zatvaranje svih transakcija iz novčanika...</translation>
-    </message>
-    <message>
-        <source>ZeroMQ notification options:</source>
-        <translation>Mogućnosti ZeroMQ obavijesti:</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>pri pokretanju</translation>
     </message>
 </context>
 <context>
     <name>send</name>
-    <message>
-        <source>Form</source>
-        <translation>Obrazac</translation>
-    </message>
     <message>
         <source>Send</source>
         <translation>Pošalji</translation>
@@ -6815,8 +5277,8 @@ Pokrenite 'sapling-fetch-params' ili '.util/fetch-params.sh' te ponovno pokrenit
         <translation>Odaberi koje novčiće ćeš trošiti</translation>
     </message>
     <message>
-        <source>BlackHat address or contact label</source>
-        <translation>BlackHat adresa ili naziv kontakta</translation>
+        <source>Recipient address</source>
+        <translation>Adresa primatelja</translation>
     </message>
     <message>
         <source>Amount</source>

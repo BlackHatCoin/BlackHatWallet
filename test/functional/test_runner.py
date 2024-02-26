@@ -62,6 +62,7 @@ BASE_SCRIPTS= [
     'mempool_persist.py',                       # ~ 417 sec
     'p2p_quorum_connect.py',                    # ~ 400 sec
     'wallet_reorgsrestore.py',                  # ~ 391 sec
+    'p2p_addr_relay.py',                        # ~ 380 sec
 
     # vv Tests less than 5m vv
     'wallet_hd.py',                             # ~ 300 sec
@@ -121,6 +122,7 @@ BASE_SCRIPTS= [
     'feature_filelock.py',                      # ~ 71 sec
     'mempool_packages.py',                      # ~ 63 sec
     'sapling_wallet_encryption.py',
+    'feature_exchangeaddr.py',
 
     # vv Tests less than 60s vv
     'rpc_users.py',
@@ -135,7 +137,6 @@ BASE_SCRIPTS= [
     'rpc_decodescript.py',                      # ~ 50 sec
     'rpc_blockchain.py',                        # ~ 50 sec
     'wallet_disable.py',                        # ~ 50 sec
-    'p2p_addr_relay.py',                        # ~ 49 sec
     'p2p_addrv2_relay.py',                      # ~ 49 sec
     'wallet_autocombine.py',                    # ~ 49 sec
     'mining_v5_upgrade.py',                     # ~ 48 sec
@@ -164,6 +165,8 @@ TIERTWO_SCRIPTS = [
     'tiertwo_dkg_errors.py',                    # ~ 486 sec
     'tiertwo_dkg_pose.py',                      # ~ 444 sec
     'tiertwo_mn_compatibility.py',              # ~ 413 sec
+    'tiertwo_signing_session.py',               # ~ 390 sec
+    'tiertwo_chainlocks.py',                    # ~ ??? sec
     'tiertwo_deterministicmns.py',              # ~ 366 sec
     'tiertwo_governance_reorg.py',              # ~ 361 sec
     'tiertwo_masternode_activation.py',         # ~ 352 sec
@@ -231,7 +234,9 @@ LEGACY_SKIP_TESTS = [
     'rpc_users.py',
     'wallet_hd.py',         # no HD tests for pre-HD wallets
     'wallet_upgrade.py',    # can't upgrade to pre-HD wallet
+    'sapling_supply.py',
     'sapling_wallet_persistence.py',
+    'sapling_wallet_send.py',
     'sapling_wallet.py',
     'sapling_changeaddresses.py',
     'sapling_key_import_export.py',
@@ -345,7 +350,7 @@ def main():
             if len(test_list) == 0:
                 # No individual tests (or sub-list) have been specified.
                 # Run all base tests, and optionally run extended tests.
-                test_list = BASE_SCRIPTS
+                test_list = TIERTWO_SCRIPTS + SAPLING_SCRIPTS + BASE_SCRIPTS
                 if args.extended:
                     # place the EXTENDED_SCRIPTS first since the three longest ones
                     # are there and the list is shorter
@@ -394,8 +399,10 @@ def main():
 # - "rewrite" : (default) Delete cache directory and recreate it.
 # - "keep"    : Check if the cache in the directory is valid. Recreate only if invalid.
 # - "skip"    : Don' check the contents of the cache and don't create a new one
-def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_coverage=False, args=[], combined_logs_len=0, keep_cache="rewrite"):
+def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_coverage=False, args=None, combined_logs_len=0, keep_cache="rewrite"):
     # Warn if blkcd is already running (unix only)
+    if args is None:
+        args = []
     try:
         if subprocess.check_output(["pidof", "blkcd"]) is not None:
             print("%sWARNING!%s There is already a blkcd process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
@@ -521,7 +528,7 @@ class TestHandler:
     """
 
     def __init__(self, num_tests_parallel, tests_dir, tmpdir, test_list=None, flags=None):
-        assert(num_tests_parallel >= 1)
+        assert num_tests_parallel >= 1
         self.num_jobs = num_tests_parallel
         self.tests_dir = tests_dir
         self.tmpdir = tmpdir

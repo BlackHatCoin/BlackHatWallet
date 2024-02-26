@@ -1,6 +1,6 @@
 // Copyright (c) 2016-2020 The ZCash developers
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -42,8 +42,8 @@ void PRF_ock(
 
     if (crypto_generichash_blake2b_salt_personal(K, NOTEENCRYPTION_CIPHER_KEYSIZE,
                                                  block, 128,
-                                                 NULL, 0, // No key.
-                                                 NULL,    // No salt.
+                                                 nullptr, 0, // No key.
+                                                 nullptr,    // No salt.
                                                  personalization
                                                 ) != 0)
     {
@@ -66,8 +66,8 @@ void KDF_Sapling(
 
     if (crypto_generichash_blake2b_salt_personal(K, NOTEENCRYPTION_CIPHER_KEYSIZE,
                                                  block, 64,
-                                                 NULL, 0, // No key.
-                                                 NULL,    // No salt.
+                                                 nullptr, 0, // No key.
+                                                 nullptr,    // No salt.
                                                  personalization
                                                 ) != 0)
     {
@@ -99,8 +99,8 @@ void KDF(unsigned char K[NOTEENCRYPTION_CIPHER_KEYSIZE],
 
     if (crypto_generichash_blake2b_salt_personal(K, NOTEENCRYPTION_CIPHER_KEYSIZE,
                                                  block, 128,
-                                                 NULL, 0, // No key.
-                                                 NULL,    // No salt.
+                                                 nullptr, 0, // No key.
+                                                 nullptr,    // No salt.
                                                  personalization
                                                 ) != 0)
     {
@@ -150,10 +150,10 @@ Optional<SaplingEncCiphertext> SaplingNoteEncryption::encrypt_to_recipient(
     SaplingEncCiphertext ciphertext;
 
     crypto_aead_chacha20poly1305_ietf_encrypt(
-        ciphertext.begin(), NULL,
+        ciphertext.begin(), nullptr,
         message.begin(), ZC_SAPLING_ENCPLAINTEXT_SIZE,
-        NULL, 0, // no "additional data"
-        NULL, cipher_nonce, K
+        nullptr, 0, // no "additional data"
+        nullptr, cipher_nonce, K
     );
 
     already_encrypted_enc = true;
@@ -183,10 +183,10 @@ Optional<SaplingEncPlaintext> AttemptSaplingEncDecryption(
     SaplingEncPlaintext plaintext;
 
     if (crypto_aead_chacha20poly1305_ietf_decrypt(
-        plaintext.begin(), NULL,
-        NULL,
+        plaintext.begin(), nullptr,
+        nullptr,
         ciphertext.begin(), ZC_SAPLING_ENCCIPHERTEXT_SIZE,
-        NULL,
+        nullptr,
         0,
         cipher_nonce, K) != 0)
     {
@@ -219,10 +219,10 @@ Optional<SaplingEncPlaintext> AttemptSaplingEncDecryption (
     SaplingEncPlaintext plaintext;
 
     if (crypto_aead_chacha20poly1305_ietf_decrypt(
-        plaintext.begin(), NULL,
-        NULL,
+        plaintext.begin(), nullptr,
+        nullptr,
         ciphertext.begin(), ZC_SAPLING_ENCCIPHERTEXT_SIZE,
-        NULL,
+        nullptr,
         0,
         cipher_nonce, K) != 0)
     {
@@ -254,10 +254,10 @@ SaplingOutCiphertext SaplingNoteEncryption::encrypt_to_ourselves(
     SaplingOutCiphertext ciphertext;
 
     crypto_aead_chacha20poly1305_ietf_encrypt(
-        ciphertext.begin(), NULL,
+        ciphertext.begin(), nullptr,
         message.begin(), ZC_SAPLING_OUTPLAINTEXT_SIZE,
-        NULL, 0, // no "additional data"
-        NULL, cipher_nonce, K
+        nullptr, 0, // no "additional data"
+        nullptr, cipher_nonce, K
     );
 
     already_encrypted_out = true;
@@ -283,10 +283,10 @@ Optional<SaplingOutPlaintext> AttemptSaplingOutDecryption(
     SaplingOutPlaintext plaintext;
 
     if (crypto_aead_chacha20poly1305_ietf_decrypt(
-        plaintext.begin(), NULL,
-        NULL,
+        plaintext.begin(), nullptr,
+        nullptr,
         ciphertext.begin(), ZC_SAPLING_OUTCIPHERTEXT_SIZE,
-        NULL,
+        nullptr,
         0,
         cipher_nonce, K) != 0)
     {

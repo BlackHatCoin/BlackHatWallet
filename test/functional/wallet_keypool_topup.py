@@ -67,7 +67,7 @@ class KeypoolRestoreTest(BlackHatTestFramework):
         connect_nodes(self.nodes[0], 1)
         self.sync_all()
 
-        # wallet was not backupped after emptying the key pool.
+        # wallet was not backed-up after emptying the key pool.
         # Legacy wallet can't recover funds in addr_extpool
         recoveredBalance = 10 if isLegacyWallet else 15
         assert_equal(self.nodes[1].getbalance(), recoveredBalance)

@@ -6,6 +6,8 @@
 
 #include "evo/deterministicmns.h"
 #include "evo/mnauth.h"
+#include "llmq/quorums.h"
+#include "llmq/quorums_chainlocks.h"
 #include "llmq/quorums_dkgsessionmgr.h"
 #include "validation.h"
 
@@ -15,10 +17,17 @@ void EvoNotificationInterface::InitializeCurrentBlockTip()
     deterministicMNManager->SetTipIndex(chainActive.Tip());
 }
 
+void EvoNotificationInterface::AcceptedBlockHeader(const CBlockIndex* pindexNew)
+{
+    llmq::chainLocksHandler->AcceptedBlockHeader(pindexNew);
+}
+
 void EvoNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload)
 {
     // background thread updates
+    llmq::chainLocksHandler->UpdatedBlockTip(pindexNew, pindexFork);
     llmq::quorumDKGSessionManager->UpdatedBlockTip(pindexNew, fInitialDownload);
+    llmq::quorumManager->UpdatedBlockTip(pindexNew, fInitialDownload);
 }
 
 void EvoNotificationInterface::NotifyMasternodeListChanged(bool undo, const CDeterministicMNList& oldMNList, const CDeterministicMNListDiff& diff)

@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2021 The Dash Core developers
-// Copyright (c) 2017-2022 The PIVX developers
-// Copyright (c) 2022 The BlackHat developers
+// Copyright (c) 2017-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -61,6 +61,11 @@ const char* QCONTRIB = "qcontrib";
 const char* QCOMPLAINT = "qcomplaint";
 const char* QJUSTIFICATION = "qjustify";
 const char* QPCOMMITMENT = "qpcommit";
+const char* QSIGSHARESINV = "qsigsinv";
+const char* QGETSIGSHARES = "qgetsigs";
+const char* QBSIGSHARES = "qbsigs";
+const char* QSIGREC = "qsigrec";
+const char* CLSIG = "clsig";
 }; // namespace NetMsgType
 
 
@@ -91,10 +96,10 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::FILTERADD,
     NetMsgType::FILTERCLEAR,
     NetMsgType::SENDHEADERS,
-    "filtered block", // Should never occur
-    "ix",   // deprecated
-    "txlvote", // deprecated
-    NetMsgType::SPORK,           // --- tiertwoNetMessageTypes start here ---
+    "filtered block",  // Should never occur
+    "ix",              // deprecated
+    "txlvote",         // deprecated
+    NetMsgType::SPORK, // --- tiertwoNetMessageTypes start here ---
     NetMsgType::MNWINNER,
     "mnodescanerr",
     NetMsgType::BUDGETVOTE,
@@ -104,7 +109,7 @@ const static std::string allNetMessageTypes[] = {
     "mnq",
     NetMsgType::MNBROADCAST,
     NetMsgType::MNPING,
-    "dstx",  // deprecated
+    "dstx", // deprecated
     NetMsgType::GETMNWINNERS,
     NetMsgType::GETMNLIST,
     NetMsgType::BUDGETVOTESYNC,
@@ -117,7 +122,12 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::QCONTRIB,
     NetMsgType::QCOMPLAINT,
     NetMsgType::QJUSTIFICATION,
-    NetMsgType::QPCOMMITMENT
+    NetMsgType::QPCOMMITMENT,
+    NetMsgType::QSIGSHARESINV,
+    NetMsgType::QGETSIGSHARES,
+    NetMsgType::QBSIGSHARES,
+    NetMsgType::QSIGREC,
+    NetMsgType::CLSIG,
 };
 const static std::vector<std::string> allNetMessageTypesVec(allNetMessageTypes, allNetMessageTypes + ARRAYLEN(allNetMessageTypes));
 const static std::vector<std::string> tiertwoNetMessageTypesVec(std::find(allNetMessageTypesVec.begin(), allNetMessageTypesVec.end(), NetMsgType::SPORK), allNetMessageTypesVec.end());
@@ -221,6 +231,8 @@ std::string CInv::GetCommand() const
         case MSG_QUORUM_COMPLAINT: return cmd.append(NetMsgType::QCOMPLAINT);
         case MSG_QUORUM_JUSTIFICATION: return cmd.append(NetMsgType::QJUSTIFICATION);
         case MSG_QUORUM_PREMATURE_COMMITMENT: return cmd.append(NetMsgType::QPCOMMITMENT);
+        case MSG_QUORUM_RECOVERED_SIG: return cmd.append(NetMsgType::QSIGREC);
+        case MSG_CLSIG: return cmd.append(NetMsgType::CLSIG);
         default:
             throw std::out_of_range(strprintf("%s: type=%d unknown type", __func__, type));
     }

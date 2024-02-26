@@ -81,11 +81,11 @@ class WalletTest(BlackHatTestFramework):
         assert unspent_0["spendable"]
         assert unspent_0["safe"]
         unspent_0 = {"txid": unspent_0["txid"], "vout": unspent_0["vout"]}
-        self.nodes[1].lockunspent(False, [unspent_0])
+        self.nodes[1].lockunspent(False, True, [unspent_0])
         assert_raises_rpc_error(-4, "Insufficient funds", self.nodes[1].sendtoaddress, self.nodes[1].getnewaddress(), 20)
-        assert_equal([unspent_0], self.nodes[1].listlockunspent())
-        self.nodes[1].lockunspent(True, [unspent_0])
-        assert_equal(len(self.nodes[1].listlockunspent()), 0)
+        assert_equal([unspent_0], self.nodes[1].listlockunspent()["transparent"])
+        self.nodes[1].lockunspent(True, True, [unspent_0])
+        assert_equal(len(self.nodes[1].listlockunspent()["transparent"]), 0)
 
         # Send 21 BLKC from 1 to 0 using sendtoaddress call.
         # Locked memory should use at least 32 bytes to sign the transaction
@@ -93,7 +93,7 @@ class WalletTest(BlackHatTestFramework):
         memory_before = self.nodes[0].getmemoryinfo()
         self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 21)
         memory_after = self.nodes[0].getmemoryinfo()
-        assert(memory_before['locked']['used'] + 32 <= memory_after['locked']['used'])
+        assert memory_before['locked']['used'] + 32 <= memory_after['locked']['used']
         self.sync_mempools(self.nodes[0:3])
 
         # Node0 should have two unspent outputs.
@@ -175,7 +175,7 @@ class WalletTest(BlackHatTestFramework):
         self.nodes[1].importaddress(address_to_import)
 
         # 3. Validate that the imported address is watch-only on node1
-        assert(self.nodes[1].validateaddress(address_to_import)["iswatchonly"])
+        assert self.nodes[1].validateaddress(address_to_import)["iswatchonly"]
 
         # 4. Check that the unspents after import are not spendable
         listunspent = self.nodes[1].listunspent(1, 9999999, [], 2)
@@ -246,7 +246,7 @@ class WalletTest(BlackHatTestFramework):
         assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit*2)
         assert_equal(len(txid_list), chainlimit*2)
 
-        # Excercise query_options parameter in listunspent
+        # Exercise query_options parameter in listunspent
         # Node 1 has:
         # - 1 coin of 1.00 BLKC
         # - 7 coins of 250.00 BLKC

@@ -1,5 +1,6 @@
 // Copyright (c) 2018-2021 The Dash Core developers
-// Copyright (c) 2022 The PIVX developers
+// Copyright (c) 2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -172,7 +173,7 @@ bool CDKGSessionHandler::InitNewQuorum(const CBlockIndex* pindexQuorum)
     auto mns = deterministicMNManager->GetAllQuorumMembers(params.type, pindexQuorum);
 
     if (!curSession->Init(pindexQuorum, mns, activeMasternodeManager->GetProTx())) {
-        LogPrintf("CDKGSessionHandler::%s -- quorum initialiation failed for %s\n", __func__, curSession->params.name);
+        LogPrintf("CDKGSessionHandler::%s -- quorum initialization failed for %s\n", __func__, curSession->params.name);
         return false;
     }
 

@@ -101,7 +101,7 @@ The build process results in a number of `.assert` files in your local gitian.si
 Signing Externally
 --------------------
 
-If your gitian host does not have your GPG private key installed, you will need to copy these uncommited changes to your host machine, where you can sign them:
+If your gitian host does not have your GPG private key installed, you will need to copy these uncommitted changes to your host machine, where you can sign them:
 
 ```bash
 gpg --output ${VERSION}-linux/${NAME}/blackhat-linux-${VERSION%\.*}-build.assert.sig --detach-sign ${VERSION}-linux/$NAME/blackhat-linux-${VERSION%\.*}-build.assert

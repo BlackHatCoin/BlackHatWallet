@@ -1,5 +1,5 @@
-// Copyright (c) 2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2020-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 

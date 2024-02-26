@@ -61,7 +61,8 @@ DIST_CARGO = \
            $(top_srcdir)/params/install-params.sh
 
 BIN_CHECKS=$(top_srcdir)/contrib/devtools/symbol-check.py \
-           $(top_srcdir)/contrib/devtools/security-check.py
+           $(top_srcdir)/contrib/devtools/security-check.py \
+           $(top_srcdir)/contrib/devtools/pixie.py
 
 WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/blkc.ico \
   $(top_srcdir)/share/pixmaps/nsis-header.bmp \
@@ -193,7 +194,18 @@ $(BITCOIN_CLI_BIN): FORCE
 	$(MAKE) -C src $(@F)
 
 if USE_LCOV
-LCOV_FILTER_PATTERN=-p "/usr/include/" -p "/usr/lib/" -p "src/leveldb/" -p "src/crc32c/" -p "src/univalue" -p "src/secp256k1"
+LCOV_FILTER_PATTERN= \
+        -p "/usr/local/" \
+        -p "/usr/include/" \
+        -p "/usr/lib/" \
+        -p "/usr/lib64" \
+        -p "src/leveldb/" \
+        -p "src/bench/" \
+        -p "src/crc32c/" \
+        -p "src/crypto/ctaes/" \
+        -p "src/univalue" \
+        -p "src/secp256k1" \
+        -p "depends"
 
 baseline.info:
 	$(LCOV) -c -i -d $(abs_builddir)/src -o $@

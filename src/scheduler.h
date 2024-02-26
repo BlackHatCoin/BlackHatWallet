@@ -1,6 +1,6 @@
 // Copyright (c) 2015 The Bitcoin Core developers
-// Copyright (c) 2017-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -114,7 +114,7 @@ public:
     /**
      * Add a callback to be executed. Callbacks are executed serially
      * and memory is release-acquire consistent between callback executions.
-     * Practially, this means that callbacks can behave as if they are executed
+     * Practically, this means that callbacks can behave as if they are executed
      * in order by a single thread.
      */
     void AddToProcessQueue(std::function<void (void)> func);

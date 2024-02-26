@@ -1,5 +1,5 @@
-// Copyright (c) 2020 The PIVX Core developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2020-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,11 +7,14 @@
 #define BLKC_SAPLINGSCRIPTPUBKEYMAN_H
 
 #include "consensus/consensus.h"
+#include "sapling/incrementalmerkletree.h"
 #include "sapling/note.h"
+#include "uint256.h"
 #include "wallet/hdchain.h"
+#include "wallet/scriptpubkeyman.h"
 #include "wallet/wallet.h"
 #include "wallet/walletdb.h"
-#include "sapling/incrementalmerkletree.h"
+#include <map>
 
 //! Size of witness cache
 //  Should be large enough that we can expect not to reorg beyond our cache
@@ -48,6 +51,7 @@ public:
 
     /* witnesses/ivk: only for own (received) outputs */
     std::list<SaplingWitness> witnesses;
+
     Optional<libzcash::SaplingIncomingViewingKey> ivk {nullopt};
     inline bool IsMyNote() const { return ivk != nullopt; }
 
@@ -152,7 +156,13 @@ public:
      * Keep track of the used nullifier.
      */
     void AddToSaplingSpends(const uint256& nullifier, const uint256& wtxid);
+    bool IsSaplingSpent(const SaplingOutPoint& op) const;
     bool IsSaplingSpent(const uint256& nullifier) const;
+
+    /**
+     * Build the old witness chain.
+     */
+    bool BuildWitnessChain(const CBlockIndex* pTargetBlock, const Consensus::Params& params, std::string& errorStr);
 
     /**
      * pindex is the new tip being connected.
@@ -161,9 +171,9 @@ public:
                                 const CBlock* pblock,
                                 SaplingMerkleTree& saplingTree);
     /**
-     * nChainHeight is the old tip height being disconnected.
+     * pindex is the old tip being disconnected.
      */
-    void DecrementNoteWitnesses(int nChainHeight);
+    void DecrementNoteWitnesses(const CBlockIndex* pindex);
 
     /**
      * Update mapSaplingNullifiersToNotes
@@ -278,12 +288,13 @@ public:
     void GetNotes(const std::vector<SaplingOutPoint>& saplingOutpoints,
                   std::vector<SaplingNoteEntry>& saplingEntriesRet) const;
 
-    /* Find notes filtered by payment address, min depth, ability to spend */
+    /* Find notes filtered by payment address, min depth, ability to spend and if they are locked */
     void GetFilteredNotes(std::vector<SaplingNoteEntry>& saplingEntries,
-                          Optional<libzcash::SaplingPaymentAddress>& address,
-                          int minDepth=1,
-                          bool ignoreSpent=true,
-                          bool requireSpendingKey=true) const;
+        Optional<libzcash::SaplingPaymentAddress>& address,
+        int minDepth = 1,
+        bool ignoreSpent = true,
+        bool requireSpendingKey = true,
+        bool ignoreLocked = true) const;
 
     /* Find notes filtered by payment addresses, min depth, max depth, if they are spent,
        if a spending key is required, and if they are locked */
@@ -406,6 +417,9 @@ public:
     std::map<uint256, SaplingOutPoint> mapSaplingNullifiersToNotes;
 
 private:
+    /* Map hash nullifiers, list Sapling Witness*/
+    std::map<uint256, std::list<SaplingWitness>> cachedWitnessMap;
+    int rollbackTargetHeight = -1;
     /* Parent wallet */
     CWallet* wallet{nullptr};
     /* the HD chain data model (external/internal chain counters) */

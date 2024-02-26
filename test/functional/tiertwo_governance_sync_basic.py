@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020-2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php.
 """
@@ -65,9 +65,11 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
             assert_equal(budget["VoteCount"], votesCount)
             assert_equal(budget["Status"], status)
 
-    def broadcastbudgetfinalization(self, node, with_ping_mns=[]):
+    def broadcastbudgetfinalization(self, node, with_ping_mns=None):
+        if with_ping_mns is None:
+            with_ping_mns = []
         self.log.info("suggesting the budget finalization..")
-        assert (node.mnfinalbudgetsuggest() is not None)
+        assert node.mnfinalbudgetsuggest() is not None
 
         self.log.info("confirming the budget finalization..")
         time.sleep(1)
@@ -79,7 +81,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
     def check_proposal_existence(self, proposalName, proposalHash):
         for node in self.nodes:
             proposals = node.getbudgetinfo(proposalName)
-            assert(len(proposals) > 0)
+            assert len(proposals) > 0
             assert_equal(proposals[0]["Hash"], proposalHash)
 
     def check_vote_existence(self, proposalName, mnCollateralHash, voteType, voteValid):
@@ -87,7 +89,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
             node = self.nodes[i]
             node.syncwithvalidationinterfacequeue()
             votesInfo = node.getbudgetvotes(proposalName)
-            assert(len(votesInfo) > 0)
+            assert len(votesInfo) > 0
             found = False
             for voteInfo in votesInfo:
                 if (voteInfo["mnId"].split("-")[0] == mnCollateralHash) :
@@ -296,7 +298,7 @@ class MasternodeGovernanceBasicTest(BlackHatTier2TestFramework):
         # suggest the budget finalization and confirm the tx (+4 blocks).
         budgetFinHash = self.broadcastbudgetfinalization(self.miner,
                                                          with_ping_mns=[self.remoteOne, self.remoteTwo])
-        assert (budgetFinHash != "")
+        assert budgetFinHash != ""
         time.sleep(2)
 
         self.log.info("checking budget finalization sync..")

@@ -1,6 +1,6 @@
 // Copyright (c) 2013 The Bitcoin Core developers
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -395,7 +395,7 @@ BOOST_AUTO_TEST_CASE(malleated_tx)
             }
         }
 
-        // add a random trasparent output
+        // add a random transparent output
         {
             mtx = _tx;
             CTxOut out;

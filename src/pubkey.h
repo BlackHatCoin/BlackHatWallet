@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2016-2018 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2016-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,6 +23,19 @@ class CKeyID : public uint160
 public:
     CKeyID() : uint160() {}
     explicit CKeyID(const uint160& in) : uint160(in) {}
+};
+
+/** A reference to a CKey: the Hash160 of its serialized public key, special case for exchange key */
+
+class CExchangeKeyID : public uint160
+{
+public:
+    CExchangeKeyID() : uint160() {}
+    explicit CExchangeKeyID(const uint160& in) : uint160(in) {}
+
+    operator CKeyID() const {
+        return CKeyID(static_cast<const uint160&>(*this));
+    }
 };
 
 typedef uint256 ChainCode;

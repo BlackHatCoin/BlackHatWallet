@@ -1,12 +1,13 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "bip38.h"
 #include "key_io.h"
+#include "destination_io.h"
 #include "rpc/server.h"
 #include "sapling/key_io_sapling.h"
 #include "script/script.h"
@@ -244,13 +245,14 @@ UniValue importaddress(const JSONRPCRequest& request)
     {
         LOCK2(cs_main, pwallet->cs_wallet);
 
-        bool isStakingAddress = false;
-        CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStakingAddress);
+        bool isStaking = false;
+        bool isExchange = false;
+        CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStaking, isExchange);
 
         if (IsValidDestination(dest)) {
             if (fP2SH)
                 throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Cannot use the p2sh flag with an address - use a script instead");
-            ImportAddress(pwallet, dest, strLabel, isStakingAddress ?
+            ImportAddress(pwallet, dest, strLabel, isStaking ?
                                             AddressBook::AddressBookPurpose::COLD_STAKING :
                                             AddressBook::AddressBookPurpose::RECEIVE);
 
@@ -1157,7 +1159,7 @@ UniValue bip38encrypt(const JSONRPCRequest& request)
     std::string encryptedOut = BIP38_Encrypt(strAddress, strPassphrase, privKey, vchSecret.IsCompressed());
 
     UniValue result(UniValue::VOBJ);
-    result.pushKV("Addess", strAddress);
+    result.pushKV("Address", strAddress);
     result.pushKV("Encrypted Key", encryptedOut);
 
     return result;

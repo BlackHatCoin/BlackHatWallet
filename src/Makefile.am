@@ -150,6 +150,7 @@ BITCOIN_CORE_H = \
   bip38.h \
   bloom.h \
   blocksignature.h \
+  bls/bls_batchverifier.h \
   bls/bls_ies.h \
   bls/bls_worker.h \
   bls/bls_wrapper.h \
@@ -191,7 +192,9 @@ BITCOIN_CORE_H = \
   evo/providertx.h \
   evo/specialtx_validation.h \
   flatdb.h \
+  llmq/quorums.h \
   llmq/quorums_blockprocessor.h \
+  llmq/quorums_chainlocks.h \
   llmq/quorums_commitment.h \
   llmq/quorums_connections.h \
   llmq/quorums_debug.h \
@@ -200,6 +203,8 @@ BITCOIN_CORE_H = \
   llmq/quorums_dkgsession.h \
   llmq/quorums_init.h \
   llmq/quorums_utils.h \
+  llmq/quorums_signing.h \
+  llmq/quorums_signing_shares.h \
   tiertwo/masternode_meta_manager.h \
   tiertwo/net_masternodes.h \
   addressbook.h \
@@ -307,6 +312,7 @@ BITCOIN_CORE_H = \
   guiinterfaceutil.h \
   uint256.h \
   undo.h \
+  unordered_lru_cache.h \
   util/asmap.h \
   util/blockstatecatcher.h \
   util/system.h \
@@ -367,7 +373,9 @@ libbitcoin_server_a_SOURCES = \
   evo/mnauth.cpp \
   evo/providertx.cpp \
   evo/specialtx_validation.cpp \
+  llmq/quorums.cpp \
   llmq/quorums_blockprocessor.cpp \
+  llmq/quorums_chainlocks.cpp \
   llmq/quorums_commitment.cpp \
   llmq/quorums_connections.cpp \
   llmq/quorums_debug.cpp \
@@ -376,6 +384,8 @@ libbitcoin_server_a_SOURCES = \
   llmq/quorums_dkgsession.cpp \
   llmq/quorums_init.cpp \
   llmq/quorums_utils.cpp \
+  llmq/quorums_signing.cpp \
+  llmq/quorums_signing_shares.cpp \
   tiertwo/masternode_meta_manager.cpp \
   tiertwo/net_masternodes.cpp \
   httprpc.cpp \
@@ -823,15 +833,25 @@ clean-local:
 	$(AM_V_GEN) $(WINDRES) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(CPPFLAGS) -DWINDRES_PREPROC -i $< -o $@
 
 check-symbols: $(bin_PROGRAMS)
+if TARGET_DARWIN
+	@echo "Checking macOS dynamic libraries..."
+	$(AM_V_at) OTOOL=$(OTOOL) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py $(bin_PROGRAMS)
+endif
+
+if TARGET_WINDOWS
+	@echo "Checking Windows dynamic libraries..."
+	$(AM_V_at) OBJDUMP=$(OBJDUMP) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py $(bin_PROGRAMS)
+endif
+
 if GLIBC_BACK_COMPAT
 	@echo "Checking glibc back compat..."
-	$(AM_V_at) READELF=$(READELF) CPPFILT=$(CPPFILT) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py < $(bin_PROGRAMS)
+	$(AM_V_at) CPPFILT=$(CPPFILT) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py $(bin_PROGRAMS)
 endif
 
 check-security: $(bin_PROGRAMS)
 if HARDEN
 	@echo "Checking binary security..."
-	$(AM_V_at) READELF=$(READELF) OBJDUMP=$(OBJDUMP) $(PYTHON) $(top_srcdir)/contrib/devtools/security-check.py < $(bin_PROGRAMS)
+	$(AM_V_at) OBJDUMP=$(OBJDUMP) OTOOL=$(OTOOL) $(PYTHON) $(top_srcdir)/contrib/devtools/security-check.py $(bin_PROGRAMS)
 endif
 
 if EMBEDDED_LEVELDB

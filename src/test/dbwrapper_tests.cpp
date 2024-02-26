@@ -2,6 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "clientversion.h"
 #include "dbwrapper.h"
 #include "uint256.h"
 #include "random.h"
@@ -125,7 +126,7 @@ BOOST_AUTO_TEST_CASE(dbwrapper_batch)
         uint256 in3 = GetRandHash();
 
         uint256 res;
-        CDBBatch batch;
+        CDBBatch batch(CLIENT_VERSION);
 
         batch.Write(key, in);
         batch.Write(key2, in2);

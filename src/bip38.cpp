@@ -1,5 +1,5 @@
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,7 +24,7 @@ static bool Base58ToHex(const std::string& base58_str, std::string& hex_str)
     if (!DecodeBase58(base58_str.c_str(), vchKey, key_size) || vchKey.size() != key_size) {
         return false;
     }
-    // Hex enconding
+    // Hex encoding
     std::stringstream ss;
     ss << std::hex;
     for (unsigned int i = 0; i < vchKey.size(); i++) {

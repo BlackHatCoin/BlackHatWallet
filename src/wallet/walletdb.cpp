@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -56,6 +56,7 @@ namespace DBKeys {
 
     // Wallet custom settings
     const std::string AUTOCOMBINE{"autocombinesettings"};
+    const std::string AUTOCOMBINE_V2{"autocombinesettingsV2"};
     const std::string STAKE_SPLIT_THRESHOLD{"stakeSplitThreshold"};
     const std::string USE_CUSTOM_FEE{"fUseCustomFee"};
     const std::string CUSTOM_FEE_VALUE{"nCustomFee"};
@@ -242,12 +243,14 @@ bool WalletBatch::WriteCustomFeeValue(const CAmount& nFee)
     return WriteIC(std::string(DBKeys::CUSTOM_FEE_VALUE), nFee);
 }
 
-bool WalletBatch::WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold)
+bool WalletBatch::WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold, int frequency)
 {
-    std::pair<bool, CAmount> pSettings;
-    pSettings.first = fEnable;
-    pSettings.second = nCombineThreshold;
-    return WriteIC(std::string(DBKeys::AUTOCOMBINE), pSettings, true);
+    std::pair<std::pair<bool, CAmount>, int> pSettings;
+    pSettings.first.first = fEnable;
+    pSettings.first.second = nCombineThreshold;
+    pSettings.second = frequency;
+    EraseIC(std::string(DBKeys::AUTOCOMBINE));
+    return WriteIC(std::string(DBKeys::AUTOCOMBINE_V2), pSettings, true);
 }
 
 bool WalletBatch::ReadPool(int64_t nPool, CKeyPool& keypool)
@@ -536,9 +539,17 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             ssValue >> pSettings;
             pwallet->fCombineDust = pSettings.first;
             pwallet->nAutoCombineThreshold = pSettings.second;
+            // Value used for old autocombine
+            pwallet->frequency = 1;
             // originally saved as integer
             if (pwallet->nAutoCombineThreshold < COIN)
                 pwallet->nAutoCombineThreshold *= COIN;
+        } else if (strType == DBKeys::AUTOCOMBINE_V2) {
+            std::pair<std::pair<bool, CAmount>, int> pSettings;
+            ssValue >> pSettings;
+            pwallet->fCombineDust = pSettings.first.first;
+            pwallet->nAutoCombineThreshold = pSettings.first.second;
+            pwallet->frequency = pSettings.second;
         } else if (strType == DBKeys::DESTDATA) {
             std::string strAddress, strKey, strValue;
             ssKey >> strAddress;

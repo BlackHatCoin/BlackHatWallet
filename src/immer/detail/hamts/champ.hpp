@@ -26,27 +26,24 @@ struct champ
 {
     static constexpr auto bits = B;
 
-    using node_t = node<T, Hash, Equal, MemoryPolicy, B>;
+    using node_t   = node<T, Hash, Equal, MemoryPolicy, B>;
     using bitmap_t = typename get_bitmap_type<B>::type;
 
     static_assert(branches<B> <= sizeof(bitmap_t) * 8, "");
 
     node_t* root;
-    size_t  size;
+    size_t size;
 
-    static const champ& empty()
+    static node_t* empty()
     {
-        static const champ empty_ {
-            node_t::make_inner_n(0),
-            0,
-        };
-        return empty_;
+        static const auto node = node_t::make_inner_n(0);
+        return node->inc();
     }
 
-    champ(node_t* r, size_t sz)
-        : root{r}, size{sz}
-    {
-    }
+    champ(node_t* r, size_t sz = 0)
+        : root{r}
+        , size{sz}
+    {}
 
     champ(const champ& other)
         : champ{other.root, other.size}
@@ -80,15 +77,9 @@ struct champ
         swap(x.size, y.size);
     }
 
-    ~champ()
-    {
-        dec();
-    }
+    ~champ() { dec(); }
 
-    void inc() const
-    {
-        root->inc();
-    }
+    void inc() const { root->inc(); }
 
     void dec() const
     {
@@ -108,16 +99,17 @@ struct champ
         if (depth < max_depth<B>) {
             auto datamap = node->datamap();
             if (datamap)
-                fn(node->values(), node->values() + popcount(datamap));
+                fn(node->values(), node->values() + node->data_count());
             auto nodemap = node->nodemap();
             if (nodemap) {
                 auto fst = node->children();
-                auto lst = fst + popcount(nodemap);
+                auto lst = fst + node->children_count();
                 for (; fst != lst; ++fst)
                     for_each_chunk_traversal(*fst, depth + 1, fn);
             }
         } else {
-            fn(node->collisions(), node->collisions() + node->collision_count());
+            fn(node->collisions(),
+               node->collisions() + node->collision_count());
         }
     }
 
@@ -129,11 +121,11 @@ struct champ
         for (auto i = count_t{}; i < max_depth<B>; ++i) {
             auto bit = bitmap_t{1u} << (hash & mask<B>);
             if (node->nodemap() & bit) {
-                auto offset = popcount(node->nodemap() & (bit - 1));
-                node = node->children() [offset];
-                hash = hash >> B;
+                auto offset = node->children_count(bit);
+                node        = node->children()[offset];
+                hash        = hash >> B;
             } else if (node->datamap() & bit) {
-                auto offset = popcount(node->datamap() & (bit - 1));
+                auto offset = node->data_count(bit);
                 auto val    = node->values() + offset;
                 if (Equal{}(*val, k))
                     return Project{}(*val);
@@ -154,6 +146,7 @@ struct champ
     std::pair<node_t*, bool>
     do_add(node_t* node, T v, hash_t hash, shift_t shift) const
     {
+        assert(node);
         if (shift == max_shift<B>) {
             auto fst = node->collisions();
             auto lst = fst + node->collision_count();
@@ -161,74 +154,68 @@ struct champ
                 if (Equal{}(*fst, v))
                     return {
                         node_t::copy_collision_replace(node, fst, std::move(v)),
-                        false
-                    };
-            return {
-                node_t::copy_collision_insert(node, std::move(v)),
-                true
-            };
+                        false};
+            return {node_t::copy_collision_insert(node, std::move(v)), true};
         } else {
             auto idx = (hash & (mask<B> << shift)) >> shift;
             auto bit = bitmap_t{1u} << idx;
             if (node->nodemap() & bit) {
-                auto offset = popcount(node->nodemap() & (bit - 1));
-                auto result = do_add(node->children() [offset],
-                                     std::move(v), hash,
-                                     shift + B);
-                try {
-                    result.first = node_t::copy_inner_replace(
-                        node, offset, result.first);
+                auto offset = node->children_count(bit);
+                assert(node->children()[offset]);
+                auto result = do_add(
+                    node->children()[offset], std::move(v), hash, shift + B);
+                IMMER_TRY {
+                    result.first =
+                        node_t::copy_inner_replace(node, offset, result.first);
                     return result;
-                } catch (...) {
+                }
+                IMMER_CATCH (...) {
                     node_t::delete_deep_shift(result.first, shift + B);
-                    throw;
+                    IMMER_RETHROW;
                 }
             } else if (node->datamap() & bit) {
-                auto offset = popcount(node->datamap() & (bit - 1));
+                auto offset = node->data_count(bit);
                 auto val    = node->values() + offset;
                 if (Equal{}(*val, v))
-                    return {
-                        node_t::copy_inner_replace_value(
-                            node, offset, std::move(v)),
-                        false
-                    };
+                    return {node_t::copy_inner_replace_value(
+                                node, offset, std::move(v)),
+                            false};
                 else {
-                    auto child = node_t::make_merged(shift + B,
-                                                    std::move(v), hash,
-                                                    *val, Hash{}(*val));
-                    try {
-                        return {
-                            node_t::copy_inner_replace_merged(
-                                node, bit, offset, child),
-                            true
-                        };
-                    } catch (...) {
+                    auto child = node_t::make_merged(
+                        shift + B, std::move(v), hash, *val, Hash{}(*val));
+                    IMMER_TRY {
+                        return {node_t::copy_inner_replace_merged(
+                                    node, bit, offset, child),
+                                true};
+                    }
+                    IMMER_CATCH (...) {
                         node_t::delete_deep_shift(child, shift + B);
-                        throw;
+                        IMMER_RETHROW;
                     }
                 }
             } else {
                 return {
                     node_t::copy_inner_insert_value(node, bit, std::move(v)),
-                    true
-                };
+                    true};
             }
         }
     }
 
     champ add(T v) const
     {
-        auto hash = Hash{}(v);
-        auto res = do_add(root, std::move(v), hash, 0);
+        auto hash     = Hash{}(v);
+        auto res      = do_add(root, std::move(v), hash, 0);
         auto new_size = size + (res.second ? 1 : 0);
-        return { res.first, new_size };
+        return {res.first, new_size};
     }
 
-    template <typename Project, typename Default, typename Combine,
-              typename K, typename Fn>
+    template <typename Project,
+              typename Default,
+              typename Combine,
+              typename K,
+              typename Fn>
     std::pair<node_t*, bool>
-    do_update(node_t* node, K&& k, Fn&& fn,
-              hash_t hash, shift_t shift) const
+    do_update(node_t* node, K&& k, Fn&& fn, hash_t hash, shift_t shift) const
     {
         if (shift == max_shift<B>) {
             auto fst = node->collisions();
@@ -237,83 +224,88 @@ struct champ
                 if (Equal{}(*fst, k))
                     return {
                         node_t::copy_collision_replace(
-                            node, fst, Combine{}(std::forward<K>(k),
-                                                 std::forward<Fn>(fn)(
-                                                     Project{}(*fst)))),
-                        false
-                    };
-            return {
-                node_t::copy_collision_insert(
-                    node, Combine{}(std::forward<K>(k),
-                                    std::forward<Fn>(fn)(
-                                        Default{}()))),
-                true
-            };
+                            node,
+                            fst,
+                            Combine{}(std::forward<K>(k),
+                                      std::forward<Fn>(fn)(Project{}(*fst)))),
+                        false};
+            return {node_t::copy_collision_insert(
+                        node,
+                        Combine{}(std::forward<K>(k),
+                                  std::forward<Fn>(fn)(Default{}()))),
+                    true};
         } else {
             auto idx = (hash & (mask<B> << shift)) >> shift;
             auto bit = bitmap_t{1u} << idx;
             if (node->nodemap() & bit) {
-                auto offset = popcount(node->nodemap() & (bit - 1));
+                auto offset = node->children_count(bit);
                 auto result = do_update<Project, Default, Combine>(
-                    node->children() [offset], k, std::forward<Fn>(fn),
-                    hash, shift + B);
-                try {
-                    result.first = node_t::copy_inner_replace(
-                        node, offset, result.first);
+                    node->children()[offset],
+                    k,
+                    std::forward<Fn>(fn),
+                    hash,
+                    shift + B);
+                IMMER_TRY {
+                    result.first =
+                        node_t::copy_inner_replace(node, offset, result.first);
                     return result;
-                } catch (...) {
+                }
+                IMMER_CATCH (...) {
                     node_t::delete_deep_shift(result.first, shift + B);
-                    throw;
+                    IMMER_RETHROW;
                 }
             } else if (node->datamap() & bit) {
-                auto offset = popcount(node->datamap() & (bit - 1));
+                auto offset = node->data_count(bit);
                 auto val    = node->values() + offset;
                 if (Equal{}(*val, k))
                     return {
                         node_t::copy_inner_replace_value(
-                            node, offset, Combine{}(std::forward<K>(k),
-                                                    std::forward<Fn>(fn)(
-                                                        Project{}(*val)))),
-                        false
-                    };
+                            node,
+                            offset,
+                            Combine{}(std::forward<K>(k),
+                                      std::forward<Fn>(fn)(Project{}(*val)))),
+                        false};
                 else {
                     auto child = node_t::make_merged(
-                        shift + B, Combine{}(std::forward<K>(k),
-                                             std::forward<Fn>(fn)(
-                                                 Default{}())),
-                        hash, *val, Hash{}(*val));
-                    try {
-                        return {
-                            node_t::copy_inner_replace_merged(
-                                node, bit, offset, child),
-                            true
-                        };
-                    } catch (...) {
+                        shift + B,
+                        Combine{}(std::forward<K>(k),
+                                  std::forward<Fn>(fn)(Default{}())),
+                        hash,
+                        *val,
+                        Hash{}(*val));
+                    IMMER_TRY {
+                        return {node_t::copy_inner_replace_merged(
+                                    node, bit, offset, child),
+                                true};
+                    }
+                    IMMER_CATCH (...) {
                         node_t::delete_deep_shift(child, shift + B);
-                        throw;
+                        IMMER_RETHROW;
                     }
                 }
             } else {
-                return {
-                    node_t::copy_inner_insert_value(
-                        node, bit, Combine{}(std::forward<K>(k),
-                                             std::forward<Fn>(fn)(
-                                                 Default{}()))),
-                    true
-                };
+                return {node_t::copy_inner_insert_value(
+                            node,
+                            bit,
+                            Combine{}(std::forward<K>(k),
+                                      std::forward<Fn>(fn)(Default{}()))),
+                        true};
             }
         }
     }
 
-    template <typename Project, typename Default, typename Combine,
-              typename K, typename Fn>
+    template <typename Project,
+              typename Default,
+              typename Combine,
+              typename K,
+              typename Fn>
     champ update(const K& k, Fn&& fn) const
     {
         auto hash = Hash{}(k);
-        auto res = do_update<Project, Default, Combine>(
+        auto res  = do_update<Project, Default, Combine>(
             root, k, std::forward<Fn>(fn), hash, 0);
         auto new_size = size + (res.second ? 1 : 0);
-        return { res.first, new_size };
+        return {res.first, new_size};
     }
 
     // basically:
@@ -330,20 +322,30 @@ struct champ
 
         union data_t
         {
-            T*      singleton;
+            T* singleton;
             node_t* tree;
         };
 
         kind_t kind;
         data_t data;
 
-        sub_result()          : kind{nothing}   {};
-        sub_result(T* x)      : kind{singleton} { data.singleton = x; };
-        sub_result(node_t* x) : kind{tree}      { data.tree = x; };
+        sub_result()
+            : kind{nothing} {};
+        sub_result(T* x)
+            : kind{singleton}
+        {
+            data.singleton = x;
+        };
+        sub_result(node_t* x)
+            : kind{tree}
+        {
+            data.tree = x;
+        };
     };
 
     template <typename K>
-    sub_result do_sub(node_t* node, const K& k, hash_t hash, shift_t shift) const
+    sub_result
+    do_sub(node_t* node, const K& k, hash_t hash, shift_t shift) const
     {
         if (shift == max_shift<B>) {
             auto fst = node->collisions();
@@ -351,51 +353,52 @@ struct champ
             for (auto cur = fst; cur != lst; ++cur)
                 if (Equal{}(*cur, k))
                     return node->collision_count() > 2
-                        ? node_t::copy_collision_remove(node, cur)
-                        : sub_result{fst + (cur == fst)};
+                               ? node_t::copy_collision_remove(node, cur)
+                               : sub_result{fst + (cur == fst)};
             return {};
         } else {
             auto idx = (hash & (mask<B> << shift)) >> shift;
             auto bit = bitmap_t{1u} << idx;
             if (node->nodemap() & bit) {
-                auto offset = popcount(node->nodemap() & (bit - 1));
-                auto result = do_sub(node->children() [offset],
-                                     k, hash, shift + B);
+                auto offset = node->children_count(bit);
+                auto result =
+                    do_sub(node->children()[offset], k, hash, shift + B);
                 switch (result.kind) {
                 case sub_result::nothing:
                     return {};
                 case sub_result::singleton:
                     return node->datamap() == 0 &&
-                           popcount(node->nodemap()) == 1 &&
-                           shift > 0
-                        ? result
-                        : node_t::copy_inner_replace_inline(
-                            node, bit, offset, *result.data.singleton);
+                                   node->children_count() == 1 && shift > 0
+                               ? result
+                               : node_t::copy_inner_replace_inline(
+                                     node, bit, offset, *result.data.singleton);
                 case sub_result::tree:
-                    try {
-                        return node_t::copy_inner_replace(node, offset,
-                                                          result.data.tree);
-                    } catch (...) {
+                    IMMER_TRY {
+                        return node_t::copy_inner_replace(
+                            node, offset, result.data.tree);
+                    }
+                    IMMER_CATCH (...) {
                         node_t::delete_deep_shift(result.data.tree, shift + B);
-                        throw;
+                        IMMER_RETHROW;
                     }
                 }
             } else if (node->datamap() & bit) {
-                auto offset = popcount(node->datamap() & (bit - 1));
+                auto offset = node->data_count(bit);
                 auto val    = node->values() + offset;
                 if (Equal{}(*val, k)) {
-                    auto nv = popcount(node->datamap());
+                    auto nv = node->data_count();
                     if (node->nodemap() || nv > 2)
-                        return node_t::copy_inner_remove_value(node, bit, offset);
+                        return node_t::copy_inner_remove_value(
+                            node, bit, offset);
                     else if (nv == 2) {
-                        return shift > 0
-                            ? sub_result{node->values() + !offset}
-                            : node_t::make_inner_n(0,
-                                                  node->datamap() & ~bit,
-                                                  node->values()[!offset]);
+                        return shift > 0 ? sub_result{node->values() + !offset}
+                                         : node_t::make_inner_n(
+                                               0,
+                                               node->datamap() & ~bit,
+                                               node->values()[!offset]);
                     } else {
                         assert(shift == 0);
-                        return empty().root->inc();
+                        return empty();
                     }
                 }
             }
@@ -407,21 +410,18 @@ struct champ
     champ sub(const K& k) const
     {
         auto hash = Hash{}(k);
-        auto res = do_sub(root, k, hash, 0);
+        auto res  = do_sub(root, k, hash, 0);
         switch (res.kind) {
         case sub_result::nothing:
             return *this;
         case sub_result::tree:
-            return {
-                res.data.tree,
-                size - 1
-            };
+            return {res.data.tree, size - 1};
         default:
             IMMER_UNREACHABLE;
         }
     }
 
-    template <typename Eq=Equal>
+    template <typename Eq = Equal>
     bool equals(const champ& other) const
     {
         return size == other.size && equals_tree<Eq>(root, other.root, 0);
@@ -435,16 +435,16 @@ struct champ
         else if (depth == max_depth<B>) {
             auto nv = a->collision_count();
             return nv == b->collision_count() &&
-                equals_collisions<Eq>(a->collisions(), b->collisions(), nv);
+                   equals_collisions<Eq>(a->collisions(), b->collisions(), nv);
         } else {
-            if (a->nodemap() != b->nodemap() ||
-                a->datamap() != b->datamap())
+            if (a->nodemap() != b->nodemap() || a->datamap() != b->datamap())
                 return false;
-            auto n = popcount(a->nodemap());
+            auto n = a->children_count();
             for (auto i = count_t{}; i < n; ++i)
-                if (!equals_tree<Eq>(a->children()[i], b->children()[i], depth + 1))
+                if (!equals_tree<Eq>(
+                        a->children()[i], b->children()[i], depth + 1))
                     return false;
-            auto nv = popcount(a->datamap());
+            auto nv = a->data_count();
             return !nv || equals_values<Eq>(a->values(), b->values(), nv);
         }
     }
@@ -465,7 +465,8 @@ struct champ
                 if (Eq{}(*a, *fst))
                     goto good;
             return false;
-        good: continue;
+        good:
+            continue;
         }
         return true;
     }

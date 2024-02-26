@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021 The BlackHat Core developers
+# Copyright (c) 2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -121,7 +122,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
 
         # Lock any utxo with less than 106 confs (e.g. change), so we can resurrect everything
         for x in nodeA.listunspent(0, 106):
-            nodeA.lockunspent(False, [{"txid": x["txid"], "vout": x["vout"]}])
+            nodeA.lockunspent(False, True, [{"txid": x["txid"], "vout": x["vout"]}])
 
         # Now send a valid proReg tx to the mempool, without mining it
         mempool_dmn1 = create_new_dmn(free_idx, nodeA, collateral_addr, None)
@@ -322,7 +323,7 @@ class TiertwoReorgMempoolTest(BlackHatTestFramework):
         assert proupreg1_txid not in mempoolA
         assert proupreg2_txid not in mempoolA
         assert proupreg3_txid in mempoolA
-        # The frist mempool proUpRev tx has been removed as it was meant to revoke
+        # The first mempool proUpRev tx has been removed as it was meant to revoke
         # a masternode that is not in the deterministic list anymore.
         assert prouprev1_txid not in mempoolA
         assert prouprev2_txid in mempoolA

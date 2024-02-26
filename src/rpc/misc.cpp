@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -88,7 +88,7 @@ UniValue getinfo(const JSONRPCRequest& request)
             HelpExampleCli("getinfo", "") + HelpExampleRpc("getinfo", ""));
 
 #ifdef ENABLE_WALLET
-    LOCK2(cs_main, pwallet ? &pwallet->cs_wallet : NULL);
+    LOCK2(cs_main, pwallet ? &pwallet->cs_wallet : nullptr);
 #else
     LOCK(cs_main);
 #endif
@@ -242,6 +242,17 @@ public:
         obj.pushKV("isscript", false);
         if (pwallet && pwallet->GetPubKey(keyID, vchPubKey)) {
             obj.pushKV("pubkey", HexStr(vchPubKey));
+            obj.pushKV("iscompressed", vchPubKey.IsCompressed());
+        }
+        return obj;
+    }
+
+    UniValue operator()(const CExchangeKeyID &keyID) const {
+        UniValue obj(UniValue::VOBJ);
+        CPubKey vchPubKey;
+        obj.pushKV("isscript", false);
+        if (pwallet && pwallet->GetPubKey(keyID, vchPubKey)) {
+            obj.pushKV("exchangepubkey", HexStr(vchPubKey));
             obj.pushKV("iscompressed", vchPubKey.IsCompressed());
         }
         return obj;
@@ -421,8 +432,9 @@ UniValue validateaddress(const JSONRPCRequest& request)
     std::string strAddress = request.params[0].get_str();
 
     // First check if it's a regular address
-    bool isStakingAddress = false;
-    CTxDestination dest = DecodeDestination(strAddress, isStakingAddress);
+    bool isStaking = false;
+    bool isExchange = false;
+    CTxDestination dest = DecodeDestination(strAddress, isStaking, isExchange);
     bool isValid = IsValidDestination(dest);
 
     PPaymentAddress finalAddress;
@@ -437,7 +449,7 @@ UniValue validateaddress(const JSONRPCRequest& request)
     ret.pushKV("isvalid", isValid);
     if (isValid) {
         ret.pushKV("address", strAddress);
-        UniValue detail = boost::apply_visitor(DescribePaymentAddressVisitor(pwallet, isStakingAddress), finalAddress);
+        UniValue detail = boost::apply_visitor(DescribePaymentAddressVisitor(pwallet, isStaking), finalAddress);
         ret.pushKVs(detail);
     }
 
@@ -833,6 +845,7 @@ UniValue mnconnect(const JSONRPCRequest& request)
     return false;
 }
 
+// clang-format off
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ --------
@@ -846,12 +859,13 @@ static const CRPCCommand commands[] =
     { "util",               "validateaddress",        &validateaddress,        true,  {"blkcaddress"} }, /* uses wallet if enabled */
     { "util",               "verifymessage",          &verifymessage,          true,  {"blkcaddress","signature","message"} },
 
-    /* Not shown in help */
-    { "hidden",             "echo",                   &echo,                   true,  {"arg0","arg1","arg2","arg3","arg4","arg5","arg6","arg7","arg8","arg9"}},
-    { "hidden",             "echojson",               &echo,                   true,  {"arg0","arg1","arg2","arg3","arg4","arg5","arg6","arg7","arg8","arg9"}},
+    /** Not shown in help */
+    { "hidden",             "echo",                   &echo,                   true,  {"arg0","arg1","arg2","arg3","arg4","arg5","arg6","arg7","arg8","arg9"} },
+    { "hidden",             "echojson",               &echo,                   true,  {"arg0","arg1","arg2","arg3","arg4","arg5","arg6","arg7","arg8","arg9"} },
     { "hidden",             "setmocktime",            &setmocktime,            true,  {"timestamp"} },
     { "hidden",             "mnconnect",              &mnconnect,              true,  {"op_type", "mn_list", "llmq_type", "quorum_hash"} },
 };
+// clang-format on
 
 void RegisterMiscRPCCommands(CRPCTable &tableRPC)
 {

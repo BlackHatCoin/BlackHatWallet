@@ -174,8 +174,8 @@ class InvalidMessagesTest(BlackHatTestFramework):
         self.test_addrv2('unrecognized network',
             [
                 'received: addrv2 (25 bytes)',
-                'IP 9.9.9.9 mapped',
-                'Added 1 addresses',
+                'Received addr: 2 addresses (2 processed, 0 rate-limited)',
+                'received: ping (8 bytes)',
             ],
             hex_str_to_bytes(
                 '02' +     # number of entries
@@ -218,7 +218,7 @@ class InvalidMessagesTest(BlackHatTestFramework):
         msg = messages.msg_inv(invs)
         conn.send_message(msg)
 
-        time.sleep(20) # wait a bit
+        time.sleep(30)  # wait a bit
         assert_equal(conn.getdata_count, 50000)
 
         # Prior #2611 the node was blocking any follow-up request.

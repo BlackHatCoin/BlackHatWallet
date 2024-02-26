@@ -85,17 +85,17 @@ void ep2_blind(ep2_t r, ep2_t p) {
 
 	RLC_TRY {
 		fp2_new(rand);
+		fp2_rand(rand);
 #if EP_ADD == BASIC
 		(void)rand;
 		ep2_copy(r, p);
-#elif EP_ADD == PROJC
-		fp2_rand(rand);
+#else
 		fp2_mul(r->z, p->z, rand);
 		fp2_mul(r->y, p->y, rand);
 		fp2_sqr(rand, rand);
 		fp2_mul(r->x, r->x, rand);
 		fp2_mul(r->y, r->y, rand);
-		r->coord = PROJC;
+		r->coord = EP_ADD;
 #endif
 	} RLC_CATCH_ANY {
 		RLC_THROW(ERR_CAUGHT);
@@ -260,8 +260,7 @@ void ep2_read_bin(ep2_t a, const uint8_t *bin, int len) {
 	}
 
 	a->coord = BASIC;
-	fp_set_dig(a->z[0], 1);
-	fp_zero(a->z[1]);
+	fp2_set_dig(a->z, 1);
 	fp2_read_bin(a->x, bin + 1, 2 * RLC_FP_BYTES);
 	if (len == 2 * RLC_FP_BYTES + 1) {
 		switch(bin[0]) {

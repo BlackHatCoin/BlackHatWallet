@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -185,8 +185,8 @@ void AddressesWidget::onStoreContactClicked()
         QString label = ui->lineEditName->text();
         QString address = ui->lineEditAddress->text();
 
-        bool isStakingAddress = false;
-        auto blkcAdd = Standard::DecodeDestination(address.toUtf8().constData(), isStakingAddress);
+        bool isStaking = false, isExchange = false, isShield = false;
+        auto blkcAdd = Standard::DecodeDestination(address.toUtf8().constData(), isStaking, isExchange, isShield);
 
         if (!Standard::IsValidDestination(blkcAdd)) {
             setCssEditLine(ui->lineEditAddress, false, true);
@@ -210,7 +210,7 @@ void AddressesWidget::onStoreContactClicked()
         bool isShielded = walletModel->IsShieldedDestination(blkcAdd);
         if (walletModel->updateAddressBookLabels(blkcAdd, label.toUtf8().constData(),
                          isShielded ? AddressBook::AddressBookPurpose::SHIELDED_SEND :
-                         isStakingAddress ? AddressBook::AddressBookPurpose::COLD_STAKING_SEND : AddressBook::AddressBookPurpose::SEND)
+                         isStaking ? AddressBook::AddressBookPurpose::COLD_STAKING_SEND : AddressBook::AddressBookPurpose::SEND)
                 ) {
             ui->lineEditAddress->setText("");
             ui->lineEditName->setText("");

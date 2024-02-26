@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2022 The PIVX developers
-// Copyright (c) 2021-2022 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,8 +20,9 @@ public:
     std::string paramName; //!< parameter name
 };
 
+// clang-format off
 /**
- * Specifiy a (method, idx, name) here if the argument is a non-string RPC
+ * Specify a (method, idx, name) here if the argument is a non-string RPC
  * argument and needs to be converted from JSON.
  *
  * @note Parameter indexes start from 0.
@@ -30,16 +31,14 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "addmultisigaddress", 0, "nrequired" },
     { "addmultisigaddress", 1, "keys" },
     { "addpeeraddress", 1, "port" },
-    { "autocombinerewards", 0, "enable" },
-    { "autocombinerewards", 1, "threshold" },
     { "cleanbudget", 0, "try_sync" },
     { "createmultisig", 0, "nrequired" },
     { "createmultisig", 1, "keys" },
     { "createrawtransaction", 0, "inputs" },
     { "createrawtransaction", 1, "outputs" },
     { "createrawtransaction", 2, "locktime" },
-    {"createrawmnfinalbudget", 1, "blockstart"},
-    {"createrawmnfinalbudget", 2, "proposals"},
+    { "createrawmnfinalbudget", 1, "blockstart" },
+    { "createrawmnfinalbudget", 2, "proposals" },
     { "delegatestake", 1, "amount" },
     { "delegatestake", 3, "ext_owner" },
     { "delegatestake", 4, "include_delegated" },
@@ -118,7 +117,8 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "listunspent", 4, "query_options" },
     { "listunspent", 5, "include_unsafe" },
     { "lockunspent", 0, "unlock" },
-    { "lockunspent", 1, "transactions" },
+    { "lockunspent", 1, "transparent" },
+    { "lockunspent", 2, "transactions" },
     { "logging", 0, "include" },
     { "logging", 1, "exclude" },
     { "mnbudgetvote", 4, "legacy" },
@@ -130,6 +130,12 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "prioritisetransaction", 1, "fee_delta" },
     { "quorumdkgsimerror", 1, "rate" },
     { "quorumdkgstatus", 0, "detail_level" },
+    { "listquorums", 0, "count" },
+    { "getquoruminfo", 0, "llmqType" },
+    { "getquoruminfo", 2, "includeSkShare" },
+    { "signsession", 0, "llmqType"},
+    { "hasrecoverysignature", 0, "llmqType" },
+    { "issessionconflicting", 0, "llmqType" },
     { "rawdelegatestake", 1, "amount" },
     { "rawdelegatestake", 3, "ext_owner" },
     { "rawdelegatestake", 4, "include_delegated" },
@@ -150,7 +156,8 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "sendtoaddress", 4, "subtract_fee" },
     { "setautocombinethreshold", 0, "enable" },
     { "setautocombinethreshold", 1, "threshold" },
-    { "setnetworkactive", 0, "active"},
+    { "setautocombinethreshold", 2, "frequency"},
+    { "setnetworkactive", 0, "active" },
     { "setban", 2, "bantime" },
     { "setban", 3, "absolute" },
     { "setgenerate", 0, "generate" },
@@ -166,7 +173,8 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "signrawtransaction", 1, "prevtxs" },
     { "signrawtransaction", 2, "privkeys" },
     { "spork", 1, "value" },
-    { "startmasternode", 3, "lockwallet" },
+    { "startmasternode", 1, "lock_wallet" },
+    { "startmasternode", 3, "reload_conf" },
     { "submitbudget", 2, "npayments" },
     { "submitbudget", 3, "start" },
     { "submitbudget", 5, "montly_payment" },
@@ -191,6 +199,7 @@ static const CRPCConvertParam vRPCConvertParams[] = {
     { "echojson", 8, "arg8" },
     { "echojson", 9, "arg9" },
 };
+// clang-format on
 
 class CRPCConvertTable
 {

@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2020 The Dash Core developers
-// Copyright (c) 2021 The PIVX Core developers
-// Copyright (c) 2021 The BlackHat Core developers
+// Copyright (c) 2021-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 

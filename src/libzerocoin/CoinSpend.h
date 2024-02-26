@@ -9,8 +9,8 @@
  * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
  * @license    This project is released under the MIT license.
  **/
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 
 #ifndef COINSPEND_H_
 #define COINSPEND_H_
@@ -28,7 +28,7 @@
 
 namespace libzerocoin
 {
-// Lagacy zBLKC - Only for serialization
+// Legacy zBLKC - Only for serialization
 // Proof that a value inside a commitment C is accumulated in accumulator A
 class AccumulatorProofOfKnowledge {
 public:
@@ -47,7 +47,7 @@ private:
     CBigNum s_xi, s_phi, s_gamma, s_psi;
 };
 
-// Lagacy zBLKC - Only for serialization
+// Legacy zBLKC - Only for serialization
 // Signature of knowledge attesting that the signer knows the values to
 // open a commitment to a coin with given serial number
 class SerialNumberSignatureOfKnowledge {
@@ -60,7 +60,7 @@ private:
     std::vector<CBigNum> sprime;
 };
 
-// Lagacy zBLKC - Only for serialization
+// Legacy zBLKC - Only for serialization
 // Proof that two commitments open to the same value (BROKEN)
 class CommitmentProofOfKnowledge {
 public:
@@ -71,7 +71,7 @@ private:
 };
 
 
-// Lagacy zBLKC - Only for serialization
+// Legacy zBLKC - Only for serialization
 /** The complete proof needed to spend a zerocoin.
  * Composes together a proof that a coin is accumulated
  * and that it has a given serial number.

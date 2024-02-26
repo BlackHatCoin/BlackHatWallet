@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -56,7 +56,7 @@ const struct {
     {"cmd-reply", ":/icons/tx_output"},
     {"cmd-error", ":/icons/tx_output"},
     {"misc", ":/icons/tx_inout"},
-    {NULL, NULL}};
+    {nullptr, nullptr}};
 
 RPCConsole::RPCConsole(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
                                           ui(new Ui::RPCConsole),
@@ -420,7 +420,7 @@ void RPCConsole::clear()
 
 void RPCConsole::reject()
 {
-    // Ignore escape keypress if this is not a seperate window
+    // Ignore escape keypress if this is not a separate window
     if (windowType() != Qt::Widget)
         QDialog::reject();
 }
@@ -653,7 +653,7 @@ void RPCConsole::peerLayoutChanged()
     if (!clientModel || !clientModel->getPeerTableModel())
         return;
 
-    const CNodeCombinedStats* stats = NULL;
+    const CNodeCombinedStats* stats = nullptr;
     bool fUnselect = false;
     bool fReselect = false;
 
@@ -672,7 +672,7 @@ void RPCConsole::peerLayoutChanged()
     int detailNodeRow = clientModel->getPeerTableModel()->getRowByNodeId(cachedNodeid);
 
     if (detailNodeRow < 0) {
-        // detail node dissapeared from table (node disconnected)
+        // detail node disappeared from table (node disconnected)
         fUnselect = true;
     } else {
         if (detailNodeRow != selectedRow) {
@@ -809,15 +809,24 @@ void RPCConsole::banSelectedNode(int bantime)
     if (!clientModel || !g_connman)
         return;
 
+    // No node selected exit out
+    if (cachedNodeid == -1)
+        return;
+
     // Get currently selected peer address
-    QString strNode = GUIUtil::getEntryData(ui->peerWidget, 0, PeerTableModel::Address).toString();
-    // Find possible nodes, ban it and clear the selected node
-    std::string nStr = strNode.toStdString();
+    int selectedNodeRow = clientModel->getPeerTableModel()->getRowByNodeId(cachedNodeid);
+    if (selectedNodeRow < 0)
+        return;
+
+    // Get nodeStats and we will use the addrName string(ip address)
+    const CNodeCombinedStats* stats = clientModel->getPeerTableModel()->getNodeStats(selectedNodeRow);
+
+    std::string nStr = stats->nodeStats.addrName;
     std::string addr;
     int port = 0;
     SplitHostPort(nStr, port, addr);
-
     CNetAddr resolved;
+
     if (!LookupHost(addr.c_str(), resolved, false))
         return;
     g_connman->Ban(resolved, BanReasonManuallyAdded, bantime);

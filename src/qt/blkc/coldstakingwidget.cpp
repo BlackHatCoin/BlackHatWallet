@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -484,7 +484,7 @@ void ColdStakingWidget::onSendClicked()
     QList<SendCoinsRecipient> recipients;
     recipients.append(dest);
 
-    // Prepare transaction for getting txFee earlier (exlude delegated coins)
+    // Prepare transaction for getting txFee earlier (exclude delegated coins)
     WalletModelTransaction currentTransaction(recipients);
     WalletModel::SendCoinsReturn prepareStatus = walletModel->prepareTransaction(&currentTransaction, coinControlDialog->coinControl, false);
 

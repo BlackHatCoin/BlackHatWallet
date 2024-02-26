@@ -89,7 +89,7 @@ class RawTransactionsTest(BlackHatTestFramework):
 
         # Lock UTXO so nodes[0] doesn't accidentally spend it
         self.watchonly_vout = find_vout_for_address(self.nodes[0], self.watchonly_txid, watchonly_address)
-        self.nodes[0].lockunspent(False, [{"txid": self.watchonly_txid, "vout": self.watchonly_vout}])
+        self.nodes[0].lockunspent(False, True, [{"txid": self.watchonly_txid, "vout": self.watchonly_vout}])
 
         self.nodes[0].sendtoaddress(self.nodes[3].getnewaddress(), float(self.watchonly_amount) / 10)
 
@@ -131,21 +131,21 @@ class RawTransactionsTest(BlackHatTestFramework):
     def test_simple(self):
         self.log.info("simple test")
         dec_tx, fee, changepos = self.create_and_fund(2, [], {self.nodes[0].getnewaddress(): 1.0})
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_greater_than(changepos, -1)                      # check change
         assert_equal(Decimal(dec_tx['vout'][changepos]['value']) + fee, DecimalAmt(0.5))
 
     def test_simple_two_coins(self):
         self.log.info("simple test with two coins")
         dec_tx, fee, changepos = self.create_and_fund(2, [], {self.nodes[0].getnewaddress(): 2.2})
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_greater_than(changepos, -1)                      # check change
         assert_equal(Decimal(dec_tx['vout'][changepos]['value']) + fee, DecimalAmt(0.3))
 
     def test_simple_one_coin(self):
         self.log.info("simple test with one coin")
         dec_tx, fee, changepos = self.create_and_fund(2, [], {self.nodes[0].getnewaddress(): 2.6})
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_greater_than(changepos, -1)                      # check change
         assert_equal(Decimal(dec_tx['vout'][changepos]['value']) + fee, DecimalAmt(2.4))
 
@@ -153,7 +153,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         self.log.info("simple test with two outputs")
         outputs = {self.nodes[0].getnewaddress(): 2.6, self.nodes[1].getnewaddress(): 2.5}
         dec_tx, fee, changepos = self.create_and_fund(2, [], outputs)
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_greater_than(changepos, -1)                      # check change
         assert_equal(Decimal(dec_tx['vout'][changepos]['value']) + fee, DecimalAmt(0.9))
         assert check_outputs(outputs, dec_tx)                   # check outputs
@@ -164,7 +164,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         inputs = [{'txid': utx['txid'], 'vout': utx['vout']}]
         outputs = {self.nodes[0].getnewaddress(): 1.0}
         dec_tx, fee, changepos = self.create_and_fund(2, inputs, outputs)
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_greater_than(changepos, -1)                      # check change
         assert_equal(Decimal(dec_tx['vout'][changepos]['value']) + fee, DecimalAmt(4.0))
         assert check_outputs(outputs, dec_tx)                   # check outputs
@@ -176,7 +176,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         inputs = [{'txid': utx['txid'], 'vout': utx['vout']}]
         outputs = {self.nodes[0].getnewaddress(): 5.0 - float(self.test_no_change_fee) - float(self.fee_tolerance)}
         dec_tx, fee, changepos = self.create_and_fund(2, inputs, outputs)
-        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)              # test if we have enough inputs
         assert_equal(changepos, -1)                             # check (no) change
         assert check_outputs(outputs, dec_tx)                   # check outputs
 
@@ -235,7 +235,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         fee = rawtxfund['fee']
         changepos = rawtxfund['changepos']
         dec_tx = self.nodes[2].decoderawtransaction(rawtxfund['hex'])
-        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enough inputs
         assert_equal("00", dec_tx['vin'][0]['scriptSig']['hex'])    # check vin sig again
         assert_equal(len(dec_tx['vout']), 2)
         assert_greater_than(changepos, -1)                          # check change
@@ -249,7 +249,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         inputs = [{'txid': utx['txid'], 'vout': utx['vout']}, {'txid': utx2['txid'], 'vout': utx2['vout']}]
         outputs = {self.nodes[0].getnewaddress(): 6.0}
         dec_tx, fee, changepos = self.create_and_fund(2, inputs, outputs)
-        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enough inputs
         assert check_outputs(outputs, dec_tx)                       # check outputs
         assert_equal(len(dec_tx['vout']), 2)
         matchingIns = len([x for x in dec_tx['vin'] if x['txid'] in [y['txid'] for y in inputs]])
@@ -264,7 +264,7 @@ class RawTransactionsTest(BlackHatTestFramework):
         inputs = [{'txid': utx['txid'], 'vout': utx['vout']}, {'txid': utx2['txid'], 'vout': utx2['vout']}]
         outputs = {self.nodes[0].getnewaddress(): 6.0, self.nodes[0].getnewaddress(): 1.0}
         dec_tx, fee, changepos = self.create_and_fund(2, inputs, outputs)
-        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enought inputs
+        assert_equal(len(dec_tx['vin']) > 0, True)                  # test if we have enough inputs
         assert check_outputs(outputs, dec_tx)                       # check outputs
         assert_equal(len(dec_tx['vout']), 3)
         matchingIns = len([x for x in dec_tx['vin'] if x['txid'] in [y['txid'] for y in inputs]])

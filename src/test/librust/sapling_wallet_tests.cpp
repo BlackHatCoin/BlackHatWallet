@@ -1,6 +1,6 @@
 // Copyright (c) 2016-2020 The ZCash developers
-// Copyright (c) 2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2020-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -632,7 +632,7 @@ BOOST_AUTO_TEST_CASE(CachedWitnessesEmptyChain)
 
     BOOST_CHECK((bool) saplingWitnesses[0]);
 
-    // Until zcash#1302 is implemented, this should triggger an assertion
+    // Until zcash#1302 is implemented, this should trigger an assertion
     BOOST_CHECK_THROW(wallet.DecrementNoteWitnesses(&index), std::runtime_error);
 }
 

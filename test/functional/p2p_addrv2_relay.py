@@ -37,8 +37,8 @@ class AddrReceiver(P2PInterface):
         for addr in message.addrs:
             assert_equal(addr.nServices, 1) # NODE_NETWORK
             assert addr.ip.startswith('123.123.123.')
-            assert (8333 <= addr.port < 8343)
-        self.addrv2_received_and_checked = True
+            assert 8333 <= addr.port < 8343
+            self.addrv2_received_and_checked = True
 
     def wait_for_addrv2(self):
         self.wait_until(lambda: "addrv2" in self.last_message)
@@ -62,6 +62,8 @@ class AddrTest(BlackHatTestFramework):
         self.log.info('Check that addrv2 message content is relayed and added to addrman')
         addr_receiver = self.nodes[0].add_p2p_connection(AddrReceiver())
         msg.addrs = ADDRS
+        self.mocktime += 10
+        self.nodes[0].setmocktime(self.mocktime)
         with self.nodes[0].assert_debug_log([
                 'Added 10 addresses from 127.0.0.1: 0 tried',
                 'received: addrv2 (131 bytes) peer=0',
@@ -70,7 +72,6 @@ class AddrTest(BlackHatTestFramework):
             addr_source.send_and_ping(msg)
             self.nodes[0].setmocktime(int(time.time()) + 30 * 60)
             addr_receiver.wait_for_addrv2()
-
         assert addr_receiver.addrv2_received_and_checked
 
 

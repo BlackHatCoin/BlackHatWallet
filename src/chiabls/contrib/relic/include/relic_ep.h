@@ -101,16 +101,18 @@ enum {
 	B12_P381,
 	/** Barreto-Naehrig curve with negative x. */
 	BN_P382,
+	/** Barreto-Lynn-Scott curve with embedding degree 12 (GT-strong). */
+	B12_P383,
 	/** Barreto-Naehrig curve with embedding degree 12. */
 	BN_P446,
 	/** Barreto-Lynn-Scott curve with embedding degree 12. */
 	B12_P446,
 	/** Barreto-Lynn-Scott curve with embedding degree 12. */
 	B12_P455,
-	/** Barreto-Lynn-Scott curve with embedding degree 24. */
-	B24_P477,
 	/** Kachisa-Schafer-Scott with negative x. */
 	KSS_P508,
+	/** Barreto-Lynn-Scott curve with embedding degree 24. */
+	B24_P509,
 	/** Optimal TNFS-secure curve with embedding degree 8. */
 	OT8_P511,
 	/** Cocks-pinch curve with embedding degree 8. */
@@ -235,14 +237,17 @@ typedef struct {
 	int coord;
 } ep_st;
 
-
 /**
  * Pointer to an elliptic curve point.
  */
 #if ALLOC == AUTO
 typedef ep_st ep_t[1];
 #else
+#ifdef CHECK
+typedef ep_st *volatile ep_t;
+#else
 typedef ep_st *ep_t;
+#endif
 #endif
 
 /**
@@ -286,7 +291,7 @@ typedef iso_st *iso_t;
  * @param[out] A			- the point to initialize.
  */
 #if ALLOC == AUTO
-#define ep_null(A)			/* empty */
+#define ep_null(A)				/* empty */
 #else
 #define ep_null(A)			A = NULL;
 #endif
@@ -305,7 +310,7 @@ typedef iso_st *iso_t;
 	}																		\
 
 #elif ALLOC == AUTO
-#define ep_new(A)			/* empty */
+#define ep_new(A)				/* empty */
 
 #endif
 
@@ -322,7 +327,7 @@ typedef iso_st *iso_t;
 	}
 
 #elif ALLOC == AUTO
-#define ep_free(A)			/* empty */
+#define ep_free(A)				/* empty */
 
 #endif
 
@@ -1208,7 +1213,8 @@ void ep_map(ep_t p, const uint8_t *msg, int len);
  * @param[in] dst			- the domain separation tag.
  * @param[in] dst_len		- the domain separation tag length in bytes.
  */
-void ep_map_dst(ep_t p, const uint8_t *msg, int len, const uint8_t *dst, int dst_len);
+void ep_map_dst(ep_t p, const uint8_t *msg, int len, const uint8_t *dst,
+		int dst_len);
 
 /**
  * Maps a byte array to a point in a prime elliptic curve with specified
@@ -1220,7 +1226,8 @@ void ep_map_dst(ep_t p, const uint8_t *msg, int len, const uint8_t *dst, int dst
  * @param[in] dst			- the domain separation tag.
  * @param[in] dst_len		- the domain separation tag length in bytes.
  */
-void ep_map_dst(ep_t p, const uint8_t *msg, int len, const uint8_t *dst, int dst_len);
+void ep_map_dst(ep_t p, const uint8_t *msg, int len, const uint8_t *dst,
+		int dst_len);
 
 /**
  * Compresses a point.

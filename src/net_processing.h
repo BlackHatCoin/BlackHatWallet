@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,11 +65,21 @@ struct CNodeStateStats {
     int nSyncHeight;
     int nCommonHeight;
     std::vector<int> vHeightInFlight;
+    uint64_t m_addr_processed = 0;
+    uint64_t m_addr_rate_limited = 0;
 };
 
 /** Get statistics from node state */
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats& stats);
 /** Increase a node's misbehavior score. */
 void Misbehaving(NodeId nodeid, int howmuch, const std::string& message="") EXCLUSIVE_LOCKS_REQUIRED(cs_main);
+bool IsBanned(NodeId nodeid);
+
+
+using SecondsDouble = std::chrono::duration<double, std::chrono::seconds::period>;
+/**
+ * Helper to count the seconds in any std::chrono::duration type
+ */
+inline double CountSecondsDouble(SecondsDouble t) { return t.count(); }
 
 #endif // BITCOIN_NET_PROCESSING_H

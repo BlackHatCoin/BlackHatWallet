@@ -21,7 +21,7 @@ foreach(comp Widgets Core Gui Network LinguistTools DBus Svg Charts)
         add_definitions(${Qt5${comp}_DEFINITIONS})
         list(APPEND Qt5_LIBRARIES ${Qt5${comp}_LIBRARIES})
     else()
-        MESSAGE(WARNING "Cant find Qt5${comp}")
+        MESSAGE(WARNING "Can't find Qt5${comp}")
     endif()
 endforeach(comp)
 
@@ -77,7 +77,6 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/rpcexecutor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/trafficgraphwidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utilitydialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/addressbookpage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/addresstablemodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/askpassphrasedialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/coincontroldialog.cpp
@@ -177,6 +176,7 @@ target_include_directories(qt_stuff PUBLIC ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc
         ${CMAKE_CURRENT_SOURCE_DIR}/blkc/settings
         ${BerkeleyDB_INCLUDE_DIRS}
+        ${Boost_INCLUDE_DIRS}
         )
 set_property(TARGET qt_stuff PROPERTY CXX_STANDARD 14)
 
@@ -193,7 +193,7 @@ QT5_ADD_RESOURCES(QRC_LOCALE_RESOURCE blkc_locale.qrc)
 
 add_executable(blkc-qt blkc.cpp ${QM} ${QRC_RESOURCE} ${QRC_LOCALE_RESOURCE})
 add_dependencies(blkc-qt translations_target libunivalue libsecp256k1 libzcashrust leveldb crc32c bls)
-target_include_directories(blkc-qt PUBLIC ${ENDIAN_INCLUDES} ${GMP_INCLUDE_DIR})
+target_include_directories(blkc-qt PUBLIC ${ENDIAN_INCLUDES} ${GMP_INCLUDE_DIR} ${Boost_INCLUDE_DIRS} ${sodium_INCLUDE_DIR})
 target_link_libraries(blkc-qt
         qt_stuff
         univalue

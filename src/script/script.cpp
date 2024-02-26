@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -152,6 +152,9 @@ const char* GetOpName(opcodetype opcode)
     case OP_CHECKCOLDSTAKEVERIFY_LOF   : return "OP_CHECKCOLDSTAKEVERIFY_LOF";
     case OP_CHECKCOLDSTAKEVERIFY       : return "OP_CHECKCOLDSTAKEVERIFY";
 
+    // exchange address
+    case OP_EXCHANGEADDR           : return "OP_EXCHANGEADDR";
+
     case OP_INVALIDOPCODE          : return "OP_INVALIDOPCODE";
 
     default:
@@ -247,6 +250,17 @@ bool CScript::IsPayToColdStaking() const
 bool CScript::IsPayToColdStakingLOF() const
 {
     return IsPayToColdStaking() && (*this)[4] == OP_CHECKCOLDSTAKEVERIFY_LOF;
+}
+
+bool CScript::IsPayToExchangeAddress() const
+{
+    return (this->size() == 26 &&
+            (*this)[0] == OP_EXCHANGEADDR &&
+            (*this)[1] == OP_DUP &&
+            (*this)[2] == OP_HASH160 &&
+            (*this)[3] == 0x14 &&
+            (*this)[24] == OP_EQUALVERIFY &&
+            (*this)[25] == OP_CHECKSIG);
 }
 
 bool CScript::StartsWithOpcode(const opcodetype opcode) const

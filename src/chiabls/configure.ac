@@ -52,19 +52,19 @@ AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory], [nodefault])
 dnl Libtool init checks.
 LT_INIT([pic-only])
 
-AC_PATH_TOOL(AR, ar)
-AC_PATH_TOOL(RANLIB, ranlib)
-AC_PATH_TOOL(STRIP, strip)
+AC_PATH_TOOL([AR], [ar])
+AC_PATH_TOOL([RANLIB], [ranlib])
+AC_PATH_TOOL([STRIP], [strip])
 
 AM_PROG_AS
 
 AC_ARG_ENABLE(tests,
-    AS_HELP_STRING([--disable-tests],[do not compile tests (default is to compile)]),
+    AS_HELP_STRING([--disable-tests], [do not compile tests (default is to compile)]),
     [use_tests=$enableval],
     [use_tests=yes])
 
 AC_ARG_ENABLE(bench,
-    AS_HELP_STRING([--disable-bench],[do not compile benchmarks (default is to compile)]),
+    AS_HELP_STRING([--disable-bench], [do not compile benchmarks (default is to compile)]),
     [use_bench=$enableval],
     [use_bench=yes])
 
@@ -172,7 +172,7 @@ case $host in
      AC_DEFINE([FP_QNRES], [], [Use -1 as quadratic non-residue.])
      AC_DEFINE([OPSYS], [MACOSX], [Detected operation system.])
      if test x$cross_compiling != xyes; then
-       AC_PATH_PROG([BREW],brew,)
+       AC_PATH_PROG([BREW], [brew], [])
        if test x$BREW != x; then
          dnl These Homebrew packages may be keg-only, meaning that they won't be found
          dnl in expected paths because they may conflict with system files. Ask
@@ -239,11 +239,11 @@ case $host in
 esac
 
 if test x$use_pkgconfig = xyes; then
-  m4_ifndef([PKG_PROG_PKG_CONFIG], [AC_MSG_ERROR(PKG_PROG_PKG_CONFIG macro not found. Please install pkg-config and re-run autogen.sh.)])
+  m4_ifndef([PKG_PROG_PKG_CONFIG], [AC_MSG_ERROR([PKG_PROG_PKG_CONFIG macro not found. Please install pkg-config and re-run autogen.sh.])])
   m4_ifdef([PKG_PROG_PKG_CONFIG], [
   PKG_PROG_PKG_CONFIG
   if test x"$PKG_CONFIG" = "x"; then
-    AC_MSG_ERROR(pkg-config not found.)
+    AC_MSG_ERROR([pkg-config not found.])
   fi
   ])
 fi
@@ -267,138 +267,137 @@ AC_COMPILE_IFELSE([AC_LANG_SOURCE([[char foo;]])],
     ])
 
 AC_LANG_PUSH([C])
-AX_CHECK_COMPILE_FLAG([-Wall],[WARN_CFLAGS="$WARN_CFLAGS -Wall"],,)
-AX_CHECK_COMPILE_FLAG([-Wextra],[WARN_CFLAGS="$WARN_CFLAGS -Wextra"],,)
-AX_CHECK_COMPILE_FLAG([-Wcast-align],[WARN_CFLAGS="$WARN_CFLAGS -Wcast-align"],,)
-AX_CHECK_COMPILE_FLAG([-Wunused-parameter],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-unused-parameter"],,)
-AX_CHECK_COMPILE_FLAG([-Wshadow],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-shadow"],,)
-AX_CHECK_COMPILE_FLAG([-Wsign-compare],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-sign-compare"],,)
-AX_CHECK_COMPILE_FLAG([-Wstrict-prototypes],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-strict-prototypes"],,)
-AX_CHECK_COMPILE_FLAG([-Wunused-function],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-unused-function"],,)
-AX_CHECK_COMPILE_FLAG([-Wlong-long],[NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-long-long"],,)
+AX_CHECK_COMPILE_FLAG([-Wall], [WARN_CFLAGS="$WARN_CFLAGS -Wall"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wextra], [WARN_CFLAGS="$WARN_CFLAGS -Wextra"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wcast-align], [WARN_CFLAGS="$WARN_CFLAGS -Wcast-align"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wunused-parameter], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-unused-parameter"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wshadow], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-shadow"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wsign-compare], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-sign-compare"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wstrict-prototypes], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-strict-prototypes"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wunused-function], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-unused-function"], [], [])
+AX_CHECK_COMPILE_FLAG([-Wlong-long], [NOWARN_CFLAGS="$NOWARN_CFLAGS -Wno-long-long"], [], [])
 AC_LANG_POP([C])
 
 dnl set default settings for relic
-AC_DEFINE([ALIGN], [1], [Byte boundary to align digit vectors.])
+AC_DEFINE([ALIGN],     [1],       [Byte boundary to align digit vectors.])
+AC_DEFINE([WITH_BN],   [],        [Build multiple precision integer module.])
+AC_DEFINE([WITH_DV],   [],        [Temporary double-precision digit vectors.])
+AC_DEFINE([WITH_FP],   [],        [Build prime field module.])
+AC_DEFINE([WITH_FPX],  [],        [Build prime field extension module.])
+AC_DEFINE([WITH_FB],   [],        [Build binary field module.])
+AC_DEFINE([WITH_FBX],  [],        [Build binary field extension module.])
+AC_DEFINE([WITH_EP],   [],        [Build prime elliptic curve module.])
+AC_DEFINE([WITH_EPX],  [],        [Build prime field extension elliptic curve module.])
+AC_DEFINE([WITH_EB],   [],        [Build binary elliptic curve module.])
+AC_DEFINE([WITH_ED],   [],        [Build elliptic Edwards curve module.])
+AC_DEFINE([WITH_EC],   [],        [Build elliptic curve cryptography module.])
+AC_DEFINE([WITH_PP],   [],        [Build pairings over prime curves module.])
+AC_DEFINE([WITH_PC],   [],        [Build pairing-based cryptography module.])
+AC_DEFINE([WITH_BC],   [],        [Build block ciphers.])
+AC_DEFINE([WITH_MD],   [],        [Build hash functions.])
+AC_DEFINE([WITH_CP],   [],        [Build cryptographic protocols.])
+AC_DEFINE([WITH_MPC],  [],        [Build Multi-party computation primitives.])
 
-AC_DEFINE(WITH_BN,, Build multiple precision integer module.)
-AC_DEFINE(WITH_DV,, Temporary double-precision digit vectors.)
-AC_DEFINE(WITH_FP,, Build prime field module.)
-AC_DEFINE(WITH_FPX,, Build prime field extension module.)
-AC_DEFINE(WITH_FB,, Build binary field module.)
-AC_DEFINE(WITH_FBX,, Build binary field extension module.)
-AC_DEFINE(WITH_EP,, Build prime elliptic curve module.)
-AC_DEFINE(WITH_EPX,, Build prime field extension elliptic curve module.)
-AC_DEFINE(WITH_EB,, Build binary elliptic curve module.)
-AC_DEFINE(WITH_ED,, Build elliptic Edwards curve module.)
-AC_DEFINE(WITH_EC,, Build elliptic curve cryptography module.)
-AC_DEFINE(WITH_PP,, Build pairings over prime curves module.)
-AC_DEFINE(WITH_PC,, Build pairing-based cryptography module.)
-AC_DEFINE(WITH_BC,, Build block ciphers.)
-AC_DEFINE(WITH_MD,, Build hash functions.)
-AC_DEFINE(WITH_CP,, Build cryptographic protocols.)
-AC_DEFINE(WITH_MPC,, Build Multi-party computation primitives.)
+AC_DEFINE([BN_PRECI],  [1024],    [Required precision in bits.])
+AC_DEFINE([BN_KARAT],  [0],       [Number of Karatsuba steps.])
+AC_DEFINE([BN_MAGNI],  [DOUBLE],  [Effective size of a multiple precision integer.])
 
-AC_DEFINE(BN_PRECI, 1024, Required precision in bits.)
-AC_DEFINE(BN_KARAT, 0, Number of Karatsuba steps.)
-AC_DEFINE(BN_MAGNI, [DOUBLE], Effective size of a multiple precision integer.)
+AC_DEFINE([BN_METHD],  ["COMBA;COMBA;MONTY;SLIDE;BASIC;BASIC"], [Multiple precision arithmetic method.])
+AC_DEFINE([BN_MUL],    [COMBA],   [Chosen multiple precision multiplication method.])
+AC_DEFINE([BN_SQR],    [COMBA],   [Chosen multiple precision multiplication method.])
+AC_DEFINE([BN_MOD],    [MONTY],   [Chosen multiple precision modular reduction method.])
+AC_DEFINE([BN_MXP],    [SLIDE],   [Chosen multiple precision modular exponentiation method.])
+AC_DEFINE([BN_GCD],    [BASIC],   [Chosen multiple precision greatest common divisor method.])
+AC_DEFINE([BN_GEN],    [BASIC],   [Chosen prime generation algorithm.])
 
-AC_DEFINE(BN_METHD, "COMBA;COMBA;MONTY;SLIDE;BASIC;BASIC", Multiple precision arithmetic method.)
-AC_DEFINE(BN_MUL, COMBA, Chosen multiple precision multiplication method.)
-AC_DEFINE(BN_SQR, COMBA, Chosen multiple precision multiplication method.)
-AC_DEFINE(BN_MOD, MONTY, Chosen multiple precision modular reduction method.)
-AC_DEFINE(BN_MXP, SLIDE, Chosen multiple precision modular exponentiation method.)
-AC_DEFINE(BN_GCD, BASIC, Chosen multiple precision greatest common divisor method.)
-AC_DEFINE(BN_GEN, BASIC, Chosen prime generation algorithm.)
+AC_DEFINE([FP_METHD],  ["INTEG;INTEG;INTEG;MONTY;LOWER;SLIDE"], [Prime field arithmetic method.])
+AC_DEFINE([FP_PRIME],  [381],     [Prime field size in bits.])
+AC_DEFINE([FP_KARAT],  [0],       [Number of Karatsuba steps.])
+AC_DEFINE([FP_WIDTH],  [4],       [Width of window processing for exponentiation methods.])
+AC_DEFINE([FP_ADD],    [INTEG],   [Chosen prime field multiplication method.])
+AC_DEFINE([FP_MUL],    [INTEG],   [Chosen prime field multiplication method.])
+AC_DEFINE([FP_SQR],    [INTEG],   [Chosen prime field multiplication method.])
+AC_DEFINE([FP_RDC],    [MONTY],   [Chosen prime field reduction method.])
+AC_DEFINE([FP_INV],    [LOWER],   [Chosen prime field inversion method.])
+AC_DEFINE([FP_EXP],    [SLIDE],   [Chosen multiple precision modular exponentiation method.])
 
-AC_DEFINE(FP_PRIME, 381, Prime field size in bits.)
-AC_DEFINE(FP_METHD, "INTEG;INTEG;INTEG;MONTY;LOWER;SLIDE", Prime field arithmetic method.)
-AC_DEFINE(FP_KARAT, 0, Number of Karatsuba steps.)
-AC_DEFINE(FP_WIDTH, 4, Width of window processing for exponentiation methods.)
-AC_DEFINE(FP_ADD, INTEG, Chosen prime field multiplication method.)
-AC_DEFINE(FP_MUL, INTEG, Chosen prime field multiplication method.)
-AC_DEFINE(FP_SQR, INTEG, Chosen prime field multiplication method.)
-AC_DEFINE(FP_RDC, MONTY, Chosen prime field reduction method.)
-AC_DEFINE(FP_INV, LOWER, Chosen prime field inversion method.)
-AC_DEFINE(FP_EXP, SLIDE, Chosen multiple precision modular exponentiation method.)
+AC_DEFINE([FPX_METHD], ["INTEG;INTEG;LAZYR"], [Prime extension field arithmetic method.])
+AC_DEFINE([FPX_QDR],   [INTEG],   [Chosen extension field arithmetic method.])
+AC_DEFINE([FPX_CBC],   [INTEG],   [Chosen extension field arithmetic method.])
+AC_DEFINE([FPX_RDC],   [LAZYR],   [Chosen extension field arithmetic method.])
 
-AC_DEFINE(FPX_METHD, "INTEG;INTEG;LAZYR", Prime extension field arithmetic method.)
-AC_DEFINE(FPX_QDR, INTEG, Chosen extension field arithmetic method.)
-AC_DEFINE(FPX_CBC, INTEG, Chosen extension field arithmetic method.)
-AC_DEFINE(FPX_RDC, LAZYR, Chosen extension field arithmetic method.)
+AC_DEFINE([FB_METHD],  ["LODAH;QUICK;QUICK;QUICK;QUICK;QUICK;EXGCD;SLIDE;QUICK"], [Binary field arithmetic method.])
+AC_DEFINE([FB_POLYN],  [283],     [Irreducible polynomial size in bits.])
+AC_DEFINE([FB_KARAT],  [0],       [Number of Karatsuba levels.])
+AC_DEFINE([FB_TRINO],  [],        [Prefer trinomials over pentanomials.])
+AC_DEFINE([FB_PRECO],  [],        [Precompute multiplication table for sqrt(z).])
+AC_DEFINE([FB_WIDTH],  [4],       [Width of window processing for exponentiation methods.])
+AC_DEFINE([FB_MUL],    [LODAH],   [Chosen binary field multiplication method.])
+AC_DEFINE([FB_SQR],    [QUICK],   [Chosen binary field squaring method.])
+AC_DEFINE([FB_RDC],    [QUICK],   [Chosen binary field modular reduction method.])
+AC_DEFINE([FB_SRT],    [QUICK],   [Chosen binary field modular reduction method.])
+AC_DEFINE([FB_TRC],    [QUICK],   [Chosen trace computation method.])
+AC_DEFINE([FB_SLV],    [QUICK],   [Chosen method to solve a quadratic equation.])
+AC_DEFINE([FB_INV],    [EXGCD],   [Chosen binary field inversion method.])
+AC_DEFINE([FB_EXP],    [SLIDE],   [Chosen multiple precision modular exponentiation method.])
+AC_DEFINE([FB_ITR],    [QUICK],   [Chosen method to solve a quadratic equation.])
 
-AC_DEFINE(FB_METHD, "LODAH;QUICK;QUICK;QUICK;QUICK;QUICK;EXGCD;SLIDE;QUICK", Binary field arithmetic method)
-AC_DEFINE(FB_POLYN, 283, Irreducible polynomial size in bits.)
-AC_DEFINE(FB_KARAT, 0, Number of Karatsuba levels.)
-AC_DEFINE(FB_TRINO,, Prefer trinomials over pentanomials.)
-AC_DEFINE(FB_PRECO,, Precompute multiplication table for sqrt(z).)
-AC_DEFINE(FB_WIDTH, 4, Width of window processing for exponentiation methods.)
-AC_DEFINE(FB_MUL, LODAH, Chosen binary field multiplication method.)
-AC_DEFINE(FB_SQR, QUICK, Chosen binary field squaring method.)
-AC_DEFINE(FB_RDC, QUICK, Chosen binary field modular reduction method.)
-AC_DEFINE(FB_SRT, QUICK, Chosen binary field modular reduction method.)
-AC_DEFINE(FB_TRC, QUICK, Chosen trace computation method.)
-AC_DEFINE(FB_SLV, QUICK, Chosen method to solve a quadratic equation.)
-AC_DEFINE(FB_INV, EXGCD, Chosen binary field inversion method.)
-AC_DEFINE(FB_EXP, SLIDE, Chosen multiple precision modular exponentiation method.)
-AC_DEFINE(FB_ITR, QUICK, Chosen method to solve a quadratic equation.)
+AC_DEFINE([EP_METHD],  ["PROJC;LWNAF;COMBS;INTER"], [Prime elliptic curve arithmetic method.])
+AC_DEFINE([EP_ENDOM],  [],        [Support for prime curves with efficient endormorphisms.])
+AC_DEFINE([EP_MIXED],  [],        [Use mixed coordinates.])
+AC_DEFINE([EP_PRECO],  [],        [Build precomputation table for generator.])
+AC_DEFINE([EP_CTMAP],  [],        [Enable isogeny map for SSWU map-to-curve.])
+AC_DEFINE([EP_DEPTH],  [4],       [Width of precomputation table for fixed point methods.])
+AC_DEFINE([EP_WIDTH],  [4],       [Width of window processing for unknown point methods.])
+AC_DEFINE([EP_ADD],    [PROJC],   [Chosen prime elliptic curve coordinate method.])
+AC_DEFINE([EP_MUL],    [LWNAF],   [Chosen prime elliptic curve point multiplication method.])
+AC_DEFINE([EP_FIX],    [COMBS],   [Chosen prime elliptic curve point multiplication method.])
+AC_DEFINE([EP_SIM],    [INTER],   [Chosen prime elliptic curve simulteanous point multiplication method.])
 
-AC_DEFINE(EP_METHD, "PROJC;LWNAF;COMBS;INTER", Prime elliptic curve arithmetic method.)
-AC_DEFINE(EP_ENDOM,, Support for prime curves with efficient endormorphisms.)
-AC_DEFINE(EP_MIXED,, Use mixed coordinates.)
-AC_DEFINE(EP_PRECO,, Build precomputation table for generator.)
-AC_DEFINE(EP_CTMAP,, Enable isogeny map for SSWU map-to-curve.)
-AC_DEFINE(EP_DEPTH, 4, Width of precomputation table for fixed point methods.)
-AC_DEFINE(EP_WIDTH, 4, Width of window processing for unknown point methods.)
-AC_DEFINE(EP_ADD, PROJC, Chosen prime elliptic curve coordinate method.)
-AC_DEFINE(EP_MUL, LWNAF, Chosen prime elliptic curve point multiplication method.)
-AC_DEFINE(EP_FIX, COMBS, Chosen prime elliptic curve point multiplication method.)
-AC_DEFINE(EP_SIM, INTER, Chosen prime elliptic curve simulteanous point multiplication method.)
+AC_DEFINE([EB_METHD],  ["PROJC;LWNAF;COMBS;INTER"], [Binary elliptic curve arithmetic method.])
+AC_DEFINE([EB_PLAIN],  [],        [Support for ordinary curves without endormorphisms.])
+AC_DEFINE([EB_KBLTZ],  [],        [Support for Koblitz anomalous binary curves.])
+AC_DEFINE([EB_MIXED],  [],        [Use mixed coordinates.])
+AC_DEFINE([EB_PRECO],  [],        [Build precomputation table for generator.])
+AC_DEFINE([EB_DEPTH],  [4],       [Width of precomputation table for fixed point methods.])
+AC_DEFINE([EB_WIDTH],  [4],       [Width of window processing for unknown point methods.])
+AC_DEFINE([EB_ADD],    [PROJC],   [Chosen binary elliptic curve coordinate method.])
+AC_DEFINE([EB_MUL],    [LWNAF],   [Chosen binary elliptic curve point multiplication method.])
+AC_DEFINE([EB_FIX],    [COMBS],   [Chosen binary elliptic curve point multiplication method.])
+AC_DEFINE([EB_SIM],    [INTER],   [Chosen binary elliptic curve simulteanous point multiplication method.])
 
-AC_DEFINE(EB_METHD, "PROJC;LWNAF;COMBS;INTER", Binary elliptic curve arithmetic method.)
-AC_DEFINE(EB_PLAIN,, Support for ordinary curves without endormorphisms.)
-AC_DEFINE(EB_KBLTZ,, Support for Koblitz anomalous binary curves.)
-AC_DEFINE(EB_MIXED,, Use mixed coordinates.)
-AC_DEFINE(EB_PRECO,, Build precomputation table for generator.)
-AC_DEFINE(EB_DEPTH, 4, Width of precomputation table for fixed point methods.)
-AC_DEFINE(EB_WIDTH, 4, Width of window processing for unknown point methods.)
-AC_DEFINE(EB_ADD, PROJC, Chosen binary elliptic curve coordinate method.)
-AC_DEFINE(EB_MUL, LWNAF, Chosen binary elliptic curve point multiplication method.)
-AC_DEFINE(EB_FIX, COMBS, Chosen binary elliptic curve point multiplication method.)
-AC_DEFINE(EB_SIM, INTER, Chosen binary elliptic curve simulteanous point multiplication method.)
+AC_DEFINE([ED_METHD],  ["PROJC;LWNAF;COMBS;INTER"], [Edwards elliptic curve arithmetic method.])
+AC_DEFINE([ED_PRECO],  [],        [Build precomputation table for generator.])
+AC_DEFINE([ED_DEPTH],  [4],       [Width of precomputation table for fixed point methods.])
+AC_DEFINE([ED_WIDTH],  [4],       [Width of window processing for unknown point methods.])
+AC_DEFINE([ED_ADD],    [PROJC],   [Chosen binary elliptic curve coordinate method.])
+AC_DEFINE([ED_MUL],    [LWNAF],   [Chosen prime elliptic twisted Edwards curve point multiplication method.])
+AC_DEFINE([ED_FIX],    [COMBS],   [Chosen prime elliptic twisted Edwards curve point multiplication method.])
+AC_DEFINE([ED_SIM],    [INTER],   [Chosen prime elliptic curve simulteanous point multiplication method.])
 
-AC_DEFINE(ED_METHD, "PROJC;LWNAF;COMBS;INTER", Edwards elliptic curve arithmetic method.)
-AC_DEFINE(ED_PRECO,, Build precomputation table for generator.)
-AC_DEFINE(ED_DEPTH, 4, Width of precomputation table for fixed point methods.)
-AC_DEFINE(ED_WIDTH, 4, Width of window processing for unknown point methods.)
-AC_DEFINE(ED_ADD, PROJC, Chosen binary elliptic curve coordinate method.)
-AC_DEFINE(ED_MUL, LWNAF, Chosen prime elliptic twisted Edwards curve point multiplication method.)
-AC_DEFINE(ED_FIX, COMBS, Chosen prime elliptic twisted Edwards curve point multiplication method.)
-AC_DEFINE(ED_SIM, INTER, Chosen prime elliptic curve simulteanous point multiplication method.)
+AC_DEFINE([EC_METHD],  ["PRIME"], [Chosen elliptic curve cryptography method.])
+AC_DEFINE([EC_CUR],    [PRIME],   [Chosen elliptic curve type.])
 
-AC_DEFINE(EC_METHD, "PRIME", Chosen elliptic curve cryptography method.)
-AC_DEFINE(EC_CUR, PRIME, Chosen elliptic curve type.)
+AC_DEFINE([PP_METHD],  ["LAZYR;OATEP"], [Bilinear pairing method.])
+AC_DEFINE([PP_EXT],    [LAZYR],   [Chosen extension field arithmetic method.])
+AC_DEFINE([PP_MAP],    [OATEP],   [Chosen pairing method over prime elliptic curves.])
 
-AC_DEFINE(PP_METHD, "LAZYR;OATEP", Bilinear pairing method.)
-AC_DEFINE(PP_EXT, LAZYR, Chosen extension field arithmetic method.)
-AC_DEFINE(PP_MAP, OATEP, Chosen pairing method over prime elliptic curves.)
+AC_DEFINE([MD_METHD],  ["SH256"], [Choice of hash function.])
+AC_DEFINE([MD_MAP],    [SH256],   [Chosen hash function.])
 
-AC_DEFINE(MD_METHD, "SH256", Choice of hash function.)
-AC_DEFINE(MD_MAP, SH256, Chosen hash function.)
+AC_DEFINE([CP_CRT],    [],        [Support for faster CRT-based exponentiation in factoring-based cryptosystems.])
+AC_DEFINE([CP_RSAPD],  [PKCS2],   [Chosen RSA padding method.])
 
-AC_DEFINE(CP_CRT,, Support for faster CRT-based exponentiation in factoring-based cryptosystems.)
-AC_DEFINE(CP_RSAPD, PKCS2, Chosen RSA padding method.)
-
-AC_DEFINE(ALLOC, AUTO, Chosen memory allocation policy.)
-AC_DEFINE(RAND, HASHD, Chosen random generator.)
-AC_DEFINE(MULTI, PTHREAD, Chosen multithreading API.)
-AC_DEFINE(TIMER, CYCLE, Chosen timer.)
+AC_DEFINE([ALLOC],     [AUTO],    [Chosen memory allocation policy.])
+AC_DEFINE([RAND],      [HASHD],   [Chosen random generator.])
+AC_DEFINE([MULTI],     [PTHREAD], [Chosen multithreading API.])
+AC_DEFINE([TIMER],     [CYCLE],   [Chosen timer.])
 
 
-AC_CHECK_HEADER(gmp.h,[AC_CHECK_LIB(gmp, __gmpz_init,[has_gmp=yes; LIBS="$LIBS -lgmp";])], AC_MSG_ERROR(gmp headers missing),)
+AC_CHECK_HEADER([gmp.h], [AC_CHECK_LIB([gmp], [__gmpz_init], [has_gmp=yes; LIBS="$LIBS -lgmp";])], [AC_MSG_ERROR([gmp headers missing])],[])
 
 if test x$has_gmp = xyes; then
-  AC_DEFINE(ARITH, GMP, Arithmetic backend.)
+  AC_DEFINE([ARITH], [GMP], [Arithmetic backend.])
 fi
 
 if test x$use_pkgconfig = xyes; then
@@ -406,18 +405,24 @@ if test x$use_pkgconfig = xyes; then
   m4_ifdef(
     [PKG_CHECK_MODULES],
     [
-      PKG_CHECK_MODULES([SODIUM], [libsodium],, [AC_MSG_ERROR(libsodium not found.)])
+      PKG_CHECK_MODULES([SODIUM], [libsodium], [], [AC_MSG_ERROR(libsodium not found.)])
     ]
   )
 else
-  AC_CHECK_HEADER([sodium/core.h],, AC_MSG_ERROR(libsodium headers missing),)
-  AC_CHECK_LIB([sodium],[main],SODIUM_LIBS=-lsodium, AC_MSG_ERROR(libsodium missing))
+  AC_CHECK_HEADER([sodium/core.h], [], [AC_MSG_ERROR([libsodium headers missing])], [])
+  AC_CHECK_LIB([sodium], [main], [SODIUM_LIBS=-lsodium], [AC_MSG_ERROR([libsodium missing])])
 fi
 
 dnl Check for pthread compile/link requirements
 AX_PTHREAD
 
-AC_SEARCH_LIBS([clock_gettime],[rt])
+AC_SEARCH_LIBS([clock_gettime], [rt])
+
+case $host in
+  *mingw*)
+     AC_CHECK_LIB([ssp], [main], [], AC_MSG_ERROR([libssp missing]))
+  ;;
+esac
 
 AC_MSG_CHECKING([whether to build runtest])
 if test x$use_tests = xyes; then
@@ -437,23 +442,23 @@ else
   BUILD_BENCH=""
 fi
 
-AM_CONDITIONAL(WITH_BN, test 1 -eq 1)
-AM_CONDITIONAL(WITH_FP, test 1 -eq 1)
-AM_CONDITIONAL(WITH_FPX, test 1 -eq 1)
-AM_CONDITIONAL(WITH_FB, test 1 -eq 1)
-AM_CONDITIONAL(WITH_EP, test 1 -eq 1)
-AM_CONDITIONAL(WITH_EPX, test 1 -eq 1)
-AM_CONDITIONAL(WITH_EB, test 1 -eq 1)
-AM_CONDITIONAL(WITH_ED, test 1 -eq 1)
-AM_CONDITIONAL(WITH_EC, test 1 -eq 1)
-AM_CONDITIONAL(WITH_PP, test 1 -eq 1)
-AM_CONDITIONAL(WITH_PC, test 1 -eq 1)
-AM_CONDITIONAL(WITH_BC, test 1 -eq 1)
-AM_CONDITIONAL(WITH_MD, test 1 -eq 1)
-AM_CONDITIONAL(WITH_CP, test 1 -eq 1)
-AM_CONDITIONAL(WITH_MPC, test 1 -eq 1)
-AM_CONDITIONAL(WITH_DV, test 1 -eq 1)
-AM_CONDITIONAL(WITH_FBX, test 1 -eq 1)
+AM_CONDITIONAL([WITH_BN],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_FP],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_FPX],  [test 1 -eq 1])
+AM_CONDITIONAL([WITH_FB],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_EP],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_EPX],  [test 1 -eq 1])
+AM_CONDITIONAL([WITH_EB],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_ED],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_EC],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_PP],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_PC],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_BC],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_MD],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_CP],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_MPC],  [test 1 -eq 1])
+AM_CONDITIONAL([WITH_DV],   [test 1 -eq 1])
+AM_CONDITIONAL([WITH_FBX],  [test 1 -eq 1])
 AM_CONDITIONAL([USE_TESTS], [test x$BUILD_TEST = xyes])
 AM_CONDITIONAL([USE_BENCH], [test x$BUILD_BENCH = xyes])
 AC_SUBST(CPU_ARCH)

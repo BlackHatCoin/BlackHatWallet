@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -167,7 +167,7 @@ public:
 
     CAmount getBalance(const CCoinControl* coinControl = nullptr, bool fIncludeDelegated = true, bool fUnlockedOnly = false, bool fIncludeShielded = true) const;
     CAmount getUnlockedBalance(const CCoinControl* coinControl = nullptr, bool fIncludeDelegated = true, bool fIncludeShielded = true) const;
-    CAmount getLockedBalance() const;
+    CAmount getLockedBalance(bool isTransparent) const;
     bool haveWatchOnly() const;
     CAmount getDelegatedBalance() const;
 
@@ -215,7 +215,7 @@ public:
     const CWalletTx* getTx(uint256 id);
 
     // prepare transaction for getting txfee before sending coins
-    SendCoinsReturn prepareTransaction(WalletModelTransaction* transaction, const CCoinControl* coinControl = NULL, bool fIncludeDelegations = true);
+    SendCoinsReturn prepareTransaction(WalletModelTransaction* transaction, const CCoinControl* coinControl = nullptr, bool fIncludeDelegations = true);
 
     // Send coins to a list of recipients
     SendCoinsReturn sendCoins(WalletModelTransaction& transaction);
@@ -340,10 +340,12 @@ public:
     void listCoins(std::map<ListCoinsKey, std::vector<ListCoinsValue>>& mapCoins) const;
     void listAvailableNotes(std::map<ListCoinsKey, std::vector<ListCoinsValue>>& mapCoins) const;
 
-    bool isLockedCoin(uint256 hash, unsigned int n) const;
-    void lockCoin(COutPoint& output);
-    void unlockCoin(COutPoint& output);
+    bool isLockedCoin(uint256 hash, unsigned int n, bool isTransparent = true) const;
+    void lockCoin(uint256 hash, unsigned int n, bool isTransparent = true);
+    void unlockCoin(uint256 hash, unsigned int n, bool isTransparent = true);
+
     std::set<COutPoint> listLockedCoins();
+    std::set<SaplingOutPoint> listLockedNotes();
 
     void loadReceiveRequests(std::vector<std::string>& vReceiveRequests);
     bool saveReceiveRequest(const std::string& sAddress, const int64_t nId, const std::string& sRequest);

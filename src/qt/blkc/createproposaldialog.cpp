@@ -1,5 +1,5 @@
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -57,7 +57,9 @@ CreateProposalDialog::CreateProposalDialog(BLKCGUI* parent, GovernanceModel* _go
     initPageIndexBtn(icConfirm3);
 
     // Connect btns
-    setCssProperty(ui->btnNext, "btn-primary");
+    setCssProperty({ui->btnNext, ui->btnGenAddr}, "btn-primary");
+    ui->btnGenAddr->setVisible(false);
+    ui->btnGenAddr->setText(tr("GENERATE ADDRESS"));
     ui->btnNext->setText(tr("NEXT"));
     setCssProperty(ui->btnBack, "btn-dialog-cancel");
     ui->btnBack->setVisible(false);
@@ -67,6 +69,7 @@ CreateProposalDialog::CreateProposalDialog(BLKCGUI* parent, GovernanceModel* _go
     connect(ui->pushButtonSkip, &QPushButton::clicked, this, &CreateProposalDialog::close);
     connect(ui->btnNext, &QPushButton::clicked, this, &CreateProposalDialog::onNextClicked);
     connect(ui->btnBack, &QPushButton::clicked, this, &CreateProposalDialog::onBackClicked);
+    connect(ui->btnGenAddr, &QPushButton::clicked, this, &CreateProposalDialog::onGenAddressClicked);
 }
 
 void setEditBoxStyle(QLabel* label, QLineEdit* lineEdit, const QString& placeholderText)
@@ -271,6 +274,7 @@ void CreateProposalDialog::onNextClicked()
             ui->pushName1->setChecked(true);
             icConfirm1->setVisible(true);
             ui->btnBack->setVisible(true);
+            ui->btnGenAddr->setVisible(true);
             break;
         }
         case 1: {
@@ -307,6 +311,7 @@ void CreateProposalDialog::onBackClicked()
             ui->pushName1->setChecked(true);
             icConfirm1->setVisible(false);
             ui->btnBack->setVisible(false);
+            ui->btnGenAddr->setVisible(false);
             break;
         }
         case 1: {
@@ -367,6 +372,14 @@ void CreateProposalDialog::onAddrListClicked()
     position.setX(position.x() + 74); // Add widget's fixed padding manually
     menuContacts->move(position);
     menuContacts->show();
+}
+
+void CreateProposalDialog::onGenAddressClicked()
+{
+    std::string addrLabel = ui->lineEditPropName->text().toStdString();
+    CallResult<Destination> addr = !addrLabel.empty() ? walletModel->getNewAddress(addrLabel) : walletModel->getNewAddress("");
+    QString newAddr = QString::fromStdString(addr.getObjResult()->ToString());
+    ui->lineEditAddress->setText(newAddr);
 }
 
 void CreateProposalDialog::keyPressEvent(QKeyEvent *e)

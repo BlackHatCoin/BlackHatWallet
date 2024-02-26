@@ -29,19 +29,12 @@
 import errno
 import http.client
 import random
-import sys
 import time
 
 from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut, ToHex
 from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import assert_equal, create_confirmed_utxos, hex_str_to_bytes
 
-
-HTTP_DISCONNECT_ERRORS = [http.client.CannotSendRequest]
-try:
-    HTTP_DISCONNECT_ERRORS.append(http.client.RemoteDisconnected)
-except AttributeError:
-    pass
 
 
 class ChainstateWriteCrashTest(BlackHatTestFramework):
@@ -114,14 +107,7 @@ class ChainstateWriteCrashTest(BlackHatTestFramework):
         try:
             self.nodes[node_index].submitblock(block)
             return True
-        except http.client.BadStatusLine as e:
-            # Prior to 3.5 BadStatusLine('') was raised for a remote disconnect error.
-            if sys.version_info[0] == 3 and sys.version_info[1] < 5 and e.line == "''":
-                self.log.debug("node %d submitblock raised exception: %s", node_index, e)
-                return False
-            else:
-                raise
-        except tuple(HTTP_DISCONNECT_ERRORS) as e:
+        except (http.client.CannotSendRequest, http.client.RemoteDisconnected) as e:
             self.log.debug("node %d submitblock raised exception: %s", node_index, e)
             return False
         except OSError as e:

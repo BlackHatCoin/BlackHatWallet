@@ -1,15 +1,17 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_COINCONTROL_H
 #define BITCOIN_COINCONTROL_H
 
+#include "optional.h"
 #include "policy/feerate.h"
 #include "primitives/transaction.h"
+#include "sapling/address.h"
 #include "script/standard.h"
 #include <unordered_set>
 
@@ -32,6 +34,8 @@ public:
 class CCoinControl
 {
 public:
+    // TODO: upgrade those two fields to a single CWDestination?
+    Optional<libzcash::SaplingPaymentAddress> destShieldChange = boost::none;
     CTxDestination destChange = CNoDestination();
     //! If false, allows unselected inputs, but requires all selected inputs be used
     bool fAllowOtherInputs;

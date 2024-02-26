@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2020 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,14 +7,13 @@
 #include "qt/blkc/forms/ui_sendchangeaddressdialog.h"
 #include "qt/blkc/qtutils.h"
 
-SendChangeAddressDialog::SendChangeAddressDialog(QWidget* parent, WalletModel* model) :
-    FocusedDialog(parent),
-    walletModel(model),
-    ui(new Ui::SendChangeAddressDialog)
+SendChangeAddressDialog::SendChangeAddressDialog(QWidget* parent, WalletModel* model, bool isTransparent) : FocusedDialog(parent),
+                                                                                                            walletModel(model),
+                                                                                                            ui(new Ui::SendChangeAddressDialog)
 {
     // Change address
     dest = CNoDestination();
-
+    this->isTransparent = isTransparent;
     if (!walletModel) {
         throw std::runtime_error(strprintf("%s: No wallet model set", __func__));
     }
@@ -48,7 +47,7 @@ void SendChangeAddressDialog::setAddress(QString address)
     ui->btnCancel->setText(tr("RESET"));
 }
 
-CTxDestination SendChangeAddressDialog::getDestination() const
+CWDestination SendChangeAddressDialog::getDestination() const
 {
     return dest;
 }
@@ -75,12 +74,15 @@ void SendChangeAddressDialog::accept()
         QDialog::accept();
     } else {
         // validate address
-        bool isStakingAddr;
-        dest = DecodeDestination(ui->lineEditAddress->text().toStdString(), isStakingAddr);
-        if (!IsValidDestination(dest)) {
+        bool isStaking = false, isExchange = false, isShielded = false;
+        dest = Standard::DecodeDestination(ui->lineEditAddress->text().toStdString(), isStaking, isExchange, isShielded);
+
+        if (!Standard::IsValidDestination(dest)) {
             inform(tr("Invalid address"));
-        } else if (isStakingAddr) {
+        } else if (isStaking) {
             inform(tr("Cannot use cold staking addresses for change"));
+        } else if (!isShielded && !isTransparent) {
+            inform(tr("Cannot use a transparent change for a shield transaction"));
         } else {
             QDialog::accept();
         }

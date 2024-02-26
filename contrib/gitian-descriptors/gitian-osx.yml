@@ -1,5 +1,5 @@
 ---
-name: "blackhat-osx-5.5"
+name: "blackhat-osx-5.6"
 enable_cache: true
 distro: "ubuntu"
 suites:
@@ -137,6 +137,8 @@ script: |
 
     CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS}
     make ${MAKEOPTS}
+    make ${MAKEOPTS} -C src check-security
+    make ${MAKEOPTS} -C src check-symbols
     make install-strip DESTDIR=${INSTALLPATH}
 
     make osx_volname

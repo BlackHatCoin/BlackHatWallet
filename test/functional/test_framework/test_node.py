@@ -156,7 +156,7 @@ class TestNode():
                 # The wait is done here to make tests as robust as possible
                 # and prevent racy tests and intermittent failures as much
                 # as possible. Some tests might not need this, but the
-                # overhead is trivial, and the added gurantees are worth
+                # overhead is trivial, and the added guarantees are worth
                 # the minimal performance cost.
                 # If the call to getblockcount() succeeds then the RPC connection is up
                 self.log.debug("RPC successfully started")

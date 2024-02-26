@@ -67,6 +67,6 @@ Below are examples that will need to be adjusted to suit your specific machine, 
 Proceed to WSL Installation
 -------------------------------
 
-Thats all you need to do for Docker for Windows installation and configuration.
+That's all you need to do for Docker for Windows installation and configuration.
 
 Proceed to [WSL Installation](./wsl-setup-windows.md) for instructions on Installing and configuring WSL.

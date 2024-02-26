@@ -1,16 +1,16 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "core_io.h"
 #include "evo/providertx.h"
-#include "keystore.h"
 #include "key_io.h"
-#include "validationinterface.h"
+#include "keystore.h"
+#include "llmq/quorums_chainlocks.h"
 #include "net.h"
 #include "policy/policy.h"
 #include "primitives/transaction.h"
@@ -21,6 +21,7 @@
 #include "script/standard.h"
 #include "uint256.h"
 #include "utilmoneystr.h"
+#include "validationinterface.h"
 #ifdef ENABLE_WALLET
 #include "sapling/address.h"
 #include "sapling/key_io_sapling.h"
@@ -106,6 +107,7 @@ void TxToJSON(CWallet* const pwallet, const CTransaction& tx, const CBlockIndex*
         PayloadToJSON(tx, entry);
     }
 
+    bool chainLock = false;
     if (blockindex && tip) {
         entry.pushKV("blockhash", blockindex->GetBlockHash().ToString());
         int confirmations = ComputeConfirmations(tip, blockindex);
@@ -113,10 +115,12 @@ void TxToJSON(CWallet* const pwallet, const CTransaction& tx, const CBlockIndex*
             entry.pushKV("confirmations", confirmations);
             entry.pushKV("time", blockindex->GetBlockTime());
             entry.pushKV("blocktime", blockindex->GetBlockTime());
+            chainLock = llmq::chainLocksHandler->HasChainLock(blockindex->nHeight, blockindex->GetBlockHash());
         } else {
             entry.pushKV("confirmations", 0);
         }
     }
+    entry.pushKV("chainlock", chainLock);
 }
 
 std::string GetSaplingTxHelpInfo()
@@ -565,7 +569,7 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
             HelpExampleCli("signrawtransaction", "\"myhex\"") + HelpExampleRpc("signrawtransaction", "\"myhex\""));
 
 #ifdef ENABLE_WALLET
-    LOCK2(cs_main, pwallet ? &pwallet->cs_wallet : NULL);
+    LOCK2(cs_main, pwallet ? &pwallet->cs_wallet : nullptr);
 #else
     LOCK(cs_main);
 #endif
@@ -893,6 +897,7 @@ UniValue sendrawtransaction(const JSONRPCRequest& request)
     return hashTx.GetHex();
 }
 
+// clang-format off
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ --------
@@ -903,6 +908,7 @@ static const CRPCCommand commands[] =
     { "rawtransactions",    "sendrawtransaction",     &sendrawtransaction,     false, {"hexstring","allowhighfees"} },
     { "rawtransactions",    "signrawtransaction",     &signrawtransaction,     false, {"hexstring","prevtxs","privkeys","sighashtype"} }, /* uses wallet if enabled */
 };
+// clang-format on
 
 void RegisterRawTransactionRPCCommands(CRPCTable &tableRPC)
 {

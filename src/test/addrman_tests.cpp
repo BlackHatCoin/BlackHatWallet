@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2015 The Bitcoin Core developers
-// Copyright (c) 2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -380,7 +380,7 @@ BOOST_AUTO_TEST_CASE(addrman_delete)
     addrman.Delete(nId);
     BOOST_CHECK(addrman.size() == 0);
     CAddrInfo* info2 = addrman.Find(addr1);
-    BOOST_CHECK(info2 == NULL);
+    BOOST_CHECK(info2 == nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(addrman_getaddr)
@@ -442,7 +442,7 @@ BOOST_AUTO_TEST_CASE(addrman_getaddr)
     size_t percent23 = (addrman.size() * 23) / 100;
     BOOST_CHECK(vAddr.size() == percent23);
     BOOST_CHECK(vAddr.size() == 461);
-    // (Addrman.size() < number of addresses added) due to address collisons.
+    // (Addrman.size() < number of addresses added) due to address collisions.
     BOOST_CHECK(addrman.size() == 2007);
 }
 

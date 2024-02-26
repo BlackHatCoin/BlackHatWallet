@@ -46,7 +46,7 @@ CentOS still ships with Python 2.7, which is incompatible with the gitian-build.
 
 Like as with Python, CentOS ships with an ancient version of Git (1.8.x), which is also not compatible with the gitian-build.py script. The script will detect the old version, and automatically update the system to a newer version of Git.
 
-If you are currently using the default system Git in other work flows, you may need to learn about whats changed in recent versions of Git.
+If you are currently using the default system Git in other work flows, you may need to learn about what's changed in recent versions of Git.
 
 #### Configuring Git
 

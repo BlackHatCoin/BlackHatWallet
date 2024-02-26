@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "qt/blkc/masternodeswidget.h"
+#include "coincontrol.h"
 #include "qt/blkc/forms/ui_masternodeswidget.h"
 
 #include "qt/blkc/qtutils.h"
@@ -89,11 +90,16 @@ MasterNodesWidget::MasterNodesWidget(BLKCGUI *parent) :
     setCssBtnPrimary(ui->pushButtonStartAll);
     setCssBtnPrimary(ui->pushButtonStartMissing);
 
+    /* Coin control */
+    this->coinControlDialog = new CoinControlDialog();
+
     /* Options */
     ui->btnAbout->setTitleClassAndText("btn-title-grey", tr("What is a Masternode?"));
     ui->btnAbout->setSubTitleClassAndText("text-subtitle", tr("FAQ explaining what Masternodes are"));
     ui->btnAboutController->setTitleClassAndText("btn-title-grey", tr("What is a Controller?"));
     ui->btnAboutController->setSubTitleClassAndText("text-subtitle", tr("FAQ explaining what is a Masternode Controller"));
+    ui->btnCoinControl->setTitleClassAndText("btn-title-grey", "Coin Control");
+    ui->btnCoinControl->setSubTitleClassAndText("text-subtitle", "Select the source of coins to create a Masternode");
 
     setCssProperty(ui->listMn, "container");
     ui->listMn->setItemDelegate(delegate);
@@ -116,6 +122,7 @@ MasterNodesWidget::MasterNodesWidget(BLKCGUI *parent) :
     connect(ui->listMn, &QListView::clicked, this, &MasterNodesWidget::onMNClicked);
     connect(ui->btnAbout, &OptionButton::clicked, [this](){window->openFAQ(SettingsFaqWidget::Section::MASTERNODE);});
     connect(ui->btnAboutController, &OptionButton::clicked, [this](){window->openFAQ(SettingsFaqWidget::Section::MNCONTROLLER);});
+    connect(ui->btnCoinControl, &OptionButton::clicked, this, &MasterNodesWidget::onCoinControlClicked);
 }
 
 void MasterNodesWidget::showEvent(QShowEvent *event)
@@ -367,6 +374,22 @@ void MasterNodesWidget::onCreateMNClicked()
              .arg(GUIUtil::formatBalance(mnCollateralAmount, BitcoinUnits::BLKC)));
         return;
     }
+
+    if (coinControlDialog->coinControl && coinControlDialog->coinControl->HasSelected()) {
+        std::vector<OutPointWrapper> coins;
+        coinControlDialog->coinControl->ListSelected(coins);
+        CAmount selectedBalance = 0;
+        for (const auto& coin : coins) {
+            selectedBalance += coin.value;
+        }
+        if (selectedBalance <= mnCollateralAmount) {
+            inform(tr("Not enough coins selected to create a masternode, %1 required.")
+                       .arg(GUIUtil::formatBalance(mnCollateralAmount, BitcoinUnits::BLKC)));
+            return;
+        }
+        mnModel->setCoinControl(coinControlDialog->coinControl);
+    }
+
     showHideOp(true);
     MasterNodeWizardDialog *dialog = new MasterNodeWizardDialog(walletModel, mnModel, window);
     if (openDialogWithOpaqueBackgroundY(dialog, window, 5, 7)) {
@@ -381,11 +404,28 @@ void MasterNodesWidget::onCreateMNClicked()
         }
     }
     dialog->deleteLater();
+    resetCoinControl();
 }
 
 void MasterNodesWidget::changeTheme(bool isLightTheme, QString& theme)
 {
     static_cast<MNHolder*>(this->delegate->getRowFactory())->isLightTheme = isLightTheme;
+}
+
+void MasterNodesWidget::onCoinControlClicked()
+{
+    if (!coinControlDialog->hasModel()) coinControlDialog->setModel(walletModel);
+    coinControlDialog->setSelectionType(true);
+    coinControlDialog->refreshDialog();
+    coinControlDialog->exec();
+    ui->btnCoinControl->setActive(coinControlDialog->coinControl->HasSelected());
+}
+
+void MasterNodesWidget::resetCoinControl()
+{
+    if (coinControlDialog) coinControlDialog->coinControl->SetNull();
+    mnModel->resetCoinControl();
+    ui->btnCoinControl->setActive(false);
 }
 
 MasterNodesWidget::~MasterNodesWidget()

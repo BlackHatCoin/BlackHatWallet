@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2015 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,6 +102,8 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
             "       n,                        (numeric) The heights of blocks we're currently asking from this peer\n"
             "       ...\n"
             "    ]\n"
+            "    \"addr_processed\": n,       (numeric) The total number of addresses processed, excluding those dropped due to rate limiting\n"
+            "    \"addr_rate_limited\": n,       (numeric) The total number of addresses dropped due to rate limiting\n"
             "    \"bytessent_per_msg\": {\n"
             "       \"addr\": n,             (numeric) The total bytes sent aggregated by message type\n"
             "       ...\n"
@@ -151,7 +153,7 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
             obj.pushKV("pingwait", stats.dPingWait);
         obj.pushKV("version", stats.nVersion);
         // Use the sanitized form of subver here, to avoid tricksy remote peers from
-        // corrupting or modifiying the JSON output by putting special characters in
+        // corrupting or modifying the JSON output by putting special characters in
         // their ver message.
         obj.pushKV("subver", stats.cleanSubVer);
         obj.pushKV("inbound", stats.fInbound);
@@ -167,6 +169,8 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
                 heights.push_back(height);
             }
             obj.pushKV("inflight", heights);
+            obj.pushKV("addr_processed", statestats.m_addr_processed);
+            obj.pushKV("addr_rate_limited", statestats.m_addr_rate_limited);
         }
         obj.pushKV("whitelisted", stats.fWhitelisted);
 
@@ -223,7 +227,7 @@ UniValue addnode(const JSONRPCRequest& request)
 
     if (strCommand == "onetry") {
         CAddress addr;
-        g_connman->OpenNetworkConnection(addr, false, NULL, strNode.c_str());
+        g_connman->OpenNetworkConnection(addr, false, nullptr, strNode.c_str());
         return NullUniValue;
     }
 
@@ -702,6 +706,7 @@ UniValue setnetworkactive(const JSONRPCRequest& request)
     return g_connman->GetNetworkActive();
 }
 
+// clang-format off
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ --------
@@ -717,11 +722,12 @@ static const CRPCCommand commands[] =
     { "network",            "listbanned",             &listbanned,             true,  {} },
     { "network",            "ping",                   &ping,                   true,  {} },
     { "network",            "setban",                 &setban,                 true,  {"subnet", "command", "bantime", "absolute"} },
-    { "network",            "setnetworkactive",       &setnetworkactive,       true,  {"active"}},
+    { "network",            "setnetworkactive",       &setnetworkactive,       true,  {"active"} },
 
-    // Hidden, for testing only
+    /** Not shown in help */
     { "hidden",             "addpeeraddress",         &addpeeraddress,         true,  {"address", "port"} },
 };
+// clang-format on
 
 void RegisterNetRPCCommands(CRPCTable &tableRPC)
 {

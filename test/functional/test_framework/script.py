@@ -7,36 +7,27 @@
 This file is modified from python-bitcoinlib.
 """
 
-import hashlib
 import struct
-import sys
 
 from .bignum import bn2vch
 from .messages import CTransaction, CTxOut, sha256, hash256
-from binascii import hexlify
-
-
-bchr = chr
-bord = ord
-if sys.version > '3':
-    long = int
-    bchr = lambda x: bytes([x])
-    bord = lambda x: x
+from .ripemd160 import ripemd160
+from typing import List, Dict
 
 
 MAX_SCRIPT_ELEMENT_SIZE = 520
 MAX_PUBKEYS_PER_MULTISIG = 20
 
-OPCODE_NAMES = {}
+OPCODE_NAMES = {}  # type: Dict[CScriptOp, str]
 
 def hash160(s):
-    return hashlib.new('ripemd160', sha256(s)).digest()
+    return ripemd160(sha256(s))
 
 
-_opcode_instances = []
+_opcode_instances = []  # type: List[CScriptOp]
 class CScriptOp(int):
     """A single script opcode"""
-    __slots__ = []
+    __slots__ = ()
 
     @staticmethod
     def encode_op_pushdata(d):
@@ -238,6 +229,7 @@ OP_NOP10 = CScriptOp(0xb9)
 OP_SMALLINTEGER = CScriptOp(0xfa)
 OP_PUBKEYS = CScriptOp(0xfb)
 OP_PUBKEYHASH = CScriptOp(0xfd)
+OP_EXCHANGEADDR = CScriptOp(0xe0)
 OP_PUBKEY = CScriptOp(0xfe)
 
 OP_INVALIDOPCODE = CScriptOp(0xff)
@@ -371,8 +363,11 @@ class CScriptTruncatedPushDataError(CScriptInvalidError):
         self.data = data
         super(CScriptTruncatedPushDataError, self).__init__(msg)
 
+
 # This is used, eg, for blockchain heights in coinbase scripts (bip34)
-class CScriptNum():
+class CScriptNum:
+    __slots__ = ("value",)
+
     def __init__(self, d=0):
         self.value = d
 
@@ -403,6 +398,8 @@ class CScript(bytes):
 
     iter(script) however does iterate by opcode.
     """
+    __slots__ = ()
+
     @classmethod
     def __coerce_instance(cls, other):
         # Coerce other into bytes
@@ -530,7 +527,7 @@ class CScript(bytes):
     def __repr__(self):
         def _repr(o):
             if isinstance(o, bytes):
-                return "x('%s')" % hexlify(o).decode('ascii')
+                return "x('%s')" % o.hex()
             else:
                 return repr(o)
 

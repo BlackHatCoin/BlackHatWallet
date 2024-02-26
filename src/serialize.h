@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2019 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -56,6 +56,17 @@ static const unsigned int MAX_VECTOR_ALLOCATE = 5000000;
  */
 struct deserialize_type {};
 constexpr deserialize_type deserialize {};
+
+/**
+ * Used to bypass the rule against non-const reference to temporary
+ * where it makes sense with wrappers such as CFlatData or CTxDB
+ */
+
+template <typename T>
+inline T& REF(const T& val)
+{
+    return const_cast<T&>(val);
+}
 
 //! Safely convert odd char pointer types to standard ones.
 inline char* CharCast(char* c) { return c; }
@@ -521,6 +532,8 @@ struct VarIntFormatter
 
 #define FIXEDBITSET(obj, size) Using<BitSetFormatter<size>>(obj)
 #define DYNBITSET(obj) Using<BitSetFormatter<0>>(obj)
+#define FIXEDVARINTSBITSET(obj, size) REF(CFixedVarIntsBitSet(REF(obj), (size)))
+#define AUTOBITSET(obj, size) REF(CAutoBitSet(REF(obj), (size)))
 
 /* Formatter for fixed (size N), or dynamic (size 0) bitsets */
 
@@ -557,6 +570,90 @@ struct BitSetFormatter
                 throw std::ios_base::failure("Out-of-range bits set");
             }
         }
+    }
+};
+
+/**
+ * Stores a fixed size bitset as a series of VarInts. Each VarInt is an offset from the last entry and the sum of the
+ * last entry and the offset gives an index into the bitset for a set bit. The series of VarInts ends with a 0.
+ */
+
+class CFixedVarIntsBitSet
+{
+protected:
+    std::vector<bool>& vec;
+    size_t size;
+
+public:
+    CFixedVarIntsBitSet(std::vector<bool>& vecIn, size_t sizeIn) : vec(vecIn), size(sizeIn) {}
+
+    template <typename Stream>
+    void Serialize(Stream& s) const
+    {
+        int32_t last = -1;
+        for (int32_t i = 0; i < (int32_t)vec.size(); i++) {
+            if (vec[i]) {
+                WriteVarInt<Stream, VarIntMode::DEFAULT, uint32_t>(s, (uint32_t)(i - last));
+                last = i;
+            }
+        }
+        WriteVarInt<Stream, VarIntMode::DEFAULT, uint32_t>(s, 0); // stopper
+    }
+
+    template <typename Stream>
+    void Unserialize(Stream& s)
+    {
+        vec.assign(size, false);
+
+        int32_t last = -1;
+        while (true) {
+            uint32_t offset = ReadVarInt<Stream, VarIntMode::DEFAULT, uint32_t>(s);
+            if (offset == 0) {
+                break;
+            }
+            int32_t idx = last + offset;
+            if (idx >= size) {
+                throw std::ios_base::failure("out of bounds index");
+            }
+            if (last != -1 && idx <= last) {
+                throw std::ios_base::failure("offset overflow");
+            }
+            vec[idx] = true;
+            last = idx;
+        }
+    }
+};
+
+/**
+ * Serializes either as a or CFixedVarIntsBitSet
+ */
+
+class CAutoBitSet
+{
+protected:
+    std::vector<bool>& vec;
+    size_t size;
+
+public:
+    explicit CAutoBitSet(std::vector<bool>& vecIn, size_t sizeIn) : vec(vecIn), size(sizeIn) {}
+
+    template <typename Stream>
+    void Serialize(Stream& s) const
+    {
+        assert(vec.size() == size);
+
+        ser_writedata8(s, 0);
+        s << FIXEDVARINTSBITSET(vec, vec.size());
+    }
+
+    template <typename Stream>
+    void Unserialize(Stream& s)
+    {
+        uint8_t isVarInts = ser_readdata8(s);
+        if (isVarInts != 0) {
+            throw std::ios_base::failure("invalid value for isVarInts byte");
+        }
+        s >> FIXEDVARINTSBITSET(vec, size);
     }
 };
 

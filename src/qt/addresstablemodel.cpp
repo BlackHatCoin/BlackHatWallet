@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -151,9 +151,14 @@ public:
             LOCK(wallet->cs_wallet);
             for (auto it = wallet->NewAddressBookIterator(); it.IsValid(); it.Next()) {
                 auto addrBookData = it.GetValue();
-                const CChainParams::Base58Type addrType =
-                        AddressBook::IsColdStakingPurpose(addrBookData.purpose) ?
-                        CChainParams::STAKING_ADDRESS : CChainParams::PUBKEY_ADDRESS;
+                CChainParams::Base58Type addrType;
+                if (AddressBook::IsColdStakingPurpose(addrBookData.purpose)) {
+                    addrType = CChainParams::STAKING_ADDRESS;
+                } else if (AddressBook::IsExchangePurpose(addrBookData.purpose)) {
+                    addrType = CChainParams::EXCHANGE_ADDRESS;
+                } else {
+                    addrType = CChainParams::PUBKEY_ADDRESS;
+                }
 
                 const CWDestination& dest = *it.GetDestKey();
                 bool fMine = IsMine(*wallet, dest);

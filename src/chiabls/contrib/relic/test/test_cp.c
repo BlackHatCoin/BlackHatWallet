@@ -462,7 +462,7 @@ static int ecies(void) {
 		ec_new(q_b);
 
 		l = ec_param_level();
-		if (l == 128 || l == 192 || l == 256) {
+		if (l == 80 || l == 128 || l == 192 || l == 256) {
 			TEST_CASE("ecies encryption/decryption is correct") {
 				TEST_ASSERT(cp_ecies_gen(da, qa) == RLC_OK, end);
 				in_len = RLC_BC_LEN - 1;
@@ -673,9 +673,440 @@ end:
 	return code;
 }
 
+static int pok(void) {
+	int code = RLC_ERR;
+	bn_t c[2], n, r[2], x;
+	ec_t y[2];
+
+	bn_null(n);
+	bn_null(x);
+
+	RLC_TRY {
+		bn_new(n);
+		bn_new(x);
+		for (int i = 0; i < 2; i++) {
+			bn_null(c[i]);
+			bn_null(r[i]);
+			ec_null(y[i]);
+			bn_new(c[i]);
+			bn_new(r[i]);
+			ec_new(y[i]);
+		}
+		ec_curve_get_ord(n);
+
+		TEST_CASE("proof of knowledge of discrete logarithm is correct") {
+			bn_rand_mod(x, n);
+			ec_mul_gen(y[0], x);
+			TEST_ASSERT(cp_pokdl_prv(c[0], r[0], y[0], x) == RLC_OK, end);
+			TEST_ASSERT(cp_pokdl_ver(c[0], r[0], y[0]) == 1, end);
+			ec_dbl(y[0], y[0]);
+			ec_norm(y[0], y[0]);
+			TEST_ASSERT(cp_pokdl_ver(c[0], r[0], y[0]) == 0, end);
+		} TEST_END;
+
+		TEST_CASE("proof of knowledge of disjunction is correct") {
+			bn_rand_mod(x, n);
+			do {
+				ec_rand(y[0]);
+				ec_mul_gen(y[1], x);
+			} while (ec_cmp(y[0], y[1]) == RLC_EQ);
+			TEST_ASSERT(cp_pokor_prv(c, r, y, x) == RLC_OK, end);
+			TEST_ASSERT(cp_pokor_ver(c, r, y) == 1, end);
+			ec_dbl(y[1], y[1]);
+			ec_norm(y[1], y[1]);
+			TEST_ASSERT(cp_pokor_ver(c, r, y) == 0, end);
+		} TEST_END;
+	}
+	RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+end:
+	bn_free(n);
+	bn_free(x);
+	for (int i = 0; i < 2; i++) {
+		bn_free(c[i]);
+		bn_free(r[i]);
+		ec_free(y[i]);
+	}
+	return code;
+}
+
+static int sok(void) {
+	int code = RLC_ERR;
+	bn_t c[2], n, r[2], x;
+	ec_t y[2];
+	uint8_t m[5] = { 0, 1, 2, 3, 4 };
+
+	bn_null(n);
+	bn_null(x);
+
+	RLC_TRY {
+		bn_new(n);
+		bn_new(x);
+		for (int i = 0; i < 2; i++) {
+			bn_null(c[i]);
+			bn_null(r[i]);
+			ec_null(y[i]);
+			bn_new(c[i]);
+			bn_new(r[i]);
+			ec_new(y[i]);
+		}
+		ec_curve_get_ord(n);
+
+		TEST_CASE("signature of knowledge of discrete logarithm is correct") {
+			bn_rand_mod(x, n);
+			ec_mul_gen(y[0], x);
+			TEST_ASSERT(cp_sokdl_sig(c[0], r[0], m, 5, y[0], x) == RLC_OK, end);
+			TEST_ASSERT(cp_sokdl_ver(c[0], r[0], m, 5, y[0]) == 1, end);
+			ec_dbl(y[0], y[0]);
+			ec_norm(y[0], y[0]);
+			TEST_ASSERT(cp_sokdl_ver(c[0], r[0], m, 5, y[0]) == 0, end);
+		} TEST_END;
+
+		TEST_CASE("signature of knowledge of disjunction is correct") {
+			bn_rand_mod(x, n);
+			do {
+				ec_rand(y[0]);
+				ec_mul_gen(y[1], x);
+			} while (ec_cmp(y[0], y[1]) == RLC_EQ);
+			TEST_ASSERT(cp_sokor_sig(c, r,  m, 5, y, x, 0) == RLC_OK, end);
+			TEST_ASSERT(cp_sokor_ver(c, r,  m, 5, y) == 1, end);
+			ec_dbl(y[1], y[1]);
+			ec_norm(y[1], y[1]);
+			TEST_ASSERT(cp_sokor_ver(c, r,  m, 5, y) == 0, end);
+			do {
+				ec_mul_gen(y[0], x);
+				ec_rand(y[1]);
+			} while (ec_cmp(y[0], y[1]) == RLC_EQ);
+			TEST_ASSERT(cp_sokor_sig(c, r,  m, 5, y, x, 1) == RLC_OK, end);
+			TEST_ASSERT(cp_sokor_ver(c, r,  m, 5, y) == 1, end);
+			ec_dbl(y[0], y[0]);
+			ec_norm(y[0], y[0]);
+			TEST_ASSERT(cp_sokor_ver(c, r,  m, 5, y) == 0, end);
+		} TEST_END;
+	}
+	RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+end:
+	bn_free(n);
+	bn_free(x);
+	for (int i = 0; i < 2; i++) {
+		bn_free(c[i]);
+		bn_free(r[i]);
+		ec_free(y[i]);
+	}
+	return code;
+}
+
+static int ers(void) {
+	int size, code = RLC_ERR;
+	ec_t pp, pk[4];
+	bn_t sk[4], td;
+	ers_t ring[4];
+	uint8_t m[5] = { 0, 1, 2, 3, 4 };
+
+	bn_null(td);
+	ec_null(pp);
+
+	RLC_TRY {
+		bn_new(td);
+		ec_new(pp);
+		for (int i = 0; i < 4; i++) {
+			bn_null(sk[i]);
+			bn_new(sk[i]);
+			ec_null(pk[i]);
+			ec_new(pk[i]);
+			ers_null(ring[i]);
+			ers_new(ring[i]);
+			cp_ers_gen_key(sk[i], pk[i]);
+		}
+
+		cp_ers_gen(pp);
+
+		TEST_CASE("extendable ring signature scheme is correct") {
+			TEST_ASSERT(cp_ers_sig(td, ring[0], m, 5, sk[0], pk[0], pp) == RLC_OK, end);
+			TEST_ASSERT(cp_ers_ver(td, ring, 1, m, 5, pp) == 1, end);
+			TEST_ASSERT(cp_ers_ver(td, ring, 1, m, 0, pp) == 0, end);
+			size = 1;
+			for (int j = 1; j < 4; j++) {
+				TEST_ASSERT(cp_ers_ext(td, ring, &size, m, 5, pk[j], pp) == RLC_OK, end);
+				TEST_ASSERT(cp_ers_ver(td, ring, size, m, 5, pp) == 1, end);
+				TEST_ASSERT(cp_ers_ver(td, ring, size, m, 0, pp) == 0, end);
+			}
+		} TEST_END;
+	}
+	RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+end:
+	bn_free(td);
+	ec_free(pp);
+	for (int i = 0; i < 4; i++) {
+		bn_free(sk[i]);
+		ec_free(pk[i]);
+		ers_free(ring[i])
+	}
+	return code;
+}
+
+static int etrs(void) {
+	int size, code = RLC_ERR;
+	ec_t pp, pk[4];
+	bn_t sk[4], td[4], y[4];
+	etrs_t ring[4];
+	uint8_t m[5] = { 0, 1, 2, 3, 4 };
+
+
+	ec_null(pp);
+
+	RLC_TRY {
+		ec_new(pp);
+		for (int i = 0; i < 4; i++) {
+			bn_null(td[i]);
+			bn_new(td[i]);
+			bn_null(y[i]);
+			bn_new(y[i]);
+			bn_null(sk[i]);
+			bn_new(sk[i]);
+			ec_null(pk[i]);
+			ec_new(pk[i]);
+			etrs_null(ring[i]);
+			etrs_new(ring[i]);
+			cp_etrs_gen_key(sk[i], pk[i]);
+		}
+
+		cp_etrs_gen(pp);
+
+		TEST_CASE("extendable threshold ring signature scheme is correct") {
+			TEST_ASSERT(cp_etrs_sig(td, y, 4, ring[0], m, 5, sk[0], pk[0], pp) == RLC_OK, end);
+			TEST_ASSERT(cp_etrs_ver(0, td, y, 4, ring, 1, m, 5, pp) == 0, end);
+			TEST_ASSERT(cp_etrs_ver(1, td, y, 4, ring, 1, m, 5, pp) == 1, end);
+			TEST_ASSERT(cp_etrs_ver(1, td, y, 4, ring, 1, m, 0, pp) == 0, end);
+			size = 1;
+			for (int j = 1; j < 4; j++) {
+				TEST_ASSERT(cp_etrs_ext(td, y, 4, ring, &size, m, 5, pk[j], pp) == RLC_OK, end);
+				TEST_ASSERT(cp_etrs_ver(0, td+j, y+j, 4-j, ring, size, m, 5, pp) == 0, end);
+				TEST_ASSERT(cp_etrs_ver(1, td+j, y+j, 4-j, ring, size, m, 5, pp) == 1, end);
+				TEST_ASSERT(cp_etrs_ver(1, td+j, y+j, 4-j, ring, size, m, 0, pp) == 0, end);
+			}
+
+			TEST_ASSERT(cp_etrs_sig(td, y, 4, ring[0], m, 5, sk[0], pk[0], pp) == RLC_OK, end);
+			size = 1;
+			TEST_ASSERT(cp_etrs_uni(1, td, y, 4, ring, &size, m, 5, sk[1], pk[1], pp) == RLC_OK, end);
+			TEST_ASSERT(cp_etrs_ver(1, td, y, 4, ring, size, m, 5, pp) == 0, end);
+			TEST_ASSERT(cp_etrs_ver(2, td, y, 4, ring, size, m, 5, pp) == 1, end);
+			TEST_ASSERT(cp_etrs_ver(2, td, y, 4, ring, size, m, 0, pp) == 0, end);
+			for (int j = 2; j < 4; j++) {
+				TEST_ASSERT(cp_etrs_ext(td, y, 4, ring, &size, m, 5, pk[j], pp) == RLC_OK, end);
+				TEST_ASSERT(cp_etrs_ver(1, td+j-1, y+j-1, 4-j+1, ring, size, m, 5, pp) == 0, end);
+				TEST_ASSERT(cp_etrs_ver(2, td+j-1, y+j-1, 4-j+1, ring, size, m, 5, pp) == 1, end);
+				TEST_ASSERT(cp_etrs_ver(2, td+j-1, y+j-1, 4-j+1, ring, size, m, 0, pp) == 0, end);
+			}
+		} TEST_END;
+	}
+	RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+end:
+	ec_free(pp);
+	for (int i = 0; i < 4; i++) {
+		bn_free(td[i]);
+		bn_free(y[i]);
+		bn_free(sk[i]);
+		ec_free(pk[i]);
+		etrs_free(ring[i])
+	}
+	return code;
+}
+
 #endif /* WITH_EC */
 
 #if defined(WITH_PC)
+
+static int pdpub(void) {
+	int code = RLC_ERR;
+	bn_t r1, r2;
+	g1_t p, u1, v1;
+	g2_t q, u2, v2, w2;
+	gt_t e, r, g[3];
+
+	bn_null(r1);
+	bn_null(r2);
+	g1_null(p);
+	g1_null(u1);
+	g1_null(v1);
+	g2_null(q);
+	g2_null(u2);
+	g2_null(v2);
+	g2_null(w2);
+	gt_null(e);
+	gt_null(r);
+	gt_null(g[0]);
+	gt_null(g[1]);
+	gt_null(g[2]);
+
+	RLC_TRY {
+		bn_new(r1);
+		bn_new(r2);
+		g1_new(p);
+		g1_new(u1);
+		g1_new(v1);
+		g2_new(q);
+		g2_new(u2);
+		g2_new(v2);
+		g2_new(w2);
+		gt_new(e);
+		gt_new(r);
+		gt_new(g[0]);
+		gt_new(g[1]);
+		gt_new(g[2]);
+
+		TEST_CASE("delegated pairing computation with public inputs is correct") {
+			TEST_ASSERT(cp_pdpub_gen(r1, r2, u1, u2, v2, e) == RLC_OK, end);
+			g1_rand(p);
+			g2_rand(q);
+			TEST_ASSERT(cp_pdpub_ask(v1, w2, p, q, r1, r2, u1, u2, v2) == RLC_OK, end);
+			TEST_ASSERT(cp_pdpub_ans(g, p, q, v1, v2, w2) == RLC_OK, end);
+			TEST_ASSERT(cp_pdpub_ver(r, g, r1, e) == 1, end);
+			pc_map(e, p, q);
+			TEST_ASSERT(gt_cmp(r, e) == RLC_EQ, end);
+		} TEST_END;
+
+		TEST_CASE("faster delegated pairing with public inputs is correct") {
+			TEST_ASSERT(cp_lvpub_gen(r2, u1, u2, v2, e) == RLC_OK, end);
+			g1_rand(p);
+			g2_rand(q);
+			TEST_ASSERT(cp_lvpub_ask(r1, v1, w2, p, q, r2, u1, u2, v2) == RLC_OK, end);
+			TEST_ASSERT(cp_lvpub_ans(g, p, q, v1, v2, w2) == RLC_OK, end);
+			TEST_ASSERT(cp_lvpub_ver(r, g, r1, e) == 1, end);
+			pc_map(e, p, q);
+			TEST_ASSERT(gt_cmp(r, e) == RLC_EQ, end);
+		} TEST_END;
+	} RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+  end:
+	bn_free(r1);
+	bn_free(r2);
+	g1_free(p);
+	g1_free(u1);
+	g1_free(v1);
+	g2_free(q);
+	g2_free(u2);
+	g2_free(v2);
+	g2_free(w2);
+	gt_free(e);
+	gt_free(r);
+	gt_free(g[0]);
+	gt_free(g[1]);
+	gt_free(g[2]);
+  	return code;
+}
+
+static int pdprv(void) {
+	int code = RLC_ERR;
+	bn_t r1, r2[3];
+	g1_t p, u1[2], v1[3];
+	g2_t q, u2[2], v2[4], w2[4];
+	gt_t e[2], r, g[4];
+
+	bn_null(r1);
+	g1_null(p);
+	g2_null(q);
+	gt_null(r);
+	for (int i = 0; i < 2; i++) {
+		g1_null(u1[i]);
+		g2_null(u2[i]);
+		gt_null(e[i]);
+	}
+	for (int i = 0; i < 3; i++) {
+		g1_null(v1[i]);
+		bn_null(r2[i]);
+	}
+	for (int i = 0; i < 4; i++) {
+		g2_null(v2[i]);
+		g2_null(w2[i]);
+		gt_null(g[i]);
+	}
+
+	RLC_TRY {
+		bn_new(r1);
+		g1_new(p);
+		g2_new(q);
+		gt_new(r);
+		for (int i = 0; i < 2; i++) {
+			g1_new(u1[i]);
+			g2_new(u2[i]);
+			gt_new(e[i]);
+		}
+		for (int i = 0; i < 3; i++) {
+			g1_new(v1[i]);
+			bn_new(r2[i]);
+		}
+		for (int i = 0; i < 4; i++) {
+			g2_new(v2[i]);
+			g2_new(w2[i]);
+			gt_new(g[i]);
+		}
+
+		TEST_CASE("delegated pairing computation with private inputs is correct") {
+			TEST_ASSERT(cp_pdprv_gen(r1, r2, u1, u2, v2, e) == RLC_OK, end);
+			g1_rand(p);
+			g2_rand(q);
+			TEST_ASSERT(cp_pdprv_ask(v1, w2, p, q, r1, r2, u1, u2, v2) == RLC_OK, end);
+			TEST_ASSERT(cp_pdprv_ans(g, v1, w2) == RLC_OK, end);
+			TEST_ASSERT(cp_pdprv_ver(r, g, r1, e) == 1, end);
+			pc_map(e[0], p, q);
+			TEST_ASSERT(gt_cmp(r, e[0]) == RLC_EQ, end);
+		} TEST_END;
+
+		TEST_CASE("faster delegated pairing with private inputs is correct") {
+			TEST_ASSERT(cp_pdprv_gen(r1, r2, u1, u2, v2, e) == RLC_OK, end);
+			g1_rand(p);
+			g2_rand(q);
+			TEST_ASSERT(cp_lvprv_ask(v1, w2, p, q, r1, r2, u1, u2, v2) == RLC_OK, end);
+			TEST_ASSERT(cp_lvprv_ans(g, v1, w2) == RLC_OK, end);
+			TEST_ASSERT(cp_lvprv_ver(r, g, r1, e) == 1, end);
+			pc_map(e[0], p, q);
+			TEST_ASSERT(gt_cmp(r, e[0]) == RLC_EQ, end);
+		} TEST_END;
+	} RLC_CATCH_ANY {
+		RLC_ERROR(end);
+	}
+	code = RLC_OK;
+
+  end:
+	bn_free(r1);
+	g1_free(p);
+	g2_free(q);
+	gt_free(r);
+	for (int i = 0; i < 2; i++) {
+		g1_free(u1[i]);
+		g2_free(u2[i]);
+		gt_free(e[i]);
+	}
+	for (int i = 0; i < 3; i++) {
+		g1_free(v1[i]);
+		bn_free(r2[i]);
+	}
+	for (int i = 0; i < 4; i++) {
+		g2_free(v2[i]);
+		g2_free(w2[i]);
+		gt_free(g[i]);
+	}
+  	return code;
+}
 
 static int sokaka(void) {
 	int code = RLC_ERR, l = RLC_MD_LEN;
@@ -1609,14 +2040,41 @@ int main(void) {
 			return 1;
 		}
 
-	} else {
-		RLC_THROW(ERR_NO_CURVE);
+		if (pok() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
+
+		if (sok() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
+
+		if (ers() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
+
+		if (etrs() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
 	}
 #endif
 
 #if defined(WITH_PC)
 	util_banner("Protocols based on pairings:\n", 0);
 	if (pc_param_set_any() == RLC_OK) {
+
+		if (pdpub() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
+
+		if (pdprv() != RLC_OK) {
+			core_clean();
+			return 1;
+		}
 
 		if (sokaka() != RLC_OK) {
 			core_clean();
@@ -1669,8 +2127,6 @@ int main(void) {
 			core_clean();
 			return 1;
 		}
-	} else {
-		RLC_THROW(ERR_NO_CURVE);
 	}
 #endif
 

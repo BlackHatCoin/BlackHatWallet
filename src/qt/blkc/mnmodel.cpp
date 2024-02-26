@@ -1,20 +1,22 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "qt/blkc/mnmodel.h"
 
+#include "coincontrol.h"
 #include "masternode.h"
 #include "masternodeman.h"
-#include "net.h"        // for validateMasternodeIP
-#include "tiertwo/tiertwo_sync_state.h"
-#include "uint256.h"
+#include "net.h" // for validateMasternodeIP
+#include "primitives/transaction.h"
 #include "qt/bitcoinunits.h"
 #include "qt/optionsmodel.h"
 #include "qt/blkc/guitransactionsutils.h"
 #include "qt/walletmodel.h"
 #include "qt/walletmodeltransaction.h"
+#include "tiertwo/tiertwo_sync_state.h"
+#include "uint256.h"
 
 #include <QFile>
 #include <QHostAddress>
@@ -220,9 +222,8 @@ bool MNModel::createMNCollateral(
     WalletModelTransaction currentTransaction(recipients);
     WalletModel::SendCoinsReturn prepareStatus;
 
-    // no coincontrol, no P2CS delegations
-    prepareStatus = walletModel->prepareTransaction(&currentTransaction, nullptr, false);
-
+    // no P2CS delegations
+    prepareStatus = walletModel->prepareTransaction(&currentTransaction, coinControl, false);
     QString returnMsg = tr("Unknown error");
     // process prepareStatus and on error generate message shown to user
     CClientUIInterface::MessageBoxFlags informType;
@@ -409,7 +410,7 @@ CMasternodeConfig::CMasternodeEntry* MNModel::createLegacyMN(COutPoint& collater
     auto ret_mn_entry = masternodeConfig.add(alias, serviceAddr+":"+port, mnKeyString, txID, indexOutStr);
 
     // Lock collateral output
-    walletModel->lockCoin(collateralOut);
+    walletModel->lockCoin(collateralOut.hash, collateralOut.n);
     return ret_mn_entry;
 }
 
@@ -499,9 +500,18 @@ bool MNModel::removeLegacyMN(const std::string& alias_to_remove, const std::stri
     rename(pathConfigFile, pathNewConfFile);
 
     // Unlock collateral
-    COutPoint collateralOut(uint256S(tx_id), out_index);
-    walletModel->unlockCoin(collateralOut);
+    walletModel->unlockCoin(uint256S(tx_id), out_index);
     // Remove alias
     masternodeConfig.remove(alias_to_remove);
     return true;
+}
+
+void MNModel::setCoinControl(CCoinControl* coinControl)
+{
+    this->coinControl = coinControl;
+}
+
+void MNModel::resetCoinControl()
+{
+    coinControl = nullptr;
 }

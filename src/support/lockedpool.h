@@ -5,11 +5,12 @@
 #ifndef BITCOIN_SUPPORT_LOCKEDPOOL_H
 #define BITCOIN_SUPPORT_LOCKEDPOOL_H
 
-#include <stdint.h>
 #include <list>
 #include <map>
-#include <mutex>
 #include <memory>
+#include <mutex>
+#include <stdexcept>
+#include <stdint.h>
 #include <unordered_map>
 
 /**
@@ -118,7 +119,7 @@ private:
  * An arena manages a contiguous region of memory. The pool starts out with one arena
  * but can grow to multiple arenas if the need arises.
  *
- * Unlike a normal C heap, the administrative structures are seperate from the managed
+ * Unlike a normal C heap, the administrative structures are separate from the managed
  * memory. This has been done as the sizes and bases of objects are not in themselves sensitive
  * information, as to conserve precious locked memory. In some operating systems
  * the amount of memory that can be locked is small.

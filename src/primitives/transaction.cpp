@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -142,6 +142,11 @@ bool CTransaction::IsCoinStake() const
         return false;
 
     return (vout.size() >= 2 && vout[0].IsEmpty());
+}
+
+bool CTransaction::HasExchangeAddr() const
+{
+    return std::any_of(vout.begin(), vout.end(), [](const auto& txout) { return txout.scriptPubKey.IsPayToExchangeAddress(); });
 }
 
 bool CTransaction::HasP2CSOutputs() const

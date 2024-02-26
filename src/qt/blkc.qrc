@@ -142,10 +142,12 @@
         <file alias="ic-transaction-warning">blkc/res/img/ic-transaction-warning.svg</file>
         <file alias="ic-transaction-mint">blkc/res/img/ic-transaction-mint.svg</file>
         <file alias="ic-transaction-received">blkc/res/img/ic-transaction-received.svg</file>
+        <file alias="ic-transaction-received-memo">blkc/res/img/ic-transaction-received-memo.svg</file>
         <file alias="ic-transaction-sent">blkc/res/img/ic-transaction-sent.svg</file>
         <file alias="ic-transaction-staked">blkc/res/img/ic-transaction-staked.svg</file>
         <file alias="ic-transaction-mint-dark">blkc/res/img/dark/ic-transaction-mint.svg</file>
         <file alias="ic-transaction-received-dark">blkc/res/img/dark/ic-transaction-received.svg</file>
+        <file alias="ic-transaction-received-memo-dark">blkc/res/img/dark/ic-transaction-received-memo.svg</file>
         <file alias="ic-transaction-sent-dark">blkc/res/img/dark/ic-transaction-sent.svg</file>
         <file alias="ic-transaction-staked-dark">blkc/res/img/dark/ic-transaction-staked.svg</file>
         <file alias="ic-transaction-mint-inactive">blkc/res/img/ic-transaction-mint-inactive.svg</file>

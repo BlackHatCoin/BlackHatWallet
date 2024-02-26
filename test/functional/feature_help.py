@@ -24,7 +24,7 @@ class HelpTest(BlackHatTestFramework):
         self.nodes[0].start(extra_args=['-?'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         # Node should exit immediately and output help to stdout.
         ret_code = self.nodes[0].process.wait(timeout=1)
-        assert_equal(ret_code, 1)
+        assert_equal(ret_code, 0)
         output = self.nodes[0].process.stdout.read()
         assert b'Options' in output
         self.log.info("Help text received: {} (...)".format(output[0:60]))
@@ -34,7 +34,7 @@ class HelpTest(BlackHatTestFramework):
         self.nodes[0].start(extra_args=['-version'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         # Node should exit immediately and output version to stdout.
         ret_code = self.nodes[0].process.wait(timeout=1)
-        assert_equal(ret_code, 1)
+        assert_equal(ret_code, 0)
         output = self.nodes[0].process.stdout.read()
         assert b'version' in output
         self.log.info("Version text received: {} (...)".format(output[0:60]))

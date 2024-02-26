@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020-2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php.
 """
@@ -17,6 +17,7 @@ from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
+    assert_raises_rpc_error,
     Decimal,
     p2p_port,
 )
@@ -91,6 +92,12 @@ class MasternodePingTest(BlackHatTestFramework):
         self.sync_blocks()
         time.sleep(1)
 
+        # Exercise invalid startmasternode methods
+        self.log.info("exercising invalid startmasternode methods...")
+        assert_raises_rpc_error(-8, "Local start is deprecated.", remote.startmasternode, "local", False)
+        assert_raises_rpc_error(-8, "Many set is deprecated.", owner.startmasternode, "many", False)
+        assert_raises_rpc_error(-8, "Invalid set name", owner.startmasternode, "foo", False)
+
         # Send Start message
         self.log.info("sending masternode broadcast...")
         self.controller_start_masternode(owner, masternodeAlias)
@@ -118,7 +125,6 @@ class MasternodePingTest(BlackHatTestFramework):
         for i in range(self.num_nodes):
             assert_greater_than(new_last_seen[i], last_seen[i])
         self.log.info("All good.")
-
 
 
 if __name__ == '__main__':

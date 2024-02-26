@@ -5,7 +5,12 @@
 #include "llmq/quorums_utils.h"
 
 #include "bls/bls_wrapper.h"
+#include "chainparams.h"
 #include "hash.h"
+#include "quorums.h"
+#include "quorums_utils.h"
+#include "random.h"
+#include "validation.h"
 
 namespace llmq
 {
@@ -42,6 +47,36 @@ std::string ToHexStr(const std::vector<bool>& vBits)
     }
     return HexStr(vBytes);
 }
+
+bool IsQuorumActive(Consensus::LLMQType llmqType, const uint256& quorumHash)
+{
+
+    auto& params = Params().GetConsensus().llmqs.at(llmqType);
+
+    // sig shares and recovered sigs are only accepted from recent/active quorums
+    // we allow one more active quorum as specified in consensus, as otherwise there is a small window where things could
+    // fail while we are on the brink of a new quorum
+    auto quorums = quorumManager->ScanQuorums(llmqType, (int)params.signingActiveQuorumCount + 1);
+    for (auto& q : quorums) {
+        if (q->pindexQuorum->GetBlockHash() == quorumHash) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <typename CacheType>
+void InitQuorumsCache(CacheType& cache)
+{
+    for (auto& llmq : Params().GetConsensus().llmqs) {
+        cache.emplace(std::piecewise_construct, std::forward_as_tuple(llmq.first),
+            std::forward_as_tuple(llmq.second.signingActiveQuorumCount + 1));
+    }
+}
+
+template void InitQuorumsCache<std::map<Consensus::LLMQType, unordered_lru_cache<uint256, bool, StaticSaltedHasher>>>(std::map<Consensus::LLMQType, unordered_lru_cache<uint256, bool, StaticSaltedHasher>>& cache);
+template void InitQuorumsCache<std::map<Consensus::LLMQType, unordered_lru_cache<uint256, std::vector<CQuorumCPtr>, StaticSaltedHasher>>>(std::map<Consensus::LLMQType, unordered_lru_cache<uint256, std::vector<CQuorumCPtr>, StaticSaltedHasher>>& cache);
+template void InitQuorumsCache<std::map<Consensus::LLMQType, unordered_lru_cache<uint256, CQuorumCPtr, StaticSaltedHasher>>>(std::map<Consensus::LLMQType, unordered_lru_cache<uint256, CQuorumCPtr, StaticSaltedHasher>>& cache);
 
 } // namespace llmq::utils
 

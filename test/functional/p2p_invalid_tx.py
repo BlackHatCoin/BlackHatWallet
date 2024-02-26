@@ -93,7 +93,7 @@ class InvalidTxRequestTest(BlackHatTestFramework):
 
         self.log.info('Test orphan transaction handling ... ')
         SCRIPT_PUB_KEY_OP_TRUE = CScript([OP_TRUE, OP_DROP] * 15 + [OP_TRUE])
-        # Create a root transaction that we withhold until all dependend transactions
+        # Create a root transaction that we withhold until all dependent transactions
         # are sent out and in the orphan cache
         tx_withhold = self.new_spend_tx(block1.vtx[0].sha256, 0, [CTxOut(nValue=50 * COIN - 12000, scriptPubKey=SCRIPT_PUB_KEY_OP_TRUE)])
 

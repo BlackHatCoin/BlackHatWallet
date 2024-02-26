@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
-// Copyright (c) 2017-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2017-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -178,7 +178,7 @@ void restoreWindowGeometry(const QString& strSetting, const QSize& defaultSizeIn
 /** Load global CSS theme */
 QString loadStyleSheet();
 
-/** Check whether a theme is not build-in */
+/** Check whether a theme is not built-in */
 bool isExternal(QString theme);
 
 /* Convert QString to OS specific boost path through UTF-8 */

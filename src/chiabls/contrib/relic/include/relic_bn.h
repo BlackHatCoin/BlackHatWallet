@@ -148,11 +148,11 @@ typedef bn_st *bn_t;
 	if ((A) == NULL) {														\
 		RLC_THROW(ERR_NO_MEMORY);											\
 	}																		\
-	bn_init(A, RLC_BN_SIZE);												\
+	bn_make(A, RLC_BN_SIZE);												\
 
 #elif ALLOC == AUTO
 #define bn_new(A)															\
-	bn_init(A, RLC_BN_SIZE);												\
+	bn_make(A, RLC_BN_SIZE);												\
 
 #endif
 
@@ -172,11 +172,11 @@ typedef bn_st *bn_t;
 	if (A == NULL) {														\
 		RLC_THROW(ERR_NO_MEMORY);											\
 	}																		\
-	bn_init(A, D);															\
+	bn_make(A, D);															\
 
 #elif ALLOC == AUTO
 #define bn_new_size(A, D)													\
-	bn_init(A, D);															\
+	bn_make(A, D);															\
 
 #endif
 
@@ -374,7 +374,7 @@ typedef bn_st *bn_t;
  * @throw ERR_PRECISION		- if the required precision cannot be represented
  * 							by the library.
  */
-void bn_init(bn_t a, int digits);
+void bn_make(bn_t a, int digits);
 
 /**
  * Cleans a multiple precision integer.
@@ -1374,5 +1374,18 @@ void bn_rec_jsf(int8_t *jsf, int *len, const bn_t k, const bn_t l);
  */
 void bn_rec_glv(bn_t k0, bn_t k1, const bn_t k, const bn_t n, const bn_t v1[],
 		const bn_t v2[]);
+
+/**
+ * Recodes a scalar in subscalars according to Frobenius endomorphism.
+ *
+ * @param[out] ki			- the recoded subscalars.
+ * @param[in] sub 			- the number of subscalars.
+ * @param[in] k				- the scalar to recode.
+ * @param[in] x 			- the elliptic curve parameter.
+ * @param[in] n				- the elliptic curve group order.
+ * @param[in] bls 			- flag to indicate if it is a BLS12 curve.
+ */
+void bn_rec_frb(bn_t *ki, int sub, const bn_t k, const bn_t x, const bn_t n,
+	int bls);
 
 #endif /* !RLC_BN_H */

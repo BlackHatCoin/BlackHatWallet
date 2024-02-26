@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018 The Zcash developers
-# Copyright (c) 2020 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020-2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -13,7 +13,6 @@ from test_framework.test_framework import BlackHatTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
-    bytes_to_hex_str,
     hex_str_to_bytes,
 )
 
@@ -43,7 +42,7 @@ class MalleableSigsTest(BlackHatTestFramework):
         new_tx = CTransaction()
         new_tx.deserialize(BytesIO(hex_str_to_bytes(rawtx_hex)))
         new_tx.sapData = b""
-        new_rawtx = bytes_to_hex_str(new_tx.serialize())
+        new_rawtx = new_tx.serialize().hex()
         self.log.info("Sending malleated tx...")
         assert_raises_rpc_error(-26, "mandatory-script-verify-flag-failed",
                                 node.sendrawtransaction, new_rawtx, True)

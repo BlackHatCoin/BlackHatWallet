@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include <immer/memory_policy.hpp>
 #include <immer/detail/hamts/champ.hpp>
 #include <immer/detail/hamts/champ_iterator.hpp>
+#include <immer/memory_policy.hpp>
 
 #include <functional>
 
@@ -36,7 +36,7 @@ class set_transient;
  *
  * @rst
  *
- * This cotainer provides a good trade-off between cache locality,
+ * This container provides a good trade-off between cache locality,
  * membership checks, update performance and structural sharing.  It
  * does so by storing the data in contiguous chunks of :math:`2^{B}`
  * elements.  When storing big objects, the size of these contiguous
@@ -62,21 +62,26 @@ class set
 {
     using impl_t = detail::hamts::champ<T, Hash, Equal, MemoryPolicy, B>;
 
+    struct project_value_ptr
+    {
+        const T* operator()(const T& v) const noexcept { return &v; }
+    };
+
 public:
-    using key_type = T;
-    using value_type = T;
-    using size_type = detail::hamts::size_t;
-    using diference_type = std::ptrdiff_t;
-    using hasher = Hash;
-    using key_equal = Equal;
-    using reference = const T&;
+    using key_type        = T;
+    using value_type      = T;
+    using size_type       = detail::hamts::size_t;
+    using diference_type  = std::ptrdiff_t;
+    using hasher          = Hash;
+    using key_equal       = Equal;
+    using reference       = const T&;
     using const_reference = const T&;
 
-    using iterator         = detail::hamts::champ_iterator<T, Hash, Equal,
-                                                         MemoryPolicy, B>;
-    using const_iterator   = iterator;
+    using iterator =
+        detail::hamts::champ_iterator<T, Hash, Equal, MemoryPolicy, B>;
+    using const_iterator = iterator;
 
-    using transient_type   = set_transient<T, Hash, Equal, MemoryPolicy, B>;
+    using transient_type = set_transient<T, Hash, Equal, MemoryPolicy, B>;
 
     /*!
      * Default constructor.  It creates a set of `size() == 0`.  It
@@ -89,61 +94,124 @@ public:
      * collection. It does not allocate memory and its complexity is
      * @f$ O(1) @f$.
      */
-    iterator begin() const { return {impl_}; }
+    IMMER_NODISCARD iterator begin() const { return {impl_}; }
 
     /*!
      * Returns an iterator pointing just after the last element of the
      * collection. It does not allocate and its complexity is @f$ O(1) @f$.
      */
-    iterator end() const { return {impl_, typename iterator::end_t{}}; }
+    IMMER_NODISCARD iterator end() const
+    {
+        return {impl_, typename iterator::end_t{}};
+    }
 
     /*!
      * Returns the number of elements in the container.  It does
      * not allocate memory and its complexity is @f$ O(1) @f$.
      */
-    size_type size() const { return impl_.size; }
+    IMMER_NODISCARD size_type size() const { return impl_.size; }
+
+    /*!
+     * Returns `true` if there are no elements in the container.  It
+     * does not allocate memory and its complexity is @f$ O(1) @f$.
+     */
+    IMMER_NODISCARD bool empty() const { return impl_.size == 0; }
+
+    /*!
+     * Returns `1` when `value` is contained in the set or `0`
+     * otherwise. It won't allocate memory and its complexity is
+     * *effectively* @f$ O(1) @f$.
+     *
+     * This overload participates in overload resolution only if
+     * `Hash::is_transparent` is valid and denotes a type.
+     */
+    template<typename K, typename U = Hash, typename = typename U::is_transparent>
+    IMMER_NODISCARD size_type count(const K& value) const
+    {
+        return impl_.template get<detail::constantly<size_type, 1>,
+                                  detail::constantly<size_type, 0>>(value);
+    }
 
     /*!
      * Returns `1` when `value` is contained in the set or `0`
      * otherwise. It won't allocate memory and its complexity is
      * *effectively* @f$ O(1) @f$.
      */
-    size_type count(const T& value) const
-    { return impl_.template get<detail::constantly<size_type, 1>,
-                                detail::constantly<size_type, 0>>(value); }
+    IMMER_NODISCARD size_type count(const T& value) const
+    {
+        return impl_.template get<detail::constantly<size_type, 1>,
+                                  detail::constantly<size_type, 0>>(value);
+    }
+
+    /*!
+     * Returns a pointer to the value if `value` is contained in the
+     * set, or nullptr otherwise.
+     * It does not allocate memory and its complexity is *effectively*
+     * @f$ O(1) @f$.
+     */
+    IMMER_NODISCARD const T* find(const T& value) const
+    {
+        return impl_.template get<project_value_ptr,
+                                  detail::constantly<const T*, nullptr>>(value);
+    }
+
+    /*!
+     * Returns a pointer to the value if `value` is contained in the
+     * set, or nullptr otherwise.
+     * It does not allocate memory and its complexity is *effectively*
+     * @f$ O(1) @f$.
+     *
+     * This overload participates in overload resolution only if
+     * `Hash::is_transparent` is valid and denotes a type.
+     */
+    template<typename K, typename U = Hash, typename = typename U::is_transparent>
+    IMMER_NODISCARD const T* find(const K& value) const
+    {
+        return impl_.template get<project_value_ptr,
+                                  detail::constantly<const T*, nullptr>>(value);
+    }
 
     /*!
      * Returns whether the sets are equal.
      */
-    bool operator==(const set& other) const
-    { return impl_.equals(other.impl_); }
-    bool operator!=(const set& other) const
-    { return !(*this == other); }
+    IMMER_NODISCARD bool operator==(const set& other) const
+    {
+        return impl_.equals(other.impl_);
+    }
+    IMMER_NODISCARD bool operator!=(const set& other) const
+    {
+        return !(*this == other);
+    }
 
     /*!
      * Returns a set containing `value`.  If the `value` is already in
      * the set, it returns the same set.  It may allocate memory and
      * its complexity is *effectively* @f$ O(1) @f$.
      */
-    set insert(T value) const
-    { return impl_.add(std::move(value)); }
+    IMMER_NODISCARD set insert(T value) const
+    {
+        return impl_.add(std::move(value));
+    }
 
     /*!
      * Returns a set without `value`.  If the `value` is not in the
      * set it returns the same set.  It may allocate memory and its
      * complexity is *effectively* @f$ O(1) @f$.
      */
-    set erase(const T& value) const
-    { return impl_.sub(value); }
+    IMMER_NODISCARD set erase(const T& value) const { return impl_.sub(value); }
 
     /*!
      * Returns an @a transient form of this container, a
      * `immer::set_transient`.
      */
-    transient_type transient() const&
-    { return transient_type{ impl_ }; }
-    transient_type transient() &&
-    { return transient_type{ std::move(impl_) }; }
+    IMMER_NODISCARD transient_type transient() const&
+    {
+        return transient_type{impl_};
+    }
+    IMMER_NODISCARD transient_type transient() &&
+    {
+        return transient_type{std::move(impl_)};
+    }
 
     // Semi-private
     const impl_t& impl() const { return impl_; }

@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2019-2020 The BlackHat developers
+// Copyright (c) 2019-2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,20 +23,24 @@ ProposalInfoDialog::ProposalInfoDialog(QWidget *parent) :
     setCssProperty({ui->labelAmount, ui->labelName, ui->labelUrl, ui->labelRecipient, ui->labelPosVotes, ui->labelId, ui->labelNegVotes, ui->labelEndDate, ui->labelDate, ui->labelStatus}, "text-subtitle");
     setCssProperty({ui->labelDividerID, ui->labelDividerName, ui->labelDividerRecipient, ui->labelDividerChange, ui->labelDividerMemo}, "container-divider");
     setCssProperty({ui->textAmount, ui->textName, ui->textUrl, ui->textRecipient, ui->textPosVotes, ui->textId, ui->textNegVotes, ui->textEndDate, ui->textDate, ui->textStatus} , "text-body3-dialog");
-    setCssProperty({ui->pushCopy, ui->btnUrlCopy, ui->btnNameCopy}, "ic-copy-big");
+    setCssProperty({ui->pushCopy, ui->btnUrlCopy, ui->btnNameCopy, ui->btnRecipientCopy}, "ic-copy-big");
     setCssProperty(ui->btnEsc, "ic-close");
     connect(ui->btnEsc, &QPushButton::clicked, this, &ProposalInfoDialog::close);
     connect(ui->pushCopy, &QPushButton::clicked, [this](){
         GUIUtil::setClipboard(QString::fromStdString(info.id.GetHex()));
-        inform("ID copied to clipboard");
+        inform(tr("ID copied to clipboard"));
     });
     connect(ui->btnUrlCopy, &QPushButton::clicked, [this](){
         GUIUtil::setClipboard(QString::fromStdString(info.url));
-        inform("URL copied to clipboard");
+        inform(tr("URL copied to clipboard"));
     });
     connect(ui->btnNameCopy, &QPushButton::clicked, [this](){
         GUIUtil::setClipboard(QString::fromStdString(info.name));
-        inform("URL copied to clipboard");
+        inform(tr("Proposal name copied to clipboard"));
+    });
+    connect(ui->btnRecipientCopy, &QPushButton::clicked, [this]() {
+        GUIUtil::setClipboard(QString::fromStdString(info.recipientAdd));
+        inform(tr("Recipient copied to clipboard"));
     });
 }
 

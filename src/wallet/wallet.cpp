@@ -1,11 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2015-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "optional.h"
+#include "validation.h"
 #if defined(HAVE_CONFIG_H)
 #include "config/blkc-config.h"
 #endif
@@ -95,6 +97,11 @@ public:
 
     void operator()(const CKeyID& keyId)
     {
+        if (keystore.HaveKey(keyId))
+            vKeys.push_back(keyId);
+    }
+
+    void operator()(const CExchangeKeyID& keyId) {
         if (keystore.HaveKey(keyId))
             vKeys.push_back(keyId);
     }
@@ -702,6 +709,11 @@ bool CWallet::HasSaplingSPKM() const
     return GetSaplingScriptPubKeyMan()->IsEnabled();
 }
 
+bool CWallet::IsSaplingSpent(const SaplingOutPoint& op) const
+{
+    return m_sspk_man->IsSaplingSpent(op);
+}
+
 /**
  * Outpoint is spent if any non-conflicted transaction
  * spends it:
@@ -800,7 +812,7 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
         encrypted_batch = new WalletBatch(*database);
         if (!encrypted_batch->TxnBegin()) {
             delete encrypted_batch;
-            encrypted_batch = NULL;
+            encrypted_batch = nullptr;
             return false;
         }
         encrypted_batch->WriteMasterKey(nMasterKeyMaxID, kMasterKey);
@@ -825,7 +837,7 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
         }
 
         delete encrypted_batch;
-        encrypted_batch = NULL;
+        encrypted_batch = nullptr;
 
         Lock();
         Unlock(strWalletPassphrase);
@@ -1053,7 +1065,7 @@ void CWallet::AddExternalNotesDataToTx(CWalletTx& wtx) const
 /**
  * Add a transaction to the wallet, or update it. pIndex and posInBlock should
  * be set when the transaction was known to be included in a block.  When
- * pIndex == NULL, then wallet state is not updated in AddToWallet, but
+ * pIndex == nullptr, then wallet state is not updated in AddToWallet, but
  * notifications happen and cached balances are marked dirty.
  *
  * If fUpdate is true, existing transactions will be updated.
@@ -1341,7 +1353,7 @@ void CWallet::BlockConnected(const std::shared_ptr<const CBlock>& pblock, const 
     // If turned on Auto Combine will scan wallet for dust to combine
     // Outside of the cs_wallet lock because requires cs_main for now
     // due CreateTransaction/CommitTransaction dependency.
-    if (fCombineDust) {
+    if (fCombineDust && pindex->nHeight % frequency == 0) {
         AutoCombineDust(g_connman.get());
     }
 }
@@ -1364,7 +1376,7 @@ void CWallet::BlockDisconnected(const std::shared_ptr<const CBlock>& pblock, con
 
     if (Params().GetConsensus().NetworkUpgradeActive(nBlockHeight, Consensus::UPGRADE_V5_0)) {
         // Update Sapling cached incremental witnesses
-        m_sspk_man->DecrementNoteWitnesses(nBlockHeight);
+        m_sspk_man->DecrementNoteWitnesses(mapBlockIndex[blockHash]);
         m_sspk_man->UpdateSaplingNullifierNoteMapForBlock(pblock.get());
     }
 }
@@ -2024,7 +2036,7 @@ void CWalletTx::RelayWalletTransaction(CConnman* connman)
 std::set<uint256> CWalletTx::GetConflicts() const
 {
     std::set<uint256> result;
-    if (pwallet != NULL) {
+    if (pwallet != nullptr) {
         uint256 myHash = GetHash();
         result = pwallet->GetConflicts(myHash);
         result.erase(myHash);
@@ -2199,6 +2211,28 @@ CAmount CWallet::GetLockedCoins() const
     }
     return ret;
 }
+
+CAmount CWallet::GetLockedShieldCoins() const
+{
+    LOCK(cs_wallet);
+    if (setLockedNotes.empty()) return 0;
+
+    CAmount ret = 0;
+    for (const auto& op : setLockedNotes) {
+        auto it = mapWallet.find(op.hash);
+        if (it != mapWallet.end()) {
+            const CWalletTx& pcoin = it->second;
+            if (pcoin.IsTrusted() && pcoin.GetDepthInMainChain() > 0) {
+                Optional<CAmount> val = pcoin.mapSaplingNoteData.at(op).amount;
+                if (val) {
+                    ret += *val;
+                }
+            }
+        }
+    }
+    return ret;
+}
+
 
 CAmount CWallet::GetUnconfirmedBalance(isminetype filter) const
 {
@@ -2704,7 +2738,7 @@ bool CWallet::SelectCoinsMinConf(const CAmount& nTargetValue, int nConfMine, int
     // List of values less than target
     std::pair<CAmount, std::pair<const CWalletTx*, unsigned int> > coinLowestLarger;
     coinLowestLarger.first = std::numeric_limits<CAmount>::max();
-    coinLowestLarger.second.first = NULL;
+    coinLowestLarger.second.first = nullptr;
     std::vector<std::pair<CAmount, std::pair<const CWalletTx*, unsigned int> > > vValue;
     CAmount nTotalLower = 0;
 
@@ -2750,7 +2784,7 @@ bool CWallet::SelectCoinsMinConf(const CAmount& nTargetValue, int nConfMine, int
     }
 
     if (nTotalLower < nTargetValue) {
-        if (coinLowestLarger.second.first == NULL)
+        if (coinLowestLarger.second.first == nullptr)
                 return false;
         setCoinsRet.insert(coinLowestLarger.second);
         nValueRet += coinLowestLarger.first;
@@ -3333,6 +3367,7 @@ bool CWallet::CreateCoinStake(
 
     // Kernel Search
     CAmount nCredit;
+    CAmount nMasternodePayment;
     CScript scriptPubKeyKernel;
     bool fKernelFound = false;
     int nAttempts = 0;
@@ -3375,10 +3410,11 @@ bool CWallet::CreateCoinStake(
 
         // Add block reward to the credit
         nCredit += GetBlockValue(pindexPrev->nHeight + 1);
+        nMasternodePayment = GetMasternodePayment(pindexPrev->nHeight + 1);
 
         // Create the output transaction(s)
         std::vector<CTxOut> vout;
-        if (!CreateCoinstakeOuts(stakeInput, vout, nCredit)) {
+        if (!CreateCoinstakeOuts(stakeInput, vout, nCredit - nMasternodePayment)) {
             LogPrintf("%s : failed to create output\n", __func__);
             it++;
             continue;
@@ -3571,9 +3607,14 @@ DBErrors CWallet::ZapWalletTx(std::vector<CWalletTx>& vWtx)
 }
 
 std::string CWallet::ParseIntoAddress(const CWDestination& dest, const std::string& purpose) {
-    const CChainParams::Base58Type addrType =
-            AddressBook::IsColdStakingPurpose(purpose) ?
-            CChainParams::STAKING_ADDRESS : CChainParams::PUBKEY_ADDRESS;
+    CChainParams::Base58Type addrType;
+    if (AddressBook::IsColdStakingPurpose(purpose)) {
+        addrType = CChainParams::STAKING_ADDRESS;
+    } else if (AddressBook::IsExchangePurpose(purpose)) {
+        addrType = CChainParams::EXCHANGE_ADDRESS;
+    } else {
+        addrType = CChainParams::PUBKEY_ADDRESS;
+    }
     return Standard::EncodeDestination(dest, addrType);
 }
 
@@ -3889,16 +3930,34 @@ void CWallet::LockCoin(const COutPoint& output)
     setLockedCoins.insert(output);
 }
 
+void CWallet::LockNote(const SaplingOutPoint& op)
+{
+    AssertLockHeld(cs_wallet); // setLockedNotes
+    setLockedNotes.insert(op);
+}
+
 void CWallet::UnlockCoin(const COutPoint& output)
 {
     AssertLockHeld(cs_wallet); // setLockedCoins
     setLockedCoins.erase(output);
 }
 
+void CWallet::UnlockNote(const SaplingOutPoint& op)
+{
+    AssertLockHeld(cs_wallet); // setLockedNotes
+    setLockedNotes.erase(op);
+}
+
 void CWallet::UnlockAllCoins()
 {
     AssertLockHeld(cs_wallet); // setLockedCoins
     setLockedCoins.clear();
+}
+
+void CWallet::UnlockAllNotes()
+{
+    AssertLockHeld(cs_wallet); // setLockedNotes
+    setLockedNotes.clear();
 }
 
 bool CWallet::IsLockedCoin(const uint256& hash, unsigned int n) const
@@ -3909,10 +3968,22 @@ bool CWallet::IsLockedCoin(const uint256& hash, unsigned int n) const
     return (setLockedCoins.count(outpt) > 0);
 }
 
+bool CWallet::IsLockedNote(const SaplingOutPoint& op) const
+{
+    AssertLockHeld(cs_wallet); // setLockedNotes
+    return (setLockedNotes.count(op) > 0);
+}
+
 std::set<COutPoint> CWallet::ListLockedCoins()
 {
-    AssertLockHeld(cs_wallet);
+    AssertLockHeld(cs_wallet); // setLockedCoins
     return setLockedCoins;
+}
+
+std::set<SaplingOutPoint> CWallet::ListLockedNotes()
+{
+    AssertLockHeld(cs_wallet); // setLockedNotes
+    return setLockedNotes;
 }
 
 bool CWallet::SetStakeSplitThreshold(const CAmount sst)
@@ -4053,8 +4124,8 @@ void CWallet::AutoCombineDust(CConnman* connman)
             vRewardCoins.push_back(out);
             nTotalRewardsValue += out.Value();
 
-            // Combine to the threshold and not way above
-            if (nTotalRewardsValue > nAutoCombineThreshold)
+            // Combine to the threshold and not way above considering the safety margin.
+            if ((nTotalRewardsValue - (nTotalRewardsValue / 10)) > nAutoCombineThreshold)
                 break;
 
             // Around 180 bytes per input. We use 190 to be certain
@@ -4106,7 +4177,7 @@ void CWallet::AutoCombineDust(CConnman* connman)
         }
 
         //we don't combine below the threshold unless the fees are 0 to avoid paying fees over fees over fees
-        if (!maxSize && nTotalRewardsValue < nAutoCombineThreshold && nFeeRet > 0)
+        if (!maxSize && vecSend[0].nAmount < nAutoCombineThreshold && nFeeRet > 0)
             continue;
 
         const CWallet::CommitResult& res = CommitTransaction(wtx, keyChange, connman);
@@ -4115,7 +4186,7 @@ void CWallet::AutoCombineDust(CConnman* connman)
             continue;
         }
 
-        LogPrintf("AutoCombineDust sent transaction\n");
+        LogPrintf("AutoCombineDust sent transaction. Fee=%d, Total value=%d, Sending=%d\n", nFeeRet, nTotalRewardsValue, vecSend[0].nAmount);
 
         delete coinControl;
     }
@@ -4456,7 +4527,7 @@ void CWallet::SetNull()
     nWalletVersion = FEATURE_BASE;
     nWalletMaxVersion = FEATURE_BASE;
     nMasterKeyMaxID = 0;
-    encrypted_batch = NULL;
+    encrypted_batch = nullptr;
     nOrderPosNext = 0;
     nNextResend = 0;
     nLastResend = 0;
@@ -4482,6 +4553,7 @@ void CWallet::SetNull()
     //Auto Combine Dust
     fCombineDust = false;
     nAutoCombineThreshold = 0;
+    frequency = 30;
 
     // Sapling.
     m_sspk_man->nWitnessCacheSize = 0;
@@ -4628,7 +4700,7 @@ void CWallet::IncrementNoteWitnesses(const CBlockIndex* pindex,
                             const CBlock* pblock,
                             SaplingMerkleTree& saplingTree) { m_sspk_man->IncrementNoteWitnesses(pindex, pblock, saplingTree); }
 
-void CWallet::DecrementNoteWitnesses(const CBlockIndex* pindex) { m_sspk_man->DecrementNoteWitnesses(pindex->nHeight); }
+void CWallet::DecrementNoteWitnesses(const CBlockIndex* pindex) { m_sspk_man->DecrementNoteWitnesses(pindex); }
 
 void CWallet::ClearNoteWitnessCache() { m_sspk_man->ClearNoteWitnessCache(); }
 

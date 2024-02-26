@@ -1,5 +1,5 @@
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,6 +18,7 @@ public:
 
 protected:
     // CValidationInterface
+    void AcceptedBlockHeader(const CBlockIndex* pindexNew) override;
     void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload) override;
     void NotifyMasternodeListChanged(bool undo, const CDeterministicMNList& oldMNList, const CDeterministicMNListDiff& diff) override;
 };

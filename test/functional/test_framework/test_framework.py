@@ -51,7 +51,6 @@ from .util import (
     DEFAULT_FEE,
     get_datadir_path,
     hex_str_to_bytes,
-    bytes_to_hex_str,
     initialize_datadir,
     is_coin_locked_by,
     create_new_dmn,
@@ -380,7 +379,7 @@ class BlackHatTestFramework():
             if best_hash.count(best_hash[0]) == len(rpc_connections):
                 return
             # Check that each peer has at least one connection
-            assert (all([len(x.getpeerinfo()) for x in rpc_connections]))
+            assert all([len(x.getpeerinfo()) for x in rpc_connections])
             time.sleep(wait)
         raise AssertionError("Block sync timed out after {}s:{}".format(
             timeout,
@@ -402,7 +401,7 @@ class BlackHatTestFramework():
                         r.syncwithvalidationinterfacequeue()
                 return
             # Check that each peer has at least one connection
-            assert (all([len(x.getpeerinfo()) for x in rpc_connections]))
+            assert all([len(x.getpeerinfo()) for x in rpc_connections])
             time.sleep(wait)
         raise AssertionError("Mempool sync timed out after {}s:{}".format(
             timeout,
@@ -502,7 +501,7 @@ class BlackHatTestFramework():
 
             for i in range(MAX_NODES):
                 for entry in os.listdir(cache_path(i)):
-                    if entry not in ['wallet.dat', 'chainstate', 'blocks', 'sporks', 'evodb', 'zerocoin', 'backups', "wallets"]:
+                    if entry not in ['wallet.dat', 'chainstate', 'blocks', 'sporks', 'evodb', 'zerocoin', 'backups', "wallets", "llmq"]:
                         os.remove(cache_path(i, entry))
 
         def clean_cache_dir():
@@ -670,7 +669,7 @@ class BlackHatTestFramework():
             prevout.deserialize_uniqueness(BytesIO(uniqueness))
             tx = create_transaction_from_outpoint(prevout, b"", value_out, scriptPubKey)
             # sign tx
-            raw_spend = rpc_conn.signrawtransaction(bytes_to_hex_str(tx.serialize()))['hex']
+            raw_spend = rpc_conn.signrawtransaction(tx.serialize().hex())['hex']
             # add signed tx to the list
             signed_tx = CTransaction()
             signed_tx.from_hex(raw_spend)
@@ -705,7 +704,7 @@ class BlackHatTestFramework():
                                     If empty string, it will be used the pk from the stake input
                                     (dumping the sk from rpc_conn). If None, then the DUMMY_KEY will be used.
                  vtx:               ([CTransaction] list) transactions to add to block.vtx
-                 fDoubleSpend:      (bool) wether any tx in vtx is allowed to spend the coinstake input
+                 fDoubleSpend:      (bool) whether any tx in vtx is allowed to spend the coinstake input
         :return: block:             (CBlock) block produced, must be manually relayed
         """
         assert_greater_than(len(self.nodes), node_id)
@@ -753,7 +752,7 @@ class BlackHatTestFramework():
 
         # Sign coinstake TX and add it to the block
         stake_tx_signed_raw_hex = rpc_conn.signrawtransaction(
-            bytes_to_hex_str(coinstakeTx_unsigned.serialize()))['hex']
+            coinstakeTx_unsigned.serialize().hex())['hex']
 
         # Add coinstake to the block
         coinstakeTx = CTransaction()
@@ -780,9 +779,11 @@ class BlackHatTestFramework():
             stakeableUtxos,
             btime=None,
             privKeyWIF=None,
-            vtx=[],
+            vtx=None,
             fDoubleSpend=False):
         """ Calls stake_block appending to the current tip"""
+        if vtx is None:
+            vtx = []
         assert_greater_than(len(self.nodes), node_id)
         saplingActive = self.nodes[node_id].getblockchaininfo()['upgrades']['v5 shield']['status'] == 'active'
         blockVersion = 8 if saplingActive else 7
@@ -990,7 +991,9 @@ class BlackHatTestFramework():
             raise AssertionError("Unable to complete mnsync: %s" % str(synced))
 
 
-    def wait_until_mn_status(self, status, mnTxHash, _timeout, orEmpty=False, with_ping_mns=[]):
+    def wait_until_mn_status(self, status, mnTxHash, _timeout, orEmpty=False, with_ping_mns=None):
+        if with_ping_mns is None:
+            with_ping_mns = []
         nodes_status = [None] * self.num_nodes
 
         def node_synced(i):
@@ -1017,21 +1020,37 @@ class BlackHatTestFramework():
             raise AssertionError(strErr)
 
 
-    def wait_until_mn_enabled(self, mnTxHash, _timeout, _with_ping_mns=[]):
+    def wait_until_mn_enabled(self, mnTxHash, _timeout, _with_ping_mns=None):
+        if _with_ping_mns is None:
+            _with_ping_mns = []
         self.wait_until_mn_status("ENABLED", mnTxHash, _timeout, with_ping_mns=_with_ping_mns)
 
 
-    def wait_until_mn_preenabled(self, mnTxHash, _timeout, _with_ping_mns=[]):
+    def wait_until_mn_preenabled(self, mnTxHash, _timeout, _with_ping_mns=None):
+        if _with_ping_mns is None:
+            _with_ping_mns = []
         self.wait_until_mn_status("PRE_ENABLED", mnTxHash, _timeout, with_ping_mns=_with_ping_mns)
 
 
-    def wait_until_mn_vinspent(self, mnTxHash, _timeout, _with_ping_mns=[]):
+    def wait_until_mn_vinspent(self, mnTxHash, _timeout, _with_ping_mns=None):
+        if _with_ping_mns is None:
+            _with_ping_mns = []
         self.wait_until_mn_status("VIN_SPENT", mnTxHash, _timeout, orEmpty=True, with_ping_mns=_with_ping_mns)
 
 
     def controller_start_masternode(self, mnOwner, masternodeAlias):
-        ret = mnOwner.startmasternode("alias", "false", masternodeAlias, True)
+        ret = mnOwner.startmasternode("alias", False, masternodeAlias, True)
         assert_equal(ret["result"], "success")
+        time.sleep(1)
+
+
+    def controller_start_masternodes(self, mnOwner, aliases=None):
+        if aliases is None:
+            aliases = []
+        ret = mnOwner.startmasternode(set="all", lock_wallet=False, reload_conf=True)
+        for i in range(len(aliases)):
+            assert_equal(ret["detail"][i]["alias"], aliases[i])
+            assert_equal(ret["detail"][i]["result"], "success")
         time.sleep(1)
 
 
@@ -1051,8 +1070,10 @@ class BlackHatTestFramework():
         time.sleep(1)
 
 
-    def stake_and_ping(self, node_id, num_blocks, with_ping_mns=[]):
+    def stake_and_ping(self, node_id, num_blocks, with_ping_mns=None):
         # stake blocks and send mn pings in between
+        if with_ping_mns is None:
+            with_ping_mns = []
         for i in range(num_blocks):
             self.stake_and_sync(node_id, 1)
             if len(with_ping_mns) > 0:
@@ -1154,7 +1175,7 @@ class BlackHatTestFramework():
             file_object.write(confData)
 
         # lock collateral
-        mnOwner.lockunspent(False, [{"txid": collateralTxId, "vout": collateralTxId_n}])
+        mnOwner.lockunspent(False, True, [{"txid": collateralTxId, "vout": collateralTxId_n}])
 
         # return the collateral outpoint
         return COutPoint(collateralTxId, collateralTxId_n)
@@ -1411,6 +1432,12 @@ class BlackHatDMNTestFramework(BlackHatTestFramework):
         assert_equal([130] * self.num_nodes, [self.get_spork(x, "SPORK_21_LEGACY_MNS_MAX_HEIGHT")
                                               for x in range(self.num_nodes)])
 
+        # Enforce chainlocks activation at block 131
+        assert_equal("success", self.set_spork(self.minerPos, "SPORK_23_CHAINLOCKS_ENFORCEMENT", 130))
+        time.sleep(1)
+        assert_equal([130] * self.num_nodes, [self.get_spork(x, "SPORK_23_CHAINLOCKS_ENFORCEMENT")
+                                              for x in range(self.num_nodes)])
+
         # Mine 130 blocks
         self.log.info("Mining...")
         self.nodes[self.minerPos].generate(10)
@@ -1551,7 +1578,9 @@ class BlackHatDMNTestFramework(BlackHatTestFramework):
                  (or None if all members participated)
     """
     def mine_quorum(self, invalidate_func=None, invalidated_idx=None, skip_bad_member_sync=False,
-                    expected_messages=[ExpectedDKGMessages() for _ in range(3)]):
+                    expected_messages=None):
+        if expected_messages is None:
+            expected_messages = [ExpectedDKGMessages() for _ in range(3)]
         nodes_to_sync = self.nodes.copy()
         if invalidated_idx is not None:
             assert invalidate_func is None
@@ -1659,7 +1688,9 @@ class BlackHatTier2TestFramework(BlackHatTestFramework):
         self.send_pings(mns)
         time.sleep(2)
 
-    def stake(self, num_blocks, with_ping_mns=[]):
+    def stake(self, num_blocks, with_ping_mns=None):
+        if with_ping_mns is None:
+            with_ping_mns = []
         self.stake_and_ping(self.minerPos, num_blocks, with_ping_mns)
 
     def controller_start_all_masternodes(self):

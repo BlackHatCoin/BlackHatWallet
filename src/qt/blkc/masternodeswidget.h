@@ -1,13 +1,14 @@
-// Copyright (c) 2019-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2019-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef MASTERNODESWIDGET_H
 #define MASTERNODESWIDGET_H
 
-#include "qt/blkc/pwidget.h"
+#include "coincontroldialog.h"
 #include "qt/blkc/furabstractlistitemdelegate.h"
+#include "qt/blkc/pwidget.h"
 #include "qt/blkc/tooltipmenu.h"
 
 #include <atomic>
@@ -34,6 +35,7 @@ public:
 
     explicit MasterNodesWidget(BLKCGUI *parent = nullptr);
     ~MasterNodesWidget();
+    void resetCoinControl();
     void setMNModel(MNModel* _mnModel);
 
     void run(int type) override;
@@ -43,6 +45,7 @@ public:
     void hideEvent(QHideEvent *event) override;
 
 private Q_SLOTS:
+    void onCoinControlClicked();
     void onCreateMNClicked();
     void onStartAllClicked(int type);
     void changeTheme(bool isLightTheme, QString &theme) override;
@@ -60,6 +63,7 @@ private:
     TooltipMenu* menu = nullptr;
     QModelIndex index;
     QTimer *timer = nullptr;
+    CoinControlDialog* coinControlDialog = nullptr;
 
     std::atomic<bool> isLoading;
 

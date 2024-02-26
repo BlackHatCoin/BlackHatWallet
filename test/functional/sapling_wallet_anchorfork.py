@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018 The Zcash developers
-# Copyright (c) 2020 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020-2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -21,7 +21,7 @@ class WalletAnchorForkTest(BlackHatTestFramework):
     def run_test (self):
         self.nodes[0].generate(4) # generate blocks to activate sapling in regtest
         # verify sapling activation.
-        assert(self.nodes[0].getblockchaininfo()['upgrades']['v5 shield']['activationheight'] == 1)
+        assert self.nodes[0].getblockchaininfo()['upgrades']['v5 shield']['activationheight'] == 1
 
         self.sync_all()
 
@@ -70,7 +70,7 @@ class WalletAnchorForkTest(BlackHatTestFramework):
 
         # Check partition
         assert_equal(self.nodes[1].getblockcount(), self.nodes[2].getblockcount())
-        assert(self.nodes[2].getblockcount() != self.nodes[0].getblockcount())
+        assert self.nodes[2].getblockcount() != self.nodes[0].getblockcount()
 
         # Partition A, node 0 creates a shield transaction
         recipients = []
@@ -89,7 +89,7 @@ class WalletAnchorForkTest(BlackHatTestFramework):
 
         # Check that Partition B is one block ahead and that they have different tips
         assert_equal(self.nodes[0].getblockcount() + 1, self.nodes[1].getblockcount())
-        assert(self.nodes[0].getbestblockhash() != self.nodes[1].getbestblockhash())
+        assert self.nodes[0].getbestblockhash() != self.nodes[1].getbestblockhash()
 
         # Shut down all nodes so any in-memory state is saved to disk
         self.stop_nodes()

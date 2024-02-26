@@ -1,5 +1,5 @@
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -9,6 +9,7 @@
 #include "net.h" // for g_connman
 #include "policy/policy.h" // for GetDustThreshold
 #include "sapling/key_io_sapling.h"
+#include "script/standard.h"
 #include "utilmoneystr.h"        // for FormatMoney
 
 struct TxValues
@@ -83,7 +84,7 @@ OperationResult SaplingOperation::build()
     bool isFromtAddress = false;
     bool isFromShielded = false;
 
-    if (coinControl) {
+    if (coinControl && coinControl->HasSelected()) {
         // if coin control was selected it overrides any other defined configuration
         std::vector<OutPointWrapper> coins;
         coinControl->ListSelected(coins);
@@ -187,17 +188,27 @@ OperationResult SaplingOperation::build()
         const auto& retCalc = checkTxValues(txValues, isFromtAddress, isFromShielded);
         if (!retCalc) return retCalc;
 
-        // Set change address if we are using transparent funds
-        if (isFromtAddress) {
-            if (!tkeyChange) {
-                tkeyChange = new CReserveKey(wallet);
+        // By default look for a shield change address
+        if (coinControl && coinControl->destShieldChange) {
+            txBuilder.SendChangeTo(*coinControl->destShieldChange, ovk);
+
+            // If not found, and the transaction is transparent, set transparent change address
+        } else if (isFromtAddress) {
+            // Try to use coin control first
+            if (coinControl && IsValidDestination(coinControl->destChange)) {
+                txBuilder.SendChangeTo(coinControl->destChange);
+                // No Coin control! Then we can just use a random key from the keypool
+            } else {
+                if (!tkeyChange) {
+                    tkeyChange = new CReserveKey(wallet);
+                }
+                CPubKey vchPubKey;
+                if (!tkeyChange->GetReservedKey(vchPubKey, true)) {
+                    return errorOut("Could not generate a taddr to use as a change address");
+                }
+                CTxDestination changeAddr = vchPubKey.GetID();
+                txBuilder.SendChangeTo(changeAddr);
             }
-            CPubKey vchPubKey;
-            if (!tkeyChange->GetReservedKey(vchPubKey, true)) {
-                return errorOut("Could not generate a taddr to use as a change address");
-            }
-            CTxDestination changeAddr = vchPubKey.GetID();
-            txBuilder.SendChangeTo(changeAddr);
         }
 
         // Build the transaction

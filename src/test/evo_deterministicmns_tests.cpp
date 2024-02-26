@@ -1,6 +1,6 @@
 // Copyright (c) 2018-2021 The Dash Core developers
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1258,7 +1258,7 @@ BOOST_FIXTURE_TEST_CASE(dkg_pose_and_qfc_invalid_paths, TestChain400Setup)
     ProcessQuorum(llmq::quorumBlockProcessor.get(), qfc, &dummyNode);
     BOOST_CHECK(qfc.CountSigners() > qfc2.CountSigners());
 
-    // final commitment received, accepted, and replaced the previous one (with less memebers)
+    // final commitment received, accepted, and replaced the previous one (with less members)
     BOOST_CHECK(llmq::quorumBlockProcessor->HasMinableCommitment(::SerializeHash(qfc)));
 
     // activate spork 22 and try to mine a non-null commitment

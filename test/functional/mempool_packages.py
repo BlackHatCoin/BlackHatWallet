@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2015 The Bitcoin Core developers
-# Copyright (c) 2020 The PIVX developers
-# Copyright (c) 2021 The BlackHat developers
+# Copyright (c) 2020-2021 The PIVX Core developers
+# Copyright (c) 2021-2024 The BlackHat developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descendant package tracking code"""
@@ -37,7 +37,7 @@ class MempoolPackagesTest(BlackHatTestFramework):
         signedtx = node.signrawtransaction(rawtx)
         txid = node.sendrawtransaction(signedtx['hex'])
         fulltx = node.getrawtransaction(txid, 1)
-        assert(len(fulltx['vout']) == num_outputs) # make sure we didn't generate a change output
+        assert len(fulltx['vout']) == num_outputs  # make sure we didn't generate a change output
         return (txid, send_value)
 
     def run_test(self):

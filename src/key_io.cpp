@@ -31,6 +31,13 @@ namespace
             return EncodeBase58Check(data);
         }
 
+        std::string operator()(const CExchangeKeyID& id) const
+        {
+            std::vector<unsigned char> data = m_params.Base58Prefix(CChainParams::EXCHANGE_ADDRESS);
+            data.insert(data.end(), id.begin(), id.end());
+            return EncodeBase58Check(data);
+        }
+
         std::string operator()(const CScriptID& id) const
         {
             std::vector<unsigned char> data = m_params.Base58Prefix(CChainParams::SCRIPT_ADDRESS);
@@ -41,11 +48,11 @@ namespace
         std::string operator()(const CNoDestination& no) const { return ""; }
     };
 
-    CTxDestination DecodeDestination(const std::string& str, const CChainParams& params, bool& isStaking)
+    CTxDestination DecodeDestination(const std::string& str, const CChainParams& params, bool& isStaking, bool& isExchange)
     {
         std::vector<unsigned char> data;
         uint160 hash;
-        if (DecodeBase58Check(str, data, 21)) {
+        if (DecodeBase58Check(str, data, 23)) {
             // base58-encoded BLKC addresses.
             // Public-key-hash-addresses have version 30 (or 139 testnet).
             // The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.
@@ -53,6 +60,13 @@ namespace
             if (data.size() == hash.size() + pubkey_prefix.size() && std::equal(pubkey_prefix.begin(), pubkey_prefix.end(), data.begin())) {
                 std::copy(data.begin() + pubkey_prefix.size(), data.end(), hash.begin());
                 return CKeyID(hash);
+            }
+            // Exchange Transparent addresses have version 31
+            const std::vector<unsigned char>& exchange_pubkey_prefix = params.Base58Prefix(CChainParams::EXCHANGE_ADDRESS);
+            if (data.size() == hash.size() + exchange_pubkey_prefix.size() && std::equal(exchange_pubkey_prefix.begin(), exchange_pubkey_prefix.end(), data.begin())) {
+                isExchange = true;
+                std::copy(data.begin() + exchange_pubkey_prefix.size(), data.end(), hash.begin());
+                return CExchangeKeyID(hash);
             }
             // Public-key-hash-coldstaking-addresses have version 63 (or 73 testnet).
             const std::vector<unsigned char>& staking_prefix = params.Base58Prefix(CChainParams::STAKING_ADDRESS);
@@ -74,9 +88,9 @@ namespace
 
 } // anon namespace
 
-std::string EncodeDestination(const CTxDestination& dest, bool isStaking)
+std::string EncodeDestination(const CTxDestination& dest, bool isStaking, bool isExchange)
 {
-    return EncodeDestination(dest, isStaking ? CChainParams::STAKING_ADDRESS : CChainParams::PUBKEY_ADDRESS);
+    return isExchange ? EncodeDestination(dest, CChainParams::EXCHANGE_ADDRESS) : (isStaking ? EncodeDestination(dest, CChainParams::STAKING_ADDRESS) : EncodeDestination(dest, CChainParams::PUBKEY_ADDRESS));
 }
 
 std::string EncodeDestination(const CTxDestination& dest, const CChainParams::Base58Type addrType)
@@ -87,18 +101,20 @@ std::string EncodeDestination(const CTxDestination& dest, const CChainParams::Ba
 CTxDestination DecodeDestination(const std::string& str)
 {
     bool isStaking;
-    return DecodeDestination(str, Params(), isStaking);
+    bool isExchange;
+    return DecodeDestination(str, Params(), isStaking, isExchange);
 }
 
-CTxDestination DecodeDestination(const std::string& str, bool& isStaking)
+CTxDestination DecodeDestination(const std::string& str, bool& isStaking, bool& isExchange)
 {
-    return DecodeDestination(str, Params(), isStaking);
+    return DecodeDestination(str, Params(), isStaking, isExchange);
 }
 
 bool IsValidDestinationString(const std::string& str, bool fStaking, const CChainParams& params)
 {
     bool isStaking = false;
-    return IsValidDestination(DecodeDestination(str, params, isStaking)) && (isStaking == fStaking);
+    bool isExchange = false;
+    return IsValidDestination(DecodeDestination(str, params, isStaking, isExchange)) && (isStaking == fStaking);
 }
 
 bool IsValidDestinationString(const std::string& str, bool isStaking)

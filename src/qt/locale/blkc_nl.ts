@@ -1,44 +1,13 @@
-<TS language="nl" version="2.1">
-<context>
-    <name>AddNewAddressDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
-        <source>New Address</source>
-        <translation>Nieuw Adres</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adres</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>DrukKnop</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>SAVE</source>
-        <translation>Opslaan</translation>
-    </message>
-</context>
+<TS version="2.1" language="nl">
 <context>
     <name>AddNewContactDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>CANCEL</source>
-        <translation>Annuleren</translation>
+        <translation>ANNULEREN</translation>
     </message>
     <message>
         <source>Edit Contact</source>
-        <translation>Contactgegevens wijzigen</translation>
+        <translation>Contactgegevens Wijzigen</translation>
     </message>
     <message>
         <source>Set a label for the selected address</source>
@@ -50,7 +19,7 @@
     </message>
     <message>
         <source>SAVE</source>
-        <translation>Opslaan</translation>
+        <translation>OPSLAAN</translation>
     </message>
     <message>
         <source>Edit label for the selected address:
@@ -75,7 +44,7 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>Kopieer het geselecteerde adres naar het klembord</translation>
+        <translation>Kopieer het geselecteerde adres naar het systeemklembord</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -99,7 +68,7 @@
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation>&amp;Sluiten</translation>
+        <translation>S&amp;luiten</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
@@ -151,7 +120,7 @@
     </message>
     <message>
         <source>Exporting Failed</source>
-        <translation>Export Mislukt</translation>
+        <translation>Exporteren Mislukt</translation>
     </message>
     <message>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
@@ -159,26 +128,7 @@
     </message>
 </context>
 <context>
-    <name>AddressLabelRow</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Bob Allen</source>
-        <translation>Bob Allen</translation>
-    </message>
-    <message>
-        <source>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</source>
-        <translation>DN6i46dytMPVhV1JMGZFuQBh7BZZ6nNLox</translation>
-    </message>
-</context>
-<context>
     <name>AddressTableModel</name>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
     <message>
         <source>Address</source>
         <translation>Adres</translation>
@@ -188,20 +138,12 @@
         <translation>Datum</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
         <source>(no label)</source>
         <translation>(geen label)</translation>
     </message>
 </context>
 <context>
     <name>AddressesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Contact name</source>
         <translation>Contactpersoon</translation>
@@ -224,7 +166,7 @@
     </message>
     <message>
         <source>SAVE</source>
-        <translation>Opslaan</translation>
+        <translation>OPSLAAN</translation>
     </message>
     <message>
         <source>Add new contact</source>
@@ -236,7 +178,7 @@
     </message>
     <message>
         <source>Invalid Contact Address</source>
-        <translation>Ongeldig contactadres</translation>
+        <translation>Ongeldig Contactadres</translation>
     </message>
     <message>
         <source>Cannot store your own address as contact</source>
@@ -280,7 +222,7 @@ Weet u het zeker?</translation>
     </message>
     <message>
         <source>Contact Deleted</source>
-        <translation>Contact verwijderd</translation>
+        <translation>Contact Verwijderd</translation>
     </message>
     <message>
         <source>Error deleting a contact</source>
@@ -295,15 +237,7 @@ Weet u het zeker?</translation>
     <name>AskPassphraseDialog</name>
     <message>
         <source>Passphrase Dialog</source>
-        <translation>Wachtwoordzin dialoog</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation>DrukKnop</translation>
+        <translation>Wachtwoordzin Dialoog</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
@@ -321,7 +255,7 @@ Weet u het zeker?</translation>
         <source>Unlock wallet
 for staking</source>
         <translation>Portemonnee ontgrendelen
-voor bewijs van Inzet</translation>
+voor staken</translation>
     </message>
     <message>
         <source>Unlock wallet</source>
@@ -361,11 +295,7 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>CANCEL</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>BlackHat will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
-        <translation>BlackHat zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen tegen malware infecties op uw computer die uw BlackHat's kunnen stelen.</translation>
+        <translation>ANNULEREN</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -389,15 +319,19 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>BELANGRIJK: Elke eerder gemaakte backup van uw portemonneebestand dient te worden vervangen door het nieuwe gegenereerde, versleutelde portemonneebestand. Om veiligheidsredenen zullen eerdere backups van het niet-versleutelde portemonneebestand onbruikbaar worden zodra u uw nieuwe, versleutelde, portemonnee begint te gebruiken.</translation>
+        <translation>BELANGRIJK: Elke eerder gemaakte back-up van uw portemonneebestand dient te worden vervangen door het nieuwe gegenereerde, versleutelde portemonneebestand. Om veiligheidsredenen zullen eerdere back-ups van het niet-versleutelde portemonneebestand onbruikbaar worden zodra u uw nieuwe, versleutelde, portemonnee begint te gebruiken.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
         <translation>Portemonneeversleuteling mislukt</translation>
     </message>
     <message>
+        <source>Your wallet is now encrypted. Remember that encrypting your wallet cannot fully protect your BLKCs from being stolen by malware infecting your computer.</source>
+        <translation>Uw portemonnee is nu versleuteld. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen tegen malware infecties op uw computer die uw BLKC's kunnen stelen.</translation>
+    </message>
+    <message>
         <source>OK</source>
-        <translation>Akkoord</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
@@ -413,7 +347,7 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>Wallet unlock failed</source>
-        <translation>Portemonnee openen mislukt</translation>
+        <translation>Portemonnee ontgrendelen mislukt</translation>
     </message>
     <message>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
@@ -431,34 +365,22 @@ voor bewijs van Inzet</translation>
 <context>
     <name>BalanceBubble</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Transparent</source>
+        <translation>Transparant</translation>
     </message>
     </context>
 <context>
     <name>BanTableModel</name>
     <message>
-        <source>IP/Netmask</source>
-        <translation>IP/Netmask</translation>
-    </message>
-    <message>
         <source>Banned Until</source>
-        <translation>Verboden tot</translation>
+        <translation>Geblokkeerd tot</translation>
     </message>
 </context>
 <context>
     <name>CSRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Savings</source>
         <translation>Besparingen</translation>
-    </message>
-    <message>
-        <source>0,00 BLKC</source>
-        <translation>0,00 BLKC</translation>
     </message>
     <message>
         <source>address</source>
@@ -487,12 +409,8 @@ voor bewijs van Inzet</translation>
         <translation>Kwantiteit:</translation>
     </message>
     <message>
-        <source>Bytes:</source>
-        <translation>Bytes:</translation>
-    </message>
-    <message>
         <source>Fee:</source>
-        <translation>Fee:</translation>
+        <translation>Transactiekosten:</translation>
     </message>
     <message>
         <source>Coin Selection</source>
@@ -501,10 +419,6 @@ voor bewijs van Inzet</translation>
     <message>
         <source>Select BLKC Outputs to Spend</source>
         <translation>Selecteer BLKC Outputs om te besteden</translation>
-    </message>
-    <message>
-        <source>Dust:</source>
-        <translation>Dust:</translation>
     </message>
     <message>
         <source>Change:</source>
@@ -520,19 +434,11 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>(1 locked)</source>
-        <translation>(1 locked)</translation>
+        <translation>(1 vergrendeld)</translation>
     </message>
     <message>
         <source>Amount</source>
         <translation>Bedrag</translation>
-    </message>
-    <message>
-        <source>0.00 BLKC</source>
-        <translation>0.00 BLKC</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation>0</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -552,11 +458,11 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>After Fee: </source>
-        <translation>Na kosten</translation>
+        <translation>Na Transactiekosten</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Akkoord</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <source>Date</source>
@@ -588,19 +494,15 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>Lock unspent</source>
-        <translation>Lock niet besteed</translation>
+        <translation>Vergrendel niet besteed</translation>
     </message>
     <message>
         <source>Unlock unspent</source>
-        <translation>Unlock niet besteed</translation>
+        <translation>Ontgrendel niet besteed</translation>
     </message>
     <message>
         <source>Unselect all</source>
         <translation>Deselecteer alles</translation>
-    </message>
-    <message>
-        <source>Please switch to "List mode" to use this function.</source>
-        <translation>Schakel alsjeblieft over naar "Lijst modus" om deze functie te gebruiken.</translation>
     </message>
     <message>
         <source>Quantity Copied</source>
@@ -612,15 +514,15 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>Fee Copied</source>
-        <translation>Kost gekopieerd</translation>
+        <translation>Transactiekosten gekopieerd</translation>
     </message>
     <message>
         <source>After Fee Copied</source>
-        <translation>Na Vergoeding Gekopieerd</translation>
+        <translation>Na Transactiekosten Gekopieerd</translation>
     </message>
     <message>
         <source>Bytes Copied</source>
-        <translation>Bytes gekopieerd</translation>
+        <translation>Bytes Gekopieerd</translation>
     </message>
     <message>
         <source>Dust Copied</source>
@@ -628,7 +530,7 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>Change Copied</source>
-        <translation>Wissel Gekopieerd</translation>
+        <translation>Wisselgeld Gekopieerd</translation>
     </message>
     <message>
         <source>(%1 locked)</source>
@@ -639,12 +541,24 @@ voor bewijs van Inzet</translation>
         <translation>ja</translation>
     </message>
     <message>
+        <source>This label turns red, if recipient receives an amount smaller than %1 (transparent) / %2 (shield).</source>
+        <translation>Dit label wordt rood, als een ontvanger een hoeveelheid kleiner dan %1 (transparant) / %2 (shield) ontvangt.</translation>
+    </message>
+    <message>
         <source>Can vary +/- %1 u%2 per input.</source>
         <translation>Kan +/- %1 u%2 per invoer verschillen.</translation>
     </message>
     <message>
+        <source>change in %1</source>
+        <translation>wisselgeld in %1</translation>
+    </message>
+    <message>
         <source>delegated to %1 for cold staking</source>
         <translation>gedelegeerd naar %1 voor cold staking</translation>
+    </message>
+    <message>
+        <source>Delegated to %1</source>
+        <translation>Gedelegeerd naar %1</translation>
     </message>
     <message>
         <source>Select All</source>
@@ -655,32 +569,16 @@ voor bewijs van Inzet</translation>
         <translation>nee</translation>
     </message>
     <message>
-        <source>This label turns red, if the transaction size is greater than 1000 bytes.</source>
-        <translation>Dit label wordt rood, als de transactiegrootte groter is dan 1000 bytes.</translation>
-    </message>
-    <message>
-        <source>This means a fee of at least %1 per kB is required.</source>
-        <translation>Dit betekent dat een fee van minstens %1 per kB vereist is.</translation>
-    </message>
-    <message>
-        <source>Can vary +/- 1 byte per input.</source>
-        <translation>Kan variëren van +/- 1 byte per invoer.</translation>
-    </message>
-    <message>
         <source>(no label)</source>
         <translation>(geen label)</translation>
     </message>
     <message>
         <source>(change)</source>
-        <translation>(wijzig)</translation>
+        <translation>(wisselgeld)</translation>
     </message>
 </context>
 <context>
     <name>ColdStakingWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Owner address (optional, if empty a new address will be created)</source>
         <translation>Eigenaarsadres (optioneel, indien leeg wordt er een nieuw adres aangemaakt)</translation>
@@ -688,14 +586,6 @@ voor bewijs van Inzet</translation>
     <message>
         <source>Total Staking:</source>
         <translation>Totaal Staking:</translation>
-    </message>
-    <message>
-        <source>Cold Staking</source>
-        <translation>Cold Staking</translation>
-    </message>
-    <message>
-        <source>Staker</source>
-        <translation>Staker</translation>
     </message>
     <message>
         <source>Delegation</source>
@@ -707,7 +597,7 @@ voor bewijs van Inzet</translation>
     </message>
     <message>
         <source>Clear All</source>
-        <translation>Alles wissen</translation>
+        <translation>Alles Wissen</translation>
     </message>
     <message>
         <source>Delegated balance history</source>
@@ -729,7 +619,7 @@ voor bewijs van Inzet</translation>
         <source>You can delegate your BLKCs, letting a hot node (24/7 online node)
 stake on your behalf, while you keep the keys securely offline.</source>
         <translation>Je kan jouw BLKCs delegeren en een hot node (24/7 online node)
-voor je laten staken, terwijl je de sleutels veilig offline opslag bewaart.</translation>
+voor je laten staken, terwijl je de sleutels veilig offline bewaart.</translation>
     </message>
     <message>
         <source>Enter owner address</source>
@@ -798,10 +688,6 @@ en deze te kunnen staken namens hun eigenaar.</translation>
         <translation>Ongeldig eigenaarsadres</translation>
     </message>
     <message>
-        <source>ALERT!</source>
-        <translation>ALERT!</translation>
-    </message>
-    <message>
         <source>Delegating to an external owner address!
 
 The delegated coins will NOT be spendable by this wallet.
@@ -854,14 +740,6 @@ Wil je verdergaan?</translation>
         <translation>Bewerk</translation>
     </message>
     <message>
-        <source>Stake</source>
-        <translation>Stake</translation>
-    </message>
-    <message>
-        <source>Blacklist</source>
-        <translation>Blacklist</translation>
-    </message>
-    <message>
         <source>Edit Label</source>
         <translation>Label wijzigen</translation>
     </message>
@@ -912,29 +790,113 @@ address</source>
     </message>
 </context>
 <context>
-    <name>ContactDropdownRow</name>
+    <name>CreateProposalDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Ontvanger</translation>
+    </message>
+    <message>
+        <source>Summary</source>
+        <translation>Samenvatting</translation>
+    </message>
+    <message>
+        <source>Create New Proposal</source>
+        <translation>Maak Nieuw Voorstel Aan</translation>
+    </message>
+    <message>
+        <source>Make sure you have 50 BLKC for the proposal fee</source>
+        <translation>Zorg ervoor dat je 50 BLKC hebt voor de voorstelkosten</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Voorstel Naam</translation>
+    </message>
+    <message>
+        <source>Proposal URL</source>
+        <translation>Voorstel URL</translation>
+    </message>
+    <message>
+        <source>Proposal Payee</source>
+        <translation>Voorstel begunstigde</translation>
+    </message>
+    <message>
+        <source>Add the requested number of payments, the amount per payment, and the payee address.</source>
+        <translation>Voeg het gevraagde aantal betalingen, het bedrag per betaling en het adres van de begunstigde toe.</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Maanden</translation>
+    </message>
+    <message>
+        <source>Proposal Summary</source>
+        <translation>Voorstel Samenvatting</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Akkoord</translation>
+    </message>
+    <message>
+        <source>GENERATE ADDRESS</source>
+        <translation>GENEREER ADRES</translation>
+    </message>
+    <message>
+        <source>NEXT</source>
+        <translation>VOLGENDE</translation>
+    </message>
+    <message>
+        <source>BACK</source>
+        <translation>TERUG</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot be empty</source>
+        <translation>Voorstel naam mag niet leeg zijn</translation>
+    </message>
+    <message>
+        <source>Proposal name cannot contain non UTF-8 characters</source>
+        <translation>Voorstel naam mag geen UTF-8 karakters bevatten</translation>
+    </message>
+    <message>
+        <source>Invalid amount</source>
+        <translation>Ongeldige hoeveelheid</translation>
+    </message>
+    <message>
+        <source>Invalid payment address</source>
+        <translation>Ongeldig betalingsadres</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Zenden</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Volgende</translation>
+    </message>
+    <message>
+        <source>No contacts available, you can go to the contacts screen and add some there!</source>
+        <translation>Geen beschikbare contacten, je kan naar het contactscherm gaan en daar enkele toevoegen!</translation>
     </message>
 </context>
 <context>
     <name>DashboardWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Transactions</source>
         <translation>Transacties</translation>
-    </message>
-    <message>
-        <source>Staking Rewards</source>
-        <translation>Staking Beloningen</translation>
-    </message>
-    <message>
-        <source>Staking statistics</source>
-        <translation>Staking statistieken</translation>
     </message>
     <message>
         <source>View your account's history</source>
@@ -965,16 +927,24 @@ address</source>
         <translation>Filter volgens</translation>
     </message>
     <message>
-        <source>Amount of BLKC and zBLKC staked.</source>
-        <translation>Hoeveelheid aan gestaked BLKC en zBLKC.</translation>
-    </message>
-    <message>
         <source>Please wait until the wallet is fully synced to see your correct balance</source>
         <translation>Wacht tot de portemonnee volledig gesynchroniseerd is om uw juiste saldo te zien</translation>
     </message>
     <message>
         <source>No transactions yet</source>
         <translation>Nog geen transacties</translation>
+    </message>
+    <message>
+        <source>Staking/MN Rewards</source>
+        <translation>Stake/MN Beloningen</translation>
+    </message>
+    <message>
+        <source>Amount of BLKC stakes and masternodes rewards.</source>
+        <translation>Bedrag aan BLKC stakes en masternodes rewards.</translation>
+    </message>
+    <message>
+        <source>Rewards statistics</source>
+        <translation>Beloningsstatistieken</translation>
     </message>
     <message>
         <source>You can verify the staking activity in the status bar at the top right of the wallet.
@@ -1010,10 +980,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 <context>
     <name>DefaultDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Akkoord</translation>
     </message>
@@ -1027,10 +993,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     <message>
         <source>Edit Address</source>
         <translation>Wijzig Adres</translation>
-    </message>
-    <message>
-        <source>&amp;Label</source>
-        <translation>&amp;Label</translation>
     </message>
     <message>
         <source>The label associated with this address list entry</source>
@@ -1078,13 +1040,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     </message>
 </context>
 <context>
-    <name>ExpandableButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-</context>
-<context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
@@ -1108,62 +1063,143 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     </message>
 </context>
 <context>
+    <name>GovernanceWidget</name>
+    <message>
+        <source>Governance</source>
+        <translation>Bestuur</translation>
+    </message>
+    <message>
+        <source>View, follow, vote and submit network budget proposals.
+Be part of the DAO.</source>
+        <translation>Bekijk, volg, stem en dien voorstellen in voor netwerkbudgetten.
+Maak deel uit van de DAO.</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Sort by</source>
+        <translation>Sorteervolgorde</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Gehaald</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Niet Gehaald</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Wachten</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced to see the correct information</source>
+        <translation>Wacht tot de node volledig is gesynchroniseerd om de juiste gegevens te zien</translation>
+    </message>
+    <message>
+        <source>Prepare and submit a new proposal.</source>
+        <translation>Een nieuw voorstel voorbereiden en indienen.</translation>
+    </message>
+    <message>
+        <source>Please wait until the node is fully synced</source>
+        <translation>Wacht tot de node volledig gesynchroniseerd is</translation>
+    </message>
+    <message>
+        <source>Cannot vote for the proposal yet, wait until it's confirmed by the network</source>
+        <translation>Er kan nog niet op het voorstel worden gestemd, wacht tot het is bevestigd door het netwerk</translation>
+    </message>
+    <message>
+        <source>Vote emitted successfully!</source>
+        <translation>Stem succesvol verzonden!</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, superblock is too close. Need to wait %1 blocks</source>
+        <translation>Het voorstel kan niet worden aangemaakt, er zijn te weinig blokken tot het superblok. Wacht %1 blokken</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, wallet locked</source>
+        <translation>Kan het voorstel niet aanmaken, portemonnee vergrendeld</translation>
+    </message>
+    <message>
+        <source>Cannot create proposal, need to have at least %1 to pay for the proposal fee</source>
+        <translation>Het voorstel kan niet worden aangemaakt, er moet ten minste %1 beschikbaar zijn om de voorstelkosten te betalen</translation>
+    </message>
+    <message>
+        <source>Proposal transaction fee broadcasted!</source>
+        <translation>Voorstel transactiekosten uitgezonden!</translation>
+    </message>
+    <message>
+        <source>Copy Url</source>
+        <translation>Kopiëer Url</translation>
+    </message>
+    <message>
+        <source>More Info</source>
+        <translation>meer informatie</translation>
+    </message>
+    <message>
+        <source>Proposal URL copied to clipboard</source>
+        <translation>Voorstel URL gekopieerd naar klembord</translation>
+    </message>
+    <message>
+        <source>Open Proposal URL</source>
+        <translation>Open Voorstel URL</translation>
+    </message>
+    <message>
+        <source>The following URL will be opened in the default browser</source>
+        <translation>De volgende URL wordt geopend in de standaardbrowser</translation>
+    </message>
+    <message>
+        <source>Are you sure?
+(Always verify the URL validity before opening it)
+</source>
+        <translation>Weet u het zeker?
+(Controleer altijd de juistheid van de URL voor hem te openen)
+</translation>
+    </message>
+    <message>
+        <source>Failed to open proposal URL</source>
+        <translation>URL van het voorstel kon niet worden geopend</translation>
+    </message>
+    <message>
+        <source>Next superblock today!
+%2 blocks to go.</source>
+        <translation>Volgende superblok vandaag!
+Nog %2 blokken te gaan.</translation>
+    </message>
+    <message>
+        <source>Next superblock in %1 days.
+%2 blocks to go.</source>
+        <translation>Volgende superblok in %1 dagen.
+Nog %2 blokken te gaan.</translation>
+    </message>
+</context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
         <source>version</source>
         <translation>versie</translation>
     </message>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
-        <source>(%1-bit)</source>
-        <translation>(%1-bit)</translation>
-    </message>
-    <message>
-        <source>About BlackHat Core</source>
-        <translation>Over BlackHat Core</translation>
+        <source>About %1</source>
+        <translation>Over %1</translation>
     </message>
     <message>
         <source>Command-line options</source>
         <translation>Command-line opties</translation>
-    </message>
-    <message>
-        <source>Usage:</source>
-        <translation>Gebruik:</translation>
-    </message>
-    <message>
-        <source>command-line options</source>
-        <translation>command-line opties</translation>
-    </message>
-    <message>
-        <source>UI Options:</source>
-        <translation>UI Opties:</translation>
-    </message>
-    <message>
-        <source>Choose data directory on startup (default: %u)</source>
-        <translation>Kies data directory bij opstarten (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: %u)</source>
-        <translation>Toon splash scherm bij opstarten (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Hide QT staking charts on startup (default: %u)</source>
-        <translation>Verberg QT stakinggrafieken bij opstarten (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Stel taal in, bijvoorbeeld "de_DE" (standaard: systeem locale)</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Geminimaliseerd starten</translation>
-    </message>
-    <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Stel SSL root certificaten in voor betalingsverzoek (standaard: -systeem-)</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1177,16 +1213,16 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
         <translation>Welkom</translation>
     </message>
     <message>
-        <source>Welcome to BlackHat Core.</source>
-        <translation>Welkom bij BlackHat Core.</translation>
+        <source>Welcome to %1.</source>
+        <translation>Welkom bij %1.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where BlackHat Core will store its data.</source>
-        <translation>Aangezien dit de eerste keer is dat het programma is gestart, kun je kiezen waar BlackHat Core zijn data opslaat.</translation>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation>Omdat dit de eerste keer is dat het programma wordt gestart, kun je kiezen waar %1 zijn gegevens opslaat.</translation>
     </message>
     <message>
-        <source>BlackHat Core will download and store a copy of the BlackHat block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>BlackHat Core zal een kopie van de BlackHat blockchain downloaden en opslaan. Tenminste %1GB aan data zal worden opgeslagen in deze map en het zal over de tijd groeien. De portemonnee zal ook in deze map worden opgeslagen.</translation>
+        <source>%1 will download and store a copy of the BlackHat block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 zal een kopie van de BlackHat blockchain downloaden en opslaan. Minimaal %2GB zal worden opgeslagen in deze map en het zal over tijd toenemen. De portemonnee wordt ook in deze map opgeslagen.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1205,16 +1241,8 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
         <translation>Akkoord</translation>
     </message>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
         <translation>Fout: opgegeven data directory "%1" kan niet worden gemaakt.</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
     </message>
     <message>
         <source>%1 GB of free space available</source>
@@ -1228,28 +1256,12 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
 <context>
     <name>LoadingDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
         <source>Loading</source>
         <translation>Aan het laden</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation>.</translation>
     </message>
 </context>
 <context>
     <name>LockUnlock</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Unlock Wallet</source>
         <translation>Portemonnee Ontgrendelen</translation>
@@ -1264,42 +1276,59 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     </message>
 </context>
 <context>
-    <name>MNRow</name>
+    <name>MNModel</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Unknown error</source>
+        <translation>Onbekende fout</translation>
     </message>
     <message>
-        <source>Collateral tx not found</source>
-        <translation>Terugbetalingstransactie niet gevonden</translation>
+        <source>Prepare master node failed.
+
+%1
+</source>
+        <translation>Voorbereiden masternode mislukt.
+
+%1
+</translation>
     </message>
     <message>
-        <source>Status: %1</source>
-        <translation>Status: %1</translation>
+        <source>Cannot send collateral transaction.
+
+%1</source>
+        <translation>Kan onderpandtransactie niet verzenden.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Invalid collateral output index</source>
+        <translation>Ongeldige onderpand output index</translation>
+    </message>
+    <message>
+        <source>%1 file doesn't exists</source>
+        <translation>%1 bestand bestaat niet</translation>
+    </message>
+    <message>
+        <source>Invalid %1 file</source>
+        <translation>Ongeldig %1 bestand</translation>
+    </message>
+    <message>
+        <source>Error parsing %1 file</source>
+        <translation>Fout bij het verwerkingen van %1 bestand</translation>
+    </message>
+    <message>
+        <source>MN alias %1 not found in %2 file</source>
+        <translation>MN alias %1 niet gevonden in %2 bestand</translation>
     </message>
 </context>
 <context>
+    <name>MNRow</name>
+    <message>
+        <source>Collateral tx not found</source>
+        <translation>Onderpandtransactie niet gevonden</translation>
+    </message>
+    </context>
+<context>
     <name>MasterNodeWizardDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
-        <source>Intro</source>
-        <translation>Intro</translation>
-    </message>
     <message>
         <source>Name</source>
         <translation>Naam</translation>
@@ -1311,10 +1340,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     <message>
         <source>Create New Masternode Controller</source>
         <translation>Creëer Nieuwe Masternode Controller</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a BlackHat Masternode you must dedicate 5,000 BLKC (the unit of BlackHat) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Om een BlackHat Masternode te creëren moet u 5.000 BLKC (de eenheid van BlackHat) aan het netwerk wijden (deze munten zijn echter nog steeds van u en zullen nooit uw bezit verlaten). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;U kunt de node op elk gewenst moment deactiveren en de munten ontgrendelen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Set Masternode Name</source>
@@ -1331,10 +1356,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     <message>
         <source>Make sure you have this amount of coins.</source>
         <translation>Zorg ervoor dat je deze hoeveelheid munten hebt.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 5,000 BLKC will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een transactie van 5,000 BLKC zal gemaakt worden&lt;/p&gt;&lt;p&gt;naar een nieuw leeg adres in uw portemonnee.&lt;/p&gt;&lt;p&gt;Het adres is gelabeld onder de masternode's naam.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1365,58 +1386,36 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
         <translation>Ongeldig IP-adres</translation>
     </message>
     <message>
-        <source>Unknown error</source>
-        <translation>Ongekend probleem</translation>
+        <source>To create a BlackHat Masternode you must dedicate %1 (the unit of BLKC) to the network (however, these coins are still yours and will never leave your possession).</source>
+        <translation>Om een BlackHat Masternode te creëren moet je %1 (de eenheid van BLKC) in het netwerk vastzetten (deze munten zijn echter nog steeds van jou en zullen in jouw bezit blijven).</translation>
     </message>
     <message>
-        <source>Prepare master node failed.
-
-%1
-</source>
-        <translation>Voorbereiden masternode mislukt.
-
-%1
-</translation>
+        <source>You can deactivate the node and unlock the coins at any time.</source>
+        <translation>Je kunt de node op elk moment deactiveren en de munten weer vrijgeven.</translation>
     </message>
     <message>
-        <source>Invalid collateral output index</source>
-        <translation>Ongeldige Collaterale Outputindex</translation>
+        <source>A transaction of %1 will be made</source>
+        <translation>Een transactie van %1 zal gemaakt worden</translation>
     </message>
     <message>
-        <source>Master node created! Wait %1 confirmations before starting it.</source>
-        <translation>Masternode gecreëerd! Wacht op %1 bevestigingen vooraleer je het start. </translation>
+        <source>to a new empty address in your wallet.</source>
+        <translation>naar een nieuw leeg adres in uw portemonnee</translation>
     </message>
     <message>
-        <source>Cannot send collateral transaction.
-
-%1</source>
-        <translation>Kan geen collaterale transactie versturen.
-
-%1</translation>
+        <source>The Address is labeled under the master node's name.</source>
+        <translation>Het Adres is gelabeld onder de master node's naam.</translation>
     </message>
     <message>
         <source>walletModel not set</source>
         <translation>walletModel niet ingesteld</translation>
     </message>
     <message>
-        <source>Invalid masternode.conf file</source>
-        <translation>Invalide masternode.conf file</translation>
-    </message>
-    <message>
-        <source>Error parsing masternode.conf file</source>
-        <translation>Fout opgelopen bij het parsen van het masternode.conf bestand</translation>
-    </message>
-    <message>
-        <source>masternode.conf file doesn't exists</source>
-        <translation>masternode.conf bestand bestaat niet</translation>
+        <source>Masternode created! Wait %1 confirmations before starting it.</source>
+        <translation>Masternode aangemaakt! Wacht %1 bevestiging voor hem te starten.</translation>
     </message>
 </context>
 <context>
     <name>MasterNodesWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Start All</source>
         <translation>Alles starten</translation>
@@ -1424,10 +1423,6 @@ Het zal automatisch starten zodra de portemonnee voldoende bevestigingen heeft o
     <message>
         <source>Start Inactive/s</source>
         <translation>Start Inactieve/s</translation>
-    </message>
-    <message>
-        <source>Masternodes</source>
-        <translation>Masternodes</translation>
     </message>
     <message>
         <source>Full nodes that incentivize node operators to perform the core consensus functions
@@ -1444,24 +1439,12 @@ en stemmen over het treasury systeem met een periodieke beloning.</translation>
         <translation>Geen actieve Masternode</translation>
     </message>
     <message>
-        <source>Start</source>
-        <translation>Start</translation>
-    </message>
-    <message>
         <source>Delete</source>
         <translation>Wissen</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation>Info</translation>
-    </message>
-    <message>
         <source>Please wait until the node is fully synced</source>
         <translation>Wacht tot de node volledig gesynchroniseerd is</translation>
-    </message>
-    <message>
-        <source>Start Masternode</source>
-        <translation>Start Masternode</translation>
     </message>
     <message>
         <source>Are you sure you want to start masternode %1?
@@ -1476,8 +1459,18 @@ en stemmen over het treasury systeem met een periodieke beloning.</translation>
     <message>
         <source>Cannot start masternode, the collateral transaction has not been confirmed by the network yet.
 Please wait few more minutes (masternode collaterals require %1 confirmations).</source>
-        <translation>Kan de masternode niet starten, de collaterale transactie is nog niet bevestigd door het netwerk.
+        <translation>Kan de masternode niet starten, de onderpandtransactie is nog niet bevestigd door het netwerk.
 Gelieve nog enkele minuten te wachten (het onderpand van een masternode vereist %1 bevestigingen).</translation>
+    </message>
+    <message>
+        <source>failed to start.
+Error: %1</source>
+        <translation>gefaald te starten.
+Fout: %1</translation>
+    </message>
+    <message>
+        <source>successfully started</source>
+        <translation>succesvol gestart</translation>
     </message>
     <message>
         <source>Background task is being executed, please wait</source>
@@ -1510,10 +1503,6 @@ Gelieve nog enkele minuten te wachten (het onderpand van een masternode vereist 
     <message>
         <source>Masternode data copied to the clipboard.</source>
         <translation>Masternodegegevens gekopieerd naar het klembord</translation>
-    </message>
-    <message>
-        <source>Not enough balance to create a masternode, 5,000 %1 required.</source>
-        <translation>Niet genoeg balans om een masternode te creëren, 5,000 %1 vereist.</translation>
     </message>
     <message>
         <source>Remote Masternode Data</source>
@@ -1554,6 +1543,10 @@ deze controller portemonnee (selecteer de Masternode in de lijst en druk op "sta
 </translation>
     </message>
     <message>
+        <source>Invalid collateral output index</source>
+        <translation>Ongeldige onderpand output index</translation>
+    </message>
+    <message>
         <source>Delete Masternode</source>
         <translation>Verwijder Masternode</translation>
     </message>
@@ -1568,20 +1561,16 @@ Are you sure?</source>
 Weet je het zeker?</translation>
     </message>
     <message>
-        <source>Invalid masternode.conf file</source>
-        <translation>Invalide masternode.conf file</translation>
-    </message>
-    <message>
-        <source>Error parsing masternode.conf file</source>
-        <translation>Fout opgelopen bij het parsen van het masternode.conf bestand</translation>
-    </message>
-    <message>
-        <source>masternode.conf file doesn't exists</source>
-        <translation>masternode.conf bestand bestaat niet</translation>
-    </message>
-    <message>
         <source>Cannot create Masternode controller, wallet locked</source>
         <translation>Kan geen Masternode controller aanmaken, portemonnee vergrendeld</translation>
+    </message>
+    <message>
+        <source>Not enough balance to create a masternode, %1 required.</source>
+        <translation>Niet genoeg saldo om een masternode te creëren, %1 vereist.</translation>
+    </message>
+    <message>
+        <source>Not enough coins selected to create a masternode, %1 required.</source>
+        <translation>Niet genoeg munten geselecteerd om een masternode te creëren, %1 vereist.</translation>
     </message>
     <message>
         <source>Error creating masternode</source>
@@ -1590,10 +1579,6 @@ Weet je het zeker?</translation>
 </context>
 <context>
     <name>MnInfoDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Masternode Information</source>
         <translation>Masternode informatie</translation>
@@ -1608,7 +1593,7 @@ Weet je het zeker?</translation>
     </message>
     <message>
         <source>Collaterall tx id:</source>
-        <translation>Collaterale tx id:</translation>
+        <translation>ID Onderpandtransactie:</translation>
     </message>
     <message>
         <source>Output index:</source>
@@ -1617,10 +1602,6 @@ Weet je het zeker?</translation>
     <message>
         <source>1 Inputs</source>
         <translation>1 Invoer</translation>
-    </message>
-    <message>
-        <source>Status:</source>
-        <translation>Status:</translation>
     </message>
     <message>
         <source>Export data to run the Masternode on a remote server</source>
@@ -1632,22 +1613,70 @@ Weet je het zeker?</translation>
     </message>
     <message>
         <source>Collateral tx id copied</source>
-        <translation>ID terugbetalingstransactie gekopieerd</translation>
+        <translation>ID onderpandtransactie gekopieerd</translation>
     </message>
 </context>
 <context>
-    <name>MyAddressRow</name>
+    <name>MnSelectionDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Select Masternodes</source>
+        <translation>Selecteer Masternodes</translation>
+    </message>
+    <message>
+        <source>Each Masternode refers to a single vote, you can select which one will vote for the proposal</source>
+        <translation>Elke Masternode refereert naar een enkele stem, je kan selecteren welke zal stemmen voor het voorstel</translation>
+    </message>
+    <message>
+        <source>Amount of votes:</source>
+        <translation>Hoeveelheid van stemmen:</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Selecteer Alles</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation>Stem</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>SELECT VOTES</source>
+        <translation>KIES STEMMEN</translation>
+    </message>
+    <message>
+        <source>Unselect All</source>
+        <translation>Deselecteer Alles</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    <message>
+        <source>The direction of the already broadcasted vote</source>
+        <translation>De richting van de al uitgezonden stem</translation>
+    </message>
+    <message>
+        <source>No vote has been emitted from this Masternode</source>
+        <translation>Geen stem is uitgegeven door deze Masternode</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes to change your vote</source>
+        <translation>De tijd tussen stemmen is te snel, U moet %1 minuten wachten om uw stem te veranderen</translation>
     </message>
 </context>
 <context>
     <name>NavMenuWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>HOME
 </source>
@@ -1673,45 +1702,17 @@ Weet je het zeker?</translation>
 </translation>
     </message>
     <message>
-        <source>MASTER
-NODES</source>
-        <translation>MASTER
-NODES</translation>
-    </message>
-    <message>
-        <source>COLD
-STAKING</source>
-        <translation>COLD
-STAKING</translation>
-    </message>
-    <message>
         <source>SETTINGS
 </source>
         <translation>INSTELLINGEN
 </translation>
     </message>
-    <message>
-        <source>V 1.0.0</source>
-        <translation>V 1.0.0</translation>
-    </message>
-    <message>
-        <source>v%1</source>
-        <translation>v%1</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>OpenURIDialog</name>
     <message>
         <source>Open URI</source>
         <translation>URI openen</translation>
-    </message>
-    <message>
-        <source>Open payment request from URI or file</source>
-        <translation>Open betalingsverzoek van URL of bestand</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -1721,328 +1722,12 @@ STAKING</translation>
         <source>OK</source>
         <translation>Akkoord</translation>
     </message>
-    <message>
-        <source>Select payment request file</source>
-        <translation>Selecteer betalingsverzoek bestand</translation>
-    </message>
-    <message>
-        <source>Select payment request file to open</source>
-        <translation>Selecteer betalingsverzoek bestand dat geopend moet worden</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>Bestand niet gevonden</translation>
-    </message>
-    <message>
-        <source>Parsed data too large</source>
-        <translation>Ingelezen data te groot</translation>
-    </message>
-    <message>
-        <source>Invalid URI, not starting with "blkc" prefix</source>
-        <translation>Ongeldige URI, begint niet met de "blkc" prefix</translation>
-    </message>
-</context>
-<context>
-    <name>OptionButton</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-</context>
-<context>
-    <name>OptionsDialog</name>
-    <message>
-        <source>Options</source>
-        <translation>Opties</translation>
-    </message>
-    <message>
-        <source>&amp;Main</source>
-        <translation>&amp;Algemeen</translation>
-    </message>
-    <message>
-        <source>Size of &amp;database cache</source>
-        <translation>Grootte van cache &amp;gegevens</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
-        <source>Number of script &amp;verification threads</source>
-        <translation>Aantal script en verificatie threads</translation>
-    </message>
-    <message>
-        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
-        <translation>(0 = auto, &lt;0 = laat dat aantal cores vrij)</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>P&amp;ortemonnee</translation>
-    </message>
-    <message>
-        <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>Als je de uitgaven van onbevestigde wijzigingen uitschakelt, de wijziging van een transactie&lt;br/&gt;kan niet worden gebruikt tot die transactie tenminste één bevestiging heeft.&lt;br/&gt;Dit beïnvloedt ook hoe uw saldo is berekend.</translation>
-    </message>
-    <message>
-        <source>Automatically open the BlackHat client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Open de BlackHat client poort automatisch op de router. Dit werkt alleen als je router UPnP ondersteunt en het is ingeschakeld.</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside</source>
-        <translation>Accepteer externe connecties</translation>
-    </message>
-    <message>
-        <source>Allow incoming connections</source>
-        <translation>Sta inkomende connecties toe</translation>
-    </message>
-    <message>
-        <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>&amp; Verbind via SOCKS5 proxy (standaard proxy):</translation>
-    </message>
-    <message>
-        <source>Expert</source>
-        <translation>Expert</translation>
-    </message>
-    <message>
-        <source>Automatically start BlackHat after logging in to the system.</source>
-        <translation>BlackHat automatisch opstarten na inloggen op het systeem.</translation>
-    </message>
-    <message>
-        <source>&amp;Start BlackHat on system login</source>
-        <translation>&amp;BlackHat starten bij systeemlogin</translation>
-    </message>
-    <message>
-        <source>Whether to show coin control features or not.</source>
-        <translation>Of je de muntcontrolefuncties wilt tonen of niet.</translation>
-    </message>
-    <message>
-        <source>Enable coin &amp;control features</source>
-        <translation>Munt- en controlefuncties inschakelen</translation>
-    </message>
-    <message>
-        <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
-        <translation>Toon extra tabblad waarin al je masternodes worden vermeld in het eerste sub-tabblad&lt;br/&gt;en alle masternodes op het netwerk in het tweede sub-tabblad.</translation>
-    </message>
-    <message>
-        <source>Show Masternodes Tab</source>
-        <translation>Toon Masternodes Tab</translation>
-    </message>
-    <message>
-        <source>&amp;Spend unconfirmed change</source>
-        <translation>&amp; Besteed onbevestigd wisselgeld</translation>
-    </message>
-    <message>
-        <source>&amp;Network</source>
-        <translation>&amp;Netwerk</translation>
-    </message>
-    <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting BlackHat.</source>
-        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van BlackHat.</translation>
-    </message>
-    <message>
-        <source>Language missing or translation incomplete? Help contributing translations here:
-https://forum.blackhatco.in</source>
-        <translation>Taal ontbreekt of vertaling onvolledig? Help om bij te dragen aan vertalingen:
-https://forum.blackhatco.in</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Map poort gebruikt &amp;UPnP</translation>
-    </message>
-    <message>
-        <source>Enable automatic minting of BLKC units to zBLKC</source>
-        <translation>Schakel automatisch slaan van BLKC-eenheden in op zBLKC</translation>
-    </message>
-    <message>
-        <source>Enable zBLKC Automint</source>
-        <translation>Schakel zBLKC Automint in</translation>
-    </message>
-    <message>
-        <source>Enable automatic zBLKC minting from specific addresses</source>
-        <translation>Automatische zBLKC munting inschakelen vanuit specifiek adres</translation>
-    </message>
-    <message>
-        <source>Enable Automint Addresses</source>
-        <translation>Automint Adressen Inschakelen</translation>
-    </message>
-    <message>
-        <source>Percentage of incoming BLKC which get automatically converted to zBLKC via Zerocoin Protocol (min: 10%)</source>
-        <translation>Percentage inkomende BLKC die automatisch wordt omgezet naar zBLKC via Zerocoin Protocol (min: 10%)</translation>
-    </message>
-    <message>
-        <source>Percentage of autominted zBLKC</source>
-        <translation>Percentage autominted zBLKC</translation>
-    </message>
-    <message>
-        <source>Wait with automatic conversion to Zerocoin until enough BLKC for this denomination is available</source>
-        <translation>Wacht met automatische omzetting naar Zerocoin totdat er genoeg BLKC voor deze denominatie beschikbaar is</translation>
-    </message>
-    <message>
-        <source>Preferred Automint zBLKC Denomination</source>
-        <translation>Gewenste Automint zBLKC denominatie</translation>
-    </message>
-    <message>
-        <source>Stake split threshold:</source>
-        <translation>Stake splitsdrempel:</translation>
-    </message>
-    <message>
-        <source>Connect to the BlackHat network through a SOCKS5 proxy.</source>
-        <translation>Maak verbinding met het BlackHat netwerk via een SOCKS5 proxy.</translation>
-    </message>
-    <message>
-        <source>Proxy &amp;IP:</source>
-        <translation>Proxy &amp;IP:</translation>
-    </message>
-    <message>
-        <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
-        <translation>IP adres van de proxy (bijvoorbeeld IPv4: 127.0.0.1 / IPv6: ::1)</translation>
-    </message>
-    <message>
-        <source>&amp;Port:</source>
-        <translation>&amp;Poort:</translation>
-    </message>
-    <message>
-        <source>Port of the proxy (e.g. 9050)</source>
-        <translation>Proxy-poort (v.b. 9050)</translation>
-    </message>
-    <message>
-        <source>&amp;Window</source>
-        <translation>&amp;Venster</translation>
-    </message>
-    <message>
-        <source>Show only a tray icon after minimizing the window.</source>
-        <translation>Toon alleen een tray icoon na minimalisering van het venster.</translation>
-    </message>
-    <message>
-        <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>&amp; Minimaliseer naar de tray in plaats van de taakbalk</translation>
-    </message>
-    <message>
-        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Minimaliseer in plaats van de applicatie te verlaten wanneer het venster wordt gesloten. Wanneer deze optie is ingeschakeld, wordt de applicatie alleen gesloten nadat in het menu Quit wordt gekozen.</translation>
-    </message>
-    <message>
-        <source>M&amp;inimize on close</source>
-        <translation>Minimaliseer bij sluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Display</source>
-        <translation>&amp;Weergave</translation>
-    </message>
-    <message>
-        <source>User Interface &amp;language:</source>
-        <translation>Gebruiksinterface &amp;language:</translation>
-    </message>
-    <message>
-        <source>User Interface Theme:</source>
-        <translation>Gebruiksinterface thema:</translation>
-    </message>
-    <message>
-        <source>Unit to show amounts in:</source>
-        <translation>Eenheid om hoeveelheid in te weergeven:</translation>
-    </message>
-    <message>
-        <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Kies de standaard onderverdelingseenheid die in de interface wordt weergegeven en bij het verzenden van munten.</translation>
-    </message>
-    <message>
-        <source>Decimal digits</source>
-        <translation>Decimale cijfers</translation>
-    </message>
-    <message>
-        <source>Hide empty balances</source>
-        <translation>Verberg lege saldi</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes in transaction lists</source>
-        <translation>Verberg orphan stakes in transactielijsten</translation>
-    </message>
-    <message>
-        <source>Hide orphan stakes</source>
-        <translation>Verberg orphan stakes</translation>
-    </message>
-    <message>
-        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>URL's van derden (bijvoorbeeld een blok verkenner) die in het tabblad transacties verschijnen als contextmenu items. %s in de URL wordt vervangen door transactie hash. Meerdere URL's worden gescheiden door verticale balk |.</translation>
-    </message>
-    <message>
-        <source>Third party transaction URLs</source>
-        <translation>Transactie URL's van derden</translation>
-    </message>
-    <message>
-        <source>Active command-line options that override above options:</source>
-        <translation>Actieve command line opties die bovenstaande opties overschrijven:</translation>
-    </message>
-    <message>
-        <source>Reset all client options to default.</source>
-        <translation>Reset alle client instellingen naar standaardinstellingen.</translation>
-    </message>
-    <message>
-        <source>&amp;Reset Options</source>
-        <translation>&amp;Herstellings Opties</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Any</source>
-        <translation>een</translation>
-    </message>
-    <message>
-        <source>default</source>
-        <translation>standaard</translation>
-    </message>
-    <message>
-        <source>none</source>
-        <translation>geen</translation>
-    </message>
-    <message>
-        <source>Confirm options reset</source>
-        <translation>Bevestig reset instellingen</translation>
-    </message>
-    <message>
-        <source>Client restart required to activate changes.</source>
-        <translation>Client herstart vereist om wijzigingen te activeren.</translation>
-    </message>
-    <message>
-        <source>Client will be shutdown, do you want to proceed?</source>
-        <translation>Client wordt uitgeschakeld, wil je doorgaan?</translation>
-    </message>
-    <message>
-        <source>This change would require a client restart.</source>
-        <translation>Deze wijziging vereist een herstart van de client.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy address is invalid.</source>
-        <translation>Het opgegeven proxyadres is ongeldig.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy port is invalid.</source>
-        <translation>De meegeleverde proxy-poort is ongeldig.</translation>
-    </message>
-    <message>
-        <source>The supplied proxy settings are invalid.</source>
-        <translation>De geleverde proxy-instellingen zijn ongeldig.</translation>
-    </message>
 </context>
 <context>
     <name>BLKCGUI</name>
     <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-    <message>
         <source>Wallet</source>
         <translation>Portemonnee</translation>
-    </message>
-    <message>
-        <source>Node</source>
-        <translation>Node</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -2061,14 +1746,6 @@ https://forum.blackhatco.in</translation>
         <translation>Programma afsluiten</translation>
     </message>
     <message>
-        <source>BlackHat Core client</source>
-        <translation>BlackHat Core client</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
         <source>Warning</source>
         <translation>Waarschuwing</translation>
     </message>
@@ -2079,10 +1756,6 @@ https://forum.blackhatco.in</translation>
     <message>
         <source>System Message</source>
         <translation>Systeembericht</translation>
-    </message>
-    <message>
-        <source>Sent MultiSend transaction</source>
-        <translation>Verzonden MultiSend transactie</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -2116,14 +1789,6 @@ Adres: %4
         <translation>URL behandeling</translation>
     </message>
     <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation>Betalingsverzoek ophalen URL is ongeldig: %1</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Betalingsaanvraag bestandsverwerking</translation>
-    </message>
-    <message>
         <source>Invalid payment address %1</source>
         <translation>Ongeldig betalingsadres %1</translation>
     </message>
@@ -2134,66 +1799,6 @@ Adres: %4
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BlackHat address or malformed URI parameters.</source>
         <translation>URL kan niet ontleed worden! Dit kan worden veroorzaakt door een ongeldig BlackHat adres of misvormde URL parameters.</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Uw betalingsverzoek kan niet worden gelezen! Dit kan worden veroorzaakt door een ongeldig betalingsverzoek bestand.</translation>
-    </message>
-    <message>
-        <source>Payment request rejected</source>
-        <translation>Betalingsverzoek afgewezen</translation>
-    </message>
-    <message>
-        <source>Payment request network doesn't match client network.</source>
-        <translation>Het betalingsverzoek netwerk komt niet overeen met het client netwerk.</translation>
-    </message>
-    <message>
-        <source>Payment request has expired.</source>
-        <translation>Betalingsverzoek is verlopen.</translation>
-    </message>
-    <message>
-        <source>Payment request is not initialized.</source>
-        <translation>Betalingsverzoek is niet geïnitialiseerd. </translation>
-    </message>
-    <message>
-        <source>Unverified payment requests to custom payment scripts are unsupported.</source>
-        <translation>Niet geverifieerde betalingsverzoeken naar aangepaste betaal scripts worden niet ondersteund.</translation>
-    </message>
-    <message>
-        <source>Requested payment amount of %1 is too small (considered dust).</source>
-        <translation>Gevraagd betalingsbedrag van %1 is te klein (beschouwd als dust).</translation>
-    </message>
-    <message>
-        <source>Refund from %1</source>
-        <translation>Terugbetaling van %1</translation>
-    </message>
-    <message>
-        <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
-        <translation>Betalingsverzoek %1 is te groot (%2 bytes, toegestaan %3 bytes).</translation>
-    </message>
-    <message>
-        <source>Payment request DoS protection</source>
-        <translation>Betalingsverzoek DoS bescherming</translation>
-    </message>
-    <message>
-        <source>Error communicating with %1: %2</source>
-        <translation>Fout communiceren met %1: %2</translation>
-    </message>
-    <message>
-        <source>Payment request cannot be parsed!</source>
-        <translation>Betalingsaanvraag kan niet worden geanalyseerd!</translation>
-    </message>
-    <message>
-        <source>Bad response from server %1</source>
-        <translation>Bad response van server %1</translation>
-    </message>
-    <message>
-        <source>Network request error</source>
-        <translation>Netwerkverzoek fout</translation>
-    </message>
-    <message>
-        <source>Payment acknowledged</source>
-        <translation>Betaling erkend</translation>
     </message>
 </context>
 <context>
@@ -2210,9 +1815,99 @@ Adres: %4
         <source>Ping Time</source>
         <translation>Pingtijd</translation>
     </message>
+    </context>
+<context>
+    <name>ProposalCard</name>
     <message>
-        <source>NodeID</source>
-        <translation>NodeID</translation>
+        <source>Vote</source>
+        <translation>Stem</translation>
+    </message>
+    <message>
+        <source>Inactive proposal</source>
+        <translation>Niet-actief voorstel</translation>
+    </message>
+    <message>
+        <source>Last month in course</source>
+        <translation>Laatste maand in gang</translation>
+    </message>
+    <message>
+        <source>%1 of %2 months left</source>
+        <translation>%1 van %2 maanden resterend</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Wachten</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Klaar</translation>
+    </message>
+    <message>
+        <source>No Votes</source>
+        <translation>Geen Stemmen</translation>
+    </message>
+    <message>
+        <source>Not Passing</source>
+        <translation>Niet Gehaald</translation>
+    </message>
+    <message>
+        <source>Passing</source>
+        <translation>Gehaald</translation>
+    </message>
+</context>
+<context>
+    <name>ProposalInfoDialog</name>
+    <message>
+        <source>Proposal Information</source>
+        <translation>Voorstel Informatie</translation>
+    </message>
+    <message>
+        <source>Proposal Name</source>
+        <translation>Voorstel Naam</translation>
+    </message>
+    <message>
+        <source>Recipient</source>
+        <translation>Ontvanger</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Bedrag</translation>
+    </message>
+    <message>
+        <source>End Block</source>
+        <translation>Einde Block</translation>
+    </message>
+    <message>
+        <source>Positive Votes</source>
+        <translation>Positieve Stemmen</translation>
+    </message>
+    <message>
+        <source>Negative Votes</source>
+        <translation>Negatieve Stemmen</translation>
+    </message>
+    <message>
+        <source>ID copied to clipboard</source>
+        <translation>ID gekopieerd naar klembord</translation>
+    </message>
+    <message>
+        <source>URL copied to clipboard</source>
+        <translation>URL gekopieerd naar klembord</translation>
+    </message>
+    <message>
+        <source>Proposal name copied to clipboard</source>
+        <translation>Voorstel naam gekopieerd naar klembord</translation>
+    </message>
+    <message>
+        <source>Recipient copied to clipboard</source>
+        <translation>Ontvanger gekopieerd naar klembord</translation>
     </message>
 </context>
 <context>
@@ -2226,28 +1921,8 @@ Adres: %4
         <translation>Voer een BlackHat adres in (b.v. %1)</translation>
     </message>
     <message>
-        <source>%1 d</source>
-        <translation>%1 d</translation>
-    </message>
-    <message>
-        <source>%1 h</source>
-        <translation>%1 h</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
-    </message>
-    <message>
-        <source>%1 s</source>
-        <translation>%1 s</translation>
-    </message>
-    <message>
         <source>NETWORK</source>
         <translation>NETWERK</translation>
-    </message>
-    <message>
-        <source>BLOOM</source>
-        <translation>BLOOM</translation>
     </message>
     <message>
         <source>UNKNOWN</source>
@@ -2262,16 +1937,8 @@ Adres: %4
         <translation>NB</translation>
     </message>
     <message>
-        <source>%1 ms</source>
-        <translation>%1 ms</translation>
-    </message>
-    <message>
         <source>A fatal error occurred. BlackHat can no longer continue safely and will quit.</source>
         <translation>Een kritieke fout is opgelopen. BlackHat kan niet langer veilig uitgevoerd worden en zal afsluiten.</translation>
-    </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
@@ -2279,19 +1946,15 @@ Adres: %4
     </message>
     <message>
         <source>Error: Cannot parse configuration file: %1. Only use key=value syntax.</source>
-        <translation>Fout: Kan het configuratiebestand niet parsen: %1. Gebruik alleen sleutel=waarde syntaxis.</translation>
+        <translation>Fout: Kan het configuratiebestand niet ontleden: %1. Gebruik alleen sleutel=waarde syntaxis.</translation>
     </message>
     <message>
-        <source>Error: Invalid combination of -regtest and -testnet.</source>
-        <translation>Fout: Ongeldige combinatie van -regtest en -testnet.</translation>
+        <source>Error: %1</source>
+        <translation>Fout: %1</translation>
     </message>
     <message>
-        <source>Error reading masternode configuration file: %1</source>
-        <translation>Fout bij het lezen van het masternode configuratiebestand: %1</translation>
-    </message>
-    <message>
-        <source>BlackHat Core didn't yet exit safely...</source>
-        <translation>BlackHat Core is nog niet veilig afgesloten...</translation>
+        <source>%1 didn't yet exit safely...</source>
+        <translation>%1 verliet nog niet veilig...</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -2302,20 +1965,12 @@ Adres: %4
         <translation>Ontvangen</translation>
     </message>
     <message>
-        <source>Delegator</source>
-        <translation>Delegator</translation>
-    </message>
-    <message>
         <source>Delegable</source>
         <translation>Delegeerbaar</translation>
     </message>
     <message>
-        <source>Cold Staking</source>
-        <translation>Cold Staking</translation>
-    </message>
-    <message>
-        <source>Cold Staking Contact</source>
-        <translation>Cold Staking Contact</translation>
+        <source>Receiving Shielded</source>
+        <translation>Ontvang Shielded</translation>
     </message>
     <message>
         <source>Hidden</source>
@@ -2362,14 +2017,6 @@ Adres: %4
         <translation>Verstuurd</translation>
     </message>
     <message>
-        <source>Mined</source>
-        <translation>Mined</translation>
-    </message>
-    <message>
-        <source>Minted</source>
-        <translation>Minted</translation>
-    </message>
-    <message>
         <source>MN reward</source>
         <translation>MN beloning</translation>
     </message>
@@ -2378,20 +2025,16 @@ Adres: %4
         <translation>Naar jezelf</translation>
     </message>
     <message>
-        <source>Cold stakes</source>
-        <translation>Cold stakes</translation>
-    </message>
-    <message>
-        <source>Hot stakes</source>
-        <translation>Hot stakes</translation>
-    </message>
-    <message>
         <source>Delegated</source>
         <translation>Gedelegeerd</translation>
     </message>
     <message>
         <source>Delegations</source>
         <translation>Delegaties</translation>
+    </message>
+    <message>
+        <source>DAO payment</source>
+        <translation>DAO betaling</translation>
     </message>
     <message>
         <source>by Label</source>
@@ -2406,56 +2049,60 @@ Adres: %4
         <translation>per Datum</translation>
     </message>
     <message>
-        <source>Jan</source>
-        <translation>Jan</translation>
-    </message>
-    <message>
-        <source>Feb</source>
-        <translation>Feb</translation>
-    </message>
-    <message>
         <source>Mar</source>
         <translation>Mrt</translation>
-    </message>
-    <message>
-        <source>Apr</source>
-        <translation>Apr</translation>
     </message>
     <message>
         <source>May</source>
         <translation>Mei</translation>
     </message>
     <message>
-        <source>Jun</source>
-        <translation>Jun</translation>
-    </message>
-    <message>
-        <source>Jul</source>
-        <translation>Jul</translation>
-    </message>
-    <message>
-        <source>Aug</source>
-        <translation>Aug</translation>
-    </message>
-    <message>
-        <source>Sep</source>
-        <translation>Sep</translation>
-    </message>
-    <message>
         <source>Oct</source>
         <translation>Okt</translation>
     </message>
     <message>
-        <source>Nov</source>
-        <translation>Nov</translation>
-    </message>
-    <message>
-        <source>Dec</source>
-        <translation>Dec</translation>
-    </message>
-    <message>
         <source>Address with no label</source>
         <translation>Adres zonder label</translation>
+    </message>
+    <message>
+        <source>The recipient address is not valid, please recheck.</source>
+        <translation>Het ontvangstadres is niet geldig, controleer deze.</translation>
+    </message>
+    <message>
+        <source>The amount to pay must be larger than 0.</source>
+        <translation>Het te betalen bedrag moet groter zijn dan 0.</translation>
+    </message>
+    <message>
+        <source>The amount to pay exceeds the available balance.</source>
+        <translation>Het te betalen bedrag overtreft het beschikbare saldo.</translation>
+    </message>
+    <message>
+        <source>The total amount to pay exceeds the available balance when the %1 transaction fee is included.</source>
+        <translation>Het totaal te betalen bedrag overschrijdt het beschikbare saldo als de %1 transactiekosten is inbegrepen.</translation>
+    </message>
+    <message>
+        <source>Duplicate address found, can only send to each address once per send operation.</source>
+        <translation>Dubbel adres gevonden, kan alleen per keer per verzendoperatie naar elk adres versturen.</translation>
+    </message>
+    <message>
+        <source>The transaction is not valid!</source>
+        <translation>De transactie is niet geldig!</translation>
+    </message>
+    <message>
+        <source>Error: The wallet was unlocked for staking only. Unlock canceled.</source>
+        <translation>Fout: De portemonnee is alleen voor staken ontgrendeld. Ontgrendelen geannuleerd.  </translation>
+    </message>
+    <message>
+        <source>Error: The wallet is unlocked for staking only. Fully unlock the wallet to send the transaction.</source>
+        <translation>Fout: De portemonnee is alleen voor staken ontgrendeld. Ontgrendel de portemonnee volledig om de transactie te verzenden.</translation>
+    </message>
+    <message>
+        <source>A fee %1 times higher than %2 per kB is considered an insanely high fee.</source>
+        <translation>Een transactiekosten %1 keer hoger dan %2 per kB wordt beschouwd als een zwaar hoge transactiekosten.</translation>
+    </message>
+    <message>
+        <source>Send Coins</source>
+        <translation>Verzend Munten</translation>
     </message>
 </context>
 <context>
@@ -2481,16 +2128,8 @@ Adres: %4
         <translation>Client naam</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>NB</translation>
-    </message>
-    <message>
         <source>Number of connections</source>
         <translation>Aantal connecties</translation>
-    </message>
-    <message>
-        <source>&amp;Open</source>
-        <translation>&amp;Open</translation>
     </message>
     <message>
         <source>Startup time</source>
@@ -2507,10 +2146,6 @@ Adres: %4
     <message>
         <source>Debug log file</source>
         <translation>Debug logbestand</translation>
-    </message>
-    <message>
-        <source>Build date</source>
-        <translation>Bouwdatum</translation>
     </message>
     <message>
         <source>Current number of blocks</source>
@@ -2545,10 +2180,6 @@ Adres: %4
         <translation>Laatste blokhash</translation>
     </message>
     <message>
-        <source>&amp;Console</source>
-        <translation>&amp;Console</translation>
-    </message>
-    <message>
         <source>Clear console</source>
         <translation>Console leegmaken</translation>
     </message>
@@ -2573,28 +2204,16 @@ Adres: %4
         <translation>Verstuurd</translation>
     </message>
     <message>
-        <source>&amp;Peers</source>
-        <translation>&amp;Peers</translation>
-    </message>
-    <message>
         <source>Banned peers</source>
-        <translation>Verboden leeftijdsgenoten</translation>
+        <translation>Geblokkeerde peers</translation>
     </message>
     <message>
         <source>Select a peer to view detailed information.</source>
         <translation>Selecteer een peer om gedetailleerde informatie te bekijken.</translation>
     </message>
     <message>
-        <source>Whitelisted</source>
-        <translation>Whitelisted</translation>
-    </message>
-    <message>
         <source>Direction</source>
         <translation>Richting</translation>
-    </message>
-    <message>
-        <source>Protocol</source>
-        <translation>Protocol</translation>
     </message>
     <message>
         <source>Version</source>
@@ -2669,18 +2288,6 @@ Adres: %4
         <translation>Tijdverschuiving</translation>
     </message>
     <message>
-        <source>Custom Backup Path:</source>
-        <translation>Aangepast back-up pad:</translation>
-    </message>
-    <message>
-        <source>Custom zBLKC Backup Path:</source>
-        <translation>Aangepast zBLKC back-up pad:</translation>
-    </message>
-    <message>
-        <source>Custom Backups Threshold:</source>
-        <translation>Aangepaste back-up drempel:</translation>
-    </message>
-    <message>
         <source>Salvage wallet</source>
         <translation>Red portemonnee</translation>
     </message>
@@ -2721,10 +2328,6 @@ Adres: %4
         <translation>Herstel blockchain index van huidige blk000??.dat bestanden.</translation>
     </message>
     <message>
-        <source>-resync:</source>
-        <translation>-resync:</translation>
-    </message>
-    <message>
         <source>Deletes all local blockchain folders so the wallet synchronizes from scratch.</source>
         <translation>Verwijder alle lokale blockchain mappen zodat de portemonnee alles opnieuw kan hersynchroniseren.</translation>
     </message>
@@ -2745,10 +2348,6 @@ Adres: %4
         <translation>Herbouw index</translation>
     </message>
     <message>
-        <source>In:</source>
-        <translation>In:</translation>
-    </message>
-    <message>
         <source>Out:</source>
         <translation>Uit:</translation>
     </message>
@@ -2758,31 +2357,27 @@ Adres: %4
     </message>
     <message>
         <source>&amp;Disconnect Node</source>
-        <translation>&amp; Koppel Node los</translation>
+        <translation>&amp;Verbreek verbinding met Node</translation>
     </message>
     <message>
         <source>Ban Node for</source>
-        <translation>Ban Node voor</translation>
+        <translation>Blokkeer Node voor</translation>
     </message>
     <message>
         <source>1 &amp;hour</source>
-        <translation>1 &amp;hour</translation>
+        <translation>1 &amp;uur</translation>
     </message>
     <message>
         <source>1 &amp;day</source>
-        <translation>1 &amp;day</translation>
-    </message>
-    <message>
-        <source>1 &amp;week</source>
-        <translation>1 &amp;week</translation>
+        <translation>1 &amp;dag</translation>
     </message>
     <message>
         <source>1 &amp;year</source>
-        <translation>1 &amp;year</translation>
+        <translation>1 &amp;jaar</translation>
     </message>
     <message>
         <source>&amp;Unban Node</source>
-        <translation>&amp; Veel succes</translation>
+        <translation>&amp;Deblokkeer Node</translation>
     </message>
     <message>
         <source>This will delete your local blockchain folders and the wallet will synchronize the complete Blockchain from scratch.&lt;br /&gt;&lt;br /&gt;</source>
@@ -2809,36 +2404,20 @@ Adres: %4
         <translation>Gebruik omhoog en omlaag pijltjestoetsen om door de geschiedenis te navigeren en %1 om het scherm te wissen.</translation>
     </message>
     <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Type &lt;b&gt;help &lt;/b&gt;voor een overzicht van beschikbare commando's.</translation>
+        <source>Type %1 for an overview of available commands.</source>
+        <translation>Typ %1 voor een overzicht van beschikbare commando's.</translation>
+    </message>
+    <message>
+        <source>For more information on using this console type %1.</source>
+        <translation>Voor meer informatie over gebruik van deze console type %1.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
         <translation>WAARSCHUWING: Er zijn oplichters actief geweest, die gebruikers vertellen dat ze hier commando's moeten typen waarmee ze de inhoud van hun portemonnee konden stelen. Gebruik deze console niet zonder de gevolgen van een commando volledig te begrijpen.</translation>
     </message>
     <message>
-        <source>%1 B</source>
-        <translation>%1 B</translation>
-    </message>
-    <message>
-        <source>%1 KB</source>
-        <translation>%1 KB</translation>
-    </message>
-    <message>
-        <source>%1 MB</source>
-        <translation>%1 MB</translation>
-    </message>
-    <message>
-        <source>%1 GB</source>
-        <translation>%1 GB</translation>
-    </message>
-    <message>
-        <source>(node id: %1)</source>
-        <translation>(node id: %1)</translation>
-    </message>
-    <message>
-        <source>via %1</source>
-        <translation>via %1</translation>
+        <source>Network activity disabled</source>
+        <translation>Netwerk activiteit uitgeschakeld</translation>
     </message>
     <message>
         <source>never</source>
@@ -2868,10 +2447,6 @@ Adres: %4
 <context>
     <name>ReceiveDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>My Address</source>
         <translation>Mijn Adres</translation>
     </message>
@@ -2887,12 +2462,16 @@ Adres: %4
 <context>
     <name>ReceiveWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Scan the QR code or copy the address to receive BLKC</source>
         <translation>Scan de QR code of kopieer het adres om BLKC te ontvangen</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparant</translation>
+    </message>
+    <message>
+        <source>Accept transparent or shielded BLKC</source>
+        <translation>Accepteer transparante of shielded BLKC</translation>
     </message>
     <message>
         <source>Add Label</source>
@@ -2925,6 +2504,12 @@ Adres: %4
     <message>
         <source>Request payment with a fixed amount</source>
         <translation>Verzoek tot betaling met een vaste waarde</translation>
+    </message>
+    <message>
+        <source>No available address
+try unlocking the wallet</source>
+        <translation>Geen beschikbaar adres
+probeer de portemonnee te ontgrendelen</translation>
     </message>
     <message>
         <source>Error generating address</source>
@@ -2972,61 +2557,14 @@ Adres: %4
     </message>
 </context>
 <context>
-    <name>RecentRequestsTableModel</name>
-    <message>
-        <source>Date</source>
-        <translation>Datum</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Bericht</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adres</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Bedrag</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(geen label)</translation>
-    </message>
-    <message>
-        <source>(no message)</source>
-        <translation>(geen bericht)</translation>
-    </message>
-    <message>
-        <source>(no amount)</source>
-        <translation>(geen hoeveelheid)</translation>
-    </message>
-</context>
-<context>
     <name>RequestDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Bedrag</translation>
-    </message>
-    <message>
-        <source>BLKC</source>
-        <translation>BLKC</translation>
     </message>
     <message>
         <source>Instead of sharing only a BlackHat address, you can create a payment request, bundling up more information</source>
         <translation>In plaats van een BlackHat-adres te delen, kunt u een betalingsverzoek creëren dat meer informatie bundelt.</translation>
-    </message>
-    <message>
-        <source>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbiezrW72hjcWJtcfip5krte2Z</translation>
     </message>
     <message>
         <source>COPY ADDRESS</source>
@@ -3039,10 +2577,6 @@ Adres: %4
     <message>
         <source>CANCEL</source>
         <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
     </message>
     <message>
         <source>Description (optional)</source>
@@ -3059,10 +2593,6 @@ Adres: %4
     <message>
         <source>Enter description</source>
         <translation>Beschrijving toevoegen</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
     </message>
     <message>
         <source>GENERATE</source>
@@ -3094,26 +2624,22 @@ Adres: %4
     </message>
     <message>
         <source>Cold Staking Address Generated</source>
-        <translation>Colg Staking Adres gegenereerd</translation>
+        <translation>Cold Staking Adres gegenereerd</translation>
     </message>
 </context>
 <context>
     <name>SendChangeAddressDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
-    </message>
     <message>
         <source>CANCEL</source>
         <translation>Annuleren</translation>
     </message>
     <message>
         <source>Custom Change Address</source>
-        <translation>Aangepast wijzigingsadres</translation>
+        <translation>Aangepast Wisselgeldadres</translation>
     </message>
     <message>
         <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" BlackHat address</source>
-        <translation>De rest van de waarde die resulteert uit de ingangen minus de waarde van de uitgangen gaat naar het "wijzig" BlackHat-adres</translation>
+        <translation>De rest van de waarde die resulteert uit de ingangen minus de waarde van de uitgangen gaat naar het "wisselgeld" BlackHat-adres</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3129,30 +2655,18 @@ Adres: %4
     </message>
     <message>
         <source>Cannot use cold staking addresses for change</source>
-        <translation>Kan geen colg staking adressen gebruiken voor specie</translation>
+        <translation>Kan geen cold staking adressen gebruiken voor wisselgeld</translation>
     </message>
 </context>
 <context>
     <name>SendCustomFeeDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Recommended</source>
         <translation>Aanbevolen</translation>
     </message>
     <message>
-        <source>BLKC/kilobyte</source>
-        <translation>BLKC/kilobyte</translation>
-    </message>
-    <message>
-        <source>0.00 KB</source>
-        <translation>0.00 KB</translation>
-    </message>
-    <message>
         <source>Customize the transaction fee, depending on the fee value your transaction might be included faster in the blockchain</source>
-        <translation>Pas de transactie aan, afhankelijk van de kostenwaarde zal uw transactie mogelijks sneller opgenomen worden in de blockchain</translation>
+        <translation>Pas de transactiekosten aan, afhankelijk van de kostenwaarde zal uw transactie mogelijks sneller opgenomen worden in de blockchain</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -3164,7 +2678,7 @@ Adres: %4
     </message>
     <message>
         <source>Customize Fee</source>
-        <translation>Kost Aanpassen</translation>
+        <translation>Kosten Aanpassen</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -3179,23 +2693,27 @@ Adres: %4
         <translation>Snel</translation>
     </message>
     <message>
+        <source>Invalid custom fee amount</source>
+        <translation>Invalide custom kosten bedrag</translation>
+    </message>
+    <message>
         <source>SAVE</source>
         <translation>Opslaan</translation>
     </message>
     <message>
         <source>Fee too high. Must be below: %1</source>
-        <translation>Kost te hoog. Moet lager zijn dan: %1</translation>
+        <translation>Kosten te hoog. Moet lager zijn dan: %1</translation>
     </message>
     <message>
         <source>Fee too low. Must be at least: %1</source>
-        <translation>Kost te laag. Moet minstens: %1 zijn</translation>
+        <translation>Kosten te laag. Moet minstens: %1 zijn</translation>
     </message>
 </context>
 <context>
     <name>SendMemoDialog</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialoog</translation>
+        <source>Private message only visible for the recipient(s)</source>
+        <translation>Prive bericht alleen zichtbaar voor de ontvanger(s)</translation>
     </message>
     <message>
         <source>SAVE</source>
@@ -3213,10 +2731,6 @@ Adres: %4
 <context>
     <name>SendMultiRow</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Enter address</source>
         <translation>Voeg adres toe</translation>
     </message>
@@ -3228,7 +2742,23 @@ Adres: %4
         <source>Enter label</source>
         <translation>Label toevoegen</translation>
     </message>
-    </context>
+    <message>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less BLKC than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>De transactiekosten zullen worden afgetrokken van het te zenden bedrag. De ontvanger zal minder BLKC ontvangen dan dat je hebt ingevuld in het bedrag veld. Als meerdere ontvangers zijn geselecteerd, zullen de transactiekosten gelijk verdeeld worden.</translation>
+    </message>
+    <message>
+        <source>Subtract fee from amount</source>
+        <translation>Trek kosten af van bedrag</translation>
+    </message>
+    <message>
+        <source>Add encrypted memo</source>
+        <translation>Voeg een versleutelde memo toe</translation>
+    </message>
+    <message>
+        <source>Memo field reset</source>
+        <translation>Memo veld leegmaken</translation>
+    </message>
+</context>
 <context>
     <name>SendWidget</name>
     <message>
@@ -3243,17 +2773,21 @@ Adres: %4
         <source>The change address doesn't belong to this wallet.
 
 Do you want to continue?</source>
-        <translation>Het wisseladres behoort niet toe tot deze portemonnee.
+        <translation>Het wisselgeldadres behoort niet toe tot deze portemonnee.
 
 Wilt u verdergaan?</translation>
     </message>
     <message>
         <source>Customize Fee</source>
-        <translation>Kost Aanpassen</translation>
+        <translation>Kosten Aanpassen</translation>
     </message>
     <message>
         <source>Maximum amount of outputs reached</source>
         <translation>Maximum aantal uitvoeren bereikt</translation>
+    </message>
+    <message>
+        <source>Parse a BlackHat URI</source>
+        <translation>Ontleden van BlackHat URI</translation>
     </message>
     <message>
         <source>Invalid entry, previous entries must be valid before add a new one</source>
@@ -3301,7 +2835,7 @@ Deze munten zullen niet langer cold-staked zijn.</translation>
     </message>
     <message>
         <source>Custom Fee %1</source>
-        <translation>Aangepaste Kost %1</translation>
+        <translation>Aangepaste Kosten %1</translation>
     </message>
     <message>
         <source>Coin Control</source>
@@ -3313,7 +2847,7 @@ Deze munten zullen niet langer cold-staked zijn.</translation>
     </message>
     <message>
         <source>Change Address</source>
-        <translation>Wijzig adres</translation>
+        <translation>Wisselgeld Adres</translation>
     </message>
     <message>
         <source>Customize the change address</source>
@@ -3324,24 +2858,92 @@ Deze munten zullen niet langer cold-staked zijn.</translation>
         <translation>URI openen</translation>
     </message>
     <message>
-        <source>Parse a payment request</source>
-        <translation>Verwerk een betalingsverzoek</translation>
+        <source>Shield Coins</source>
+        <translation>Shield Munten</translation>
+    </message>
+    <message>
+        <source>Convert all transparent coins into shielded coins</source>
+        <translation>Zet alle transparante munten om in shielded munten</translation>
     </message>
     <message>
         <source>Unlocked remaining</source>
         <translation>Ontgrendeld resterende</translation>
     </message>
     <message>
+        <source>Cannot send memo to address
+%1
+
+Encrypted memo messages are available only for shielded recipients.
+
+Do you wish to proceed without memo?
+</source>
+        <translation>Kan geen memo sturen naar adres
+%1
+
+versleutelde memo berichten zijn alleen beschikbaar voor shielded ontvangers.
+
+Je wenst door te gaan zonder memo?
+</translation>
+    </message>
+    <message>
+        <source>Sapling Protocol temporarily in maintenance. Shielded transactions disabled (SPORK 20)</source>
+        <translation>Sapling Protocol tijdelijk in onderhoud. Shielded transacties uitgeschakeld (SPORK 20)</translation>
+    </message>
+    <message>
+        <source>On going process being executed, please wait until it's finished to create a new transaction</source>
+        <translation>Taak in uitvoering, wacht AUB tot het klaar is voordat u een nieuwe transactie aanmaakt</translation>
+    </message>
+    <message>
+        <source>Preparing transaction</source>
+        <translation>Transactie aan het voorbereiden</translation>
+    </message>
+    <message>
+        <source>Processing full, refreshing amounts later</source>
+        <translation>Volledig verwerken, ververs bedragen later</translation>
+    </message>
+    <message>
         <source>You don't have any %1 to select.</source>
         <translation>Je hebt geen %1 om te selecteren.</translation>
+    </message>
+    <message>
+        <source>You are just about to anonymize all of your balance!
+Available %1
+With fee %2
+
+Meaning that you will be able to perform completely
+anonymous transactions
+
+Do you want to continue?
+</source>
+        <translation>U staat op het punt al uw saldi te anonimiseren!
+Beschikbaar %1
+Met transactiekosten %2
+Wilt u doorgaan?
+</translation>
+    </message>
+    <message>
+        <source>Error generating address to shield BLKCs</source>
+        <translation>Fout bij het genereren van een adres om BLKCs te shielden</translation>
+    </message>
+    <message>
+        <source>You don't have any transparent BLKCs to shield.</source>
+        <translation>Je hebt geen transparante BLKCs om te shielden.</translation>
     </message>
     <message>
         <source>No contacts available, you can go to the contacts screen and add some there!</source>
         <translation>Geen beschikbare contacten, je kan naar het contactscherm gaan en daar enkele toevoegen!</translation>
     </message>
     <message>
+        <source>Add Memo</source>
+        <translation>Memo Toevoegen</translation>
+    </message>
+    <message>
         <source>Save contact</source>
         <translation>Contact opslaan</translation>
+    </message>
+    <message>
+        <source>Subtract fee</source>
+        <translation>Kosten Aftrekken</translation>
     </message>
     <message>
         <source>Address field is empty</source>
@@ -3375,10 +2977,6 @@ Deze munten zullen niet langer cold-staked zijn.</translation>
 <context>
     <name>SettingsBackupWallet</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Change Wallet Passphrase</source>
         <translation>Wijzig Portemonnee Wachtwoord</translation>
     </message>
@@ -3408,7 +3006,7 @@ Vergeet deze niet op te schrijven en veilig te bewaren, anders verlies je mogeli
     </message>
     <message>
         <source>Backup Wallet</source>
-        <translation>Backup portemonnee</translation>
+        <translation>Back-up Portemonnee</translation>
     </message>
     <message>
         <source>Wallet Data (*.dat)</source>
@@ -3430,16 +3028,8 @@ Vergeet deze niet op te schrijven en veilig te bewaren, anders verlies je mogeli
 <context>
     <name>SettingsBitToolWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Import Address</source>
         <translation>Adres Importeren</translation>
-    </message>
-    <message>
-        <source>BIP38 Tool</source>
-        <translation>BIP38 Tool</translation>
     </message>
     <message>
         <source>Encrypt your BlackHat addresses (key pair actually) using BIP38 encryption.
@@ -3556,6 +3146,10 @@ Door gebruik te maken van dit mechanisme kan je jouw sleutels delen zonder het r
         <translation>Controleer de sleutel en de wachtwoordzin en probeer het opnieuw.</translation>
     </message>
     <message>
+        <source>Wallet is currently rescanning. Abort existing rescan or wait.</source>
+        <translation>Portemonnee wordt her-gescand. Breek her-scan af of wacht.</translation>
+    </message>
+    <message>
         <source>Data Not Valid.</source>
         <translation>Gegevens ongeldig.</translation>
     </message>
@@ -3582,14 +3176,6 @@ Door gebruik te maken van dit mechanisme kan je jouw sleutels delen zonder het r
 </context>
 <context>
     <name>SettingsConsoleWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation>Console</translation>
-    </message>
     <message>
         <source>Console input</source>
         <translation>Console invoer</translation>
@@ -3621,8 +3207,12 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Gebruik omhoog en omlaag pijltjestoetsen om door de geschiedenis te navigeren en %1 om het scherm te wissen.</translation>
     </message>
     <message>
-        <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>Type &lt;b&gt;help &lt;/b&gt;voor een overzicht van beschikbare commando's.</translation>
+        <source>Type %1 for an overview of available commands.</source>
+        <translation>Typ %1 voor een overzicht van beschikbare commando's.</translation>
+    </message>
+    <message>
+        <source>For more information on using this console type %1.</source>
+        <translation>Voor meer informatie over gebruik van deze console type %1.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
@@ -3631,10 +3221,6 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
 </context>
 <context>
     <name>SettingsDisplayOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Hide stake charts in the dashboard</source>
         <translation>Verberg stakegrafieken in het dashboard</translation>
@@ -3646,10 +3232,6 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
     <message>
         <source>Discard changes</source>
         <translation>Wijzigingen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation>Display</translation>
     </message>
     <message>
         <source>Customize the display view options</source>
@@ -3691,10 +3273,6 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
 <context>
     <name>SettingsExportCSV</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Export Accounting</source>
         <translation>Exporteer Accounting</translation>
     </message>
@@ -3703,8 +3281,8 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Exporteer je portemonnee's accountinggegevens naar een csv bestand.</translation>
     </message>
     <message>
-        <source>Where</source>
-        <translation>Waar</translation>
+        <source>Export Transaction History</source>
+        <translation>Exporteer Transactiegeschiedenis</translation>
     </message>
     <message>
         <source>Select folder...</source>
@@ -3715,20 +3293,8 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Adreslijst Exporteren</translation>
     </message>
     <message>
-        <source>Export CSV</source>
-        <translation>CSV Exporteren</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Exporteer Adreslijst</translation>
-    </message>
-    <message>
-        <source>BLKC_tx_csv_export(*.csv)</source>
-        <translation>BLKC_tx_csv_export(*.csv)</translation>
-    </message>
-    <message>
-        <source>BLKC_addresses_csv_export(*.csv)</source>
-        <translation>BLKC_addresses_csv_export(*.csv)</translation>
+        <source>Comma separated file (*.csv)</source>
+        <translation>Kommagescheiden bestand (*.csv)</translation>
     </message>
     <message>
         <source>Please select a folder to export the csv file first.</source>
@@ -3739,28 +3305,12 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <translation>Bevestigd</translation>
     </message>
     <message>
-        <source>Watch-only</source>
-        <translation>Watch-only</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
         <source>Address</source>
         <translation>Adres</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
     </message>
     <message>
         <source>Exporting Successful
@@ -3794,10 +3344,6 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
 <context>
     <name>SettingsFaqWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>1) What is BlackHat?</source>
         <translation>1) Wat is BlackHat?</translation>
     </message>
@@ -3806,94 +3352,20 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>2) Waarom is mijn BLKC niet besteedbaar?</translation>
     </message>
     <message>
-        <source>https://blackhatco.in/</source>
-        <translation>https://blackhatco.in/</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
         <source>What is BlackHat?</source>
         <translation>Wat is BlackHat?</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
     </message>
     <message>
         <source>Why are my BLKC unspendable?</source>
         <translation>Waarom is mijn BLKC niet besteedbaar?</translation>
     </message>
     <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received BLKC requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your BlackHat wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Nieuw ontvangen BLKC vereist 6 bevestigingen op het netwerk
-                           om in aanmerking te komen voor uitgaven die ongeveer 6 minuten in beslag kunnen nemen.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Uw BlackHat portemonnee moet ook volledig gesynchroniseerd zijn
-                           om de balans te zien en uit te geven op het netwerk.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
         <source>How do I stake BLKC?</source>
         <translation>Hoe stake ik BLKC?</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You must have a balance of BLKC with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (blkc-cli); the command &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"&gt;&lt;li align="justify" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Zorg ervoor dat uw portemonnee volledig gesynchroniseerd is en je op de juiste versie zit. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Je moet een balans van BLKC hebben met een minimum van 600 bevestigingen. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Uw portemonnee moet steeds online en ontgrendeld blijven voor stakingsdoeleinden. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Van zodra al deze stappen gevolgd zijn, zou staking ingeschakeld moeten zijn. &lt;/li&gt;&lt;li align="justify" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Je kan de stakingsstatus controleren door over het pakketicoontje te gaan gaan met je muis. Deze staat op de linker van de portemonnee interface. Dit pakketje zal oplichten en zal &amp;quot;Staking Inschakeld&amp;quot; vermelden om aan te geven dat staking actief is. Als je gebruik maakt van de command line interface (blkc-cli); het commando &lt;span style=" font-style:italic;"&gt;getstakingstatus&lt;/span&gt; zal bevestigen dat staking actief is. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
-        <source>5</source>
-        <translation>5</translation>
-    </message>
-    <message>
-        <source>6</source>
-        <translation>6</translation>
-    </message>
-    <message>
         <source>Where should I go if I need support?</source>
         <translation>Waar moet ik heen gaan als ik ondersteuning nodig heb?</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
-                           #support in our Discord&lt;/a&gt;.
-                           If you prefer to submit a ticket, You can do so at
-                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
-                           our Forum support site&lt;/a&gt;.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           We hebben ondersteuningskanalen in de meeste van onze officiële chatgroepen, bijvoorbeeld
-                           &lt;a style='color: #b088ff' href='https://blackhatco.in/discord'&gt;
-                           #support in onze Discord&lt;/a&gt;.
-                           Als u liever een ticket indient, kan jedat
-                           &lt;a style='color: #b088ff' href='https://forum.blackhatco.in'&gt;
-                           op onze Forum ondersteuningssite.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </translation>
     </message>
     <message>
         <source>What is a Masternode?</source>
@@ -3904,98 +3376,8 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>Wat is een Masternode Controller</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;A Masternode Controller wallet is where the 5,000 BLKC collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;Een Masternode Controller portemonnee is waar de 5.000 BLKC onderpand zich kan bevinden tijdens een Controller-Remote masternode setup. Het is een portemonnee die de remote masternode portemonnee(s) kan activeren en waarmee u uw ondergepande munten offline kunt houden terwijl de remote masternode online blijft. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           A masternode is a computer running a full node BlackHat core wallet with a
-                           requirement of 5,000 BLKC secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in BlackHat Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the BlackHat network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;5,000 BLKC per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Een masternode is een computer met een volledige node BlackHat core portemonnee met een
-                           vereiste van 5.000 BLKC onderpand om extra diensten te kunnen verlenen
-                           aan het netwerk en in ruil daarvoor ontvangt u regelmatig een deel van de blokbeloning.
-                           Deze diensten omvatten::
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;Directe transacties (SwiftX)&lt;/li&gt;
-                           &lt;li&gt;Een gedecentralizeerd bestuur (Stemming Voorstel)&lt;/li&gt;
-                           &lt;li&gt;Een gedecentralizeerd budgeteringssysteem (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validatie van transacties binnen elk blok&lt;/li&gt;
-                           &lt;li&gt;Fungeert als een extra volledige node in het netwerk&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Voor het verlenen van dergelijke diensten wordt ook een bepaald deel van de masternodes betaald
-                            van beloning voor elk blok. Dit kan dienen als een passief inkomen voor de
-                           masternode eigenaars minus hun exploitatiekosten.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Masternode Voordelen:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Deelnemen in het BlackHat Bestuur&lt;/li&gt;
-                           &lt;li&gt;Verdien Masternode Beloningen&lt;/li&gt;
-                           &lt;li&gt;Commodity-optie voor toekomstige verkoop&lt;/li&gt;
-                           &lt;li&gt;Helpt bij het beveiligen van het BlackHat netwerk&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Vereisten:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;5,000 BLKC per Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Moet in een kernportemonnee worden opgeborgen&lt;/li&gt;
-                           &lt;li&gt;Vereist een vast IP-adres
-                           &lt;li&gt;Masternode portemonnee moet online blijven&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </translation>
-    </message>
-    <message>
-        <source>Frequently Asked Questions</source>
-        <translation>Frequently Asked Questions</translation>
+        <source>Close FAQ</source>
+        <translation>FAQ Sluiten</translation>
     </message>
     <message>
         <source>3) How do I stake BLKC?</source>
@@ -4017,13 +3399,121 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <source>You can read more here</source>
         <translation>Je kan er hier meer over lezen</translation>
     </message>
+    <message>
+        <source>BlackHat is a form of digital online money using blockchain technology that can be easily transferred globally, instantly, and with near zero fees. BlackHat incorporates market leading security &amp; privacy and is also the first PoS (Proof of Stake) Cryptocurrency to implement Sapling(SHIELD), a zk-SNARKs based privacy protocol.</source>
+        <translation>BlackHat is een vorm van digitale online geld die blockchain technologie gebruikt, dat gemakkelijk wereldwijd, direct en bijna nul kosten overboekt. BlackHat gebruikt marktleidende security &amp; privacy en is tevens ook de eerste PoS (Proof of Stake) Cryptomunt die Sapling(SHIELD), een zk-SNARKs gebaseerde privacy protocol gebruikt.</translation>
+    </message>
+    <message>
+        <source>BlackHat utilizes a Proof of Stake (PoS) consensus system algorithm, allowing all owners of BLKC to participate in earning block rewards while securing the network with full node wallets, as well as to run Masternodes to create and vote on proposals.</source>
+        <translation>BlackHat maakt gebruik van een Proof of Stake (PoS) consensus systeem algoritme, de mogelijkheid bied aan alle eigenaren van BLKC om te participeren in het verdienen van block beloningen terwijl beveiligen van het netwerk met full node portemonnees, alsmede het laten lopen van Masternodes te creëren en stemmen op voorstellen.</translation>
+    </message>
+    <message>
+        <source>Newly received BLKC requires 6 confirmations on the network to become eligible for spending which can take ~6 minutes.</source>
+        <translation>Nieuw ontvangen BLKC vereisen 6 bevestigingen op het netwerk om in aanmerking te komen om uit te geven, wat ongeveer 6 minuten kan duren.</translation>
+    </message>
+    <message>
+        <source>Your BlackHat wallet also needs to be completely synchronized to see and spend balances on the network.</source>
+        <translation>Uw BlackHat portemonnee moet ook compleet gesynchroniseerd zijn om te kunnen zien en spenderen van saldi op het netwerk.</translation>
+    </message>
+    <message>
+        <source>Make sure your wallet is completely synchronized and you are using the latest release.</source>
+        <translation>Zorg ervoor dat je portemonnee compleet gesynchroniseerd is en je de laatste uitgave gebruikt.</translation>
+    </message>
+    <message>
+        <source>You must have a balance of BLKC with a minimum of 600 confirmations.</source>
+        <translation>Je moet een saldo van BLKC hebben met minimaal 600 bevestigingen.</translation>
+    </message>
+    <message>
+        <source>Your wallet must stay online and be unlocked for staking purposes.</source>
+        <translation>Je portemonnee moet online blijven en ontgrendeld zijn voor staking doeleinden</translation>
+    </message>
+    <message>
+        <source>Once all those steps are followed staking should be enabled.</source>
+        <translation>Wanneer alle stappen zijn opgevolgd zou staking ingeschakeld moeten zijn.</translation>
+    </message>
+    <message>
+        <source>You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. The package will be lit up and will state "Staking Enabled" to indicate it is staking. Using the command line interface (%1); the command %2 will confirm that staking is active.</source>
+        <translation>Je kan de status van het staken in de portemonnee door met je muis over het pakketpictogram in de rij linksboven van de portemonnee interface. Het pakket zal oplichten en de melding "Staking Enabled" geven om aan te geven aan het staken is. Middels gebruik van de opdrachtregel interface (%1); de opdrachtregel %2 zal bevestigen dat staking actief is.</translation>
+    </message>
+    <message>
+        <source>We have support channels in most of our official chat groups, for example %1</source>
+        <translation>We ondersteunings kanalen in de meeste van onze officiële chat groupen, bijvoorbeeld %1</translation>
+    </message>
+    <message>
+        <source>#support in our Discord</source>
+        <translation>#ondersteuning in onze Discord</translation>
+    </message>
+    <message>
+        <source>%1 per single Masternode instance</source>
+        <translation>%1 per enkele Masternode geval</translation>
+    </message>
+    <message>
+        <source>A Masternode Controller wallet is where the %1 collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online.</source>
+        <translation>Een Masternode Controller portemonnee is de portemonnee die de %1 onderpand bevat bij een Controller-Remote Masternode installatie. Het is de portemonnee die de remote masternode portemonnee(s) activeert en je toelaat dat je onderpandmunten offline kunnen blijven terwijl de Remote Masternode online is.</translation>
+    </message>
+    <message>
+        <source>A decentralized governance (Proposal Voting)</source>
+        <translation>Een gedecentraliseerd bestuur (Voorstel Stemmingen)</translation>
+    </message>
+    <message>
+        <source>A masternode is a computer running a full node %1 wallet with a requirement of %2 secured collateral to provide extra services to the network and in return, receive a portion of the block reward regularly. These services include:</source>
+        <translation>Een masternode is een computer waar een volledige node %1 portemonnee op draait met een vastgezet inderpand van %2 om extra diensten aan het netwerk te leveren. In ruil daarvoor wordt regelmatig een deel van de blokbeloning ontvangen. Deze diensten omvatten:</translation>
+    </message>
+    <message>
+        <source>A decentralized budgeting system (Treasury)</source>
+        <translation>Een gedecentraliseerde budgettering systeem (Treasury)</translation>
+    </message>
+    <message>
+        <source>Validation of transactions within each block</source>
+        <translation>Validatie van transacties binnen elk block</translation>
+    </message>
+    <message>
+        <source>Act as an additional full node in the network</source>
+        <translation>Fungeer als een extra full node in het netwerk</translation>
+    </message>
+    <message>
+        <source>For providing such services, masternodes are also paid a certain portion of reward for each block. This can serve as a passive income to the masternode owners minus their running cost.</source>
+        <translation>Om zulke diensten aan te bieden, worden masternodes ook een bepaalde portie van een block-reward betaald. Dit kan als een passief inkomen dienen  voor de masternode-eigenaren minus de operationele kosten.</translation>
+    </message>
+    <message>
+        <source>Masternode Perks:</source>
+        <translation>Masternode Voordelen:</translation>
+    </message>
+    <message>
+        <source>Participate in BlackHat Governance</source>
+        <translation>Neem deel aan BlackHat Bestuur</translation>
+    </message>
+    <message>
+        <source>Earn Masternode Rewards</source>
+        <translation>Verdien Masternode Beloningen</translation>
+    </message>
+    <message>
+        <source>Commodity option for future sale</source>
+        <translation>Commodity optie voor toekomstige verkoop</translation>
+    </message>
+    <message>
+        <source>Help secure the BlackHat network</source>
+        <translation>Help het BlackHat netwerk beveiligen</translation>
+    </message>
+    <message>
+        <source>Requirements:</source>
+        <translation>Vereisten:</translation>
+    </message>
+    <message>
+        <source>Must be stored in a core wallet</source>
+        <translation>Moet worden opgeslagen in een core portemonnee</translation>
+    </message>
+    <message>
+        <source>Need dedicated IP address</source>
+        <translation>Speciaal toegewezen IP adres vereist</translation>
+    </message>
+    <message>
+        <source>Masternode wallet to remain online</source>
+        <translation>Masternode portemonnee moet online blijven</translation>
+    </message>
 </context>
 <context>
     <name>SettingsInformationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Network Monitor</source>
         <translation>Netwerkmonitor</translation>
@@ -4043,10 +3533,6 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
     <message>
         <source>BerkeleyDB version:</source>
         <translation>BerkeleyDB versie:</translation>
-    </message>
-    <message>
-        <source>Datadir:</source>
-        <translation>Datadir:</translation>
     </message>
     <message>
         <source>Startup time:</source>
@@ -4077,20 +3563,12 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>Huidig aantal transacties:</translation>
     </message>
     <message>
-        <source>User Agent:</source>
-        <translation>User Agent:</translation>
-    </message>
-    <message>
         <source>Network</source>
         <translation>Netwerk</translation>
     </message>
     <message>
         <source>Name:</source>
         <translation>Naam:</translation>
-    </message>
-    <message>
-        <source>Blockchain</source>
-        <translation>Blockchain</translation>
     </message>
     <message>
         <source>Memory Pool</source>
@@ -4121,20 +3599,20 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>Kan blkc.conf niet openen met de standaard applicatie</translation>
     </message>
     <message>
-        <source>In:</source>
-        <translation>In:</translation>
+        <source>Network activity disabled</source>
+        <translation>Netwerk activiteit uitgeschakeld</translation>
     </message>
     <message>
         <source>Out:</source>
         <translation>Uit:</translation>
     </message>
-    </context>
+    <message>
+        <source>No available data</source>
+        <translation>Geen beschikbare gegevens</translation>
+    </message>
+</context>
 <context>
     <name>SettingsMainOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Window</source>
         <translation>Venster</translation>
@@ -4172,16 +3650,16 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>Aantal van script verificatiethreads</translation>
     </message>
     <message>
-        <source>Start BlackHat on system login</source>
-        <translation>Start BlackHat bij systeemlogin</translation>
-    </message>
-    <message>
         <source>Minimize to the tray instead of the taskbar</source>
         <translation>Minimaliseer naar het vak in plaats van de taakbalk</translation>
     </message>
     <message>
         <source>Minimize on close</source>
         <translation>Minimaliseer bij sluiten</translation>
+    </message>
+    <message>
+        <source>Start %1 on system login</source>
+        <translation>Start %1 bij systeemlogin</translation>
     </message>
     <message>
         <source>Reset Options</source>
@@ -4203,165 +3681,7 @@ Weet u het zeker?
     </message>
 </context>
 <context>
-    <name>SettingsMultisendDialog</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Transaction Details</source>
-        <translation>Transactie details</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
-        <source>CANCEL</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>SAVE</source>
-        <translation>Opslaan</translation>
-    </message>
-    <message>
-        <source>New recipient for multisend</source>
-        <translation>Nieuwe ontvanger voor multisend</translation>
-    </message>
-    <message>
-        <source>Address Label (optional)</source>
-        <translation>Adreslabel (optioneel)</translation>
-    </message>
-    <message>
-        <source>Enter label to be saved with this address</source>
-        <translation>Voer een label in dat bij het adres opgeslagen moet worden </translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation>Percentage</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsMultisendWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>NB</translation>
-    </message>
-    <message>
-        <source>CheckBox</source>
-        <translation>Selectievakje</translation>
-    </message>
-    <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BlackHat addresses after it matures.</source>
-        <translation>Met MultiSend kunt u automatisch tot 100% van uw inzet of masternode beloning naar een lijst met andere BlackHat-adressen sturen nadat deze volwaardig zijn geworden.</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation>Actief</translation>
-    </message>
-    <message>
-        <source>Disable</source>
-        <translation>Uitschakelen</translation>
-    </message>
-    <message>
-        <source>No active recipient yet</source>
-        <translation>Nog geen actieve ontvanger</translation>
-    </message>
-    <message>
-        <source>Send stakes</source>
-        <translation>Verstuur stakes</translation>
-    </message>
-    <message>
-        <source>Send masternode rewards</source>
-        <translation>Verstuurd masternode beloningen</translation>
-    </message>
-    <message>
-        <source>ADD RECIPIENT</source>
-        <translation>VOEG BESTEMMELING TOE</translation>
-    </message>
-    <message>
-        <source>CLEAR ALL</source>
-        <translation>WIS ALLES</translation>
-    </message>
-    <message>
-        <source>Cannot perform operation, wallet locked</source>
-        <translation>Kan deze actie niet uitvoeren, portemonnee vergrendeld</translation>
-    </message>
-    <message>
-        <source>Clear succeed</source>
-        <translation>Wissen geslaagd</translation>
-    </message>
-    <message>
-        <source>Clear all failed, could not locate address in wallet file</source>
-        <translation>Alles wissen mislukt, kon geen adres terugvinden in het portemonnee bestand</translation>
-    </message>
-    <message>
-        <source>Cannot add multisend recipient, wallet locked</source>
-        <translation>Kan geen multisendontvanger toevoegen, portemonnee vergrendeld</translation>
-    </message>
-    <message>
-        <source>The entered address: %1 is invalid.
-Please check the address and try again.</source>
-        <translation>Het ingevoerde adres: %1 is ongeldig.
-Controleer het adres en probeer opnieuw.</translation>
-    </message>
-    <message>
-        <source>Invalid percentage, please enter values from 1 to 100.</source>
-        <translation>Ongeldig percentage, voer waarden in van 1 tot 100.</translation>
-    </message>
-    <message>
-        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
-        <translation>De totale hoeveelheid van je MultiSend vector is meer dan 100% van je inzet beloning</translation>
-    </message>
-    <message>
-        <source>Error saving  MultiSend, failed saving properties to the database.</source>
-        <translation>Opslaan van MultiSend mislukt, foutgelopen bij opslaan van eigenschappen naar de database.</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend, no available recipients</source>
-        <translation>Kon MultiSend niet activeren, geen beschikbare ontvangers</translation>
-    </message>
-    <message>
-        <source>Unable to activate MultiSend
-Check one or both of the check boxes to send on stake and/or masternode rewards</source>
-        <translation>MultiSend kan niet geactiveerd worden
-Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternode te sturen.</translation>
-    </message>
-    <message>
-        <source>MultiSend activated but writing settings to DB failed</source>
-        <translation>MultiSend geactiveerd maar instellingen naar DB wegschrijven mislukt</translation>
-    </message>
-    <message>
-        <source>MultiSend activated</source>
-        <translation>MultiSend geactiveerd</translation>
-    </message>
-    <message>
-        <source>First multiSend address invalid</source>
-        <translation>Eerste MultiSend-adres ongeldig</translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated but writing settings to DB failed</source>
-        <translation>MultiSend gedeactiveerd maar instellingen naar DB wegschrijven mislukt</translation>
-    </message>
-    <message>
-        <source>MultiSend deactivated</source>
-        <translation>MultiSend gedeactiveerd</translation>
-    </message>
-</context>
-<context>
     <name>SettingsSignMessageWidgets</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Sign/Verify Message</source>
         <translation>Onderteken/Verifiëer Bericht</translation>
@@ -4455,10 +3775,6 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
         <translation>Controleer de handtekening en probeer het opnieuw.</translation>
     </message>
     <message>
-        <source>The signature did not match the message digest.</source>
-        <translation>De handtekening kwam niet overeen met de berichtverdeling.</translation>
-    </message>
-    <message>
         <source>Message verification failed.</source>
         <translation>Bericht verificatie mislukt.</translation>
     </message>
@@ -4473,10 +3789,6 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
 </context>
 <context>
     <name>SettingsWalletOptionsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Reset to default</source>
         <translation>Terugzetten naar standaardinstelling</translation>
@@ -4499,7 +3811,7 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
     </message>
     <message>
         <source>Spend unconfirmed change</source>
-        <translation>Besteed onbevestigde wijziging</translation>
+        <translation>Besteed onbevestigde wisselgeld</translation>
     </message>
     <message>
         <source>Network</source>
@@ -4510,12 +3822,28 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
         <translation>Pas de nodenetwerkopties aan</translation>
     </message>
     <message>
-        <source>Connect through SOCKS5 proxy (default proxy)</source>
-        <translation>Connecteer via SOCKS5 proxy (standaardproxy)</translation>
+        <source>Enable</source>
+        <translation>Inschakelen</translation>
     </message>
     <message>
-        <source>Proxy IP</source>
-        <translation>Proxy IP</translation>
+        <source>Disable</source>
+        <translation>Uitschakelen</translation>
+    </message>
+    <message>
+        <source>Enable or disable network activity</source>
+        <translation>In of uitschakelen netwerk activiteit</translation>
+    </message>
+    <message>
+        <source>Automatically open the BlackHat client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation>Automatisch openen van de BlackHat client poort op de router. Dit werkt alleen als de router NAT-PMP ondersteund en is ingeschakeld. De externe poort kan willekeurig zijn.</translation>
+    </message>
+    <message>
+        <source>Map port using NAT-PMP</source>
+        <translation>Wijs poort toe met behulp van NAT-PMP</translation>
+    </message>
+    <message>
+        <source>Connect through SOCKS5 proxy (default proxy)</source>
+        <translation>Connecteer via SOCKS5 proxy (standaardproxy)</translation>
     </message>
     <message>
         <source>Port</source>
@@ -4545,13 +3873,21 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
         <source>Options reset succeed</source>
         <translation>Opties succesvol gereset</translation>
     </message>
+    <message>
+        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
+        <translation>Stake split te laag, het moet ofwel &gt;= %1 of gelijk zijn aan 0 (om stake splitsing uit te schakelen)</translation>
+    </message>
+    <message>
+        <source>Network activity enabled</source>
+        <translation>Netwerk activiteit ingeschakeld</translation>
+    </message>
+    <message>
+        <source>Network activity disabled</source>
+        <translation>Netwerk activiteit uitgeschakeld</translation>
+    </message>
 </context>
 <context>
     <name>SettingsWalletRepairWidget</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Wallet Repair</source>
         <translation>Portemonnee Herstel</translation>
@@ -4640,20 +3976,12 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
 <context>
     <name>SettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Wallet Data</source>
         <translation>Portemonnee Data</translation>
     </message>
     <message>
         <source>Wallet</source>
         <translation>Portemonnee</translation>
-    </message>
-    <message>
-        <source>Multisend</source>
-        <translation>Multisend</translation>
     </message>
     <message>
         <source>Export Accounting</source>
@@ -4668,10 +3996,6 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
         <translation>Onderteken/Verifiëer Bericht</translation>
     </message>
     <message>
-        <source>BIP38 Tool</source>
-        <translation>BIP38 Tool</translation>
-    </message>
-    <message>
         <source>Options</source>
         <translation>Opties</translation>
     </message>
@@ -4680,28 +4004,12 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
         <translation>Hoofd</translation>
     </message>
     <message>
-        <source>Display</source>
-        <translation>Display</translation>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation>Debug</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>Informatie</translation>
     </message>
     <message>
-        <source>Console</source>
-        <translation>Console</translation>
-    </message>
-    <message>
         <source>Wallet Repair</source>
         <translation>Portemonnee Herstel</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation>Help</translation>
     </message>
     <message>
         <source>FAQ</source>
@@ -4726,10 +4034,6 @@ Vink één of beide selectievakjes aan om beloningen op de inzet en/of masternod
     <message>
         <source>Client will be shutdown, do you want to proceed?</source>
         <translation>Client wordt uitgeschakeld, wil je doorgaan?</translation>
-    </message>
-    <message>
-        <source>Stake Split too low, it shall be either &gt;= %1 or equal to 0 (to disable stake splitting)</source>
-        <translation>Stake split te laag, het moet ofwel &gt;= %1 of gelijk zijn aan 0 (om stake splitsing uit te schakelen)</translation>
     </message>
     <message>
         <source>Restart required</source>
@@ -4779,8 +4083,8 @@ Weet je zeker dat?
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>BlackHat Core is shutting down...</source>
-        <translation>BlackHat Core is aan het afsluiten...</translation>
+        <source>%1 is shutting down...</source>
+        <translation>%1 is aan het afsluiten...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4788,44 +4092,14 @@ Weet je zeker dat?
     </message>
 </context>
 <context>
-    <name>SnackBar</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
-        <source>Contact Stored</source>
-        <translation>Contact Bewaard</translation>
-    </message>
-</context>
-<context>
     <name>Splash</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Loading…</source>
         <translation>Laden...</translation>
     </message>
-    <message>
-        <source>BlackHat Core</source>
-        <translation>BlackHat Core</translation>
-    </message>
-</context>
-<context>
-    <name>SplashScreen</name>
-    <message>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
 </context>
 <context>
     <name>TooltipMenu</name>
-    <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
     <message>
         <source>Copy</source>
         <translation>Kopieren</translation>
@@ -4846,8 +4120,8 @@ Weet je zeker dat?
 <context>
     <name>TopBar</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>transparent</source>
+        <translation>transparant</translation>
     </message>
     <message>
         <source>Available</source>
@@ -4881,13 +4155,33 @@ Weet je zeker dat?
         <source>Staking not active</source>
         <translation>Staking niet actief</translation>
     </message>
+    <message numerus="yes">
+        <source>%n active connection(s)</source>
+        <translation><numerusform>%n actieve verbinding</numerusform><numerusform>%n actieve verbindingen</numerusform></translation>
+    </message>
     <message>
         <source>Synchronized - Block: %1</source>
         <translation>Gesynchroniseerd - Block: %1</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n uur</numerusform><numerusform>%n uren</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n dag</numerusform><numerusform>%n dagen</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n week</numerusform><numerusform>%n weken</numerusform></translation>
+    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 en %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n year(s)</source>
+        <translation><numerusform>%n jaar</numerusform><numerusform>%n jaren</numerusform></translation>
     </message>
     <message>
         <source>Wallet Upgrade</source>
@@ -4916,10 +4210,6 @@ nieuwe back-up aangemaakt worden.
     <message>
         <source>Wallet unlock cancelled</source>
         <translation>Portemonnee ontgrendeling geannuleerd </translation>
-    </message>
-    <message>
-        <source>Tor Active: %1</source>
-        <translation>Tor Actief: %1</translation>
     </message>
     <message>
         <source>Tor Disabled</source>
@@ -4970,6 +4260,34 @@ nieuwe back-up aangemaakt worden.
         <translation>Portemonnee Ontgrendeld</translation>
     </message>
     <message>
+        <source>Network activity disabled</source>
+        <translation>Netwerk activiteit uitgeschakeld</translation>
+    </message>
+    <message>
+        <source>Upgrade to Sapling Wallet</source>
+        <translation>Upgrade naar Sapling portemonnee</translation>
+    </message>
+    <message>
+        <source>Upgrading to Sapling wallet will enable
+all of the privacy features!
+
+
+NOTE: after the upgrade, a new
+backup will be created.
+</source>
+        <translation>Upgrading naar Sapling portemonnee
+zal alle privacy functies inschakelen!
+
+
+OPMERKING: na de upgrade, 
+zal er een nieuwe back-up gemaakt worden.
+</translation>
+    </message>
+    <message>
+        <source>Tor Active</source>
+        <translation>Tor Actief</translation>
+    </message>
+    <message>
         <source>Wallet Unencrypted</source>
         <translation>Portemonnee Onversleuteld</translation>
     </message>
@@ -4991,7 +4309,7 @@ nieuwe back-up aangemaakt worden.
     </message>
     <message>
         <source>Backup Wallet</source>
-        <translation>Backup portemonnee</translation>
+        <translation>Back-up portemonnee</translation>
     </message>
     <message>
         <source>Wallet Data (*.dat)</source>
@@ -5023,25 +4341,18 @@ nieuwe back-up aangemaakt worden.
     </message>
 </context>
 <context>
-    <name>TrafficGraphWidget</name>
-    <message>
-        <source>KB/s</source>
-        <translation>KB/s</translation>
-    </message>
-</context>
-<context>
     <name>TransactionTableModel</name>
     <message>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
         <source>Address</source>
         <translation>Adres</translation>
+    </message>
+    <message numerus="yes">
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Klaar voor nog %n blok</numerusform><numerusform>Klaar voor nog %n blokken</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -5080,18 +4391,6 @@ nieuwe back-up aangemaakt worden.
         <translation>Ontvangen van</translation>
     </message>
     <message>
-        <source>%1 Stake</source>
-        <translation>%1 Stake</translation>
-    </message>
-    <message>
-        <source>z%1 Stake</source>
-        <translation>z%1 Stake</translation>
-    </message>
-    <message>
-        <source>%1 Cold Stake</source>
-        <translation>%1 Cold Stake</translation>
-    </message>
-    <message>
         <source>%1 Stake on behalf of</source>
         <translation>%1 Stake in naam van</translation>
     </message>
@@ -5108,16 +4407,28 @@ nieuwe back-up aangemaakt worden.
         <translation>Orphan Block - Gegenereerd maar niet geaccepteerd. Dit heeft geen invloed op uw bezit.</translation>
     </message>
     <message>
+        <source>Budget Payment</source>
+        <translation>Budget Betaling</translation>
+    </message>
+    <message>
         <source>Payment to yourself</source>
         <translation>Betaling naar jezelf</translation>
     </message>
     <message>
-        <source>Stake delegation spent by</source>
-        <translation>Stake delegatie gespendeerd door</translation>
+        <source>Shielding coins to yourself</source>
+        <translation>Shield munten naar jezelf</translation>
     </message>
     <message>
-        <source>Mined</source>
-        <translation>Mined</translation>
+        <source>Unshielding coins to yourself</source>
+        <translation>Unshield munten naar jezelf</translation>
+    </message>
+    <message>
+        <source>Shielded change, transfer between own shielded addresses</source>
+        <translation>Shielded wisselgeld, overboeken tussen eigen shielded adressen.</translation>
+    </message>
+    <message>
+        <source>Stake delegation spent by</source>
+        <translation>Stake delegatie gespendeerd door</translation>
     </message>
     <message>
         <source>Converted %1 to z%1</source>
@@ -5140,8 +4451,20 @@ nieuwe back-up aangemaakt worden.
         <translation>Geconverteerde z%1 naar %1</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation>watch-only</translation>
+        <source>Received with shielded</source>
+        <translation>Ontvangen met shielded</translation>
+    </message>
+    <message>
+        <source>Received shielded memo</source>
+        <translation>Shielded memo ontvangen</translation>
+    </message>
+    <message>
+        <source>Shielded send to</source>
+        <translation>Shielded sturen naar</translation>
+    </message>
+    <message>
+        <source>Burned BLKCs</source>
+        <translation>Verbrande BLKCs</translation>
     </message>
     <message>
         <source>Anonymous</source>
@@ -5183,10 +4506,6 @@ nieuwe back-up aangemaakt worden.
 <context>
     <name>TxDetailDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Transaction Details</source>
         <translation>Transactie details</translation>
     </message>
@@ -5203,18 +4522,6 @@ nieuwe back-up aangemaakt worden.
         <translation>Outputindex</translation>
     </message>
     <message>
-        <source>D7VFR83SQbie…BhjcWJtcfip5krte2Z </source>
-        <translation>D7VFR83SQbie…BhjcWJtcfip5krte2Z </translation>
-    </message>
-    <message>
-        <source>May 25, 2017</source>
-        <translation>25 Mei, 2017</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
-    </message>
-    <message>
         <source>Sending to</source>
         <translation>Versturen naar:</translation>
     </message>
@@ -5224,7 +4531,7 @@ nieuwe back-up aangemaakt worden.
     </message>
     <message>
         <source>Fee</source>
-        <translation>Onkost</translation>
+        <translation>Kosten</translation>
     </message>
     <message>
         <source>Size</source>
@@ -5232,7 +4539,7 @@ nieuwe back-up aangemaakt worden.
     </message>
     <message>
         <source>Change address</source>
-        <translation>Wijzig adres</translation>
+        <translation>Wisselgeld adres</translation>
     </message>
     <message>
         <source>Spendable</source>
@@ -5243,16 +4550,8 @@ nieuwe back-up aangemaakt worden.
         <translation>Bevestigingen</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Datum</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation>TextLabel</translation>
     </message>
     <message>
         <source>CANCEL</source>
@@ -5271,12 +4570,24 @@ nieuwe back-up aangemaakt worden.
         <translation>STUREN</translation>
     </message>
     <message>
+        <source>Note From Address</source>
+        <translation>Opmerking Van Adres</translation>
+    </message>
+    <message>
         <source>ID copied</source>
         <translation>ID gekopieerd</translation>
     </message>
     <message>
+        <source>Memo copied</source>
+        <translation>Memo gekopieerd</translation>
+    </message>
+    <message>
         <source>Delegating to</source>
         <translation>Gedelegeerd naar</translation>
+    </message>
+    <message>
+        <source>Shielding to</source>
+        <translation>Shielding naar</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -5284,16 +4595,66 @@ nieuwe back-up aangemaakt worden.
     </message>
 </context>
 <context>
-    <name>TxRow</name>
+    <name>VoteDialog</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
+        <source>Vote For Proposal</source>
+        <translation>Stem Voor Voorstel</translation>
     </message>
     <message>
-        <source>+0.000585 BLKC</source>
-        <translation>+0.000585 BLKC</translation>
+        <source>Select vote direction and the masternodes that will vote for it</source>
+        <translation>Selecteer stemrichting en de masternodes die daarvoor gaan stemmen</translation>
     </message>
-    </context>
+    <message>
+        <source>Select Voting Masternodes</source>
+        <translation>Selecteer Stemmende Masternodes</translation>
+    </message>
+    <message>
+        <source>CANCEL</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>VOTE</source>
+        <translation>STEM</translation>
+    </message>
+    <message>
+        <source>You can change your vote later</source>
+        <translation>U kunt uw stem later veranderen</translation>
+    </message>
+    <message>
+        <source>%1 months remaining</source>
+        <translation>%1 maanden resterend</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>Select a vote direction</source>
+        <translation>Selecteer een stem richting</translation>
+    </message>
+    <message>
+        <source>Missing voting masternodes selection</source>
+        <translation>Mist stemmende masternodes keuze</translation>
+    </message>
+    <message>
+        <source>Time between votes is too soon, have to wait %1 minutes</source>
+        <translation>De tijd tussen stemmen is te snel, je moet %1 minuten wachten</translation>
+    </message>
+    <message>
+        <source>You have voted with %1 Masternodes for this proposal
+Change votes</source>
+        <translation>Je hebt gestemd met %1 Masternodes voor dit voorstel
+Verander stemmen</translation>
+    </message>
+    <message>
+        <source>%1 Masternodes selected to vote</source>
+        <translation>%1 Masternodes geselecteerd om te stemmen</translation>
+    </message>
+</context>
 <context>
     <name>WalletModel</name>
     <message>
@@ -5316,22 +4677,6 @@ Selecteer minder invoeren met muntcontrole.</translation>
 <context>
     <name>WelcomeContentWidget</name>
     <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation>Taal</translation>
     </message>
@@ -5340,22 +4685,8 @@ Selecteer minder invoeren met muntcontrole.</translation>
         <translation>Welkom</translation>
     </message>
     <message>
-        <source>Privacy</source>
-        <translation>Privacy</translation>
-    </message>
-    <message>
-        <source>Masternodes</source>
-        <translation>Masternodes</translation>
-    </message>
-    <message>
         <source>Select your language</source>
         <translation>Selecteer uw taal</translation>
-    </message>
-    <message>
-        <source>Welcome to
-BlackHat Core Wallet</source>
-        <translation>Welkom bij
-BlackHat Core Portemonnee</translation>
     </message>
     <message>
         <source>BlackHat is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
@@ -5374,6 +4705,12 @@ BlackHat Core Portemonnee</translation>
         <translation>Hoe respecteert BlackHat uw privacy?</translation>
     </message>
     <message>
+        <source>Welcome to
+%1 Wallet</source>
+        <translation>Welkom bij
+%1 Portemonnee</translation>
+    </message>
+    <message>
         <source>What is a Masternode?</source>
         <translation>Wat is een Masternode?</translation>
     </message>
@@ -5383,250 +4720,85 @@ BlackHat Core Portemonnee</translation>
     </message>
 </context>
 <context>
+    <name>governancewidget</name>
+    <message>
+        <source>No active proposals yet</source>
+        <translation>Nog geen actieve voorstellen </translation>
+    </message>
+    <message>
+        <source>Budget Distribution</source>
+        <translation>Budget Uitbetaling</translation>
+    </message>
+    <message>
+        <source>Funds accessible for the proposals' implementation</source>
+        <translation>Tegoeden zijn beschikbaar voor de uitvoering van de voorstellen</translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation>Beschikbaar</translation>
+    </message>
+    <message>
+        <source>Allocated</source>
+        <translation>Toegewezen</translation>
+    </message>
+</context>
+<context>
     <name>blkc-core</name>
-    <message>
-        <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
-        <translation>Sta JSON-RPC connecties toe van de opgegeven bron. Geldig voor&lt;ip&gt;zijn een enkel IP (bijvoorbeeld 1.2.3.4), een netwerk/netmask (bijvoorbeeld 1.2.3.4/255.255.255.0) of een netwerk/CIDR (bijvoorbeeld 1.2.3.4/24). Deze optie kan meerdere keren worden opgegeven</translation>
-    </message>
-    <message>
-        <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
-        <translation>Bind naar het gegeven adres en luister er altijd naar. Gebruik [host]:poort notatie voor IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
-        <translation>Bind naar bepaald adres en whitelist peers die er verbinding mee maken. Gebruik [host]:poort notatie voor IPv6</translation>
-    </message>
-    <message>
-        <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
-        <translation>Bind naar het opgegeven adres om te luisteren naar JSON-RPC verbindingen. Gebruik [host]:poort notatie voor IPv6. Deze optie kan meerdere keren worden opgegeven (standaard: bind aan alle interfaces)</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s. BlackHat Core is probably already running.</source>
-        <translation>Kan geen vergrendeling op data directory %s verkrijgen. BlackHat Core loopt waarschijnlijk al.</translation>
-    </message>
-    <message>
-        <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
-        <translation>Verander automatisch gefinaliseerd budget voting gedrag. modus=auto: Stem enkel voor exact gefinaliseerde budget overeenkomend met mijn gegenereerde budget. (tekenreeks, standaard: auto)</translation>
-    </message>
-    <message>
-        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
-        <translation>Doorlopend rate-limit gratis transacties naar&lt;n&gt;*1000 bytes per minuut (default:%u)</translation>
-    </message>
-    <message>
-        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>Maak nieuwe bestanden met systeem standaard permissies, in plaats van umask 077 (alleen effectief met gedeactiveerde wallet functionaliteit)</translation>
-    </message>
-    <message>
-        <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
-        <translation>Verwijder alle portemonnee transacties en herstel alleen die delen van de blockchain via -rescan bij opstarten</translation>
-    </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
         <translation>Gedistribueerd onder de MIT software licentie, zie het bijgevoegde bestand COPYING of &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
-    </message>
-    <message>
-        <source>Enable cold staking functionality (0-1, default: %u). Disabled if staking=0</source>
-        <translation>Activeer cold staking functionaliteit (0-1, standaard: %u). Uitgeschakeld als staking=0</translation>
-    </message>
-    <message>
-        <source>Enable spork administration functionality with the appropriate private key.</source>
-        <translation>Activeer de spork administratie functionaliteit met de juiste private sleutel.</translation>
-    </message>
-    <message>
-        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
-        <translation>Voer de regressietest modus uit, die een speciale chain gebruikt waarin blokken direct kunnen worden opgelost.</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Fout: het luisteren naar inkomende verbindingen is mislukt (luister terug fout %s)</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Fout: Niet ondersteund argument -socks gevonden. Het instellen van SOCKS versie is niet meer mogelijk, alleen SOCKS5 proxy's worden ondersteund.</translation>
-    </message>
-    <message>
-        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
-        <translation>Sluit informatie voor een categorie uit. Kan worden gebruikt in combinatie met -debug=1 om foutopsporingslogboeken uit te voeren voor alle categorieën behalve een of meer gespecificeerde categorieën.</translation>
-    </message>
-    <message>
-        <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
-        <translation>Uitvoeren commando wanneer een relevante waarschuwing is ontvangen of we zien een echt lange fork (%s in cmd wordt vervangen door bericht)</translation>
-    </message>
-    <message>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation>Uitvoeren commando wanneer een portemonnee transactie verandert (%s in cmd wordt vervangen door TxID)</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation>Uitvoeren commando wanneer het beste blok verandert (%s in cmd is vervangen door block hash)</translation>
-    </message>
-    <message>
-        <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Leeg database activiteit uit geheugen pool naar schijf log elke keer&lt;n&gt;megabytes (default: %u)</translation>
-    </message>
-    <message>
-        <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
-        <translation>Als paytxfee niet is ingesteld, sluit voldoende kosten in, zodat transacties beginnen te confirmeren binnen gemiddeld n blokken (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>In this mode -genproclimit controls how many blocks are generated immediately.</source>
-        <translation>In deze modus controleert -genproclimit hoeveel blokken er onmiddellijk worden gegenereerd.</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation>Ongeldige hoeveelheid voor -maxtxfee=&lt;amount&gt;: '%s' (moet ten minste de minimale vergoeding van %s zijn om hangende transacties te voorkomen)</translation>
-    </message>
-    <message>
-        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
-        <translation>Log transactie prioriteit en vergoeding per kB wanneer blokken worden gemined (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
-        <translation>Onderhoud een volledige transactie index, gebruikt door de getrawtransaction rpc call (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum average size of an index occurrence in the block spam filter (default: %u)</source>
-        <translation>Maximale gemiddelde grootte van een index in het spamfilter van het blok (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
-        <translation>Maximale gegevensgrootte in data carrier transacties die we relayen en minen (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum size of the list of indexes in the block spam filter (default: %u)</source>
-        <translation>Maximale grootte van de lijst met indexen in de spamfilter van het blok (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
-        <translation>Maximale totale kosten die in een enkele portefeuille kunnen worden gebruikt, een te lage instelling kan grote transacties afbreken (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
-        <translation>Aantal seconden om te voorkomen dat misdragende peers opnieuw connectoren (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
-        <translation>Output debugging informatie (default: %u, verschaffen &lt;category&gt; is optioneel)</translation>
-    </message>
-    <message>
-        <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
-        <translation>Willekeurige credentials voor elke proxy verbinding. Dit stelt Tor stream isolatie in staat (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
-        <translation>Vereist hoge prioriteit voor het relayen van gratis of low-fee transacties (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to console instead of debug.log file (default: %u)</source>
-        <translation>Stuur trace/debug info naar console in plaats van debug.log bestand (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
-        <translation>Stel maximale grootte van transacties met hoge prioriteit/low-fee in bytes in (standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
-        <translation>Stel het aantal script verificatie threads (%u tot %d, 0 = auto, &lt;0 = laat dat aantal kernen vrij, standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
-        <translation>Stel het aantal threads voor munt generatie in indien geactiveerd (-1 = alle kernen, standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
-        <translation>Ondersteun filteren van blokken en transactie met bloom filters (standaard: %u)</translation>
-    </message>
-    <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
         <translation>De blokdatabase bevat een blok dat uit de toekomst lijkt te komen. Dit kan te wijten zijn aan het feit dat de datum en tijd van uw computer verkeerd zijn ingesteld. Bouw de blokdatabase alleen opnieuw op als u er zeker van bent dat de datum en tijd van uw computer correct zijn ingesteld.</translation>
-    </message>
-    <message>
-        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation>Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in de OpenSSL Toolkit &lt;https://www.openssl.org/&gt; en cryptografische software geschreven door Eric Young en UPnP software geschreven door Thomas Bernard.</translation>
-    </message>
-    <message>
-        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
-        <translation>De totale lengte van de netwerkversie (%i) overschrijdt de maximale lengte (%i). Verminder het aantal of de grootte van uacommentaren.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer. BlackHat Core is probably already running.</source>
-        <translation>Niet mogelijk te binden aan %s op deze computer. BlackHat Core loopt waarschijnlijk al.</translation>
-    </message>
-    <message>
-        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation>Gebruik aparte SOCKS5 proxy om peers via Tor verborgen services te bereiken (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Waarschuwing: -maxtxfee is zeer hoog ingesteld! Deze hoge kosten kunnen worden betaald op een enkele transactie.</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Waarschuwing: -paytxfee is zeer hoog ingesteld! Dit zijn de transactie kosten die je betaalt als je een transactie verstuurt.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Waarschuwing: Controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd staat, werkt BlackHat Core niet goed.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation>Waarschuwing: het netwerk lijkt er niet helemaal mee eens te zijn! Sommige miners lijken problemen te ondervinden.</translation>
     </message>
     <message>
+        <source>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
+        <translation>Waarschuwing: Portemonnee-bestand beschadigd, data gered! Originele %s opgeslagen als %s in %s; als je saldo of transacties onjuist zijn, moet je vanuit een back-up herstellen.</translation>
+    </message>
+    <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation>Waarschuwing: Wij lijken het er niet helemaal eens te zijn met onze peers! Mogelijk moet je upgraden, of andere nodes moeten mogelijk upgraden.</translation>
+        <translation>Waarschuwing: Het lijkt erop dat we geen consensus kunnen vinden met onze peers! Mogelijk moet je upgraden, of andere nodes moeten mogelijk upgraden.</translation>
     </message>
     <message>
-        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
-        <translation>Whitelist peers verbinden van het opgegeven netmask of IP adres. Kan meerdere keren worden opgegeven.</translation>
+        <source>"local" vote is no longer available with DMNs. Use "alias" from the wallet with the voting key.</source>
+        <translation>Stemmen via "local" is niet langer beschikbaar met DMN's. Gebruik "alias" vanuit de portemonnee met de sleutel voor het stemmen.</translation>
     </message>
     <message>
-        <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
-        <translation>Whitelisted peers kunnen niet DoS banned worden en hun transacties worden altijd doorgestuurd, zelfs als ze al in de mempool zijn, nuttig bijv. voor een gateway</translation>
+        <source>%s Invalid %s address or hostname: '%s'</source>
+        <translation>%s Ongeldig %s adres of hostnaam: '%s'</translation>
     </message>
     <message>
-        <source>(default: %s)</source>
-        <translation>(standaard: %s)</translation>
+        <source>%s corrupt, salvage failed</source>
+        <translation>%s beschadigd, redding mislukt</translation>
     </message>
     <message>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Accepteer command line en JSON-RPC commando's</translation>
+        <source>%s is not allowed in combination with enabled wallet functionality</source>
+        <translation>%s is niet toegestaan in combinatie met ingeschakelde portemonnee-functionaliteit</translation>
     </message>
     <message>
-        <source>Accept public REST requests (default: %u)</source>
-        <translation>Accepteer publieke REST verzoeken (standaard: %u)</translation>
+        <source>%s is only allowed with a single wallet file</source>
+        <translation>%s is alleen toegestaan met een enkele portemonnee bestand</translation>
     </message>
     <message>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Voeg een node toe om verbinding mee te maken en probeer de verbinding open te houden</translation>
+        <source>Cannot downgrade wallet.</source>
+        <translation>Kan portemonnee niet downgraden.</translation>
     </message>
     <message>
-        <source>Always query for peer addresses via DNS lookup (default: %u)</source>
-        <translation>Vraag altijd naar peer adressen via DNS lookup (standaard: %u)</translation>
+        <source>Cannot set %s or %s together with %s</source>
+        <translation>Kan niet %s of %s instellen samen met %s</translation>
     </message>
     <message>
-        <source>Append comment to the user agent string</source>
-        <translation>Voeg opmerking toe aan de user agent string</translation>
-    </message>
-    <message>
-        <source>Automatically create Tor hidden service (default: %d)</source>
-        <translation>Creëer automatisch de Tor verborgen service (standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Block creation options:</source>
-        <translation>Block creatie opties:</translation>
-    </message>
-    <message>
-        <source>Connect through SOCKS5 proxy</source>
-        <translation>Verbind via SOCKS5 proxy</translation>
-    </message>
-    <message>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Verbind met een node om peer adressen te verkrijgen en verbreek verbinding</translation>
-    </message>
-    <message>
-        <source>Connection options:</source>
-        <translation>Connectie opties:</translation>
+        <source>Cannot upgrade a locked wallet.</source>
+        <translation>Kan een afgesloten portemonnee niet upgraden.</translation>
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
@@ -5637,36 +4809,20 @@ BlackHat Core Portemonnee</translation>
         <translation>Copyright (C) 2014-%i The Dash Kernontwikkelaars</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The BlackHat Core Developers</source>
-        <translation>Copyright (C) 2015-%i The BlackHat Kernontwikkelaars</translation>
-    </message>
-    <message>
         <source>Corrupted block database detected</source>
         <translation>Corrupte block database gedetecteerd</translation>
     </message>
     <message>
+        <source>Could not open debug log file %s</source>
+        <translation>Kon debug-logbestand %s niet openen </translation>
+    </message>
+    <message>
         <source>Could not parse masternode.conf</source>
-        <translation>Kan masternode.conf niet parsen</translation>
+        <translation>Kan masternode.conf niet ontleden</translation>
     </message>
     <message>
-        <source>Debugging/Testing options:</source>
-        <translation>Debugging/Test opties:</translation>
-    </message>
-    <message>
-        <source>Delete blockchain folders and resync from scratch</source>
-        <translation>Verwijder blockchain mappen en hersynchroniseer alles opnieuw</translation>
-    </message>
-    <message>
-        <source>Disable OS notifications for incoming transactions (default: %u)</source>
-        <translation>Schakel OS notificaties uit voor inkomende transacties (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
-        <translation>Ontdek eigen IP adres (standaard: 1 bij luisteren en niet -externalip)</translation>
-    </message>
-    <message>
-        <source>Do not load the wallet and disable wallet RPC calls</source>
-        <translation>Laad de portemonnee niet in en schakel portemonnee RPC oproepen uit</translation>
+        <source>Deterministic masternodes are not enforced yet</source>
+        <translation>Deterministic masternodes zijn nog niet uitgevoerd</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
@@ -5677,12 +4833,16 @@ BlackHat Core Portemonnee</translation>
         <translation>Klaar met laden</translation>
     </message>
     <message>
-        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
-        <translation>Schakel de client in als masternode (0-1, standaard: %u)</translation>
+        <source>Elliptic curve cryptography sanity check failure. Aborting.</source>
+        <translation>Elliptische curve cryptografie gezondheids-check gefaald. Afbreken.</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
         <translation>Fout bij het initialiseren van blok database</translation>
+    </message>
+    <message>
+        <source>Error initializing wallet database environment %s!</source>
+        <translation>Fout bij het initialiseren van de wallet database omgeving %s!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -5697,10 +4857,6 @@ BlackHat Core Portemonnee</translation>
         <translation>Error tijdens het lezen van de database, aan het afsluiten.</translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
         <translation>Fout: Er is een fatale interne fout opgetreden, zie debug.log voor details</translation>
     </message>
@@ -5709,44 +4865,12 @@ BlackHat Core Portemonnee</translation>
         <translation>Error: Schijfruimte is laag!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Fout: Niet ondersteunde argument -tor gevonden, gebruik -onion.</translation>
-    </message>
-    <message>
-        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation>Niet gelukt om te luisteren op een poort. Gebruik -listen=0 als je dit wilt.</translation>
-    </message>
-    <message>
         <source>Failed to parse host:port string</source>
-        <translation>Kan host: poortreeks niet parseren</translation>
-    </message>
-    <message>
-        <source>Force safe mode (default: %u)</source>
-        <translation>Forceer safe mode (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Generate coins (default: %u)</source>
-        <translation>Genereer munten (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: %u, 0 = all)</source>
-        <translation>Hoeveel blokken bij het opstarten controleren (standaard: %u, 0 = alles)</translation>
-    </message>
-    <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Als &lt;category&gt; niet is opgegeven, output alle debugging informatie.</translation>
+        <translation>Kan host: poortreeks niet ontleden</translation>
     </message>
     <message>
         <source>Importing...</source>
         <translation>Importeren...</translation>
-    </message>
-    <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importeert blokken uit extern blk000??.dat bestand</translation>
-    </message>
-    <message>
-        <source>Include IP addresses in debug output (default: %u)</source>
-        <translation>Inclusief IP adressen in debug output (standaard: %u)</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -5757,116 +4881,64 @@ BlackHat Core Portemonnee</translation>
         <translation>Informatie</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. BlackHat Core is shutting down.</source>
-        <translation>Initialisatie saniteitscontrole mislukt. BlackHat Core wordt afgesloten.</translation>
-    </message>
-    <message>
         <source>Insufficient funds.</source>
         <translation>Onvoldoende saldo.</translation>
     </message>
     <message>
-        <source>Invalid -onion address or hostname: '%s'</source>
-        <translation>Ongeldig -onion adres of hostnaam: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation>Ongeldige hoeveelheid voor -paytxfee=&lt;amount&gt;: '%s' (moet tenminste %s zijn)</translation>
-    </message>
-    <message>
-        <source>Invalid netmask specified in -whitelist: '%s'</source>
-        <translation>Ongeldige netmask opgegeven in -whitelist: '%s'</translation>
+        <source>Invalid -masternodeaddr port %d, isn't the same as the peer port %d</source>
+        <translation>Ongeldige-masternodeaddr poort %d, is niet hetzelfde als de gelijke poort %d</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for staking or merchant applications!</source>
         <translation>Dit is een pre-release test build - gebruik op eigen risico - niet gebruiken voor staking of handel applicaties!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -checklevel found. Checklevel must be level 4.</source>
-        <translation>Fout: Niet ondersteund argument -checklevel gevonden. Checklevel moet niveau 4 zijn.</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes and its size is over (%s in cmd is replaced by block hash, %d with the block size)</source>
-        <translation>Voer het commando uit als het beste blok verandert en de grootte ervan voorbij is (%s in cmd wordt vervangen door blokhash, %d met de blokgrootte)</translation>
-    </message>
-    <message>
-        <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
-        <translation>Specificeer aangepast back-up pad om een kopie van elke portemonnee back-up toe te voegen. Indien ingesteld als dir zal elke back-up een bestand genereren met een tijdstempel. Indien ingesteld als file zal elke back-up herschreven worden naar dat bestand.</translation>
-    </message>
-    <message>
-        <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt;kan zijn: </translation>
-    </message>
-    <message>
-        <source>Attempt to force blockchain corruption recovery</source>
-        <translation>Poging om blockchain corruptie herstel te forceren</translation>
-    </message>
-    <message>
-        <source>Display the stake modifier calculations in the debug.log file.</source>
-        <translation>Toon de berekeningen van de stake modificator in het debug.log bestand.</translation>
-    </message>
-    <message>
-        <source>Display verbose coin stake messages in the debug.log file.</source>
-        <translation>Toon verbose munt stake berichten in het debug.log bestand.</translation>
-    </message>
-    <message>
-        <source>Enable publish hash block in &lt;address&gt;</source>
-        <translation>Activeer publicatie hash blok in &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish hash transaction in &lt;address&gt;</source>
-        <translation>Activeer publicatie has transactie in &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw block in &lt;address&gt;</source>
-        <translation>Activeer publicatie raw block in &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable publish raw transaction in &lt;address&gt;</source>
-        <translation>Activeer publicatie raw transactie in &lt;address&gt;</translation>
-    </message>
-    <message>
-        <source>Enable staking functionality (0-1, default: %u)</source>
-        <translation>Activeer staking functionaliteit (0-1, standaard: %u)</translation>
-    </message>
-    <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>Fout: Er is een fatale interne fout opgetreden, zie debug.log voor meer informatie</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside (default: %u if no -proxy or -connect/-noconnect)</source>
-        <translation>Accepteer verbindingen van buitenaf (standaard: %u als geen -proxy of -connect/noconnect)</translation>
-    </message>
-    <message>
-        <source>Cannot find the Sapling parameters in the following directory:
-%s
-Please run 'sapling-fetch-params' or './util/fetch-params.sh' and then restart.</source>
-        <translation>Kan de Sapling parameters niet terugvinden op de volgende locatie:
-%s
-Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herstart daarna.</translation>
     </message>
     <message>
         <source>Cannot upgrade to Sapling wallet (already running Sapling support). Version: %d</source>
         <translation>Kan niet upgraden naar Sapling portemonnee (alreeds uitvoerende Sapling ondersteuning). Versie: %d</translation>
     </message>
     <message>
+        <source>This file contains all of your private keys in plain text. DO NOT send this file to anyone!</source>
+        <translation>Dit bestand bevat al uw privé sleutels in tekst zonder opmaak. Zend dit bestand naar NIEMAND!</translation>
+    </message>
+    <message>
+        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of %s.</source>
+        <translation>De totale lengte van de netwerkversie (%i) overschrijdt de maximale lengte (%i). Verminder het aantal of de grootte van %s.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using %s.</source>
+        <translation>Niet in staat om herhalen van blocks. Je zal de database moeten herbouwen met gebruik van %s.</translation>
+    </message>
+    <message>
+        <source>Warning: %s is set very high! Fees this large could be paid on a single transaction.</source>
+        <translation>Waarschuwing: %s is zeer hoog ingesteld! Deze hoge transactiekosten kunnen worden betaald op een enkele transactie.</translation>
+    </message>
+    <message>
+        <source>Warning: %s is set very high! This is the transaction fee you will pay if you send a transaction.</source>
+        <translation>Waarschuwing: %s is zeer hoog ingesteld! Dit zijn de transactiekosten die je betaalt als je een transactie verstuurt.</translation>
+    </message>
+    <message>
         <source>Warning: error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Waarschuwing: fout bij het lezen van %s! Alle sleutels lezen correct in, maar transactiegegevens of adresboekgegevens kunnen ontbreken of incorrect zijn.</translation>
     </message>
     <message>
-        <source>Allow DNS lookups for -addnode, -seednode and -connect (default: %u)</source>
-        <translation>DNS lookups toestaan voor -addnode, -seednode en -connect (standaard: %u)</translation>
+        <source>A fatal internal error occurred, see debug.log for details</source>
+        <translation>Er is een fatale interne fout opgetreden, zie debug.log voor meer informatie</translation>
     </message>
     <message>
-        <source>Attempt to recover private keys from a corrupt wallet file</source>
-        <translation>Poging om privésleutels te herstellen van een corrupt wallet bestand</translation>
+        <source>Calculating money supply...</source>
+        <translation>Geldvoorraad aan het berekenen...</translation>
+    </message>
+    <message>
+        <source>Cannot be a masternode and only connect to specific nodes</source>
+        <translation>Kan niet een masternode zijn en alleen verbinding maken met specifieke nodes</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
         <translation>Error bij het laden van %s: Portemonnee beschadigd</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Wallet requires newer version of BlackHat Core</source>
-        <translation>Error bij het laden van %s: Portemonnee vereist een nieuwere versie van BlackHat Core</translation>
     </message>
     <message>
         <source>Error loading %s
@@ -5875,28 +4947,60 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
 </translation>
     </message>
     <message>
+        <source>Error loading wallet %s. Duplicate %s filename specified.</source>
+        <translation>Fout met het laden van portemonnee %s. Kopieer %s opgegeven bestandsnaam.</translation>
+    </message>
+    <message>
+        <source>Error reading masternode configuration file: %s</source>
+        <translation>Fout bij het lezen van het masternode configuratiebestand: %s</translation>
+    </message>
+    <message>
         <source>Error upgrading chainstate database</source>
         <translation>Milsukt om de chainstate database te upgraden</translation>
+    </message>
+    <message>
+        <source>Error: %s must be at least %d MB</source>
+        <translation>Fout: %s moet tenminste %d MB zijn</translation>
+    </message>
+    <message>
+        <source>Error: %s must be true if %s is set.</source>
+        <translation>Fout: %s moet waar zijn als %s is ingesteld.</translation>
+    </message>
+    <message>
+        <source>Error: Disk space is low for %s</source>
+        <translation>Fout: Schijfruimte is laag voor %s</translation>
+    </message>
+    <message>
+        <source>Error: Initializing networking failed</source>
+        <translation>Fout: Initialisatie netwerken gefaald</translation>
+    </message>
+    <message>
+        <source>Error: Unsupported argument %s found, use %s.</source>
+        <translation>Fout: Niet ondersteund argument %s gevonden, gebruik %s.</translation>
+    </message>
+    <message>
+        <source>Error: Unsupported argument %s found. Checklevel must be level 4.</source>
+        <translation>Fout: Niet ondersteund argument %s gevonden. Checklevel moet niveau 4 zijn.</translation>
+    </message>
+    <message>
+        <source>Failed to clear masternode metadata cache at: %s</source>
+        <translation>Gefaald om het masternode metadata cache te wissen op: %s</translation>
+    </message>
+    <message>
+        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
+        <translation>Niet gelukt om te luisteren op een poort. Gebruik -listen=0 als je dit wilt.</translation>
+    </message>
+    <message>
+        <source>Failed to load masternode metadata cache from: %s</source>
+        <translation>Gefaald om het masternode metadata cache te laden van: %s</translation>
     </message>
     <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
         <translation>Ongeldige hoeveelheid voor -%s=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation>Houd maximaal &lt;n&gt;niet te verbinden transacties in het geheugen (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Line: %d</source>
-        <translation>Line: %d</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Luister naar JSON-RPC verbindingen op &lt;port&gt; (standaard: %u of testnet: %u)</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>Luister naar verbindingen op &lt;port&gt; (standaard: %u of testnet: %u)</translation>
+        <source>Invalid masternodeprivkey. Please see the documentation.</source>
+        <translation>Ongeldige masternodeprivkey. AUB bekijk de documentatie.</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -5923,6 +5027,10 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Masternode betalingscache laden...</translation>
     </message>
     <message>
+        <source>Loading network requests cache...</source>
+        <translation>Netwerk-verzoeken cache aan het laden...</translation>
+    </message>
+    <message>
         <source>Loading sporks...</source>
         <translation>Sporks laden...</translation>
     </message>
@@ -5931,148 +5039,92 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Portemonnee aan het laden...</translation>
     </message>
     <message>
-        <source>Location of the auth cookie (default: data dir)</source>
-        <translation>Locatie van de auth cookie (standaard: data dir)</translation>
-    </message>
-    <message>
-        <source>Lock masternodes from masternode configuration file (default: %u)</source>
-        <translation>Masternodes vergrendelen van masternode configuratiebestand (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>Lookup (): ongeldig -proxy-adres of hostnaam: '%s'</translation>
-    </message>
-    <message>
         <source>MNs synchronization pending...</source>
         <translation>Synchronisatie van MN's in afwachting...</translation>
     </message>
     <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
-        <translation>Bijhouden maximaal &lt;n&gt; connecties naar peers (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Masternode options:</source>
-        <translation>Masternode opties:</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Maximaal per connectie ontvangst buffer, &lt;n&gt;*1000 bytes (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>Maximaal per connectie verstuur buffer, &lt;n&gt;*1000 bytes (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Mining/Staking options:</source>
-        <translation>Mining/Staking opties:</translation>
-    </message>
-    <message>
-        <source>Specify zk params directory (default: %s)</source>
-        <translation>Specifieer zk params locatie (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Need to specify a port with -whitebind: '%s'</source>
-        <translation>Moet een poort opgeven met -whitebind: '%s'</translation>
-    </message>
-    <message>
-        <source>Node relay options:</source>
-        <translation>Node relay opties:</translation>
+        <source>Masternode must be able to handle at least %d connections, set %s=%d</source>
+        <translation>Masternode moet in staat zijn om tenminste %d verbindingen aan te kunnen, ingesteld %s=%d</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
         <translation>Niet genoeg bestandsbeschrijvingen beschikbaar.</translation>
     </message>
     <message>
-        <source>Number of custom location backups to retain (default: %d)</source>
-        <translation>Aantal aangepaste locatie back-ups om te behouden (standaard: %d)</translation>
-    </message>
-    <message>
-        <source>On first run, create a legacy wallet instead of a HD wallet</source>
-        <translation>Bij de initiële uitvoering, maak een legacy portemonnee aan in plaats van een HD portemonnee</translation>
-    </message>
-    <message>
-        <source>Only accept block chain matching built-in checkpoints (default: %u)</source>
-        <translation>Accepteer alleen blockchain matching met ingebouwde controlepunten (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
-        <translation>Verbind alleen met nodes in het netwerk &lt;net&gt; (ipv4, ipv6 of onion)</translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation>Opties:</translation>
-    </message>
-    <message>
-        <source>Password for JSON-RPC connections</source>
-        <translation>Wachtwoord voor JSON-RPC connecties</translation>
-    </message>
-    <message>
         <source>Peers are being disconnected due time differences.</source>
         <translation>Peers worden verbroken vanwege tijdsverschillen.</translation>
     </message>
     <message>
-        <source>Use block spam filter (default: %u)</source>
-        <translation>Gebruik block-spamfilter (standaard: %u)</translation>
+        <source>Please copy the included params files to the %s directory.</source>
+        <translation>Kopieer de meegeleverde params-bestanden naar de map %s.</translation>
     </message>
     <message>
-        <source>Wallet debugging/testing options:</source>
-        <translation>Portemonnee's debugging/test opties:</translation>
+        <source>Please run the included %s script and then restart.</source>
+        <translation>AUB laat het inbegrepen %s script lopen en herstart vervolgens.</translation>
     </message>
     <message>
-        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>isValid (): ongeldig -proxy-adres of hostnaam: '%s'</translation>
+        <source>Specified blocks directory "%s" does not exist.</source>
+        <translation>Opgegeven blocks map "%s" bestaat niet.</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation>Transactie heeft een te lange mempool ketting</translation>
+    </message>
+    <message>
+        <source>Unable to create the PID file '%s': %s</source>
+        <translation>Niet in staat om het PID bestand '%s': %s te maken</translation>
+    </message>
+    <message>
+        <source>Unknown network specified in %s: '%s'</source>
+        <translation>Onbekend netwerk opgegeven in %s: '%s'</translation>
+    </message>
+    <message>
+        <source>Upgrading coins database if needed...</source>
+        <translation>Upgraden van munten database als nodig...</translation>
+    </message>
+    <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>Portemonnee(s) verifiëren...</translation>
+    </message>
+    <message>
+        <source>Wallet %s resides outside data directory %s</source>
+        <translation>Portemonnee %s verblijft buiten de data directory %s</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
         <translation>Voorbereiden van hersynchronisatie...</translation>
     </message>
     <message>
-        <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
-        <translation>Connecteer enkel naar specifieke node(s); -noconnect of -connect=0 enkel om de automatische verbindingen uit te schakelen</translation>
+        <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
+        <translation>Kan geen vergrendeling op data map %s verkrijgen. %s loopt waarschijnlijk al.</translation>
     </message>
     <message>
-        <source>Do not accept transactions if any ancestor would have &lt;n&gt; or more in-mempool descendants (default: %u)</source>
-        <translation>Accepteer geen transacties als een voorouder &lt;n&gt; of meer nazaten in mempool zou hebben (standaard: %u)</translation>
+        <source>Cannot start deterministic masternode before enforcement. Remove %s to start as legacy masternode</source>
+        <translation>Kan deterministic masternode niet starten voor handhaving. Verwijder %s om te starten als legacy masternode</translation>
     </message>
     <message>
-        <source>Do not accept transactions if any ancestor would have more than &lt;n&gt; kilobytes of in-mempool descendants (default: %u).</source>
-        <translation>Accepteer geen transacties als een voorouder &lt;n&gt; of meer nazaten van kilobytes in mempool zou hebben (standaard: %u)</translation>
+        <source>Enabling Masternode support requires turning on transaction indexing.Please add %s to your configuration and start with %s</source>
+        <translation>Masternode ondersteuning inschakelen vereist het inschakelen van transactie indexering. AUB voeg %s toe aan uw configuratie en start met %s</translation>
     </message>
     <message>
-        <source>Do not accept transactions if number of in-mempool ancestors is &lt;n&gt; or more (default: %u)</source>
-        <translation>Accepteer geen transacties als het nummer &lt;n&gt; of meer aan afkomsten van in-mempool is (standaard: %u)</translation>
+        <source>Error: Unsupported argument %s found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Fout: Niet ondersteund argument %s gevonden. Het instellen van SOCKS versie is niet meer mogelijk, alleen SOCKS5 proxy's worden ondersteund.</translation>
     </message>
     <message>
-        <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
-        <translation>Accepteer geen transacties als de grootte van alle in-mempool afkomsten &lt;n&gt;kilobytes overschrijdt (standaard: %u)</translation>
+        <source>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</source>
+        <translation>Gefaald om een back-up te creëren, bestand bestaat al! Dit kan gebeuren als je de portemonnee herstart in minder dan 60 seconden. Je kan doorgaan als je daar oké mee bent.</translation>
     </message>
     <message>
-        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
-        <translation>Bewaar geen transacties in de mempool langer dan &lt;n&gt; uren (standaard: %u)</translation>
+        <source>Invalid amount for %s: '%s' (must be at least the minimum relay fee of %s to prevent stuck transactions)</source>
+        <translation>Ongeldige hoeveelheid voor  %s: '%s' (moet ten minste de minimale transactiekosten van %s zijn om hangende transacties te voorkomen)</translation>
     </message>
     <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
-        <translation>Kosten (in %s/Kb) kleiner dan dit worden beschouwd als zero fee voor het heruitzenden, minen en een transactie te verrichting (standaard: %s)</translation>
+        <source>Legacy masternode system disabled. Use %s to start as deterministic masternode</source>
+        <translation>Legacy masternode systeem uitgeschakeld. Gebruik %s om te starten als deterministic masternode</translation>
     </message>
     <message>
-        <source>Fees (in %s/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Kosten (in %s/Kb) kleiner dan dit worden beschouwd als zero fee voor transactie verrichting (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Minimum positive amount (in BLKC) allowed by GUI and RPC for the stake split threshold (default: %s)</source>
-        <translation>Minimum geldige waarde (in BLKC) toegestaan bij GUI en RPC voor de staking splitsdrempel (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong BlackHat Core will not work properly.</source>
-        <translation>Controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd ingesteld staat, werkt BlackHat Core niet goed.</translation>
-    </message>
-    <message>
-        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
-        <translation>Query voor peer adressen via DNS lookup, als er weinig adressen zijn (standaard: 1 tenzij -connect/-noconnect)</translation>
-    </message>
-    <message>
-        <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
-        <translation>Geef de locatie van het foutopsporingslogboek op: dit kan een absoluut pad zijn of een pad ten opzichte van de gegevensmap (standaard: %s)</translation>
+        <source>System error while flushing the chainstate after pruning invalid entries. Possible corrupt database.</source>
+        <translation>Systeem fout tijdens het spoelen van de kettingstatus na het snoeien van ongeldige invoer. Mogelijk corrupte database.</translation>
     </message>
     <message>
         <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
@@ -6087,28 +5139,20 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Actieve Masternode niet geïnitialiseerd.</translation>
     </message>
     <message>
-        <source>Allows deprecated RPC method(s) to be used</source>
-        <translation>Sta verouderde RPC methode(s) toe om gebruikt te worden</translation>
-    </message>
-    <message>
         <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
-        <translation>Kan geen wisselgeldadressleutel genereren. Roep eerst de keypoolrefill op.</translation>
+        <translation>Kan geen wisselgeld-adres sleutel genereren. Roep eerst de keypoolrefill op.</translation>
     </message>
     <message>
         <source>Cannot resolve -%s address: '%s'</source>
         <translation>Kan oplossing -%s niet voltooien voor adres: '%s'</translation>
     </message>
     <message>
+        <source>Cannot write to data directory '%s'; check permissions.</source>
+        <translation>Kan niet schrijven naar data map '%s'; check de rechten.</translation>
+    </message>
+    <message>
         <source>Change index out of range</source>
-        <translation>Wissel buiten het bereik</translation>
-    </message>
-    <message>
-        <source>Error: -listen must be true if -masternode is set.</source>
-        <translation>Error: -listen moet op true staan als de -masternode is ingesteld.</translation>
-    </message>
-    <message>
-        <source>Error: -maxmempool must be at least %d MB</source>
-        <translation>Error: -maxmempool moet minsten %d MB groot zijn</translation>
+        <translation>Wisselgeld inhoudsopgave buiten het bereik</translation>
     </message>
     <message>
         <source>Failed to accept tx in the memory pool (reason: %s)
@@ -6117,8 +5161,16 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
 </translation>
     </message>
     <message>
-        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
-        <translation>Kosten (in %s/kB) om toe te voegen aan de transactie die je verstuurd (standaard: %s)</translation>
+        <source>Failed to delete backup, error: %s</source>
+        <translation>Gefaald om de back-up te wissen, fout: %s</translation>
+    </message>
+    <message>
+        <source>Failed to rescan the wallet during initialization</source>
+        <translation>Gefaald om de portemonnee te her-scannen tijdens initialisatie</translation>
+    </message>
+    <message>
+        <source>Initialization sanity check failed. %s is shutting down.</source>
+        <translation>Initialisatie gezondheids-check mislukt. %s  wordt afgesloten.</translation>
     </message>
     <message>
         <source>Invalid -masternodeaddr address: %s</source>
@@ -6129,6 +5181,26 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Ongeldig -masternodeaddr poort %d, enkel %d is ondersteund op %s-net.</translation>
     </message>
     <message>
+        <source>Invalid activation height (%s)</source>
+        <translation>Ongeldige activatie hoogte (%s)</translation>
+    </message>
+    <message>
+        <source>Invalid amount for %s: '%s' (must be at least %s)</source>
+        <translation>Ongeldige hoeveelheid voor %s: '%s' (moet tenminste %s zijn)</translation>
+    </message>
+    <message>
+        <source>Invalid mnoperatorprivatekey. Please see the documentation.</source>
+        <translation>Ongeldige mnoperatorprivatekey. AUB bekijk de documentatie.</translation>
+    </message>
+    <message>
+        <source>Invalid netmask specified in %s: '%s'</source>
+        <translation>Ongeldige netmasker opgegeven in %s: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid network upgrade (%s)</source>
+        <translation>Ongeldige netwerk upgrade (%s)</translation>
+    </message>
+    <message>
         <source>Invalid port %d detected in masternode.conf</source>
         <translation>Ongeldige poort %d gedetecteerd in masternode.conf</translation>
     </message>
@@ -6137,116 +5209,48 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Ongeldige statuserror.</translation>
     </message>
     <message>
-        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
-        <translation>Hou de transactiememorypool lager dan &lt;n&gt; megabytes (standaard: %u)</translation>
-    </message>
-    <message>
         <source>Keypool ran out, please call keypoolrefill first, or unlock the wallet.</source>
         <translation>Keypool is opgeraakt, roep eerst keypoolrefill op of ontgrendel de portemonnee.</translation>
     </message>
     <message>
-        <source>Limit size of signature cache to &lt;n&gt; MiB (default: %u)</source>
-        <translation>Limietgrootte van signature cache naar &lt;n&gt; MiB (standaard: %u)</translation>
+        <source>Legacy Masternode is obsolete.</source>
+        <translation>Legacy Masternode is onvolledig.</translation>
+    </message>
+    <message>
+        <source>Loading/Pruning invalid outputs...</source>
+        <translation>Laden/Snoeien van ongeldige resultaten...</translation>
+    </message>
+    <message>
+        <source>Need to specify a port with %s: '%s'</source>
+        <translation>Moet een poort opgeven met %s: '%s'</translation>
+    </message>
+    <message>
+        <source>Network upgrade parameters malformed, expecting %s</source>
+        <translation>Netwerk upgrade parameters onjuist, verwacht %s</translation>
+    </message>
+    <message>
+        <source>Network upgrade parameters may only be overridden on regtest.</source>
+        <translation>Netwerk upgrade parameters mogen alleen worden overschreven met regtest.</translation>
     </message>
     <message>
         <source>No error</source>
         <translation>Geen error</translation>
     </message>
     <message>
-        <source>Number of automatic wallet backups (default: %d)</source>
-        <translation>Aantal automatische portemonnee back-ups (standaard: %d)</translation>
+        <source>OS cryptographic RNG sanity check failure. Aborting.</source>
+        <translation>OS cryptografisch RNG gezondheids-check gefaald. Afbreken</translation>
     </message>
     <message>
-        <source>Prepend debug output with timestamp (default: %u)</source>
-        <translation>Voeg debug output met timestamp toe (standaard: %u)</translation>
+        <source>Reaccepting wallet transactions...</source>
+        <translation>Opnieuw accepteren van portemonnee-transacties...</translation>
     </message>
     <message>
-        <source>Print version and exit</source>
-        <translation>Print versie en verlaat</translation>
-    </message>
-    <message>
-        <source>RPC server options:</source>
-        <translation>RPC server opties:</translation>
-    </message>
-    <message>
-        <source>Randomly drop 1 of every &lt;n&gt; network messages</source>
-        <translation>Willekeurig laten vallen van 1 van elke &lt;n&gt;netwerk berichten</translation>
-    </message>
-    <message>
-        <source>Randomly fuzz 1 of every &lt;n&gt; network messages</source>
-        <translation>Willekeurig vervagen van 1 van elke &lt;n&gt; netwerk berichten</translation>
-    </message>
-    <message>
-        <source>Rebuild block chain index from current blk000??.dat files</source>
-        <translation>Herstel blockchain index van huidige blk000??.dat bestanden</translation>
-    </message>
-    <message>
-        <source>Relay and mine data carrier transactions (default: %u)</source>
-        <translation>Relay en mine data carrier transacties (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Relay non-P2SH multisig (default: %u)</source>
-        <translation>Relay non P2SH multisig (default: %u)</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Rescan de blockchain voor ontbrekende portemonnee transacties</translation>
+        <source>Replaying blocks...</source>
+        <translation>Herhalen van blocks...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
         <translation>Opnieuw scannen...</translation>
-    </message>
-    <message>
-        <source>Run a thread to flush wallet periodically (default: %u)</source>
-        <translation>Voer regelmatig een thread om de portemonnee te spoelen uit (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Run in the background as a daemon and accept commands</source>
-        <translation>Voer op de achtergrond uit als een daemon en accepteer commando's</translation>
-    </message>
-    <message>
-        <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
-        <translation>Stel de cache grootte van de database in megabytes in (%d tot %d, standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Set external address:port to get to this masternode (example: %s)</source>
-        <translation>Extern adres instellen:poort om bij deze masternode te komen (voorbeeld: %s)</translation>
-    </message>
-    <message>
-        <source>Set key pool size to &lt;n&gt; (default: %u)</source>
-        <translation>Stel key pool grootte in op &lt;n&gt; (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Set maximum block size in bytes (default: %d)</source>
-        <translation>Stel maximale block grootte in bytes in (default: %d)</translation>
-    </message>
-    <message>
-        <source>Set minimum block size in bytes (default: %u)</source>
-        <translation>Stel minimale block grootte in bytes in (default: %u)</translation>
-    </message>
-    <message>
-        <source>Set the Maximum reorg depth (default: %u)</source>
-        <translation>Stel de Maximale reorg diepte in (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Set the masternode private key</source>
-        <translation>Stel de masternode privé sleutel in</translation>
-    </message>
-    <message>
-        <source>Set the number of threads to service RPC calls (default: %d)</source>
-        <translation>Stel het aantal threads in om RPC oproepen te bedienen (standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Sets the DB_PRIVATE flag in the wallet db environment (default: %u)</source>
-        <translation>Stelt de DB_PRIVATE vlag in de portemonnee db omgeving in (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Show all debugging options (usage: --help -help-debug)</source>
-        <translation>Toon alle debugging opties (gebruik: --help -help-debug)</translation>
-    </message>
-    <message>
-        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation>Krimp debug.log bestand bij client startup (standaard: 1 wanneer geen -debug)</translation>
     </message>
     <message>
         <source>Shutdown requested over the txs scan. Exiting.</source>
@@ -6255,42 +5259,6 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
     <message>
         <source>Signing transaction failed</source>
         <translation>Ondertekening transactie mislukt.</translation>
-    </message>
-    <message>
-        <source>Specify configuration file (default: %s)</source>
-        <translation>Specificeer configuratiebestand (standaard: %s)</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation>Specificeer verbinding time-out in milliseconden (minimum: 1, standaard: %d)</translation>
-    </message>
-    <message>
-        <source>Specify data directory</source>
-        <translation>Specificeer data directory.</translation>
-    </message>
-    <message>
-        <source>Specify masternode configuration file (default: %s)</source>
-        <translation>Specificeer masternode configuratie bestand (default: %s)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: %s)</source>
-        <translation>Specificeer pid bestand (default: %s)</translation>
-    </message>
-    <message>
-        <source>Specify wallet file (within data directory)</source>
-        <translation>Specificeer portemonnee bestand (in data directory)</translation>
-    </message>
-    <message>
-        <source>Specify your own public address</source>
-        <translation>Specificeer je eigen publieke addres</translation>
-    </message>
-    <message>
-        <source>Spend unconfirmed change when sending transactions (default: %u)</source>
-        <translation>Onbevestigd wisselgeld besteden bij het verzenden van transacties (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Stop running after importing blocks from disk (default: %u)</source>
-        <translation>Stop na het importeren van blokken van schijf (standaard: %u)</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
@@ -6321,16 +5289,12 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>De drempelwaarde kan niet lager zijn dan %s</translation>
     </message>
     <message>
-        <source>This help message</source>
-        <translation>Dit help bericht</translation>
-    </message>
-    <message>
         <source>This is experimental software.</source>
         <translation>Dit is experimentele software.</translation>
     </message>
     <message>
-        <source>This is intended for regression testing tools and app development.</source>
-        <translation>Dit is bedoeld voor regressie test tools en app ontwikkeling.</translation>
+        <source>This is not a deterministic masternode. 'local' option disabled.</source>
+        <translation>Dit is niet een deterministic masternode. 'lokale' optie uitgeschakeld.</translation>
     </message>
     <message>
         <source>This is not a masternode. 'local' option disabled.</source>
@@ -6341,16 +5305,58 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Dit is geen Masternode.</translation>
     </message>
     <message>
-        <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
-        <translation>Drempel voor het verbreken van misdragende peers (standaard: %u)</translation>
+        <source>This product includes UPnP software written by Thomas Bernard.</source>
+        <translation>Dit product bevat UPnP software geschreven door Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Tor control port password (default: empty)</source>
-        <translation>Tor controle poort wachtwoord (standaard: leeg)</translation>
+        <source>Invalid -wallet path '%s'. -wallet path should point to a directory where wallet.dat and database/log.?????????? files can be stored, a location where such a directory could be created or (for backwards compatibility) the name of an existing data file in -walletdir (%s)</source>
+        <translation>Ongeldig -portemonnee pad '%s'. -portemonnee pad zou moeten verwijzen naar een map waar wallet.dat en database/log.?????????? bestanden kunnen worden opgeslagen, een locatie waar een dergelijke map kan worden gemaakt of (voor achterwaartse compatibiliteit) de naam van een al bestaand  data bestand in -walletdir (%s) </translation>
     </message>
     <message>
-        <source>Tor control port to use if onion listening enabled (default: %s)</source>
-        <translation>Tor controle poort om te gebruiken als onion listening geactiveerd is (standaard: %s)</translation>
+        <source>Cannot find the Sapling parameters in the following directory:
+%s</source>
+        <translation>Kan de Sapling parameters niet vinden in de volgende map:
+%s</translation>
+    </message>
+    <message>
+        <source>Cannot provide specific connections and have addrman find outgoing connections at the same.</source>
+        <translation>Kan niet specifieke verbindingen geven en addrman uitgaande verbindingen laten vinden tegelijkertijd.</translation>
+    </message>
+    <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>AUB controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd staat, werkt %s niet goed.</translation>
+    </message>
+    <message>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong %s will not work properly.</source>
+        <translation>Waarschuwing: AUB controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd staat, werkt %s niet goed.</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2015-%i The %s Developers</source>
+        <translation>Copyright (C) 2015-%i De %s Ontwikkelaars</translation>
+    </message>
+    <message>
+        <source>Could not find asmap file %s</source>
+        <translation>Kan niet vinden als map bestand %s</translation>
+    </message>
+    <message>
+        <source>Could not parse asmap file %s</source>
+        <translation>Kan niet ontleden als map bestand %s </translation>
+    </message>
+    <message>
+        <source>Error loading %s: Wallet requires newer version of %s</source>
+        <translation>Fout bij het laden van %s: Portemonnee vereist een nieuwere versie van %s </translation>
+    </message>
+    <message>
+        <source>Specified -walletdir "%s" does not exist</source>
+        <translation>Opgegeven -potemonneemap "%s" bestaat niet</translation>
+    </message>
+    <message>
+        <source>Specified -walletdir "%s" is a relative path</source>
+        <translation>Opgegeven -potemonneemap "%s" is een relatief pad</translation>
+    </message>
+    <message>
+        <source>Specified -walletdir "%s" is not a directory</source>
+        <translation>Opgegeven -potemonneemap "%s" is geen map</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -6365,6 +5371,10 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Transactie geannuleerd.</translation>
     </message>
     <message>
+        <source>Transaction must have at least one recipient</source>
+        <translation>Transactie moet tenminste een ontvanger hebben</translation>
+    </message>
+    <message>
         <source>Transaction too large for fee policy</source>
         <translation>Transactie te groot voor kosten beleid</translation>
     </message>
@@ -6375,6 +5385,14 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Niet mogelijk te binden aan %s op deze computer (bind stuurt fout %s terug)</translation>
+    </message>
+    <message>
+        <source>Unable to bind to %s on this computer. %s is probably already running.</source>
+        <translation>Niet mogelijk te binden aan %s op deze computer. %s loopt waarschijnlijk al.</translation>
+    </message>
+    <message>
+        <source>Unable to generate initial key!</source>
+        <translation>Niet in staat om de initiële sleutel te genereren!</translation>
     </message>
     <message>
         <source>Unable to generate keys</source>
@@ -6389,56 +5407,32 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Kan HTTP-server niet starten. Zie foutopsporingslog voor details.</translation>
     </message>
     <message>
-        <source>Unknown network specified in -onlynet: '%s'</source>
-        <translation>Onbekend netwerk gespecificeerd in -onlynet: '%s'</translation>
+        <source>Wallet needed to be rewritten: restart %s to complete</source>
+        <translation>Portemonnee moest worden herschreven: herstart %s opnieuw om te voltooien</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument %s ignored, use %s</source>
+        <translation>Waarschuwing: Niet ondersteund argument %s genegeerd, gebruik %s</translation>
+    </message>
+    <message>
+        <source>Warning: Unsupported argument %s ignored, use %s.</source>
+        <translation>Waarschuwing: Niet ondersteund argument %s genegeerd, gebruik %s.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using %s to change %s</source>
+        <translation>Je moet de database herbouwen met %s om %s te wijzigen</translation>
     </message>
     <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation>Niet-ondersteunde logboekcategorie %s=%s.</translation>
     </message>
     <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Upgrade portemonnee naar nieuwste formaat</translation>
-    </message>
-    <message>
-        <source>Upgrading coins database...</source>
-        <translation>Upgraden van munten database...</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation>Gebruik UPnP om de luisterpoort te mappen (standaard: %u)</translation>
-    </message>
-    <message>
-        <source>Use the test network</source>
-        <translation>Gebruik het test netwerk</translation>
-    </message>
-    <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation>User Agent opmerking (%s) bevat onveilige karakters.</translation>
     </message>
     <message>
-        <source>Username for JSON-RPC connections</source>
-        <translation>Gebruikersnaam voor JSON-RPC verbindingen</translation>
-    </message>
-    <message>
         <source>Verifying blocks...</source>
         <translation>Blokken verifiëren...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet...</source>
-        <translation>Portemonnee verifiëren...</translation>
-    </message>
-    <message>
-        <source>Wallet needed to be rewritten: restart BlackHat Core to complete</source>
-        <translation>Wallet moest worden herschreven: start BlackHat Core opnieuw om te voltooien</translation>
-    </message>
-    <message>
-        <source>Wallet options:</source>
-        <translation>Portemonnee opties:</translation>
-    </message>
-    <message>
-        <source>Wallet window title</source>
-        <translation>Portemonnee venster titel</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -6449,43 +5443,31 @@ Voer alstublieft 'sapling-fetch-params' of './util/fetch-params.sh' uit en herst
         <translation>Waarschuwing: Deze versie is verouderd, upgrade vereist!</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Waarschuwing: Niet- ondersteund argument -benchmark genegeerd, gebruik -debug=bench.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Waarschuwing: Niet ondersteunde argument -debugnet genegeerd, gebruik -debug=net.</translation>
-    </message>
-    <message>
-        <source>You need to rebuild the database using -reindex to change -txindex</source>
-        <translation>Je moet de database herbouwen met -reindex om -txindex te wijzigen</translation>
-    </message>
-    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Verwijderen van alle transacties uit portemonnee...</translation>
-    </message>
-    <message>
-        <source>ZeroMQ notification options:</source>
-        <translation>ZeroMQ notificatie opties:</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>tijdens het opstarten</translation>
     </message>
 </context>
 <context>
     <name>send</name>
     <message>
-        <source>Form</source>
-        <translation>Formulier</translation>
-    </message>
-    <message>
         <source>Send</source>
         <translation>Zenden</translation>
     </message>
     <message>
-        <source>BlackHat address or contact label</source>
-        <translation>BlackHat adres of contactlabel</translation>
+        <source>Transfer coins publicly or privately</source>
+        <translation>Boek munten publiekelijk of prive over</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparant</translation>
+    </message>
+    <message>
+        <source>Select which coins to spend</source>
+        <translation>Selecteer welke munten te spenderen</translation>
+    </message>
+    <message>
+        <source>Recipient address</source>
+        <translation>Ontvangstadres</translation>
     </message>
     <message>
         <source>Amount</source>

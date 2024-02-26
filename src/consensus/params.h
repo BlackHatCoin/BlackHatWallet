@@ -37,6 +37,7 @@ enum UpgradeIndex : uint32_t {
     UPGRADE_V5_2,
     UPGRADE_V5_3,
     UPGRADE_V5_5,
+    UPGRADE_V5_6,
     UPGRADE_V6_0,
     UPGRADE_TESTDUMMY,
     // NOTE: Also add new upgrades to NetworkUpgradeInfo in upgrades.cpp
@@ -268,6 +269,7 @@ struct Params {
     // LLMQ
     std::map<LLMQType, LLMQParams> llmqs;
     Optional<LLMQParams> GetLLMQParams(uint8_t llmqtype) const;
+    LLMQType llmqChainLocks;
 };
 } // namespace Consensus
 

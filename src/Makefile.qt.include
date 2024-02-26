@@ -9,7 +9,6 @@ EXTRA_LIBRARIES += qt/libbitcoinqt.a
 include Makefile.qt_locale.include
 
 QT_FORMS_UI = \
-  qt/forms/addressbookpage.ui \
   qt/forms/askpassphrasedialog.ui \
   qt/forms/coincontroldialog.ui \
   qt/forms/editaddressdialog.ui \
@@ -71,7 +70,6 @@ QT_FORMS_UI = \
   qt/blkc/forms/splash.ui
 
 QT_MOC_CPP = \
-  qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bantablemodel.cpp \
@@ -174,7 +172,6 @@ QT_QRC_LOCALE_CPP = qt/qrc_blkc_locale.cpp
 QT_QRC_LOCALE = qt/blkc_locale.qrc
 
 BITCOIN_QT_H = \
-  qt/addressbookpage.h \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
   qt/bantablemodel.h \
@@ -452,7 +449,9 @@ RES_ICONS = \
   qt/blkc/res/img/ic-check-tor.svg \
   qt/blkc/res/img/ic-label.svg \
   qt/blkc/res/img/ic-transaction-received.svg \
+  qt/blkc/res/img/ic-transaction-received-memo.svg \
   qt/blkc/res/img/dark/ic-transaction-received.svg \
+  qt/blkc/res/img/dark/ic-transaction-received-memo.svg \
   qt/blkc/res/img/dark/ic-transaction-warning.svg \
   qt/blkc/res/img/dark/ic-transaction-mint.svg \
   qt/blkc/res/img/dark/ic-transaction-mint-inactive.svg \
@@ -537,7 +536,6 @@ BITCOIN_QT_BASE_CPP = \
 BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
 
 BITCOIN_QT_WALLET_CPP = \
-  qt/addressbookpage.cpp \
   qt/addresstablemodel.cpp \
   qt/askpassphrasedialog.cpp \
   qt/coincontroldialog.cpp \

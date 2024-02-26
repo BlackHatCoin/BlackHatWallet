@@ -43,6 +43,14 @@ BOOST_AUTO_TEST_CASE(script_standard_Solver_success)
     BOOST_CHECK_EQUAL(solutions.size(), 1);
     BOOST_CHECK(solutions[0] == ToByteVector(pubkeys[0].GetID()));
 
+    // TX_EXCHANGEADDR
+    s.clear();
+    s << OP_EXCHANGEADDR << OP_DUP << OP_HASH160 << ToByteVector(pubkeys[0].GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
+    BOOST_CHECK(Solver(s, whichType, solutions));
+    BOOST_CHECK_EQUAL(whichType, TX_EXCHANGEADDR);
+    BOOST_CHECK_EQUAL(solutions.size(), 1);
+    BOOST_CHECK(solutions[0] == ToByteVector(pubkeys[0].GetID()));
+
     // TX_SCRIPTHASH
     CScript redeemScript(s); // initialize with leftover P2PKH script
     s.clear();
@@ -119,6 +127,11 @@ BOOST_AUTO_TEST_CASE(script_standard_Solver_failure)
     s << OP_DUP << OP_HASH160 << ToByteVector(pubkey) << OP_EQUALVERIFY << OP_CHECKSIG;
     BOOST_CHECK(!Solver(s, whichType, solutions));
 
+    // TX_EXCHANGEADDR with incorrectly sized key hash
+    s.clear();
+    s << OP_EXCHANGEADDR << OP_DUP << OP_HASH160 << ToByteVector(pubkey) << OP_EQUALVERIFY << OP_CHECKSIG;
+    BOOST_CHECK(!Solver(s, whichType, solutions));
+
     // TX_SCRIPTHASH with incorrectly sized script hash
     s.clear();
     s << OP_HASH160 << std::vector<unsigned char>(21, 0x01) << OP_EQUAL;
@@ -179,6 +192,13 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestination)
     BOOST_CHECK(boost::get<CKeyID>(&address) &&
                 *boost::get<CKeyID>(&address) == pubkey.GetID());
 
+    // TX_EXCHANGEADDR
+    s.clear();
+    s << OP_EXCHANGEADDR << OP_DUP << OP_HASH160 << ToByteVector(pubkey.GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
+    BOOST_CHECK(ExtractDestination(s, address));
+    BOOST_CHECK(boost::get<CExchangeKeyID>(&address) &&
+                *boost::get<CExchangeKeyID>(&address) == pubkey.GetID());
+
     // TX_SCRIPTHASH
     CScript redeemScript(s); // initialize with leftover P2PKH script
     s.clear();
@@ -231,6 +251,16 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestinations)
     BOOST_CHECK_EQUAL(nRequired, 1);
     BOOST_CHECK(boost::get<CKeyID>(&addresses[0]) &&
                 *boost::get<CKeyID>(&addresses[0]) == pubkeys[0].GetID());
+
+    // TX_EXCHANGEADDR
+    s.clear();
+    s << OP_EXCHANGEADDR << OP_DUP << OP_HASH160 << ToByteVector(pubkeys[0].GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
+    BOOST_CHECK(ExtractDestinations(s, whichType, addresses, nRequired));
+    BOOST_CHECK_EQUAL(whichType, TX_EXCHANGEADDR);
+    BOOST_CHECK_EQUAL(addresses.size(), 1);
+    BOOST_CHECK_EQUAL(nRequired, 1);
+    BOOST_CHECK(boost::get<CExchangeKeyID>(&addresses[0]) &&
+                *boost::get<CExchangeKeyID>(&addresses[0]) == pubkeys[0].GetID());
 
     // TX_SCRIPTHASH
     CScript redeemScript(s); // initialize with leftover P2PKH script

@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2018-2020 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2018-2020 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,6 +19,8 @@ const char* ScriptErrorString(const ScriptError serror)
             return "Script failed an OP_VERIFY operation";
         case SCRIPT_ERR_EQUALVERIFY:
             return "Script failed an OP_EQUALVERIFY operation";
+        case SCRIPT_ERR_EXCHANGEADDRVERIFY:
+            return "Script failed OP_EXCHANGEADDR operation";
         case SCRIPT_ERR_CHECKCOLDSTAKEVERIFY:
             return "Script failed an OP_CHECKCOLDSTAKEVERIFY operation";
         case SCRIPT_ERR_CHECKMULTISIGVERIFY:

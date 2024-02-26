@@ -1,15 +1,19 @@
 // Copyright (c) 2018-2019 The Dash Core developers
-// Copyright (c) 2022 The PIVX developers
+// Copyright (c) 2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "llmq/quorums_connections.h"
 
 #include "evo/deterministicmns.h"
+#include "llmq/quorums.h"
 #include "net.h"
 #include "tiertwo/masternode_meta_manager.h" // for g_mmetaman
 #include "tiertwo/net_masternodes.h"
 #include "validation.h"
+
+#include <vector>
 
 namespace llmq
 {
@@ -103,6 +107,37 @@ std::set<size_t> CalcDeterministicWatchConnections(Consensus::LLMQType llmqType,
     return result;
 }
 
+// ensure connection to a given list of quorums
+void EnsureLatestQuorumConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexNew, const uint256& myProTxHash, std::vector<CQuorumCPtr>& lastQuorums)
+{
+    const auto& params = Params().GetConsensus().llmqs.at(llmqType);
+    auto connman = g_connman->GetTierTwoConnMan();
+
+    auto connmanQuorumsToDelete = connman->getQuorumNodes(llmqType);
+
+    // don't remove connections for the currently in-progress DKG round
+    int curDkgHeight = pindexNew->nHeight - (pindexNew->nHeight % params.dkgInterval);
+    auto curDkgBlock = pindexNew->GetAncestor(curDkgHeight)->GetBlockHash();
+    connmanQuorumsToDelete.erase(curDkgBlock);
+
+    for (auto& quorum : lastQuorums) {
+        if (!quorum->IsMember(myProTxHash)) {
+            continue;
+        }
+
+        if (!connman->hasQuorumNodes(llmqType, quorum->pindexQuorum->GetBlockHash())) {
+            EnsureQuorumConnections(llmqType, quorum->pindexQuorum, myProTxHash);
+        }
+        connmanQuorumsToDelete.erase(quorum->pindexQuorum->GetBlockHash());
+    }
+
+    for (auto& qh : connmanQuorumsToDelete) {
+        LogPrintf("CQuorumManager::%s -- removing masternodes quorum connections for quorum %s:\n", __func__, qh.ToString());
+        connman->removeQuorumNodes(llmqType, qh);
+    }
+}
+
+// ensure connection to a given quorum
 void EnsureQuorumConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& myProTxHash)
 {
     const auto& members = deterministicMNManager->GetAllQuorumMembers(llmqType, pindexQuorum);

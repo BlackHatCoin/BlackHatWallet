@@ -1,6 +1,6 @@
 // Copyright (c) 2020 The Dash developers
-// Copyright (c) 2021 The PIVX developers
-// Copyright (c) 2021 The BlackHat developers
+// Copyright (c) 2021-2022 The PIVX Core developers
+// Copyright (c) 2021-2024 The BlackHat developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
@@ -8,6 +8,7 @@
 #define BLKC_NET_MASTERNODES_H
 
 #include "consensus/params.h"
+#include "net.h"
 #include "sync.h"
 #include "threadinterrupt.h"
 #include "uint256.h"
@@ -34,6 +35,12 @@ public:
     void setQuorumNodes(Consensus::LLMQType llmqType,
                         const uint256& quorumHash,
                         const std::set<uint256>& proTxHashes);
+
+    // Return quorum nodes for a given llmqType
+    std::set<uint256> getQuorumNodes(Consensus::LLMQType llmqType);
+
+    // Return quorum nodes for a given llmqType and hash
+    std::set<NodeId> getQuorumNodes(Consensus::LLMQType llmqType, uint256 quorumHash);
 
     // Return true if the quorum was already registered
     bool hasQuorumNodes(Consensus::LLMQType llmqType, const uint256& quorumHash);

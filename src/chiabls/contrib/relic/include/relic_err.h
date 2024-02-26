@@ -71,6 +71,8 @@ enum errors {
 	ERR_NO_CURVE,
 	/** Occurs when the library configuration is incorrect. */
 	ERR_NO_CONFIG,
+	/** Occurs when the PRNG is stuck at one value. */
+	ERR_NO_RAND,
 	/** Constant to indicate the number of errors. */
 	ERR_MAX
 };
@@ -261,7 +263,7 @@ typedef struct _sts_t {
 #else
 #define RLC_THROW(E)														\
 	core_get()->code = RLC_ERR; 											\
-	util_print("FATAL ERROR in %s:%d\n", RLC_FILE, __LINE__);				\
+	util_print("ERROR THROWN in %s:%d\n", RLC_FILE, __LINE__);				\
 
 #endif
 #endif
