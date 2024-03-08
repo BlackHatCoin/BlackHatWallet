@@ -160,7 +160,7 @@ static MapCheckpoints mapCheckpoints = {
     {202000, uint256S("2f642ef67d0e053c068bf812dca5ed315302137dbdea571c7d7efc223d394fd7")}, //!< BlackHat v5.3.0 enforced
     {263600, uint256S("a9a78f8593c140e5821f87c00ad5266fb2c2144d749276fa0744519858f1722b")}, //!< New Checkpoint
     {861990, uint256S("e2beaf60a264567e9b034bec4103af9070d9755e966ebd5d892d654961f89d55")}, //!< New Checkpoint
-    {861990, uint256S("aa34c35ae5910ef2d2e0f4adf67f582c9e8f2803c06f7b83fb697992aae162fe")}, //!< New Checkpoint 2024
+    {1447556, uint256S("aa34c35ae5910ef2d2e0f4adf67f582c9e8f2803c06f7b83fb697992aae162fe")}, //!< New Checkpoint 2024
 };
 
 static const CCheckpointData data = {
